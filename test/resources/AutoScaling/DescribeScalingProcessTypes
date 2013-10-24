@@ -1,5 +1,0 @@
-GET /
-Action=DescribeScalingProcessTypes
-{{#dsptProcesses}}
-Processes.ProcessName={{ptProcessName}}
-{{/dsptProcesses}}

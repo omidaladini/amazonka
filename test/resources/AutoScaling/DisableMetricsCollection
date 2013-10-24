@@ -1,6 +1,0 @@
-GET /
-Action=DisableMetricsCollection
-AutoScalingGroupName={{dmcAutoScalingGroupName}}
-{{#dmcMetrics}}
-Metrics.member.{{n}}={{.}}
-{{/dmcMetrics}}

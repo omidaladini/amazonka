@@ -1,6 +1,0 @@
-GET /
-Action=DeleteAutoScalingGroup
-AutoScalingGroupName={{dasgAutoScalingGroupName}}
-{{#dasgForceDelete}}
-ForceDelete={{dasgForceDelete}}
-{{/dasgForceDelete}}

@@ -1,6 +1,0 @@
-GET /
-Action=ResumeProcesses
-AutoScalingGroupName={{rpAutoScalingGroupName}}
-{{#rpScalingProcesses}}
-ScalingProcesses.member.{{n}}={{.}}
-{{/rpScalingProcesses}}

@@ -1,7 +1,0 @@
-GET /2012-12-12/healthcheck
-{{#lhcMarker}}
-marker={{lhcMarker}}
-{{/lhcMarker}}
-{{#lhcMaxItems}}
-maxitems={{lhcMaxItems}}
-{{/lhcMaxItems}}
