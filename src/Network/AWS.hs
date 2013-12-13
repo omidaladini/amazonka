@@ -106,13 +106,19 @@ hoistError :: (MonadError e m, Error e) => Either e a -> m a
 hoistError = either throwError return
 
 -- | Send a request and return the associated response type.
-send :: (MonadResource m, Rq a, ToError (Er a)) => a -> AWS m (Rs a)
+send :: (MonadIO m, MonadUnsafeIO m, MonadThrow m, Rq a, ToError (Er a))
+     => a
+     -> AWS m (Rs a)
 send = (hoistError . fmapL toError =<<) . sendCatch
 
-send_ :: (MonadResource m, Rq a, ToError (Er a)) => a -> AWS m ()
+send_ :: (MonadIO m, MonadUnsafeIO m, MonadThrow m, Rq a, ToError (Er a))
+      => a
+      -> AWS m ()
 send_ = void . send
 
-sendCatch :: (MonadResource m, Rq a) => a -> AWS m (Either (Er a) (Rs a))
+sendCatch :: (MonadIO m, MonadUnsafeIO m, MonadThrow m, Rq a)
+          => a
+          -> AWS m (Either (Er a) (Rs a))
 sendCatch rq = do
     s  <- sign $ request rq
     whenDebug . liftIO $ print s
@@ -122,7 +128,9 @@ sendCatch rq = do
     rs <- response rq h
     hoistError rs
 
-async :: (MonadResource m, MonadBase m IO) => AWS m a -> AWS m (A.Async (Either AWSError a))
+async :: (MonadIO m, MonadUnsafeIO m, MonadThrow m)
+      => AWS IO a
+      -> AWS m (A.Async (Either AWSError a))
 async aws = AWS ask >>= resourceAsync . lift . runEnv aws
 
 wait :: MonadIO m => A.Async (Either AWSError a) -> AWS m a
@@ -131,7 +139,7 @@ wait a = liftIO (A.waitCatch a) >>= hoistError . join . fmapL toError
 wait_ :: MonadIO m => A.Async (Either AWSError a) -> AWS m ()
 wait_ = void . wait
 
-sendAsync :: (MonadResource m, MonadBase m IO, Rq a)
+sendAsync :: (MonadIO m, MonadUnsafeIO m, MonadThrow m, Rq a)
           => a
           -> AWS m (A.Async (Either AWSError (Either (Er a) (Rs a))))
 sendAsync = async . sendCatch
@@ -173,8 +181,8 @@ waitAsync_ = void . waitAsync
 --         yield rs
 --         either (const $ return ()) (go . next rq) rs
 
-resourceAsync :: (MonadResource m, MonadBase m IO)
-              => ResourceT m a
+resourceAsync :: (MonadIO m, MonadUnsafeIO m, MonadThrow m)
+              => ResourceT IO a
               -> AWS m (A.Async a)
 resourceAsync (ResourceT f) = liftResourceT . ResourceT $ \g -> Lifted.mask $ \h ->
     bracket_
@@ -183,7 +191,7 @@ resourceAsync (ResourceT f) = liftResourceT . ResourceT $ \g -> Lifted.mask $ \h
         (A.async $ bracket_
             (return ())
             (stateCleanup g)
-            (h . liftBase $ f g))
+            (h $ f g))
 
 requestBodyFile :: MonadIO m => FilePath -> m (Maybe RequestBody)
 requestBodyFile f = runMaybeT $ do

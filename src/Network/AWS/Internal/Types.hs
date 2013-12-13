@@ -69,7 +69,7 @@ class Rq a where
         return $
             if statusIsSuccessful $ responseStatus rs
                 then either (Left . Err) (Right . Right) $ success bs
-                else either (Left . Err) (Right . Left) $ failure bs
+                else either (Left . Err) (Right . Left)  $ failure bs
       where
         success :: ByteString -> Either String (Rs a)
         success = fromXML
@@ -152,8 +152,12 @@ instance MonadThrow m => MonadThrow (AWS m) where
     monadThrow = lift . monadThrow
 
 instance (MonadIO m, MonadUnsafeIO m, MonadThrow m) => MonadResource (AWS m) where
-    liftResourceT f = AWS $
-        fmap awsResource ask >>= liftIO . runInternalState f
+    liftResourceT f = AWS $ fmap awsResource ask >>= liftIO . runInternalState f
+
+-- instance MonadIO m => MonadResource (AWS m) where
+--     liftResourceT r = AWS $ do
+--         e <- ask
+--         liftIO . runInternalState r $ awsResource e
 
 getAuth :: MonadIO m => AWS m Auth
 getAuth = AWS $ fmap awsAuth ask >>= liftIO . readIORef
