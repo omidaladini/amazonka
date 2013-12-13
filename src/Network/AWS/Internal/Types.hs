@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE Rank2Types                 #-}
 {-# LANGUAGE RecordWildCards            #-}
 {-# LANGUAGE ScopedTypeVariables        #-}
 {-# LANGUAGE TypeFamilies               #-}
@@ -51,14 +52,15 @@ class Rq a where
     type Rs a
 
     request  :: a -> Raw
-    response :: a
-             -> Response (ResumableSource AWS ByteString)
-             -> AWS (Either AWSError (Either (Er a) (Rs a)))
+    response :: MonadIO m
+             => a
+             -> Response (ResumableSource (AWS m) ByteString)
+             -> AWS m (Either AWSError (Either (Er a) (Rs a)))
 
-    default response :: (IsXML (Er a), IsXML (Rs a))
+    default response :: (MonadIO m, IsXML (Er a), IsXML (Rs a))
                      => a
-                     -> Response (ResumableSource AWS ByteString)
-                     -> AWS (Either AWSError (Either (Er a) (Rs a)))
+                     -> Response (ResumableSource (AWS m) ByteString)
+                     -> AWS m (Either AWSError (Either (Er a) (Rs a)))
     response _ rs = do
         -- FIXME: use xml-conduit instead of hexpat to avoid need to conv to bs
         lbs <- responseBody rs $$+- Conduit.sinkLbs
@@ -75,7 +77,7 @@ class Rq a where
         failure :: ByteString -> Either String (Er a)
         failure = fromXML
 
-instance Show (ResumableSource AWS ByteString) where
+instance Show (ResumableSource (AWS m) ByteString) where
     show _ = "ResumableSource AWS ByteString"
 
 class Pg a where
@@ -132,39 +134,40 @@ data Env = Env
     , awsAuth     :: !(IORef Auth)
     }
 
-newtype AWS a = AWS
-    { unwrap :: ReaderT Env (EitherT AWSError IO) a
+newtype AWS m a = AWS
+    { unwrap :: ReaderT Env (EitherT AWSError m) a
     } deriving
         ( Functor
         , Applicative
         , Monad
         , MonadIO
-        , MonadUnsafeIO
-        , MonadThrow
         , MonadReader Env
         , MonadError AWSError
         )
 
-instance MonadResource AWS where
+instance MonadTrans AWS where
+    lift = AWS . lift . lift
+
+instance MonadThrow m => MonadThrow (AWS m) where
+    monadThrow = lift . monadThrow
+
+instance (MonadIO m, MonadUnsafeIO m, MonadThrow m) => MonadResource (AWS m) where
     liftResourceT f = AWS $
         fmap awsResource ask >>= liftIO . runInternalState f
 
-instance MonadThrow (EitherT AWSError IO) where
-    monadThrow = liftIO . throwIO
-
-getAuth :: AWS Auth
+getAuth :: MonadIO m => AWS m Auth
 getAuth = AWS $ fmap awsAuth ask >>= liftIO . readIORef
 
-getManager :: AWS Manager
+getManager :: Monad m => AWS m Manager
 getManager = AWS $ awsManager <$> ask
 
-getRegion :: AWS Region
+getRegion :: Monad m => AWS m Region
 getRegion = AWS $ awsRegion <$> ask
 
-getDebug :: AWS Bool
+getDebug :: Monad m => AWS m Bool
 getDebug = AWS $ awsDebug <$> ask
 
-whenDebug :: AWS () -> AWS ()
+whenDebug :: Monad m => AWS m () -> AWS m ()
 whenDebug f = getDebug >>= \p -> when p f
 
 type Signer = Raw -> Auth -> Region -> UTCTime -> Request
@@ -250,7 +253,7 @@ instance IsXML Region where
 defaultRegion :: Region
 defaultRegion = NorthVirginia
 
-region :: Service -> AWS Region
+region :: Monad m => Service -> AWS m Region
 region Service{..} =
     case svcEndpoint of
         Global -> return defaultRegion

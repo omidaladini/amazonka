@@ -53,7 +53,7 @@ data Common = Common
     , _query   :: [(ByteString, ByteString)]
     }
 
-sign :: Raw -> AWS Request
+sign :: MonadIO m => Raw -> AWS m Request
 sign raw@Raw{..} = do
     auth <- getAuth
     reg  <- region rqService

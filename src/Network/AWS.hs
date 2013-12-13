@@ -47,9 +47,9 @@ module Network.AWS
     , waitAsync
     , waitAsync_
 
-    -- * Paginated Requests
-    , paginate
-    , paginateCatch
+    -- -- * Paginated Requests
+    -- , paginate
+    -- , paginateCatch
 
     -- * File Bodies
     , requestBodyFile
@@ -58,7 +58,6 @@ module Network.AWS
     , ToError          (..)
     , AWSError         (..)
     , hoistError
-    , liftEitherT
 
     -- * Types
     , AvailabilityZone (..)
@@ -72,6 +71,7 @@ import           Control.Error
 import           Control.Exception
 import qualified Control.Exception.Lifted              as Lifted
 import           Control.Monad
+import           Control.Monad.Base
 import           Control.Monad.Error
 import           Control.Monad.Trans.Reader
 import           Control.Monad.Trans.Resource
@@ -83,35 +83,36 @@ import           Network.AWS.Internal
 import           Network.HTTP.Conduit
 import           System.IO
 
-runAWS :: Credentials -> Bool -> AWS a -> IO (Either AWSError a)
+runAWS :: (MonadIO m, MonadBaseControl IO m)
+       => Credentials
+       -> Bool
+       -> AWS m a
+       -> m (Either AWSError a)
 runAWS cred dbg aws = runResourceT . withInternalState $ \s -> do
-    m <- newManager conduitManagerSettings
+    m <- liftIO $ newManager conduitManagerSettings
     a <- runEitherT $ credentials cred
     either (return . Left)
            (runEnv aws . Env defaultRegion dbg s m)
            a
 
-runEnv :: AWS a -> Env -> IO (Either AWSError a)
+runEnv :: MonadIO m => AWS m a -> Env -> m (Either AWSError a)
 runEnv aws = runEitherT . runReaderT (unwrap aws)
 
 -- | Run an 'AWS' operation inside a specific 'Region'.
-within :: Region -> AWS a -> AWS a
+within :: Monad m => Region -> AWS m a -> AWS m a
 within reg = AWS . local (\e -> e { awsRegion = reg }) . unwrap
 
 hoistError :: (MonadError e m, Error e) => Either e a -> m a
 hoistError = either throwError return
 
-liftEitherT :: ToError e => EitherT e IO a -> AWS a
-liftEitherT = AWS . lift . fmapLT toError
-
 -- | Send a request and return the associated response type.
-send :: (Rq a, ToError (Er a)) => a -> AWS (Rs a)
+send :: (MonadResource m, Rq a, ToError (Er a)) => a -> AWS m (Rs a)
 send = (hoistError . fmapL toError =<<) . sendCatch
 
-send_ :: (Rq a, ToError (Er a)) => a -> AWS ()
+send_ :: (MonadResource m, Rq a, ToError (Er a)) => a -> AWS m ()
 send_ = void . send
 
-sendCatch :: Rq a => a -> AWS (Either (Er a) (Rs a))
+sendCatch :: (MonadResource m, Rq a) => a -> AWS m (Either (Er a) (Rs a))
 sendCatch rq = do
     s  <- sign $ request rq
     whenDebug . liftIO $ print s
@@ -121,49 +122,60 @@ sendCatch rq = do
     rs <- response rq h
     hoistError rs
 
-async :: AWS a -> AWS (A.Async (Either AWSError a))
+async :: (MonadResource m, MonadBase m IO) => AWS m a -> AWS m (A.Async (Either AWSError a))
 async aws = AWS ask >>= resourceAsync . lift . runEnv aws
 
-wait :: A.Async (Either AWSError a) -> AWS a
+wait :: MonadIO m => A.Async (Either AWSError a) -> AWS m a
 wait a = liftIO (A.waitCatch a) >>= hoistError . join . fmapL toError
 
-wait_ :: A.Async (Either AWSError a) -> AWS ()
+wait_ :: MonadIO m => A.Async (Either AWSError a) -> AWS m ()
 wait_ = void . wait
 
-sendAsync :: Rq a => a -> AWS (A.Async (Either AWSError (Either (Er a) (Rs a))))
+sendAsync :: (MonadResource m, MonadBase m IO, Rq a)
+          => a
+          -> AWS m (A.Async (Either AWSError (Either (Er a) (Rs a))))
 sendAsync = async . sendCatch
 
-waitAsync :: ToError e => A.Async (Either AWSError (Either e a)) -> AWS a
+waitAsync :: (MonadIO m, ToError e)
+          => A.Async (Either AWSError (Either e a))
+          -> AWS m a
 waitAsync a = wait a >>= hoistError . fmapL toError
 
-waitAsync_ :: ToError e => A.Async (Either AWSError (Either e a)) -> AWS ()
+waitAsync_ :: (MonadIO m, ToError e)
+           => A.Async (Either AWSError (Either e a))
+           -> AWS m ()
 waitAsync_ = void . waitAsync
 
--- | Create a 'Source' which yields the initial and subsequent repsonses
--- for requests that support pagination.
-paginate :: (Rq a, Pg a, ToError (Er a))
-         => a
-         -> Source AWS (Rs a)
-paginate = ($= go) . paginateCatch
-  where
-    go = do
-        x <- await
-        maybe (return ())
-              (either (lift . liftEitherT . left . toError) yield)
-              x
+-- -- | Create a 'Source' which yields the initial and subsequent repsonses
+-- -- for requests that support pagination.
+-- -- paginate :: (MonadIO m, Rq a, Pg a, ToError (Er a))
+-- --          => a
+-- --          -> Source (AWS m) (Rs a)
+-- paginate = ($= go) . paginateCatch
+--   where
+--     go = do
+--         x <- await
+--         maybe (return ())
+--               (either (lift . lift . left . toError) yield)
+--               x
 
-paginateCatch :: (Rq a, Pg a, ToError (Er a))
-              => a
-              -> Source AWS (Either (Er a) (Rs a))
-paginateCatch = go . Just
-  where
-    go Nothing   = return ()
-    go (Just rq) = do
-        rs <- lift $ sendCatch rq
-        yield rs
-        either (const $ return ()) (go . next rq) rs
+-- -- liftEitherT :: (Monad m, ToError e) => EitherT e m a -> AWS m a
+-- -- liftEitherT = lift . lift . fmapLT toError
 
-resourceAsync :: MonadResource m => ResourceT IO a -> m (A.Async a)
+-- paginateCatch :: (MonadIO m, Rq a, Pg a, ToError (Er a))
+--               => a
+--               -> Source (AWS m) (Either (Er a) (Rs a))
+-- paginateCatch = go . Just
+--   where
+--     go Nothing   = return ()
+--     go (Just rq) = do
+--         rs <- lift $ sendCatch rq
+--         yield rs
+--         either (const $ return ()) (go . next rq) rs
+
+resourceAsync :: (MonadResource m, MonadBase m IO)
+              => ResourceT m a
+              -> AWS m (A.Async a)
 resourceAsync (ResourceT f) = liftResourceT . ResourceT $ \g -> Lifted.mask $ \h ->
     bracket_
         (stateAlloc g)
@@ -171,7 +183,7 @@ resourceAsync (ResourceT f) = liftResourceT . ResourceT $ \g -> Lifted.mask $ \h
         (A.async $ bracket_
             (return ())
             (stateCleanup g)
-            (h $ f g))
+            (h . liftBase $ f g))
 
 requestBodyFile :: MonadIO m => FilePath -> m (Maybe RequestBody)
 requestBodyFile f = runMaybeT $ do

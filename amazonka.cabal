@@ -85,6 +85,7 @@ library
       , text
       , time
       , transformers
+      , transformers-base
       , unordered-containers
 
 -- test-suite amazonka-tests
