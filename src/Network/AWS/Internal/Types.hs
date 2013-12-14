@@ -154,11 +154,6 @@ instance MonadThrow m => MonadThrow (AWS m) where
 instance (MonadIO m, MonadUnsafeIO m, MonadThrow m) => MonadResource (AWS m) where
     liftResourceT f = AWS $ fmap awsResource ask >>= liftIO . runInternalState f
 
--- instance MonadIO m => MonadResource (AWS m) where
---     liftResourceT r = AWS $ do
---         e <- ask
---         liftIO . runInternalState r $ awsResource e
-
 getAuth :: MonadIO m => AWS m Auth
 getAuth = AWS $ fmap awsAuth ask >>= liftIO . readIORef
 

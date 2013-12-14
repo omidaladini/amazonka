@@ -119,7 +119,7 @@ import           Network.HTTP.Types.Header
 import           Network.HTTP.Types.Method
 import           Network.HTTP.Types.Status
 
-type S3Response = Response (ResumableSource AWS ByteString)
+type S3Response = Response (ResumableSource (AWS IO) ByteString)
 
 object :: StdMethod -> Text -> Text -> [Header] -> RequestBody -> Raw
 object m b p hs = Raw s m (Text.encodeUtf8 p) [] hs
@@ -135,7 +135,7 @@ xml m b p = object m b p [] . RequestBodyBS . toXML
 
 s3Response :: a
            -> S3Response
-           -> AWS (Either AWSError (Either S3ErrorResponse S3Response))
+           -> AWS m (Either AWSError (Either S3ErrorResponse S3Response))
 s3Response _ rs
     | statusIsSuccessful $ responseStatus rs = return . Right $ Right rs
     | otherwise = do
@@ -148,7 +148,7 @@ s3Response _ rs
 
 plainResponse :: a
               -> S3Response
-              -> AWS (Either e (Either S3Response S3Response))
+              -> AWS m (Either e (Either S3Response S3Response))
 plainResponse _ rs
     | statusIsSuccessful $ responseStatus rs = return . Right $ Right rs
     | otherwise = return . Right $ Left rs

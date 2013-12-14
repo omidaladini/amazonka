@@ -47,9 +47,9 @@ module Network.AWS
     , waitAsync
     , waitAsync_
 
-    -- -- * Paginated Requests
-    -- , paginate
-    -- , paginateCatch
+    -- * Paginated Requests
+    , paginate
+    , paginateCatch
 
     -- * File Bodies
     , requestBodyFile
@@ -71,7 +71,6 @@ import           Control.Error
 import           Control.Exception
 import qualified Control.Exception.Lifted              as Lifted
 import           Control.Monad
-import           Control.Monad.Base
 import           Control.Monad.Error
 import           Control.Monad.Trans.Reader
 import           Control.Monad.Trans.Resource
@@ -154,32 +153,29 @@ waitAsync_ :: (MonadIO m, ToError e)
            -> AWS m ()
 waitAsync_ = void . waitAsync
 
--- -- | Create a 'Source' which yields the initial and subsequent repsonses
--- -- for requests that support pagination.
--- -- paginate :: (MonadIO m, Rq a, Pg a, ToError (Er a))
--- --          => a
--- --          -> Source (AWS m) (Rs a)
--- paginate = ($= go) . paginateCatch
---   where
---     go = do
---         x <- await
---         maybe (return ())
---               (either (lift . lift . left . toError) yield)
---               x
+-- | Create a 'Source' which yields the initial and subsequent repsonses
+-- for requests that support pagination.
+paginate :: (MonadIO m, MonadUnsafeIO m, MonadThrow m, Rq a, Pg a, ToError (Er a))
+         => a
+         -> Source (AWS m) (Rs a)
+paginate = ($= go) . paginateCatch
+  where
+    go = do
+        x <- await
+        maybe (return ())
+              (either (lift . liftEitherT . left . toError) yield)
+              x
 
--- -- liftEitherT :: (Monad m, ToError e) => EitherT e m a -> AWS m a
--- -- liftEitherT = lift . lift . fmapLT toError
-
--- paginateCatch :: (MonadIO m, Rq a, Pg a, ToError (Er a))
---               => a
---               -> Source (AWS m) (Either (Er a) (Rs a))
--- paginateCatch = go . Just
---   where
---     go Nothing   = return ()
---     go (Just rq) = do
---         rs <- lift $ sendCatch rq
---         yield rs
---         either (const $ return ()) (go . next rq) rs
+paginateCatch :: (MonadIO m, MonadUnsafeIO m, MonadThrow m, Rq a, Pg a, ToError (Er a))
+              => a
+              -> Source (AWS m) (Either (Er a) (Rs a))
+paginateCatch = go . Just
+  where
+    go Nothing   = return ()
+    go (Just rq) = do
+        rs <- lift $ sendCatch rq
+        yield rs
+        either (const $ return ()) (go . next rq) rs
 
 resourceAsync :: (MonadIO m, MonadUnsafeIO m, MonadThrow m)
               => ResourceT IO a
@@ -202,3 +198,6 @@ requestBodyFile f = runMaybeT $ do
         bracket (openBinaryFile f ReadMode)
                 hClose
                 (fmap (Just . fromIntegral) . hFileSize)
+
+liftEitherT :: (Monad m, ToError e) => EitherT e m a -> AWS m a
+liftEitherT = AWS . lift . fmapLT toError
