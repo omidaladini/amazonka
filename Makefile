@@ -14,7 +14,7 @@ install: cabal.sandbox.config add-sources
 	cabal install $(FLAGS)
 
 clean:
-	-rm -rf dist cabal.sandbox.config .cabal-sandbox
+	-rm -rf dist cabal.sandbox.config .cabal-sandbox gen
 	cabal clean
 
 test:

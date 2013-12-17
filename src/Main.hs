@@ -14,13 +14,19 @@
 
 module Main (main) where
 
+import           Amazonka.Boto
+import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
+import           Control.Lens            ((^.), (^..), (^?), (.~), (&), toListOf, folded, traverse, each, to)
+import           Control.Lens.Aeson
 import           Control.Monad
 import           Data.Aeson
+import           Data.Aeson.Types
 import           Data.ByteString         (ByteString)
 import qualified Data.ByteString.Char8   as BS
 import qualified Data.ByteString.Lazy    as LBS
+import           Data.Char
 import           Data.Foldable           (foldl')
 import qualified Data.HashMap.Strict     as Map
 import qualified Data.List               as List
@@ -32,7 +38,7 @@ import qualified Data.Text.Encoding      as Text
 import qualified Data.Text.Lazy.Builder  as LText
 import qualified Data.Text.Lazy.Encoding as LText
 import qualified Data.Text.Lazy.IO       as LText
-import           GHC.Generics
+import           GHC.Generics            (Generic)
 import           System.Directory
 import qualified Text.EDE                as EDE
 
@@ -43,23 +49,12 @@ data Templates = Templates
     , tmplRestXML   :: EDE.Template
     }
 
-data Export = Export
-    { expModule :: !Text
-    , expTypes  :: [Text]
-    }
-
-instance ToJSON Export where
-    toJSON Export{..} = object
-        [ "module" .= expModule
-        , "types"  .= expTypes
-        ]
-
 main :: IO ()
 main = runScript $ do
     title "Launching the dethstarr..."
     ts <- templates
-    ms <- models
-    mapM_ (service ts) ms
+    ms <- models >>= mapM loadModel
+    mapM_ (msg . show) ms
 
 templates :: Script Templates
 templates = title "Processing tmpl/*.ede" *>
@@ -82,79 +77,86 @@ models = do
     f xs = ".json" `List.isSuffixOf` xs && not ("_" `List.isPrefixOf` xs)
     dir  = "vendor/botocore/botocore/data/aws/"
 
-service :: Templates -> FilePath -> Script ()
-service t@Templates{..} path = do
-    title $ "Deserialising " ++ path
+-- strip :: [Text] -> Text -> Text
+-- strip ps t = foldl' (\acc x -> fromMaybe acc $ x `Text.stripPrefix` acc) t ps
 
-    bs       <- scriptIO $ LBS.readFile path
-    Object s <- hoistEither $ eitherDecode bs
+-- service :: Templates -> FilePath -> Script ()
+-- service t@Templates{..} path = do
+--     title $ "Deserialising " ++ path
 
-    n <- tryLast ("Failed to determine service from: " ++ path) .
-        Text.split (== '/') $ Text.pack path
+--     Object s <- scriptIO (LBS.readFile path) >>= hoistEither . eitherDecode
 
-    -- Take service full name then drop the Amazon prefix and spaces to make module name
-    String m <- "service_full_name" =| s
+--     n <- tryLast ("Failed to determine service from: " ++ path) .
+--         Text.split (== '/') $ Text.pack path
 
-    let dname = Text.unpack $ fromMaybe n $ ".json" `Text.stripSuffix` n
-        mname = mconcat . Text.words $ ["Amazon", "AWS"] `strip` m
-        dir   = "gen/" ++ Text.unpack mname
-        obj   = s <> Map.fromList ["module" .= mname]
-        out   = dir ++ "/Service.hs"
+--     m <- failWith "Unknown key service_full_name" $
+--         Object s ^? key "service_full_name" . _String
 
-    scriptIO $ createDirectoryIfMissing True dir
+--     let mname = mconcat . Text.words $ ["Amazon", "AWS"] `strip` m
+--         dir   = "gen/" ++ Text.unpack mname
 
-    render out obj tmplService
+--     scriptIO $ createDirectoryIfMissing True dir
 
-    Object os <- "operations" =| obj
+--     render (dir ++ "/Service.hs")
+--            (s <> Map.fromList ["module" .= mname])
+--            tmplService
 
-    let ops    = Map.toList os
-        onames = map fst ops
+--     t <- types s
 
-    xops <- mapM (uncurry (operation t dir mname)) ops
+--     msg $ show t
 
-    interface t "gen" mname xops
+-- --types :: Object -> EitherT String IO [Shape]
+-- types svc = do
+--     mapM (uncurry shapes) (concat ops)
+--   where
+--     ops = Object svc ^.. key "operations" . _Object . to Map.toList
 
-interface :: Templates -> FilePath -> Text -> [Export] -> Script ()
-interface t@Templates{..} dir mname ops = do
-    let out      = concat [dir, "/", Text.unpack mname, ".hs"]
-        Object o = object ["module" .= mname, "operations" .= ops]
+-- shapes :: Text -> Value -> Script ()
+-- shapes op v = do
+--     msg $ Text.unpack op
+--     msg $ show prse
+--     msg ""
+--   where
+--     members k = v ^? key k >>= (^? key "members" . _Object)
 
-    render out o tmplInterface
+--     prse = map (\x -> parseEither parseJSON x :: Either String Shape)
+--         . fromMaybe []
+--         $ Map.elems <$> members "input"
 
--- TODO:
--- - return toJSON Export type from operation
--- - namespace modules by version again?
+--     -- flatten :: Shape -> [Shape]
+--     -- flatten = concatMap flatten . fromMaybe [] . _members
 
-operation :: Templates -> FilePath -> Text -> Text -> Value -> Script Export
-operation t@Templates{..} dir mname oname (Object o) = do
-    let out = concat [dir, "/", Text.unpack oname, ".hs"]
+--          -- . _Object
+--          -- . toListOf traverse
+-- --         . to (^? key k)
 
-    -- test if query or rest-xml
-    render out o tmplQuery
+-- -- types :: (Applicative m, Monad m) => Object -> EitherT String m [Shape]
+-- -- types o = do
+-- --     os <- failWith "operations" $ (Just (Object o) ^? key "operations" :: Maybe Object)
+-- --     is <- mapM (\x -> failWith "input" $ Just x ^? key "input") $ Map.elems os
+-- --     concat <$> mapM shapes is
 
-    return $! Export oname [oname]
-operation _ _ mname oname _ =
-    left . Text.unpack . mconcat $
-        [ "Attempted to process non-object operation for: "
-        , mname
-        , " - "
-        , oname
-        ]
+-- -- interface :: Templates -> FilePath -> Text -> [Export] -> Script ()
+-- -- interface t@Templates{..} dir mname ops = do
+-- --     let out      = concat [dir, "/", Text.unpack mname, ".hs"]
+-- --         Object o = object ["module" .= mname, "operations" .= ops]
+-- --     render out o tmplInterface
 
-(=|) :: Text -> Object -> Script Value
-(=|) k o = Map.lookup k o ?? ("Unable to lookup key: " ++ Text.unpack k)
+-- -- operation :: EDE.Template -> FilePath -> Text -> Text -> Value -> Script Export
+-- -- operation tmpl dir mname oname (Object o) = do
+-- --     let out = concat [dir, "/", Text.unpack oname, ".hs"]
+-- --     render out o tmpl
+-- --     return $! Export oname [oname]
+-- -- operation _ _ mname oname _ =
+-- --     left . Text.unpack . mconcat $
+-- --         [ "Attempted to process non-object operation for: "
+-- --         , mname
+-- --         , " - "
+-- --         , oname
+-- --         ]
 
-strip :: [Text] -> Text -> Text
-strip ps t = foldl' (\acc x -> fromMaybe acc $ x `Text.stripPrefix` acc) t ps
-
-title :: String -> Script ()
-title s = scriptIO $ putStrLn "" >> putStrLn (" => " ++ s)
-
-msg :: String -> Script ()
-msg = scriptIO . putStrLn . ("  - " ++)
-
-render :: FilePath -> Object -> EDE.Template -> Script ()
-render p o t = do
-   hs <- hoistEither $ EDE.eitherRender o t
-   msg $ "Writing " ++ p
-   scriptIO . LText.writeFile p $ LText.toLazyText hs
+-- render :: FilePath -> Object -> EDE.Template -> Script ()
+-- render p o t = do
+--     hs <- hoistEither $ EDE.eitherRender o t
+--     msg $ "Writing " ++ p
+--     scriptIO . LText.writeFile p $ LText.toLazyText hs

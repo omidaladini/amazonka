@@ -33,3 +33,4 @@ tags
 # Generators
 *.awk
 gen/
+amazonka-types

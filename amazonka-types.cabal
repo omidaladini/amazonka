@@ -36,5 +36,8 @@ executable amazonka-types
       , directory
       , ed-e
       , errors                >= 1.4.4
+      , lens
+      , lens-aeson
       , text
       , unordered-containers
+      , vector
