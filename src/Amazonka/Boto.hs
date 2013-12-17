@@ -84,6 +84,7 @@ data Operation = Operation
     , oInput            :: Maybe Shape
     , oOutput           :: Maybe Shape
     , oErrors           :: [Shape]
+    , oPagination       :: Maybe Pagination
     } deriving (Show)
 
 instance FromJSON Operation where
@@ -96,6 +97,7 @@ instance FromJSON Operation where
         <*> o .:? "input"
         <*> o .:? "output"
         <*> o .:  "errors"
+        <*> o .:? "pagination"
 
     parseJSON _ =
         fail "Unable to parse Operation."
@@ -108,33 +110,12 @@ data HTTP = HTTP
 instance FromJSON HTTP where
     parseJSON = genericParseJSON options
 
-data Type
-    = Structure
-    | List
-    | Map
-    | String
-    | Integer
-    | Boolean
-    | Blob
-    | Timestamp
-    deriving (Show, Generic)
-
-instance FromJSON Type where
-    parseJSON = genericParseJSON options
-
-data Prim
-    = PString
-    | PInteger
-    | PBoolean
-    | PBlob
-    | PTimestamp
-      deriving (Show)
-
 data Shape
     = SStruct
       { sShapeName :: Maybe Text
       , sRequired  :: Bool
       , sFields    :: HashMap Text Shape
+      , sOrder     :: Maybe [Text]
       }
 
     | SList
@@ -169,6 +150,7 @@ instance FromJSON Shape where
             <$> o .:? "shape_name"
             <*> o .:? "required" .!= False
             <*> o .:  "members"
+            <*> o .:? "member_order"
 
         f List = SList
             <$> o .:? "shape_name"
@@ -197,6 +179,39 @@ instance FromJSON Shape where
 
     parseJSON x =
         fail $ "Unable to parse Shape:\n" ++ show x
+
+data Type
+    = Structure
+    | List
+    | Map
+    | String
+    | Integer
+    | Boolean
+    | Blob
+    | Timestamp
+    deriving (Show, Generic)
+
+instance FromJSON Type where
+    parseJSON = genericParseJSON options
+
+data Prim
+    = PString
+    | PInteger
+    | PBoolean
+    | PBlob
+    | PTimestamp
+      deriving (Show)
+
+data Pagination = Pagination
+    { pLimitKey    :: Maybe Text
+    , pInputToken  :: !Text
+    , pOutputToken :: !Text
+    , pResultKey   :: !Text
+    } deriving (Show, Generic)
+
+instance FromJSON Pagination where
+    parseJSON = genericParseJSON options
+
 
 options :: Options
 options = defaultOptions
