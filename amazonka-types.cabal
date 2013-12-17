@@ -33,22 +33,8 @@ executable amazonka-types
         aeson
       , base                  >= 4.6 && < 5
       , bytestring
-      , case-insensitive
-      , conduit
-      , containers
-      , cryptohash
-      , data-default
+      , directory
       , ed-e
       , errors                >= 1.4.4
-      , hexpat
-      , http-conduit          >= 2
-      , http-types
-      , lifted-base
-      , mtl
-      , old-locale
-      , querystring-pickle    >= 0.1.7
-      , resourcet
       , text
-      , time
-      , transformers
       , unordered-containers

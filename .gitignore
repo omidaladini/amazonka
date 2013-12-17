@@ -32,6 +32,4 @@ tags
 
 # Generators
 *.awk
-script/
-generated/
-model*
+gen/
