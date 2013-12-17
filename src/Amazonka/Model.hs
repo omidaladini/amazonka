@@ -30,7 +30,7 @@ import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
 
 loadModel :: FilePath -> Script Model
-loadModel path = msg ("Loading " ++ path)
+loadModel path = msg ("Parsing " ++ path)
     >>  scriptIO (LBS.readFile path)
     >>= hoistEither . eitherDecode
 

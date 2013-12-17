@@ -23,7 +23,6 @@ import qualified Data.HashMap.Strict     as Map
 import qualified Data.List               as List
 import qualified Data.Text               as Text
 import qualified Data.Text.Lazy.Builder  as LText
-import qualified Data.Text.Lazy.Encoding as LText
 import qualified Data.Text.Lazy.IO       as LText
 import           System.Directory
 import           Text.EDE                (Template)
@@ -47,7 +46,7 @@ main = runScript $ do
     title $ "Processing " ++ Text.unpack (mServiceFullName m)
 
     let model = Text.unpack $ mName m
-        root  = "gen" </> model
+        root  = "./gen" </> model
 
     msg $ "Creating " ++ root
     scriptIO $ createDirectoryIfMissing True root
@@ -75,19 +74,19 @@ main = runScript $ do
 
 renderInterface :: FilePath -> Model -> Template -> Script ()
 renderInterface p Model{..} t = do
-    msg $ "Rendering " ++ Text.unpack mName <.> "hs"
+    msg $ "Rendering " ++ Text.unpack mName
 
 renderService :: FilePath -> Model -> Template -> Script ()
 renderService p Model{..} t = do
-    msg "Rendering Service.hs"
+    msg "Rendering Service"
 
 renderTypes :: FilePath -> Model -> Template -> Script ()
 renderTypes p Model{..} t = do
-    msg "Rendering Types.hs"
+    msg "Rendering Types"
 
 renderOperation :: FilePath -> Model -> Operation -> Template -> Script ()
 renderOperation p Model{..} Operation{..} t = do
-    msg $ "Rendering " ++ Text.unpack oName <.> "hs"
+    msg $ "Rendering " ++ Text.unpack oName
 
 render :: FilePath -> Object -> Template -> Script ()
 render p o t = do
@@ -111,12 +110,12 @@ types = List.nubBy cmp . concatMap shapes . mOperations
     flatten s            = [s]
 
 templates :: Script Templates
-templates = title "Processing tmpl/*.ede" *>
+templates = title "Listing ./tmpl" *>
     (Templates
-        <$> load "tmpl/interface.ede"
-        <*> load "tmpl/service.ede"
-        <*> load "tmpl/query.ede"
-        <*> load "tmpl/rest-xml.ede")
+        <$> load "./tmpl/interface.ede"
+        <*> load "./tmpl/service.ede"
+        <*> load "./tmpl/query.ede"
+        <*> load "./tmpl/rest-xml.ede")
   where
     load p = do
         msg $ "Parsing " ++ p
@@ -129,7 +128,7 @@ models = fmap (take 1) $ do
     return . map (dir </>) $ filter f xs
   where
     f xs = ".json" `List.isSuffixOf` xs && not ("_" `List.isPrefixOf` xs)
-    dir  = "vendor/botocore/botocore/data/aws"
+    dir  = "./vendor/botocore/botocore/data/aws"
 
 (</>) :: FilePath -> FilePath -> FilePath
 (</>) x y = concat [z, "/", y]
