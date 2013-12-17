@@ -23,7 +23,9 @@ import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
+import           Data.Monoid
 import           Data.Text            (Text)
+import qualified Data.Text            as Text
 import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
 
@@ -41,6 +43,7 @@ data Model = Model
     , mEndpointPrefix   :: !Text
 --    , mDocumentation    :: !Text
     , mOperations       :: [Operation]
+    , mName             :: !Text
     } deriving (Show, Generic)
 
 instance FromJSON Model where
@@ -53,10 +56,15 @@ instance FromJSON Model where
         <*> o .:  "endpoint_prefix"
 --        <*> o .:? "documentation" .!= ""
         <*> ops
+        <*> name
       where
         ops = do
             Object m <- o .: "operations"
             parseJSON . Array . Vector.fromList $ Map.elems m
+
+        name = do
+            n <- o .: "service_full_name"
+            return . mconcat . Text.words . strip "AWS" $ strip "Amazon" n
 
     parseJSON _ =
         fail "Unable to parse Model."
@@ -168,6 +176,7 @@ instance FromJSON Shape where
         f Boolean   = prim PBoolean
         f Blob      = prim PBlob
         f Timestamp = prim PTimestamp
+        f Long      = prim PLong
 
         prim t = SPrim t
             <$> o .:? "shape_name"
@@ -189,7 +198,8 @@ data Type
     | Boolean
     | Blob
     | Timestamp
-    deriving (Show, Generic)
+    | Long
+      deriving (Show, Generic)
 
 instance FromJSON Type where
     parseJSON = genericParseJSON options
@@ -200,6 +210,7 @@ data Prim
     | PBoolean
     | PBlob
     | PTimestamp
+    | PLong
       deriving (Show)
 
 data Pagination = Pagination
@@ -228,3 +239,9 @@ lowerWith x = map toLower
   where
     f c | isUpper c = [x, toLower c]
         | otherwise = [c]
+
+strip :: Text -> Text -> Text
+strip delim = f Text.stripSuffix . f Text.stripPrefix
+  where
+    f g x = fromMaybe x $ g delim x
+

@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Main
 -- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
@@ -12,29 +13,96 @@
 
 module Main (main) where
 
-import           Amazonka.Model
 import           Amazonka.Log
+import           Amazonka.Model
 import           Control.Applicative
 import           Control.Error
-import qualified Data.List           as List
-import qualified Data.Text.Lazy.IO   as LText
+import           Control.Monad
+import           Data.Aeson
+import qualified Data.HashMap.Strict     as Map
+import qualified Data.List               as List
+import qualified Data.Text               as Text
+import qualified Data.Text.Lazy.Builder  as LText
+import qualified Data.Text.Lazy.Encoding as LText
+import qualified Data.Text.Lazy.IO       as LText
 import           System.Directory
-import qualified Text.EDE            as EDE
+import           Text.EDE                (Template)
+import qualified Text.EDE                as EDE
 import           Text.Show.Pretty
 
 data Templates = Templates
-    { tmplInterface :: EDE.Template
-    , tmplService   :: EDE.Template
-    , tmplQuery     :: EDE.Template
-    , tmplRestXML   :: EDE.Template
+    { tInterface :: Template
+    , tService   :: Template
+    , tQuery     :: Template
+    , tRestXML   :: Template
     }
 
 main :: IO ()
 main = runScript $ do
     title "Launching the dethstarr..."
-    ts <- templates
-    ms <- models >>= mapM loadModel
-    mapM_ (msg . ppShow) ms
+    Templates{..} <- templates
+    (m:ms) <- models >>= mapM loadModel
+
+    let model = Text.unpack $ mName m
+        root  = "gen" </> model
+
+    msg $ "Creating " ++ root
+    scriptIO $ createDirectoryIfMissing True root
+
+    -- gen/<Service>.hs
+    renderInterface (root <.> "hs") m tInterface
+
+    -- gen/<Service>/Service.hs
+    renderService (root </> "Service.hs") m tService
+
+    -- gen/<Service>/Types.hs
+    renderTypes (root </> "Types.hs") m tService
+
+    -- gen/<Service>/[Operation..].hs
+    forM_ (mOperations m) $ \op -> do
+        renderOperation (root </> Text.unpack (oName op) <.> "hs") m op $
+            case mType m of
+                RestXml  -> tRestXML
+                RestJson -> tRestXML
+                Json     -> tQuery
+                Query    -> tQuery
+
+renderInterface :: FilePath -> Model -> Template -> Script ()
+renderInterface p Model{..} t = do
+    msg "Rendering Interface..."
+
+renderService :: FilePath -> Model -> Template -> Script ()
+renderService p Model{..} t = do
+    msg "Rendering Service..."
+
+renderTypes :: FilePath -> Model -> Template -> Script ()
+renderTypes p Model{..} t = do
+    msg "Rendering Types..."
+
+renderOperation :: FilePath -> Model -> Operation -> Template -> Script ()
+renderOperation p Model{..} Operation{..} t = do
+    msg "Rendering Operation..."
+
+render :: FilePath -> Object -> Template -> Script ()
+render p o t = do
+    hs <- hoistEither $ EDE.eitherRender o t
+    msg $ "Writing " ++ p
+    scriptIO . LText.writeFile p $ LText.toLazyText hs
+
+types :: Model -> [Shape]
+types = List.nubBy cmp . concatMap shapes . mOperations
+  where
+    a `cmp` b = sShapeName a == sShapeName b
+
+    shapes Operation{..} = concatMap flatten
+         $ oErrors
+        ++ maybeToList oInput
+        ++ maybeToList oOutput
+
+    flatten SStruct {..} = concatMap flatten $ Map.elems sFields
+    flatten SList   {..} = [sItem]
+    flatten SMap    {..} = [sKey, sValue]
+    flatten s            = [s]
 
 templates :: Script Templates
 templates = title "Processing tmpl/*.ede" *>
@@ -52,91 +120,17 @@ models :: Script [FilePath]
 models = fmap (take 1) $ do
     title $ "Listing " ++ dir
     xs <- scriptIO $ getDirectoryContents dir
-    return . map (dir ++) $ filter f xs
+    return . map (dir </>) $ filter f xs
   where
     f xs = ".json" `List.isSuffixOf` xs && not ("_" `List.isPrefixOf` xs)
-    dir  = "vendor/botocore/botocore/data/aws/"
+    dir  = "vendor/botocore/botocore/data/aws"
 
--- strip :: [Text] -> Text -> Text
--- strip ps t = foldl' (\acc x -> fromMaybe acc $ x `Text.stripPrefix` acc) t ps
+(</>) :: FilePath -> FilePath -> FilePath
+(</>) x y = concat [z, "/", y]
+  where
+    z = if "/" `List.isSuffixOf` x
+            then take (length x - 1) x
+            else x
 
--- service :: Templates -> FilePath -> Script ()
--- service t@Templates{..} path = do
---     title $ "Deserialising " ++ path
-
---     Object s <- scriptIO (LBS.readFile path) >>= hoistEither . eitherDecode
-
---     n <- tryLast ("Failed to determine service from: " ++ path) .
---         Text.split (== '/') $ Text.pack path
-
---     m <- failWith "Unknown key service_full_name" $
---         Object s ^? key "service_full_name" . _String
-
---     let mname = mconcat . Text.words $ ["Amazon", "AWS"] `strip` m
---         dir   = "gen/" ++ Text.unpack mname
-
---     scriptIO $ createDirectoryIfMissing True dir
-
---     render (dir ++ "/Service.hs")
---            (s <> Map.fromList ["module" .= mname])
---            tmplService
-
---     t <- types s
-
---     msg $ show t
-
--- --types :: Object -> EitherT String IO [Shape]
--- types svc = do
---     mapM (uncurry shapes) (concat ops)
---   where
---     ops = Object svc ^.. key "operations" . _Object . to Map.toList
-
--- shapes :: Text -> Value -> Script ()
--- shapes op v = do
---     msg $ Text.unpack op
---     msg $ show prse
---     msg ""
---   where
---     members k = v ^? key k >>= (^? key "members" . _Object)
-
---     prse = map (\x -> parseEither parseJSON x :: Either String Shape)
---         . fromMaybe []
---         $ Map.elems <$> members "input"
-
---     -- flatten :: Shape -> [Shape]
---     -- flatten = concatMap flatten . fromMaybe [] . _members
-
---          -- . _Object
---          -- . toListOf traverse
--- --         . to (^? key k)
-
--- -- types :: (Applicative m, Monad m) => Object -> EitherT String m [Shape]
--- -- types o = do
--- --     os <- failWith "operations" $ (Just (Object o) ^? key "operations" :: Maybe Object)
--- --     is <- mapM (\x -> failWith "input" $ Just x ^? key "input") $ Map.elems os
--- --     concat <$> mapM shapes is
-
--- -- interface :: Templates -> FilePath -> Text -> [Export] -> Script ()
--- -- interface t@Templates{..} dir mname ops = do
--- --     let out      = concat [dir, "/", Text.unpack mname, ".hs"]
--- --         Object o = object ["module" .= mname, "operations" .= ops]
--- --     render out o tmplInterface
-
--- -- operation :: EDE.Template -> FilePath -> Text -> Text -> Value -> Script Export
--- -- operation tmpl dir mname oname (Object o) = do
--- --     let out = concat [dir, "/", Text.unpack oname, ".hs"]
--- --     render out o tmpl
--- --     return $! Export oname [oname]
--- -- operation _ _ mname oname _ =
--- --     left . Text.unpack . mconcat $
--- --         [ "Attempted to process non-object operation for: "
--- --         , mname
--- --         , " - "
--- --         , oname
--- --         ]
-
--- render :: FilePath -> Object -> EDE.Template -> Script ()
--- render p o t = do
---     hs <- hoistEither $ EDE.eitherRender o t
---     msg $ "Writing " ++ p
---     scriptIO . LText.writeFile p $ LText.toLazyText hs
+(<.>) :: FilePath -> String -> FilePath
+(<.>) p ext = concat [p, ".", ext]
