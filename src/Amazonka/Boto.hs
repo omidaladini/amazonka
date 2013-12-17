@@ -1,6 +1,5 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TupleSections     #-}
 
 -- Module      : Amazonka.Boto
@@ -18,29 +17,15 @@ module Amazonka.Boto where
 import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
-import           Control.Monad
-import           Data.Aeson              hiding (String)
-import           Data.Aeson.Types        hiding (String)
-import           Data.ByteString         (ByteString)
-import qualified Data.ByteString.Char8   as BS
-import qualified Data.ByteString.Lazy    as LBS
+import           Data.Aeson           hiding (String)
+import           Data.Aeson.Types     hiding (String)
+import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
-import           Data.Foldable           (foldl', foldMap)
-import           Data.HashMap.Strict     (HashMap)
-import qualified Data.HashMap.Strict     as Map
-import qualified Data.List               as List
-import           Data.Maybe
-import           Data.Monoid
-import           Data.Text               (Text)
-import qualified Data.Text               as Text
-import qualified Data.Text.Encoding      as Text
-import qualified Data.Text.Lazy.Builder  as LText
-import qualified Data.Text.Lazy.Encoding as LText
-import qualified Data.Text.Lazy.IO       as LText
-import qualified Data.Vector             as Vector
-import           GHC.Generics            (Generic)
-import           System.Directory
-import qualified Text.EDE                as EDE
+import           Data.HashMap.Strict  (HashMap)
+import qualified Data.HashMap.Strict  as Map
+import           Data.Text            (Text)
+import qualified Data.Vector          as Vector
+import           GHC.Generics         (Generic)
 
 loadModel :: FilePath -> Script Model
 loadModel path = msg ("Loading Model: " ++ path)
@@ -102,15 +87,15 @@ data Operation = Operation
     } deriving (Show)
 
 instance FromJSON Operation where
-    parseJSON (Object o) = do
-        Operation <$> o .:  "name"
-              <*> o .:? "alias"
---              <*> o .:? "documentation" .!= ""
-              <*> o .:? "documentation_url" .!= ""
-              <*> o .:? "http"
-              <*> o .:? "input"
-              <*> o .:? "output"
-              <*> o .:  "errors"
+    parseJSON (Object o) = Operation
+        <$> o .:  "name"
+        <*> o .:? "alias"
+--        <*> o .:? "documentation" .!= ""
+        <*> o .:? "documentation_url" .!= ""
+        <*> o .:? "http"
+        <*> o .:? "input"
+        <*> o .:? "output"
+        <*> o .:  "errors"
 
     parseJSON _ =
         fail "Unable to parse Operation."
@@ -213,8 +198,6 @@ instance FromJSON Shape where
     parseJSON x =
         fail $ "Unable to parse Shape:\n" ++ show x
 
-
-
 options :: Options
 options = defaultOptions
     { fieldLabelModifier     = lowerWith '_' . dropWhile isLower
@@ -223,7 +206,10 @@ options = defaultOptions
     }
 
 lowerWith :: Char -> String -> String
-lowerWith x = map toLower . tail . snd . break (== x) . concatMap f
+lowerWith x = map toLower
+    . tail
+    . dropWhile (not . (x ==))
+    . concatMap f
   where
     f c | isUpper c = [x, toLower c]
         | otherwise = [c]

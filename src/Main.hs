@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Main
 -- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
@@ -18,27 +16,10 @@ import           Amazonka.Boto
 import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
-import           Control.Monad
-import           Data.Aeson
-import           Data.Aeson.Types
-import           Data.ByteString         (ByteString)
-import qualified Data.ByteString.Char8   as BS
-import qualified Data.ByteString.Lazy    as LBS
-import           Data.Char
-import           Data.Foldable           (foldl')
-import qualified Data.HashMap.Strict     as Map
-import qualified Data.List               as List
-import           Data.Maybe
-import           Data.Monoid
-import           Data.Text               (Text)
-import qualified Data.Text               as Text
-import qualified Data.Text.Encoding      as Text
-import qualified Data.Text.Lazy.Builder  as LText
-import qualified Data.Text.Lazy.Encoding as LText
-import qualified Data.Text.Lazy.IO       as LText
-import           GHC.Generics            (Generic)
+import qualified Data.List           as List
+import qualified Data.Text.Lazy.IO   as LText
 import           System.Directory
-import qualified Text.EDE                as EDE
+import qualified Text.EDE            as EDE
 import           Text.Show.Pretty
 
 data Templates = Templates
