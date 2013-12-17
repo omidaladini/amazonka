@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE TupleSections     #-}
 
 -- Module      : Amazonka.Boto
 -- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
@@ -18,13 +19,14 @@ import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
 import           Control.Monad
-import           Data.Aeson
-import           Data.Aeson.Types
+import           Data.Aeson              hiding (String)
+import           Data.Aeson.Types        hiding (String)
 import           Data.ByteString         (ByteString)
 import qualified Data.ByteString.Char8   as BS
 import qualified Data.ByteString.Lazy    as LBS
 import           Data.Char
-import           Data.Foldable           (foldl')
+import           Data.Foldable           (foldl', foldMap)
+import           Data.HashMap.Strict     (HashMap)
 import qualified Data.HashMap.Strict     as Map
 import qualified Data.List               as List
 import           Data.Maybe
@@ -70,7 +72,9 @@ instance FromJSON Model where
         ops = do
             Object m <- o .: "operations"
             parseJSON . Array . Vector.fromList $ Map.elems m
-    parseJSON _ = mzero
+
+    parseJSON _ =
+        fail "Unable to parse Model."
 
 data ServiceType = RestXml | RestJson | Json | Query
     deriving (Show, Generic)
@@ -107,7 +111,9 @@ instance FromJSON Operation where
               <*> o .:? "input"
               <*> o .:? "output"
               <*> o .:  "errors"
-    parseJSON _ = mzero
+
+    parseJSON _ =
+        fail "Unable to parse Operation."
 
 data HTTP = HTTP
     { hMethod :: !Text
@@ -125,17 +131,79 @@ data Type
     | Integer
     | Boolean
     | Blob
-      deriving (Show, Generic)
+    | Timestamp
+    deriving (Show, Generic)
 
 instance FromJSON Type where
     parseJSON = genericParseJSON options
 
-data Shape = Shape
-    { sType :: !Type
-    } deriving (Show, Generic)
+data Prim
+    = PString
+    | PInteger
+    | PBoolean
+    | PBlob
+    | PTimestamp
+      deriving (Show)
+
+data Shape
+    = SStruct
+      { sShapeName :: Maybe Text
+      , sMembers   :: HashMap Text Shape
+      }
+
+    | SList
+      { sShapeName :: Maybe Text
+      , sMember    :: Shape
+      }
+
+    | SMap
+      { sShapeName :: Maybe Text
+      }
+
+    | SPrim
+      { sType      :: !Prim
+      , sShapeName :: Maybe Text
+      , sRequired  :: Maybe Bool
+      , sLocation  :: Maybe Text
+      , sMinLength :: Maybe Int
+      , sMaxLength :: Maybe Int
+      , sPattern   :: Maybe Text
+      }
+
+      deriving (Show)
 
 instance FromJSON Shape where
-    parseJSON = genericParseJSON options
+    parseJSON (Object o) = o .: "type" >>= f
+      where
+        f Structure = SStruct
+            <$> o .:? "shape_name"
+            <*> o .:  "members"
+
+        f List = SList
+            <$> o .:? "shape_name"
+            <*> o .:  "members"
+
+        f Map = SMap
+            <$> o .:? "shape_name"
+
+        f String    = prim PString
+        f Integer   = prim PInteger
+        f Boolean   = prim PBoolean
+        f Blob      = prim PBlob
+        f Timestamp = prim PTimestamp
+
+        prim t = SPrim t
+            <$> o .:? "shape_name"
+            <*> o .:? "required"
+            <*> o .:? "location"
+            <*> o .:? "min_length"
+            <*> o .:? "max_length"
+            <*> o .:? "pattern"
+
+    parseJSON x =
+        fail $ "Unable to parse Shape:\n" ++ show x
+
+
 
 options :: Options
 options = defaultOptions

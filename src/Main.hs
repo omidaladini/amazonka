@@ -18,8 +18,6 @@ import           Amazonka.Boto
 import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
-import           Control.Lens            ((^.), (^..), (^?), (.~), (&), toListOf, folded, traverse, each, to)
-import           Control.Lens.Aeson
 import           Control.Monad
 import           Data.Aeson
 import           Data.Aeson.Types
@@ -41,6 +39,7 @@ import qualified Data.Text.Lazy.IO       as LText
 import           GHC.Generics            (Generic)
 import           System.Directory
 import qualified Text.EDE                as EDE
+import           Text.Show.Pretty
 
 data Templates = Templates
     { tmplInterface :: EDE.Template
@@ -54,7 +53,7 @@ main = runScript $ do
     title "Launching the dethstarr..."
     ts <- templates
     ms <- models >>= mapM loadModel
-    mapM_ (msg . show) ms
+    mapM_ (msg . ppShow) ms
 
 templates :: Script Templates
 templates = title "Processing tmpl/*.ede" *>
@@ -69,7 +68,7 @@ templates = title "Processing tmpl/*.ede" *>
         scriptIO (LText.readFile p) >>= hoistEither . EDE.eitherParse
 
 models :: Script [FilePath]
-models = do
+models = fmap (take 1) $ do
     title $ "Listing " ++ dir
     xs <- scriptIO $ getDirectoryContents dir
     return . map (dir ++) $ filter f xs
