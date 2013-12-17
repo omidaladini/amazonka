@@ -39,9 +39,12 @@ data Templates = Templates
 
 main :: IO ()
 main = runScript $ do
-    title "Launching the dethstarr..."
+    title "Running..."
+
     Templates{..} <- templates
     (m:ms) <- models >>= mapM loadModel
+
+    title $ "Processing " ++ Text.unpack (mServiceFullName m)
 
     let model = Text.unpack $ mName m
         root  = "gen" </> model
@@ -67,21 +70,23 @@ main = runScript $ do
                 Json     -> tQuery
                 Query    -> tQuery
 
+    title "Completed."
+
 renderInterface :: FilePath -> Model -> Template -> Script ()
 renderInterface p Model{..} t = do
-    msg "Rendering Interface..."
+    msg $ "Rendering " ++ Text.unpack mName <.> "hs"
 
 renderService :: FilePath -> Model -> Template -> Script ()
 renderService p Model{..} t = do
-    msg "Rendering Service..."
+    msg "Rendering Service.hs"
 
 renderTypes :: FilePath -> Model -> Template -> Script ()
 renderTypes p Model{..} t = do
-    msg "Rendering Types..."
+    msg "Rendering Types.hs"
 
 renderOperation :: FilePath -> Model -> Operation -> Template -> Script ()
 renderOperation p Model{..} Operation{..} t = do
-    msg "Rendering Operation..."
+    msg $ "Rendering " ++ Text.unpack oName <.> "hs"
 
 render :: FilePath -> Object -> Template -> Script ()
 render p o t = do
