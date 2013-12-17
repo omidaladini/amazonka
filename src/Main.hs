@@ -12,7 +12,7 @@
 
 module Main (main) where
 
-import           Amazonka.Boto
+import           Amazonka.Model
 import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
