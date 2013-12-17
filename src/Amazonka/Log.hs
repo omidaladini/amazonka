@@ -15,5 +15,8 @@ import Control.Error
 title :: String -> Script ()
 title s = scriptIO $ putStrLn "" >> putStrLn (" => " ++ s)
 
+end :: String -> Script ()
+end s = scriptIO $ putStrLn (" => " ++ s) >> putStrLn ""
+
 msg :: String -> Script ()
 msg = scriptIO . putStrLn . ("  - " ++)

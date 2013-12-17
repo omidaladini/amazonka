@@ -42,7 +42,7 @@ main = runScript $ do
     title "Running..."
 
     Templates{..} <- templates
-    (m:ms) <- models >>= mapM loadModel
+    ms@(m:_) <- models >>= mapM loadModel
 
     title $ "Processing " ++ Text.unpack (mServiceFullName m)
 
@@ -70,7 +70,8 @@ main = runScript $ do
                 Json     -> tQuery
                 Query    -> tQuery
 
-    title "Completed."
+    title $ "Generated " ++ show (length ms) ++ " models successfully."
+    end "Completed."
 
 renderInterface :: FilePath -> Model -> Template -> Script ()
 renderInterface p Model{..} t = do
