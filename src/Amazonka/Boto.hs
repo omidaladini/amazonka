@@ -148,22 +148,27 @@ data Prim
 data Shape
     = SStruct
       { sShapeName :: Maybe Text
-      , sMembers   :: HashMap Text Shape
+      , sRequired  :: Bool
+      , sFields    :: HashMap Text Shape
       }
 
     | SList
       { sShapeName :: Maybe Text
-      , sMember    :: Shape
+      , sRequired  :: Bool
+      , sItem      :: Shape
       }
 
     | SMap
       { sShapeName :: Maybe Text
+      , sRequired  :: Bool
+      , sKey       :: Shape
+      , sValue     :: Shape
       }
 
     | SPrim
       { sType      :: !Prim
       , sShapeName :: Maybe Text
-      , sRequired  :: Maybe Bool
+      , sRequired  :: Bool
       , sLocation  :: Maybe Text
       , sMinLength :: Maybe Int
       , sMaxLength :: Maybe Int
@@ -177,14 +182,19 @@ instance FromJSON Shape where
       where
         f Structure = SStruct
             <$> o .:? "shape_name"
+            <*> o .:? "required" .!= False
             <*> o .:  "members"
 
         f List = SList
             <$> o .:? "shape_name"
+            <*> o .:? "required" .!= False
             <*> o .:  "members"
 
         f Map = SMap
             <$> o .:? "shape_name"
+            <*> o .:? "required" .!= False
+            <*> o .:  "keys"
+            <*> o .:  "members"
 
         f String    = prim PString
         f Integer   = prim PInteger
@@ -194,7 +204,7 @@ instance FromJSON Shape where
 
         prim t = SPrim t
             <$> o .:? "shape_name"
-            <*> o .:? "required"
+            <*> o .:? "required" .!= False
             <*> o .:? "location"
             <*> o .:? "min_length"
             <*> o .:? "max_length"
