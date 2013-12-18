@@ -39,9 +39,14 @@ data Model = Model
     , mType             :: !ServiceType
     , mResultWrapped    :: !Bool
     , mSignatureVersion :: !SignatureVersion
+    , mServiceAbbrev    :: !Text
     , mServiceFullName  :: !Text
     , mEndpointPrefix   :: !Text
---    , mDocumentation    :: !Text
+    , mGlobalEndpoint   :: Maybe Text
+    , mXmlNamespace     :: Maybe Text
+    , mTimestamp        :: Maybe Text
+    , mChecksum         :: Maybe Text
+    , mDocumentation    :: !Text
     , mOperations       :: [Operation]
     , mName             :: !Text
     } deriving (Show, Generic)
@@ -52,9 +57,14 @@ instance FromJSON Model where
         <*> o .:? "type" .!= Query
         <*> o .:? "result_wrapped" .!= False
         <*> o .:  "signature_version"
+        <*> o .:  "service_abbreviation"
         <*> o .:  "service_full_name"
         <*> o .:  "endpoint_prefix"
---        <*> o .:? "documentation" .!= ""
+        <*> o .:? "global_endpoint"
+        <*> o .:? "xmlnamespace"
+        <*> o .:? "timestamp_format"
+        <*> o .:? "checksum_format"
+        <*> o .:? "documentation" .!= ""
         <*> ops
         <*> name
       where
@@ -63,7 +73,7 @@ instance FromJSON Model where
             parseJSON . Array . Vector.fromList $ Map.elems m
 
         name = do
-            n <- o .: "service_full_name"
+            n <- o .: "service_abbreviation"
             return . mconcat . Text.words . strip "AWS" $ strip "Amazon" n
 
     parseJSON _ =
@@ -86,7 +96,7 @@ instance FromJSON SignatureVersion where
 data Operation = Operation
     { oName             :: !Text
     , oAlias            :: Maybe Text
-    -- , oDocumentation    :: !Text
+    , oDocumentation    :: !Text
     , oDocumentationUrl :: !Text
     , oHttp             :: Maybe HTTP
     , oInput            :: Maybe Shape
@@ -99,7 +109,7 @@ instance FromJSON Operation where
     parseJSON (Object o) = Operation
         <$> o .:  "name"
         <*> o .:? "alias"
---        <*> o .:? "documentation" .!= ""
+        <*> o .:? "documentation" .!= ""
         <*> o .:? "documentation_url" .!= ""
         <*> o .:? "http"
         <*> o .:? "input"
@@ -120,33 +130,37 @@ instance FromJSON HTTP where
 
 data Shape
     = SStruct
-      { sShapeName :: Maybe Text
-      , sRequired  :: Bool
-      , sFields    :: HashMap Text Shape
-      , sOrder     :: Maybe [Text]
+      { sShapeName     :: Maybe Text
+      , sRequired      :: Bool
+      , sFields        :: HashMap Text Shape
+      , sOrder         :: Maybe [Text]
+      , sDocumentation :: Text
       }
 
     | SList
-      { sShapeName :: Maybe Text
-      , sRequired  :: Bool
-      , sItem      :: Shape
+      { sShapeName     :: Maybe Text
+      , sRequired      :: Bool
+      , sItem          :: Shape
+      , sDocumentation :: Text
       }
 
     | SMap
-      { sShapeName :: Maybe Text
-      , sRequired  :: Bool
-      , sKey       :: Shape
-      , sValue     :: Shape
+      { sShapeName     :: Maybe Text
+      , sRequired      :: Bool
+      , sKey           :: Shape
+      , sValue         :: Shape
+      , sDocumentation :: Text
       }
 
     | SPrim
-      { sType      :: !Prim
-      , sShapeName :: Maybe Text
-      , sRequired  :: Bool
-      , sLocation  :: Maybe Text
-      , sMinLength :: Maybe Int
-      , sMaxLength :: Maybe Int
-      , sPattern   :: Maybe Text
+      { sType          :: !Prim
+      , sShapeName     :: Maybe Text
+      , sRequired      :: Bool
+      , sLocation      :: Maybe Text
+      , sMinLength     :: Maybe Int
+      , sMaxLength     :: Maybe Int
+      , sPattern       :: Maybe Text
+      , sDocumentation :: Text
       }
 
       deriving (Show)
@@ -159,17 +173,20 @@ instance FromJSON Shape where
             <*> o .:? "required" .!= False
             <*> o .:  "members"
             <*> o .:? "member_order"
+            <*> o .:? "documentation" .!= ""
 
         f List = SList
             <$> o .:? "shape_name"
             <*> o .:? "required" .!= False
             <*> o .:  "members"
+            <*> o .:? "documentation" .!= ""
 
         f Map = SMap
             <$> o .:? "shape_name"
             <*> o .:? "required" .!= False
             <*> o .:  "keys"
             <*> o .:  "members"
+            <*> o .:? "documentation" .!= ""
 
         f String    = prim PString
         f Integer   = prim PInteger
@@ -185,6 +202,7 @@ instance FromJSON Shape where
             <*> o .:? "min_length"
             <*> o .:? "max_length"
             <*> o .:? "pattern"
+            <*> o .:? "documentation" .!= ""
 
     parseJSON x =
         fail $ "Unable to parse Shape:\n" ++ show x
@@ -222,7 +240,6 @@ data Pagination = Pagination
 
 instance FromJSON Pagination where
     parseJSON = genericParseJSON options
-
 
 options :: Options
 options = defaultOptions
