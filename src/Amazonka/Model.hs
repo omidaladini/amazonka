@@ -39,7 +39,7 @@ data Model = Model
     , mType             :: !ServiceType
     , mResultWrapped    :: !Bool
     , mSignatureVersion :: !SignatureVersion
-    , mServiceAbbrev    :: !Text
+    , mName             :: !Text
     , mServiceFullName  :: !Text
     , mEndpointPrefix   :: !Text
     , mGlobalEndpoint   :: Maybe Text
@@ -48,33 +48,30 @@ data Model = Model
     , mChecksum         :: Maybe Text
     , mDocumentation    :: !Text
     , mOperations       :: [Operation]
-    , mName             :: !Text
     } deriving (Show, Generic)
 
 instance FromJSON Model where
-    parseJSON (Object o) = Model
-        <$> o .:  "api_version"
-        <*> o .:? "type" .!= Query
-        <*> o .:? "result_wrapped" .!= False
-        <*> o .:  "signature_version"
-        <*> o .:  "service_abbreviation"
-        <*> o .:  "service_full_name"
-        <*> o .:  "endpoint_prefix"
-        <*> o .:? "global_endpoint"
-        <*> o .:? "xmlnamespace"
-        <*> o .:? "timestamp_format"
-        <*> o .:? "checksum_format"
-        <*> o .:? "documentation" .!= ""
-        <*> ops
-        <*> name
-      where
-        ops = do
-            Object m <- o .: "operations"
-            parseJSON . Array . Vector.fromList $ Map.elems m
+    parseJSON (Object o) = do
+        Object m <- o .:  "operations"
+        full     <- o .:  "service_full_name"
+        a        <- o .:? "service_abbreviation" .!= full
 
-        name = do
-            n <- o .: "service_abbreviation"
-            return . mconcat . Text.words . strip "AWS" $ strip "Amazon" n
+        let abbrev = mconcat . Text.words . strip "AWS" $ strip "Amazon" a
+            ops    = Array . Vector.fromList $ Map.elems m
+
+        Model <$> o .:  "api_version"
+              <*> o .:? "type" .!= Query
+              <*> o .:? "result_wrapped" .!= False
+              <*> o .:  "signature_version"
+              <*> pure abbrev
+              <*> pure full
+              <*> o .:  "endpoint_prefix"
+              <*> o .:? "global_endpoint"
+              <*> o .:? "xmlnamespace"
+              <*> o .:? "timestamp_format"
+              <*> o .:? "checksum_format"
+              <*> o .:? "documentation" .!= ""
+              <*> parseJSON ops
 
     parseJSON _ =
         fail "Unable to parse Model."
