@@ -11,20 +11,21 @@
 module Network.AWS.{{ module }}
     (
     -- * Operations
-{% for op in operations %}
-    -- ** {{ op.value.module }}
-{% for ty in op.value.types %}
-    {% if op.first %}  {% else %}, {% endif %}{{ ty.value }}
-{% endfor %}
-{% if !op.last %}
+{# {% for op in operations %} #}
+{#     -- ** {{ op.value.module }} #}
+{# {% for ty in op.value.types %} #}
+{#     {% if op.first %}  {% else %}, {% endif %}{{ ty.value }} #}
+{# {% endfor %} #}
+{# {% if !op.last %} #}
 
-{% endif %}
-{% endfor %}
-    ) where
+{# {% endif %} #}
+{# {% endfor %} #}
+{#     ) where #}
 
-{% for op in operations %}
-import Network.AWS.{{ module }}.{{ op.value.module }}
-{% endfor %}
+{# {% for op in operations %} #}
+{# import Network.AWS.{{ module }}.{{ op.value.module }} #}
+{# {% endfor %} #}
+    )
 
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types

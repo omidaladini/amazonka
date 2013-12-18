@@ -139,6 +139,14 @@ instance FromJSON Operation where
     parseJSON _ =
         fail "Unable to parse Operation."
 
+instance ToJSON Operation where
+    toJSON Operation{..} = object
+        [ "name"              .= oName
+        , "alias"             .= oAlias
+        , "documentation"     .= oDocumentation
+        , "documentation_url" .= oDocumentationUrl
+        ]
+
 data HTTP = HTTP
     { hMethod :: !Text
     , hUri    :: !Text

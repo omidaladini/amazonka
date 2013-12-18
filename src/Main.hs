@@ -85,25 +85,29 @@ model dir Templates{..} m@Model{..} = do
                 Json     -> tJSONOperation
                 Query    -> tQueryOperation
   where
+    Object oJSON = toJSON m
+
+    mJSON = oJSON <> EDE.fromPairs
+        [ "module" .= mName
+        , "types"  .= types m
+        ]
+
     renderInterface p t = do
         msg $ "Rendering Interface"
+        render p t mJSON
 
     renderService p t = do
         msg "Rendering Service"
-        let Object o = toJSON m
-        render p t $ o <> EDE.fromPairs
-            [ "module" .= mName
-            ]
+        render p t mJSON
 
     renderTypes p t = do
         msg "Rendering Types"
-        render p t $ EDE.fromPairs
-            [ "module" .= mName
-            , "types"  .= types m
-            ]
+        render p t mJSON
 
-    renderOperation p Operation{..} t = do
+    renderOperation p o@Operation{..} t = do
         msg $ "Rendering " ++ Text.unpack oName
+        let Object o' = toJSON o
+        render p t $ mJSON <> o'
 
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
