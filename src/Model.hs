@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TupleSections     #-}
 
--- Module      : Amazonka.Model
+-- Module      : Model
 -- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
@@ -13,9 +13,8 @@
 -- Stability   : experimental
 -- Portability : non-portable (GHC extensions)
 
-module Amazonka.Model where
+module Model where
 
-import           Amazonka.Log
 import           Control.Applicative
 import           Control.Error
 import           Data.Aeson           hiding (String)
@@ -31,9 +30,7 @@ import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
 
 loadModel :: FilePath -> Script Model
-loadModel path = msg ("Parsing " ++ path)
-    >>  scriptIO (LBS.readFile path)
-    >>= hoistEither . eitherDecode
+loadModel path = scriptIO (LBS.readFile path) >>= hoistEither . eitherDecode
 
 data Model = Model
     { mApiVersion       :: !Text

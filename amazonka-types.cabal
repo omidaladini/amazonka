@@ -36,7 +36,6 @@ executable amazonka-types
       , directory
       , ed-e
       , errors                >= 1.4.4
-      , pretty-show
       , text
       , unordered-containers
       , vector

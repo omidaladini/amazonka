@@ -13,8 +13,6 @@
 
 module Main (main) where
 
-import           Amazonka.Log
-import           Amazonka.Model
 import           Control.Applicative
 import           Control.Error
 import           Control.Monad
@@ -25,25 +23,41 @@ import           Data.Monoid
 import qualified Data.Text              as Text
 import qualified Data.Text.Lazy.Builder as LText
 import qualified Data.Text.Lazy.IO      as LText
+import           Model
 import           System.Directory
+import           System.Environment
+import           System.Exit
 import           Text.EDE               (Template)
 import qualified Text.EDE               as EDE
-import           Text.Show.Pretty
 
 main :: IO ()
-main = runScript $ do
-    title "Running..."
-    ms <- models >>= mapM loadModel
-    ts <- templates
-    title $ "Generated " ++ show (length ms) ++ " models successfully."
-    end "Completed."
+main = getArgs >>= parse
+  where
+    parse as
+        | "-h" `elem` as = usage >> exitWith ExitSuccess
+        | otherwise = runScript $ do
+            title "Running..."
 
-model :: FilePath -> Model -> Templates -> Script ()
-model dir m@Model{..} Templates{..} = do
-    title $ "Processing " ++ Text.unpack mServiceFullName
+            ts <- templates
+            ms <- if null as then models else return as
 
-    let model = Text.unpack mName
-        root  = dir </> model
+            forM_ ms $ \p -> do
+                title $ "Parsing " ++ p
+                m <- loadModel p
+                model "./gen" ts m
+
+            title $ "Generated " ++ show (length ms) ++ " models successfully."
+            end "Completed."
+
+    usage = do
+        n <- getProgName
+        putStrLn $ "Usage: " ++ n ++ " [PATH] ..."
+
+model :: FilePath -> Templates -> Model -> Script ()
+model dir Templates{..} m@Model{..} = do
+    msg $ "Processing " ++ Text.unpack mServiceFullName
+
+    let root = dir </> Text.unpack mName
 
     msg $ "Creating " ++ root
     scriptIO $ createDirectoryIfMissing True root
@@ -144,7 +158,7 @@ templates = title "Listing ./tmpl" *>
         scriptIO (LText.readFile p) >>= hoistEither . EDE.eitherParse
 
 models :: Script [FilePath]
-models = fmap (take 1) $ do
+models = do
     title $ "Listing " ++ dir
     xs <- scriptIO $ getDirectoryContents dir
     return . map (dir </>) $ filter f xs
@@ -161,3 +175,12 @@ models = fmap (take 1) $ do
 
 (<.>) :: FilePath -> String -> FilePath
 (<.>) p ext = concat [p, ".", ext]
+
+title :: String -> Script ()
+title s = scriptIO $ putStrLn "" >> putStrLn (" => " ++ s)
+
+end :: String -> Script ()
+end s = scriptIO $ putStrLn (" => " ++ s) >> putStrLn ""
+
+msg :: String -> Script ()
+msg = scriptIO . putStrLn . ("  - " ++)
