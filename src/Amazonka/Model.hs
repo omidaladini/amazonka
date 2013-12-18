@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TupleSections     #-}
 
 -- Module      : Amazonka.Model
@@ -76,17 +77,41 @@ instance FromJSON Model where
     parseJSON _ =
         fail "Unable to parse Model."
 
+instance ToJSON Model where
+    toJSON Model{..} = object
+        [ "api_version"          .= mApiVersion
+        , "type"                 .= mType
+        , "result_wrapped"       .= mResultWrapped
+        , "signature_version"    .= mSignatureVersion
+        , "service_abbreviation" .= mName
+        , "service_full_name"    .= mServiceFullName
+        , "endpoint_prefix"      .= mEndpointPrefix
+        , "global_endpoint"      .= mGlobalEndpoint
+        , "xmlnamespace"         .= mXmlNamespace
+        , "timestamp_format"     .= mTimestamp
+        , "checksum_format"      .= mChecksum
+        , "documentation"        .= mDocumentation
+        ]
+
 data ServiceType = RestXml | RestJson | Json | Query
     deriving (Show, Generic)
 
 instance FromJSON ServiceType where
     parseJSON = genericParseJSON options
 
+instance ToJSON ServiceType where
+    toJSON = genericToJSON options
+
 data SignatureVersion = V2 | V3 | V3HTTPS | V4 | S3
     deriving (Show, Generic)
 
 instance FromJSON SignatureVersion where
     parseJSON = genericParseJSON $ options
+        { constructorTagModifier = map toLower
+        }
+
+instance ToJSON SignatureVersion where
+    toJSON = genericToJSON $ options
         { constructorTagModifier = map toLower
         }
 
@@ -160,7 +185,7 @@ data Shape
       , sDocumentation :: Text
       }
 
-      deriving (Show)
+      deriving (Show, Generic)
 
 instance FromJSON Shape where
     parseJSON (Object o) = o .: "type" >>= f
@@ -204,6 +229,9 @@ instance FromJSON Shape where
     parseJSON x =
         fail $ "Unable to parse Shape:\n" ++ show x
 
+instance ToJSON Shape where
+    toJSON = genericToJSON options
+
 data Type
     = Structure
     | List
@@ -226,7 +254,12 @@ data Prim
     | PBlob
     | PTimestamp
     | PLong
-      deriving (Show)
+      deriving (Show, Generic)
+
+instance ToJSON Prim where
+    toJSON = genericToJSON $ options
+        { constructorTagModifier = map toLower . drop 1
+        }
 
 data Pagination = Pagination
     { pLimitKey    :: Maybe Text

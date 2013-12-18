@@ -1,0 +1,32 @@
+{% raw %}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE FlexibleContexts  #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
+{% endraw %}
+
+-- Module      : Network.AWS.{{ module }}.Service
+-- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
+-- License     : This Source Code Form is subject to the terms of
+--               the Mozilla Public License, v. 2.0.
+--               A copy of the MPL can be found in the LICENSE file or
+--               you can obtain it at http://mozilla.org/MPL/2.0/.
+-- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Stability   : experimental
+-- Portability : non-portable (GHC extensions)
+
+module Network.AWS.{{ module }}.Service where
+
+-- | Currently supported version ({{ api_version }}) of the @{{ service_full_name }}@ service.
+{{ endpoint_prefix }} :: Service
+{{ endpoint_prefix }} = Service {% if global_endpoint %}Global{% else %}Regional{% endif %} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+
+{% if xmlnamespace %}
+-- | XML namespace to annotate @{{ service_full_name }}@ elements with.
+{{ endpoint_prefix }}NS :: ByteString
+{{ endpoint_prefix }}NS = "{{ xmlnamespace }}"
+
+-- | Helper to define @{{ service_full_name }}@ namespaced XML elements.
+{{ endpoint_prefix }}Elem :: ByteString -> NName ByteString
+{{ endpoint_prefix }}Elem = mkNName {{ endpoint_prefix }}NS
+{% endif %}

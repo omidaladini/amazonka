@@ -1,4 +1,11 @@
--- Module      : Network.AWS.{{ module }}.{{ operation }}
+{% raw %}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE FlexibleContexts  #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
+{% endraw %}
+
+-- Module      : Network.AWS.{{ module }}.Types
 -- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
@@ -8,6 +15,6 @@
 -- Stability   : experimental
 -- Portability : non-portable (GHC extensions)
 
-module Network.AWS.{{ module }}.{{ operation }} where
+module Network.AWS.{{ module }}.Types where
 
-
+import Network.AWS.{{ module }}.Service

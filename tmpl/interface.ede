@@ -25,3 +25,6 @@ module Network.AWS.{{ module }}
 {% for op in operations %}
 import Network.AWS.{{ module }}.{{ op.value.module }}
 {% endfor %}
+
+import Network.AWS.{{ module }}.Service
+import Network.AWS.{{ module }}.Types

@@ -19,77 +19,80 @@ import           Control.Applicative
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
-import qualified Data.HashMap.Strict     as Map
-import qualified Data.List               as List
-import qualified Data.Text               as Text
-import qualified Data.Text.Lazy.Builder  as LText
-import qualified Data.Text.Lazy.IO       as LText
+import qualified Data.HashMap.Strict    as Map
+import qualified Data.List              as List
+import           Data.Monoid
+import qualified Data.Text              as Text
+import qualified Data.Text.Lazy.Builder as LText
+import qualified Data.Text.Lazy.IO      as LText
 import           System.Directory
-import           Text.EDE                (Template)
-import qualified Text.EDE                as EDE
+import           Text.EDE               (Template)
+import qualified Text.EDE               as EDE
 import           Text.Show.Pretty
-
-data Templates = Templates
-    { tInterface :: Template
-    , tService   :: Template
-    , tQuery     :: Template
-    , tRestXML   :: Template
-    }
 
 main :: IO ()
 main = runScript $ do
     title "Running..."
+    ms <- models >>= mapM loadModel
+    ts <- templates
+    title $ "Generated " ++ show (length ms) ++ " models successfully."
+    end "Completed."
 
-    Templates{..} <- templates
-    ms@(m:_) <- models >>= mapM loadModel
+model :: FilePath -> Model -> Templates -> Script ()
+model dir m@Model{..} Templates{..} = do
+    title $ "Processing " ++ Text.unpack mServiceFullName
 
-    title $ "Processing " ++ Text.unpack (mServiceFullName m)
-
-    let model = Text.unpack $ mName m
-        root  = "./gen" </> model
+    let model = Text.unpack mName
+        root  = dir </> model
 
     msg $ "Creating " ++ root
     scriptIO $ createDirectoryIfMissing True root
 
-    -- gen/<Service>.hs
-    renderInterface (root <.> "hs") m tInterface
+    -- <dir>/<Service>.hs
+    renderInterface (root <.> "hs") tInterface
 
-    -- gen/<Service>/Service.hs
-    renderService (root </> "Service.hs") m tService
+    -- <dir>/<Service>/Service.hs
+    renderService (root </> "Service.hs") $
+        case mType of
+            RestXml  -> tRestXMLService
+            RestJson -> tRestJSONService
+            Json     -> tJSONService
+            Query    -> tQueryService
 
-    -- gen/<Service>/Types.hs
-    renderTypes (root </> "Types.hs") m tService
+    -- <dir>/<Service>/Types.hs
+    renderTypes (root </> "Types.hs") tTypes
 
-    -- gen/<Service>/[Operation..].hs
-    forM_ (mOperations m) $ \op -> do
-        renderOperation (root </> Text.unpack (oName op) <.> "hs") m op $
-            case mType m of
-                RestXml  -> tRestXML
-                RestJson -> tRestXML
-                Json     -> tQuery
-                Query    -> tQuery
+    -- <dir>/<Service>/[Operation..].hs
+    forM_ mOperations $ \op ->
+        renderOperation (root </> Text.unpack (oName op) <.> "hs") op $
+            case mType of
+                RestXml  -> tRestXMLOperation
+                RestJson -> tRestJSONOperation
+                Json     -> tJSONOperation
+                Query    -> tQueryOperation
+  where
+    renderInterface p t = do
+        msg $ "Rendering Interface"
 
-    title $ "Generated " ++ show (length ms) ++ " models successfully."
-    end "Completed."
+    renderService p t = do
+        msg "Rendering Service"
+        let Object o = toJSON m
+        render p t $ o <> EDE.fromPairs
+            [ "module" .= mName
+            ]
 
-renderInterface :: FilePath -> Model -> Template -> Script ()
-renderInterface p Model{..} t = do
-    msg $ "Rendering Interface"
+    renderTypes p t = do
+        msg "Rendering Types"
+        render p t $ EDE.fromPairs
+            [ "module" .= mName
+            , "types"  .= types m
+            ]
 
-renderService :: FilePath -> Model -> Template -> Script ()
-renderService p Model{..} t = do
-    msg "Rendering Service"
+    renderOperation p Operation{..} t = do
+        msg $ "Rendering " ++ Text.unpack oName
 
-renderTypes :: FilePath -> Model -> Template -> Script ()
-renderTypes p Model{..} t = do
-    msg "Rendering Types"
-
-renderOperation :: FilePath -> Model -> Operation -> Template -> Script ()
-renderOperation p Model{..} Operation{..} t = do
-    msg $ "Rendering " ++ Text.unpack oName
-
-render :: FilePath -> Object -> Template -> Script ()
-render p o t = do
+render :: FilePath -> Template -> Object -> Script ()
+render p t o = do
     hs <- hoistEither $ EDE.eitherRender o t
     msg $ "Writing " ++ p
     scriptIO . LText.writeFile p $ LText.toLazyText hs
@@ -109,13 +112,32 @@ types = List.nubBy cmp . concatMap shapes . mOperations
     flatten SMap    {..} = [sKey, sValue]
     flatten s            = [s]
 
+data Templates = Templates
+    { tInterface         :: Template
+    , tTypes             :: Template
+    , tRestXMLService    :: Template
+    , tRestJSONService   :: Template
+    , tJSONService       :: Template
+    , tQueryService      :: Template
+    , tRestXMLOperation  :: Template
+    , tRestJSONOperation :: Template
+    , tJSONOperation     :: Template
+    , tQueryOperation    :: Template
+    }
+
 templates :: Script Templates
 templates = title "Listing ./tmpl" *>
     (Templates
         <$> load "./tmpl/interface.ede"
-        <*> load "./tmpl/service.ede"
-        <*> load "./tmpl/query.ede"
-        <*> load "./tmpl/rest-xml.ede")
+        <*> load "./tmpl/types.ede"
+        <*> load "./tmpl/service-rest-xml.ede"
+        <*> load "./tmpl/service-rest-json.ede"
+        <*> load "./tmpl/service-json.ede"
+        <*> load "./tmpl/service-query.ede"
+        <*> load "./tmpl/operation-rest-xml.ede"
+        <*> load "./tmpl/operation-rest-json.ede"
+        <*> load "./tmpl/operation-json.ede"
+        <*> load "./tmpl/operation-query.ede")
   where
     load p = do
         msg $ "Parsing " ++ p
