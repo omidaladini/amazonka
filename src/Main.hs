@@ -74,7 +74,7 @@ main = runScript $ do
 
 renderInterface :: FilePath -> Model -> Template -> Script ()
 renderInterface p Model{..} t = do
-    msg $ "Rendering " ++ Text.unpack mName
+    msg $ "Rendering Interface"
 
 renderService :: FilePath -> Model -> Template -> Script ()
 renderService p Model{..} t = do
