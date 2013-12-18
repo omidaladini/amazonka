@@ -34,7 +34,7 @@ main :: IO ()
 main = getArgs >>= parse
   where
     parse as
-        | "-h" `elem` as = usage >> exitWith ExitSuccess
+        | "-h" `elem` as = usage >> exitSuccess
         | otherwise = runScript $ do
             title "Running..."
 
@@ -93,7 +93,7 @@ model dir Templates{..} m@Model{..} = do
         ]
 
     renderInterface p t = do
-        msg $ "Rendering Interface"
+        msg "Rendering Interface"
         render p t mJSON
 
     renderService p t = do
