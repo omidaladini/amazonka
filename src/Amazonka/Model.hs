@@ -258,4 +258,3 @@ strip :: Text -> Text -> Text
 strip delim = f Text.stripSuffix . f Text.stripPrefix
   where
     f g x = fromMaybe x $ g delim x
-
