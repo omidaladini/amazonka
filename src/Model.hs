@@ -24,10 +24,12 @@ import           Data.Char
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
 import           Data.Monoid
+import           Data.Ord
 import           Data.Text            (Text)
 import qualified Data.Text            as Text
 import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
+import           Helpers
 
 loadModel :: FilePath -> Script Model
 loadModel path = scriptIO (LBS.readFile path) >>= hoistEither . eitherDecode
@@ -44,7 +46,7 @@ data Model = Model
     , mXmlNamespace     :: Maybe Text
     , mTimestamp        :: Maybe Text
     , mChecksum         :: Maybe Text
-    , mDocumentation    :: !Text
+    , mDocumentation    :: [Text]
     , mOperations       :: [Operation]
     } deriving (Show, Generic)
 
@@ -68,7 +70,7 @@ instance FromJSON Model where
               <*> o .:? "xmlnamespace"
               <*> o .:? "timestamp_format"
               <*> o .:? "checksum_format"
-              <*> o .:? "documentation" .!= ""
+              <*> fmap normalise (o .:? "documentation" .!= "")
               <*> parseJSON ops
 
     parseJSON _ =
@@ -115,7 +117,7 @@ instance ToJSON SignatureVersion where
 data Operation = Operation
     { oName             :: !Text
     , oAlias            :: Maybe Text
-    , oDocumentation    :: !Text
+    , oDocumentation    :: [Text]
     , oDocumentationUrl :: !Text
     , oHttp             :: Maybe HTTP
     , oInput            :: Maybe Shape
@@ -128,7 +130,7 @@ instance FromJSON Operation where
     parseJSON (Object o) = Operation
         <$> o .:  "name"
         <*> o .:? "alias"
-        <*> o .:? "documentation" .!= ""
+        <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "documentation_url" .!= ""
         <*> o .:? "http"
         <*> o .:? "input"
@@ -157,64 +159,69 @@ instance FromJSON HTTP where
 
 data Shape
     = SStruct
-      { sShapeName     :: Maybe Text
-      , sRequired      :: Bool
-      , sFields        :: HashMap Text Shape
+      { sFields        :: HashMap Text Shape
       , sOrder         :: Maybe [Text]
-      , sDocumentation :: Text
+
+      , sShapeName     :: Maybe Text
+      , sRequired      :: !Bool
+      , sDocumentation :: [Text]
+      , sXmlname       :: Maybe Text
       }
 
     | SList
-      { sShapeName     :: Maybe Text
-      , sRequired      :: Bool
-      , sItem          :: Shape
-      , sDocumentation :: Text
+      { sItem          :: !Shape
+
+      , sShapeName     :: Maybe Text
+      , sRequired      :: !Bool
+      , sDocumentation :: [Text]
+      , sXmlname       :: Maybe Text
       }
 
     | SMap
-      { sShapeName     :: Maybe Text
-      , sRequired      :: Bool
-      , sKey           :: Shape
-      , sValue         :: Shape
-      , sDocumentation :: Text
+      { sKey           :: !Shape
+      , sValue         :: !Shape
+
+      , sShapeName     :: Maybe Text
+      , sRequired      :: !Bool
+      , sDocumentation :: [Text]
+      , sXmlname       :: Maybe Text
       }
 
     | SPrim
       { sType          :: !Prim
-      , sShapeName     :: Maybe Text
-      , sRequired      :: Bool
       , sLocation      :: Maybe Text
       , sMinLength     :: Maybe Int
       , sMaxLength     :: Maybe Int
       , sPattern       :: Maybe Text
-      , sDocumentation :: Text
+
+      , sShapeName     :: Maybe Text
+      , sRequired      :: !Bool
+      , sDocumentation :: [Text]
+      , sXmlname       :: Maybe Text
       }
 
-      deriving (Show, Generic)
+      deriving (Eq, Show, Generic)
+
+instance Ord Shape where
+    a `compare` b =
+        compare (Down $ ctor a, sShapeName a)
+                (Down $ ctor b, sShapeName b)
+      where
+        ctor SStruct {..} = Structure
+        ctor SList   {..} = List
+        ctor SMap    {..} = Map
+        ctor SPrim   {..} = String
 
 instance FromJSON Shape where
-    parseJSON (Object o) = o .: "type" >>= f
+    parseJSON (Object o) = (o .: "type" >>= f)
+        <*> o .:? "shape_name"
+        <*> o .:? "required" .!= False
+        <*> fmap normalise (o .:? "documentation" .!= "")
+        <*> o .:? "xmlname"
       where
-        f Structure = SStruct
-            <$> o .:? "shape_name"
-            <*> o .:? "required" .!= False
-            <*> o .:  "members"
-            <*> o .:? "member_order"
-            <*> o .:? "documentation" .!= ""
-
-        f List = SList
-            <$> o .:? "shape_name"
-            <*> o .:? "required" .!= False
-            <*> o .:  "members"
-            <*> o .:? "documentation" .!= ""
-
-        f Map = SMap
-            <$> o .:? "shape_name"
-            <*> o .:? "required" .!= False
-            <*> o .:  "keys"
-            <*> o .:  "members"
-            <*> o .:? "documentation" .!= ""
-
+        f Structure = SStruct <$> o .: "members" <*> o .:? "member_order"
+        f List      = SList   <$> o .: "members"
+        f Map       = SMap    <$> o .: "keys" <*> o .: "members"
         f String    = prim PString
         f Integer   = prim PInteger
         f Boolean   = prim PBoolean
@@ -223,19 +230,19 @@ instance FromJSON Shape where
         f Long      = prim PLong
 
         prim t = SPrim t
-            <$> o .:? "shape_name"
-            <*> o .:? "required" .!= False
-            <*> o .:? "location"
+            <$> o .:? "location"
             <*> o .:? "min_length"
             <*> o .:? "max_length"
             <*> o .:? "pattern"
-            <*> o .:? "documentation" .!= ""
 
     parseJSON x =
         fail $ "Unable to parse Shape:\n" ++ show x
 
 instance ToJSON Shape where
     toJSON = genericToJSON options
+        { constructorTagModifier = map toLower . drop 1
+        , sumEncoding            = defaultTaggedObject { tagFieldName = "type" }
+        }
 
 data Type
     = Structure
@@ -247,7 +254,7 @@ data Type
     | Blob
     | Timestamp
     | Long
-      deriving (Show, Generic)
+      deriving (Eq, Ord, Show, Generic)
 
 instance FromJSON Type where
     parseJSON = genericParseJSON options
@@ -259,7 +266,7 @@ data Prim
     | PBlob
     | PTimestamp
     | PLong
-      deriving (Show, Generic)
+      deriving (Eq, Show, Generic)
 
 instance ToJSON Prim where
     toJSON = genericToJSON $ options
@@ -283,16 +290,5 @@ options = defaultOptions
     , allNullaryToStringTag  = True
     }
 
-lowerWith :: Char -> String -> String
-lowerWith x = map toLower
-    . tail
-    . dropWhile (not . (x ==))
-    . concatMap f
-  where
-    f c | isUpper c = [x, toLower c]
-        | otherwise = [c]
-
-strip :: Text -> Text -> Text
-strip delim = f Text.stripSuffix . f Text.stripPrefix
-  where
-    f g x = fromMaybe x $ g delim x
+shapeName :: Shape -> Text
+shapeName = fromMaybe "?" . sShapeName

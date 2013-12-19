@@ -19,7 +19,7 @@ module Network.AWS.{{ module }}.Service where
 
 -- | Currently supported version ({{ api_version }}) of the @{{ service_full_name }}@ service.
 {{ endpoint_prefix }} :: Service
-{{ endpoint_prefix }} = Service {% if global_endpoint %}Global{% else %}Regional{% endif %} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+{{ endpoint_prefix }} = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
 
 {% if xmlnamespace %}
 -- | XML namespace to annotate @{{ service_full_name }}@ elements with.

@@ -17,10 +17,12 @@ import           Control.Applicative
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
+import           Data.ByteString        (ByteString)
 import qualified Data.HashMap.Strict    as Map
 import qualified Data.List              as List
 import           Data.Monoid
 import qualified Data.Text              as Text
+import           Data.Text              (Text)
 import qualified Data.Text.Lazy.Builder as LText
 import qualified Data.Text.Lazy.IO      as LText
 import           Model
@@ -102,6 +104,19 @@ model dir Templates{..} m@Model{..} = do
         let Object o' = toJSON o
         render p t $ mJSON <> o'
 
+-- Create a more specific/informative 'type' datatype
+-- - Create a global 'types' environment, filter on this before rendering types
+-- - Differentiate between prim and newtypes
+-- - Differentiate between prim and enums/nullary sums
+-- - Discard Xml types and replace with Texts for simplicities' sake
+
+-- Don't use toJSON of Shape, instead create a newtype wrapper
+-- and use that add additional metadata at encoding time rather than
+-- complicating the parsing
+
+-- List Item needs to be treated specially,
+-- Tag and TagDescription are actually the same
+
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
     hs <- hoistEither $ EDE.eitherRender o t
@@ -109,10 +124,8 @@ render p t o = do
     scriptIO . LText.writeFile p $ LText.toLazyText hs
 
 types :: Model -> [Shape]
-types = List.nubBy cmp . concatMap shapes . mOperations
+types = concatMap shapes . mOperations
   where
-    a `cmp` b = sShapeName a == sShapeName b
-
     shapes Operation{..} = concatMap flatten
          $ oErrors
         ++ maybeToList oInput
@@ -121,7 +134,33 @@ types = List.nubBy cmp . concatMap shapes . mOperations
     flatten SStruct {..} = concatMap flatten $ Map.elems sFields
     flatten SList   {..} = [sItem]
     flatten SMap    {..} = [sKey, sValue]
-    flatten s            = [s]
+    flatten p@SPrim {..} = [p]
+
+-- replace :: [Shape] -> [Shape]
+-- replace xs =
+--   where
+--     a `cmp` b = sShapeName a == sShapeName b
+
+-- replace :: Shape -> Shape
+-- replace s@SStruct {..} = s { sFields = Map.map replace sFields }
+-- replace s@SList   {..} = s
+--     { sShapeName = Just $ Text.concat ["[", shapeName item, "]"]
+--     , sItem      = item
+--     }
+--   where
+--     item = replace sItem
+-- replace s@SMap    {..} = s { sKey = replace sKey, sValue = replace sValue }
+-- replace s@SPrim   {..} = s -- { sShapeName = Just name }
+  -- where
+  --   name = case (sType, shapeName s) of
+  --       (PString, "AvailabilityZone") -> "AvailabilityZone"
+
+  --       (PString,    _) -> "Text"
+  --       (PInteger,   _) -> "Int"
+  --       (PBoolean,   _) -> "Bool"
+  --       (PBlob,      _) -> "ByteString"
+  --       (PTimestamp, _) -> "UTCTime"
+  --       (PLong,      _) -> "Integer"
 
 data Templates = Templates
     { tInterface         :: Template

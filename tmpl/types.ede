@@ -17,4 +17,56 @@
 
 module Network.AWS.{{ module }}.Types where
 
+import Data.ByteString      (ByteString)
+import Data.Monoid
+import Data.Text            (Text)
+import Data.Time
+import GHC.Generics
+import Network.AWS.Internal
 import Network.AWS.{{ module }}.Service
+
+{% for shape in types %}
+  {% for line in shape.value.documentation %}
+    {% if line.first %}
+      {% if line.value == "" %}
+-- | FIXME: Type documentation for {{ shape.value.shape_name }}
+      {% else %}
+-- | {{ line.value }}
+      {% endif %}
+    {% else %}
+-- {{ line.value }}
+    {% endif %}
+  {% endfor %}
+  {% case shape.value.type %}
+  {% when "struct" %}
+    {% for field in shape.value.fields %}
+      {% if field.first %}
+        {% if field.length == 1 %}
+newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
+        {% else %}
+data {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
+        {% endif %}
+    { {{ field.key | lowerFirst }} :: {{ field.value.shape_name }}
+      {% else %}
+    , {{ field.key | lowerFirst }} :: {{ field.value.shape_name }}
+      {% endif %}
+      {% for line in field.value.documentation %}
+        {% if line.value == "" %}
+      -- ^ FIXME: Type documentation for {{ field.value.shape_name }}
+        {% else %}
+          {% if line.first %}
+      -- ^ {{ line.value }}
+          {% else %}
+      -- {{ line.value }}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    } deriving (Eq, Show, Generic)
+  {% else %}
+newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }} {{ shape.value.type }}
+  {% endcase %}
+  {% if !shape.last %}
+
+  {% endif %}
+{% endfor %}
