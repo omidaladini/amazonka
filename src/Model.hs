@@ -170,6 +170,8 @@ data Shape
 
     | SList
       { sItem          :: !Shape
+      , sFlattened     :: !Bool
+      , sLength        :: !Int
 
       , sShapeName     :: Maybe Text
       , sRequired      :: !Bool
@@ -219,9 +221,19 @@ instance FromJSON Shape where
         <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "xmlname"
       where
-        f Structure = SStruct <$> o .: "members" <*> o .:? "member_order"
-        f List      = SList   <$> o .: "members"
-        f Map       = SMap    <$> o .: "keys" <*> o .: "members"
+        f Structure = SStruct
+            <$> o .: "members"
+            <*> o .:? "member_order"
+
+        f List = SList
+            <$> o .:  "members"
+            <*> o .:? "flattened"  .!= False
+            <*> o .:? "min_length" .!= 0
+
+        f Map = SMap
+            <$> o .: "keys"
+            <*> o .: "members"
+
         f String    = prim PString
         f Integer   = prim PInteger
         f Boolean   = prim PBoolean

@@ -53,6 +53,9 @@ data {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
       {% for line in field.value.documentation %}
         {% if line.value == "" %}
       -- ^ FIXME: Type documentation for {{ field.value.shape_name }}
+
+ {% include something %}
+
         {% else %}
           {% if line.first %}
       -- ^ {{ line.value }}

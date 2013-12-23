@@ -34,7 +34,7 @@ executable amazonka-types
       , base                  >= 4.6 && < 5
       , bytestring
       , directory
-      , ed-e
+      , ede
       , errors                >= 1.4.4
       , text
       , unordered-containers

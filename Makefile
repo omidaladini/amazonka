@@ -1,7 +1,7 @@
 SHELL := /usr/bin/env bash
 FLAGS := -j --disable-documentation --disable-library-coverage
 BIN   := dist/build/amazonka-types/amazonka-types
-DEPS  := vendor/ed-e vendor/botocore
+DEPS  := vendor/ede vendor/botocore
 
 .PHONY: test lint doc
 
@@ -27,7 +27,7 @@ doc:
 	cabal haddock
 
 add-sources: cabal.sandbox.config $(DEPS)
-	cabal sandbox add-source vendor/ed-e
+	cabal sandbox add-source vendor/ede
 
 cabal.sandbox.config:
 	cabal sandbox init
