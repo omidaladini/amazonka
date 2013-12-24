@@ -1,0 +1,1 @@
+newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }} {{ shape.value.type }}

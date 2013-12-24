@@ -119,9 +119,9 @@ model dir Templates{..} m@Model{..} = do
 
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
-    hs <- hoistEither $ EDE.eitherRender o t
+    hs <- hoistEither $ EDE.eitherRender t o
     msg $ "Writing " ++ p
-    scriptIO . LText.writeFile p $ LText.toLazyText hs
+    scriptIO $ LText.writeFile p hs
 
 types :: Model -> [Shape]
 types = concatMap shapes . mOperations
@@ -189,9 +189,8 @@ templates = title "Listing tmpl" *>
         <*> load "tmpl/operation-json.ede"
         <*> load "tmpl/operation-query.ede")
   where
-    load p = do
-        msg $ "Parsing " ++ p
-        scriptIO (LText.readFile p) >>= hoistEither . EDE.eitherParse
+    load p = msg ("Parsing " ++ p) *>
+        scriptIO (EDE.eitherParseFile p) >>= hoistEither
 
 models :: Script [FilePath]
 models = do

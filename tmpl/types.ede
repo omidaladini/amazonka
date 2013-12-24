@@ -6,14 +6,7 @@
 {% endraw %}
 
 -- Module      : Network.AWS.{{ module }}.Types
--- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
--- License     : This Source Code Form is subject to the terms of
---               the Mozilla Public License, v. 2.0.
---               A copy of the MPL can be found in the LICENSE file or
---               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
--- Stability   : experimental
--- Portability : non-portable (GHC extensions)
+{% include "_includes/license.ede" %}
 
 module Network.AWS.{{ module }}.Types where
 
@@ -39,35 +32,13 @@ import Network.AWS.{{ module }}.Service
   {% endfor %}
   {% case shape.value.type %}
   {% when "struct" %}
-    {% for field in shape.value.fields %}
-      {% if field.first %}
-        {% if field.length == 1 %}
-newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
-        {% else %}
-data {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
-        {% endif %}
-    { {{ field.key | lowerFirst }} :: {{ field.value.shape_name }}
-      {% else %}
-    , {{ field.key | lowerFirst }} :: {{ field.value.shape_name }}
-      {% endif %}
-      {% for line in field.value.documentation %}
-        {% if line.value == "" %}
-      -- ^ FIXME: Type documentation for {{ field.value.shape_name }}
-
- {% include something %}
-
-        {% else %}
-          {% if line.first %}
-      -- ^ {{ line.value }}
-          {% else %}
-      -- {{ line.value }}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-    } deriving (Eq, Show, Generic)
+    {% if shape.value.fields | mapLength == 1 %}
+      {% include "_includes/newtype.ede" with shape %}
+    {% else %}
+      {% include "_includes/record.ede" with shape %}
+    {% endif %}
   {% else %}
-newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }} {{ shape.value.type }}
+    {% include "_includes/newtype.ede" with shape %}
   {% endcase %}
   {% if !shape.last %}
 

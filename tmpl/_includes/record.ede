@@ -1,0 +1,24 @@
+{% for field in shape.value.fields %}
+  {% if field.first %}
+    {% if field.length == 1 %}
+newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
+        {% else %}
+data {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
+        {% endif %}
+    { {{ field.key | lowerFirst }} :: {{ field.value.shape_name }}
+      {% else %}
+    , {{ field.key | lowerFirst }} :: {{ field.value.shape_name }}
+      {% endif %}
+      {% for line in field.value.documentation %}
+        {% if line.value == "" %}
+      -- ^ FIXME: Type documentation for {{ field.value.shape_name }}
+        {% else %}
+          {% if line.first %}
+      -- ^ {{ line.value }}
+          {% else %}
+      -- {{ line.value }}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    } deriving (Eq, Show, Generic)
