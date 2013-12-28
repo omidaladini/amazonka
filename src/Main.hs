@@ -45,8 +45,7 @@ main = getArgs >>= parse
 
             forM_ ms $ \p -> do
                 title $ "Parsing " ++ p
-                m <- loadModel p
-                model "gen" ts m
+                loadModel p >>= model "gen" ts
 
             title $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
@@ -104,19 +103,6 @@ model dir Templates{..} m@Model{..} = do
         let Object o' = toJSON o
         render p t $ mJSON <> o'
 
--- Create a more specific/informative 'type' datatype
--- - Create a global 'types' environment, filter on this before rendering types
--- - Differentiate between prim and newtypes
--- - Differentiate between prim and enums/nullary sums
--- - Discard Xml types and replace with Texts for simplicities' sake
-
--- Don't use toJSON of Shape, instead create a newtype wrapper
--- and use that add additional metadata at encoding time rather than
--- complicating the parsing
-
--- List Item needs to be treated specially,
--- Tag and TagDescription are actually the same
-
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
     hs <- hoistEither $ EDE.eitherRender t o
@@ -124,8 +110,14 @@ render p t o = do
     scriptIO $ LText.writeFile p hs
 
 types :: Model -> [Shape]
-types = concatMap shapes . mOperations
+types = map replace
+    . List.sort
+    . List.nubBy cmp
+    . concatMap shapes
+    . mOperations
   where
+    a `cmp` b = sShapeName a == sShapeName b
+
     shapes Operation{..} = concatMap flatten
          $ oErrors
         ++ maybeToList oInput
@@ -134,33 +126,19 @@ types = concatMap shapes . mOperations
     flatten SStruct {..} = concatMap flatten $ Map.elems sFields
     flatten SList   {..} = [sItem]
     flatten SMap    {..} = [sKey, sValue]
-    flatten p@SPrim {..} = [p]
+    flatten p@SPrim {..} = []
 
--- replace :: [Shape] -> [Shape]
--- replace xs =
---   where
---     a `cmp` b = sShapeName a == sShapeName b
+    replace s@SStruct {..} = s { sFields = Map.map replace sFields }
+    replace l@SList   {..} = l { sItem = replace sItem }
+    replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
+    replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
 
--- replace :: Shape -> Shape
--- replace s@SStruct {..} = s { sFields = Map.map replace sFields }
--- replace s@SList   {..} = s
---     { sShapeName = Just $ Text.concat ["[", shapeName item, "]"]
---     , sItem      = item
---     }
---   where
---     item = replace sItem
--- replace s@SMap    {..} = s { sKey = replace sKey, sValue = replace sValue }
--- replace s@SPrim   {..} = s -- { sShapeName = Just name }
-  -- where
-  --   name = case (sType, shapeName s) of
-  --       (PString, "AvailabilityZone") -> "AvailabilityZone"
-
-  --       (PString,    _) -> "Text"
-  --       (PInteger,   _) -> "Int"
-  --       (PBoolean,   _) -> "Bool"
-  --       (PBlob,      _) -> "ByteString"
-  --       (PTimestamp, _) -> "UTCTime"
-  --       (PLong,      _) -> "Integer"
+    name PString    = "Text"
+    name PInteger   = "Int"
+    name PBoolean   = "Bool"
+    name PBlob      = "ByteString"
+    name PTimestamp = "UTCTime"
+    name PLong      = "Integer"
 
 data Templates = Templates
     { tInterface         :: Template
@@ -193,7 +171,7 @@ templates = title "Listing tmpl" *>
         scriptIO (EDE.eitherParseFile p) >>= hoistEither
 
 models :: Script [FilePath]
-models = do
+models = fmap (take 1) $ do
     title $ "Listing " ++ dir
     xs <- scriptIO $ getDirectoryContents dir
     return . map (dir </>) $ filter f xs
