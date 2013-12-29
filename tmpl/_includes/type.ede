@@ -1,8 +1,16 @@
-{% if field.value.required %}
- !{{ field.value.shape_name }}
+{% case field.value.type %}
+{% when "map" %}
+  HashMap {{ field.value.key.shape_name }} {{ field.value.value.shape_name }}
+{% when "list" %}
+  {% if field.value.length > 0 %}
+  NonEmpty {{ field.value.item.shape_name }}
+  {% else %}
+  [{{ field.value.item.shape_name }}]
+  {% endif %}
 {% else %}
+  {% if field.value.required %}
+ !{{ field.value.shape_name }}
+  {% else %}
  Maybe {{ field.value.shape_name }}
-{% endif %}
-
-TODO:
-case analysis on the type, check if it's a list
+  {% endif %}
+{% endcase %}

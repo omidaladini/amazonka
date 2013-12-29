@@ -110,12 +110,16 @@ render p t o = do
     scriptIO $ LText.writeFile p hs
 
 types :: Model -> [Shape]
-types = map replace
+types = filter (except . sShapeName)
+    . map replace
     . List.sort
     . List.nubBy cmp
     . concatMap shapes
     . mOperations
   where
+    except (Just "Text") = False
+    except _             = True
+
     a `cmp` b = sShapeName a == sShapeName b
 
     shapes Operation{..} = concatMap flatten
@@ -124,8 +128,8 @@ types = map replace
         ++ maybeToList oOutput
 
     flatten SStruct {..} = concatMap flatten $ Map.elems sFields
-    flatten SList   {..} = [sItem]
-    flatten SMap    {..} = [sKey, sValue]
+    flatten SList   {..} = sItem : flatten sItem
+    flatten SMap    {..} = flatten sKey ++ flatten sValue
     flatten p@SPrim {..} = []
 
     replace s@SStruct {..} = s { sFields = Map.map replace sFields }
