@@ -1,0 +1,18 @@
+{% for field in scope %}
+  {% if field.first %}
+    { {{ field.key | lowerFirst }} :: {% include "type.ede" with field.value %}
+  {% else %}
+    , {{ field.key | lowerFirst }} :: {% include "type.ede" with field.value %}
+  {% endif %}
+  {% for line in field.value.documentation %}
+    {% if line.value == "" %}
+      -- ^ FIXME: Missing documentation
+    {% else %}
+      {% if line.first %}
+      -- ^ {{ line.value }}
+      {% else %}
+      -- {{ line.value }}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}

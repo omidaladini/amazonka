@@ -78,18 +78,19 @@ instance FromJSON Model where
 
 instance ToJSON Model where
     toJSON Model{..} = object
-        [ "api_version"          .= mApiVersion
-        , "type"                 .= mType
-        , "result_wrapped"       .= mResultWrapped
-        , "signature_version"    .= mSignatureVersion
-        , "service_abbreviation" .= mName
-        , "service_full_name"    .= mServiceFullName
-        , "endpoint_prefix"      .= mEndpointPrefix
-        , "global_endpoint"      .= mGlobalEndpoint
-        , "xmlnamespace"         .= mXmlNamespace
-        , "timestamp_format"     .= mTimestamp
-        , "checksum_format"      .= mChecksum
-        , "documentation"        .= mDocumentation
+        [ "api_version"           .= mApiVersion
+        , "type"                  .= mType
+        , "result_wrapped"        .= mResultWrapped
+        , "signature_version"     .= mSignatureVersion
+        , "service_abbreviation"  .= mName
+        , "service_full_name"     .= mServiceFullName
+        , "endpoint_prefix"       .= mEndpointPrefix
+        , "global_endpoint"       .= mGlobalEndpoint
+        , "xmlnamespace"          .= mXmlNamespace
+        , "timestamp_format"      .= mTimestamp
+        , "checksum_format"       .= mChecksum
+        , "service_documentation" .= mDocumentation
+        , "operations"            .= map oName mOperations
         ]
 
 data ServiceType = RestXml | RestJson | Json | Query
@@ -124,7 +125,7 @@ data Operation = Operation
     , oOutput           :: Maybe Shape
     , oErrors           :: [Shape]
     , oPagination       :: Maybe Pagination
-    } deriving (Show)
+    } deriving (Show, Generic)
 
 instance FromJSON Operation where
     parseJSON (Object o) = Operation
@@ -142,12 +143,7 @@ instance FromJSON Operation where
         fail "Unable to parse Operation."
 
 instance ToJSON Operation where
-    toJSON Operation{..} = object
-        [ "name"              .= oName
-        , "alias"             .= oAlias
-        , "documentation"     .= oDocumentation
-        , "documentation_url" .= oDocumentationUrl
-        ]
+    toJSON = genericToJSON options
 
 data HTTP = HTTP
     { hMethod :: !Text
@@ -156,6 +152,9 @@ data HTTP = HTTP
 
 instance FromJSON HTTP where
     parseJSON = genericParseJSON options
+
+instance ToJSON HTTP where
+    toJSON = genericToJSON options
 
 data Shape
     = SStruct
@@ -294,6 +293,9 @@ data Pagination = Pagination
 
 instance FromJSON Pagination where
     parseJSON = genericParseJSON options
+
+instance ToJSON Pagination where
+    toJSON = genericToJSON options
 
 options :: Options
 options = defaultOptions

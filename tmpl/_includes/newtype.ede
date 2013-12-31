@@ -1,1 +1,20 @@
-newtype {{ shape.value.shape_name }} = {{ shape.value.shape_name }} {{ shape.value.type }}
+newtype {{ scope.shape_name }} = {{ scope.shape_name }}
+{% if scope.fields %}
+{% for field in scope.fields %}
+  {% if field.first %}
+    { un{{ scope.shape_name | upperFirst }} :: {{ field.value.shape_name }}
+  {% endif %}
+  {% for line in field.value.documentation %}
+    {% if line.value == "" %}
+      -- ^ FIXME: Type documentation for {{ field.value.shape_name }}
+    {% else %}
+      {% if line.first %}
+      -- ^ {{ line.value }}
+      {% else %}
+      -- {{ line.value }}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+{% endif %}
+    } deriving (Eq, Show, Generic)

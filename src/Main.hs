@@ -100,7 +100,10 @@ model dir Templates{..} m@Model{..} = do
         render p t mJSON
 
     renderOperation p o@Operation{..} t = do
-        let Object o' = toJSON o
+        let Object o' = toJSON $ o
+                            { oInput  = replace <$> oInput
+                            , oOutput = replace <$> oOutput
+                            }
         render p t $ mJSON <> o'
 
 render :: FilePath -> Template -> Object -> Script ()
@@ -127,16 +130,16 @@ types = filter (except . sShapeName)
         ++ maybeToList oInput
         ++ maybeToList oOutput
 
-    flatten SStruct {..} = concatMap flatten $ Map.elems sFields
-    flatten SList   {..} = sItem : flatten sItem
-    flatten SMap    {..} = flatten sKey ++ flatten sValue
-    flatten p@SPrim {..} = []
+flatten SStruct {..} = concatMap flatten $ Map.elems sFields
+flatten l@SList {..} = [sItem]
+flatten SMap    {..} = flatten sKey ++ flatten sValue
+flatten p@SPrim {..} = []
 
-    replace s@SStruct {..} = s { sFields = Map.map replace sFields }
-    replace l@SList   {..} = l { sItem = replace sItem }
-    replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
-    replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
-
+replace s@SStruct {..} = s { sFields = Map.map replace sFields }
+replace l@SList   {..} = l { sItem = replace sItem }
+replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
+replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
+  where
     name PString    = "Text"
     name PInteger   = "Int"
     name PBoolean   = "Bool"

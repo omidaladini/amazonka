@@ -6,7 +6,7 @@
 {% endraw %}
 
 -- Module      : Network.AWS.{{ module }}.Types
-{% include "_includes/license.ede" %}
+{% include "_includes/header.ede" %}
 
 module Network.AWS.{{ module }}.Types where
 
@@ -33,12 +33,12 @@ import Network.AWS.{{ module }}.Service
   {% case shape.value.type %}
   {% when "struct" %}
     {% if shape.value.fields | mapLength == 1 %}
-      {% include "_includes/newtype.ede" with shape %}
+      {% include "_includes/newtype.ede" with shape.value %}
     {% else %}
-      {% include "_includes/record.ede" with shape %}
+      {% include "_includes/record.ede" with shape.value %}
     {% endif %}
   {% else %}
-    {% include "_includes/newtype.ede" with shape %}
+    {% include "_includes/newtype.ede" with shape.value %}
   {% endcase %}
   {% if !shape.last %}
 

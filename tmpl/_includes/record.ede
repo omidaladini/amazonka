@@ -1,20 +1,3 @@
-data {{ shape.value.shape_name }} = {{ shape.value.shape_name }}
-{% for field in shape.value.fields %}
-  {% if field.first %}
-    { {{ field.key | lowerFirst }} :: {% include "type.ede" with field %}
-  {% else %}
-    , {{ field.key | lowerFirst }} :: {% include "type.ede" with field %}
-  {% endif %}
-  {% for line in field.value.documentation %}
-    {% if line.value == "" %}
-      -- ^ FIXME: Type documentation for {{ field.value.shape_name }}
-    {% else %}
-      {% if line.first %}
-      -- ^ {{ line.value }}
-      {% else %}
-      -- {{ line.value }}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endfor %}
+data {{ scope.shape_name }} = {{ scope.shape_name }}
+{% include "fields.ede" with scope.fields %}
     } deriving (Eq, Show, Generic)

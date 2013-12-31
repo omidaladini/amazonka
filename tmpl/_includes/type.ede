@@ -1,16 +1,16 @@
-{% case field.value.type %}
+{% case scope.type %}
 {% when "map" %}
-  HashMap {{ field.value.key.shape_name }} {{ field.value.value.shape_name }}
+ HashMap {{ scope.key.shape_name }} {{ scope.value.shape_name }}
 {% when "list" %}
-  {% if field.value.length > 0 %}
-  NonEmpty {{ field.value.item.shape_name }}
+  {% if scope.length > 0 %}
+ NonEmpty {{ scope.item.shape_name }}
   {% else %}
-  [{{ field.value.item.shape_name }}]
+ [{{ scope.item.shape_name }}]
   {% endif %}
 {% else %}
-  {% if field.value.required %}
- !{{ field.value.shape_name }}
+  {% if scope.required %}
+ !{{ scope.shape_name }}
   {% else %}
- Maybe {{ field.value.shape_name }}
+ Maybe {{ scope.shape_name }}
   {% endif %}
 {% endcase %}
