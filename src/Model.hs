@@ -119,7 +119,7 @@ data Operation = Operation
     { oName             :: !Text
     , oAlias            :: Maybe Text
     , oDocumentation    :: [Text]
-    , oDocumentationUrl :: !Text
+    , oDocumentationUrl :: Maybe Text
     , oHttp             :: Maybe HTTP
     , oInput            :: Maybe Shape
     , oOutput           :: Maybe Shape
@@ -132,7 +132,7 @@ instance FromJSON Operation where
         <$> o .:  "name"
         <*> o .:? "alias"
         <*> fmap normalise (o .:? "documentation" .!= "")
-        <*> o .:? "documentation_url" .!= ""
+        <*> o .:? "documentation_url"
         <*> o .:? "http"
         <*> o .:? "input"
         <*> o .:? "output"
@@ -235,10 +235,12 @@ instance FromJSON Shape where
 
         f String    = prim PString
         f Integer   = prim PInteger
+        f Long      = prim PLong
+        f Double    = prim PDouble
+        f Float     = prim PDouble
         f Boolean   = prim PBoolean
         f Blob      = prim PBlob
         f Timestamp = prim PTimestamp
-        f Long      = prim PLong
 
         prim t = SPrim t
             <$> o .:? "location"
@@ -261,6 +263,8 @@ data Type
     | Map
     | String
     | Integer
+    | Double
+    | Float
     | Boolean
     | Blob
     | Timestamp
@@ -273,6 +277,7 @@ instance FromJSON Type where
 data Prim
     = PString
     | PInteger
+    | PDouble
     | PBoolean
     | PBlob
     | PTimestamp

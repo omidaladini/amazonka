@@ -23,12 +23,13 @@ data {{ name }} = {{ name }}
 instance IsQuery {{ name }}
 
 instance Rq {{ name }} where
-    type Er {{ name }} = 
+    type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = query
+    request = {{ signature_version }}Query {{ service_abbreviation | lowerFirst }} GET "{{ name }}"
 
-{% if pagination %}
-instance Pg {{ name }}
+{% if pagination.input_token %}
+instance Pg {{ name }} where
+    next rq = fmap (\x -> rq { {{ pagination.input_token | lowerFirst }} = x }) . {{ pagination.output_token | lowerFirst }}
 
 {% endif %}
 data {{ name }}Response = {{ name }}Response
@@ -38,4 +39,4 @@ data {{ name }}Response = {{ name }}Response
 {% endif %}
 
 instance IsXML {{ name }}Response where
-    xmlPickler = withNS 
+    xmlPickler = withNS {{ service_abbreviation | lowerFirst }}NS

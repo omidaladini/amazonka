@@ -142,6 +142,7 @@ replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
   where
     name PString    = "Text"
     name PInteger   = "Int"
+    name PDouble    = "Double"
     name PBoolean   = "Bool"
     name PBlob      = "ByteString"
     name PTimestamp = "UTCTime"
