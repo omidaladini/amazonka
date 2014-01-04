@@ -20,3 +20,23 @@ module Network.AWS.{{ module }}.Service where
 -- | Currently supported version ({{ api_version }}) of the @{{ service_full_name }}@ service.
 {{ endpoint_prefix }} :: Service
 {{ endpoint_prefix }} = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+
+data {{ module }}Error
+{% for err in errors %}
+{% if err.first %}
+    = {{ err.value.shape_name }}
+{% else %}
+    | {{ err.value.shape_name }}
+{% endif %}
+{% endfor %}
+      deriving (Eq, Show, Generic)
+
+data {{ module }}Policy
+{% for pol in policies %}
+{% if pol.first %}
+    = {{ pol.value.name }} "{{ pol.value.service_error_code }}" {{ pol.value.http_status_code }}
+{% else %}
+    | {{ pol.value.name }} "{{ pol.value.service_error_code }}" {{ pol.value.http_status_code }}
+{% endif %}
+{% endfor %}
+      deriving (Eq, Show, Generic)

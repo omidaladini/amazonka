@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TupleSections     #-}
@@ -48,6 +49,7 @@ data Model = Model
     , mChecksum         :: Maybe Text
     , mDocumentation    :: [Text]
     , mOperations       :: [Operation]
+    , mPolicies         :: [Policy]
     } deriving (Show, Generic)
 
 instance FromJSON Model where
@@ -72,6 +74,7 @@ instance FromJSON Model where
               <*> o .:? "checksum_format"
               <*> fmap normalise (o .:? "documentation" .!= "")
               <*> parseJSON ops
+              <*> ((o .: "retry") >>= (.: "__default__") >>= (.: "policies"))
 
     parseJSON _ =
         fail "Unable to parse Model."
@@ -91,7 +94,34 @@ instance ToJSON Model where
         , "checksum_format"       .= mChecksum
         , "service_documentation" .= mDocumentation
         , "operations"            .= map oName mOperations
+        , "policies"              .= mPolicies
         ]
+
+data Policy = Policy
+    { pName             :: !Text
+    , pServiceErrorCode :: Maybe Text
+    , pHttpStatusCode   :: Maybe Int
+    } deriving (Show, Generic)
+
+instance FromJSON [Policy] where
+    parseJSON (Object o) = fmap catMaybes . mapM f $ Map.toList o
+      where
+        f (k, Object v) = do
+            mr <- v .: "applies_when" >>= (.:? "response")
+            maybe (return Nothing) (fmap Just . g k) mr
+
+        f (k, _) =
+            fail $ "Unable to parse Policy from " ++ Text.unpack k
+
+        g k v = Policy (pascalize k)
+            <$> v .:? "service_error_code"
+            <*> v .:  "http_status_code"
+
+    parseJSON _ =
+        fail "Unable to parse Policy."
+
+instance ToJSON Policy where
+    toJSON = genericToJSON options
 
 data ServiceType = RestXml | RestJson | Json | Query
     deriving (Show, Generic)

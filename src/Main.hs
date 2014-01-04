@@ -90,13 +90,13 @@ model dir Templates{..} m@Model{..} = do
         , "types"  .= types m
         ]
 
-    renderInterface p t = do
+    renderInterface p t =
         render p t mJSON
 
-    renderService p t = do
-        render p t mJSON
+    renderService p t =
+        render p t $ mJSON <> EDE.fromPairs ["errors" .= errors m]
 
-    renderTypes p t = do
+    renderTypes p t =
         render p t mJSON
 
     renderOperation p o@Operation{..} t = do
@@ -111,6 +111,15 @@ render p t o = do
     hs <- hoistEither $ EDE.eitherRender t o
     msg $ "Writing " ++ p
     scriptIO $ LText.writeFile p hs
+
+errors :: Model -> [Shape]
+errors = map replace
+    . List.sort
+    . List.nubBy cmp
+    . concatMap oErrors
+    . mOperations
+  where
+    a `cmp` b = sShapeName a == sShapeName b
 
 types :: Model -> [Shape]
 types = filter (except . sShapeName)

@@ -25,7 +25,7 @@ instance IsQuery {{ name }}
 instance Rq {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ signature_version }}Query {{ service_abbreviation | lowerFirst }} GET "{{ name }}"
+    request = {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
 
 {% if pagination.input_token %}
 instance Pg {{ name }} where
@@ -39,4 +39,4 @@ data {{ name }}Response = {{ name }}Response
 {% endif %}
 
 instance IsXML {{ name }}Response where
-    xmlPickler = withNS {{ service_abbreviation | lowerFirst }}NS
+    xmlPickler = withNS {{ endpoint_prefix | lowerFirst }}NS

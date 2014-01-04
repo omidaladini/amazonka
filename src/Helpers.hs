@@ -68,3 +68,40 @@ stripTags t
         case Text.head t of
             '<' -> stripTags . Text.drop 1 . Text.dropWhile (/= '>') $ Text.tail t
             _   -> Text.cons (Text.head t) . stripTags $ Text.tail t
+
+pascalize :: Text -> Text
+pascalize = Text.concat . split . Text.toTitle
+
+camelize :: Text -> Text
+camelize = lowerFirst . pascalize
+
+underscore :: Text -> Text
+underscore = Text.intercalate (Text.singleton '_') . split
+
+hyphenate :: Text -> Text
+hyphenate = Text.intercalate (Text.singleton '-') . split
+
+split :: Text -> [Text]
+split = filter (/= "") . Text.split f
+  where
+    f ' '  = True
+    f '\n' = True
+    f '_'  = True
+    f '-'  = True
+    f  _   = False
+
+lowerFirst :: Text -> Text
+lowerFirst t
+    | Text.null t = t
+    | isUpper h   = toLower h `Text.cons` Text.tail t
+    | otherwise   = t
+  where
+    h = Text.head t
+
+upperFirst :: Text -> Text
+upperFirst t
+    | Text.null t = t
+    | isLower h   = toUpper h `Text.cons` Text.tail t
+    | otherwise   = t
+  where
+    h = Text.head t
