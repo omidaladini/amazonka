@@ -136,12 +136,12 @@ instance (GToXML f, GToXML g) => GToXML (f :*: g) where
     gToXML o (x :*: y) = gToXML o x ++ gToXML o y
 
 instance ToXML a => GToXML (K1 R a) where
-    gToXML o f
-        | Nothing <- namespace o' = toXML o  x
-        | otherwise               = toXML o' x
+    gToXML o f =
+        | Nothing <- namespace p = toXML o x
+        | otherwise              = toXML p x
       where
-        o' = toOptions x
-        x  = unK1 f
+        p = toOptions x
+         x = unK1 f
 
 instance GToXML f => GToXML (D1 c f) where
     gToXML o = gToXML o . unM1
@@ -150,24 +150,8 @@ instance GToXML f => GToXML (C1 c f) where
     gToXML o = gToXML o . unM1
 
 instance (Selector c, GToXML f) => GToXML (S1 c f) where
-    gToXML o f =
-        [NodeElement . Element n mempty $ gToXML o x]
+    gToXML o f = [NodeElement . Element n mempty . gToXML o $ unM1 f]
       where
-        x = unM1 f
-        n = Name l (namespace o) Nothing
-        l = fieldMod o $ selName (undefined :: S1 c a p)
-
--- selName (undefined :: S1 c f p)
--- conName (undefined :: C1 c f p)
--- conIsRecord
--- conName
-
--- = M1
---     D
---     Text.XML.Generic.D1Foo
---     (M1
---        C
---        Text.XML.Generic.C1_0Foo
---        (M1 S Text.XML.Generic.S1_0_0Foo (K1 R Int)
---         :*: (M1 S Text.XML.Generic.S1_0_1Foo (K1 R [Text])
---              :*: M1 S Text.XML.Generic.S1_0_2Foo (K1 R Text))))
+        n = Name (fieldMod o $ selName (undefined :: S1 c a p))
+            (namespace o)
+            Nothing
