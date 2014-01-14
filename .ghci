@@ -1,0 +1,21 @@
+:set -XDeriveGeneric
+
+
+import Network.HTTP.QueryString.Pickle
+import GHC.Generics
+
+
+data Foo = Foo { fooIntX :: Int, fooIntY :: Int } deriving (Generic)
+
+instance IsQuery Foo
+
+
+
+:kind! Rep E
+
+Note to future self .. don't forget this ^^'
+
+
+C Generation:
+ atom
+ copilot

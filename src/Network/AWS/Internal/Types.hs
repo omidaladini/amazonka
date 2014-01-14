@@ -44,7 +44,7 @@ import           Network.HTTP.QueryString.Pickle
 import           Network.HTTP.Types
 import qualified Text.ParserCombinators.ReadP    as ReadP
 import qualified Text.Read                       as Read
-import           Text.XML.Expat.Pickle.Generic
+import           Text.XML.Generic
 
 class Rq a where
     type Er a

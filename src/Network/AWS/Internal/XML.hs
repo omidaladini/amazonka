@@ -25,7 +25,7 @@ module Network.AWS.Internal.XML
 import           Data.ByteString               (ByteString)
 import           Data.Text                     (Text)
 import qualified Data.Text.Encoding            as Text
-import           Text.XML.Expat.Pickle.Generic
+import           Text.XML.Generic
 
 withNS :: ByteString -> XMLGeneric a
 withNS ns = withNS' ns $ xmlOptions ns

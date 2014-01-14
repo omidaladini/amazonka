@@ -24,4 +24,4 @@ import Network.AWS.Internal.Time       as Internal
 import Network.AWS.Internal.Types      as Internal
 import Network.AWS.Internal.XML        as Internal
 import Network.HTTP.QueryString.Pickle as Internal
-import Text.XML.Expat.Pickle.Generic   as Internal
+import Text.XML.Generic                as Internal

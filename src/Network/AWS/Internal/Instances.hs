@@ -24,7 +24,7 @@ import           Data.Time
 import           Network.AWS.Internal.Time
 import           Network.AWS.Internal.Types
 import           Network.HTTP.QueryString.Pickle
-import           Text.XML.Expat.Pickle.Generic
+import           Text.XML.Generic
 
 instance IsQuery a => IsQuery [a] where
     queryPickler = qpOrdinalList queryPickler

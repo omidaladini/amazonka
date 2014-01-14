@@ -18,7 +18,7 @@ import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
 import Network.HTTP.QueryString.Pickle
 import Network.HTTP.Types              hiding (toQuery)
-import Text.XML.Expat.Pickle.Generic
+import Text.XML.Generic
 
 query :: IsQuery a => Service -> StdMethod -> ByteString -> a -> Raw
 query s@Service{..} m p x = Raw s m p (toQuery x) [] (RequestBodyBS "")
