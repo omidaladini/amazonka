@@ -36,7 +36,10 @@ data Bar = Bar
     { barText :: Text
     } deriving (Show, Generic)
 
-instance ToXML Bar
+instance ToXML Bar where
+    toXMLOptions = const $ def
+        { namespace = Just "else"
+        }
 
 data Foo = Foo
     { fooInt  :: Int
@@ -45,12 +48,13 @@ data Foo = Foo
     , bar     :: Bar
     } deriving (Show, Generic)
 
+instance XMLRoot Foo where
+    rootName _ _ = "NotFoo"
+
 instance ToXML Foo where
-    toOptions = const $ def
+    toXMLOptions = const $ def
         { namespace = Just "something"
         }
-
-instance ToXMLRoot Foo
 
 data XMLOptions = XMLOptions
     { namespace :: Maybe Text
@@ -67,36 +71,42 @@ instance Default XMLOptions where
         , fieldMod  = Text.pack
         }
 
-encode :: ToXMLRoot a => a -> LBS.ByteString
-encode x = renderLBS (def { rsPretty = True }) $ Document p e []
+encode :: (XMLRoot a, ToXML a) => a -> LBS.ByteString
+encode x = renderLBS (def { rsPretty = True }) $ Document
+    (Prologue [] Nothing [])
+    (Element (Name (rootName o x) (namespace o) Nothing) mempty $ toXML o x)
+    []
   where
-    p = Prologue [] Nothing []
-    e = Element n mempty $ toXML o x
-    n = Name (rootName x) (namespace o) Nothing
-    o = toOptions x
+    o = toXMLOptions x
 
-class ToXML a => ToXMLRoot a where
-    rootName :: a -> Text
+class XMLRoot a where
+    rootName :: XMLOptions -> a -> Text
 
-    default rootName :: (Generic a, GToXMLRoot (Rep a)) => a -> Text
-    rootName x = gRootName (toOptions x) (from x)
+    default rootName :: (Generic a, GXMLRoot (Rep a))
+                     => XMLOptions
+                     -> a
+                     -> Text
+    rootName o = gRootName o . from
 
-class GToXMLRoot f where
+class GXMLRoot f where
     gRootName :: XMLOptions -> f a -> Text
 
-instance GToXMLRoot f => GToXMLRoot (D1 c f) where
-    gRootName opts = gRootName opts . unM1
+instance GXMLRoot f => GXMLRoot (D1 c f) where
+    gRootName o = gRootName o . unM1
 
-instance Constructor c => GToXMLRoot (C1 c f) where
-    gRootName opts _ = ctorMod opts $ conName (undefined :: C1 c f p)
+instance Constructor c => GXMLRoot (C1 c f) where
+    gRootName o _ = ctorMod o $ conName (undefined :: C1 c f p)
 
 class ToXML a where
-    toOptions :: a -> XMLOptions
-    toXML     :: XMLOptions -> a -> [Node]
+    toXMLOptions :: a -> XMLOptions
+    toXML        :: XMLOptions -> a -> [Node]
 
-    toOptions = const def
+    toXMLOptions = const def
 
-    default toXML :: (Generic a, GToXML (Rep a)) => XMLOptions -> a -> [Node]
+    default toXML :: (Generic a, GToXML (Rep a))
+                  => XMLOptions
+                  -> a
+                  -> [Node]
     toXML o = gToXML o . from
 
 instance ToXML Text where
@@ -136,12 +146,12 @@ instance (GToXML f, GToXML g) => GToXML (f :*: g) where
     gToXML o (x :*: y) = gToXML o x ++ gToXML o y
 
 instance ToXML a => GToXML (K1 R a) where
-    gToXML o f =
+    gToXML o f
         | Nothing <- namespace p = toXML o x
         | otherwise              = toXML p x
       where
-        p = toOptions x
-         x = unK1 f
+        p = toXMLOptions x
+        x = unK1 f
 
 instance GToXML f => GToXML (D1 c f) where
     gToXML o = gToXML o . unM1
