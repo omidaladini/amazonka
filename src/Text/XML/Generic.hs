@@ -5,8 +5,6 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeOperators       #-}
 
-{-# LANGUAGE UndecidableInstances       #-}
-
 -- Module      : Text.XML.Generic
 -- Copyright   : (c) 2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
@@ -19,10 +17,13 @@
 
 module Text.XML.Generic where
 
+import           Control.Error
+import           Control.Monad
 import           Data.ByteString                  (ByteString)
 import           Data.ByteString.Lazy             as LBS
 import           Data.Default
 import           Data.Monoid
+import           Data.Tagged
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
 import qualified Data.Text.Lazy                   as LText
@@ -37,9 +38,11 @@ data Bar = Bar
     } deriving (Show, Generic)
 
 instance ToXML Bar where
-    toXMLOptions = const $ def
+    toXMLOptions = const def
         { namespace = Just "else"
         }
+
+instance FromXML Bar
 
 data Foo = Foo
     { fooInt  :: Int
@@ -52,7 +55,7 @@ instance XMLRoot Foo where
     rootName _ _ = "NotFoo"
 
 instance ToXML Foo where
-    toXMLOptions = const $ def
+    toXMLOptions = const def
         { namespace = Just "something"
         }
 
@@ -79,6 +82,11 @@ encode x = renderLBS (def { rsPretty = True }) $ Document
   where
     o = toXMLOptions x
 
+decode :: (XMLRoot a, FromXML a) => LBS.ByteString -> Either String a
+decode = undefined -- join . fmapR f . fmapL show . parseLBS
+  -- where
+  --   f = fromXML . elementNodes . documentRoot
+
 class XMLRoot a where
     rootName :: XMLOptions -> a -> Text
 
@@ -96,6 +104,39 @@ instance GXMLRoot f => GXMLRoot (D1 c f) where
 
 instance Constructor c => GXMLRoot (C1 c f) where
     gRootName o _ = ctorMod o $ conName (undefined :: C1 c f p)
+
+class FromXML a where
+    fromXMLOptions :: a -> XMLOptions
+    fromXML        :: XMLOptions -> [Node] -> a
+
+    fromXMLOptions = const def
+
+    default fromXML :: (Generic a, GFromXML (Rep a))
+                  => XMLOptions
+                  -> [Node]
+                  -> a
+    fromXML o = to . gFromXML o
+
+class GFromXML f where
+    gFromXML :: XMLOptions -> [Node] -> f a
+
+instance FromXML a => GFromXML (K1 R a) where
+    gFromXML o f = undefined
+
+instance GFromXML f => GFromXML (D1 c f) where
+    gFromXML o = M1 . gFromXML o
+
+instance GFromXML f => GFromXML (C1 c f) where
+    gFromXML o = M1 . gFromXML o
+
+instance (Selector c, GFromXML f) => GFromXML (S1 c f) where
+    gFromXML o f = undefined
+
+ -- [NodeElement . Element n mempty . gFromXML o $ unM1 f]
+ --      where
+ --        n = Name (fieldMod o $ selName (undefined :: S1 c a p))
+ --            (namespace o)
+ --            Nothing
 
 class ToXML a where
     toXMLOptions :: a -> XMLOptions

@@ -81,6 +81,7 @@ library
       , old-locale
       , querystring-pickle    >= 0.1.7
       , resourcet
+      , tagged
       , text                  >= 1.0
       , time
       , transformers
