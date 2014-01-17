@@ -20,6 +20,7 @@ module Text.XML.Generic where
 import           Control.Applicative
 import           Control.Error
 import           Control.Monad
+import qualified Data.Attoparsec.Text             as AText
 import           Data.ByteString                  (ByteString)
 import qualified Data.ByteString.Lazy             as LBS
 import           Data.Default
@@ -33,10 +34,6 @@ import qualified Data.Text.Lazy.Builder.Int       as LText
 import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           GHC.Generics
 import           Text.XML
-
--- FIXME:
--- lists
--- maybes
 
 newtype Qux = Qux Text
     deriving (Show, Generic)
@@ -68,7 +65,7 @@ instance FromXML Bar
 data Foo = Foo
     { fooInt  :: Int
     , fooList :: [Bar]
-    , text    :: Text
+    , mtext   :: Maybe Text
     } deriving (Show, Generic)
 
 instance XMLRoot Foo where
@@ -80,7 +77,8 @@ instance ToXML Foo where
         }
 
 data XMLOptions = XMLOptions
-    { namespace :: Maybe Text
+    { inherit   :: !Bool
+    , namespace :: Maybe Text
     , listName  :: Maybe Text
     , ctorMod   :: String -> Text
     , fieldMod  :: String -> Text
@@ -88,7 +86,8 @@ data XMLOptions = XMLOptions
 
 instance Default XMLOptions where
     def = XMLOptions
-        { namespace = Nothing
+        { inherit   = True
+        , namespace = Nothing
         , listName  = Just "Item"
         , ctorMod   = Text.pack
         , fieldMod  = Text.pack
@@ -155,6 +154,36 @@ instance FromXML Text where
     fromXML _ [NodeContent txt] = Right txt
     fromXML _ _                 = Left "Unexpected node contents."
 
+instance FromXML Int where
+    fromXML = nodeParser AText.decimal
+
+instance FromXML Integer where
+    fromXML = nodeParser AText.decimal
+
+instance FromXML Double where
+    fromXML = nodeParser AText.rational
+
+instance FromXML Float where
+    fromXML = nodeParser AText.rational
+
+-- -- FIXME: make work for from xml
+-- instance FromXML a => FromXML [a] where
+--     fromXML o = f (listName o)
+--       where
+--         f (Just x) = map (g (Name x (namespace o) Nothing) . fromXML o)
+--         f Nothing  = concatMap (fromXML o)
+
+--         g n = NodeElement . Element n mempty
+
+instance FromXML a => FromXML (Maybe a) where
+    fromXML o ns =
+        either (const $ Right Nothing)
+               (Right . Just)
+               (fromXML o ns :: Either String a)
+
+nodeParser :: AText.Parser a -> XMLOptions -> [Node] -> Either String a
+nodeParser p o = join . fmap (AText.parseOnly p) . fromXML o
+
 class GFromXML f where
     gFromXML :: XMLOptions -> [Node] -> Either String (f a)
 
@@ -167,8 +196,8 @@ instance GFromXML U1 where
 instance forall a. FromXML a => GFromXML (K1 R a) where
     gFromXML x = fmap K1 . fromXML o
       where
-        o | Nothing <- namespace y = x
-          | otherwise              = y
+        o | inherit y = x
+          | otherwise = y
 
         y = fromXMLOptions (undefined :: a)
 
@@ -205,12 +234,6 @@ class ToXML a where
 instance ToXML Text where
     toXML _ = (:[]) . NodeContent
 
-instance ToXML LText.Text where
-    toXML o = toXML o . LText.toStrict
-
-instance ToXML String where
-    toXML o = toXML o . Text.pack
-
 instance ToXML Int where
     toXML _ = nodeFromIntegral
 
@@ -230,6 +253,10 @@ instance ToXML a => ToXML [a] where
         f Nothing  = concatMap (toXML o)
 
         g n = NodeElement . Element n mempty
+
+instance ToXML a => ToXML (Maybe a) where
+    toXML o (Just x) = toXML o x
+    toXML _ Nothing  = []
 
 nodeFromFloat :: RealFloat a => a -> [Node]
 nodeFromFloat = nodeFromBuilder . LText.realFloat
@@ -252,8 +279,8 @@ instance GToXML U1 where
 instance ToXML a => GToXML (K1 R a) where
     gToXML x f = toXML o g
       where
-        o | Nothing <- namespace y = x
-          | otherwise              = y
+        o | inherit y = x
+          | otherwise = y
 
         y = toXMLOptions g
         g = unK1 f

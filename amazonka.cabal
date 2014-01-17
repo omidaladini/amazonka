@@ -64,6 +64,7 @@ library
     build-depends:
         aeson                 >= 0.7
       , async
+      , attoparsec
       , base                  >= 4.6 && < 5
       , base16-bytestring
       , base64-bytestring
