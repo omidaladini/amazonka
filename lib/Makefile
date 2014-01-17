@@ -25,7 +25,6 @@ doc:
 	cabal haddock
 
 add-sources: cabal.sandbox.config $(DEPS)
-	cabal sandbox add-source vendor/ede
 
 cabal.sandbox.config:
 	cabal sandbox init
