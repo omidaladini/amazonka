@@ -34,6 +34,24 @@ import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           GHC.Generics
 import           Text.XML
 
+-- FIXME:
+-- lists
+-- maybes
+
+newtype Qux = Qux Text
+    deriving (Show, Generic)
+
+instance XMLRoot Qux
+instance ToXML Qux
+instance FromXML Qux
+
+data Baz = Baz
+   deriving (Show, Generic)
+
+instance XMLRoot Baz
+instance ToXML Baz
+instance FromXML Baz
+
 data Bar = Bar
     { barText :: Text
     } deriving (Show, Generic)
@@ -49,9 +67,8 @@ instance FromXML Bar
 
 data Foo = Foo
     { fooInt  :: Int
---    , fooList :: [Text]
+    , fooList :: [Bar]
     , text    :: Text
-    , bar     :: Bar
     } deriving (Show, Generic)
 
 instance XMLRoot Foo where
@@ -72,7 +89,7 @@ data XMLOptions = XMLOptions
 instance Default XMLOptions where
     def = XMLOptions
         { namespace = Nothing
-        , listName  = Nothing
+        , listName  = Just "Item"
         , ctorMod   = Text.pack
         , fieldMod  = Text.pack
         }
@@ -144,8 +161,16 @@ class GFromXML f where
 instance (GFromXML f, GFromXML g) => GFromXML (f :+: g) where
     gFromXML o ns = (L1 <$> gFromXML o ns) <|> (R1 <$> gFromXML o ns)
 
-instance FromXML a => GFromXML (K1 R a) where
-    gFromXML o = fmap K1 . fromXML o
+instance GFromXML U1 where
+    gFromXML _ _ = Right U1
+
+instance forall a. FromXML a => GFromXML (K1 R a) where
+    gFromXML x = fmap K1 . fromXML o
+      where
+        o | Nothing <- namespace y = x
+          | otherwise              = y
+
+        y = fromXMLOptions (undefined :: a)
 
 instance GFromXML f => GFromXML (D1 c f) where
     gFromXML o = fmap M1 . gFromXML o
@@ -164,8 +189,6 @@ instance (Selector c, GFromXML f) => GFromXML (S1 c f) where
 
         name = Name sel (namespace o) Nothing
         sel  = fieldMod o $ selName (undefined :: S1 c f p)
-
---        o' = toXMLOptions (undefined :: S1 c f p)
 
 class ToXML a where
     toXMLOptions :: a -> XMLOptions
@@ -200,6 +223,14 @@ instance ToXML Double where
 instance ToXML Float where
     toXML _ = nodeFromFloat
 
+instance ToXML a => ToXML [a] where
+    toXML o = f (listName o)
+      where
+        f (Just x) = map (g (Name x (namespace o) Nothing) . toXML o)
+        f Nothing  = concatMap (toXML o)
+
+        g n = NodeElement . Element n mempty
+
 nodeFromFloat :: RealFloat a => a -> [Node]
 nodeFromFloat = nodeFromBuilder . LText.realFloat
 
@@ -215,13 +246,17 @@ class GToXML f where
 instance (GToXML f, GToXML g) => GToXML (f :*: g) where
     gToXML o (x :*: y) = gToXML o x ++ gToXML o y
 
+instance GToXML U1 where
+    gToXML _ _ = []
+
 instance ToXML a => GToXML (K1 R a) where
-    gToXML o f
-        | Nothing <- namespace p = toXML o x
-        | otherwise              = toXML p x
+    gToXML x f = toXML o g
       where
-        p = toXMLOptions x
-        x = unK1 f
+        o | Nothing <- namespace y = x
+          | otherwise              = y
+
+        y = toXMLOptions g
+        g = unK1 f
 
 instance GToXML f => GToXML (D1 c f) where
     gToXML o = gToXML o . unM1
@@ -230,8 +265,10 @@ instance GToXML f => GToXML (C1 c f) where
     gToXML o = gToXML o . unM1
 
 instance (Selector c, GToXML f) => GToXML (S1 c f) where
-    gToXML o f = [NodeElement . Element n mempty . gToXML o $ unM1 f]
+    gToXML o (m1 :: (S1 c f) a) = f . gToXML o $ unM1 m1
       where
-        n = Name (fieldMod o $ selName (undefined :: S1 c a p))
-            (namespace o)
-            Nothing
+        f = case selName m1 of
+            "" -> id
+            n  -> (:[])
+                . NodeElement
+                . Element (Name (fieldMod o n) (namespace o) Nothing) mempty
