@@ -17,10 +17,11 @@
 
 module Text.XML.Generic where
 
+import           Control.Applicative
 import           Control.Error
 import           Control.Monad
 import           Data.ByteString                  (ByteString)
-import           Data.ByteString.Lazy             as LBS
+import qualified Data.ByteString.Lazy             as LBS
 import           Data.Default
 import           Data.Monoid
 import           Data.Tagged
@@ -36,6 +37,8 @@ import           Text.XML
 data Bar = Bar
     { barText :: Text
     } deriving (Show, Generic)
+
+instance XMLRoot Bar
 
 instance ToXML Bar where
     toXMLOptions = const def
@@ -74,18 +77,32 @@ instance Default XMLOptions where
         , fieldMod  = Text.pack
         }
 
-encode :: (XMLRoot a, ToXML a) => a -> LBS.ByteString
-encode x = renderLBS (def { rsPretty = True }) $ Document
+encode :: (XMLRoot a, ToXML a) => Bool -> a -> LBS.ByteString
+encode p x = renderLBS (def { rsPretty = p }) $ Document
     (Prologue [] Nothing [])
     (Element (Name (rootName o x) (namespace o) Nothing) mempty $ toXML o x)
     []
   where
     o = toXMLOptions x
 
-decode :: (XMLRoot a, FromXML a) => LBS.ByteString -> Either String a
-decode = undefined -- join . fmapR f . fmapL show . parseLBS
-  -- where
-  --   f = fromXML . elementNodes . documentRoot
+decode :: forall a. (XMLRoot a, FromXML a) => LBS.ByteString -> Either String a
+decode = f . parseLBS def
+  where
+    f (Left ex) = Left $ show ex
+    f (Right Document{..})
+        | elementName documentRoot == n = fromXML o $ elementNodes documentRoot
+        | otherwise = Left $ concat
+            [ "Unexpected root element: "
+            , show $ elementName documentRoot
+            , ", expecting: "
+            , show n
+            ]
+
+    n = Name (rootName o x) (namespace o) Nothing
+    o = fromXMLOptions x
+
+    x :: a
+    x = undefined
 
 class XMLRoot a where
     rootName :: XMLOptions -> a -> Text
@@ -107,36 +124,48 @@ instance Constructor c => GXMLRoot (C1 c f) where
 
 class FromXML a where
     fromXMLOptions :: a -> XMLOptions
-    fromXML        :: XMLOptions -> [Node] -> a
+    fromXML        :: XMLOptions -> [Node] -> Either String a
 
     fromXMLOptions = const def
 
     default fromXML :: (Generic a, GFromXML (Rep a))
-                  => XMLOptions
-                  -> [Node]
-                  -> a
-    fromXML o = to . gFromXML o
+                    => XMLOptions
+                    -> [Node]
+                    -> Either String a
+    fromXML o = fmap to . gFromXML o
+
+instance FromXML Text where
+    fromXML _ [NodeContent txt] = Right txt
+    fromXML _ _                 = Left "Unexpected node contents."
 
 class GFromXML f where
-    gFromXML :: XMLOptions -> [Node] -> f a
+    gFromXML :: XMLOptions -> [Node] -> Either String (f a)
+
+instance (GFromXML f, GFromXML g) => GFromXML (f :+: g) where
+    gFromXML o ns = (L1 <$> gFromXML o ns) <|> (R1 <$> gFromXML o ns)
 
 instance FromXML a => GFromXML (K1 R a) where
-    gFromXML o f = undefined
+    gFromXML o = fmap K1 . fromXML o
 
 instance GFromXML f => GFromXML (D1 c f) where
-    gFromXML o = M1 . gFromXML o
+    gFromXML o = fmap M1 . gFromXML o
 
 instance GFromXML f => GFromXML (C1 c f) where
-    gFromXML o = M1 . gFromXML o
+    gFromXML o = fmap M1 . gFromXML o
 
 instance (Selector c, GFromXML f) => GFromXML (S1 c f) where
-    gFromXML o f = undefined
+    gFromXML o ns = findNodes ns >>= fmap M1 . gFromXML o
+      where
+        findNodes [] = Left $ "Failed to find: " ++ Text.unpack sel
+        findNodes (NodeElement e : es)
+            | elementName e == name = Right $ elementNodes e
+            | otherwise    = findNodes es
+        findNodes (_ : es) = findNodes es
 
- -- [NodeElement . Element n mempty . gFromXML o $ unM1 f]
- --      where
- --        n = Name (fieldMod o $ selName (undefined :: S1 c a p))
- --            (namespace o)
- --            Nothing
+        name = Name sel (namespace o) Nothing
+        sel  = fieldMod o $ selName (undefined :: S1 c f p)
+
+--        o' = toXMLOptions (undefined :: S1 c f p)
 
 class ToXML a where
     toXMLOptions :: a -> XMLOptions
