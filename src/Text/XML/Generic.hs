@@ -166,14 +166,16 @@ instance FromXML Double where
 instance FromXML Float where
     fromXML = nodeParser AText.rational
 
--- -- FIXME: make work for from xml
--- instance FromXML a => FromXML [a] where
---     fromXML o = f (listName o)
---       where
---         f (Just x) = map (g (Name x (namespace o) Nothing) . fromXML o)
---         f Nothing  = concatMap (fromXML o)
+instance FromXML a => FromXML [a] where
+    fromXML o = sequence . f (listName o)
+      where
+        f (Just x) = map (g x)
+        f Nothing  = map (fromXML o . (:[]))
 
---         g n = NodeElement . Element n mempty
+        g n (NodeElement (Element n' _ xs))
+            | n' == Name n (namespace o) Nothing = fromXML o xs
+            | otherwise = Left "Unrecognised list element name."
+        g _ _ = Left "Unable to parse list element."
 
 instance FromXML a => FromXML (Maybe a) where
     fromXML o ns =
