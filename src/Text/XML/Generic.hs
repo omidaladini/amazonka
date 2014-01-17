@@ -35,51 +35,10 @@ import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           GHC.Generics
 import           Text.XML
 
-newtype Qux = Qux Text
-    deriving (Show, Generic)
-
-instance XMLRoot Qux
-instance ToXML Qux
-instance FromXML Qux
-
-data Baz = Baz
-   deriving (Show, Generic)
-
-instance XMLRoot Baz
-instance ToXML Baz
-instance FromXML Baz
-
-data Bar = Bar
-    { barText :: Text
-    } deriving (Show, Generic)
-
-instance XMLRoot Bar
-
-instance ToXML Bar where
-    toXMLOptions = const def
-        { namespace = Just "else"
-        }
-
-instance FromXML Bar
-
-data Foo = Foo
-    { fooInt  :: Int
-    , fooList :: [Bar]
-    , mtext   :: Maybe Text
-    } deriving (Show, Generic)
-
-instance XMLRoot Foo where
-    rootName _ _ = "NotFoo"
-
-instance ToXML Foo where
-    toXMLOptions = const def
-        { namespace = Just "something"
-        }
-
 data XMLOptions = XMLOptions
     { inherit   :: !Bool
     , namespace :: Maybe Text
-    , listName  :: Maybe Text
+    , listElem  :: Maybe Text
     , ctorMod   :: String -> Text
     , fieldMod  :: String -> Text
     }
@@ -88,7 +47,7 @@ instance Default XMLOptions where
     def = XMLOptions
         { inherit   = True
         , namespace = Nothing
-        , listName  = Just "Item"
+        , listElem  = Just "Item"
         , ctorMod   = Text.pack
         , fieldMod  = Text.pack
         }
@@ -96,7 +55,7 @@ instance Default XMLOptions where
 encode :: (XMLRoot a, ToXML a) => Bool -> a -> LBS.ByteString
 encode p x = renderLBS (def { rsPretty = p }) $ Document
     (Prologue [] Nothing [])
-    (Element (Name (rootName o x) (namespace o) Nothing) mempty $ toXML o x)
+    (Element (Name (rootElem o x) (namespace o) Nothing) mempty $ toXML o x)
     []
   where
     o = toXMLOptions x
@@ -114,20 +73,20 @@ decode = f . parseLBS def
             , show n
             ]
 
-    n = Name (rootName o x) (namespace o) Nothing
+    n = Name (rootElem o x) (namespace o) Nothing
     o = fromXMLOptions x
 
     x :: a
     x = undefined
 
 class XMLRoot a where
-    rootName :: XMLOptions -> a -> Text
+    rootElem :: XMLOptions -> a -> Text
 
-    default rootName :: (Generic a, GXMLRoot (Rep a))
+    default rootElem :: (Generic a, GXMLRoot (Rep a))
                      => XMLOptions
                      -> a
                      -> Text
-    rootName o = gRootName o . from
+    rootElem o = gRootName o . from
 
 class GXMLRoot f where
     gRootName :: XMLOptions -> f a -> Text
@@ -167,7 +126,7 @@ instance FromXML Float where
     fromXML = nodeParser AText.rational
 
 instance FromXML a => FromXML [a] where
-    fromXML o = sequence . f (listName o)
+    fromXML o = sequence . f (listElem o)
       where
         f (Just x) = map (g x)
         f Nothing  = map (fromXML o . (:[]))
@@ -249,7 +208,7 @@ instance ToXML Float where
     toXML _ = nodeFromFloat
 
 instance ToXML a => ToXML [a] where
-    toXML o = f (listName o)
+    toXML o = f (listElem o)
       where
         f (Just x) = map (g (Name x (namespace o) Nothing) . toXML o)
         f Nothing  = concatMap (toXML o)
