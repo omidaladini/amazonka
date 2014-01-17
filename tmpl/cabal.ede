@@ -1,7 +1,7 @@
 name:                  amazonka
 version:               0.2.0
-synopsis:              Interfaces to various Amazon Web Service APIs
-homepage:              http://github.com/brendanhay/amazonka
+synopsis:              Interfaces to Amazon Web Service APIs
+homepage:              http://github.com/brendanhay/amazonka-types
 license:               OtherLicense
 license-file:          LICENSE
 author:                Brendan Hay

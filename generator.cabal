@@ -1,11 +1,11 @@
-name:                  amazonka-types
+name:                  generator
 version:               0.1.0
 synopsis:              Generate Amazon Web Service APIs types
 homepage:              http://github.com/brendanhay/amazonka-types
 license:               OtherLicense
 license-file:          LICENSE
 author:                Brendan Hay
-copyright:             Copyright (c) 2013 Brendan Hay
+copyright:             Copyright (c) 2014 Brendan Hay
 maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
 stability:             Experimental
 category:              AWS, Cloud, Network
@@ -22,7 +22,7 @@ source-repository head
     type:     git
     location: git://github.com/brendanhay/amazonka-types.git
 
-executable amazonka-types
+executable generator
     default-language:  Haskell2010
     hs-source-dirs:    src
     main-is:           Main.hs

@@ -46,10 +46,10 @@ main = getArgs >>= parse
             ms <- forM js $ \p -> do
                 title $ "Parsing " ++ p
                 m <- loadModel p
-                model "amazonka/gen/Network/AWS" ts m
+                model "lib/gen/Network/AWS" ts m
                 return m
 
-            cabalFile "amazonka" ts ms
+            cabalFile "lib" ts ms
 
             title $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."

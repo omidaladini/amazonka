@@ -32,7 +32,7 @@ tags
 
 # Generators
 *.awk
-amazonka-types
-/amazonka/*
-!/amazonka/src/
-!/amazonka/src/**/*
+/generate-types
+/lib/*
+!/lib/src/
+!/lib/src/**/*
