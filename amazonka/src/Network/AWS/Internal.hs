@@ -8,4 +8,20 @@
 -- Stability   : experimental
 -- Portability : non-portable (GHC extensions)
 
-module Network.AWS.Internal where
+module Network.AWS.Internal
+    (
+    -- * Internal Modules
+      module Internal
+    ) where
+
+import Control.Error                   as Internal
+import GHC.Generics                    as Internal
+import Network.AWS.Internal.Instances  as Internal
+import Network.AWS.Internal.Request    as Internal
+import Network.AWS.Internal.Signing    as Internal
+import Network.AWS.Internal.String     as Internal
+import Network.AWS.Internal.Time       as Internal
+import Network.AWS.Internal.Types      as Internal
+import Network.AWS.Internal.XML        as Internal
+import Network.HTTP.QueryString.Pickle as Internal
+import Text.XML.Expat.Pickle.Generic   as Internal
