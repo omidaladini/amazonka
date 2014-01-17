@@ -52,10 +52,12 @@ library
   {% endif %}
 {% endfor %}
     build-depends:
-        base               >= 4.6 && < 5
+        attoparsec
+      , base               >= 4.6 && < 5
       , bytestring
       , errors             >= 1.4.4
       , querystring-pickle >= 0.1.7
       , text               >= 1.0
       , time
       , transformers
+      , xml-conduit
