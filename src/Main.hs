@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Main
--- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
+-- Copyright   : (c) 2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
@@ -41,11 +41,15 @@ main = getArgs >>= parse
             title "Running..."
 
             ts <- templates
-            ms <- if null as then models else return as
+            js <- if null as then models else return as
 
-            forM_ ms $ \p -> do
+            ms <- forM js $ \p -> do
                 title $ "Parsing " ++ p
-                loadModel p >>= model "gen" ts
+                m <- loadModel p
+                model "amazonka/gen/Network/AWS" ts m
+                return m
+
+            cabalFile "amazonka" ts ms
 
             title $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
@@ -53,6 +57,19 @@ main = getArgs >>= parse
     usage = do
         n <- getProgName
         putStrLn $ "Usage: " ++ n ++ " [PATH] ..."
+
+cabalFile :: FilePath -> Templates -> [Model] -> Script ()
+cabalFile dir Templates{..} ms = do
+    scriptIO $ createDirectoryIfMissing True dir
+    render (dir </> "amazonka.cabal") tCabalFile $ EDE.fromPairs
+        [ "models" .= map js ms
+        ]
+  where
+    js Model{..} = EDE.fromPairs
+        [ "module"   .= mName
+        , "exported" .= ("Service" : "Types" : map oName mOperations)
+        , "other"    .= ([] :: [Text])
+        ]
 
 model :: FilePath -> Templates -> Model -> Script ()
 model dir Templates{..} m@Model{..} = do
@@ -168,6 +185,7 @@ data Templates = Templates
     , tRestJSONOperation :: Template
     , tJSONOperation     :: Template
     , tQueryOperation    :: Template
+    , tCabalFile         :: Template
     }
 
 templates :: Script Templates
@@ -182,7 +200,8 @@ templates = title "Listing tmpl" *>
         <*> load "tmpl/operation-rest-xml.ede"
         <*> load "tmpl/operation-rest-json.ede"
         <*> load "tmpl/operation-json.ede"
-        <*> load "tmpl/operation-query.ede")
+        <*> load "tmpl/operation-query.ede"
+        <*> load "tmpl/cabal.ede")
   where
     load p = msg ("Parsing " ++ p) *>
         scriptIO (EDE.eitherParseFile p) >>= hoistEither

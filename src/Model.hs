@@ -24,6 +24,7 @@ import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
+import           Data.List            (isPrefixOf)
 import           Data.Monoid
 import           Data.Ord
 import           Data.Text            (Text)
@@ -251,7 +252,7 @@ instance FromJSON Shape where
         <*> o .:? "xmlname"
       where
         f Structure = SStruct
-            <$> o .: "members"
+            <$> (names <$> o .: "members")
             <*> o .:? "member_order"
 
         f List = SList
@@ -277,6 +278,13 @@ instance FromJSON Shape where
             <*> o .:? "min_length"
             <*> o .:? "max_length"
             <*> o .:? "pattern"
+
+        names = Map.foldlWithKey' g mempty
+          where
+            g m k v = Map.insert (h k) v m
+
+            h s | "VPC" `Text.isPrefixOf` s = ("vpc" <>) $ Text.drop 3 s
+                | otherwise                 = s
 
     parseJSON x =
         fail $ "Unable to parse Shape:\n" ++ show x
