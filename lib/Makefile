@@ -27,4 +27,4 @@ doc:
 add-sources: cabal.sandbox.config $(DEPS)
 
 cabal.sandbox.config:
-	cabal sandbox init
+	cabal sandbox init --sandbox=../.cabal-sandbox

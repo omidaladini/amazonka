@@ -32,7 +32,7 @@ tags
 
 # Generators
 *.awk
-/generate-types
+/generator
 /lib/*
 !/lib/src/
 !/lib/src/**/*
