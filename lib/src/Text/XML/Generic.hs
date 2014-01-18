@@ -1,11 +1,11 @@
-{-# LANGUAGE DefaultSignatures   #-}
-{-# LANGUAGE FlexibleContexts    #-}
-{-# LANGUAGE FlexibleInstances   #-}
-{-# LANGUAGE OverloadedStrings   #-}
-{-# LANGUAGE Rank2Types          #-}
-{-# LANGUAGE RecordWildCards     #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeOperators       #-}
+{-# LANGUAGE DefaultSignatures    #-}
+{-# LANGUAGE FlexibleContexts     #-}
+{-# LANGUAGE FlexibleInstances    #-}
+{-# LANGUAGE OverlappingInstances #-}
+{-# LANGUAGE OverloadedStrings    #-}
+{-# LANGUAGE RecordWildCards      #-}
+{-# LANGUAGE ScopedTypeVariables  #-}
+{-# LANGUAGE TypeOperators        #-}
 
 -- Module      : Text.XML.Generic
 -- Copyright   : (c) 2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -21,11 +21,8 @@ module Text.XML.Generic where
 
 import           Control.Applicative
 import           Control.Monad
-import           Control.Monad.Error.Class
-import           Control.Monad.Trans.Class        (lift)
 import qualified Data.Attoparsec.Text             as AText
-import           Data.ByteString                  (ByteString)
-import           Data.Conduit
+import           Data.ByteString.Lazy.Char8       (ByteString)
 import           Data.Default
 import           Data.Monoid
 import           Data.Text                        (Text)
@@ -61,24 +58,19 @@ instance Default XMLOptions where
         , fieldMod  = Text.pack
         }
 
-encode :: (MonadUnsafeIO m, XMLRoot a, ToXML a)
-       => Bool
-       -> a
-       -> Producer m ByteString
-encode p x = renderBytes s $ Document
+encode :: ToXML a => Bool -> a -> ByteString
+encode p x = renderLBS (def { rsPretty = p }) $ Document
     (Prologue [] Nothing [])
-    (Element (Name (rootElem o x) (namespace o) Nothing) mempty $ toXML o x)
+    (Element (Name (toXMLRoot o x) (namespace o) Nothing) mempty $ toXML o x)
     []
   where
-    s = def { rsPretty = p }
     o = toXMLOptions x
 
-decode :: forall m a. (MonadError String m, MonadThrow m, XMLRoot a, FromXML a)
-       => Producer m ByteString
-       -> m a
-decode src = (src $$ sinkDoc def) >>= either throwError return . f
+decode :: forall a. FromXML a => ByteString -> Either String a
+decode = f . parseLBS def
   where
-    f Document{..}
+    f (Left ex) = Left $ show ex
+    f (Right Document{..})
         | elementName documentRoot == n = fromXML o $ elementNodes documentRoot
         | otherwise = Left $ concat
             [ "Unexpected root element: "
@@ -87,33 +79,16 @@ decode src = (src $$ sinkDoc def) >>= either throwError return . f
             , show n
             ]
 
-    n = Name (rootElem o x) (namespace o) Nothing
+    n = Name (fromXMLRoot o x) (namespace o) Nothing
     o = fromXMLOptions x
 
     x :: a
     x = undefined
 
-class XMLRoot a where
-    rootElem :: XMLOptions -> a -> Text
-
-    default rootElem :: (Generic a, GXMLRoot (Rep a))
-                     => XMLOptions
-                     -> a
-                     -> Text
-    rootElem o = gRootName o . from
-
-class GXMLRoot f where
-    gRootName :: XMLOptions -> f a -> Text
-
-instance GXMLRoot f => GXMLRoot (D1 c f) where
-    gRootName o = gRootName o . unM1
-
-instance Constructor c => GXMLRoot (C1 c f) where
-    gRootName o _ = ctorMod o $ conName (undefined :: C1 c f p)
-
 class FromXML a where
     fromXMLOptions :: a -> XMLOptions
     fromXML        :: XMLOptions -> [Node] -> Either String a
+    fromXMLRoot    :: XMLOptions -> a -> Text
 
     fromXMLOptions = const def
 
@@ -123,21 +98,32 @@ class FromXML a where
                     -> Either String a
     fromXML o = fmap to . gFromXML o
 
+    default fromXMLRoot :: (Generic a, GXMLRoot (Rep a))
+                        => XMLOptions
+                        -> a
+                        -> Text
+    fromXMLRoot o = gRootName o . from
+
 instance FromXML Text where
     fromXML _ [NodeContent txt] = Right txt
     fromXML _ _                 = Left "Unexpected node contents."
+    fromXMLRoot _ _             = "Text"
 
 instance FromXML Int where
-    fromXML = nodeParser AText.decimal
+    fromXML         = nodeParser AText.decimal
+    fromXMLRoot _ _ = "Int"
 
 instance FromXML Integer where
-    fromXML = nodeParser AText.decimal
+    fromXML         = nodeParser AText.decimal
+    fromXMLRoot _ _ = "Integer"
 
 instance FromXML Double where
-    fromXML = nodeParser AText.rational
+    fromXML         = nodeParser AText.rational
+    fromXMLRoot _ _ = "Double"
 
 instance FromXML Float where
-    fromXML = nodeParser AText.rational
+    fromXML         = nodeParser AText.rational
+    fromXMLRoot _ _ = "Float"
 
 instance FromXML a => FromXML [a] where
     fromXML o = sequence . f (listElem o)
@@ -197,6 +183,7 @@ instance (Selector c, GFromXML f) => GFromXML (S1 c f) where
 class ToXML a where
     toXMLOptions :: a -> XMLOptions
     toXML        :: XMLOptions -> a -> [Node]
+    toXMLRoot    :: XMLOptions -> a -> Text
 
     toXMLOptions = const def
 
@@ -206,20 +193,31 @@ class ToXML a where
                   -> [Node]
     toXML o = gToXML o . from
 
+    default toXMLRoot :: (Generic a, GXMLRoot (Rep a))
+                      => XMLOptions
+                      -> a
+                      -> Text
+    toXMLRoot o = gRootName o . from
+
 instance ToXML Text where
-    toXML _ = (:[]) . NodeContent
+    toXML _       = (:[]) . NodeContent
+    toXMLRoot _ _ = "Text"
 
 instance ToXML Int where
-    toXML _ = nodeFromIntegral
+    toXML _       = nodeFromIntegral
+    toXMLRoot _ _ = "Int"
 
 instance ToXML Integer where
-    toXML _ = nodeFromIntegral
+    toXML _       = nodeFromIntegral
+    toXMLRoot _ _ = "Integer"
 
 instance ToXML Double where
-    toXML _ = nodeFromFloat
+    toXML _       = nodeFromFloat
+    toXMLRoot _ _ = "Double"
 
 instance ToXML Float where
-    toXML _ = nodeFromFloat
+    toXML _       = nodeFromFloat
+    toXMLRoot _ _ = "Float"
 
 instance ToXML a => ToXML [a] where
     toXML o = f (listElem o)
@@ -274,3 +272,18 @@ instance (Selector c, GToXML f) => GToXML (S1 c f) where
             n  -> (:[])
                 . NodeElement
                 . Element (Name (fieldMod o n) (namespace o) Nothing) mempty
+
+class GXMLRoot f where
+    gRootName :: XMLOptions -> f a -> Text
+
+instance (GXMLRoot f, GXMLRoot g) => GXMLRoot (f :+: g) where
+    gRootName o (_ :: (f :+: g) a) = gRootName o (undefined :: f a)
+
+instance GXMLRoot f => GXMLRoot (D1 c f) where
+    gRootName o = gRootName o . unM1
+
+instance Constructor c => GXMLRoot (C1 c f) where
+    gRootName o _ = ctorMod o $ conName (undefined :: C1 c f p)
+
+instance GXMLRoot a => GXMLRoot (M1 i c a) where
+    gRootName o = gRootName o . unM1

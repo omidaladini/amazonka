@@ -55,7 +55,7 @@ data Region
     | Tokyo
     | Sydney
     | SaoPaulo
-      deriving (Eq, Ord)
+      deriving (Eq, Ord, Generic)
 
 instance FromText Region where
     fromText = AText.parseOnly (AText.takeText >>= f)
@@ -101,7 +101,7 @@ instance Default Region where
 data AvailabilityZone = AZ
     { azRegion :: !Region
     , azSuffix :: !Char
-    } deriving (Eq, Ord)
+    } deriving (Eq, Ord, Generic)
 
 instance FromText AvailabilityZone where
     fromText = AText.parseOnly p
