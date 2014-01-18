@@ -52,11 +52,18 @@ library
   {% endif %}
 {% endfor %}
     build-depends:
-        attoparsec
+        aeson              >= 0.7
+      , attoparsec
       , base               >= 4.6 && < 5
       , bytestring
+      , conduit
+      , data-default
       , errors             >= 1.4.4
+      , http-conduit
+      , http-types
+      , mtl
       , querystring-pickle >= 0.1.7
+      , resourcet
       , text               >= 1.0
       , time
       , transformers

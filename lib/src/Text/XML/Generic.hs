@@ -1,6 +1,7 @@
 {-# LANGUAGE DefaultSignatures   #-}
 {-# LANGUAGE FlexibleContexts    #-}
 {-# LANGUAGE FlexibleInstances   #-}
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE RecordWildCards     #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeOperators       #-}
@@ -18,11 +19,9 @@
 module Text.XML.Generic where
 
 import           Control.Applicative
-import           Control.Error
 import           Control.Monad
 import qualified Data.Attoparsec.Text             as AText
-import           Data.ByteString                  (ByteString)
-import qualified Data.ByteString.Lazy             as LBS
+import           Data.ByteString.Lazy.Char8       (ByteString)
 import           Data.Default
 import           Data.Monoid
 import           Data.Text                        (Text)
@@ -32,7 +31,14 @@ import qualified Data.Text.Lazy.Builder           as LText
 import qualified Data.Text.Lazy.Builder.Int       as LText
 import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           GHC.Generics
+import           Text.Class
 import           Text.XML
+
+primFromXML :: FromText a => XMLOptions -> [Node] -> Either String a
+primFromXML o = join . fmap fromText . fromXML o
+
+primToXML :: ToText a => XMLOptions -> a -> [Node]
+primToXML o = toXML o . toText
 
 data XMLOptions = XMLOptions
     { inherit   :: !Bool
@@ -51,7 +57,7 @@ instance Default XMLOptions where
         , fieldMod  = Text.pack
         }
 
-encode :: (XMLRoot a, ToXML a) => Bool -> a -> LBS.ByteString
+encode :: (XMLRoot a, ToXML a) => Bool -> a -> ByteString
 encode p x = renderLBS (def { rsPretty = p }) $ Document
     (Prologue [] Nothing [])
     (Element (Name (rootElem o x) (namespace o) Nothing) mempty $ toXML o x)
@@ -59,7 +65,7 @@ encode p x = renderLBS (def { rsPretty = p }) $ Document
   where
     o = toXMLOptions x
 
-decode :: forall a. (XMLRoot a, FromXML a) => LBS.ByteString -> Either String a
+decode :: forall a. (XMLRoot a, FromXML a) => ByteString -> Either String a
 decode = f . parseLBS def
   where
     f (Left ex) = Left $ show ex
