@@ -2,6 +2,7 @@
 {-# LANGUAGE FlexibleContexts    #-}
 {-# LANGUAGE FlexibleInstances   #-}
 {-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE Rank2Types          #-}
 {-# LANGUAGE RecordWildCards     #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeOperators       #-}
@@ -20,8 +21,11 @@ module Text.XML.Generic where
 
 import           Control.Applicative
 import           Control.Monad
+import           Control.Monad.Error.Class
+import           Control.Monad.Trans.Class        (lift)
 import qualified Data.Attoparsec.Text             as AText
-import           Data.ByteString.Lazy.Char8       (ByteString)
+import           Data.ByteString                  (ByteString)
+import           Data.Conduit
 import           Data.Default
 import           Data.Monoid
 import           Data.Text                        (Text)
@@ -57,19 +61,24 @@ instance Default XMLOptions where
         , fieldMod  = Text.pack
         }
 
-encode :: (XMLRoot a, ToXML a) => Bool -> a -> ByteString
-encode p x = renderLBS (def { rsPretty = p }) $ Document
+encode :: (MonadUnsafeIO m, XMLRoot a, ToXML a)
+       => Bool
+       -> a
+       -> Producer m ByteString
+encode p x = renderBytes s $ Document
     (Prologue [] Nothing [])
     (Element (Name (rootElem o x) (namespace o) Nothing) mempty $ toXML o x)
     []
   where
+    s = def { rsPretty = p }
     o = toXMLOptions x
 
-decode :: forall a. (XMLRoot a, FromXML a) => ByteString -> Either String a
-decode = f . parseLBS def
+decode :: forall m a. (MonadError String m, MonadThrow m, XMLRoot a, FromXML a)
+       => Producer m ByteString
+       -> m a
+decode src = (src $$ sinkDoc def) >>= either throwError return . f
   where
-    f (Left ex) = Left $ show ex
-    f (Right Document{..})
+    f Document{..}
         | elementName documentRoot == n = fromXML o $ elementNodes documentRoot
         | otherwise = Left $ concat
             [ "Unexpected root element: "

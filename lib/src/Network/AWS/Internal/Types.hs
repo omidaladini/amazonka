@@ -27,27 +27,28 @@ import           Control.Monad
 import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
-import           Data.Aeson                      hiding (Error)
-import qualified Data.Attoparsec.Text            as AText
-import           Data.ByteString.Char8           (ByteString)
-import qualified Data.ByteString.Char8           as BS
-import qualified Data.ByteString.Lazy.Char8      as LBS
+import           Data.Aeson                        hiding (Error)
+import qualified Data.Attoparsec.Text              as AText
+import           Data.ByteString.Char8             (ByteString)
+import qualified Data.ByteString.Char8             as BS
+import qualified Data.ByteString.Lazy.Char8        as LBS
 import           Data.Conduit
-import qualified Data.Conduit.Binary             as Conduit
+import qualified Data.Conduit.Binary               as Conduit
 import           Data.Default
-import           Data.Foldable                   (Foldable)
+import           Data.Foldable                     (Foldable)
 import           Data.IORef
 import           Data.Monoid
 import           Data.String
-import           Data.Text                       (Text)
-import qualified Data.Text.Encoding              as Text
+import           Data.Text                         (Text)
+import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           GHC.Generics
+import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           Network.HTTP.QueryString.Pickle
 import           Network.HTTP.Types
-import qualified Text.ParserCombinators.ReadP    as ReadP
-import qualified Text.Read                       as Read
+import qualified Text.ParserCombinators.ReadP      as ReadP
+import qualified Text.Read                         as Read
 import           Text.XML.Generic
 
 class Rq a where
@@ -59,7 +60,7 @@ class Rq a where
              -> Response (ResumableSource AWS ByteString)
              -> AWS (Either AWSError (Either (Er a) (Rs a)))
 
-    default response :: (IsXML (Er a), IsXML (Rs a))
+    default response :: (FromXML (Er a), FromXML (Rs a))
                      => a
                      -> Response (ResumableSource AWS ByteString)
                      -> AWS (Either AWSError (Either (Er a) (Rs a)))
