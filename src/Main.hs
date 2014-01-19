@@ -17,20 +17,22 @@ import           Control.Applicative
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
-import           Data.ByteString        (ByteString)
-import qualified Data.HashMap.Strict    as Map
-import qualified Data.List              as List
+import           Data.Char           (isLower)
+import           Data.Foldable       (foldl')
+import qualified Data.HashMap.Strict as Map
+import           Data.HashSet        (HashSet)
+import qualified Data.HashSet        as Set
+import qualified Data.List           as List
 import           Data.Monoid
-import qualified Data.Text              as Text
-import           Data.Text              (Text)
-import qualified Data.Text.Lazy.Builder as LText
-import qualified Data.Text.Lazy.IO      as LText
+import           Data.Text           (Text)
+import qualified Data.Text           as Text
+import qualified Data.Text.Lazy.IO   as LText
 import           Model
 import           System.Directory
 import           System.Environment
 import           System.Exit
-import           Text.EDE               (Template)
-import qualified Text.EDE               as EDE
+import           Text.EDE            (Template)
+import qualified Text.EDE            as EDE
 
 main :: IO ()
 main = getArgs >>= parse
@@ -138,8 +140,12 @@ errors = map replace
   where
     a `cmp` b = sShapeName a == sShapeName b
 
+-- foldl :: (a -> b -> a) -> a -> [b] -> a
+
 types :: Model -> [Shape]
-types = filter (except . sShapeName)
+types = snd
+    . foldl' disambiguate (Set.empty, [])
+    . filter (except . sShapeName)
     . map replace
     . List.sort
     . List.nubBy cmp
@@ -156,11 +162,13 @@ types = filter (except . sShapeName)
         ++ maybeToList oInput
         ++ maybeToList oOutput
 
+flatten :: Shape -> [Shape]
 flatten SStruct {..} = concatMap flatten $ Map.elems sFields
-flatten l@SList {..} = [sItem]
+flatten SList   {..} = [sItem]
 flatten SMap    {..} = flatten sKey ++ flatten sValue
-flatten p@SPrim {..} = []
+flatten SPrim   {..} = []
 
+replace :: Shape -> Shape
 replace s@SStruct {..} = s { sFields = Map.map replace sFields }
 replace l@SList   {..} = l { sItem = replace sItem }
 replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
@@ -173,6 +181,25 @@ replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
     name PBlob      = "ByteString"
     name PTimestamp = "UTCTime"
     name PLong      = "Integer"
+
+disambiguate :: (HashSet Text, [Shape]) -> Shape -> (HashSet Text, [Shape])
+disambiguate (set, xs) s@SStruct{..} =
+    ( next
+    , s { sFields = Map.fromList . map f $ Map.toList sFields } : xs
+    )
+  where
+    f (k, v) = (Text.toLower pre <> k, v)
+
+    (pre, next) = uniq . fromMaybe "pre" $ Text.concatMap g <$> sShapeName
+
+    g c | isLower c = ""
+        | otherwise = Text.singleton c
+
+    uniq p
+        | p `Set.member` set = uniq $ Text.init p `Text.snoc` succ (Text.last p)
+        | otherwise          = (p, Set.insert p set)
+
+disambiguate (set, xs) s = (set, s : xs)
 
 data Templates = Templates
     { tInterface         :: Template
