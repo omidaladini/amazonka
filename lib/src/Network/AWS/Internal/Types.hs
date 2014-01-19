@@ -24,7 +24,8 @@ import           Control.Applicative
 import           Control.Error
 import           Control.Exception
 import           Control.Monad
-import           Control.Monad.Error
+import qualified Control.Monad.Error               as Error
+import           Control.Monad.Error               (MonadError)
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.Aeson                        hiding (Error, decode)
@@ -83,8 +84,21 @@ data Env = Env
     , awsAuth     :: !(IORef Auth)
     }
 
+newtype AWSError = AWSError { awsErrors :: [String] }
+    deriving (Eq, Show)
+
+instance Monoid AWSError where
+    mempty      = AWSError []
+    mappend a b = AWSError $ awsErrors a ++ awsErrors b
+
+throwError :: String -> AWS a
+throwError = AWS . Error.throwError . AWSError . (:[])
+
+eitherError :: Either String a -> AWS a
+eitherError = either throwError return
+
 newtype AWS a = AWS
-    { unwrap :: ReaderT Env (EitherT String IO) a
+    { unwrap :: ReaderT Env (EitherT AWSError IO) a
     } deriving
         ( Functor
         , Applicative
@@ -93,14 +107,14 @@ newtype AWS a = AWS
         , MonadUnsafeIO
         , MonadThrow
         , MonadReader Env
-        , MonadError String
+        , MonadError AWSError
         )
 
 instance MonadResource AWS where
     liftResourceT f = AWS $
         fmap awsResource ask >>= liftIO . runInternalState f
 
-instance MonadThrow (EitherT String IO) where
+instance MonadThrow (EitherT AWSError IO) where
     monadThrow = liftIO . throwIO
 
 getAuth :: AWS Auth
@@ -118,7 +132,7 @@ getDebug = AWS $ awsDebug <$> ask
 whenDebug :: AWS () -> AWS ()
 whenDebug f = getDebug >>= \p -> when p f
 
-type Signer = Raw -> Auth -> Region -> UTCTime -> Request
+type Signer = RawRequest -> Auth -> Region -> UTCTime -> Request
 
 data Endpoint
     = Global
@@ -147,7 +161,7 @@ endpoint Service{..} reg =
         Regional  -> BS.intercalate "." $
             [svcName, BS.pack $ show reg, "amazonaws.com"]
 
-data Raw = Raw
+data RawRequest = RawRequest
     { rqService :: !Service
     , rqMethod  :: !StdMethod
     , rqPath    :: !ByteString
@@ -156,71 +170,35 @@ data Raw = Raw
     , rqBody    :: !RequestBody
     }
 
-instance Show Raw where
-    show Raw{..} = unlines
-        [ "Raw:"
+instance Show RawRequest where
+    show RawRequest{..} = unlines
+        [ "RawRequest:"
         , "rqMethod  = " ++ show rqMethod
         , "rqPath    = " ++ show rqPath
         , "rqHeaders = " ++ show rqHeaders
         , "rqQuery   = " ++ show rqQuery
         ]
 
-class Rq a where
+class AWSRequest a where
     type Er a
     type Rs a
 
-    request  :: a -> Raw
+    request  :: a -> RawRequest
     response :: a
              -> Response (ResumableSource AWS ByteString)
-             -> AWS (Either String (Either (Er a) (Rs a)))
+             -> AWS (Either (Er a) (Rs a))
 
     default response :: (FromXML (Er a), FromXML (Rs a))
                      => a
                      -> Response (ResumableSource AWS ByteString)
-                     -> AWS (Either String (Either (Er a) (Rs a)))
+                     -> AWS (Either (Er a) (Rs a))
     response _ rs = do
         lbs <- responseBody rs $$+- Conduit.sinkLbs
-        return $
-            if statusIsSuccessful $ responseStatus rs
-                then either Left (Right . Right) $ decode lbs
-                else either Left (Right . Left)  $ decode lbs
+        if statusIsSuccessful $ responseStatus rs
+            then f Right lbs
+            else f Left  lbs
+      where
+        f g = fmap g . eitherError . decode
 
--- instance Show (ResumableSource AWS ByteString) where
---     show _ = "ResumableSource AWS ByteString"
-
-class Pg a where
-    next :: a -> Rs a -> Maybe a
-
--- data AWSError = Err String | Ex SomeException | Ers [AWSError]
---     deriving (Show)
-
--- instance Monoid AWSError where
---     mempty = Ers []
---     mappend (Ers a) (Ers b) = Ers $ a ++ b
---     mappend (Ers a) b       = Ers $ a ++ [b]
---     mappend a       (Ers b) = Ers $ a : b
---     mappend a       b       = Ers [a, b]
-
--- instance Error AWSError where
---     strMsg = Err
-
--- instance IsString AWSError where
---     fromString = Err
-
--- class ToError a where
---     toError :: a -> AWSError
-
--- instance ToError AWSError where
---     toError = id
-
--- instance ToError String where
---     toError = Err
-
--- instance ToError SomeException where
---     toError = Ex
-
--- -- newtype Items a = Items { items :: [a] }
--- --     deriving (Eq, Show, Generic, Foldable)
-
--- -- newtype Members a = Members { members :: [a] }
--- --     deriving (Eq, Show, Generic, Foldable)
+class AWSPager a where
+    next :: AWSRequest a => a -> Rs a -> Maybe a
