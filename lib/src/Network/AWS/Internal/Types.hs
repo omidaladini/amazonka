@@ -192,13 +192,11 @@ class AWSRequest a where
                      => a
                      -> Response (ResumableSource AWS ByteString)
                      -> AWS (Either (Er a) (Rs a))
-    response _ rs = do
-        lbs <- responseBody rs $$+- Conduit.sinkLbs
-        if statusIsSuccessful $ responseStatus rs
-            then f Right lbs
-            else f Left  lbs
+    response _ rs = (responseBody rs $$+- Conduit.sinkLbs)
+        >>= f (statusIsSuccessful $ responseStatus rs)
       where
-        f g = fmap g . eitherError . decode
+        f True  = fmap Right . eitherError . decode
+        f False = fmap Left  . eitherError . decode
 
 class AWSPager a where
     next :: AWSRequest a => a -> Rs a -> Maybe a
