@@ -1,8 +1,7 @@
 {-# LANGUAGE DefaultSignatures          #-}
-{-# LANGUAGE DeriveGeneric              #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE FlexibleContexts           #-}
 {-# LANGUAGE FlexibleInstances          #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE RecordWildCards            #-}
 {-# LANGUAGE ScopedTypeVariables        #-}
@@ -24,32 +23,24 @@ import           Control.Applicative
 import           Control.Error
 import           Control.Exception
 import           Control.Monad
-import qualified Control.Monad.Error               as Error
 import           Control.Monad.Error               (MonadError)
+import qualified Control.Monad.Error               as Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.Aeson                        hiding (Error, decode)
-import qualified Data.Attoparsec.Text              as AText
 import           Data.ByteString.Char8             (ByteString)
 import qualified Data.ByteString.Char8             as BS
-import qualified Data.ByteString.Lazy.Char8        as LBS
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
 import           Data.Default
-import           Data.Foldable                     (Foldable)
 import           Data.IORef
 import           Data.Monoid
-import           Data.String
 import           Data.Text                         (Text)
 import qualified Data.Text.Encoding                as Text
 import           Data.Time
-import           GHC.Generics
 import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
-import           Network.HTTP.QueryString.Pickle
 import           Network.HTTP.Types
-import qualified Text.ParserCombinators.ReadP      as ReadP
-import qualified Text.Read                         as Read
 import           Text.XML.Generic
 
 data Auth = Auth
@@ -162,21 +153,21 @@ endpoint Service{..} reg =
             [svcName, BS.pack $ show reg, "amazonaws.com"]
 
 data RawRequest = RawRequest
-    { rqService :: !Service
-    , rqMethod  :: !StdMethod
-    , rqPath    :: !ByteString
-    , rqQuery   :: [(ByteString, ByteString)]
-    , rqHeaders :: [Header]
-    , rqBody    :: !RequestBody
+    { rawService :: !Service
+    , rawMethod  :: !StdMethod
+    , rawPath    :: !ByteString
+    , rawQuery   :: [(ByteString, ByteString)]
+    , rawHeaders :: [Header]
+    , rawBody    :: !RequestBody
     }
 
 instance Show RawRequest where
     show RawRequest{..} = unlines
         [ "RawRequest:"
-        , "rqMethod  = " ++ show rqMethod
-        , "rqPath    = " ++ show rqPath
-        , "rqHeaders = " ++ show rqHeaders
-        , "rqQuery   = " ++ show rqQuery
+        , "rawMethod  = " ++ show rawMethod
+        , "rawPath    = " ++ show rawPath
+        , "rawHeaders = " ++ show rawHeaders
+        , "rawQuery   = " ++ show rawQuery
         ]
 
 class AWSRequest a where

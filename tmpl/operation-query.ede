@@ -22,13 +22,13 @@ data {{ name }} = {{ name }}
 
 instance IsQuery {{ name }}
 
-instance Rq {{ name }} where
+instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
     request = {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
 
 {% if pagination.input_token %}
-instance Pg {{ name }} where
+instance AWSPager {{ name }} where
     next rq = fmap (\x -> rq { {{ pagination.input_token | lowerFirst }} = x }) . {{ pagination.output_token | lowerFirst }}
 
 {% endif %}
