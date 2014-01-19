@@ -17,16 +17,18 @@
 
 module Network.AWS.{{ module }}.Service where
 
+import Data.Default
+import Network.AWS.Internal
+import Text.XML.Generic
+
 -- | Currently supported version ({{ api_version }}) of the @{{ service_full_name }}@ service.
 {{ endpoint_prefix }} :: Service
 {{ endpoint_prefix }} = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
 
+{{ endpoint_prefix }}XMLOptions :: XMLOptions
+{{ endpoint_prefix }}XMLOptions = def
+    { inherit   = True
 {% if xmlnamespace %}
--- | XML namespace to annotate @{{ service_full_name }}@ elements with.
-{{ endpoint_prefix }}NS :: ByteString
-{{ endpoint_prefix }}NS = "{{ xmlnamespace }}"
-
--- | Helper to define @{{ service_full_name }}@ namespaced XML elements.
-{{ endpoint_prefix }}Elem :: ByteString -> NName ByteString
-{{ endpoint_prefix }}Elem = mkNName {{ endpoint_prefix }}NS
+    , namespace = Just "{{ xmlnamespace }}"
 {% endif %}
+    }

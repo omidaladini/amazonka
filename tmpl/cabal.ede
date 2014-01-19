@@ -29,6 +29,7 @@ library
 
     exposed-modules:
         Network.AWS
+      , Network.AWS.Headers
 
 {% for model in models %}
       -- * {{ model.value.module }}
@@ -41,7 +42,14 @@ library
 {% endfor %}
 
     other-modules:
-        Network.AWS.Internal
+        Data.Text.Helpers
+      , Data.Time.Formatters
+      , Network.AWS.Internal
+      , Network.AWS.Internal.Signing
+      , Network.AWS.Internal.Types
+      , Network.AWS.Internal.Types.Common
+      , Network.HTTP.QueryString.Instances
+      , Text.XML.Generic
 
 {% for model in models %}
   {% for oth in model.value.other %}
@@ -55,13 +63,18 @@ library
         aeson              >= 0.7
       , attoparsec
       , base               >= 4.6 && < 5
+      , base16-bytestring
+      , base64-bytestring
       , bytestring
+      , case-insensitive
       , conduit
+      , cryptohash
       , data-default
       , errors             >= 1.4.4
       , http-conduit
       , http-types
       , mtl
+      , old-locale
       , querystring-pickle >= 0.1.7
       , resourcet
       , text               >= 1.0

@@ -17,9 +17,19 @@
 
 module Network.AWS.{{ module }}.Service where
 
+import Network.AWS.Internal
+
 -- | Currently supported version ({{ api_version }}) of the @{{ service_full_name }}@ service.
 {{ endpoint_prefix }} :: Service
 {{ endpoint_prefix }} = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+
+{% if xmlnamespace %}
+{{ endpoint_prefix }}XMLOptions :: XMLOptions
+{{ endpoint_prefix }}XMLOptions = def
+    { inherit   = True
+    , namespace = Just "{{ xmlnamespace }}"
+    }
+{% endif %}
 
 data {{ module }}Error
 {% for err in errors %}
@@ -30,23 +40,3 @@ data {{ module }}Error
 {% endif %}
 {% endfor %}
       deriving (Eq, Show, Generic)
-
-data {{ module }}Policy
-{% for pol in policies %}
-{% if pol.first %}
-    = {{ pol.value.name }}
-{% else %}
-    | {{ pol.value.name }}
-{% endif %}
-{% endfor %}
-      deriving (Eq, Show, Generic)
-
-instance Policy {{ module }}Policy where
-{% for pol in policies %}
-  {% if pol.value.service_error_code /= "" %}
-    policy {{ pol.value.http_status_code }} (Just "{{ pol.value.service_error_code }}") = Just {{ pol.value.name }}
-  {% else %}
-    policy {{ pol.value.http_status_code }} Nothing = Just {{ pol.value.name }}
-  {% endif %}
-{% endfor %}
-    policy _ _ = Nothing

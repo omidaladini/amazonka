@@ -14,36 +14,14 @@
 
 module Network.AWS.Internal.Types.Common where
 
-import           Control.Applicative
-import           Control.Error
-import           Control.Exception
-import           Control.Monad
-import           Control.Monad.Error
-import           Control.Monad.Reader
-import           Control.Monad.Trans.Resource
-import           Data.Aeson                      hiding (Error)
-import qualified Data.Attoparsec.Text            as AText
-import           Data.ByteString.Char8           (ByteString)
-import qualified Data.ByteString.Char8           as BS
-import qualified Data.ByteString.Lazy.Char8      as LBS
-import           Data.Conduit
-import qualified Data.Conduit.Binary             as Conduit
+import qualified Data.Attoparsec.Text               as AText
 import           Data.Default
-import           Data.Foldable                   (Foldable)
-import           Data.IORef
-import           Data.Monoid
-import           Data.String
-import           Data.Text                       (Text)
-import qualified Data.Text                       as Text
-import qualified Data.Text.Encoding              as Text
-import           Data.Time
+import           Data.Foldable                      (Foldable)
+import qualified Data.Text                          as Text
+import           Data.Text.Helpers
 import           GHC.Generics
-import           Network.HTTP.Conduit
+import           Network.HTTP.QueryString.Instances
 import           Network.HTTP.QueryString.Pickle
-import           Network.HTTP.Types
-import           Text.Class
-import qualified Text.ParserCombinators.ReadP    as ReadP
-import qualified Text.Read                       as Read
 import           Text.XML.Generic
 
 data Region

@@ -14,6 +14,10 @@
 {% endfor %}
 module Network.AWS.{{ module }}.{{ name }} where
 
+import Network.AWS.Internal
+import Network.AWS.{{ module }}.Service
+import Network.AWS.{{ module }}.Types
+
 data {{ name }} = {{ name }}
 {% if input.fields %}
 {% include "_includes/fields.ede" with input.fields %}
@@ -25,11 +29,12 @@ instance IsQuery {{ name }}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
+    request = undefined -- {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where
-    next rq = fmap (\x -> rq { {{ pagination.input_token | lowerFirst }} = x }) . {{ pagination.output_token | lowerFirst }}
+    next rq = fmap (\x -> rq { {{ pagination.input_token | lowerFirst }} = x })
+        . {{ pagination.output_token | lowerFirst }}
 
 {% endif %}
 data {{ name }}Response = {{ name }}Response
@@ -38,5 +43,5 @@ data {{ name }}Response = {{ name }}Response
     } deriving (Eq, Show, Generic)
 {% endif %}
 
-instance IsXML {{ name }}Response where
-    xmlPickler = withNS {{ endpoint_prefix | lowerFirst }}NS
+instance FromXML {{ name }}Response where
+    fromXMLOptions = const {{ endpoint_prefix }}XMLOptions

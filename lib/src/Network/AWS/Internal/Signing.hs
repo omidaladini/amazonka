@@ -15,36 +15,38 @@
 
 module Network.AWS.Internal.Signing
     ( sign
-    , version2
-    , version3
-    , version4
-    , versionS3
+    , v2
+    , v3
+    , v4
+    , s3
     ) where
 
 import           Control.Applicative
 import           Control.Monad.IO.Class
-import qualified Crypto.Hash.SHA1                as SHA1
-import qualified Crypto.Hash.SHA256              as SHA256
-import qualified Crypto.MAC.HMAC                 as HMAC
-import           Data.ByteString                 (ByteString)
-import qualified Data.ByteString.Base16          as Base16
-import qualified Data.ByteString.Base64          as Base64
-import qualified Data.ByteString.Char8           as BS
-import           Data.CaseInsensitive            (CI)
-import qualified Data.CaseInsensitive            as Case
+import qualified Crypto.Hash.SHA1                  as SHA1
+import qualified Crypto.Hash.SHA256                as SHA256
+import qualified Crypto.MAC.HMAC                   as HMAC
+import           Data.ByteString                   (ByteString)
+import qualified Data.ByteString.Base16            as Base16
+import qualified Data.ByteString.Base64            as Base64
+import qualified Data.ByteString.Char8             as BS
+import           Data.CaseInsensitive              (CI)
+import qualified Data.CaseInsensitive              as Case
 import           Data.Default
-import           Data.Function                   (on)
-import           Data.List                       (groupBy, nub, sort)
+import           Data.Function                     (on)
+import           Data.List                         (groupBy, nub, sort)
 import           Data.Maybe
 import           Data.Monoid
-import           Data.Time                       (getCurrentTime)
+import qualified Data.Text                         as Text
+import qualified Data.Text.Encoding                as Text
+import           Data.Time                         (getCurrentTime)
+import           Data.Time.Formatters
 import           Network.AWS.Headers
-import           Network.AWS.Internal.String
-import           Network.AWS.Internal.Time
 import           Network.AWS.Internal.Types
+import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           Network.HTTP.QueryString.Pickle
-import           Network.HTTP.Types              (Header, StdMethod, urlEncode)
+import           Network.HTTP.Types                (Header, StdMethod, urlEncode)
 
 data Common = Common
     { _service :: !ByteString
@@ -53,20 +55,20 @@ data Common = Common
     , _query   :: [(ByteString, ByteString)]
     }
 
-sign :: Raw -> AWS Request
-sign raw@Raw{..} = do
+sign :: RawRequest -> AWS Request
+sign raw@RawRequest{..} = do
     auth <- getAuth
-    reg  <- region rqService
+    reg  <- region rawService
     time <- liftIO getCurrentTime
 
-    let sig = svcSigner rqService
-        hs  = hHost (endpoint rqService reg) : rqHeaders
+    let sig = svcSigner rawService
+        hs  = hHost (endpoint rawService reg) : rawHeaders
 
-    return $! sig (raw { rqHeaders = hs }) auth reg time
+    return $! sig (raw { rawHeaders = hs }) auth reg time
 
-version2 :: Signer
-version2 raw@Raw{..} auth reg time =
-    signed rqMethod _host rqPath query headers rqBody
+v2 :: Signer
+v2 raw@RawRequest{..} auth reg time =
+    signed rawMethod _host rawPath query headers rawBody
   where
     Common{..} = common raw reg
 
@@ -75,9 +77,9 @@ version2 raw@Raw{..} auth reg time =
     signature = Base64.encode
         . hmacSHA256 (secretAccessKey auth)
         $ BS.intercalate "\n"
-            [ BS.pack $ show rqMethod
+            [ BS.pack $ show rawMethod
             , _host
-            , rqPath
+            , rawPath
             , encoded
             ]
 
@@ -91,11 +93,11 @@ version2 raw@Raw{..} auth reg time =
           ]
        ++ maybeToList ((,) "SecurityToken" <$> securityToken auth)
 
-    headers = hDate (formatISO8601 time) : rqHeaders
+    headers = hDate (formatISO8601 time) : rawHeaders
 
-version3 :: Signer
-version3 raw@Raw{..} auth reg time =
-    signed rqMethod _host rqPath query headers rqBody
+v3 :: Signer
+v3 raw@RawRequest{..} auth reg time =
+    signed rawMethod _host rawPath query headers rawBody
   where
     Common{..} = common raw reg
 
@@ -103,23 +105,23 @@ version3 raw@Raw{..} auth reg time =
     headers = hDate (formatRFC822 time)
         : hAMZAuth authorisation
         : maybeToList (hAMZToken <$> securityToken auth)
-       ++ rqHeaders
+       ++ rawHeaders
 
     authorisation = "AWS3-HTTPS AWSAccessKeyId="
         <> accessKeyId auth
         <> ", Algorithm=HmacSHA256, Signature="
         <> Base64.encode (hmacSHA256 (secretAccessKey auth) $ formatRFC822 time)
 
-version4 :: Signer
-version4 raw@Raw{..} auth reg time =
-    signed rqMethod _host rqPath query (hAuth authorisation : headers) rqBody
+v4 :: Signer
+v4 raw@RawRequest{..} auth reg time =
+    signed rawMethod _host rawPath query (hAuth authorisation : headers) rawBody
   where
     Common{..} = common raw reg
 
     query   = encodeQuery (urlEncode True) . sort $ ("Version", _version) : _query
     headers = hAMZDate time
             : maybeToList (hAMZToken <$> securityToken auth)
-           ++ rqHeaders
+           ++ rawHeaders
 
     authorisation = mconcat
         [ algorithm
@@ -149,8 +151,8 @@ version4 raw@Raw{..} auth reg time =
     scope     = [formatBasic time, BS.pack $ show reg, _service, "aws4_request"]
 
     canonicalRequest = BS.intercalate "\n"
-        [ BS.pack $ show rqMethod
-        , rqPath
+        [ BS.pack $ show rawMethod
+        , rawPath
         , query
         , canonicalHeaders
         , signedHeaders
@@ -167,9 +169,9 @@ version4 raw@Raw{..} auth reg time =
     bodySHA256 = Base16.encode $ SHA256.hash ""
      -- sinkHash :: (Monad m, Hash ctx d) => Consumer ByteString m SHA256
 
-versionS3 :: ByteString -> Signer
-versionS3 bucket raw@Raw{..} auth reg time =
-    signed rqMethod _host rqPath query (authorisation : headers) rqBody
+s3 :: ByteString -> Signer
+s3 bucket raw@RawRequest{..} auth reg time =
+    signed rawMethod _host rawPath query (authorisation : headers) rawBody
   where
     Common{..} = common raw reg
 
@@ -180,7 +182,7 @@ versionS3 bucket raw@Raw{..} auth reg time =
     signature = Base64.encode $ hmacSHA1 (secretAccessKey auth) stringToSign
 
     stringToSign = BS.concat
-        [ BS.pack $ show rqMethod
+        [ BS.pack $ show rawMethod
         , "\n"
         , optionalHeader "content-md5"
         , "\n"
@@ -201,11 +203,11 @@ versionS3 bucket raw@Raw{..} auth reg time =
 
     headers = hDate date
         : maybeToList (hAMZToken <$> securityToken auth)
-       ++ rqHeaders
+       ++ rawHeaders
 
     date = formatRFC822 time
 
-    canonicalResource = '/' `wrap` bucket <> "/" `stripPrefix` rqPath
+    canonicalResource = '/' `wrap` bucket <> "/" `stripPrefix` rawPath
 
     -- relevantQueryKeys =
     --     [ "acl"
@@ -237,12 +239,12 @@ versionS3 bucket raw@Raw{..} auth reg time =
     --     , "notification"
     --     ]
 
-common :: Raw -> Region -> Common
-common Raw{..} reg = Common
-    { _service = svcName rqService
-    , _version = svcVersion rqService
-    , _host    = endpoint rqService reg
-    , _query   = sort rqQuery
+common :: RawRequest -> Region -> Common
+common RawRequest{..} reg = Common
+    { _service = svcName rawService
+    , _version = svcVersion rawService
+    , _host    = endpoint rawService reg
+    , _query   = sort rawQuery
     }
 
 signed :: StdMethod
@@ -279,5 +281,25 @@ groupHeaders = sort . map f . groupBy ((==) `on` fst)
 lookupHeader :: ByteString -> [Header] -> Maybe ByteString
 lookupHeader (Case.mk -> key) = lookup key
 
-flattenValues :: IsByteString a => (CI ByteString, a) -> ByteString
+flattenValues :: (CI ByteString, ByteString) -> ByteString
 flattenValues (k, v) = mconcat [Case.foldedCase k, ":", strip ' ' v, "\n"]
+
+strip :: Char -> ByteString -> ByteString
+strip c = Text.encodeUtf8 . Text.dropAround (== c) . Text.decodeUtf8
+
+stripPrefix :: ByteString -> ByteString -> ByteString
+stripPrefix (Text.decodeUtf8 -> x) (Text.decodeUtf8 -> y) =
+    Text.encodeUtf8 . fromMaybe y $ Text.stripPrefix x y
+
+wrap :: Char -> ByteString -> ByteString
+wrap c bs = case c `match` bs of
+    (True,  True)  -> bs
+    (False, True)  -> c `BS.cons` bs
+    (True,  False) -> bs `BS.snoc` c
+    (False, False) -> let b = BS.singleton c
+                      in  BS.concat [b, bs, b]
+  where
+    match c bs
+        | BS.null bs = (False, False)
+        | otherwise  = (c == BS.head bs, c == BS.last bs)
+

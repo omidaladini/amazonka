@@ -27,12 +27,12 @@ import           Data.Default
 import           Data.Monoid
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
+import           Data.Text.Helpers
 import qualified Data.Text.Lazy                   as LText
 import qualified Data.Text.Lazy.Builder           as LText
 import qualified Data.Text.Lazy.Builder.Int       as LText
 import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           GHC.Generics
-import           Text.Class
 import           Text.XML
 
 primFromXML :: FromText a => XMLOptions -> [Node] -> Either String a

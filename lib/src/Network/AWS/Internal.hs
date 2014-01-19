@@ -11,14 +11,21 @@
 module Network.AWS.Internal
     (
     -- * Internal Modules
---      module Internal
+      module Internal
+
+    -- * Convenience Modules
+    , module Common
     ) where
 
 -- import Network.AWS.Internal.Request    as Internal
--- import Network.AWS.Internal.Signing    as Internal
--- import Network.AWS.Internal.String     as Internal
--- import Network.AWS.Internal.Time       as Internal
-import Network.AWS.Internal.Types      as Internal
--- import Network.AWS.Internal.XML        as Internal
--- import Network.HTTP.QueryString.Pickle as Internal
--- import Text.XML.Expat.Pickle.Generic   as Internal
+import Network.AWS.Internal.Signing       as Internal
+import Network.AWS.Internal.Types         as Internal
+import Network.AWS.Internal.Types.Common  as Internal
+
+import Data.Default                       as Common
+import Data.Text.Helpers                  as Common
+import Data.Time.Formatters               as Common
+import GHC.Generics                       as Common
+import Network.HTTP.QueryString.Instances as Common
+import Network.HTTP.QueryString.Pickle    as Common
+import Text.XML.Generic                   as Common
