@@ -19,6 +19,8 @@ module Network.HTTP.QueryString.Instances where
 import           Control.Monad
 import           Data.ByteString                 (ByteString)
 import qualified Data.ByteString.Char8           as BS
+import           Data.List.NonEmpty              (NonEmpty(..))
+import qualified Data.List.NonEmpty              as NonEmpty
 import           Data.Text.Helpers
 import           Data.Time
 import           Data.Time.Formatters
@@ -32,6 +34,10 @@ primQuery = QueryPU p u
 
 instance IsQuery a => IsQuery [a] where
     queryPickler = qpOrdinalList queryPickler
+
+-- FIXME: Unsafe
+instance IsQuery a => IsQuery (NonEmpty a) where
+    queryPickler = (NonEmpty.fromList, NonEmpty.toList) `qpWrap` queryPickler
 
 instance IsQuery () where
     queryPickler = qpLift ()
