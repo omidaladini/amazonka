@@ -159,14 +159,14 @@ types = snd
 
     shapes Operation{..} = concatMap flatten
          $ oErrors
-        ++ maybeToList oInput
-        ++ maybeToList oOutput
+        ++ fromMaybe [] (Map.elems . sFields <$> oInput)
+        ++ fromMaybe [] (Map.elems . sFields <$> oOutput)
 
 flatten :: Shape -> [Shape]
-flatten SStruct {..} = concatMap flatten $ Map.elems sFields
-flatten SList   {..} = [sItem]
-flatten SMap    {..} = flatten sKey ++ flatten sValue
-flatten SPrim   {..} = []
+flatten s@SStruct {..} = s : concatMap flatten (Map.elems sFields)
+flatten SList     {..} = flatten sItem
+flatten SMap      {..} = flatten sKey ++ flatten sValue
+flatten SPrim     {..} = []
 
 replace :: Shape -> Shape
 replace s@SStruct {..} = s { sFields = Map.map replace sFields }
@@ -190,14 +190,18 @@ disambiguate (set, xs) s@SStruct{..} =
   where
     f (k, v) = (Text.toLower pre <> k, v)
 
-    (pre, next) = uniq . fromMaybe "pre" $ Text.concatMap g <$> sShapeName
+    (pre, next) = unique
+        . fromMaybe "pre"
+        $ Text.concatMap stripLower <$> sShapeName
 
-    g c | isLower c = ""
+    stripLower c
+        | isLower c = ""
         | otherwise = Text.singleton c
 
-    uniq p
-        | p `Set.member` set = uniq $ Text.init p `Text.snoc` succ (Text.last p)
-        | otherwise          = (p, Set.insert p set)
+    unique p
+        | p `Set.member` set = unique $
+            Text.init p `Text.snoc` succ (Text.last p)
+        | otherwise = (p, Set.insert p set)
 
 disambiguate (set, xs) s = (set, s : xs)
 
