@@ -165,8 +165,7 @@ types = snd
     a `cmp` b = sShapeName a == sShapeName b
 
     shapes Operation{..} = concatMap flatten
-         $ oErrors
-        ++ fromMaybe [] (Map.elems . sFields <$> oInput)
+         $ fromMaybe [] (Map.elems . sFields <$> oInput)
         ++ fromMaybe [] (Map.elems . sFields <$> oOutput)
 
 flatten :: Shape -> [Shape]
