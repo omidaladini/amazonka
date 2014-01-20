@@ -78,6 +78,7 @@ library
       , querystring-pickle >= 0.1.7
       , resourcet
       , semigroups
+      , tagged
       , text               >= 1.0
       , time
       , transformers

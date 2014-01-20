@@ -44,4 +44,7 @@ data {{ name }}Response = {{ name }}Response
 {% endif %}
 
 instance FromXML {{ name }}Response where
-    fromXMLOptions = const {{ endpoint_prefix }}XMLOptions
+    fromXMLOptions  = const {{ endpoint_prefix }}XMLOptions
+{% if result_wrapped %}
+    fromXMLRoot _ _ = "{{ name }}Result"
+{% endif %}
