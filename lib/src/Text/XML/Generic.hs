@@ -21,6 +21,7 @@
 module Text.XML.Generic where
 
 import           Control.Applicative
+import           Control.Error                    (note)
 import           Control.Monad
 import qualified Data.Attoparsec.Text             as AText
 import           Data.ByteString.Lazy.Char8       (ByteString)
@@ -153,6 +154,12 @@ instance FromXML a => FromXML [a] where
             | otherwise = Left "Unrecognised list element name."
         g _ _ = Left "Unable to parse list element."
 
+instance FromXML a => FromXML (NonEmpty a) where
+    fromXMLRoot = fromRoot "NonEmpty"
+    fromXML o   = join
+        . fmap (note "Unexpected empty list." . NonEmpty.nonEmpty)
+        . fromXML (retag o)
+
 instance FromXML a => FromXML (Maybe a) where
     fromXML o ns =
         either (const $ Right Nothing)
@@ -282,6 +289,10 @@ instance ToXML a => ToXML [a] where
         g n = NodeElement . Element n mempty
 
         o' = retag o
+
+instance ToXML a => ToXML (NonEmpty a) where
+    toXMLRoot = toRoot "NonEmpty"
+    toXML o   = toXML (retag o) . NonEmpty.toList
 
 instance ToXML a => ToXML (Maybe a) where
     toXML o (Just x) = toXML (retag o) x
