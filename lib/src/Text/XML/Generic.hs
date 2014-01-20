@@ -32,11 +32,14 @@ import           Data.Monoid
 import           Data.Tagged
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
+import qualified Data.Text.Encoding               as Text
 import           Data.Text.Helpers
 import qualified Data.Text.Lazy                   as LText
 import qualified Data.Text.Lazy.Builder           as LText
 import qualified Data.Text.Lazy.Builder.Int       as LText
 import qualified Data.Text.Lazy.Builder.RealFloat as LText
+import           Data.Time
+import           Data.Time.Formatters
 import           GHC.Generics
 import           Text.XML
 
@@ -156,6 +159,18 @@ instance FromXML a => FromXML (Maybe a) where
                (Right . Just)
                (fromXML (retag o) ns :: Either String a)
 
+instance FromXML Bool where
+    fromXML = nodeParser (p "true" True <|> p "false" False)
+      where
+        p s b = AText.string s *> return b <* AText.endOfInput
+
+instance FromXML UTCTime where
+    fromXMLRoot = fromRoot "UTCTime"
+    fromXML o   = join . fmap (parseISO8601 . Text.unpack) . fromXML (retag o)
+
+instance FromXML () where
+    fromXML _ _ = Right ()
+
 nodeParser :: AText.Parser a -> Tagged a XMLOptions -> [Node] -> Either String a
 nodeParser p o = join . fmap (AText.parseOnly p) . fromXML (retag o)
 
@@ -271,6 +286,17 @@ instance ToXML a => ToXML [a] where
 instance ToXML a => ToXML (Maybe a) where
     toXML o (Just x) = toXML (retag o) x
     toXML _ Nothing  = []
+
+instance ToXML Bool where
+    toXML _ True  = [NodeContent "true"]
+    toXML _ False = [NodeContent "false"]
+
+instance ToXML UTCTime where
+    toXMLRoot = toRoot "UTCTime"
+    toXML _   = (:[]) . NodeContent . Text.decodeUtf8 . formatISO8601
+
+instance ToXML () where
+    toXML _ () = []
 
 nodeFromFloat :: RealFloat a => a -> [Node]
 nodeFromFloat = nodeFromBuilder . LText.realFloat
