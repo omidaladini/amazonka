@@ -321,6 +321,10 @@ nodeFromBuilder = (:[]) . NodeContent . LText.toStrict . LText.toLazyText
 class GToXML f where
     gToXML :: XMLOptions -> f a -> [Node]
 
+instance (GToXML f, GToXML g) => GToXML (f :+: g) where
+    gToXML o (L1 x) = gToXML o x
+    gToXML o (R1 y) = gToXML o y
+
 instance (GToXML f, GToXML g) => GToXML (f :*: g) where
     gToXML o (x :*: y) = gToXML o x ++ gToXML o y
 
