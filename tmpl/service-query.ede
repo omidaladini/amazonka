@@ -41,3 +41,6 @@ data {{ module }}Error
 {% endif %}
 {% endfor %}
       deriving (Eq, Show, Generic)
+
+instance FromXML {{ module }}Error where
+    fromXMLOptions = {{ endpoint_prefix }}XMLOptions

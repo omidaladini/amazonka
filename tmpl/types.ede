@@ -38,6 +38,11 @@ import Network.AWS.{{ module }}.Service
     {% else %}
       {% include "_includes/record.ede" with shape.value %}
     {% endif %}
+
+instance IsQuery {{ shape.value.shape_name }}
+
+instance FromXML {{ shape.value.shape_name }} where
+    fromXMLOptions = {{ endpoint_prefix }}XMLOptions
   {% else %}
     {% include "_includes/newtype.ede" with shape.value %}
   {% endcase %}

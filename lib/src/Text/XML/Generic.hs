@@ -26,7 +26,7 @@ import qualified Data.Attoparsec.Text             as AText
 import           Data.ByteString.Lazy.Char8       (ByteString)
 import           Data.Default
 import           Data.Foldable                    (foldr', foldrM)
-import           Data.List.NonEmpty               (NonEmpty(..), (<|))
+import           Data.List.NonEmpty               (NonEmpty(..))
 import qualified Data.List.NonEmpty               as NonEmpty
 import           Data.Monoid
 import           Data.Tagged
@@ -165,6 +165,9 @@ class GFromXML f where
 instance (GFromXML f, GFromXML g) => GFromXML (f :+: g) where
     gFromXML o ns = (L1 <$> gFromXML o ns) <|> (R1 <$> gFromXML o ns)
 
+instance (GFromXML f, GFromXML g) => GFromXML (f :*: g) where
+    gFromXML o ns = (:*:) <$> gFromXML o ns <*> gFromXML o ns
+
 instance GFromXML U1 where
     gFromXML _ _ = Right U1
 
@@ -198,16 +201,6 @@ encode :: forall a. ToXML a => Bool -> a -> ByteString
 encode p x = renderLBS (def { rsPretty = p }) $ toXMLRoot o (toXML o x)
   where
     o = toXMLOptions :: Tagged a XMLOptions
-
--- data Bar = Bar
---     { barText :: Text
---     } deriving (Show, Generic)
-
--- instance ToXML Bar where
---     toXMLRoot = toNestedRoot ("Foo" :| ["Baz"])
-
--- instance FromXML Bar where
---     fromXMLRoot = fromNestedRoot ("Foo" :| ["Baz"])
 
 toNestedRoot :: NonEmpty Text -> Tagged a XMLOptions -> [Node] -> Document
 toNestedRoot rs o ns = Document (Prologue [] Nothing []) root []

@@ -28,6 +28,8 @@ data {{ name }} = {{ name }}
 {% if input.fields %}
 {% include "_includes/fields.ede" with input.fields %}
     } deriving (Eq, Show, Generic)
+{% else %}
+    deriving (Eq, Show, Generic)
 {% endif %}
 
 instance IsQuery {{ name }}
@@ -52,5 +54,7 @@ data {{ name }}Response = {{ name }}Response
 instance FromXML {{ name }}Response where
     fromXMLOptions = {{ endpoint_prefix }}XMLOptions
 {% if result_wrapped %}
-    fromXMLRoot = fromNestedRoot $ "{{ name}}Response" :| ["{{ name }}Result"]
+    fromXMLRoot    = fromNestedRoot
+         $ "{{ name}}Response"
+        :| ["{{ name }}Result"]
 {% endif %}
