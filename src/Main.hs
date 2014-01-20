@@ -70,7 +70,7 @@ cabalFile dir Templates{..} ms = do
   where
     js Model{..} = EDE.fromPairs
         [ "module"   .= mName
-        , "exported" .= ("Service" : "Types" : map oName mOperations)
+        , "exported" .= map oName mOperations
         , "other"    .= ([] :: [Text])
         ]
 

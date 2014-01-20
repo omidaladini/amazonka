@@ -3,13 +3,21 @@
 
 module Network.AWS.{{ module }}
     (
+    -- * Service
+      module Network.AWS.{{ module }}.Service
+
+    -- * Types
+--    , module Network.AWS.{{ module }}.Types
+
     -- * Operations
-    module Operations
-    )
+{% for op in operations %}
+--    , Network.AWS.{{ module }}.{{ op.value }}
+{% endfor %}
+    ) where
 
 import Network.AWS.{{ module }}.Service
-import Network.AWS.{{ module }}.Types
+-- import Network.AWS.{{ module }}.Types
 
 {% for op in operations %}
-import Network.AWS.{{ module }}.{{ op.value }} as Operations
+-- import Network.AWS.{{ module }}.{{ op.value }}
 {% endfor %}

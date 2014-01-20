@@ -33,6 +33,9 @@ library
 
 {% for model in models %}
       -- * {{ model.value.module }}
+      , Network.AWS.{{ model.value.module }}
+      , Network.AWS.{{ model.value.module }}.Service
+      , Network.AWS.{{ model.value.module }}.Types
   {% for exp in model.value.exported %}
       , Network.AWS.{{ model.value.module }}.{{ exp.value }}
   {% endfor %}
