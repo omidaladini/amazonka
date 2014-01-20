@@ -20,9 +20,6 @@
 
 module Text.XML.Generic where
 
-
-import System.IO.Unsafe
-
 import           Control.Applicative
 import           Control.Monad
 import qualified Data.Attoparsec.Text             as AText
@@ -43,11 +40,11 @@ import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           GHC.Generics
 import           Text.XML
 
-primFromXML :: FromText a => XMLOptions -> [Node] -> Either String a
-primFromXML o = join . fmap fromText . fromXML (Tagged o)
+primFromXML :: FromText a => Tagged a XMLOptions -> [Node] -> Either String a
+primFromXML o = join . fmap fromText . fromXML (retag o)
 
-primToXML :: ToText a => XMLOptions -> a -> [Node]
-primToXML o = toXML (Tagged o) . toText
+primToXML :: ToText a => Tagged a XMLOptions -> a -> [Node]
+primToXML o = toXML (retag o) . toText
 
 data XMLOptions = XMLOptions
     { inherit   :: !Bool
@@ -83,9 +80,7 @@ fromNestedRoot rs o Document{..} = foldrM unwrap initial (NonEmpty.reverse rs)
     initial = [NodeElement documentRoot]
 
     unwrap n (NodeElement Element{..}:_)
-        | elementName == name = unsafePerformIO $ do
-            putStrLn $ "Matched: " ++ show n
-            return $ Right elementNodes
+        | elementName == name = Right elementNodes
         | otherwise           = Left $ concat
             [ "Unexpected root element: "
             , show elementName
@@ -204,15 +199,15 @@ encode p x = renderLBS (def { rsPretty = p }) $ toXMLRoot o (toXML o x)
   where
     o = toXMLOptions :: Tagged a XMLOptions
 
-data Bar = Bar
-    { barText :: Text
-    } deriving (Show, Generic)
+-- data Bar = Bar
+--     { barText :: Text
+--     } deriving (Show, Generic)
 
-instance ToXML Bar where
-    toXMLRoot = toNestedRoot ("Foo" :| ["Baz"])
+-- instance ToXML Bar where
+--     toXMLRoot = toNestedRoot ("Foo" :| ["Baz"])
 
-instance FromXML Bar where
-    fromXMLRoot = fromNestedRoot ("Foo" :| ["Baz"])
+-- instance FromXML Bar where
+--     fromXMLRoot = fromNestedRoot ("Foo" :| ["Baz"])
 
 toNestedRoot :: NonEmpty Text -> Tagged a XMLOptions -> [Node] -> Document
 toNestedRoot rs o ns = Document (Prologue [] Nothing []) root []

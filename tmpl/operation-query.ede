@@ -1,3 +1,7 @@
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeFamilies      #-}
+
 -- Module      : Network.AWS.{{ module }}.{{ name }}
 {% include "_includes/header.ede" %}
 
@@ -14,9 +18,11 @@
 {% endfor %}
 module Network.AWS.{{ module }}.{{ name }} where
 
-import Network.AWS.Internal
-import Network.AWS.{{ module }}.Service
-import Network.AWS.{{ module }}.Types
+import           Data.List.NonEmpty (NonEmpty(..))
+import qualified Data.List.NonEmpty as NonEmpty
+import           Network.AWS.Internal
+import           Network.AWS.{{ module }}.Service
+import           Network.AWS.{{ module }}.Types
 
 data {{ name }} = {{ name }}
 {% if input.fields %}
@@ -44,7 +50,7 @@ data {{ name }}Response = {{ name }}Response
 {% endif %}
 
 instance FromXML {{ name }}Response where
-    fromXMLOptions  = const {{ endpoint_prefix }}XMLOptions
+    fromXMLOptions = {{ endpoint_prefix }}XMLOptions
 {% if result_wrapped %}
-    fromXMLRoot _ _ = "{{ name }}Result"
+    fromXMLRoot = fromNestedRoot $ "{{ name}}Response" :| ["{{ name }}Result"]
 {% endif %}
