@@ -27,6 +27,7 @@ import           Data.Monoid
 import           Data.Text           (Text)
 import qualified Data.Text           as Text
 import qualified Data.Text.Lazy.IO   as LText
+import           Helpers
 import           Model
 import           System.Directory
 import           System.Environment
@@ -120,10 +121,18 @@ model dir Templates{..} m@Model{..} = do
 
     renderOperation p o@Operation{..} t = do
         let Object o' = toJSON $ o
-                            { oInput  = replace <$> oInput
-                            , oOutput = replace <$> oOutput
+                            { oInput      = operation oName <$> oInput
+                            , oOutput     = operation (oName `Text.snoc` 'R') <$> oOutput
+                            , oPagination = pagination oName <$> oPagination
                             }
         render p t $ mJSON <> o'
+
+    operation n x = prefixes (loweredWordPrefix n) (replace x)
+
+    pagination n l@Pagination{..} = l
+        { pInputToken  = loweredWordPrefix n <> upperFirst pInputToken
+        , pOutputToken = loweredWordPrefix (n `Text.snoc` 'R') <> upperFirst pInputToken
+        }
 
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
@@ -139,8 +148,6 @@ errors = map replace
     . mOperations
   where
     a `cmp` b = sShapeName a == sShapeName b
-
--- foldl :: (a -> b -> a) -> a -> [b] -> a
 
 types :: Model -> [Shape]
 types = snd
@@ -183,27 +190,30 @@ replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
     name PLong      = "Integer"
 
 disambiguate :: (HashSet Text, [Shape]) -> Shape -> (HashSet Text, [Shape])
-disambiguate (set, xs) s@SStruct{..} =
-    ( next
-    , s { sFields = Map.fromList . map f $ Map.toList sFields } : xs
-    )
+disambiguate (set, xs) s@SStruct{..} = (next, prefixes pre s : xs)
   where
-    f (k, v) = (Text.toLower pre <> k, v)
-
     (pre, next) = unique
         . fromMaybe "pre"
-        $ Text.concatMap stripLower <$> sShapeName
-
-    stripLower c
-        | isLower c = ""
-        | otherwise = Text.singleton c
+        $ loweredWordPrefix <$> sShapeName
 
     unique p
         | p `Set.member` set = unique $
             Text.init p `Text.snoc` succ (Text.last p)
         | otherwise = (p, Set.insert p set)
-
 disambiguate (set, xs) s = (set, s : xs)
+
+prefixes :: Text -> Shape -> Shape
+prefixes pre s@SStruct{..} =
+    s { sFields = Map.fromList . map f $ Map.toList sFields }
+  where
+    f (k, v) = (pre <> k, v)
+prefixes _ s = s
+
+loweredWordPrefix :: Text -> Text
+loweredWordPrefix = Text.toLower . Text.concatMap f
+  where
+    f c | isLower c = ""
+        | otherwise = Text.singleton c
 
 data Templates = Templates
     { tInterface         :: Template
