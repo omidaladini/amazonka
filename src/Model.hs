@@ -5,7 +5,7 @@
 {-# LANGUAGE TupleSections     #-}
 
 -- Module      : Model
--- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
+-- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
@@ -24,7 +24,6 @@ import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
-import           Data.List            (isPrefixOf)
 import           Data.Monoid
 import           Data.Ord
 import           Data.Text            (Text)

@@ -17,7 +17,7 @@ module Network.AWS.Internal
     , module Common
     ) where
 
--- import Network.AWS.Internal.Request    as Internal
+import Network.AWS.Internal.Request     as Internal
 import Network.AWS.Internal.Signing     as Internal
 import Network.AWS.Types                as Internal
 

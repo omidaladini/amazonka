@@ -27,6 +27,7 @@ import Data.Time            (UTCTime)
 import Network.AWS.Internal
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
+import Network.HTTP.Types   (StdMethod(..))
 
 data {{ name }} = {{ name }}
 {% if input.fields %}
