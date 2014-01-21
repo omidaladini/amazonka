@@ -45,8 +45,7 @@ import           Network.AWS.Headers
 import           Network.AWS.Internal.Types
 import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
-import           Network.HTTP.QueryString.Pickle
-import           Network.HTTP.Types                (Header, StdMethod, urlEncode)
+import           Network.HTTP.Types                (Header, StdMethod, urlEncode, renderSimpleQuery)
 
 data Common = Common
     { _service :: !ByteString
@@ -83,7 +82,7 @@ v2 raw@RawRequest{..} auth reg time =
             , encoded
             ]
 
-    encoded = encodeQuery (urlEncode True)
+    encoded = renderSimpleQuery False
         $ _query
        ++ [ ("Version",          _version)
           , ("SignatureVersion", "2")
@@ -101,7 +100,7 @@ v3 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query   = encodeQuery (urlEncode True) _query
+    query   = renderSimpleQuery False _query
     headers = hDate (formatRFC822 time)
         : hAMZAuth authorisation
         : maybeToList (hAMZToken <$> securityToken auth)
@@ -118,7 +117,7 @@ v4 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query   = encodeQuery (urlEncode True) . sort $ ("Version", _version) : _query
+    query   = renderSimpleQuery False . sort $ ("Version", _version) : _query
     headers = hAMZDate time
             : maybeToList (hAMZToken <$> securityToken auth)
            ++ rawHeaders
@@ -175,7 +174,7 @@ s3 bucket raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query = encodeQuery (urlEncode True) _query
+    query = renderSimpleQuery False _query
 
     authorisation = hAuth $ BS.concat ["AWS ", accessKeyId auth, ":", signature]
 
@@ -299,7 +298,7 @@ wrap c bs = case c `match` bs of
     (False, False) -> let b = BS.singleton c
                       in  BS.concat [b, bs, b]
   where
-    match c bs
-        | BS.null bs = (False, False)
-        | otherwise  = (c == BS.head bs, c == BS.last bs)
+    match x xs
+        | BS.null xs = (False, False)
+        | otherwise  = (x == BS.head xs, x == BS.last xs)
 

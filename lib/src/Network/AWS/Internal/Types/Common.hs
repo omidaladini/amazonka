@@ -14,14 +14,12 @@
 
 module Network.AWS.Internal.Types.Common where
 
-import qualified Data.Attoparsec.Text               as AText
+import qualified Data.Attoparsec.Text             as AText
 import           Data.Default
-import           Data.Foldable                      (Foldable)
-import qualified Data.Text                          as Text
+import qualified Data.Text                        as Text
 import           Data.Text.Helpers
 import           GHC.Generics
-import           Network.HTTP.QueryString.Instances
-import           Network.HTTP.QueryString.Pickle
+import           Network.HTTP.QueryString.Generic
 import           Text.XML.Generic
 
 data Region
@@ -64,8 +62,8 @@ instance ToText Region where
 instance Show Region where
     show = showToText
 
-instance IsQuery Region where
-    queryPickler = primQuery
+instance ToQuery Region where
+    toQuery = primToQuery
 
 instance FromXML Region where
     fromXML = primFromXML
@@ -102,8 +100,8 @@ instance ToText AvailabilityZone where
 instance Show AvailabilityZone where
     show = showToText
 
-instance IsQuery AvailabilityZone where
-    queryPickler = primQuery
+instance ToQuery AvailabilityZone where
+    toQuery = primToQuery
 
 instance FromXML AvailabilityZone where
     fromXML = primFromXML
@@ -235,8 +233,8 @@ instance ToText InstanceType where
 instance Show InstanceType where
     show = showToText
 
-instance IsQuery InstanceType where
-    queryPickler = primQuery
+instance ToQuery InstanceType where
+    toQuery = primToQuery
 
 instance FromXML InstanceType where
     fromXML = primFromXML

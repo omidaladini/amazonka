@@ -14,8 +14,8 @@
 -- Portability : non-portable (GHC extensions)
 
 -- |
-module Network.AWS where
---     (
+module Network.AWS
+     (
 --     -- * AWS Context
 --       AWS
 --     , runAWS
@@ -65,7 +65,10 @@ module Network.AWS where
 --     , InstanceType     (..)
 --     , Items            (..)
 --     , Members          (..)
---     ) where
+       module Network.AWS.Internal.Types
+     , module Network.AWS.Internal.Types.Common
+
+     ) where
 
 -- import qualified Control.Concurrent.Async              as A
 -- import           Control.Error
@@ -79,7 +82,8 @@ module Network.AWS where
 -- import           Data.Conduit
 -- import qualified Data.Conduit.Binary                   as Conduit
 -- import           Network.AWS.Auth
--- import           Network.AWS.Internal
+import Network.AWS.Internal.Types
+import Network.AWS.Internal.Types.Common
 -- import           Network.HTTP.Conduit
 -- import           System.IO
 

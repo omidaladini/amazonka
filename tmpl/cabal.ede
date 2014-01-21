@@ -51,7 +51,7 @@ library
       , Network.AWS.Internal.Signing
       , Network.AWS.Internal.Types
       , Network.AWS.Internal.Types.Common
-      , Network.HTTP.QueryString.Instances
+      , Network.HTTP.QueryString.Generic
       , Text.XML.Generic
 
 {% for model in models %}

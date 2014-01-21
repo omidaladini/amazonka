@@ -186,8 +186,8 @@ class AWSRequest a where
     response _ rs = (responseBody rs $$+- Conduit.sinkLbs)
         >>= f (statusIsSuccessful $ responseStatus rs)
       where
-        f True  = fmap Right . eitherError . decode
-        f False = fmap Left  . eitherError . decode
+        f True  = fmap Right . eitherError . decodeXML
+        f False = fmap Left  . eitherError . decodeXML
 
 class AWSPager a where
     next :: AWSRequest a => a -> Rs a -> Maybe a

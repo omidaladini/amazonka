@@ -1,5 +1,4 @@
 {-# LANGUAGE DefaultSignatures    #-}
-{-# LANGUAGE DeriveGeneric        #-}
 {-# LANGUAGE FlexibleContexts     #-}
 {-# LANGUAGE FlexibleInstances    #-}
 {-# LANGUAGE OverlappingInstances #-}
@@ -50,13 +49,13 @@ primFromXML o = join . fmap fromText . fromXML (retag o)
 primToXML :: ToText a => Tagged a XMLOptions -> a -> [Node]
 primToXML o = toXML (retag o) . toText
 
-encode :: forall a. ToXML a => Bool -> a -> ByteString
-encode p x = renderLBS (def { rsPretty = p }) $ toXMLRoot o (toXML o x)
+encodeXML :: forall a. ToXML a => a -> ByteString
+encodeXML = renderLBS def . toXMLRoot o . toXML o
   where
     o = toXMLOptions :: Tagged a XMLOptions
 
-decode :: forall a. FromXML a => ByteString -> Either String a
-decode = either failure success . parseLBS def
+decodeXML :: forall a. FromXML a => ByteString -> Either String a
+decodeXML = either failure success . parseLBS def
   where
     failure = Left . show
     success = join . fmap (fromXML o) . fromXMLRoot o
@@ -64,20 +63,20 @@ decode = either failure success . parseLBS def
     o = fromXMLOptions :: Tagged a XMLOptions
 
 data XMLOptions = XMLOptions
-    { inherit   :: !Bool
-    , namespace :: Maybe Text
-    , listElem  :: Maybe Text
-    , ctorMod   :: String -> Text
-    , fieldMod  :: String -> Text
+    { xmlInherit   :: !Bool
+    , xmlNamespace :: Maybe Text
+    , xmlListElem  :: Maybe Text
+    , xmlCtorMod   :: String -> Text
+    , xmlFieldMod  :: String -> Text
     }
 
 instance Default XMLOptions where
     def = XMLOptions
-        { inherit   = True
-        , namespace = Nothing
-        , listElem  = Just "Item"
-        , ctorMod   = Text.pack
-        , fieldMod  = Text.pack
+        { xmlInherit   = True
+        , xmlNamespace = Nothing
+        , xmlListElem  = Just "Item"
+        , xmlCtorMod   = Text.pack
+        , xmlFieldMod  = Text.pack
         }
 
 fromNestedRoot :: NonEmpty Text
@@ -97,7 +96,7 @@ fromNestedRoot rs o Document{..} = foldrM unwrap initial (NonEmpty.reverse rs)
             , show name
             ]
       where
-        name = Name n (namespace $ untag o) Nothing
+        name = Name n (xmlNamespace $ untag o) Nothing
     unwrap n (_:xs) = unwrap n xs
     unwrap n _      = Left $ "Unexpected non-element root, expecting: " ++ show n
 
@@ -149,13 +148,13 @@ instance FromXML Float where
     fromXML = nodeParser AText.rational
 
 instance FromXML a => FromXML [a] where
-    fromXML o = sequence . f (listElem $ untag o)
+    fromXML o = sequence . f (xmlListElem $ untag o)
       where
         f (Just x) = map (g x)
         f Nothing  = map (fromXML (retag o) . (:[]))
 
         g n (NodeElement (Element n' _ xs))
-            | n' == Name n (namespace $ untag o) Nothing = fromXML (retag o) xs
+            | n' == Name n (xmlNamespace $ untag o) Nothing = fromXML (retag o) xs
             | otherwise = Left "Unrecognised list element name."
         g _ _ = Left "Unable to parse list element."
 
@@ -202,8 +201,8 @@ instance GFromXML U1 where
 instance forall a. FromXML a => GFromXML (K1 R a) where
     gFromXML x = fmap K1 . fromXML (Tagged o)
       where
-        o | inherit $ untag y = x
-          | otherwise         = untag y
+        o | xmlInherit $ untag y = x
+          | otherwise            = untag y
 
         y = fromXMLOptions :: Tagged a XMLOptions
 
@@ -222,8 +221,8 @@ instance (Selector c, GFromXML f) => GFromXML (S1 c f) where
             | otherwise    = findNodes es
         findNodes (_ : es) = findNodes es
 
-        name = Name sel (namespace o) Nothing
-        sel  = fieldMod o $ selName (undefined :: S1 c f p)
+        name = Name sel (xmlNamespace o) Nothing
+        sel  = xmlFieldMod o $ selName (undefined :: S1 c f p)
 
 toNestedRoot :: NonEmpty Text -> Tagged a XMLOptions -> [Node] -> Document
 toNestedRoot rs o ns = Document (Prologue [] Nothing []) root []
@@ -233,7 +232,7 @@ toNestedRoot rs o ns = Document (Prologue [] Nothing []) root []
                   (NonEmpty.init rs)
 
     wrap x = Element (name x) mempty
-    name x = Name x (namespace $ untag o) Nothing
+    name x = Name x (xmlNamespace $ untag o) Nothing
 
 toRoot :: Text -> Tagged a XMLOptions -> [Node] -> Document
 toRoot = toNestedRoot . (NonEmpty.:| [])
@@ -282,9 +281,9 @@ instance ToXML Float where
     toXML _ = nodeFromFloat
 
 instance ToXML a => ToXML [a] where
-    toXML o = f (listElem $ untag o)
+    toXML o = f (xmlListElem $ untag o)
       where
-        f (Just x) = map (g (Name x (namespace $ untag o) Nothing) . toXML o')
+        f (Just x) = map (g (Name x (xmlNamespace $ untag o) Nothing) . toXML o')
         f Nothing  = concatMap (toXML o')
 
         g n = NodeElement . Element n mempty
@@ -335,8 +334,8 @@ instance GToXML U1 where
 instance ToXML a => GToXML (K1 R a) where
     gToXML x f = toXML o g
       where
-        o | inherit $ untag y = Tagged x
-          | otherwise         = y
+        o | xmlInherit $ untag y = Tagged x
+          | otherwise            = y
 
         y = toXMLOptions :: Tagged a XMLOptions
         g = unK1 f
@@ -354,7 +353,8 @@ instance (Selector c, GToXML f) => GToXML (S1 c f) where
             "" -> id
             n  -> (:[])
                 . NodeElement
-                . Element (Name (fieldMod o n) (namespace o) Nothing) mempty
+                . Element (Name (xmlFieldMod o n) (xmlNamespace o) Nothing)
+                          mempty
 
 class GXMLRoot f where
     gRootName :: XMLOptions -> f a -> Text
@@ -366,7 +366,7 @@ instance GXMLRoot f => GXMLRoot (D1 c f) where
     gRootName o = gRootName o . unM1
 
 instance Constructor c => GXMLRoot (C1 c f) where
-    gRootName o _ = ctorMod o $ conName (undefined :: C1 c f p)
+    gRootName o _ = xmlCtorMod o $ conName (undefined :: C1 c f p)
 
 instance GXMLRoot a => GXMLRoot (M1 i c a) where
     gRootName o = gRootName o . unM1

@@ -1,7 +1,7 @@
 {-# LANGUAGE DefaultSignatures   #-}
-{-# LANGUAGE DeriveGeneric       #-}
 {-# LANGUAGE FlexibleContexts    #-}
 {-# LANGUAGE FlexibleInstances   #-}
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeOperators       #-}
 {-# LANGUAGE ViewPatterns        #-}
@@ -24,15 +24,13 @@ import           Control.Error                    (note)
 import           Control.Monad
 import qualified Data.Attoparsec.Text             as AText
 import           Data.ByteString.Char8            (ByteString)
-import qualified Data.ByteString.Char8            as BS
 import           Data.Char
 import           Data.Default
 import           Data.Either
-import           Data.Foldable                    (foldl', foldr')
+import           Data.Foldable                    (foldl')
 import           Data.List                        (sort)
 import           Data.List.NonEmpty               (NonEmpty(..))
 import qualified Data.List.NonEmpty               as NonEmpty
-import           Data.Monoid
 import           Data.Monoid
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
@@ -45,10 +43,16 @@ import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           Data.Time
 import           Data.Time.Formatters
 import           GHC.Generics
-import           Network.HTTP.Types               (QueryText, parseSimpleQuery, renderSimpleQuery)
+import           Network.HTTP.Types               (parseSimpleQuery, renderSimpleQuery)
 
-decode :: FromQuery a => ByteString -> Either String a
-decode = fromQuery . foldl' (\a b -> reify b <> a) mempty . parseSimpleQuery
+primFromQuery :: FromText a => Query -> Either String a
+primFromQuery = join . fmap fromText . fromQuery
+
+primToQuery :: ToText a => a -> Query
+primToQuery = toQuery . toText
+
+decodeQuery :: FromQuery a => ByteString -> Either String a
+decodeQuery = fromQuery . foldl' (\a b -> reify b <> a) mempty . parseSimpleQuery
   where
     reify (Text.decodeUtf8 -> k, Text.decodeUtf8 -> v)
         | Text.null k         = Value v
@@ -60,8 +64,8 @@ decode = fromQuery . foldl' (\a b -> reify b <> a) mempty . parseSimpleQuery
             f k' q = Pair k' q
         in  foldr f (Pair (last ks) $ Value v) $ init ks
 
-encode :: ToQuery a => Bool -> a -> ByteString
-encode p = renderSimpleQuery p . enc "" . toQuery
+encodeQuery :: ToQuery a => a -> ByteString
+encodeQuery = renderSimpleQuery False . enc "" . toQuery
   where
     enc k (List qs) = concatMap (enc k) qs
     enc k (Value v) = [join (***) Text.encodeUtf8 (k, v)]
@@ -94,21 +98,21 @@ instance Ord Query where
     compare _ _ = LT
 
 data QueryOptions = QueryOptions
-    { ctorMod  :: String -> Text
-    , fieldMod :: String -> Text
+    { queryCtorMod  :: String -> Text
+    , queryFieldMod :: String -> Text
     }
 
 instance Default QueryOptions where
     def = QueryOptions
-        { ctorMod  = Text.pack
-        , fieldMod = safeDropLower
+        { queryCtorMod  = Text.pack
+        , queryFieldMod = safeDropLower
         }
 
 newtype LoweredQueryOptions = LoweredQueryOptions { lowered :: QueryOptions }
 
 instance Default LoweredQueryOptions where
     def = LoweredQueryOptions $ def
-        { fieldMod = Text.toLower . safeDropLower
+        { queryFieldMod = Text.toLower . safeDropLower
         }
 
 safeDropLower :: String -> Text
@@ -140,6 +144,9 @@ class FromQuery a where
 
 instance FromQuery Text where
     fromQuery = valueParser AText.takeText
+
+instance FromQuery ByteString where
+    fromQuery = fmap Text.encodeUtf8 . fromQuery
 
 instance FromQuery Int where
     fromQuery = valueParser AText.decimal
@@ -189,19 +196,6 @@ valueParser :: AText.Parser a -> Query -> Either String a
 valueParser p (Value v) = AText.parseOnly p v
 valueParser _ _         = Left "Unexpected non-value."
 
-
-
-data Foo = Foo
-    { something :: Text
-    , elseOK    :: Int
-    , balls     :: [Text]
-    } deriving (Show, Generic)
-
-instance FromQuery Foo
-instance ToQuery Foo
-
-
-
 class GFromQuery f where
     gFromQuery :: QueryOptions -> Query -> Either String (f a)
 
@@ -229,7 +223,7 @@ instance (Selector c, GFromQuery f) => GFromQuery (S1 c f) where
             . note ("Unable to find: " ++ Text.unpack name)
             . findPair name
       where
-        name = fieldMod o $ selName (undefined :: S1 c f p)
+        name = queryFieldMod o $ selName (undefined :: S1 c f p)
 
         findPair k qry
             | List qs <- qry            = mconcat $ map (findPair k) qs
@@ -257,6 +251,9 @@ class ToQuery a where
 
 instance ToQuery Text where
     toQuery = Value
+
+instance ToQuery ByteString where
+    toQuery = Value . Text.decodeUtf8
 
 instance ToQuery Int where
     toQuery = valueFromIntegral
@@ -327,4 +324,4 @@ instance GToQuery f => GToQuery (C1 c f) where
 instance (Selector c, GToQuery f) => GToQuery (S1 c f) where
     gToQuery o = Pair name . gToQuery o . unM1
       where
-        name = fieldMod o $ selName (undefined :: S1 c f p)
+        name = queryFieldMod o $ selName (undefined :: S1 c f p)

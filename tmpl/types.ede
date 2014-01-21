@@ -41,7 +41,7 @@ import Network.AWS.{{ module }}.Service
       {% include "_includes/record.ede" with shape.value %}
     {% endif %}
 
-instance IsQuery {{ shape.value.shape_name }}
+instance ToQuery {{ shape.value.shape_name }}
 
 instance FromXML {{ shape.value.shape_name }} where
     fromXMLOptions = {{ endpoint_prefix }}XMLOptions
