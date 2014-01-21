@@ -41,7 +41,7 @@ instance ToQuery {{ name }}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = undefined -- {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
+    request = {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where

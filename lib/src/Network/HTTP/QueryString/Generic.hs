@@ -43,7 +43,6 @@ import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           Data.Time
 import           Data.Time.Formatters
 import           GHC.Generics
-import           Network.HTTP.Types               (parseSimpleQuery, renderSimpleQuery)
 
 primFromQuery :: FromText a => Query -> Either String a
 primFromQuery = join . fmap fromText . fromQuery
@@ -51,8 +50,8 @@ primFromQuery = join . fmap fromText . fromQuery
 primToQuery :: ToText a => a -> Query
 primToQuery = toQuery . toText
 
-decodeQuery :: FromQuery a => ByteString -> Either String a
-decodeQuery = fromQuery . foldl' (\a b -> reify b <> a) mempty . parseSimpleQuery
+decodeQuery :: FromQuery a => [(ByteString, ByteString)] -> Either String a
+decodeQuery = fromQuery . foldl' (\a b -> reify b <> a) mempty
   where
     reify (Text.decodeUtf8 -> k, Text.decodeUtf8 -> v)
         | Text.null k         = Value v
@@ -64,8 +63,8 @@ decodeQuery = fromQuery . foldl' (\a b -> reify b <> a) mempty . parseSimpleQuer
             f k' q = Pair k' q
         in  foldr f (Pair (last ks) $ Value v) $ init ks
 
-encodeQuery :: ToQuery a => a -> ByteString
-encodeQuery = renderSimpleQuery False . enc "" . toQuery
+encodeQuery :: ToQuery a => a -> [(ByteString, ByteString)]
+encodeQuery = enc "" . toQuery
   where
     enc k (List qs) = concatMap (enc k) qs
     enc k (Value v) = [join (***) Text.encodeUtf8 (k, v)]

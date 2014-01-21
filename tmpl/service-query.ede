@@ -27,15 +27,20 @@ import Data.Tagged
     }
 {% endif %}
 
+{% if errors | listLength > 0 %}
 data {{ module }}Error
-{% for err in errors %}
-{% if err.first %}
+  {% for err in errors %}
+    {% if err.first %}
     = {{ err.value.shape_name }}
-{% else %}
+    {% else %}
     | {{ err.value.shape_name }}
-{% endif %}
-{% endfor %}
+    {% endif %}
+  {% endfor %}
       deriving (Eq, Show, Generic)
+{% else %}
+data {{ module }}Error = {{ module }}Error
+    deriving (Eq, Show, Generic)
+{% endif %}
 
 instance FromXML {{ module }}Error where
     fromXMLOptions = {{ endpoint_prefix }}XMLOptions

@@ -6,7 +6,7 @@ DEPS  := vendor/ede vendor/botocore
 .PHONY: test lint doc
 
 all: generator
-	./generator && $(MAKE) -C lib
+	rm -rf lib/gen; ./generator && $(MAKE) -C lib
 
 build:
 	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))

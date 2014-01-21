@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Main
--- Copyright   : (c) 2014 Brendan Hay <brendan.g.hay@gmail.com>
+-- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
@@ -35,6 +35,11 @@ import           System.Exit
 import           Text.EDE            (Template)
 import qualified Text.EDE            as EDE
 
+-- FIXME:
+-- EC2: LaunchSpecification type has missing lsMonitoring type
+-- ElasticCache: shape_names Endpoint and AvailablityZone need to be disambiguated
+
+
 main :: IO ()
 main = getArgs >>= parse
   where
@@ -52,6 +57,7 @@ main = getArgs >>= parse
                 model "lib/gen/Network/AWS" ts m
                 return m
 
+            title "Expanding cabal configuration"
             cabalFile "lib" ts ms
 
             title $ "Generated " ++ show (length ms) ++ " models successfully."
@@ -149,7 +155,8 @@ errors = map replace
     a `cmp` b = sShapeName a == sShapeName b
 
 types :: Model -> [Shape]
-types = snd
+types = map check
+    . snd
     . foldl' disambiguate (Set.empty, [])
     . filter (except . sShapeName)
     . map replace
@@ -158,6 +165,11 @@ types = snd
     . concatMap shapes
     . mOperations
   where
+    check s
+        | Just x <- sShapeName s
+        , Text.null x = error $ "Shape has empty name: " ++ show s
+        | otherwise   = s
+
     except (Just "Text") = False
     except _             = True
 

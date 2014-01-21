@@ -17,21 +17,22 @@ import Data.ByteString                  (ByteString)
 import Network.AWS.Types
 import Network.HTTP.Conduit
 import Network.HTTP.QueryString.Generic
-import Network.HTTP.Types               hiding (toQuery)
+import Network.HTTP.Types               (StdMethod)
 import Text.XML.Generic
 
-query :: IsQuery a => Service -> StdMethod -> ByteString -> a -> Raw
-query s@Service{..} m p x = Raw s m p (toQuery x) [] (RequestBodyBS "")
+v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
+v2Query s@Service{..} m p x =
+    RawRequest s m p (encodeQuery x) [] (RequestBodyBS "")
 
-query4 :: IsQuery a => Service -> StdMethod -> ByteString -> a -> Raw
-query4 s m a q = query s m "/" q .?. [("Action",  a)]
+v4Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
+v4Query s m a q = v2Query s m "/" q .?. [("Action",  a)]
 
-xml :: IsXML a => Service -> StdMethod -> ByteString -> a -> Raw
-xml s@Service{..} m p = Raw s m p [] [] . RequestBodyBS . toXML
---     , rqHeaders = [hdr (Content :: XML)]
+-- xml :: ToXML a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- xml s@Service{..} m p = RawRequest s m p [] [] . RequestBodyBS . toXML
+-- --     , rqHeaders = [hdr (Content :: XML)]
 
-(.?.) :: Raw -> [(ByteString, ByteString)] -> Raw
-(.?.) r q = r { rqQuery = rqQuery r ++ q }
+(.?.) :: RawRequest -> [(ByteString, ByteString)] -> RawRequest
+(.?.) r q = r { rawQuery = rawQuery r ++ q }
 
-(.:.) :: Raw -> [Header] -> Raw
-(.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
+-- (.:.) :: RawRequest -> [Header] -> RawRequest
+-- (.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
