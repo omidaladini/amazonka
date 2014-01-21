@@ -31,7 +31,6 @@ library
         Network.AWS
       , Network.AWS.Auth
       , Network.AWS.Headers
-      , Network.AWS.Types
 
 {% for model in models %}
       , Network.AWS.{{ model.value.module }}
@@ -47,6 +46,8 @@ library
       , Network.AWS.Internal
       , Network.AWS.Internal.Request
       , Network.AWS.Internal.Signing
+      , Network.AWS.Internal.Types
+      , Network.AWS.Internal.Types.Common
       , Network.HTTP.QueryString.Generic
       , Text.XML.Generic
 

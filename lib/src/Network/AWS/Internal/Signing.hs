@@ -23,29 +23,28 @@ module Network.AWS.Internal.Signing
 
 import           Control.Applicative
 import           Control.Monad.IO.Class
-import qualified Crypto.Hash.SHA1        as SHA1
-import qualified Crypto.Hash.SHA256      as SHA256
-import qualified Crypto.MAC.HMAC         as HMAC
-import           Data.ByteString         (ByteString)
-import qualified Data.ByteString.Base16  as Base16
-import qualified Data.ByteString.Base64  as Base64
-import qualified Data.ByteString.Char8   as BS
-import qualified Data.ByteString.Helpers as BSH
-import           Data.CaseInsensitive    (CI)
-import qualified Data.CaseInsensitive    as Case
+import qualified Crypto.Hash.SHA1                  as SHA1
+import qualified Crypto.Hash.SHA256                as SHA256
+import qualified Crypto.MAC.HMAC                   as HMAC
+import           Data.ByteString                   (ByteString)
+import qualified Data.ByteString.Base16            as Base16
+import qualified Data.ByteString.Base64            as Base64
+import qualified Data.ByteString.Char8             as BS
+import qualified Data.ByteString.Helpers           as BSH
+import           Data.CaseInsensitive              (CI)
+import qualified Data.CaseInsensitive              as Case
 import           Data.Default
-import           Data.Function           (on)
-import           Data.List               (groupBy, nub, sort)
+import           Data.Function                     (on)
+import           Data.List                         (groupBy, nub, sort)
 import           Data.Maybe
 import           Data.Monoid
-import qualified Data.Text               as Text
-import qualified Data.Text.Encoding      as Text
-import           Data.Time               (getCurrentTime)
+import           Data.Time                         (getCurrentTime)
 import           Data.Time.Formatters
 import           Network.AWS.Headers
-import           Network.AWS.Types
+import           Network.AWS.Internal.Types
+import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types      (Header, StdMethod, urlEncode, renderSimpleQuery)
+import           Network.HTTP.Types                (Header, StdMethod, urlEncode, renderSimpleQuery)
 
 data Common = Common
     { _service :: !ByteString

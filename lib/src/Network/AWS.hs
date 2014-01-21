@@ -14,22 +14,22 @@
 
 -- |
 module Network.AWS
-     (
---     -- * AWS Context
---       AWS
---     , runAWS
+    (
+    -- * AWS Context
+      AWS
+    , runAWS
 
---     -- * Credentials
---     , Credentials      (..)
+    -- * Credentials
+    , Credentials      (..)
 
---     -- * Regions
---     , Region           (..)
---     , within
---     , getRegion
+    -- * Regions
+    , Region           (..)
+    , within
+    , getRegion
 
---     -- * Debugging
---     , getDebug
---     , whenDebug
+    -- * Debugging
+    , getDebug
+    , whenDebug
 
 --     -- * Synchronous Requests
 --     , send
@@ -53,18 +53,14 @@ module Network.AWS
 --     -- * File Bodies
 --     , requestBodyFile
 
---     -- * Errors
---     , ToError          (..)
---     , AWSError         (..)
---     , hoistError
---     , liftEitherT
+    -- * Errors
+    , AWSError         (..)
+    , hoistError
+    , liftEitherT
 
---     -- * Types
---     , AvailabilityZone (..)
---     , InstanceType     (..)
---     , Items            (..)
---     , Members          (..)
-     ) where
+    -- * Types
+    , module Common
+    ) where
 
 -- import qualified Control.Concurrent.Async              as Async
 import           Control.Error
@@ -77,8 +73,11 @@ import           Control.Monad.Trans.Resource
 import           Control.Monad.Trans.Resource.Internal
 import           Data.Conduit
 import qualified Data.Conduit.Binary                   as Conduit
+import           Data.Default
+import           Data.String
 import           Network.AWS.Auth
-import           Network.AWS.Types
+import           Network.AWS.Internal.Types
+import           Network.AWS.Internal.Types.Common     as Common
 import           Network.HTTP.Conduit
 import           System.IO
 
@@ -87,21 +86,21 @@ runAWS cred dbg aws = runResourceT . withInternalState $ \s -> do
     m <- newManager conduitManagerSettings
     a <- runEitherT $ credentials cred
     either (return . Left)
-           (runEnv aws . Env defaultRegion dbg s m)
+           (runEnv aws . Env def dbg s m)
            a
 
--- runEnv :: AWS a -> Env -> IO (Either AWSError a)
--- runEnv aws = runEitherT . runReaderT (unwrap aws)
+runEnv :: AWS a -> Env -> IO (Either AWSError a)
+runEnv aws = runEitherT . runReaderT (unwrap aws)
 
--- -- | Run an 'AWS' operation inside a specific 'Region'.
--- within :: Region -> AWS a -> AWS a
--- within reg = AWS . local (\e -> e { awsRegion = reg }) . unwrap
+-- | Run an 'AWS' operation inside a specific 'Region'.
+within :: Region -> AWS a -> AWS a
+within reg = AWS . local (\e -> e { awsRegion = reg }) . unwrap
 
--- hoistError :: (MonadError e m, Error e) => Either e a -> m a
--- hoistError = either throwError return
+hoistError :: (MonadError e m, Error e) => Either e a -> m a
+hoistError = either throwError return
 
--- liftEitherT :: ToError e => EitherT e IO a -> AWS a
--- liftEitherT = AWS . lift . fmapLT toError
+liftEitherT :: EitherT String IO a -> AWS a
+liftEitherT = AWS . lift . fmapLT fromString
 
 -- -- | Send a request and return the associated response type.
 -- send :: (Rq a, ToError (Er a)) => a -> AWS (Rs a)

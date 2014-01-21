@@ -14,7 +14,7 @@
 module Network.AWS.Internal.Request where
 
 import Data.ByteString                  (ByteString)
-import Network.AWS.Types
+import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
 import Network.HTTP.QueryString.Generic
 import Network.HTTP.Types               (StdMethod)

@@ -21,7 +21,7 @@ module Network.AWS.EC2.Metadata
 
 import           Control.Applicative
 import           Control.Error
-import qualified Control.Monad.Error     as Error
+import           Control.Monad.Error
 import           Control.Monad.IO.Class
 import           Data.ByteString         (ByteString)
 import qualified Data.ByteString.Char8   as BS
@@ -30,7 +30,7 @@ import qualified Data.ByteString.Lazy    as LBS
 import           Data.Monoid
 import           Data.String
 import qualified Data.Text.Helpers       as Text
-import           Network.AWS.Types
+import           Network.AWS.Internal.Types
 import           Network.HTTP.Conduit
 
 data Metadata
@@ -65,7 +65,7 @@ metadataByKey :: (Applicative m, MonadIO m)
 metadataByKey p = do
     rs <- fmapLT (fromString . show) . syncIO $ simpleHttp url
     case BSH.strip '\n' $ LBS.toStrict rs of
-        "" -> Error.throwError "Failed to receive any data"
+        "" -> throwError "Failed to receive any data"
         bs -> return bs
   where
     url = BS.unpack $ "http://169.254.169.254/latest/meta-data/" <> p
