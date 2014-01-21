@@ -5,10 +5,11 @@ DEPS  := vendor/ede vendor/botocore
 
 .PHONY: test lint doc
 
-all: build
+all: generator
+	./generator && $(MAKE) -C lib
 
 build:
-	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS))) && cp -f $(BIN) .
+	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))
 
 install: cabal.sandbox.config add-sources
 	cabal install $(FLAGS)
@@ -25,6 +26,9 @@ lint:
 
 doc:
 	cabal haddock
+
+generator: build
+	cp -f $(BIN) .
 
 add-sources: cabal.sandbox.config $(DEPS)
 	cabal sandbox add-source vendor/ede

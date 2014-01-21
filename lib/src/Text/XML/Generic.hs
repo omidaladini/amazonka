@@ -56,7 +56,7 @@ data XMLOptions = XMLOptions
     , listElem  :: Maybe Text
     , ctorMod   :: String -> Text
     , fieldMod  :: String -> Text
-    } deriving (Generic)
+    }
 
 instance Default XMLOptions where
     def = XMLOptions

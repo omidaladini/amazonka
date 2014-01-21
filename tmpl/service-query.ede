@@ -5,6 +5,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {% endraw %}
 
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
 -- Module      : Network.AWS.{{ module }}.Service
 -- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of

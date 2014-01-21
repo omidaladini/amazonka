@@ -5,6 +5,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {% endraw %}
 
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
 -- Module      : Network.AWS.{{ module }}.Types
 {% include "_includes/header.ede" %}
 
