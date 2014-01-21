@@ -10,17 +10,19 @@
 
 module Network.HTTP.QueryString.Generic where
 
+import           Data.Char
 import           Data.Default
 import           Data.Monoid
 import           Data.Text          (Text)
 import qualified Data.Text          as Text
 import qualified Data.Text.Encoding as Text
 import           Data.Text.Helpers
+import           GHC.Generics
 
 data Query
-    = List [Query]
+    = Value Text
     | Pair Text Query
-    | Value Text
+    | List [Query]
       deriving (Eq, Show)
 
 data QueryOptions = QueryOptions
@@ -29,13 +31,44 @@ data QueryOptions = QueryOptions
     }
 
 instance Default QueryOptions
+    def = QueryOptions
+        { ctorMod  = Text.pack
+        , fieldMod = Text.dropWhile isLower . Text.pack
+        }
 
-decode
+-- decode
+
+fromLoweredQuery :: (Generic a, GToQuery (Rep a))
+                 => Text
+                 -> Either String a
+
+genericFromQuery :: (Generic a, GToQuery (Rep a))
+                 => Text
+                 -> Either String a
 
 class FromQuery a where
+    fromQuery :: QueryOptions -> Text -> Either String a
 
-encode
+    default fromQuery :: (Generic a, GFromQuery (Rep a))
+                      => Text
+                      -> Either String a
+    fromQuery = genericFromQuery def
+
+-- encode
+
+toLoweredQuery :: (Generic a, GToQuery (Rep a))
+               => a
+               -> Text
+
+genericToQuery :: (Generic a, GToQuery (Rep a))
+               => QueryOptions
+               -> a
+               -> Text
 
 class ToQuery a where
+    toQuery :: QueryOptions -> a -> Text
 
-
+    default toQuery :: (Generic a, GToQuery (Rep a))
+                    => a
+                    -> Text
+    toQuery = genericToQuery def

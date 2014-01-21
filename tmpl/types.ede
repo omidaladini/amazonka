@@ -1,8 +1,8 @@
 {% raw %}
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric               #-}
+{-# LANGUAGE FlexibleContexts            #-}
+{-# LANGUAGE FlexibleInstances           #-}
+{-# LANGUAGE OverloadedStrings           #-}
 {% endraw %}
 
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}

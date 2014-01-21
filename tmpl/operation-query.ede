@@ -1,6 +1,6 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeFamilies      #-}
+{-# LANGUAGE DeriveGeneric               #-}
+{-# LANGUAGE OverloadedStrings           #-}
+{-# LANGUAGE TypeFamilies                #-}
 
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
