@@ -78,7 +78,6 @@ library
       , http-types
       , mtl
       , old-locale
-      , querystring-pickle >= 0.1.7
       , resourcet
       , semigroups
       , tagged

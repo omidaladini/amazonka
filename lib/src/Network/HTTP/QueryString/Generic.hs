@@ -113,9 +113,9 @@ instance Default LoweredQueryOptions where
 
 safeDropLower :: String -> Text
 safeDropLower [] = Text.empty
-safeDropLower xs@(x:_)
-    | isLower x = t
-    | otherwise = Text.dropWhile isLower t
+safeDropLower xs
+    | all isLower xs = t
+    | otherwise      = Text.dropWhile isLower t
   where
     t = Text.pack xs
 
@@ -193,7 +193,8 @@ valueParser _ _         = Left "Unexpected non-value."
 
 data Foo = Foo
     { something :: Text
-    , else'     :: Int
+    , elseOK    :: Int
+    , balls     :: [Text]
     } deriving (Show, Generic)
 
 instance FromQuery Foo
@@ -269,6 +270,29 @@ instance ToQuery Double where
 instance ToQuery Float where
     toQuery = valueFromFloat
 
+instance ToQuery a => ToQuery [a] where
+    toQuery = List . zipWith (\n v -> Pair (key n) (toQuery v)) idx
+      where
+        key = LText.toStrict . LText.toLazyText . LText.decimal
+        idx = [1..] :: [Integer]
+
+instance ToQuery a => ToQuery (NonEmpty a) where
+    toQuery = toQuery . NonEmpty.toList
+
+instance ToQuery a => ToQuery (Maybe a) where
+    toQuery (Just x) = toQuery x
+    toQuery Nothing  = mempty
+
+instance ToQuery Bool where
+    toQuery True  = Value "true"
+    toQuery False = Value "false"
+
+instance ToQuery UTCTime where
+    toQuery = Value . Text.decodeUtf8 . formatISO8601
+
+instance ToQuery () where
+    toQuery () = mempty
+
 valueFromIntegral :: Integral a => a -> Query
 valueFromIntegral = valueFromBuilder . LText.decimal
 
@@ -289,7 +313,7 @@ instance (GToQuery f, GToQuery g) => GToQuery (f :*: g) where
     gToQuery o (x :*: y) = gToQuery o x <> gToQuery o y
 
 instance GToQuery U1 where
-    gToQuery _ _ = List []
+    gToQuery _ _ = mempty
 
 instance ToQuery a => GToQuery (K1 R a) where
     gToQuery _ = toQuery . unK1
