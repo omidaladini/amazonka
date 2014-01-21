@@ -50,6 +50,19 @@ primFromXML o = join . fmap fromText . fromXML (retag o)
 primToXML :: ToText a => Tagged a XMLOptions -> a -> [Node]
 primToXML o = toXML (retag o) . toText
 
+encode :: forall a. ToXML a => Bool -> a -> ByteString
+encode p x = renderLBS (def { rsPretty = p }) $ toXMLRoot o (toXML o x)
+  where
+    o = toXMLOptions :: Tagged a XMLOptions
+
+decode :: forall a. FromXML a => ByteString -> Either String a
+decode = either failure success . parseLBS def
+  where
+    failure = Left . show
+    success = join . fmap (fromXML o) . fromXMLRoot o
+
+    o = fromXMLOptions :: Tagged a XMLOptions
+
 data XMLOptions = XMLOptions
     { inherit   :: !Bool
     , namespace :: Maybe Text
@@ -66,14 +79,6 @@ instance Default XMLOptions where
         , ctorMod   = Text.pack
         , fieldMod  = Text.pack
         }
-
-decode :: forall a. FromXML a => ByteString -> Either String a
-decode = either failure success . parseLBS def
-  where
-    failure = Left . show
-    success = join . fmap (fromXML o) . fromXMLRoot o
-
-    o = fromXMLOptions :: Tagged a XMLOptions
 
 fromNestedRoot :: NonEmpty Text
                -> Tagged a XMLOptions
@@ -160,6 +165,7 @@ instance FromXML a => FromXML (NonEmpty a) where
         . fmap (note "Unexpected empty list." . NonEmpty.nonEmpty)
         . fromXML (retag o)
 
+-- FIXME: should fail if target doesn't exist
 instance FromXML a => FromXML (Maybe a) where
     fromXML o ns =
         either (const $ Right Nothing)
@@ -218,11 +224,6 @@ instance (Selector c, GFromXML f) => GFromXML (S1 c f) where
 
         name = Name sel (namespace o) Nothing
         sel  = fieldMod o $ selName (undefined :: S1 c f p)
-
-encode :: forall a. ToXML a => Bool -> a -> ByteString
-encode p x = renderLBS (def { rsPretty = p }) $ toXMLRoot o (toXML o x)
-  where
-    o = toXMLOptions :: Tagged a XMLOptions
 
 toNestedRoot :: NonEmpty Text -> Tagged a XMLOptions -> [Node] -> Document
 toNestedRoot rs o ns = Document (Prologue [] Nothing []) root []
@@ -309,11 +310,11 @@ instance ToXML UTCTime where
 instance ToXML () where
     toXML _ () = []
 
-nodeFromFloat :: RealFloat a => a -> [Node]
-nodeFromFloat = nodeFromBuilder . LText.realFloat
-
 nodeFromIntegral :: Integral a => a -> [Node]
 nodeFromIntegral =  nodeFromBuilder . LText.decimal
+
+nodeFromFloat :: RealFloat a => a -> [Node]
+nodeFromFloat = nodeFromBuilder . LText.realFloat
 
 nodeFromBuilder :: LText.Builder -> [Node]
 nodeFromBuilder = (:[]) . NodeContent . LText.toStrict . LText.toLazyText
