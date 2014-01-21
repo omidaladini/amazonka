@@ -69,9 +69,8 @@ cabalFile dir Templates{..} ms = do
         ]
   where
     js Model{..} = EDE.fromPairs
-        [ "module"   .= mName
-        , "exported" .= map oName mOperations
-        , "other"    .= ([] :: [Text])
+        [ "module"     .= mName
+        , "operations" .= map oName mOperations
         ]
 
 model :: FilePath -> Templates -> Model -> Script ()

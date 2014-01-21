@@ -65,9 +65,6 @@ module Network.AWS
 --     , InstanceType     (..)
 --     , Items            (..)
 --     , Members          (..)
-       module Network.AWS.Internal.Types
-     , module Network.AWS.Internal.Types.Common
-
      ) where
 
 -- import qualified Control.Concurrent.Async              as A
@@ -82,8 +79,6 @@ module Network.AWS
 -- import           Data.Conduit
 -- import qualified Data.Conduit.Binary                   as Conduit
 -- import           Network.AWS.Auth
-import Network.AWS.Internal.Types
-import Network.AWS.Internal.Types.Common
 -- import           Network.HTTP.Conduit
 -- import           System.IO
 

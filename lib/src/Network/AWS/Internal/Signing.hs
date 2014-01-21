@@ -4,7 +4,7 @@
 {-# LANGUAGE ViewPatterns      #-}
 
 -- Module      : Network.AWS.Internal.Signing
--- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
+-- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
@@ -23,29 +23,28 @@ module Network.AWS.Internal.Signing
 
 import           Control.Applicative
 import           Control.Monad.IO.Class
-import qualified Crypto.Hash.SHA1                  as SHA1
-import qualified Crypto.Hash.SHA256                as SHA256
-import qualified Crypto.MAC.HMAC                   as HMAC
-import           Data.ByteString                   (ByteString)
-import qualified Data.ByteString.Base16            as Base16
-import qualified Data.ByteString.Base64            as Base64
-import qualified Data.ByteString.Char8             as BS
-import           Data.CaseInsensitive              (CI)
-import qualified Data.CaseInsensitive              as Case
+import qualified Crypto.Hash.SHA1       as SHA1
+import qualified Crypto.Hash.SHA256     as SHA256
+import qualified Crypto.MAC.HMAC        as HMAC
+import           Data.ByteString        (ByteString)
+import qualified Data.ByteString.Base16 as Base16
+import qualified Data.ByteString.Base64 as Base64
+import qualified Data.ByteString.Char8  as BS
+import           Data.CaseInsensitive   (CI)
+import qualified Data.CaseInsensitive   as Case
 import           Data.Default
-import           Data.Function                     (on)
-import           Data.List                         (groupBy, nub, sort)
+import           Data.Function          (on)
+import           Data.List              (groupBy, nub, sort)
 import           Data.Maybe
 import           Data.Monoid
-import qualified Data.Text                         as Text
-import qualified Data.Text.Encoding                as Text
-import           Data.Time                         (getCurrentTime)
+import qualified Data.Text              as Text
+import qualified Data.Text.Encoding     as Text
+import           Data.Time              (getCurrentTime)
 import           Data.Time.Formatters
 import           Network.AWS.Headers
-import           Network.AWS.Internal.Types
-import           Network.AWS.Internal.Types.Common
+import           Network.AWS.Types
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types                (Header, StdMethod, urlEncode, renderSimpleQuery)
+import           Network.HTTP.Types     (Header, StdMethod, urlEncode, renderSimpleQuery)
 
 data Common = Common
     { _service :: !ByteString

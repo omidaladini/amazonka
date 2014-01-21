@@ -30,15 +30,10 @@ library
     exposed-modules:
         Network.AWS
       , Network.AWS.Headers
+      , Network.AWS.Types
 
 {% for model in models %}
-      -- * {{ model.value.module }}
       , Network.AWS.{{ model.value.module }}
-      , Network.AWS.{{ model.value.module }}.Service
-      , Network.AWS.{{ model.value.module }}.Types
-  {% for exp in model.value.exported %}
-      , Network.AWS.{{ model.value.module }}.{{ exp.value }}
-  {% endfor %}
   {% if !model.last %}
 
   {% endif %}
@@ -48,20 +43,22 @@ library
         Data.Text.Helpers
       , Data.Time.Formatters
       , Network.AWS.Internal
+      , Network.AWS.Internal.Request
       , Network.AWS.Internal.Signing
-      , Network.AWS.Internal.Types
-      , Network.AWS.Internal.Types.Common
       , Network.HTTP.QueryString.Generic
       , Text.XML.Generic
 
 {% for model in models %}
-  {% for oth in model.value.other %}
-      , Network.AWS.{{ model.value.module }}.{{ oth.value }}
+      , Network.AWS.{{ model.value.module }}.Service
+      , Network.AWS.{{ model.value.module }}.Types
+  {% for op in model.value.operations %}
+      , Network.AWS.{{ model.value.module }}.{{ op.value }}
   {% endfor %}
   {% if !model.last %}
 
   {% endif %}
 {% endfor %}
+
     build-depends:
         aeson              >= 0.7
       , attoparsec

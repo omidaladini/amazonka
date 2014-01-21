@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Network.AWS.Internal.Request
--- Copyright   : (c) 2013 Brendan Hay <brendan.g.hay@gmail.com>
+-- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
@@ -13,12 +13,12 @@
 
 module Network.AWS.Internal.Request where
 
-import Data.ByteString                 (ByteString)
-import Network.AWS.Internal.Types
+import Data.ByteString                  (ByteString)
+import Network.AWS.Types
 import Network.HTTP.Conduit
-import Network.HTTP.QueryString.Pickle
-import Network.HTTP.Types              hiding (toQuery)
-import Text.XML.Expat.Pickle.Generic
+import Network.HTTP.QueryString.Generic
+import Network.HTTP.Types               hiding (toQuery)
+import Text.XML.Generic
 
 query :: IsQuery a => Service -> StdMethod -> ByteString -> a -> Raw
 query s@Service{..} m p x = Raw s m p (toQuery x) [] (RequestBodyBS "")
