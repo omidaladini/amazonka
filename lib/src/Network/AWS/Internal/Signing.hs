@@ -23,28 +23,29 @@ module Network.AWS.Internal.Signing
 
 import           Control.Applicative
 import           Control.Monad.IO.Class
-import qualified Crypto.Hash.SHA1       as SHA1
-import qualified Crypto.Hash.SHA256     as SHA256
-import qualified Crypto.MAC.HMAC        as HMAC
-import           Data.ByteString        (ByteString)
-import qualified Data.ByteString.Base16 as Base16
-import qualified Data.ByteString.Base64 as Base64
-import qualified Data.ByteString.Char8  as BS
-import           Data.CaseInsensitive   (CI)
-import qualified Data.CaseInsensitive   as Case
+import qualified Crypto.Hash.SHA1        as SHA1
+import qualified Crypto.Hash.SHA256      as SHA256
+import qualified Crypto.MAC.HMAC         as HMAC
+import           Data.ByteString         (ByteString)
+import qualified Data.ByteString.Base16  as Base16
+import qualified Data.ByteString.Base64  as Base64
+import qualified Data.ByteString.Char8   as BS
+import qualified Data.ByteString.Helpers as BSH
+import           Data.CaseInsensitive    (CI)
+import qualified Data.CaseInsensitive    as Case
 import           Data.Default
-import           Data.Function          (on)
-import           Data.List              (groupBy, nub, sort)
+import           Data.Function           (on)
+import           Data.List               (groupBy, nub, sort)
 import           Data.Maybe
 import           Data.Monoid
-import qualified Data.Text              as Text
-import qualified Data.Text.Encoding     as Text
-import           Data.Time              (getCurrentTime)
+import qualified Data.Text               as Text
+import qualified Data.Text.Encoding      as Text
+import           Data.Time               (getCurrentTime)
 import           Data.Time.Formatters
 import           Network.AWS.Headers
 import           Network.AWS.Types
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types     (Header, StdMethod, urlEncode, renderSimpleQuery)
+import           Network.HTTP.Types      (Header, StdMethod, urlEncode, renderSimpleQuery)
 
 data Common = Common
     { _service :: !ByteString
@@ -205,7 +206,7 @@ s3 bucket raw@RawRequest{..} auth reg time =
 
     date = formatRFC822 time
 
-    canonicalResource = '/' `wrap` bucket <> "/" `stripPrefix` rawPath
+    canonicalResource = '/' `BSH.wrap` bucket <> "/" `BSH.stripPrefix` rawPath
 
     -- relevantQueryKeys =
     --     [ "acl"
@@ -280,24 +281,4 @@ lookupHeader :: ByteString -> [Header] -> Maybe ByteString
 lookupHeader (Case.mk -> key) = lookup key
 
 flattenValues :: (CI ByteString, ByteString) -> ByteString
-flattenValues (k, v) = mconcat [Case.foldedCase k, ":", strip ' ' v, "\n"]
-
-strip :: Char -> ByteString -> ByteString
-strip c = Text.encodeUtf8 . Text.dropAround (== c) . Text.decodeUtf8
-
-stripPrefix :: ByteString -> ByteString -> ByteString
-stripPrefix (Text.decodeUtf8 -> x) (Text.decodeUtf8 -> y) =
-    Text.encodeUtf8 . fromMaybe y $ Text.stripPrefix x y
-
-wrap :: Char -> ByteString -> ByteString
-wrap c bs = case c `match` bs of
-    (True,  True)  -> bs
-    (False, True)  -> c `BS.cons` bs
-    (True,  False) -> bs `BS.snoc` c
-    (False, False) -> let b = BS.singleton c
-                      in  BS.concat [b, bs, b]
-  where
-    match x xs
-        | BS.null xs = (False, False)
-        | otherwise  = (x == BS.head xs, x == BS.last xs)
-
+flattenValues (k, v) = mconcat [Case.foldedCase k, ":", BSH.strip ' ' v, "\n"]

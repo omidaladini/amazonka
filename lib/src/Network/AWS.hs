@@ -1,6 +1,5 @@
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Network.AWS
@@ -67,28 +66,29 @@ module Network.AWS
 --     , Members          (..)
      ) where
 
--- import qualified Control.Concurrent.Async              as A
--- import           Control.Error
--- import           Control.Exception
+-- import qualified Control.Concurrent.Async              as Async
+import           Control.Error
+import qualified Control.Exception                     as Ex
 -- import qualified Control.Exception.Lifted              as Lifted
--- import           Control.Monad
--- import           Control.Monad.Error
--- import           Control.Monad.Trans.Reader
--- import           Control.Monad.Trans.Resource
--- import           Control.Monad.Trans.Resource.Internal
--- import           Data.Conduit
--- import qualified Data.Conduit.Binary                   as Conduit
--- import           Network.AWS.Auth
--- import           Network.HTTP.Conduit
--- import           System.IO
+import           Control.Monad
+import           Control.Monad.Error
+import           Control.Monad.Trans.Reader
+import           Control.Monad.Trans.Resource
+import           Control.Monad.Trans.Resource.Internal
+import           Data.Conduit
+import qualified Data.Conduit.Binary                   as Conduit
+import           Network.AWS.Auth
+import           Network.AWS.Types
+import           Network.HTTP.Conduit
+import           System.IO
 
--- runAWS :: Credentials -> Bool -> AWS a -> IO (Either AWSError a)
--- runAWS cred dbg aws = runResourceT . withInternalState $ \s -> do
---     m <- newManager conduitManagerSettings
---     a <- runEitherT $ credentials cred
---     either (return . Left)
---            (runEnv aws . Env defaultRegion dbg s m)
---            a
+runAWS :: Credentials -> Bool -> AWS a -> IO (Either AWSError a)
+runAWS cred dbg aws = runResourceT . withInternalState $ \s -> do
+    m <- newManager conduitManagerSettings
+    a <- runEitherT $ credentials cred
+    either (return . Left)
+           (runEnv aws . Env defaultRegion dbg s m)
+           a
 
 -- runEnv :: AWS a -> Env -> IO (Either AWSError a)
 -- runEnv aws = runEitherT . runReaderT (unwrap aws)
@@ -120,22 +120,22 @@ module Network.AWS
 --     rs <- response rq h
 --     hoistError rs
 
--- async :: AWS a -> AWS (A.Async (Either AWSError a))
+-- async :: AWS a -> AWS (Async.Async (Either AWSError a))
 -- async aws = AWS ask >>= resourceAsync . lift . runEnv aws
 
--- wait :: A.Async (Either AWSError a) -> AWS a
--- wait a = liftIO (A.waitCatch a) >>= hoistError . join . fmapL toError
+-- wait :: Async.Async (Either AWSError a) -> AWS a
+-- wait a = liftIO (Async.waitCatch a) >>= hoistError . join . fmapL toError
 
--- wait_ :: A.Async (Either AWSError a) -> AWS ()
+-- wait_ :: Async.Async (Either AWSError a) -> AWS ()
 -- wait_ = void . wait
 
--- sendAsync :: Rq a => a -> AWS (A.Async (Either AWSError (Either (Er a) (Rs a))))
+-- sendAsync :: Rq a => a -> AWS (Async.Async (Either AWSError (Either (Er a) (Rs a))))
 -- sendAsync = async . sendCatch
 
--- waitAsync :: ToError e => A.Async (Either AWSError (Either e a)) -> AWS a
+-- waitAsync :: ToError e => Async.Async (Either AWSError (Either e a)) -> AWS a
 -- waitAsync a = wait a >>= hoistError . fmapL toError
 
--- waitAsync_ :: ToError e => A.Async (Either AWSError (Either e a)) -> AWS ()
+-- waitAsync_ :: ToError e => Async.Async (Either AWSError (Either e a)) -> AWS ()
 -- waitAsync_ = void . waitAsync
 
 -- -- | Create a 'Source' which yields the initial and subsequent repsonses
@@ -162,12 +162,12 @@ module Network.AWS
 --         yield rs
 --         either (const $ return ()) (go . next rq) rs
 
--- resourceAsync :: MonadResource m => ResourceT IO a -> m (A.Async a)
+-- resourceAsync :: MonadResource m => ResourceT IO a -> m (Async.Async a)
 -- resourceAsync (ResourceT f) = liftResourceT . ResourceT $ \g -> Lifted.mask $ \h ->
 --     bracket_
 --         (stateAlloc g)
 --         (return ())
---         (A.async $ bracket_
+--         (Async.async $ bracket_
 --             (return ())
 --             (stateCleanup g)
 --             (h $ f g))

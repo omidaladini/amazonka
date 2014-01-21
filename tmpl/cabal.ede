@@ -29,6 +29,7 @@ library
 
     exposed-modules:
         Network.AWS
+      , Network.AWS.Auth
       , Network.AWS.Headers
       , Network.AWS.Types
 
@@ -40,7 +41,8 @@ library
 {% endfor %}
 
     other-modules:
-        Data.Text.Helpers
+        Data.ByteString.Helpers
+      , Data.Text.Helpers
       , Data.Time.Formatters
       , Network.AWS.Internal
       , Network.AWS.Internal.Request

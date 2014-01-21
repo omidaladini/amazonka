@@ -37,6 +37,7 @@ import qualified Data.Conduit.Binary              as Conduit
 import           Data.Default
 import           Data.IORef
 import           Data.Monoid
+import           Data.String
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
 import qualified Data.Text.Encoding               as Text
@@ -87,11 +88,14 @@ instance Monoid AWSError where
     mempty      = AWSError []
     mappend a b = AWSError $ awsErrors a ++ awsErrors b
 
-throwError :: String -> AWS a
-throwError = AWS . Error.throwError . AWSError . (:[])
+instance IsString AWSError where
+    fromString = AWSError . (:[])
 
 eitherError :: Either String a -> AWS a
 eitherError = either throwError return
+
+throwError :: String -> AWS a
+throwError = AWS . Error.throwError . fromString
 
 newtype AWS a = AWS
     { unwrap :: ReaderT Env (EitherT AWSError IO) a
