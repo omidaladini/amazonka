@@ -23,7 +23,6 @@ module Network.AWS
     , Credentials      (..)
 
     -- * Regions
-    , Region           (..)
     , within
     , getRegion
 

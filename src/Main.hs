@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE TupleSections     #-}
 
 -- Module      : Main
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -14,6 +15,7 @@
 module Main (main) where
 
 import           Control.Applicative
+import           Control.Arrow
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
@@ -38,7 +40,6 @@ import qualified Text.EDE            as EDE
 -- FIXME:
 -- EC2: LaunchSpecification type has missing lsMonitoring type
 -- ElasticCache: shape_names Endpoint and AvailablityZone need to be disambiguated
-
 
 main :: IO ()
 main = getArgs >>= parse
@@ -100,7 +101,7 @@ model dir Templates{..} m@Model{..} = do
     renderTypes (root </> "Types.hs") tTypes
 
     -- <dir>/<Service>/[Operation..].hs
-    forM_ mOperations $ \op ->
+    forM_ ops $ \op ->
         renderOperation (root </> Text.unpack (oName op) <.> "hs") op $
             case mType of
                 RestXml  -> tRestXMLOperation
@@ -108,11 +109,18 @@ model dir Templates{..} m@Model{..} = do
                 Json     -> tJSONOperation
                 Query    -> tQueryOperation
   where
+    (_,   typs) = types pres m
+
+    (pres, ops) =
+        foldl' (\(acc, xs) -> second (: xs) . updateOperation acc)
+               (mempty, [])
+               mOperations
+
     Object oJSON = toJSON m
 
     mJSON = oJSON <> EDE.fromPairs
         [ "module" .= mName
-        , "types"  .= types m
+        , "types"  .= typs
         ]
 
     renderInterface p t =
@@ -125,19 +133,41 @@ model dir Templates{..} m@Model{..} = do
         render p t mJSON
 
     renderOperation p o@Operation{..} t = do
-        let Object o' = toJSON $ o
-                            { oInput      = operation oName <$> oInput
-                            , oOutput     = operation (oName `Text.snoc` 'R') <$> oOutput
-                            , oPagination = pagination oName <$> oPagination
-                            }
+        let Object o' = toJSON o
         render p t $ mJSON <> o'
 
-    operation n x = prefixes (loweredWordPrefix n) (replace x)
+updateOperation :: HashSet Text -> Operation -> (HashSet Text, Operation)
+updateOperation s1 o@Operation{..} = f oInput oOutput
+  where
+    f (Just x) (Just y) =
+        let (pre, (s2, inp)) = g s1 x
+            opre             = pre `Text.snoc` 'r'
+            out              = prefixes opre $ replace y
+        in  ( Set.insert opre s2
+            , o { oInput  = Just inp
+                , oOutput = Just out
+                , oPagination = p pre opre <$> oPagination
+                }
+            )
 
-    pagination n l@Pagination{..} = l
-        { pInputToken  = loweredWordPrefix n <> upperFirst pInputToken
-        , pOutputToken = loweredWordPrefix (n `Text.snoc` 'R') <> upperFirst pInputToken
+    f (Just x) Nothing =
+        let (_, (s2, inp)) = g s1 x
+        in  (s2, o { oInput = Just inp })
+
+    f Nothing (Just y) =
+        let (_, (s2, out)) = g s1 y
+        in  (s2, o { oOutput = Just out })
+
+    f Nothing Nothing =
+        (s1, o)
+
+    g s = disambiguate s . replace
+
+    p x y l@Pagination{..} = l
+        { pInputToken  = x <> upperFirst pInputToken
+        , pOutputToken = y <> upperFirst pInputToken
         }
+
 
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
@@ -154,10 +184,8 @@ errors = map replace
   where
     a `cmp` b = sShapeName a == sShapeName b
 
-types :: Model -> [Shape]
-types = map check
-    . snd
-    . foldl' disambiguate (Set.empty, [])
+types :: HashSet Text -> Model -> (HashSet Text, [Shape])
+types set = disambiguateMany set
     . filter (except . sShapeName)
     . map replace
     . List.sort
@@ -165,10 +193,10 @@ types = map check
     . concatMap shapes
     . mOperations
   where
-    check s
-        | Just x <- sShapeName s
-        , Text.null x = error $ "Shape has empty name: " ++ show s
-        | otherwise   = s
+    -- check s
+    --     | Just x <- sShapeName s
+    --     , Text.null x = error $ "Shape has empty name: " ++ show s
+    --     | otherwise   = s
 
     except (Just "Text") = False
     except _             = True
@@ -178,6 +206,38 @@ types = map check
     shapes Operation{..} = concatMap flatten
          $ fromMaybe [] (Map.elems . sFields <$> oInput)
         ++ fromMaybe [] (Map.elems . sFields <$> oOutput)
+
+disambiguateMany :: HashSet Text -> [Shape] -> (HashSet Text, [Shape])
+disambiguateMany set =
+    foldl' (\(acc, xs) -> second (: xs) . snd . disambiguate acc) (set, [])
+
+disambiguate :: HashSet Text -> Shape -> (Text, (HashSet Text, Shape))
+disambiguate set s@SStruct{..} = (pre, (next, prefixes pre s))
+  where
+    (next, pre) = unique set
+        . fromMaybe "pre"
+        $ loweredWordPrefix <$> sShapeName
+
+disambiguate set s = ("", (set, s))
+
+unique :: HashSet Text -> Text -> (HashSet Text, Text)
+unique set p
+    | p `Set.member` set = unique set $ Text.init p `Text.snoc` succ (Text.last p)
+    | otherwise = (Set.insert p set, p)
+
+prefixes :: Text -> Shape -> Shape
+prefixes pre s@SStruct{..} = s
+    { sFields = Map.fromList . map f $ Map.toList sFields
+    }
+  where
+    f (k, v) = (pre <> k, v)
+prefixes _ s = s
+
+loweredWordPrefix :: Text -> Text
+loweredWordPrefix = Text.toLower . Text.concatMap f
+  where
+    f c | isLower c = ""
+        | otherwise = Text.singleton c
 
 flatten :: Shape -> [Shape]
 flatten s@SStruct {..} = s : concatMap flatten (Map.elems sFields)
@@ -191,6 +251,7 @@ replace l@SList   {..} = l { sItem = replace sItem }
 replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
 replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
   where
+    name PString | sShapeName == Just "ResourceName" = "ResourceName"
     name PString    = "Text"
     name PInteger   = "Int"
     name PDouble    = "Double"
@@ -198,32 +259,6 @@ replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
     name PBlob      = "ByteString"
     name PTimestamp = "UTCTime"
     name PLong      = "Integer"
-
-disambiguate :: (HashSet Text, [Shape]) -> Shape -> (HashSet Text, [Shape])
-disambiguate (set, xs) s@SStruct{..} = (next, prefixes pre s : xs)
-  where
-    (pre, next) = unique
-        . fromMaybe "pre"
-        $ loweredWordPrefix <$> sShapeName
-
-    unique p
-        | p `Set.member` set = unique $
-            Text.init p `Text.snoc` succ (Text.last p)
-        | otherwise = (p, Set.insert p set)
-disambiguate (set, xs) s = (set, s : xs)
-
-prefixes :: Text -> Shape -> Shape
-prefixes pre s@SStruct{..} =
-    s { sFields = Map.fromList . map f $ Map.toList sFields }
-  where
-    f (k, v) = (pre <> k, v)
-prefixes _ s = s
-
-loweredWordPrefix :: Text -> Text
-loweredWordPrefix = Text.toLower . Text.concatMap f
-  where
-    f c | isLower c = ""
-        | otherwise = Text.singleton c
 
 data Templates = Templates
     { tInterface         :: Template

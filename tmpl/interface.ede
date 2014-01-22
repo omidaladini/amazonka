@@ -11,7 +11,7 @@ module Network.AWS.{{ module }}
 
     -- * Operations
 {% for op in operations %}
---    , Network.AWS.{{ module }}.{{ op.value }}
+    , module Network.AWS.{{ module }}.{{ op.value }}
 {% endfor %}
     ) where
 
@@ -19,5 +19,5 @@ import Network.AWS.{{ module }}.Service
 -- import Network.AWS.{{ module }}.Types
 
 {% for op in operations %}
--- import Network.AWS.{{ module }}.{{ op.value }}
+import Network.AWS.{{ module }}.{{ op.value }}
 {% endfor %}

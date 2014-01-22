@@ -16,11 +16,32 @@ module Network.AWS.Internal.Types.Common where
 
 import qualified Data.Attoparsec.Text             as AText
 import           Data.Default
+import           Data.String
+import           Data.Tagged
+import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
 import           Data.Text.Helpers
 import           GHC.Generics
 import           Network.HTTP.QueryString.Generic
 import           Text.XML.Generic
+
+newtype ResourceName = ResourceName { unResourceName :: Text }
+    deriving (Show, Eq, Ord, Generic)
+
+instance IsString ResourceName where
+    fromString = ResourceName . Text.pack
+
+instance FromText ResourceName where
+    fromText = Right . ResourceName
+
+instance ToText ResourceName where
+    toText = unResourceName
+
+instance ToQuery ResourceName where
+    toQuery = toQuery . unResourceName
+
+instance FromXML ResourceName where
+    fromXML o = fmap ResourceName . fromXML (retag o)
 
 data Region
     = NorthVirginia
