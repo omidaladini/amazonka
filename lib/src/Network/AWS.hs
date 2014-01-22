@@ -58,7 +58,7 @@ module Network.AWS
     , liftEitherT
 
     -- * Types
-    , module Common
+    , module Network.AWS.Internal.Types.Common
     ) where
 
 -- import qualified Control.Concurrent.Async              as Async
@@ -76,7 +76,7 @@ import           Data.Default
 import           Data.String
 import           Network.AWS.Auth
 import           Network.AWS.Internal.Types
-import           Network.AWS.Internal.Types.Common     as Common
+import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           System.IO
 

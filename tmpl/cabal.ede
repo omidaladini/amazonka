@@ -34,6 +34,11 @@ library
 
 {% for model in models %}
       , Network.AWS.{{ model.value.module }}
+      , Network.AWS.{{ model.value.module }}.Service
+      , Network.AWS.{{ model.value.module }}.Types
+  {% for op in model.value.operations %}
+      , Network.AWS.{{ model.value.module }}.{{ op.value }}
+  {% endfor %}
   {% if !model.last %}
 
   {% endif %}
@@ -50,17 +55,6 @@ library
       , Network.AWS.Internal.Types.Common
       , Network.HTTP.QueryString.Generic
       , Text.XML.Generic
-
-{% for model in models %}
-      , Network.AWS.{{ model.value.module }}.Service
-      , Network.AWS.{{ model.value.module }}.Types
-  {% for op in model.value.operations %}
-      , Network.AWS.{{ model.value.module }}.{{ op.value }}
-  {% endfor %}
-  {% if !model.last %}
-
-  {% endif %}
-{% endfor %}
 
     build-depends:
         aeson              >= 0.7

@@ -165,7 +165,7 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
 
     p x y l@Pagination{..} = l
         { pInputToken  = x <> upperFirst pInputToken
-        , pOutputToken = y <> upperFirst pInputToken
+        , pOutputToken = y <> upperFirst pOutputToken
         }
 
 
@@ -246,7 +246,12 @@ flatten SMap      {..} = flatten sKey ++ flatten sValue
 flatten SPrim     {..} = []
 
 replace :: Shape -> Shape
-replace s@SStruct {..} = s { sFields = Map.map replace sFields }
+replace s@SStruct {..}
+    -- | sShapeName == Just "LaunchSpecification" =
+
+    --     Needs to get the type name from the shapename of the parent + fieldname
+
+    | otherwise  = s { sFields = Map.map replace sFields }
 replace l@SList   {..} = l { sItem = replace sItem }
 replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
 replace p@SPrim   {..} = p { sShapeName = Just $ name sType }

@@ -52,7 +52,7 @@ instance AWSPager {{ name }} where
 
 {% endif %}
 data {{ name }}Response = {{ name }}Response
-{% if output.fields %}
+{% if output.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with output.fields %}
     } deriving (Eq, Show, Generic)
 {% else %}
