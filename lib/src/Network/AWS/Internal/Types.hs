@@ -142,7 +142,7 @@ instance AWSError SomeException where
 awsThrow :: AWSError e => e -> AWS a
 awsThrow = throwError . awsError
 
-awsEitherT :: (MonadIO m, AWSError e) => EitherT e m a -> AWS a
+awsEitherT :: AWSError e => EitherT e IO a -> AWS a
 awsEitherT = AWS . lift . fmapLT awsError
 
 awsEither :: AWSError e => Either e a -> AWS a
