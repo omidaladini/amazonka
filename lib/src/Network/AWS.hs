@@ -22,7 +22,8 @@ module Network.AWS
     -- * Credentials
     , Credentials      (..)
 
-    -- * Regions
+    -- * Controlling the region
+    , Region           (..)
     , within
     , getRegion
 
@@ -30,41 +31,37 @@ module Network.AWS
     , getDebug
     , whenDebug
 
---     -- * Synchronous Requests
---     , send
---     , send_
---     , sendCatch
+    -- * Requests
+    , send
+    , send_
+    , sendAsync
+    , sendCatch
 
---     -- * Asynchronous Actions
---     , async
---     , wait
---     , wait_
+    -- * Pagination
+    , paginate
+    , paginateCatch
 
---     -- * Asynchronous Requests
---     , sendAsync
---     , waitAsync
---     , waitAsync_
+    -- * Asynchronous Actions
+    , async
+    , wait
+    , wait_
+    , waitCatch
 
---     -- * Paginated Requests
---     , paginate
---     , paginateCatch
-
---     -- * File Bodies
---     , requestBodyFile
+    -- * File Bodies
+    , requestBodyFile
 
     -- * Errors
     , AWSError         (..)
-    , hoistError
-    , liftEitherT
-
-    -- * Types
-    , module Network.AWS.Internal.Types.Common
+    , awsThrow
+    , awsEitherT
+    , awsEither
     ) where
 
--- import qualified Control.Concurrent.Async              as Async
+import           Control.Applicative
+import qualified Control.Concurrent.Async              as Async
 import           Control.Error
 import qualified Control.Exception                     as Ex
--- import qualified Control.Exception.Lifted              as Lifted
+import qualified Control.Exception.Lifted              as Lifted
 import           Control.Monad
 import           Control.Monad.Error
 import           Control.Monad.Trans.Reader
@@ -74,108 +71,96 @@ import           Data.Conduit
 import qualified Data.Conduit.Binary                   as Conduit
 import           Data.Default
 import           Data.String
-import           Network.AWS.Auth
-import           Network.AWS.Internal.Types
-import           Network.AWS.Internal.Types.Common
+import           Network.AWS.Credentials
+import           Network.AWS.Internal
 import           Network.HTTP.Conduit
 import           System.IO
 
-runAWS :: Credentials -> Bool -> AWS a -> IO (Either AWSError a)
+runAWS :: Credentials -> Bool -> AWS a -> IO (Either AWSErrors a)
 runAWS cred dbg aws = runResourceT . withInternalState $ \s -> do
     m <- newManager conduitManagerSettings
     a <- runEitherT $ credentials cred
     either (return . Left)
            (runEnv aws . Env def dbg s m)
-           a
+           (fromString `fmapL` a)
 
-runEnv :: AWS a -> Env -> IO (Either AWSError a)
+runEnv :: AWS a -> Env -> IO (Either AWSErrors a)
 runEnv aws = runEitherT . runReaderT (unwrap aws)
 
--- | Run an 'AWS' operation inside a specific 'Region'.
 within :: Region -> AWS a -> AWS a
 within reg = AWS . local (\e -> e { awsRegion = reg }) . unwrap
 
-hoistError :: (MonadError e m, Error e) => Either e a -> m a
-hoistError = either throwError return
+send :: (AWSRequest a, AWSError (Er a)) => a -> AWS (Rs a)
+send = awsEither <=< sendCatch
 
-liftEitherT :: EitherT String IO a -> AWS a
-liftEitherT = AWS . lift . fmapLT fromString
+send_ :: (AWSRequest a, AWSError (Er a)) => a -> AWS ()
+send_ = void . send
 
--- -- | Send a request and return the associated response type.
--- send :: (Rq a, ToError (Er a)) => a -> AWS (Rs a)
--- send = (hoistError . fmapL toError =<<) . sendCatch
+sendAsync :: AWSRequest a
+          => a
+          -> AWS (Async.Async (Either AWSErrors (Either (Er a) (Rs a))))
+sendAsync = async . sendCatch
 
--- send_ :: (Rq a, ToError (Er a)) => a -> AWS ()
--- send_ = void . send
+sendCatch :: AWSRequest a => a -> AWS (Either (Er a) (Rs a))
+sendCatch rq = do
+    s  <- sign $ request rq
+    whenDebug . liftIO $ print s
+    m  <- getManager
+    rs <- http s m
+    response rq rs
 
--- sendCatch :: Rq a => a -> AWS (Either (Er a) (Rs a))
--- sendCatch rq = do
---     s  <- sign $ request rq
---     whenDebug . liftIO $ print s
---     m  <- getManager
---     h  <- http s m
---     whenDebug . liftIO $ print h
---     rs <- response rq h
---     hoistError rs
+paginate :: (AWSRequest a, AWSPager a, AWSError (Er a))
+         => a
+         -> Source AWS (Rs a)
+paginate = ($= go) . paginateCatch
+  where
+    go = do
+        x <- await
+        maybe (return ())
+              (either (lift . awsThrow) yield)
+              x
 
--- async :: AWS a -> AWS (Async.Async (Either AWSError a))
--- async aws = AWS ask >>= resourceAsync . lift . runEnv aws
+paginateCatch :: (AWSRequest a, AWSPager a, AWSError (Er a))
+              => a
+              -> Source AWS (Either (Er a) (Rs a))
+paginateCatch = go . Just
+  where
+    go Nothing   = return ()
+    go (Just rq) = do
+        rs <- lift $ sendCatch rq
+        yield rs
+        either (const $ return ())
+               (go . next rq)
+               rs
 
--- wait :: Async.Async (Either AWSError a) -> AWS a
--- wait a = liftIO (Async.waitCatch a) >>= hoistError . join . fmapL toError
+async :: AWS a -> AWS (Async.Async (Either AWSErrors a))
+async aws = AWS ask >>= resourceAsync . lift . runEnv aws
 
--- wait_ :: Async.Async (Either AWSError a) -> AWS ()
--- wait_ = void . wait
+wait :: AWSError e => Async.Async (Either e a) -> AWS a
+wait = awsEither <=< waitCatch
 
--- sendAsync :: Rq a => a -> AWS (Async.Async (Either AWSError (Either (Er a) (Rs a))))
--- sendAsync = async . sendCatch
+wait_ :: AWSError e => Async.Async (Either e a) -> AWS ()
+wait_ = void . wait
 
--- waitAsync :: ToError e => Async.Async (Either AWSError (Either e a)) -> AWS a
--- waitAsync a = wait a >>= hoistError . fmapL toError
+waitCatch :: AWSError e => Async.Async (Either e a) -> AWS (Either e a)
+waitCatch a = liftIO (Async.waitCatch a) >>= either awsThrow return
 
--- waitAsync_ :: ToError e => Async.Async (Either AWSError (Either e a)) -> AWS ()
--- waitAsync_ = void . waitAsync
+resourceAsync :: MonadResource m => ResourceT IO a -> m (Async.Async a)
+resourceAsync (ResourceT f) =
+    liftResourceT . ResourceT $ \g -> Lifted.mask $ \h ->
+        Ex.bracket_ (stateAlloc g)
+                    (return ())
+                    (Async.async $ Ex.bracket_
+                        (return ())
+                        (stateCleanup g)
+                        (h $ f g))
 
--- -- | Create a 'Source' which yields the initial and subsequent repsonses
--- -- for requests that support pagination.
--- paginate :: (Rq a, Pg a, ToError (Er a))
---          => a
---          -> Source AWS (Rs a)
--- paginate = ($= go) . paginateCatch
---   where
---     go = do
---         x <- await
---         maybe (return ())
---               (either (lift . liftEitherT . left . toError) yield)
---               x
-
--- paginateCatch :: (Rq a, Pg a, ToError (Er a))
---               => a
---               -> Source AWS (Either (Er a) (Rs a))
--- paginateCatch = go . Just
---   where
---     go Nothing   = return ()
---     go (Just rq) = do
---         rs <- lift $ sendCatch rq
---         yield rs
---         either (const $ return ()) (go . next rq) rs
-
--- resourceAsync :: MonadResource m => ResourceT IO a -> m (Async.Async a)
--- resourceAsync (ResourceT f) = liftResourceT . ResourceT $ \g -> Lifted.mask $ \h ->
---     bracket_
---         (stateAlloc g)
---         (return ())
---         (Async.async $ bracket_
---             (return ())
---             (stateCleanup g)
---             (h $ f g))
-
--- requestBodyFile :: MonadIO m => FilePath -> m (Maybe RequestBody)
--- requestBodyFile f = runMaybeT $ do
---     n <- join . hushT $ syncIO getFileSize
---     return . requestBodySource n $ Conduit.sourceFile f
---   where
---     getFileSize = fmap hoistMaybe $
---         bracket (openBinaryFile f ReadMode)
---                 hClose
---                 (fmap (Just . fromIntegral) . hFileSize)
+requestBodyFile :: MonadIO m => FilePath -> m (Maybe RequestBody)
+requestBodyFile f = runMaybeT $ do
+    n <- join . hushT $ syncIO getFileSize
+    return . requestBodySource n $ Conduit.sourceFile f
+  where
+    getFileSize = hoistMaybe <$>
+        Ex.bracket (openBinaryFile f ReadMode)
+                   hClose
+                   (fmap (Just . fromIntegral) . hFileSize)

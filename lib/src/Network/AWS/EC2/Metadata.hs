@@ -22,15 +22,12 @@ module Network.AWS.EC2.Metadata
 import           Control.Applicative
 import           Control.Error
 import           Control.Monad.Error
-import           Control.Monad.IO.Class
 import           Data.ByteString         (ByteString)
 import qualified Data.ByteString.Char8   as BS
 import qualified Data.ByteString.Helpers as BSH
 import qualified Data.ByteString.Lazy    as LBS
 import           Data.Monoid
 import           Data.String
-import qualified Data.Text.Helpers       as Text
-import           Network.AWS.Internal.Types
 import           Network.HTTP.Conduit
 
 data Metadata
@@ -56,12 +53,12 @@ data Metadata
 
 metadata :: (Applicative m, MonadIO m)
          => Metadata
-         -> EitherT AWSError m ByteString
+         -> EitherT String m ByteString
 metadata = metadataByKey . toPath
 
 metadataByKey :: (Applicative m, MonadIO m)
               => ByteString
-              -> EitherT AWSError m ByteString
+              -> EitherT String m ByteString
 metadataByKey p = do
     rs <- fmapLT (fromString . show) . syncIO $ simpleHttp url
     case BSH.strip '\n' $ LBS.toStrict rs of
@@ -71,8 +68,9 @@ metadataByKey p = do
     url = BS.unpack $ "http://169.254.169.254/latest/meta-data/" <> p
 
 isEC2 :: (Functor m, MonadIO m) => m Bool
-isEC2 = fmap isRight . runEitherT . syncIO $
-    simpleHttp "http://instance-data/latest"
+isEC2 = fmap isRight . runEitherT . syncIO $ simpleHttp url
+  where
+    url = "http://instance-data/latest"
 
 toPath :: Metadata -> ByteString
 toPath meta = case meta of

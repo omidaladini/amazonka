@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE ViewPatterns      #-}
 
--- Module      : Network.AWS.Auth
+-- Module      : Network.AWS.Credentials
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
@@ -14,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 
 -- |
-module Network.AWS.Auth where
+module Network.AWS.Credentials where
 
 import           Control.Applicative
 import           Control.Concurrent
@@ -71,7 +71,7 @@ secretKey = "AWS_SECRET_KEY"
 
 credentials :: (Applicative m, MonadIO m)
             => Credentials
-            -> EitherT AWSError m (IORef Auth)
+            -> EitherT String m (IORef Auth)
 credentials = mk
   where
     mk (CredBasic   a s)   = ref $ Auth a s Nothing Nothing
@@ -90,7 +90,7 @@ credentials = mk
 
     ref = liftIO . newIORef
 
-defaultProfile :: (Applicative m, MonadIO m) => EitherT AWSError m ByteString
+defaultProfile :: (Applicative m, MonadIO m) => EitherT String m ByteString
 defaultProfile = do
     ls <- BS.lines <$> metadata SecurityCredentials
     tryHead "Unable to get default IAM Profile from metadata" ls
@@ -103,24 +103,25 @@ defaultProfile = do
 -- temporary session credentials.
 fromProfile :: (Applicative m, MonadIO m)
             => ByteString
-            -> EitherT AWSError m (IORef Auth)
+            -> EitherT String m (IORef Auth)
 fromProfile name = do
     !a@Auth{..} <- auth
-    fmapLT (fromString . show) . syncIO . liftIO $ do
+    fmapLT show . syncIO . liftIO $ do
         ref <- newIORef a
         start ref expiration
         return ref
   where
-    auth :: (Applicative m, MonadIO m) => EitherT AWSError m Auth
+    auth :: (Applicative m, MonadIO m) => EitherT String m Auth
     auth = do
         m <- LBS.fromStrict <$> metadata (SecurityCredential name)
-        hoistEither . fmapL fromString $ Aeson.eitherDecode m
+        hoistEither $ Aeson.eitherDecode m
 
     start ref = maybe (return ()) (timer ref <=< delay)
 
     delay n = truncate . diffUTCTime n <$> getCurrentTime
 
     -- FIXME: guard against a lower expiration than the -60
+    -- remove the error . show shenanigans
     timer ref n = void . forkIO $ do
         threadDelay $ (n - 60) * 1000000
         !a@Auth{..} <- eitherT (error . show) return auth

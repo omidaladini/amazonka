@@ -7,6 +7,8 @@
 {-# LANGUAGE ScopedTypeVariables        #-}
 {-# LANGUAGE TypeFamilies               #-}
 
+{-# LANGUAGE MultiParamTypeClasses               #-}
+
 -- Module      : Network.AWS.Internal.Types
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
@@ -23,8 +25,7 @@ import           Control.Applicative
 import           Control.Error
 import           Control.Exception
 import           Control.Monad
-import           Control.Monad.Error               (MonadError)
-import qualified Control.Monad.Error               as Error
+import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.Aeson                        hiding (Error, decode)
@@ -37,6 +38,7 @@ import           Data.IORef
 import           Data.Monoid
 import           Data.String
 import           Data.Text                         (Text)
+import qualified Data.Text                         as Text
 import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           Network.AWS.Internal.Types.Common
@@ -76,24 +78,8 @@ data Env = Env
     , awsAuth     :: !(IORef Auth)
     }
 
-newtype AWSError = AWSError { awsErrors :: [String] }
-    deriving (Eq, Show)
-
-instance Monoid AWSError where
-    mempty      = AWSError []
-    mappend a b = AWSError $ awsErrors a ++ awsErrors b
-
-instance IsString AWSError where
-    fromString = AWSError . (:[])
-
-eitherAWSError :: Either String a -> AWS a
-eitherAWSError = either throwAWSError return
-
-throwAWSError :: String -> AWS a
-throwAWSError = AWS . Error.throwError . fromString
-
 newtype AWS a = AWS
-    { unwrap :: ReaderT Env (EitherT AWSError IO) a
+    { unwrap :: ReaderT Env (EitherT AWSErrors IO) a
     } deriving
         ( Functor
         , Applicative
@@ -102,14 +88,14 @@ newtype AWS a = AWS
         , MonadUnsafeIO
         , MonadThrow
         , MonadReader Env
-        , MonadError AWSError
+        , MonadError AWSErrors
         )
 
 instance MonadResource AWS where
     liftResourceT f = AWS $
         fmap awsResource ask >>= liftIO . runInternalState f
 
-instance MonadThrow (EitherT AWSError IO) where
+instance MonadThrow (EitherT AWSErrors IO) where
     monadThrow = liftIO . throwIO
 
 getAuth :: AWS Auth
@@ -126,6 +112,41 @@ getDebug = AWS $ awsDebug <$> ask
 
 whenDebug :: AWS () -> AWS ()
 whenDebug f = getDebug >>= \p -> when p f
+
+newtype AWSErrors = AWSErrors { awsErrors :: [Text] }
+    deriving (Eq, Show)
+
+instance Monoid AWSErrors where
+    mempty      = AWSErrors []
+    mappend a b = AWSErrors $ awsErrors a ++ awsErrors b
+
+instance IsString AWSErrors where
+    fromString = AWSErrors . (:[]) . Text.pack
+
+instance Error AWSErrors where
+    strMsg = fromString
+    noMsg  = AWSErrors []
+
+class AWSError a where
+    awsError :: a -> AWSErrors
+
+instance AWSError Text where
+    awsError = AWSErrors . (:[])
+
+instance AWSError String where
+    awsError = fromString
+
+instance AWSError SomeException where
+    awsError = awsError . show
+
+awsThrow :: AWSError e => e -> AWS a
+awsThrow = throwError . awsError
+
+awsEitherT :: AWSError e => EitherT e IO a -> AWS a
+awsEitherT = AWS . lift . fmapLT awsError
+
+awsEither :: AWSError e => Either e a -> AWS a
+awsEither = either awsThrow return
 
 type Signer = RawRequest -> Auth -> Region -> UTCTime -> Request
 
@@ -190,8 +211,8 @@ class AWSRequest a where
     response _ rs = (responseBody rs $$+- Conduit.sinkLbs)
         >>= f (statusIsSuccessful $ responseStatus rs)
       where
-        f True  = fmap Right . eitherAWSError . decodeXML
-        f False = fmap Left  . eitherAWSError . decodeXML
+        f True  = fmap Right . awsEither . decodeXML
+        f False = fmap Left  . awsEither . decodeXML
 
 class AWSPager a where
     next :: AWSRequest a => a -> Rs a -> Maybe a
