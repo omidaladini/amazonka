@@ -168,7 +168,6 @@ region Service{..} =
         Global -> return def
         _      -> getRegion
 
-
 endpoint :: Service -> Region -> ByteString
 endpoint Service{..} reg =
     case svcEndpoint of

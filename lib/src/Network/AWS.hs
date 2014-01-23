@@ -15,48 +15,56 @@
 -- |
 module Network.AWS
     (
-    -- * AWS Context
-      AWS
-    , runAWS
-
-    -- * Credentials
-    , Credentials      (..)
+    -- * Specifying credentials
+      Credentials (..)
     , accessKey
     , secretKey
 
+    -- * Running AWS actions
+    , AWS
+    , runAWS
+
     -- * Controlling the region
-    , Region           (..)
+    , Region      (..)
     , within
     , getRegion
 
     -- * Debugging
-    , getDebug
     , whenDebug
+    , getDebug
 
-    -- * Requests
+    -- * Sending requests
     , send
     , send_
-    , sendAsync
     , sendCatch
+    , sendAsync
 
-    -- * Pagination
+    -- * Paginating requests
     , paginate
     , paginateCatch
 
-    -- * Asynchronous Actions
+    -- * Asynchronous actions
     , async
     , wait
     , wait_
     , waitCatch
 
-    -- * File Bodies
-    , requestBodyFile
-
     -- * Errors
-    , AWSError         (..)
+    , AWSErrors   (..)
     , awsThrow
     , awsEitherT
     , awsEither
+
+    -- * File bodies
+    , requestBodyFile
+
+    -- * Types
+    , module Network.AWS.Internal.Types.Common
+
+    -- * Type Classes
+    , AWSRequest
+    , AWSPager
+    , AWSError
     ) where
 
 import           Control.Applicative
@@ -74,6 +82,7 @@ import qualified Data.Conduit.Binary                   as Conduit
 import           Data.Default
 import           Data.String
 import           Network.AWS.Internal
+import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           System.IO
 
