@@ -25,7 +25,7 @@ import Data.List.NonEmpty   (NonEmpty(..))
 import Data.Text            (Text)
 import Data.Time            (UTCTime)
 import Network.HTTP.Types   (StdMethod(..))
-import Network.AWS.Internal hiding (Region, AvailabilityZone)
+import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
 
@@ -42,7 +42,7 @@ instance ToQuery {{ name }}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ signature_version }}Query {{ endpoint_prefix | lowerFirst }} GET "{{ name }}"
+    request = {{ signature_version }}Query service GET "{{ name }}"
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where
@@ -60,7 +60,7 @@ data {{ name }}Response = {{ name }}Response
 {% endif %}
 
 instance FromXML {{ name }}Response where
-    fromXMLOptions = {{ endpoint_prefix }}XMLOptions
+    fromXMLOptions = xmlOptions
 {% if result_wrapped %}
     fromXMLRoot    = fromNestedRoot
          $ "{{ name}}Response"

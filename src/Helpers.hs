@@ -69,11 +69,11 @@ stripTags t
             '<' -> stripTags . Text.drop 1 . Text.dropWhile (/= '>') $ Text.tail t
             _   -> Text.cons (Text.head t) . stripTags $ Text.tail t
 
-pascalize :: Text -> Text
-pascalize = Text.concat . split . Text.toTitle
+pascalise :: Text -> Text
+pascalise = substitute . Text.concat . map Text.toTitle . split . upperFirst
 
-camelize :: Text -> Text
-camelize = lowerFirst . pascalize
+camelise :: Text -> Text
+camelise = lowerFirst . pascalise
 
 underscore :: Text -> Text
 underscore = Text.intercalate (Text.singleton '_') . split
@@ -81,13 +81,24 @@ underscore = Text.intercalate (Text.singleton '_') . split
 hyphenate :: Text -> Text
 hyphenate = Text.intercalate (Text.singleton '-') . split
 
+substitute :: Text -> Text
+substitute = Text.concatMap f
+  where
+    f '.' = "_"
+    f '/' = "_"
+    f '(' = "_"
+    f ')' = ""
+    f  c  = Text.singleton c
+
 split :: Text -> [Text]
-split = filter (/= "") . Text.split f
+split t
+--    | "X86_64" <- t = [t]
+    | otherwise     = filter (/= "") $ Text.split f t
   where
     f ' '  = True
     f '\n' = True
-    f '_'  = True
     f '-'  = True
+--    f '_'  = True
     f  _   = False
 
 lowerFirst :: Text -> Text

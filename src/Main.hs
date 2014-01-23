@@ -235,9 +235,11 @@ loweredWordPrefix = Text.toLower . Text.concatMap f
         | otherwise = Text.singleton c
 
 flatten :: Shape -> [Shape]
-flatten SPrim   {..} = []
-flatten l@SList {..} = flatten sItem
-flatten m@SMap  {..} = flatten sKey ++ flatten sValue
+flatten p@SPrim {..}
+    | sType == PEnum = [p]
+    | otherwise      = []
+flatten SList   {..} = flatten sItem
+flatten SMap    {..} = flatten sKey ++ flatten sValue
 flatten s = s { sFields = fields } : concatMap flatten (Map.elems fields)
   where
     fields = Map.fromList
@@ -250,14 +252,16 @@ flatten s = s { sFields = fields } : concatMap flatten (Map.elems fields)
         | otherwise                = (k, s')
 
 replace :: Shape -> Shape
-replace s@SStruct {..}
-    | otherwise  = s { sFields = Map.map replace sFields }
+replace s@SStruct {..} = s { sFields = Map.map replace sFields }
 replace l@SList   {..} = l { sItem = replace sItem }
 replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
-replace p@SPrim   {..} = p { sShapeName = Just $ name sType }
+replace p@SPrim   {..}
+    | sType == PEnum = p
+    | otherwise      = p { sShapeName = Just $ name sType }
   where
     name PString | sShapeName == Just "ResourceName" = "ResourceName"
     name PString    = "Text"
+    name PEnum      = "Enum"
     name PInteger   = "Int"
     name PDouble    = "Double"
     name PBoolean   = "Bool"

@@ -36,4 +36,3 @@ wrap c bs = case c `match` bs of
     match x xs
         | BS.null xs = (False, False)
         | otherwise  = (x == BS.head xs, x == BS.last xs)
-

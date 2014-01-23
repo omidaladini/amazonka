@@ -1,0 +1,37 @@
+data {{ scope.shape_name }}
+{% for branch in scope.enum %}
+  {% if branch.first %}
+    = {{ branch.key }}
+  {% else %}
+    | {{ branch.key }}
+  {% endif %}
+{% endfor %}
+      deriving (Eq, Ord, Generic)
+
+instance FromText {{ scope.shape_name }} where
+{% for branch in scope.enum %}
+    fromText "{{ branch.value }}" = Right {{ branch.key }}
+{% endfor %}
+    fromText e = failFromText $ "Unrecognised {{ scope.shape_name }}: " <> e
+
+instance Read {{ scope.shape_name }} where
+    readsPrec _ = readFromText
+
+instance ToText {{ scope.shape_name }} where
+{% for branch in scope.enum %}
+    toText {{ branch.key }} = "{{ branch.value }}"
+{% endfor %}
+
+instance Show {{ scope.shape_name }} where
+    show = showToText
+
+instance ToQuery {{ scope.shape_name }} where
+    toQuery = primToQuery
+
+instance FromXML {{ scope.shape_name }} where
+    fromXMLOptions = xmlOptions
+    fromXML        = primFromXML
+
+instance ToXML {{ scope.shape_name }} where
+    toXMLOptions = xmlOptions
+    toXML        = primToXML

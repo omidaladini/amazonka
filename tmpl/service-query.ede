@@ -16,12 +16,12 @@ import Network.AWS.Internal
 import Data.Tagged
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
-{{ endpoint_prefix }} :: Service
-{{ endpoint_prefix }} = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+service :: Service
+service = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
 
 {% if xmlnamespace %}
-{{ endpoint_prefix }}XMLOptions :: Tagged a XMLOptions
-{{ endpoint_prefix }}XMLOptions = Tagged def
+xmlOptions :: Tagged a XMLOptions
+xmlOptions = Tagged def
     { xmlInherit   = True
     , xmlNamespace = Just "{{ xmlnamespace }}"
     }
@@ -43,4 +43,4 @@ data {{ module }}Error = {{ module }}Error
 {% endif %}
 
 instance FromXML {{ module }}Error where
-    fromXMLOptions = {{ endpoint_prefix }}XMLOptions
+    fromXMLOptions = xmlOptions

@@ -1,8 +1,9 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
-{-# LANGUAGE TupleSections     #-}
+{-# LANGUAGE DeriveGeneric       #-}
+{-# LANGUAGE FlexibleInstances   #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE RecordWildCards     #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TupleSections       #-}
 
 -- Module      : Model
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -17,7 +18,9 @@
 module Model where
 
 import           Control.Applicative
+import           Control.Arrow
 import           Control.Error
+import           Control.Monad
 import           Data.Aeson           hiding (String)
 import           Data.Aeson.Types     hiding (String)
 import qualified Data.ByteString.Lazy as LBS
@@ -113,7 +116,7 @@ instance FromJSON [Policy] where
         f (k, _) =
             fail $ "Unable to parse Policy from " ++ Text.unpack k
 
-        g k v = Policy (pascalize k)
+        g k v = Policy (pascalise k)
             <$> v .:? "service_error_code"
             <*> v .:  "http_status_code"
 
@@ -224,6 +227,7 @@ data Shape
       , sMinLength     :: Maybe Int
       , sMaxLength     :: Maybe Int
       , sPattern       :: Maybe Text
+      , sEnum          :: Maybe (HashMap Text Text)
 
       , sShapeName     :: Maybe Text
       , sRequired      :: !Bool
@@ -272,11 +276,15 @@ instance FromJSON Shape where
         f Blob      = prim PBlob
         f Timestamp = prim PTimestamp
 
-        prim t = SPrim t
-            <$> o .:? "location"
-            <*> o .:? "min_length"
-            <*> o .:? "max_length"
-            <*> o .:? "pattern"
+        prim t = do
+            ms <- o .:? "enum"
+            let enum = Map.fromList . map (first pascalise . join (,)) <$> ms
+            SPrim (maybe t (const PEnum) enum)
+                <$> o .:? "location"
+                <*> o .:? "min_length"
+                <*> o .:? "max_length"
+                <*> o .:? "pattern"
+                <*> pure enum
 
         names = Map.foldlWithKey' g mempty
           where
@@ -313,6 +321,7 @@ instance FromJSON Type where
 
 data Prim
     = PString
+    | PEnum
     | PInteger
     | PDouble
     | PBoolean

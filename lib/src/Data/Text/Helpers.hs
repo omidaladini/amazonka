@@ -13,6 +13,9 @@ module Data.Text.Helpers where
 import           Data.Text (Text)
 import qualified Data.Text as Text
 
+failFromText :: Text -> Either String a
+failFromText = Left . Text.unpack
+
 readFromText :: FromText a => ReadS a
 readFromText = either (const []) (\x -> [(x, "")]) . fromText . Text.pack
 

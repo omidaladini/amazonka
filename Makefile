@@ -5,7 +5,7 @@ BOTO   := vendor/botocore/botocore/data/aws
 DEPS   := vendor/ede $(BOTO)
 MODELS := \
  $(BOTO)/ec2.json
-# $(BOTO)/autoscaling.json \
+# $(BOTO)/autoscaling.json
 # $(BOTO)/elb.json
 
 .PHONY: test lint doc

@@ -14,8 +14,8 @@
 
 module Network.AWS.Internal.Types.Common where
 
-import qualified Data.Attoparsec.Text             as AText
 import           Data.Default
+import           Data.Monoid
 import           Data.String
 import           Data.Tagged
 import           Data.Text                        (Text)
@@ -55,17 +55,15 @@ data Region
       deriving (Eq, Ord, Generic)
 
 instance FromText Region where
-    fromText = AText.parseOnly (AText.takeText >>= f)
-      where
-        f "us-east-1"      = return NorthVirginia
-        f "us-west-1"      = return NorthCalifornia
-        f "us-west-2"      = return Oregon
-        f "eu-west-1"      = return Ireland
-        f "ap-southeast-1" = return Singapore
-        f "ap-northeast-1" = return Tokyo
-        f "ap-southeast-2" = return Sydney
-        f "sa-east-1"      = return SaoPaulo
-        f e                = fail $ "Unrecognised region " ++ Text.unpack e
+    fromText "us-east-1"      = Right NorthVirginia
+    fromText "us-west-1"      = Right NorthCalifornia
+    fromText "us-west-2"      = Right Oregon
+    fromText "eu-west-1"      = Right Ireland
+    fromText "ap-southeast-1" = Right Singapore
+    fromText "ap-northeast-1" = Right Tokyo
+    fromText "ap-southeast-2" = Right Sydney
+    fromText "sa-east-1"      = Right SaoPaulo
+    fromText e                = failFromText $ "Unrecognised region: " <> e
 
 instance Read Region where
     readsPrec _ = readFromText
@@ -101,16 +99,11 @@ data AvailabilityZone = AZ
     } deriving (Eq, Ord, Generic)
 
 instance FromText AvailabilityZone where
-    fromText = AText.parseOnly p
-      where
-        p = do
-            txt <- AText.takeText
-            if Text.null txt
-                then fail "Unable to parse AZ from zero length string."
-                else f (fromText $ Text.init txt) (Text.last txt)
-
-        f (Left  e) _ = fail e
-        f (Right r) c = return $ AZ r c
+    fromText txt
+        | Text.length txt < 2 =
+            failFromText $ "Unable to parse AvailabilityZone: " <> txt
+        | otherwise =
+            (`AZ` Text.last txt) `fmap` fromText (Text.init txt)
 
 instance Read AvailabilityZone where
     readsPrec _ = readFromText
@@ -566,36 +559,34 @@ data InstanceType
       deriving (Eq, Ord, Generic)
 
 instance FromText InstanceType where
-    fromText = AText.parseOnly (AText.takeText >>= f)
-      where
-        f "t1.micro"    = return T1_Micro
-        f "m1.small"    = return M1_Small
-        f "m1.medium"   = return M1_Medium
-        f "m1.large"    = return M1_Large
-        f "m1.xlarge"   = return M1_XLarge
-        f "m2.xlarge"   = return M2_XLarge
-        f "m2.2xlarge"  = return M2_2XLarge
-        f "m2.4xlarge"  = return M2_4XLarge
-        f "m3.xlarge"   = return M3_XLarge
-        f "m3.2xlarge"  = return M3_2XLarge
-        f "c1.medium"   = return C1_Medium
-        f "c1.xlarge"   = return C1_XLarge
-        f "c3.large"    = return C3_Large
-        f "c3.xlarge"   = return C3_XLarge
-        f "c3.2xlarge"  = return C3_2XLarge
-        f "c3.4xlarge"  = return C3_4XLarge
-        f "c3.8xlarge"  = return C3_8XLarge
-        f "cc2.8xlarge" = return CC2_8XLarge
-        f "g2.2xlarge"  = return G2_2XLarge
-        f "cg1.4xlarge" = return CG1_4XLarge
-        f "cr1.8xlarge" = return CR1_8XLarge
-        f "i2.xlarge"   = return I2_XLarge
-        f "i2.2xlarge"  = return I2_2XLarge
-        f "i2.4xlarge"  = return I2_4XLarge
-        f "i2.8xlarge"  = return I2_8XLarge
-        f "hs1.8xlarge" = return HS1_8XLarge
-        f "hi1.4xlarge" = return HI1_4XLarge
-        f e             = fail $ "Unrecognised instance type " ++ Text.unpack e
+    fromText "t1.micro"    = Right T1_Micro
+    fromText "m1.small"    = Right M1_Small
+    fromText "m1.medium"   = Right M1_Medium
+    fromText "m1.large"    = Right M1_Large
+    fromText "m1.xlarge"   = Right M1_XLarge
+    fromText "m2.xlarge"   = Right M2_XLarge
+    fromText "m2.2xlarge"  = Right M2_2XLarge
+    fromText "m2.4xlarge"  = Right M2_4XLarge
+    fromText "m3.xlarge"   = Right M3_XLarge
+    fromText "m3.2xlarge"  = Right M3_2XLarge
+    fromText "c1.medium"   = Right C1_Medium
+    fromText "c1.xlarge"   = Right C1_XLarge
+    fromText "c3.large"    = Right C3_Large
+    fromText "c3.xlarge"   = Right C3_XLarge
+    fromText "c3.2xlarge"  = Right C3_2XLarge
+    fromText "c3.4xlarge"  = Right C3_4XLarge
+    fromText "c3.8xlarge"  = Right C3_8XLarge
+    fromText "cc2.8xlarge" = Right CC2_8XLarge
+    fromText "g2.2xlarge"  = Right G2_2XLarge
+    fromText "cg1.4xlarge" = Right CG1_4XLarge
+    fromText "cr1.8xlarge" = Right CR1_8XLarge
+    fromText "i2.xlarge"   = Right I2_XLarge
+    fromText "i2.2xlarge"  = Right I2_2XLarge
+    fromText "i2.4xlarge"  = Right I2_4XLarge
+    fromText "i2.8xlarge"  = Right I2_8XLarge
+    fromText "hs1.8xlarge" = Right HS1_8XLarge
+    fromText "hi1.4xlarge" = Right HI1_4XLarge
+    fromText e             = failFromText $ "Unrecognised instance type: " <> e
 
 instance Read InstanceType where
     readsPrec _ = readFromText

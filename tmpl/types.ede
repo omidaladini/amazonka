@@ -18,7 +18,7 @@ import Data.List.NonEmpty
 import Data.Text            (Text)
 import Data.Time
 import GHC.Generics
-import Network.AWS.Internal hiding (Region, AvailabilityZone)
+import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
 import Network.AWS.{{ module }}.Service
 
 {% for shape in types %}
@@ -44,7 +44,9 @@ import Network.AWS.{{ module }}.Service
 instance ToQuery {{ shape.value.shape_name }}
 
 instance FromXML {{ shape.value.shape_name }} where
-    fromXMLOptions = {{ endpoint_prefix }}XMLOptions
+    fromXMLOptions = xmlOptions
+  {% when "enum" %}
+    {% include "_includes/enum.ede" with shape.value %}
   {% else %}
     {% include "_includes/newtype.ede" with shape.value %}
   {% endcase %}
