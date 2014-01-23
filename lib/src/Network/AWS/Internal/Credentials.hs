@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE ViewPatterns      #-}
 
--- Module      : Network.AWS.Credentials
+-- Module      : Network.AWS.Internal.Credentials
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
@@ -13,8 +13,7 @@
 -- Stability   : experimental
 -- Portability : non-portable (GHC extensions)
 
--- |
-module Network.AWS.Credentials where
+module Network.AWS.Internal.Credentials where
 
 import           Control.Applicative
 import           Control.Concurrent
@@ -33,19 +32,19 @@ import qualified Data.Text                  as Text
 import qualified Data.Text.Encoding         as Text
 import           Data.Time
 import           Network.AWS.EC2.Metadata   hiding (Profile)
-import           Network.AWS.Internal       hiding (Env)
+import           Network.AWS.Internal.Types
 import           System.Environment
 
 data Credentials
-    = CredBasic Text Text
+    = AuthBasic Text Text
       -- ^ Basic credentials containing an access key and a secret key.
-    | CredSession Text Text Text
+    | AuthSession Text Text Text
       -- ^ Session credentials containing access key, secret key, and a security token.
-    | CredProfile Text
+    | AuthProfile Text
       -- ^ A specific IAM Profile name to query the local instance-data for credentials.
-    | CredEnv Text Text
+    | AuthEnv Text Text
       -- ^ Environment variable names to read for the access and secret keys.
-    | CredDiscover
+    | AuthDiscover
       -- ^ Attempt to read the default access and secret keys from the environment,
       -- falling back to the first available IAM profile if they are not set.
       --
@@ -55,11 +54,11 @@ data Credentials
       deriving (Eq, Ord)
 
 instance Show Credentials where
-    show (CredBasic   a _)   = Text.unpack $ Text.concat ["Basic ", a, " ****"]
-    show (CredSession a _ _) = Text.unpack $ Text.concat ["Session ", a, " **** ****"]
-    show (CredProfile n)     = Text.unpack $ "Profile " <> n
-    show (CredEnv     a s)   = Text.unpack $ Text.concat ["Env ", a, " ", s]
-    show CredDiscover        = "Discover"
+    show (AuthBasic   a _)   = Text.unpack $ Text.concat ["Basic ", a, " ****"]
+    show (AuthSession a _ _) = Text.unpack $ Text.concat ["Session ", a, " **** ****"]
+    show (AuthProfile n)     = Text.unpack $ "Profile " <> n
+    show (AuthEnv     a s)   = Text.unpack $ Text.concat ["Env ", a, " ", s]
+    show AuthDiscover        = "Discover"
 
 -- | Default access key environment variable: 'AWS_ACCESS_KEY'
 accessKey :: Text
@@ -74,11 +73,11 @@ credentials :: (Applicative m, MonadIO m)
             -> EitherT String m (IORef Auth)
 credentials = mk
   where
-    mk (CredBasic   a s)   = ref $ Auth a s Nothing Nothing
-    mk (CredSession a s t) = ref $ Auth a s (Just t) Nothing
-    mk (CredProfile n)     = fromProfile $ Text.encodeUtf8 n
-    mk (CredEnv     a s)   = fromKeys a s
-    mk CredDiscover        = fromKeys accessKey secretKey
+    mk (AuthBasic   a s)   = ref $ Auth a s Nothing Nothing
+    mk (AuthSession a s t) = ref $ Auth a s (Just t) Nothing
+    mk (AuthProfile n)     = fromProfile $ Text.encodeUtf8 n
+    mk (AuthEnv     a s)   = fromKeys a s
+    mk AuthDiscover        = fromKeys accessKey secretKey
         <|> (defaultProfile >>= fromProfile)
 
     fromKeys a s = Auth <$> key a <*> key s <*> pure Nothing <*> pure Nothing

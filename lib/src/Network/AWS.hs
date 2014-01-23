@@ -21,6 +21,8 @@ module Network.AWS
 
     -- * Credentials
     , Credentials      (..)
+    , accessKey
+    , secretKey
 
     -- * Controlling the region
     , Region           (..)
@@ -71,7 +73,6 @@ import           Data.Conduit
 import qualified Data.Conduit.Binary                   as Conduit
 import           Data.Default
 import           Data.String
-import           Network.AWS.Credentials
 import           Network.AWS.Internal
 import           Network.HTTP.Conduit
 import           System.IO

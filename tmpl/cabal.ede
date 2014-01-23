@@ -29,7 +29,6 @@ library
 
     exposed-modules:
         Network.AWS
-      , Network.AWS.Credentials
       , Network.AWS.Headers
 
 {% for model in models %}
@@ -44,6 +43,7 @@ library
       , Data.Text.Helpers
       , Data.Time.Formatters
       , Network.AWS.Internal
+      , Network.AWS.Internal.Credentials
       , Network.AWS.Internal.Request
       , Network.AWS.Internal.Signing
       , Network.AWS.Internal.Types
