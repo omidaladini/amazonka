@@ -24,10 +24,10 @@ import Data.ByteString      (ByteString)
 import Data.List.NonEmpty   (NonEmpty(..))
 import Data.Text            (Text)
 import Data.Time            (UTCTime)
-import Network.AWS.Internal
+import Network.HTTP.Types   (StdMethod(..))
+import Network.AWS.Internal hiding (Region, AvailabilityZone)
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
-import Network.HTTP.Types   (StdMethod(..))
 
 data {{ name }} = {{ name }}
 {% if input.fields %}

@@ -25,6 +25,7 @@ import qualified Data.HashMap.Strict as Map
 import           Data.HashSet        (HashSet)
 import qualified Data.HashSet        as Set
 import qualified Data.List           as List
+import           Data.Maybe
 import           Data.Monoid
 import           Data.Text           (Text)
 import qualified Data.Text           as Text
@@ -141,7 +142,7 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
   where
     f (Just x) (Just y) =
         let (pre, (s2, inp)) = g s1 x
-            opre             = pre `Text.snoc` 'r'
+            opre             = pre <> "rs"
             out              = prefixes opre $ replace y
         in  ( Set.insert opre s2
             , o { oInput  = Just inp
@@ -168,7 +169,6 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
         , pOutputToken = y <> upperFirst pOutputToken
         }
 
-
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
     hs <- hoistEither $ EDE.eitherRender t o
@@ -193,11 +193,6 @@ types set = disambiguateMany set
     . concatMap shapes
     . mOperations
   where
-    -- check s
-    --     | Just x <- sShapeName s
-    --     , Text.null x = error $ "Shape has empty name: " ++ show s
-    --     | otherwise   = s
-
     except (Just "Text") = False
     except _             = True
 
@@ -240,17 +235,22 @@ loweredWordPrefix = Text.toLower . Text.concatMap f
         | otherwise = Text.singleton c
 
 flatten :: Shape -> [Shape]
-flatten s@SStruct {..} = s : concatMap flatten (Map.elems sFields)
-flatten SList     {..} = flatten sItem
-flatten SMap      {..} = flatten sKey ++ flatten sValue
-flatten SPrim     {..} = []
+flatten SPrim   {..} = []
+flatten l@SList {..} = flatten sItem
+flatten m@SMap  {..} = flatten sKey ++ flatten sValue
+flatten s = s { sFields = fields } : concatMap flatten (Map.elems fields)
+  where
+    fields = Map.fromList
+        . map name
+        . Map.toList
+        $ sFields s
+
+    name (k, s')
+        | Nothing <- sShapeName s' = (k, s' { sShapeName = (<> k) <$> sShapeName s })
+        | otherwise                = (k, s')
 
 replace :: Shape -> Shape
 replace s@SStruct {..}
-    -- | sShapeName == Just "LaunchSpecification" =
-
-    --     Needs to get the type name from the shapename of the parent + fieldname
-
     | otherwise  = s { sFields = Map.map replace sFields }
 replace l@SList   {..} = l { sItem = replace sItem }
 replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }

@@ -1,12 +1,17 @@
-SHELL := /usr/bin/env bash
-FLAGS := -j --disable-documentation --disable-library-coverage
-BIN   := dist/build/generator/generator
-DEPS  := vendor/ede vendor/botocore
+SHELL  := /usr/bin/env bash
+FLAGS  := -j --disable-documentation --disable-library-coverage
+BIN    := dist/build/generator/generator
+BOTO   := vendor/botocore/botocore/data/aws
+DEPS   := vendor/ede $(BOTO)
+MODELS := \
+ $(BOTO)/ec2.json
+# $(BOTO)/autoscaling.json \
+# $(BOTO)/elb.json
 
 .PHONY: test lint doc
 
 all: generator
-	rm -rf lib/gen; ./generator && $(MAKE) -C lib
+	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) -j -C lib
 
 build:
 	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))
@@ -36,8 +41,8 @@ add-sources: cabal.sandbox.config $(DEPS)
 cabal.sandbox.config:
 	cabal sandbox init --sandbox=./.cabal-sandbox
 
-vendor/botocore:
-	git clone git@github.com:boto/botocore $@
+$(BOTO):
+	git clone git@github.com:boto/botocore vendor/botocore
 
 vendor/%:
 	git clone git@github.com:brendanhay/$*.git $@

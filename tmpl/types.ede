@@ -18,7 +18,7 @@ import Data.List.NonEmpty
 import Data.Text            (Text)
 import Data.Time
 import GHC.Generics
-import Network.AWS.Internal
+import Network.AWS.Internal hiding (Region, AvailabilityZone)
 import Network.AWS.{{ module }}.Service
 
 {% for shape in types %}
