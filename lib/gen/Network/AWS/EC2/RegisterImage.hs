@@ -62,7 +62,7 @@ data RegisterImage = RegisterImage
       -- ^ The root device name (e.g., /dev/sda1).
     , risSriovNetSupport :: Maybe Text
       -- ^ FIXME: Missing documentation
-    , risVirtualizationType :: Maybe String
+    , risVirtualizationType :: Maybe Text
       -- ^ The type of virtualization.
     } deriving (Eq, Show, Generic)
 

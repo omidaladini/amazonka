@@ -34,6 +34,7 @@ import qualified Data.Text            as Text
 import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
 import           Helpers
+import           Text.EDE.Filters
 
 loadModel :: FilePath -> Script Model
 loadModel path = scriptIO (LBS.readFile path) >>= hoistEither . eitherDecode
@@ -116,7 +117,7 @@ instance FromJSON [Policy] where
         f (k, _) =
             fail $ "Unable to parse Policy from " ++ Text.unpack k
 
-        g k v = Policy (pascalise k)
+        g k v = Policy (pascalize k)
             <$> v .:? "service_error_code"
             <*> v .:  "http_status_code"
 
@@ -278,7 +279,7 @@ instance FromJSON Shape where
 
         prim t = do
             ms <- o .:? "enum"
-            let enum = Map.fromList . map (first pascalise . join (,)) <$> ms
+            let enum = Map.fromList . map (first pascalize . join (,)) <$> ms
             SPrim (maybe t (const PEnum) enum)
                 <$> o .:? "location"
                 <*> o .:? "min_length"

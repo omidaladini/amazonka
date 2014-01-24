@@ -15,8 +15,8 @@ module Helpers where
 import           Data.Char
 import           Data.Maybe
 import           Data.Monoid
-import           Data.Text   (Text)
-import qualified Data.Text   as Text
+import           Data.Text        (Text)
+import qualified Data.Text        as Text
 
 lowerWith :: Char -> String -> String
 lowerWith x = map toLower
@@ -69,50 +69,8 @@ stripTags t
             '<' -> stripTags . Text.drop 1 . Text.dropWhile (/= '>') $ Text.tail t
             _   -> Text.cons (Text.head t) . stripTags $ Text.tail t
 
-pascalise :: Text -> Text
-pascalise = substitute . Text.concat . map Text.toTitle . split . upperFirst
-
-camelise :: Text -> Text
-camelise = lowerFirst . pascalise
-
-underscore :: Text -> Text
-underscore = Text.intercalate (Text.singleton '_') . split
-
-hyphenate :: Text -> Text
-hyphenate = Text.intercalate (Text.singleton '-') . split
-
-substitute :: Text -> Text
-substitute = Text.concatMap f
+lowerFilter :: Text -> Text
+lowerFilter = Text.concatMap f
   where
-    f '.' = "_"
-    f '/' = "_"
-    f '(' = "_"
-    f ')' = ""
-    f  c  = Text.singleton c
-
-split :: Text -> [Text]
-split t
---    | "X86_64" <- t = [t]
-    | otherwise     = filter (/= "") $ Text.split f t
-  where
-    f ' '  = True
-    f '\n' = True
-    f '-'  = True
---    f '_'  = True
-    f  _   = False
-
-lowerFirst :: Text -> Text
-lowerFirst t
-    | Text.null t = t
-    | isUpper h   = toLower h `Text.cons` Text.tail t
-    | otherwise   = t
-  where
-    h = Text.head t
-
-upperFirst :: Text -> Text
-upperFirst t
-    | Text.null t = t
-    | isLower h   = toUpper h `Text.cons` Text.tail t
-    | otherwise   = t
-  where
-    h = Text.head t
+    f c | isLower c = ""
+        | otherwise = Text.singleton c

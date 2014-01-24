@@ -19,13 +19,12 @@ import           Control.Arrow
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
-import           Data.Char           (isLower)
+import           Data.Char           (isDigit)
 import           Data.Foldable       (foldl')
 import qualified Data.HashMap.Strict as Map
 import           Data.HashSet        (HashSet)
 import qualified Data.HashSet        as Set
 import qualified Data.List           as List
-import           Data.Maybe
 import           Data.Monoid
 import           Data.Text           (Text)
 import qualified Data.Text           as Text
@@ -37,6 +36,7 @@ import           System.Environment
 import           System.Exit
 import           Text.EDE            (Template)
 import qualified Text.EDE            as EDE
+import           Text.EDE.Filters
 
 -- FIXME:
 -- EC2: LaunchSpecification type has missing lsMonitoring type
@@ -169,12 +169,6 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
         , pOutputToken = y <> upperFirst pOutputToken
         }
 
-render :: FilePath -> Template -> Object -> Script ()
-render p t o = do
-    hs <- hoistEither $ EDE.eitherRender t o
-    msg $ "Writing " ++ p
-    scriptIO $ LText.writeFile p hs
-
 errors :: Model -> [Shape]
 errors = map replace
     . List.sort
@@ -211,7 +205,7 @@ disambiguate set s@SStruct{..} = (pre, (next, prefixes pre s))
   where
     (next, pre) = unique set
         . fromMaybe "pre"
-        $ loweredWordPrefix <$> sShapeName
+        $ Text.toLower . lowerFilter <$> sShapeName
 
 disambiguate set s = ("", (set, s))
 
@@ -227,12 +221,6 @@ prefixes pre s@SStruct{..} = s
   where
     f (k, v) = (pre <> k, v)
 prefixes _ s = s
-
-loweredWordPrefix :: Text -> Text
-loweredWordPrefix = Text.toLower . Text.concatMap f
-  where
-    f c | isLower c = ""
-        | otherwise = Text.singleton c
 
 flatten :: Shape -> [Shape]
 flatten p@SPrim {..}
@@ -251,17 +239,22 @@ flatten s = s { sFields = fields } : concatMap flatten (Map.elems fields)
         | Nothing <- sShapeName s' = (k, s' { sShapeName = (<> k) <$> sShapeName s })
         | otherwise                = (k, s')
 
+-- FIXME:
+-- The same way shape field names are disambiguated, enum values need to be
+
 replace :: Shape -> Shape
 replace s@SStruct {..} = s { sFields = Map.map replace sFields }
 replace l@SList   {..} = l { sItem = replace sItem }
 replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
 replace p@SPrim   {..}
+    | sType == PEnum
+    , sShapeName == Just "String" = p { sShapeName = Just $ name sType }
     | sType == PEnum = p
     | otherwise      = p { sShapeName = Just $ name sType }
   where
     name PString | sShapeName == Just "ResourceName" = "ResourceName"
     name PString    = "Text"
-    name PEnum      = "Enum"
+    name PEnum      = "Text"
     name PInteger   = "Int"
     name PDouble    = "Double"
     name PBoolean   = "Bool"
@@ -328,3 +321,42 @@ end s = scriptIO $ putStrLn (" => " ++ s) >> putStrLn ""
 
 msg :: String -> Script ()
 msg = scriptIO . putStrLn . ("  - " ++)
+
+render :: FilePath -> Template -> Object -> Script ()
+render p t o = do
+    hs <- hoistEither $ EDE.eitherRenderWith filters t o
+    msg $ "Writing " ++ p
+    scriptIO $ LText.writeFile p hs
+  where
+    filters = defaultFilters <> Map.fromList
+        [ ("enumPrefix", Fun TText TText name)
+        , ("enumFormat", Fun TText TText format)
+        ]
+
+    name "AccountAttributeName"      = ""
+    name "ArchitectureValues"        = ""
+    name "ContainerFormat"           = ""
+    name "CurrencyCodeValues"        = ""
+    name "DiskImageFormat"           = ""
+    name "EventCode"                 = ""
+    name "ExportEnvironment"         = ""
+    name "HypervisorType"            = ""
+    name "InstanceType"              = ""
+    name "OfferingTypeValues"        = ""
+    name "ProductCodeValues"         = ""
+    name "RIProductDescription"      = ""
+    name "RecurringChargeFrequency"  = ""
+    name "ReportInstanceReasonCodes" = ""
+    name "ResourceType"              = "Resource"
+    name "SnapshotAttributeName"     = ""
+    name "VolumeAttachmentState"     = "Volume"
+    name n                           = n
+
+    format n
+        | x <- Text.takeWhile (/= '_') n
+        , isDigit $ Text.last x = Text.toUpper x <> xlarge (Text.drop 3 n)
+        | otherwise             = n
+
+    xlarge n
+        | "Xl" `Text.isPrefixOf` n = "XL" <> Text.drop 2 n
+        | otherwise                = n

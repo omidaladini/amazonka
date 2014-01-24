@@ -34,7 +34,7 @@ executable generator
       , base                  >= 4.6 && < 5
       , bytestring
       , directory
-      , ede
+      , ede                   >= 0.1.2
       , errors                >= 1.4.4
       , text                  >= 1.0
       , unordered-containers

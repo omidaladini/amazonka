@@ -1,8 +1,8 @@
 SHELL  := /usr/bin/env bash
 FLAGS  := -j --disable-documentation --disable-library-coverage
 BIN    := dist/build/generator/generator
+DEPS   := vendor/ede vendor/botocore
 BOTO   := vendor/botocore/botocore/data/aws
-DEPS   := vendor/ede $(BOTO)
 MODELS := \
  $(BOTO)/ec2.json
 # $(BOTO)/autoscaling.json
@@ -20,7 +20,7 @@ install: cabal.sandbox.config add-sources
 	cabal install $(FLAGS)
 
 clean:
-	-rm -rf dist cabal.sandbox.config .cabal-sandbox
+	-rm -rf dist cabal.sandbox.config .cabal-sandbox vendor/botocore
 	cabal clean
 
 test:
@@ -41,8 +41,8 @@ add-sources: cabal.sandbox.config $(DEPS)
 cabal.sandbox.config:
 	cabal sandbox init --sandbox=./.cabal-sandbox
 
-$(BOTO):
-	git clone git@github.com:boto/botocore vendor/botocore
+vendor/botocore:
+	git clone git@github.com:boto/botocore $@
 
 vendor/%:
 	git clone git@github.com:brendanhay/$*.git $@

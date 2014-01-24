@@ -2542,18 +2542,18 @@ instance FromXML AccountAttribute where
 
 -- | FIXME: Type documentation for VpnStaticRouteSource
 data VpnStaticRouteSource
-    = Static
+    = VpnStaticRouteSourceStatic
       deriving (Eq, Ord, Generic)
 
 instance FromText VpnStaticRouteSource where
-    fromText "Static" = Right Static
+    fromText "Static" = Right VpnStaticRouteSourceStatic
     fromText e = failFromText $ "Unrecognised VpnStaticRouteSource: " <> e
 
 instance Read VpnStaticRouteSource where
     readsPrec _ = readFromText
 
 instance ToText VpnStaticRouteSource where
-    toText Static = "Static"
+    toText VpnStaticRouteSourceStatic = "Static"
 
 instance Show VpnStaticRouteSource where
     show = showToText
@@ -2572,27 +2572,27 @@ instance ToXML VpnStaticRouteSource where
 -- | Describes the current state of the VPN gateway. Valid values are pending,
 -- available, deleting, and deleted.
 data VpnState
-    = Available
-    | Deleted
-    | Deleting
-    | Pending
+    = VpnStateAvailable
+    | VpnStateDeleted
+    | VpnStateDeleting
+    | VpnStatePending
       deriving (Eq, Ord, Generic)
 
 instance FromText VpnState where
-    fromText "available" = Right Available
-    fromText "deleted" = Right Deleted
-    fromText "deleting" = Right Deleting
-    fromText "pending" = Right Pending
+    fromText "available" = Right VpnStateAvailable
+    fromText "deleted" = Right VpnStateDeleted
+    fromText "deleting" = Right VpnStateDeleting
+    fromText "pending" = Right VpnStatePending
     fromText e = failFromText $ "Unrecognised VpnState: " <> e
 
 instance Read VpnState where
     readsPrec _ = readFromText
 
 instance ToText VpnState where
-    toText Available = "available"
-    toText Deleted = "deleted"
-    toText Deleting = "deleting"
-    toText Pending = "pending"
+    toText VpnStateAvailable = "available"
+    toText VpnStateDeleted = "deleted"
+    toText VpnStateDeleting = "deleting"
+    toText VpnStatePending = "pending"
 
 instance Show VpnState where
     show = showToText
@@ -2611,21 +2611,21 @@ instance ToXML VpnState where
 -- | Describes the current state of the VPC. The state of the subnet may be
 -- either pending or available.
 data VpcState
-    = Available
-    | Pending
+    = VpcStateAvailable
+    | VpcStatePending
       deriving (Eq, Ord, Generic)
 
 instance FromText VpcState where
-    fromText "available" = Right Available
-    fromText "pending" = Right Pending
+    fromText "available" = Right VpcStateAvailable
+    fromText "pending" = Right VpcStatePending
     fromText e = failFromText $ "Unrecognised VpcState: " <> e
 
 instance Read VpcState where
     readsPrec _ = readFromText
 
 instance ToText VpcState where
-    toText Available = "available"
-    toText Pending = "pending"
+    toText VpcStateAvailable = "available"
+    toText VpcStatePending = "pending"
 
 instance Show VpcState where
     show = showToText
@@ -2643,21 +2643,21 @@ instance ToXML VpcState where
 
 -- | FIXME: Type documentation for VpcAttributeName
 data VpcAttributeName
-    = Enablednshostnames
-    | Enablednssupport
+    = VpcAttributeNameEnablednshostnames
+    | VpcAttributeNameEnablednssupport
       deriving (Eq, Ord, Generic)
 
 instance FromText VpcAttributeName where
-    fromText "enableDnsHostnames" = Right Enablednshostnames
-    fromText "enableDnsSupport" = Right Enablednssupport
+    fromText "enableDnsHostnames" = Right VpcAttributeNameEnablednshostnames
+    fromText "enableDnsSupport" = Right VpcAttributeNameEnablednssupport
     fromText e = failFromText $ "Unrecognised VpcAttributeName: " <> e
 
 instance Read VpcAttributeName where
     readsPrec _ = readFromText
 
 instance ToText VpcAttributeName where
-    toText Enablednshostnames = "enableDnsHostnames"
-    toText Enablednssupport = "enableDnsSupport"
+    toText VpcAttributeNameEnablednshostnames = "enableDnsHostnames"
+    toText VpcAttributeNameEnablednssupport = "enableDnsSupport"
 
 instance Show VpcAttributeName where
     show = showToText
@@ -2675,21 +2675,21 @@ instance ToXML VpcAttributeName where
 
 -- | FIXME: Type documentation for VolumeType
 data VolumeType
-    = Io1
-    | Standard
+    = VolumeTypeIO1
+    | VolumeTypeStandard
       deriving (Eq, Ord, Generic)
 
 instance FromText VolumeType where
-    fromText "io1" = Right Io1
-    fromText "standard" = Right Standard
+    fromText "io1" = Right VolumeTypeIO1
+    fromText "standard" = Right VolumeTypeStandard
     fromText e = failFromText $ "Unrecognised VolumeType: " <> e
 
 instance Read VolumeType where
     readsPrec _ = readFromText
 
 instance ToText VolumeType where
-    toText Io1 = "io1"
-    toText Standard = "standard"
+    toText VolumeTypeIO1 = "io1"
+    toText VolumeTypeStandard = "standard"
 
 instance Show VolumeType where
     show = showToText
@@ -2707,21 +2707,21 @@ instance ToXML VolumeType where
 
 -- | FIXME: Type documentation for VolumeStatusName
 data VolumeStatusName
-    = IoEnabled
-    | IoPerformance
+    = VolumeStatusNameIoEnabled
+    | VolumeStatusNameIoPerformance
       deriving (Eq, Ord, Generic)
 
 instance FromText VolumeStatusName where
-    fromText "io-enabled" = Right IoEnabled
-    fromText "io-performance" = Right IoPerformance
+    fromText "io-enabled" = Right VolumeStatusNameIoEnabled
+    fromText "io-performance" = Right VolumeStatusNameIoPerformance
     fromText e = failFromText $ "Unrecognised VolumeStatusName: " <> e
 
 instance Read VolumeStatusName where
     readsPrec _ = readFromText
 
 instance ToText VolumeStatusName where
-    toText IoEnabled = "io-enabled"
-    toText IoPerformance = "io-performance"
+    toText VolumeStatusNameIoEnabled = "io-enabled"
+    toText VolumeStatusNameIoPerformance = "io-performance"
 
 instance Show VolumeStatusName where
     show = showToText
@@ -2739,24 +2739,24 @@ instance ToXML VolumeStatusName where
 
 -- | FIXME: Type documentation for VolumeStatusInfoStatus
 data VolumeStatusInfoStatus
-    = Impaired
-    | InsufficientData
-    | Ok
+    = VolumeStatusInfoStatusImpaired
+    | VolumeStatusInfoStatusInsufficientData
+    | VolumeStatusInfoStatusOk
       deriving (Eq, Ord, Generic)
 
 instance FromText VolumeStatusInfoStatus where
-    fromText "impaired" = Right Impaired
-    fromText "insufficient-data" = Right InsufficientData
-    fromText "ok" = Right Ok
+    fromText "impaired" = Right VolumeStatusInfoStatusImpaired
+    fromText "insufficient-data" = Right VolumeStatusInfoStatusInsufficientData
+    fromText "ok" = Right VolumeStatusInfoStatusOk
     fromText e = failFromText $ "Unrecognised VolumeStatusInfoStatus: " <> e
 
 instance Read VolumeStatusInfoStatus where
     readsPrec _ = readFromText
 
 instance ToText VolumeStatusInfoStatus where
-    toText Impaired = "impaired"
-    toText InsufficientData = "insufficient-data"
-    toText Ok = "ok"
+    toText VolumeStatusInfoStatusImpaired = "impaired"
+    toText VolumeStatusInfoStatusInsufficientData = "insufficient-data"
+    toText VolumeStatusInfoStatusOk = "ok"
 
 instance Show VolumeStatusInfoStatus where
     show = showToText
@@ -2774,33 +2774,33 @@ instance ToXML VolumeStatusInfoStatus where
 
 -- | State of this volume (e.g., creating, available).
 data VolumeState
-    = Available
-    | Creating
-    | Deleted
-    | Deleting
-    | Error
-    | InUse
+    = VolumeStateAvailable
+    | VolumeStateCreating
+    | VolumeStateDeleted
+    | VolumeStateDeleting
+    | VolumeStateError
+    | VolumeStateInUse
       deriving (Eq, Ord, Generic)
 
 instance FromText VolumeState where
-    fromText "available" = Right Available
-    fromText "creating" = Right Creating
-    fromText "deleted" = Right Deleted
-    fromText "deleting" = Right Deleting
-    fromText "error" = Right Error
-    fromText "in-use" = Right InUse
+    fromText "available" = Right VolumeStateAvailable
+    fromText "creating" = Right VolumeStateCreating
+    fromText "deleted" = Right VolumeStateDeleted
+    fromText "deleting" = Right VolumeStateDeleting
+    fromText "error" = Right VolumeStateError
+    fromText "in-use" = Right VolumeStateInUse
     fromText e = failFromText $ "Unrecognised VolumeState: " <> e
 
 instance Read VolumeState where
     readsPrec _ = readFromText
 
 instance ToText VolumeState where
-    toText Available = "available"
-    toText Creating = "creating"
-    toText Deleted = "deleted"
-    toText Deleting = "deleting"
-    toText Error = "error"
-    toText InUse = "in-use"
+    toText VolumeStateAvailable = "available"
+    toText VolumeStateCreating = "creating"
+    toText VolumeStateDeleted = "deleted"
+    toText VolumeStateDeleting = "deleting"
+    toText VolumeStateError = "error"
+    toText VolumeStateInUse = "in-use"
 
 instance Show VolumeState where
     show = showToText
@@ -2818,21 +2818,21 @@ instance ToXML VolumeState where
 
 -- | FIXME: Type documentation for VolumeAttributeName
 data VolumeAttributeName
-    = Autoenableio
-    | Productcodes
+    = VolumeAttributeNameAutoenableio
+    | VolumeAttributeNameProductcodes
       deriving (Eq, Ord, Generic)
 
 instance FromText VolumeAttributeName where
-    fromText "autoEnableIO" = Right Autoenableio
-    fromText "productCodes" = Right Productcodes
+    fromText "autoEnableIO" = Right VolumeAttributeNameAutoenableio
+    fromText "productCodes" = Right VolumeAttributeNameProductcodes
     fromText e = failFromText $ "Unrecognised VolumeAttributeName: " <> e
 
 instance Read VolumeAttributeName where
     readsPrec _ = readFromText
 
 instance ToText VolumeAttributeName where
-    toText Autoenableio = "autoEnableIO"
-    toText Productcodes = "productCodes"
+    toText VolumeAttributeNameAutoenableio = "autoEnableIO"
+    toText VolumeAttributeNameProductcodes = "productCodes"
 
 instance Show VolumeAttributeName where
     show = showToText
@@ -2850,27 +2850,27 @@ instance ToXML VolumeAttributeName where
 
 -- | FIXME: Type documentation for VolumeAttachmentState
 data VolumeAttachmentState
-    = Attached
-    | Attaching
-    | Detached
-    | Detaching
+    = VolumeAttached
+    | VolumeAttaching
+    | VolumeDetached
+    | VolumeDetaching
       deriving (Eq, Ord, Generic)
 
 instance FromText VolumeAttachmentState where
-    fromText "attached" = Right Attached
-    fromText "attaching" = Right Attaching
-    fromText "detached" = Right Detached
-    fromText "detaching" = Right Detaching
+    fromText "attached" = Right VolumeAttached
+    fromText "attaching" = Right VolumeAttaching
+    fromText "detached" = Right VolumeDetached
+    fromText "detaching" = Right VolumeDetaching
     fromText e = failFromText $ "Unrecognised VolumeAttachmentState: " <> e
 
 instance Read VolumeAttachmentState where
     readsPrec _ = readFromText
 
 instance ToText VolumeAttachmentState where
-    toText Attached = "attached"
-    toText Attaching = "attaching"
-    toText Detached = "detached"
-    toText Detaching = "detaching"
+    toText VolumeAttached = "attached"
+    toText VolumeAttaching = "attaching"
+    toText VolumeDetached = "detached"
+    toText VolumeDetaching = "detaching"
 
 instance Show VolumeAttachmentState where
     show = showToText
@@ -2888,21 +2888,21 @@ instance ToXML VolumeAttachmentState where
 
 -- | FIXME: Type documentation for VirtualizationType
 data VirtualizationType
-    = Hvm
-    | Paravirtual
+    = VirtualizationTypeHvm
+    | VirtualizationTypeParavirtual
       deriving (Eq, Ord, Generic)
 
 instance FromText VirtualizationType where
-    fromText "hvm" = Right Hvm
-    fromText "paravirtual" = Right Paravirtual
+    fromText "hvm" = Right VirtualizationTypeHvm
+    fromText "paravirtual" = Right VirtualizationTypeParavirtual
     fromText e = failFromText $ "Unrecognised VirtualizationType: " <> e
 
 instance Read VirtualizationType where
     readsPrec _ = readFromText
 
 instance ToText VirtualizationType where
-    toText Hvm = "hvm"
-    toText Paravirtual = "paravirtual"
+    toText VirtualizationTypeHvm = "hvm"
+    toText VirtualizationTypeParavirtual = "paravirtual"
 
 instance Show VirtualizationType where
     show = showToText
@@ -2923,21 +2923,21 @@ instance ToXML VirtualizationType where
 -- means all instances launched into the VPC will be launched as dedicated
 -- tenancy regardless of the tenancy assigned to the instance at launch.
 data Tenancy
-    = Dedicated
-    | Default
+    = TenancyDedicated
+    | TenancyDefault
       deriving (Eq, Ord, Generic)
 
 instance FromText Tenancy where
-    fromText "dedicated" = Right Dedicated
-    fromText "default" = Right Default
+    fromText "dedicated" = Right TenancyDedicated
+    fromText "default" = Right TenancyDefault
     fromText e = failFromText $ "Unrecognised Tenancy: " <> e
 
 instance Read Tenancy where
     readsPrec _ = readFromText
 
 instance ToText Tenancy where
-    toText Dedicated = "dedicated"
-    toText Default = "default"
+    toText TenancyDedicated = "dedicated"
+    toText TenancyDefault = "default"
 
 instance Show Tenancy where
     show = showToText
@@ -2955,21 +2955,21 @@ instance ToXML Tenancy where
 
 -- | FIXME: Type documentation for TelemetryStatus
 data TelemetryStatus
-    = Down
-    | Up
+    = TelemetryStatusDown
+    | TelemetryStatusUp
       deriving (Eq, Ord, Generic)
 
 instance FromText TelemetryStatus where
-    fromText "DOWN" = Right Down
-    fromText "UP" = Right Up
+    fromText "DOWN" = Right TelemetryStatusDown
+    fromText "UP" = Right TelemetryStatusUp
     fromText e = failFromText $ "Unrecognised TelemetryStatus: " <> e
 
 instance Read TelemetryStatus where
     readsPrec _ = readFromText
 
 instance ToText TelemetryStatus where
-    toText Down = "DOWN"
-    toText Up = "UP"
+    toText TelemetryStatusDown = "DOWN"
+    toText TelemetryStatusUp = "UP"
 
 instance Show TelemetryStatus where
     show = showToText
@@ -2987,27 +2987,27 @@ instance ToXML TelemetryStatus where
 
 -- | FIXME: Type documentation for SummaryStatus
 data SummaryStatus
-    = Impaired
-    | InsufficientData
-    | NotApplicable
-    | Ok
+    = SummaryStatusImpaired
+    | SummaryStatusInsufficientData
+    | SummaryStatusNotApplicable
+    | SummaryStatusOk
       deriving (Eq, Ord, Generic)
 
 instance FromText SummaryStatus where
-    fromText "impaired" = Right Impaired
-    fromText "insufficient-data" = Right InsufficientData
-    fromText "not-applicable" = Right NotApplicable
-    fromText "ok" = Right Ok
+    fromText "impaired" = Right SummaryStatusImpaired
+    fromText "insufficient-data" = Right SummaryStatusInsufficientData
+    fromText "not-applicable" = Right SummaryStatusNotApplicable
+    fromText "ok" = Right SummaryStatusOk
     fromText e = failFromText $ "Unrecognised SummaryStatus: " <> e
 
 instance Read SummaryStatus where
     readsPrec _ = readFromText
 
 instance ToText SummaryStatus where
-    toText Impaired = "impaired"
-    toText InsufficientData = "insufficient-data"
-    toText NotApplicable = "not-applicable"
-    toText Ok = "ok"
+    toText SummaryStatusImpaired = "impaired"
+    toText SummaryStatusInsufficientData = "insufficient-data"
+    toText SummaryStatusNotApplicable = "not-applicable"
+    toText SummaryStatusOk = "ok"
 
 instance Show SummaryStatus where
     show = showToText
@@ -3026,21 +3026,21 @@ instance ToXML SummaryStatus where
 -- | Describes the current state of the subnet. The state of the subnet may be
 -- either pending or available.
 data SubnetState
-    = Available
-    | Pending
+    = SubnetStateAvailable
+    | SubnetStatePending
       deriving (Eq, Ord, Generic)
 
 instance FromText SubnetState where
-    fromText "available" = Right Available
-    fromText "pending" = Right Pending
+    fromText "available" = Right SubnetStateAvailable
+    fromText "pending" = Right SubnetStatePending
     fromText e = failFromText $ "Unrecognised SubnetState: " <> e
 
 instance Read SubnetState where
     readsPrec _ = readFromText
 
 instance ToText SubnetState where
-    toText Available = "available"
-    toText Pending = "pending"
+    toText SubnetStateAvailable = "available"
+    toText SubnetStatePending = "pending"
 
 instance Show SubnetState where
     show = showToText
@@ -3056,58 +3056,26 @@ instance ToXML SubnetState where
     toXMLOptions = xmlOptions
     toXML        = primToXML
 
--- | The type of virtualization.
-data String
-    = Hvm
-    | Paravirtual
-      deriving (Eq, Ord, Generic)
-
-instance FromText String where
-    fromText "hvm" = Right Hvm
-    fromText "paravirtual" = Right Paravirtual
-    fromText e = failFromText $ "Unrecognised String: " <> e
-
-instance Read String where
-    readsPrec _ = readFromText
-
-instance ToText String where
-    toText Hvm = "hvm"
-    toText Paravirtual = "paravirtual"
-
-instance Show String where
-    show = showToText
-
-instance ToQuery String where
-    toQuery = primToQuery
-
-instance FromXML String where
-    fromXMLOptions = xmlOptions
-    fromXML        = primFromXML
-
-instance ToXML String where
-    toXMLOptions = xmlOptions
-    toXML        = primToXML
-
 -- | FIXME: Type documentation for StatusType
 data StatusType
-    = Failed
-    | InsufficientData
-    | Passed
+    = StatusTypeFailed
+    | StatusTypeInsufficientData
+    | StatusTypePassed
       deriving (Eq, Ord, Generic)
 
 instance FromText StatusType where
-    fromText "failed" = Right Failed
-    fromText "insufficient-data" = Right InsufficientData
-    fromText "passed" = Right Passed
+    fromText "failed" = Right StatusTypeFailed
+    fromText "insufficient-data" = Right StatusTypeInsufficientData
+    fromText "passed" = Right StatusTypePassed
     fromText e = failFromText $ "Unrecognised StatusType: " <> e
 
 instance Read StatusType where
     readsPrec _ = readFromText
 
 instance ToText StatusType where
-    toText Failed = "failed"
-    toText InsufficientData = "insufficient-data"
-    toText Passed = "passed"
+    toText StatusTypeFailed = "failed"
+    toText StatusTypeInsufficientData = "insufficient-data"
+    toText StatusTypePassed = "passed"
 
 instance Show StatusType where
     show = showToText
@@ -3125,18 +3093,18 @@ instance ToXML StatusType where
 
 -- | FIXME: Type documentation for StatusName
 data StatusName
-    = Reachability
+    = StatusNameReachability
       deriving (Eq, Ord, Generic)
 
 instance FromText StatusName where
-    fromText "reachability" = Right Reachability
+    fromText "reachability" = Right StatusNameReachability
     fromText e = failFromText $ "Unrecognised StatusName: " <> e
 
 instance Read StatusName where
     readsPrec _ = readFromText
 
 instance ToText StatusName where
-    toText Reachability = "reachability"
+    toText StatusNameReachability = "reachability"
 
 instance Show StatusName where
     show = showToText
@@ -3154,21 +3122,21 @@ instance ToXML StatusName where
 
 -- | Specifies the Spot Instance type.
 data SpotInstanceType
-    = OneTime
-    | Persistent
+    = SpotInstanceTypeOneTime
+    | SpotInstanceTypePersistent
       deriving (Eq, Ord, Generic)
 
 instance FromText SpotInstanceType where
-    fromText "one-time" = Right OneTime
-    fromText "persistent" = Right Persistent
+    fromText "one-time" = Right SpotInstanceTypeOneTime
+    fromText "persistent" = Right SpotInstanceTypePersistent
     fromText e = failFromText $ "Unrecognised SpotInstanceType: " <> e
 
 instance Read SpotInstanceType where
     readsPrec _ = readFromText
 
 instance ToText SpotInstanceType where
-    toText OneTime = "one-time"
-    toText Persistent = "persistent"
+    toText SpotInstanceTypeOneTime = "one-time"
+    toText SpotInstanceTypePersistent = "persistent"
 
 instance Show SpotInstanceType where
     show = showToText
@@ -3186,30 +3154,30 @@ instance ToXML SpotInstanceType where
 
 -- | FIXME: Type documentation for SpotInstanceState
 data SpotInstanceState
-    = Active
-    | Cancelled
-    | Closed
-    | Failed
-    | Open
+    = SpotInstanceStateActive
+    | SpotInstanceStateCancelled
+    | SpotInstanceStateClosed
+    | SpotInstanceStateFailed
+    | SpotInstanceStateOpen
       deriving (Eq, Ord, Generic)
 
 instance FromText SpotInstanceState where
-    fromText "active" = Right Active
-    fromText "cancelled" = Right Cancelled
-    fromText "closed" = Right Closed
-    fromText "failed" = Right Failed
-    fromText "open" = Right Open
+    fromText "active" = Right SpotInstanceStateActive
+    fromText "cancelled" = Right SpotInstanceStateCancelled
+    fromText "closed" = Right SpotInstanceStateClosed
+    fromText "failed" = Right SpotInstanceStateFailed
+    fromText "open" = Right SpotInstanceStateOpen
     fromText e = failFromText $ "Unrecognised SpotInstanceState: " <> e
 
 instance Read SpotInstanceState where
     readsPrec _ = readFromText
 
 instance ToText SpotInstanceState where
-    toText Active = "active"
-    toText Cancelled = "cancelled"
-    toText Closed = "closed"
-    toText Failed = "failed"
-    toText Open = "open"
+    toText SpotInstanceStateActive = "active"
+    toText SpotInstanceStateCancelled = "cancelled"
+    toText SpotInstanceStateClosed = "closed"
+    toText SpotInstanceStateFailed = "failed"
+    toText SpotInstanceStateOpen = "open"
 
 instance Show SpotInstanceState where
     show = showToText
@@ -3227,24 +3195,24 @@ instance ToXML SpotInstanceState where
 
 -- | Snapshot state (e.g., pending, completed, or error).
 data SnapshotState
-    = Completed
-    | Error
-    | Pending
+    = SnapshotStateCompleted
+    | SnapshotStateError
+    | SnapshotStatePending
       deriving (Eq, Ord, Generic)
 
 instance FromText SnapshotState where
-    fromText "completed" = Right Completed
-    fromText "error" = Right Error
-    fromText "pending" = Right Pending
+    fromText "completed" = Right SnapshotStateCompleted
+    fromText "error" = Right SnapshotStateError
+    fromText "pending" = Right SnapshotStatePending
     fromText e = failFromText $ "Unrecognised SnapshotState: " <> e
 
 instance Read SnapshotState where
     readsPrec _ = readFromText
 
 instance ToText SnapshotState where
-    toText Completed = "completed"
-    toText Error = "error"
-    toText Pending = "pending"
+    toText SnapshotStateCompleted = "completed"
+    toText SnapshotStateError = "error"
+    toText SnapshotStatePending = "pending"
 
 instance Show SnapshotState where
     show = showToText
@@ -3295,21 +3263,21 @@ instance ToXML SnapshotAttributeName where
 
 -- | FIXME: Type documentation for ShutdownBehavior
 data ShutdownBehavior
-    = Stop
-    | Terminate
+    = ShutdownBehaviorStop
+    | ShutdownBehaviorTerminate
       deriving (Eq, Ord, Generic)
 
 instance FromText ShutdownBehavior where
-    fromText "stop" = Right Stop
-    fromText "terminate" = Right Terminate
+    fromText "stop" = Right ShutdownBehaviorStop
+    fromText "terminate" = Right ShutdownBehaviorTerminate
     fromText e = failFromText $ "Unrecognised ShutdownBehavior: " <> e
 
 instance Read ShutdownBehavior where
     readsPrec _ = readFromText
 
 instance ToText ShutdownBehavior where
-    toText Stop = "stop"
-    toText Terminate = "terminate"
+    toText ShutdownBehaviorStop = "stop"
+    toText ShutdownBehaviorTerminate = "terminate"
 
 instance Show ShutdownBehavior where
     show = showToText
@@ -3327,21 +3295,21 @@ instance ToXML ShutdownBehavior where
 
 -- | FIXME: Type documentation for RuleAction
 data RuleAction
-    = Allow
-    | Deny
+    = RuleActionAllow
+    | RuleActionDeny
       deriving (Eq, Ord, Generic)
 
 instance FromText RuleAction where
-    fromText "allow" = Right Allow
-    fromText "deny" = Right Deny
+    fromText "allow" = Right RuleActionAllow
+    fromText "deny" = Right RuleActionDeny
     fromText e = failFromText $ "Unrecognised RuleAction: " <> e
 
 instance Read RuleAction where
     readsPrec _ = readFromText
 
 instance ToText RuleAction where
-    toText Allow = "allow"
-    toText Deny = "deny"
+    toText RuleActionAllow = "allow"
+    toText RuleActionDeny = "deny"
 
 instance Show RuleAction where
     show = showToText
@@ -3359,21 +3327,21 @@ instance ToXML RuleAction where
 
 -- | FIXME: Type documentation for RouteState
 data RouteState
-    = Active
-    | Blackhole
+    = RouteStateActive
+    | RouteStateBlackhole
       deriving (Eq, Ord, Generic)
 
 instance FromText RouteState where
-    fromText "active" = Right Active
-    fromText "blackhole" = Right Blackhole
+    fromText "active" = Right RouteStateActive
+    fromText "blackhole" = Right RouteStateBlackhole
     fromText e = failFromText $ "Unrecognised RouteState: " <> e
 
 instance Read RouteState where
     readsPrec _ = readFromText
 
 instance ToText RouteState where
-    toText Active = "active"
-    toText Blackhole = "blackhole"
+    toText RouteStateActive = "active"
+    toText RouteStateBlackhole = "blackhole"
 
 instance Show RouteState where
     show = showToText
@@ -3392,66 +3360,66 @@ instance ToXML RouteState where
 -- | The type of resource identified by the associated resource ID (ex:
 -- instance, AMI, EBS volume, etc).
 data ResourceType
-    = CustomerGateway
-    | DhcpOptions
-    | Image
-    | Instance
-    | InternetGateway
-    | NetworkAcl
-    | NetworkInterface
-    | ReservedInstances
-    | RouteTable
-    | SecurityGroup
-    | Snapshot
-    | SpotInstancesRequest
-    | Subnet
-    | Volume
-    | Vpc
-    | VpnConnection
-    | VpnGateway
+    = ResourceCustomerGateway
+    | ResourceDhcpOptions
+    | ResourceImage
+    | ResourceInstance
+    | ResourceInternetGateway
+    | ResourceNetworkAcl
+    | ResourceNetworkInterface
+    | ResourceReservedInstances
+    | ResourceRouteTable
+    | ResourceSecurityGroup
+    | ResourceSnapshot
+    | ResourceSpotInstancesRequest
+    | ResourceSubnet
+    | ResourceVolume
+    | ResourceVpc
+    | ResourceVpnConnection
+    | ResourceVpnGateway
       deriving (Eq, Ord, Generic)
 
 instance FromText ResourceType where
-    fromText "customer-gateway" = Right CustomerGateway
-    fromText "dhcp-options" = Right DhcpOptions
-    fromText "image" = Right Image
-    fromText "instance" = Right Instance
-    fromText "internet-gateway" = Right InternetGateway
-    fromText "network-acl" = Right NetworkAcl
-    fromText "network-interface" = Right NetworkInterface
-    fromText "reserved-instances" = Right ReservedInstances
-    fromText "route-table" = Right RouteTable
-    fromText "security-group" = Right SecurityGroup
-    fromText "snapshot" = Right Snapshot
-    fromText "spot-instances-request" = Right SpotInstancesRequest
-    fromText "subnet" = Right Subnet
-    fromText "volume" = Right Volume
-    fromText "vpc" = Right Vpc
-    fromText "vpn-connection" = Right VpnConnection
-    fromText "vpn-gateway" = Right VpnGateway
+    fromText "customer-gateway" = Right ResourceCustomerGateway
+    fromText "dhcp-options" = Right ResourceDhcpOptions
+    fromText "image" = Right ResourceImage
+    fromText "instance" = Right ResourceInstance
+    fromText "internet-gateway" = Right ResourceInternetGateway
+    fromText "network-acl" = Right ResourceNetworkAcl
+    fromText "network-interface" = Right ResourceNetworkInterface
+    fromText "reserved-instances" = Right ResourceReservedInstances
+    fromText "route-table" = Right ResourceRouteTable
+    fromText "security-group" = Right ResourceSecurityGroup
+    fromText "snapshot" = Right ResourceSnapshot
+    fromText "spot-instances-request" = Right ResourceSpotInstancesRequest
+    fromText "subnet" = Right ResourceSubnet
+    fromText "volume" = Right ResourceVolume
+    fromText "vpc" = Right ResourceVpc
+    fromText "vpn-connection" = Right ResourceVpnConnection
+    fromText "vpn-gateway" = Right ResourceVpnGateway
     fromText e = failFromText $ "Unrecognised ResourceType: " <> e
 
 instance Read ResourceType where
     readsPrec _ = readFromText
 
 instance ToText ResourceType where
-    toText CustomerGateway = "customer-gateway"
-    toText DhcpOptions = "dhcp-options"
-    toText Image = "image"
-    toText Instance = "instance"
-    toText InternetGateway = "internet-gateway"
-    toText NetworkAcl = "network-acl"
-    toText NetworkInterface = "network-interface"
-    toText ReservedInstances = "reserved-instances"
-    toText RouteTable = "route-table"
-    toText SecurityGroup = "security-group"
-    toText Snapshot = "snapshot"
-    toText SpotInstancesRequest = "spot-instances-request"
-    toText Subnet = "subnet"
-    toText Volume = "volume"
-    toText Vpc = "vpc"
-    toText VpnConnection = "vpn-connection"
-    toText VpnGateway = "vpn-gateway"
+    toText ResourceCustomerGateway = "customer-gateway"
+    toText ResourceDhcpOptions = "dhcp-options"
+    toText ResourceImage = "image"
+    toText ResourceInstance = "instance"
+    toText ResourceInternetGateway = "internet-gateway"
+    toText ResourceNetworkAcl = "network-acl"
+    toText ResourceNetworkInterface = "network-interface"
+    toText ResourceReservedInstances = "reserved-instances"
+    toText ResourceRouteTable = "route-table"
+    toText ResourceSecurityGroup = "security-group"
+    toText ResourceSnapshot = "snapshot"
+    toText ResourceSpotInstancesRequest = "spot-instances-request"
+    toText ResourceSubnet = "subnet"
+    toText ResourceVolume = "volume"
+    toText ResourceVpc = "vpc"
+    toText ResourceVpnConnection = "vpn-connection"
+    toText ResourceVpnGateway = "vpn-gateway"
 
 instance Show ResourceType where
     show = showToText
@@ -3470,18 +3438,18 @@ instance ToXML ResourceType where
 -- | The name of the attribute being reset. Available attribute names:
 -- launchPermission.
 data ResetImageAttributeName
-    = Launchpermission
+    = ResetImageAttributeNameLaunchpermission
       deriving (Eq, Ord, Generic)
 
 instance FromText ResetImageAttributeName where
-    fromText "launchPermission" = Right Launchpermission
+    fromText "launchPermission" = Right ResetImageAttributeNameLaunchpermission
     fromText e = failFromText $ "Unrecognised ResetImageAttributeName: " <> e
 
 instance Read ResetImageAttributeName where
     readsPrec _ = readFromText
 
 instance ToText ResetImageAttributeName where
-    toText Launchpermission = "launchPermission"
+    toText ResetImageAttributeNameLaunchpermission = "launchPermission"
 
 instance Show ResetImageAttributeName where
     show = showToText
@@ -3499,27 +3467,27 @@ instance ToXML ResetImageAttributeName where
 
 -- | The state of the Reserved Instances purchase.
 data ReservedInstanceState
-    = Active
-    | PaymentFailed
-    | PaymentPending
-    | Retired
+    = ReservedInstanceStateActive
+    | ReservedInstanceStatePaymentFailed
+    | ReservedInstanceStatePaymentPending
+    | ReservedInstanceStateRetired
       deriving (Eq, Ord, Generic)
 
 instance FromText ReservedInstanceState where
-    fromText "active" = Right Active
-    fromText "payment-failed" = Right PaymentFailed
-    fromText "payment-pending" = Right PaymentPending
-    fromText "retired" = Right Retired
+    fromText "active" = Right ReservedInstanceStateActive
+    fromText "payment-failed" = Right ReservedInstanceStatePaymentFailed
+    fromText "payment-pending" = Right ReservedInstanceStatePaymentPending
+    fromText "retired" = Right ReservedInstanceStateRetired
     fromText e = failFromText $ "Unrecognised ReservedInstanceState: " <> e
 
 instance Read ReservedInstanceState where
     readsPrec _ = readFromText
 
 instance ToText ReservedInstanceState where
-    toText Active = "active"
-    toText PaymentFailed = "payment-failed"
-    toText PaymentPending = "payment-pending"
-    toText Retired = "retired"
+    toText ReservedInstanceStateActive = "active"
+    toText ReservedInstanceStatePaymentFailed = "payment-failed"
+    toText ReservedInstanceStatePaymentPending = "payment-pending"
+    toText ReservedInstanceStateRetired = "retired"
 
 instance Show ReservedInstanceState where
     show = showToText
@@ -3537,21 +3505,21 @@ instance ToXML ReservedInstanceState where
 
 -- | FIXME: Type documentation for ReportStatusType
 data ReportStatusType
-    = Impaired
-    | Ok
+    = ReportStatusTypeImpaired
+    | ReportStatusTypeOk
       deriving (Eq, Ord, Generic)
 
 instance FromText ReportStatusType where
-    fromText "impaired" = Right Impaired
-    fromText "ok" = Right Ok
+    fromText "impaired" = Right ReportStatusTypeImpaired
+    fromText "ok" = Right ReportStatusTypeOk
     fromText e = failFromText $ "Unrecognised ReportStatusType: " <> e
 
 instance Read ReportStatusType where
     readsPrec _ = readFromText
 
 instance ToText ReportStatusType where
-    toText Impaired = "impaired"
-    toText Ok = "ok"
+    toText ReportStatusTypeImpaired = "impaired"
+    toText ReportStatusTypeOk = "ok"
 
 instance Show ReportStatusType where
     show = showToText
@@ -3721,18 +3689,18 @@ instance ToXML ProductCodeValues where
 
 -- | FIXME: Type documentation for PlatformValues
 data PlatformValues
-    = Windows
+    = PlatformValuesWindows
       deriving (Eq, Ord, Generic)
 
 instance FromText PlatformValues where
-    fromText "Windows" = Right Windows
+    fromText "Windows" = Right PlatformValuesWindows
     fromText e = failFromText $ "Unrecognised PlatformValues: " <> e
 
 instance Read PlatformValues where
     readsPrec _ = readFromText
 
 instance ToText PlatformValues where
-    toText Windows = "Windows"
+    toText PlatformValuesWindows = "Windows"
 
 instance Show PlatformValues where
     show = showToText
@@ -3750,18 +3718,18 @@ instance ToXML PlatformValues where
 
 -- | The PlacementGroup strategy.
 data PlacementStrategy
-    = Cluster
+    = PlacementStrategyCluster
       deriving (Eq, Ord, Generic)
 
 instance FromText PlacementStrategy where
-    fromText "cluster" = Right Cluster
+    fromText "cluster" = Right PlacementStrategyCluster
     fromText e = failFromText $ "Unrecognised PlacementStrategy: " <> e
 
 instance Read PlacementStrategy where
     readsPrec _ = readFromText
 
 instance ToText PlacementStrategy where
-    toText Cluster = "cluster"
+    toText PlacementStrategyCluster = "cluster"
 
 instance Show PlacementStrategy where
     show = showToText
@@ -3779,27 +3747,27 @@ instance ToXML PlacementStrategy where
 
 -- | The state of this PlacementGroup.
 data PlacementGroupState
-    = Available
-    | Deleted
-    | Deleting
-    | Pending
+    = PlacementGroupStateAvailable
+    | PlacementGroupStateDeleted
+    | PlacementGroupStateDeleting
+    | PlacementGroupStatePending
       deriving (Eq, Ord, Generic)
 
 instance FromText PlacementGroupState where
-    fromText "available" = Right Available
-    fromText "deleted" = Right Deleted
-    fromText "deleting" = Right Deleting
-    fromText "pending" = Right Pending
+    fromText "available" = Right PlacementGroupStateAvailable
+    fromText "deleted" = Right PlacementGroupStateDeleted
+    fromText "deleting" = Right PlacementGroupStateDeleting
+    fromText "pending" = Right PlacementGroupStatePending
     fromText e = failFromText $ "Unrecognised PlacementGroupState: " <> e
 
 instance Read PlacementGroupState where
     readsPrec _ = readFromText
 
 instance ToText PlacementGroupState where
-    toText Available = "available"
-    toText Deleted = "deleted"
-    toText Deleting = "deleting"
-    toText Pending = "pending"
+    toText PlacementGroupStateAvailable = "available"
+    toText PlacementGroupStateDeleted = "deleted"
+    toText PlacementGroupStateDeleting = "deleting"
+    toText PlacementGroupStatePending = "pending"
 
 instance Show PlacementGroupState where
     show = showToText
@@ -3818,18 +3786,18 @@ instance ToXML PlacementGroupState where
 -- | The group that is allowed to create volumes from the snapshot (currently
 -- supports "all").
 data PermissionGroup
-    = All
+    = PermissionGroupAll
       deriving (Eq, Ord, Generic)
 
 instance FromText PermissionGroup where
-    fromText "all" = Right All
+    fromText "all" = Right PermissionGroupAll
     fromText e = failFromText $ "Unrecognised PermissionGroup: " <> e
 
 instance Read PermissionGroup where
     readsPrec _ = readFromText
 
 instance ToText PermissionGroup where
-    toText All = "all"
+    toText PermissionGroupAll = "all"
 
 instance Show PermissionGroup where
     show = showToText
@@ -3882,27 +3850,27 @@ instance ToXML OfferingTypeValues where
 
 -- | FIXME: Type documentation for NetworkInterfaceStatus
 data NetworkInterfaceStatus
-    = Attaching
-    | Available
-    | Detaching
-    | InUse
+    = NetworkInterfaceStatusAttaching
+    | NetworkInterfaceStatusAvailable
+    | NetworkInterfaceStatusDetaching
+    | NetworkInterfaceStatusInUse
       deriving (Eq, Ord, Generic)
 
 instance FromText NetworkInterfaceStatus where
-    fromText "attaching" = Right Attaching
-    fromText "available" = Right Available
-    fromText "detaching" = Right Detaching
-    fromText "in-use" = Right InUse
+    fromText "attaching" = Right NetworkInterfaceStatusAttaching
+    fromText "available" = Right NetworkInterfaceStatusAvailable
+    fromText "detaching" = Right NetworkInterfaceStatusDetaching
+    fromText "in-use" = Right NetworkInterfaceStatusInUse
     fromText e = failFromText $ "Unrecognised NetworkInterfaceStatus: " <> e
 
 instance Read NetworkInterfaceStatus where
     readsPrec _ = readFromText
 
 instance ToText NetworkInterfaceStatus where
-    toText Attaching = "attaching"
-    toText Available = "available"
-    toText Detaching = "detaching"
-    toText InUse = "in-use"
+    toText NetworkInterfaceStatusAttaching = "attaching"
+    toText NetworkInterfaceStatusAvailable = "available"
+    toText NetworkInterfaceStatusDetaching = "detaching"
+    toText NetworkInterfaceStatusInUse = "in-use"
 
 instance Show NetworkInterfaceStatus where
     show = showToText
@@ -3920,24 +3888,24 @@ instance ToXML NetworkInterfaceStatus where
 
 -- | The state of monitoring on an Amazon EC2 instance (ex: enabled, disabled).
 data MonitoringState
-    = Disabled
-    | Enabled
-    | Pending
+    = MonitoringStateDisabled
+    | MonitoringStateEnabled
+    | MonitoringStatePending
       deriving (Eq, Ord, Generic)
 
 instance FromText MonitoringState where
-    fromText "disabled" = Right Disabled
-    fromText "enabled" = Right Enabled
-    fromText "pending" = Right Pending
+    fromText "disabled" = Right MonitoringStateDisabled
+    fromText "enabled" = Right MonitoringStateEnabled
+    fromText "pending" = Right MonitoringStatePending
     fromText e = failFromText $ "Unrecognised MonitoringState: " <> e
 
 instance Read MonitoringState where
     readsPrec _ = readFromText
 
 instance ToText MonitoringState where
-    toText Disabled = "disabled"
-    toText Enabled = "enabled"
-    toText Pending = "pending"
+    toText MonitoringStateDisabled = "disabled"
+    toText MonitoringStateEnabled = "enabled"
+    toText MonitoringStatePending = "pending"
 
 instance Show MonitoringState where
     show = showToText
@@ -3955,27 +3923,27 @@ instance ToXML MonitoringState where
 
 -- | FIXME: Type documentation for ListingStatus
 data ListingStatus
-    = Active
-    | Cancelled
-    | Closed
-    | Pending
+    = ListingStatusActive
+    | ListingStatusCancelled
+    | ListingStatusClosed
+    | ListingStatusPending
       deriving (Eq, Ord, Generic)
 
 instance FromText ListingStatus where
-    fromText "active" = Right Active
-    fromText "cancelled" = Right Cancelled
-    fromText "closed" = Right Closed
-    fromText "pending" = Right Pending
+    fromText "active" = Right ListingStatusActive
+    fromText "cancelled" = Right ListingStatusCancelled
+    fromText "closed" = Right ListingStatusClosed
+    fromText "pending" = Right ListingStatusPending
     fromText e = failFromText $ "Unrecognised ListingStatus: " <> e
 
 instance Read ListingStatus where
     readsPrec _ = readFromText
 
 instance ToText ListingStatus where
-    toText Active = "active"
-    toText Cancelled = "cancelled"
-    toText Closed = "closed"
-    toText Pending = "pending"
+    toText ListingStatusActive = "active"
+    toText ListingStatusCancelled = "cancelled"
+    toText ListingStatusClosed = "closed"
+    toText ListingStatusPending = "pending"
 
 instance Show ListingStatus where
     show = showToText
@@ -3993,27 +3961,27 @@ instance ToXML ListingStatus where
 
 -- | FIXME: Type documentation for ListingState
 data ListingState
-    = Available
-    | Cancelled
-    | Pending
-    | Sold
+    = ListingStateAvailable
+    | ListingStateCancelled
+    | ListingStatePending
+    | ListingStateSold
       deriving (Eq, Ord, Generic)
 
 instance FromText ListingState where
-    fromText "available" = Right Available
-    fromText "cancelled" = Right Cancelled
-    fromText "pending" = Right Pending
-    fromText "sold" = Right Sold
+    fromText "available" = Right ListingStateAvailable
+    fromText "cancelled" = Right ListingStateCancelled
+    fromText "pending" = Right ListingStatePending
+    fromText "sold" = Right ListingStateSold
     fromText e = failFromText $ "Unrecognised ListingState: " <> e
 
 instance Read ListingState where
     readsPrec _ = readFromText
 
 instance ToText ListingState where
-    toText Available = "available"
-    toText Cancelled = "cancelled"
-    toText Pending = "pending"
-    toText Sold = "sold"
+    toText ListingStateAvailable = "available"
+    toText ListingStateCancelled = "cancelled"
+    toText ListingStatePending = "pending"
+    toText ListingStateSold = "sold"
 
 instance Show ListingState where
     show = showToText
@@ -4031,99 +3999,99 @@ instance ToXML ListingState where
 
 -- | FIXME: Type documentation for InstanceType
 data InstanceType
-    = C1_Medium
-    | C1_Xlarge
-    | C3_2Xlarge
-    | C3_4Xlarge
-    | C3_8Xlarge
-    | C3_Large
-    | C3_Xlarge
-    | Cc1_4Xlarge
-    | Cc2_8Xlarge
-    | Cg1_4Xlarge
-    | Cr1_8Xlarge
-    | G2_2Xlarge
-    | Hi1_4Xlarge
-    | Hs1_8Xlarge
-    | I2_2Xlarge
-    | I2_4Xlarge
-    | I2_8Xlarge
-    | I2_Xlarge
-    | M1_Large
-    | M1_Medium
-    | M1_Small
-    | M1_Xlarge
-    | M2_2Xlarge
-    | M2_4Xlarge
-    | M2_Xlarge
-    | M3_2Xlarge
-    | M3_Xlarge
-    | T1_Micro
+    = C1Medium
+    | C1XLarge
+    | C32Xlarge
+    | C34Xlarge
+    | C38Xlarge
+    | C3Large
+    | C3XLarge
+    | CC1_4Xlarge
+    | CC2_8Xlarge
+    | CG1_4Xlarge
+    | CR1_8Xlarge
+    | G22Xlarge
+    | HI1_4Xlarge
+    | HS1_8Xlarge
+    | I22Xlarge
+    | I24Xlarge
+    | I28Xlarge
+    | I2XLarge
+    | M1Large
+    | M1Medium
+    | M1Small
+    | M1XLarge
+    | M22Xlarge
+    | M24Xlarge
+    | M2XLarge
+    | M32Xlarge
+    | M3XLarge
+    | T1Micro
       deriving (Eq, Ord, Generic)
 
 instance FromText InstanceType where
-    fromText "c1.medium" = Right C1_Medium
-    fromText "c1.xlarge" = Right C1_Xlarge
-    fromText "c3.2xlarge" = Right C3_2Xlarge
-    fromText "c3.4xlarge" = Right C3_4Xlarge
-    fromText "c3.8xlarge" = Right C3_8Xlarge
-    fromText "c3.large" = Right C3_Large
-    fromText "c3.xlarge" = Right C3_Xlarge
-    fromText "cc1.4xlarge" = Right Cc1_4Xlarge
-    fromText "cc2.8xlarge" = Right Cc2_8Xlarge
-    fromText "cg1.4xlarge" = Right Cg1_4Xlarge
-    fromText "cr1.8xlarge" = Right Cr1_8Xlarge
-    fromText "g2.2xlarge" = Right G2_2Xlarge
-    fromText "hi1.4xlarge" = Right Hi1_4Xlarge
-    fromText "hs1.8xlarge" = Right Hs1_8Xlarge
-    fromText "i2.2xlarge" = Right I2_2Xlarge
-    fromText "i2.4xlarge" = Right I2_4Xlarge
-    fromText "i2.8xlarge" = Right I2_8Xlarge
-    fromText "i2.xlarge" = Right I2_Xlarge
-    fromText "m1.large" = Right M1_Large
-    fromText "m1.medium" = Right M1_Medium
-    fromText "m1.small" = Right M1_Small
-    fromText "m1.xlarge" = Right M1_Xlarge
-    fromText "m2.2xlarge" = Right M2_2Xlarge
-    fromText "m2.4xlarge" = Right M2_4Xlarge
-    fromText "m2.xlarge" = Right M2_Xlarge
-    fromText "m3.2xlarge" = Right M3_2Xlarge
-    fromText "m3.xlarge" = Right M3_Xlarge
-    fromText "t1.micro" = Right T1_Micro
+    fromText "c1.medium" = Right C1Medium
+    fromText "c1.xlarge" = Right C1XLarge
+    fromText "c3.2xlarge" = Right C32Xlarge
+    fromText "c3.4xlarge" = Right C34Xlarge
+    fromText "c3.8xlarge" = Right C38Xlarge
+    fromText "c3.large" = Right C3Large
+    fromText "c3.xlarge" = Right C3XLarge
+    fromText "cc1.4xlarge" = Right CC1_4Xlarge
+    fromText "cc2.8xlarge" = Right CC2_8Xlarge
+    fromText "cg1.4xlarge" = Right CG1_4Xlarge
+    fromText "cr1.8xlarge" = Right CR1_8Xlarge
+    fromText "g2.2xlarge" = Right G22Xlarge
+    fromText "hi1.4xlarge" = Right HI1_4Xlarge
+    fromText "hs1.8xlarge" = Right HS1_8Xlarge
+    fromText "i2.2xlarge" = Right I22Xlarge
+    fromText "i2.4xlarge" = Right I24Xlarge
+    fromText "i2.8xlarge" = Right I28Xlarge
+    fromText "i2.xlarge" = Right I2XLarge
+    fromText "m1.large" = Right M1Large
+    fromText "m1.medium" = Right M1Medium
+    fromText "m1.small" = Right M1Small
+    fromText "m1.xlarge" = Right M1XLarge
+    fromText "m2.2xlarge" = Right M22Xlarge
+    fromText "m2.4xlarge" = Right M24Xlarge
+    fromText "m2.xlarge" = Right M2XLarge
+    fromText "m3.2xlarge" = Right M32Xlarge
+    fromText "m3.xlarge" = Right M3XLarge
+    fromText "t1.micro" = Right T1Micro
     fromText e = failFromText $ "Unrecognised InstanceType: " <> e
 
 instance Read InstanceType where
     readsPrec _ = readFromText
 
 instance ToText InstanceType where
-    toText C1_Medium = "c1.medium"
-    toText C1_Xlarge = "c1.xlarge"
-    toText C3_2Xlarge = "c3.2xlarge"
-    toText C3_4Xlarge = "c3.4xlarge"
-    toText C3_8Xlarge = "c3.8xlarge"
-    toText C3_Large = "c3.large"
-    toText C3_Xlarge = "c3.xlarge"
-    toText Cc1_4Xlarge = "cc1.4xlarge"
-    toText Cc2_8Xlarge = "cc2.8xlarge"
-    toText Cg1_4Xlarge = "cg1.4xlarge"
-    toText Cr1_8Xlarge = "cr1.8xlarge"
-    toText G2_2Xlarge = "g2.2xlarge"
-    toText Hi1_4Xlarge = "hi1.4xlarge"
-    toText Hs1_8Xlarge = "hs1.8xlarge"
-    toText I2_2Xlarge = "i2.2xlarge"
-    toText I2_4Xlarge = "i2.4xlarge"
-    toText I2_8Xlarge = "i2.8xlarge"
-    toText I2_Xlarge = "i2.xlarge"
-    toText M1_Large = "m1.large"
-    toText M1_Medium = "m1.medium"
-    toText M1_Small = "m1.small"
-    toText M1_Xlarge = "m1.xlarge"
-    toText M2_2Xlarge = "m2.2xlarge"
-    toText M2_4Xlarge = "m2.4xlarge"
-    toText M2_Xlarge = "m2.xlarge"
-    toText M3_2Xlarge = "m3.2xlarge"
-    toText M3_Xlarge = "m3.xlarge"
-    toText T1_Micro = "t1.micro"
+    toText C1Medium = "c1.medium"
+    toText C1XLarge = "c1.xlarge"
+    toText C32Xlarge = "c3.2xlarge"
+    toText C34Xlarge = "c3.4xlarge"
+    toText C38Xlarge = "c3.8xlarge"
+    toText C3Large = "c3.large"
+    toText C3XLarge = "c3.xlarge"
+    toText CC1_4Xlarge = "cc1.4xlarge"
+    toText CC2_8Xlarge = "cc2.8xlarge"
+    toText CG1_4Xlarge = "cg1.4xlarge"
+    toText CR1_8Xlarge = "cr1.8xlarge"
+    toText G22Xlarge = "g2.2xlarge"
+    toText HI1_4Xlarge = "hi1.4xlarge"
+    toText HS1_8Xlarge = "hs1.8xlarge"
+    toText I22Xlarge = "i2.2xlarge"
+    toText I24Xlarge = "i2.4xlarge"
+    toText I28Xlarge = "i2.8xlarge"
+    toText I2XLarge = "i2.xlarge"
+    toText M1Large = "m1.large"
+    toText M1Medium = "m1.medium"
+    toText M1Small = "m1.small"
+    toText M1XLarge = "m1.xlarge"
+    toText M22Xlarge = "m2.2xlarge"
+    toText M24Xlarge = "m2.4xlarge"
+    toText M2XLarge = "m2.xlarge"
+    toText M32Xlarge = "m3.2xlarge"
+    toText M3XLarge = "m3.xlarge"
+    toText T1Micro = "t1.micro"
 
 instance Show InstanceType where
     show = showToText
@@ -4141,33 +4109,33 @@ instance ToXML InstanceType where
 
 -- | The current state of the instance.
 data InstanceStateName
-    = Pending
-    | Running
-    | ShuttingDown
-    | Stopped
-    | Stopping
-    | Terminated
+    = InstanceStateNamePending
+    | InstanceStateNameRunning
+    | InstanceStateNameShuttingDown
+    | InstanceStateNameStopped
+    | InstanceStateNameStopping
+    | InstanceStateNameTerminated
       deriving (Eq, Ord, Generic)
 
 instance FromText InstanceStateName where
-    fromText "pending" = Right Pending
-    fromText "running" = Right Running
-    fromText "shutting-down" = Right ShuttingDown
-    fromText "stopped" = Right Stopped
-    fromText "stopping" = Right Stopping
-    fromText "terminated" = Right Terminated
+    fromText "pending" = Right InstanceStateNamePending
+    fromText "running" = Right InstanceStateNameRunning
+    fromText "shutting-down" = Right InstanceStateNameShuttingDown
+    fromText "stopped" = Right InstanceStateNameStopped
+    fromText "stopping" = Right InstanceStateNameStopping
+    fromText "terminated" = Right InstanceStateNameTerminated
     fromText e = failFromText $ "Unrecognised InstanceStateName: " <> e
 
 instance Read InstanceStateName where
     readsPrec _ = readFromText
 
 instance ToText InstanceStateName where
-    toText Pending = "pending"
-    toText Running = "running"
-    toText ShuttingDown = "shutting-down"
-    toText Stopped = "stopped"
-    toText Stopping = "stopping"
-    toText Terminated = "terminated"
+    toText InstanceStateNamePending = "pending"
+    toText InstanceStateNameRunning = "running"
+    toText InstanceStateNameShuttingDown = "shutting-down"
+    toText InstanceStateNameStopped = "stopped"
+    toText InstanceStateNameStopping = "stopping"
+    toText InstanceStateNameTerminated = "terminated"
 
 instance Show InstanceStateName where
     show = showToText
@@ -4185,18 +4153,18 @@ instance ToXML InstanceStateName where
 
 -- | FIXME: Type documentation for InstanceLifecycleType
 data InstanceLifecycleType
-    = Spot
+    = InstanceLifecycleTypeSpot
       deriving (Eq, Ord, Generic)
 
 instance FromText InstanceLifecycleType where
-    fromText "spot" = Right Spot
+    fromText "spot" = Right InstanceLifecycleTypeSpot
     fromText e = failFromText $ "Unrecognised InstanceLifecycleType: " <> e
 
 instance Read InstanceLifecycleType where
     readsPrec _ = readFromText
 
 instance ToText InstanceLifecycleType where
-    toText Spot = "spot"
+    toText InstanceLifecycleTypeSpot = "spot"
 
 instance Show InstanceLifecycleType where
     show = showToText
@@ -4215,51 +4183,51 @@ instance ToXML InstanceLifecycleType where
 -- | The name of the attribute being reset. Available attribute names: kernel,
 -- ramdisk.
 data InstanceAttributeName
-    = Blockdevicemapping
-    | Disableapitermination
-    | Ebsoptimized
-    | Groupset
-    | Instanceinitiatedshutdownbehavior
-    | Instancetype
-    | Kernel
-    | Productcodes
-    | Ramdisk
-    | Rootdevicename
-    | Sourcedestcheck
-    | Userdata
+    = InstanceAttributeNameBlockdevicemapping
+    | InstanceAttributeNameDisableapitermination
+    | InstanceAttributeNameEbsoptimized
+    | InstanceAttributeNameGroupset
+    | InstanceAttributeNameInstanceinitiatedshutdownbehavior
+    | InstanceAttributeNameInstancetype
+    | InstanceAttributeNameKernel
+    | InstanceAttributeNameProductcodes
+    | InstanceAttributeNameRamdisk
+    | InstanceAttributeNameRootdevicename
+    | InstanceAttributeNameSourcedestcheck
+    | InstanceAttributeNameUserdata
       deriving (Eq, Ord, Generic)
 
 instance FromText InstanceAttributeName where
-    fromText "blockDeviceMapping" = Right Blockdevicemapping
-    fromText "disableApiTermination" = Right Disableapitermination
-    fromText "ebsOptimized" = Right Ebsoptimized
-    fromText "groupSet" = Right Groupset
-    fromText "instanceInitiatedShutdownBehavior" = Right Instanceinitiatedshutdownbehavior
-    fromText "instanceType" = Right Instancetype
-    fromText "kernel" = Right Kernel
-    fromText "productCodes" = Right Productcodes
-    fromText "ramdisk" = Right Ramdisk
-    fromText "rootDeviceName" = Right Rootdevicename
-    fromText "sourceDestCheck" = Right Sourcedestcheck
-    fromText "userData" = Right Userdata
+    fromText "blockDeviceMapping" = Right InstanceAttributeNameBlockdevicemapping
+    fromText "disableApiTermination" = Right InstanceAttributeNameDisableapitermination
+    fromText "ebsOptimized" = Right InstanceAttributeNameEbsoptimized
+    fromText "groupSet" = Right InstanceAttributeNameGroupset
+    fromText "instanceInitiatedShutdownBehavior" = Right InstanceAttributeNameInstanceinitiatedshutdownbehavior
+    fromText "instanceType" = Right InstanceAttributeNameInstancetype
+    fromText "kernel" = Right InstanceAttributeNameKernel
+    fromText "productCodes" = Right InstanceAttributeNameProductcodes
+    fromText "ramdisk" = Right InstanceAttributeNameRamdisk
+    fromText "rootDeviceName" = Right InstanceAttributeNameRootdevicename
+    fromText "sourceDestCheck" = Right InstanceAttributeNameSourcedestcheck
+    fromText "userData" = Right InstanceAttributeNameUserdata
     fromText e = failFromText $ "Unrecognised InstanceAttributeName: " <> e
 
 instance Read InstanceAttributeName where
     readsPrec _ = readFromText
 
 instance ToText InstanceAttributeName where
-    toText Blockdevicemapping = "blockDeviceMapping"
-    toText Disableapitermination = "disableApiTermination"
-    toText Ebsoptimized = "ebsOptimized"
-    toText Groupset = "groupSet"
-    toText Instanceinitiatedshutdownbehavior = "instanceInitiatedShutdownBehavior"
-    toText Instancetype = "instanceType"
-    toText Kernel = "kernel"
-    toText Productcodes = "productCodes"
-    toText Ramdisk = "ramdisk"
-    toText Rootdevicename = "rootDeviceName"
-    toText Sourcedestcheck = "sourceDestCheck"
-    toText Userdata = "userData"
+    toText InstanceAttributeNameBlockdevicemapping = "blockDeviceMapping"
+    toText InstanceAttributeNameDisableapitermination = "disableApiTermination"
+    toText InstanceAttributeNameEbsoptimized = "ebsOptimized"
+    toText InstanceAttributeNameGroupset = "groupSet"
+    toText InstanceAttributeNameInstanceinitiatedshutdownbehavior = "instanceInitiatedShutdownBehavior"
+    toText InstanceAttributeNameInstancetype = "instanceType"
+    toText InstanceAttributeNameKernel = "kernel"
+    toText InstanceAttributeNameProductcodes = "productCodes"
+    toText InstanceAttributeNameRamdisk = "ramdisk"
+    toText InstanceAttributeNameRootdevicename = "rootDeviceName"
+    toText InstanceAttributeNameSourcedestcheck = "sourceDestCheck"
+    toText InstanceAttributeNameUserdata = "userData"
 
 instance Show InstanceAttributeName where
     show = showToText
@@ -4277,24 +4245,24 @@ instance ToXML InstanceAttributeName where
 
 -- | The type of image (machine, kernel, or ramdisk).
 data ImageTypeValues
-    = Kernel
-    | Machine
-    | Ramdisk
+    = ImageTypeValuesKernel
+    | ImageTypeValuesMachine
+    | ImageTypeValuesRamdisk
       deriving (Eq, Ord, Generic)
 
 instance FromText ImageTypeValues where
-    fromText "kernel" = Right Kernel
-    fromText "machine" = Right Machine
-    fromText "ramdisk" = Right Ramdisk
+    fromText "kernel" = Right ImageTypeValuesKernel
+    fromText "machine" = Right ImageTypeValuesMachine
+    fromText "ramdisk" = Right ImageTypeValuesRamdisk
     fromText e = failFromText $ "Unrecognised ImageTypeValues: " <> e
 
 instance Read ImageTypeValues where
     readsPrec _ = readFromText
 
 instance ToText ImageTypeValues where
-    toText Kernel = "kernel"
-    toText Machine = "machine"
-    toText Ramdisk = "ramdisk"
+    toText ImageTypeValuesKernel = "kernel"
+    toText ImageTypeValuesMachine = "machine"
+    toText ImageTypeValuesRamdisk = "ramdisk"
 
 instance Show ImageTypeValues where
     show = showToText
@@ -4315,21 +4283,21 @@ instance ToXML ImageTypeValues where
 -- returns deregistered, the image is deregistered and no longer available for
 -- launching.
 data ImageState
-    = Available
-    | Deregistered
+    = ImageStateAvailable
+    | ImageStateDeregistered
       deriving (Eq, Ord, Generic)
 
 instance FromText ImageState where
-    fromText "available" = Right Available
-    fromText "deregistered" = Right Deregistered
+    fromText "available" = Right ImageStateAvailable
+    fromText "deregistered" = Right ImageStateDeregistered
     fromText e = failFromText $ "Unrecognised ImageState: " <> e
 
 instance Read ImageState where
     readsPrec _ = readFromText
 
 instance ToText ImageState where
-    toText Available = "available"
-    toText Deregistered = "deregistered"
+    toText ImageStateAvailable = "available"
+    toText ImageStateDeregistered = "deregistered"
 
 instance Show ImageState where
     show = showToText
@@ -4348,33 +4316,33 @@ instance ToXML ImageState where
 -- | The name of the attribute to describe. Available attribute names:
 -- productCodes, kernel, ramdisk, launchPermisson, blockDeviceMapping.
 data ImageAttributeName
-    = Blockdevicemapping
-    | Description
-    | Kernel
-    | Launchpermission
-    | Productcodes
-    | Ramdisk
+    = ImageAttributeNameBlockdevicemapping
+    | ImageAttributeNameDescription
+    | ImageAttributeNameKernel
+    | ImageAttributeNameLaunchpermission
+    | ImageAttributeNameProductcodes
+    | ImageAttributeNameRamdisk
       deriving (Eq, Ord, Generic)
 
 instance FromText ImageAttributeName where
-    fromText "blockDeviceMapping" = Right Blockdevicemapping
-    fromText "description" = Right Description
-    fromText "kernel" = Right Kernel
-    fromText "launchPermission" = Right Launchpermission
-    fromText "productCodes" = Right Productcodes
-    fromText "ramdisk" = Right Ramdisk
+    fromText "blockDeviceMapping" = Right ImageAttributeNameBlockdevicemapping
+    fromText "description" = Right ImageAttributeNameDescription
+    fromText "kernel" = Right ImageAttributeNameKernel
+    fromText "launchPermission" = Right ImageAttributeNameLaunchpermission
+    fromText "productCodes" = Right ImageAttributeNameProductcodes
+    fromText "ramdisk" = Right ImageAttributeNameRamdisk
     fromText e = failFromText $ "Unrecognised ImageAttributeName: " <> e
 
 instance Read ImageAttributeName where
     readsPrec _ = readFromText
 
 instance ToText ImageAttributeName where
-    toText Blockdevicemapping = "blockDeviceMapping"
-    toText Description = "description"
-    toText Kernel = "kernel"
-    toText Launchpermission = "launchPermission"
-    toText Productcodes = "productCodes"
-    toText Ramdisk = "ramdisk"
+    toText ImageAttributeNameBlockdevicemapping = "blockDeviceMapping"
+    toText ImageAttributeNameDescription = "description"
+    toText ImageAttributeNameKernel = "kernel"
+    toText ImageAttributeNameLaunchpermission = "launchPermission"
+    toText ImageAttributeNameProductcodes = "productCodes"
+    toText ImageAttributeNameRamdisk = "ramdisk"
 
 instance Show ImageAttributeName where
     show = showToText
@@ -4424,18 +4392,18 @@ instance ToXML HypervisorType where
 
 -- | The type of VPN connection this VPN gateway supports.
 data GatewayType
-    = Ipsec_1
+    = GatewayTypeIpsec_1
       deriving (Eq, Ord, Generic)
 
 instance FromText GatewayType where
-    fromText "ipsec.1" = Right Ipsec_1
+    fromText "ipsec.1" = Right GatewayTypeIpsec_1
     fromText e = failFromText $ "Unrecognised GatewayType: " <> e
 
 instance Read GatewayType where
     readsPrec _ = readFromText
 
 instance ToText GatewayType where
-    toText Ipsec_1 = "ipsec.1"
+    toText GatewayTypeIpsec_1 = "ipsec.1"
 
 instance Show GatewayType where
     show = showToText
@@ -4453,27 +4421,27 @@ instance ToXML GatewayType where
 
 -- | FIXME: Type documentation for ExportTaskState
 data ExportTaskState
-    = Active
-    | Cancelled
-    | Cancelling
-    | Completed
+    = ExportTaskStateActive
+    | ExportTaskStateCancelled
+    | ExportTaskStateCancelling
+    | ExportTaskStateCompleted
       deriving (Eq, Ord, Generic)
 
 instance FromText ExportTaskState where
-    fromText "active" = Right Active
-    fromText "cancelled" = Right Cancelled
-    fromText "cancelling" = Right Cancelling
-    fromText "completed" = Right Completed
+    fromText "active" = Right ExportTaskStateActive
+    fromText "cancelled" = Right ExportTaskStateCancelled
+    fromText "cancelling" = Right ExportTaskStateCancelling
+    fromText "completed" = Right ExportTaskStateCompleted
     fromText e = failFromText $ "Unrecognised ExportTaskState: " <> e
 
 instance Read ExportTaskState where
     readsPrec _ = readFromText
 
 instance ToText ExportTaskState where
-    toText Active = "active"
-    toText Cancelled = "cancelled"
-    toText Cancelling = "cancelling"
-    toText Completed = "completed"
+    toText ExportTaskStateActive = "active"
+    toText ExportTaskStateCancelled = "cancelled"
+    toText ExportTaskStateCancelling = "cancelling"
+    toText ExportTaskStateCompleted = "completed"
 
 instance Show ExportTaskState where
     show = showToText
@@ -4568,21 +4536,21 @@ instance ToXML EventCode where
 
 -- | FIXME: Type documentation for DomainType
 data DomainType
-    = Standard
-    | Vpc
+    = DomainTypeStandard
+    | DomainTypeVpc
       deriving (Eq, Ord, Generic)
 
 instance FromText DomainType where
-    fromText "standard" = Right Standard
-    fromText "vpc" = Right Vpc
+    fromText "standard" = Right DomainTypeStandard
+    fromText "vpc" = Right DomainTypeVpc
     fromText e = failFromText $ "Unrecognised DomainType: " <> e
 
 instance Read DomainType where
     readsPrec _ = readFromText
 
 instance ToText DomainType where
-    toText Standard = "standard"
-    toText Vpc = "vpc"
+    toText DomainTypeStandard = "standard"
+    toText DomainTypeVpc = "vpc"
 
 instance Show DomainType where
     show = showToText
@@ -4636,21 +4604,21 @@ instance ToXML DiskImageFormat where
 -- | The root device type used by the AMI. The AMI can use an Amazon EBS or
 -- instance store root device.
 data DeviceType
-    = Ebs
-    | InstanceStore
+    = DeviceTypeEbs
+    | DeviceTypeInstanceStore
       deriving (Eq, Ord, Generic)
 
 instance FromText DeviceType where
-    fromText "ebs" = Right Ebs
-    fromText "instance-store" = Right InstanceStore
+    fromText "ebs" = Right DeviceTypeEbs
+    fromText "instance-store" = Right DeviceTypeInstanceStore
     fromText e = failFromText $ "Unrecognised DeviceType: " <> e
 
 instance Read DeviceType where
     readsPrec _ = readFromText
 
 instance ToText DeviceType where
-    toText Ebs = "ebs"
-    toText InstanceStore = "instance-store"
+    toText DeviceTypeEbs = "ebs"
+    toText DeviceTypeInstanceStore = "instance-store"
 
 instance Show DeviceType where
     show = showToText
@@ -4668,21 +4636,21 @@ instance ToXML DeviceType where
 
 -- | Specifies the state of the Spot Instance request.
 data DatafeedSubscriptionState
-    = Active
-    | Inactive
+    = DatafeedSubscriptionStateActive
+    | DatafeedSubscriptionStateInactive
       deriving (Eq, Ord, Generic)
 
 instance FromText DatafeedSubscriptionState where
-    fromText "Active" = Right Active
-    fromText "Inactive" = Right Inactive
+    fromText "Active" = Right DatafeedSubscriptionStateActive
+    fromText "Inactive" = Right DatafeedSubscriptionStateInactive
     fromText e = failFromText $ "Unrecognised DatafeedSubscriptionState: " <> e
 
 instance Read DatafeedSubscriptionState where
     readsPrec _ = readFromText
 
 instance ToText DatafeedSubscriptionState where
-    toText Active = "Active"
-    toText Inactive = "Inactive"
+    toText DatafeedSubscriptionStateActive = "Active"
+    toText DatafeedSubscriptionStateInactive = "Inactive"
 
 instance Show DatafeedSubscriptionState where
     show = showToText
@@ -4729,27 +4697,27 @@ instance ToXML CurrencyCodeValues where
 
 -- | FIXME: Type documentation for ConversionTaskState
 data ConversionTaskState
-    = Active
-    | Cancelled
-    | Cancelling
-    | Completed
+    = ConversionTaskStateActive
+    | ConversionTaskStateCancelled
+    | ConversionTaskStateCancelling
+    | ConversionTaskStateCompleted
       deriving (Eq, Ord, Generic)
 
 instance FromText ConversionTaskState where
-    fromText "active" = Right Active
-    fromText "cancelled" = Right Cancelled
-    fromText "cancelling" = Right Cancelling
-    fromText "completed" = Right Completed
+    fromText "active" = Right ConversionTaskStateActive
+    fromText "cancelled" = Right ConversionTaskStateCancelled
+    fromText "cancelling" = Right ConversionTaskStateCancelling
+    fromText "completed" = Right ConversionTaskStateCompleted
     fromText e = failFromText $ "Unrecognised ConversionTaskState: " <> e
 
 instance Read ConversionTaskState where
     readsPrec _ = readFromText
 
 instance ToText ConversionTaskState where
-    toText Active = "active"
-    toText Cancelled = "cancelled"
-    toText Cancelling = "cancelling"
-    toText Completed = "completed"
+    toText ConversionTaskStateActive = "active"
+    toText ConversionTaskStateCancelled = "cancelled"
+    toText ConversionTaskStateCancelling = "cancelling"
+    toText ConversionTaskStateCompleted = "completed"
 
 instance Show ConversionTaskState where
     show = showToText
@@ -4796,30 +4764,30 @@ instance ToXML ContainerFormat where
 
 -- | FIXME: Type documentation for CancelSpotInstanceRequestState
 data CancelSpotInstanceRequestState
-    = Active
-    | Cancelled
-    | Closed
-    | Completed
-    | Open
+    = CancelSpotInstanceRequestStateActive
+    | CancelSpotInstanceRequestStateCancelled
+    | CancelSpotInstanceRequestStateClosed
+    | CancelSpotInstanceRequestStateCompleted
+    | CancelSpotInstanceRequestStateOpen
       deriving (Eq, Ord, Generic)
 
 instance FromText CancelSpotInstanceRequestState where
-    fromText "active" = Right Active
-    fromText "cancelled" = Right Cancelled
-    fromText "closed" = Right Closed
-    fromText "completed" = Right Completed
-    fromText "open" = Right Open
+    fromText "active" = Right CancelSpotInstanceRequestStateActive
+    fromText "cancelled" = Right CancelSpotInstanceRequestStateCancelled
+    fromText "closed" = Right CancelSpotInstanceRequestStateClosed
+    fromText "completed" = Right CancelSpotInstanceRequestStateCompleted
+    fromText "open" = Right CancelSpotInstanceRequestStateOpen
     fromText e = failFromText $ "Unrecognised CancelSpotInstanceRequestState: " <> e
 
 instance Read CancelSpotInstanceRequestState where
     readsPrec _ = readFromText
 
 instance ToText CancelSpotInstanceRequestState where
-    toText Active = "active"
-    toText Cancelled = "cancelled"
-    toText Closed = "closed"
-    toText Completed = "completed"
-    toText Open = "open"
+    toText CancelSpotInstanceRequestStateActive = "active"
+    toText CancelSpotInstanceRequestStateCancelled = "cancelled"
+    toText CancelSpotInstanceRequestStateClosed = "closed"
+    toText CancelSpotInstanceRequestStateCompleted = "completed"
+    toText CancelSpotInstanceRequestStateOpen = "open"
 
 instance Show CancelSpotInstanceRequestState where
     show = showToText
@@ -4837,36 +4805,36 @@ instance ToXML CancelSpotInstanceRequestState where
 
 -- | The state of this task.
 data BundleTaskState
-    = Bundling
-    | Cancelling
-    | Complete
-    | Failed
-    | Pending
-    | Storing
-    | WaitingForShutdown
+    = BundleTaskStateBundling
+    | BundleTaskStateCancelling
+    | BundleTaskStateComplete
+    | BundleTaskStateFailed
+    | BundleTaskStatePending
+    | BundleTaskStateStoring
+    | BundleTaskStateWaitingForShutdown
       deriving (Eq, Ord, Generic)
 
 instance FromText BundleTaskState where
-    fromText "bundling" = Right Bundling
-    fromText "cancelling" = Right Cancelling
-    fromText "complete" = Right Complete
-    fromText "failed" = Right Failed
-    fromText "pending" = Right Pending
-    fromText "storing" = Right Storing
-    fromText "waiting-for-shutdown" = Right WaitingForShutdown
+    fromText "bundling" = Right BundleTaskStateBundling
+    fromText "cancelling" = Right BundleTaskStateCancelling
+    fromText "complete" = Right BundleTaskStateComplete
+    fromText "failed" = Right BundleTaskStateFailed
+    fromText "pending" = Right BundleTaskStatePending
+    fromText "storing" = Right BundleTaskStateStoring
+    fromText "waiting-for-shutdown" = Right BundleTaskStateWaitingForShutdown
     fromText e = failFromText $ "Unrecognised BundleTaskState: " <> e
 
 instance Read BundleTaskState where
     readsPrec _ = readFromText
 
 instance ToText BundleTaskState where
-    toText Bundling = "bundling"
-    toText Cancelling = "cancelling"
-    toText Complete = "complete"
-    toText Failed = "failed"
-    toText Pending = "pending"
-    toText Storing = "storing"
-    toText WaitingForShutdown = "waiting-for-shutdown"
+    toText BundleTaskStateBundling = "bundling"
+    toText BundleTaskStateCancelling = "cancelling"
+    toText BundleTaskStateComplete = "complete"
+    toText BundleTaskStateFailed = "failed"
+    toText BundleTaskStatePending = "pending"
+    toText BundleTaskStateStoring = "storing"
+    toText BundleTaskStateWaitingForShutdown = "waiting-for-shutdown"
 
 instance Show BundleTaskState where
     show = showToText
@@ -4884,18 +4852,18 @@ instance ToXML BundleTaskState where
 
 -- | State of the Availability Zone.
 data AvailabilityZoneState
-    = Available
+    = AvailabilityZoneStateAvailable
       deriving (Eq, Ord, Generic)
 
 instance FromText AvailabilityZoneState where
-    fromText "available" = Right Available
+    fromText "available" = Right AvailabilityZoneStateAvailable
     fromText e = failFromText $ "Unrecognised AvailabilityZoneState: " <> e
 
 instance Read AvailabilityZoneState where
     readsPrec _ = readFromText
 
 instance ToText AvailabilityZoneState where
-    toText Available = "available"
+    toText AvailabilityZoneStateAvailable = "available"
 
 instance Show AvailabilityZoneState where
     show = showToText
@@ -4913,27 +4881,27 @@ instance ToXML AvailabilityZoneState where
 
 -- | FIXME: Type documentation for AttachmentStatus
 data AttachmentStatus
-    = Attached
-    | Attaching
-    | Detached
-    | Detaching
+    = AttachmentStatusAttached
+    | AttachmentStatusAttaching
+    | AttachmentStatusDetached
+    | AttachmentStatusDetaching
       deriving (Eq, Ord, Generic)
 
 instance FromText AttachmentStatus where
-    fromText "attached" = Right Attached
-    fromText "attaching" = Right Attaching
-    fromText "detached" = Right Detached
-    fromText "detaching" = Right Detaching
+    fromText "attached" = Right AttachmentStatusAttached
+    fromText "attaching" = Right AttachmentStatusAttaching
+    fromText "detached" = Right AttachmentStatusDetached
+    fromText "detaching" = Right AttachmentStatusDetaching
     fromText e = failFromText $ "Unrecognised AttachmentStatus: " <> e
 
 instance Read AttachmentStatus where
     readsPrec _ = readFromText
 
 instance ToText AttachmentStatus where
-    toText Attached = "attached"
-    toText Attaching = "attaching"
-    toText Detached = "detached"
-    toText Detaching = "detaching"
+    toText AttachmentStatusAttached = "attached"
+    toText AttachmentStatusAttaching = "attaching"
+    toText AttachmentStatusDetached = "detached"
+    toText AttachmentStatusDetaching = "detaching"
 
 instance Show AttachmentStatus where
     show = showToText
@@ -4951,12 +4919,12 @@ instance ToXML AttachmentStatus where
 
 -- | FIXME: Type documentation for ArchitectureValues
 data ArchitectureValues
-    = I386
+    = I3866
     | X86_64
       deriving (Eq, Ord, Generic)
 
 instance FromText ArchitectureValues where
-    fromText "i386" = Right I386
+    fromText "i386" = Right I3866
     fromText "x86_64" = Right X86_64
     fromText e = failFromText $ "Unrecognised ArchitectureValues: " <> e
 
@@ -4964,7 +4932,7 @@ instance Read ArchitectureValues where
     readsPrec _ = readFromText
 
 instance ToText ArchitectureValues where
-    toText I386 = "i386"
+    toText I3866 = "i386"
     toText X86_64 = "x86_64"
 
 instance Show ArchitectureValues where
