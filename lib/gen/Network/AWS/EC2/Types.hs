@@ -3999,99 +3999,99 @@ instance ToXML ListingState where
 
 -- | FIXME: Type documentation for InstanceType
 data InstanceType
-    = C1Medium
-    | C1XLarge
-    | C32Xlarge
-    | C34Xlarge
-    | C38Xlarge
-    | C3Large
-    | C3XLarge
+    = C1_Medium
+    | C1_Xlarge
+    | C3_2Xlarge
+    | C3_4Xlarge
+    | C3_8Xlarge
+    | C3_Large
+    | C3_Xlarge
     | CC1_4Xlarge
     | CC2_8Xlarge
     | CG1_4Xlarge
     | CR1_8Xlarge
-    | G22Xlarge
+    | G2_2Xlarge
     | HI1_4Xlarge
     | HS1_8Xlarge
-    | I22Xlarge
-    | I24Xlarge
-    | I28Xlarge
-    | I2XLarge
-    | M1Large
-    | M1Medium
-    | M1Small
-    | M1XLarge
-    | M22Xlarge
-    | M24Xlarge
-    | M2XLarge
-    | M32Xlarge
-    | M3XLarge
-    | T1Micro
+    | I2_2Xlarge
+    | I2_4Xlarge
+    | I2_8Xlarge
+    | I2_Xlarge
+    | M1_Large
+    | M1_Medium
+    | M1_Small
+    | M1_Xlarge
+    | M2_2Xlarge
+    | M2_4Xlarge
+    | M2_Xlarge
+    | M3_2Xlarge
+    | M3_Xlarge
+    | T1_Micro
       deriving (Eq, Ord, Generic)
 
 instance FromText InstanceType where
-    fromText "c1.medium" = Right C1Medium
-    fromText "c1.xlarge" = Right C1XLarge
-    fromText "c3.2xlarge" = Right C32Xlarge
-    fromText "c3.4xlarge" = Right C34Xlarge
-    fromText "c3.8xlarge" = Right C38Xlarge
-    fromText "c3.large" = Right C3Large
-    fromText "c3.xlarge" = Right C3XLarge
+    fromText "c1.medium" = Right C1_Medium
+    fromText "c1.xlarge" = Right C1_Xlarge
+    fromText "c3.2xlarge" = Right C3_2Xlarge
+    fromText "c3.4xlarge" = Right C3_4Xlarge
+    fromText "c3.8xlarge" = Right C3_8Xlarge
+    fromText "c3.large" = Right C3_Large
+    fromText "c3.xlarge" = Right C3_Xlarge
     fromText "cc1.4xlarge" = Right CC1_4Xlarge
     fromText "cc2.8xlarge" = Right CC2_8Xlarge
     fromText "cg1.4xlarge" = Right CG1_4Xlarge
     fromText "cr1.8xlarge" = Right CR1_8Xlarge
-    fromText "g2.2xlarge" = Right G22Xlarge
+    fromText "g2.2xlarge" = Right G2_2Xlarge
     fromText "hi1.4xlarge" = Right HI1_4Xlarge
     fromText "hs1.8xlarge" = Right HS1_8Xlarge
-    fromText "i2.2xlarge" = Right I22Xlarge
-    fromText "i2.4xlarge" = Right I24Xlarge
-    fromText "i2.8xlarge" = Right I28Xlarge
-    fromText "i2.xlarge" = Right I2XLarge
-    fromText "m1.large" = Right M1Large
-    fromText "m1.medium" = Right M1Medium
-    fromText "m1.small" = Right M1Small
-    fromText "m1.xlarge" = Right M1XLarge
-    fromText "m2.2xlarge" = Right M22Xlarge
-    fromText "m2.4xlarge" = Right M24Xlarge
-    fromText "m2.xlarge" = Right M2XLarge
-    fromText "m3.2xlarge" = Right M32Xlarge
-    fromText "m3.xlarge" = Right M3XLarge
-    fromText "t1.micro" = Right T1Micro
+    fromText "i2.2xlarge" = Right I2_2Xlarge
+    fromText "i2.4xlarge" = Right I2_4Xlarge
+    fromText "i2.8xlarge" = Right I2_8Xlarge
+    fromText "i2.xlarge" = Right I2_Xlarge
+    fromText "m1.large" = Right M1_Large
+    fromText "m1.medium" = Right M1_Medium
+    fromText "m1.small" = Right M1_Small
+    fromText "m1.xlarge" = Right M1_Xlarge
+    fromText "m2.2xlarge" = Right M2_2Xlarge
+    fromText "m2.4xlarge" = Right M2_4Xlarge
+    fromText "m2.xlarge" = Right M2_Xlarge
+    fromText "m3.2xlarge" = Right M3_2Xlarge
+    fromText "m3.xlarge" = Right M3_Xlarge
+    fromText "t1.micro" = Right T1_Micro
     fromText e = failFromText $ "Unrecognised InstanceType: " <> e
 
 instance Read InstanceType where
     readsPrec _ = readFromText
 
 instance ToText InstanceType where
-    toText C1Medium = "c1.medium"
-    toText C1XLarge = "c1.xlarge"
-    toText C32Xlarge = "c3.2xlarge"
-    toText C34Xlarge = "c3.4xlarge"
-    toText C38Xlarge = "c3.8xlarge"
-    toText C3Large = "c3.large"
-    toText C3XLarge = "c3.xlarge"
+    toText C1_Medium = "c1.medium"
+    toText C1_Xlarge = "c1.xlarge"
+    toText C3_2Xlarge = "c3.2xlarge"
+    toText C3_4Xlarge = "c3.4xlarge"
+    toText C3_8Xlarge = "c3.8xlarge"
+    toText C3_Large = "c3.large"
+    toText C3_Xlarge = "c3.xlarge"
     toText CC1_4Xlarge = "cc1.4xlarge"
     toText CC2_8Xlarge = "cc2.8xlarge"
     toText CG1_4Xlarge = "cg1.4xlarge"
     toText CR1_8Xlarge = "cr1.8xlarge"
-    toText G22Xlarge = "g2.2xlarge"
+    toText G2_2Xlarge = "g2.2xlarge"
     toText HI1_4Xlarge = "hi1.4xlarge"
     toText HS1_8Xlarge = "hs1.8xlarge"
-    toText I22Xlarge = "i2.2xlarge"
-    toText I24Xlarge = "i2.4xlarge"
-    toText I28Xlarge = "i2.8xlarge"
-    toText I2XLarge = "i2.xlarge"
-    toText M1Large = "m1.large"
-    toText M1Medium = "m1.medium"
-    toText M1Small = "m1.small"
-    toText M1XLarge = "m1.xlarge"
-    toText M22Xlarge = "m2.2xlarge"
-    toText M24Xlarge = "m2.4xlarge"
-    toText M2XLarge = "m2.xlarge"
-    toText M32Xlarge = "m3.2xlarge"
-    toText M3XLarge = "m3.xlarge"
-    toText T1Micro = "t1.micro"
+    toText I2_2Xlarge = "i2.2xlarge"
+    toText I2_4Xlarge = "i2.4xlarge"
+    toText I2_8Xlarge = "i2.8xlarge"
+    toText I2_Xlarge = "i2.xlarge"
+    toText M1_Large = "m1.large"
+    toText M1_Medium = "m1.medium"
+    toText M1_Small = "m1.small"
+    toText M1_Xlarge = "m1.xlarge"
+    toText M2_2Xlarge = "m2.2xlarge"
+    toText M2_4Xlarge = "m2.4xlarge"
+    toText M2_Xlarge = "m2.xlarge"
+    toText M3_2Xlarge = "m3.2xlarge"
+    toText M3_Xlarge = "m3.xlarge"
+    toText T1_Micro = "t1.micro"
 
 instance Show InstanceType where
     show = showToText
@@ -4919,12 +4919,12 @@ instance ToXML AttachmentStatus where
 
 -- | FIXME: Type documentation for ArchitectureValues
 data ArchitectureValues
-    = I3866
+    = I386
     | X86_64
       deriving (Eq, Ord, Generic)
 
 instance FromText ArchitectureValues where
-    fromText "i386" = Right I3866
+    fromText "i386" = Right I386
     fromText "x86_64" = Right X86_64
     fromText e = failFromText $ "Unrecognised ArchitectureValues: " <> e
 
@@ -4932,7 +4932,7 @@ instance Read ArchitectureValues where
     readsPrec _ = readFromText
 
 instance ToText ArchitectureValues where
-    toText I3866 = "i386"
+    toText I386 = "i386"
     toText X86_64 = "x86_64"
 
 instance Show ArchitectureValues where

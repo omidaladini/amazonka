@@ -354,7 +354,7 @@ render p t o = do
 
     format n
         | x <- Text.takeWhile (/= '_') n
-        , isDigit $ Text.last x = Text.toUpper x <> xlarge (Text.drop 3 n)
+        , isDigit $ Text.last x = Text.toUpper x <> xlarge (Text.drop (Text.length x) n)
         | otherwise             = n
 
     xlarge n
