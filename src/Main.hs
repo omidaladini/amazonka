@@ -39,7 +39,6 @@ import qualified Text.EDE            as EDE
 import           Text.EDE.Filters
 
 -- FIXME:
--- EC2: LaunchSpecification type has missing lsMonitoring type
 -- ElasticCache: shape_names Endpoint and AvailablityZone need to be disambiguated
 
 main :: IO ()
