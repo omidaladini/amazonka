@@ -13,6 +13,7 @@
 module Network.AWS.{{ module }}.Types where
 
 import Data.ByteString      (ByteString)
+import Data.HashMap.Strict  (HashMap)
 import Data.Monoid
 import Data.List.NonEmpty
 import Data.Text            (Text)

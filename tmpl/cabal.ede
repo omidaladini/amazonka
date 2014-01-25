@@ -63,10 +63,10 @@ library
 {% endfor %}
 
     build-depends:
-        aeson              >= 0.7
+        aeson                 >= 0.7
       , async
       , attoparsec
-      , base               >= 4.6 && < 5
+      , base                  >= 4.6 && < 5
       , base16-bytestring
       , base64-bytestring
       , bytestring
@@ -74,7 +74,7 @@ library
       , conduit
       , cryptohash
       , data-default
-      , errors             >= 1.4.4
+      , errors                >= 1.4.4
       , http-conduit
       , http-types
       , lifted-base
@@ -83,7 +83,8 @@ library
       , resourcet
       , semigroups
       , tagged
-      , text               >= 1.0
+      , text                  >= 1.0
       , time
       , transformers
+      , unordered-containers
       , xml-conduit

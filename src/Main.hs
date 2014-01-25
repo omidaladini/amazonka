@@ -248,7 +248,7 @@ replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
 replace p@SPrim   {..}
     | sType == PEnum
     , sShapeName == Just "String" = p { sShapeName = Just $ name sType }
-    | sType == PEnum = p
+    | sType == PEnum = p { sShapeName = upperFirst <$> sShapeName }
     | otherwise      = p { sShapeName = Just $ name sType }
   where
     name PString | sShapeName == Just "ResourceName" = "ResourceName"
@@ -349,7 +349,7 @@ render p t o = do
     name "ResourceType"              = "Resource"
     name "SnapshotAttributeName"     = ""
     name "VolumeAttachmentState"     = "Volume"
-    name n                           = n
+    name n                           = upperFirst n
 
     format n
         | x <- Text.takeWhile (/= '_') n

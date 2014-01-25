@@ -20,7 +20,9 @@
 {% endfor %}
 module Network.AWS.{{ module }}.{{ name }} where
 
+import Control.Monad
 import Data.ByteString      (ByteString)
+import Data.HashMap.Strict  (HashMap)
 import Data.List.NonEmpty   (NonEmpty(..))
 import Data.Text            (Text)
 import Data.Time            (UTCTime)
@@ -30,7 +32,7 @@ import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
 
 data {{ name }} = {{ name }}
-{% if input.fields %}
+{% if input.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with input.fields %}
     } deriving (Eq, Show, Generic)
 {% else %}
@@ -46,9 +48,18 @@ instance AWSRequest {{ name }} where
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where
+{% case name %}
+{% when "DescribeEngineDefaultParameters" %}
+    next rq rs
+        | Just _ <- marker = Just $ rq { {{ pagination.input_token }} = marker }
+        | otherwise        = Nothing
+      where
+        marker = join . fmap edMarker $ dedpmrsEngineDefaults rs
+{% else %}
     next rq rs
         | Just x <- {{ pagination.output_token }} rs = Just $ rq { {{ pagination.input_token }} = Just x }
         | otherwise = Nothing
+{% endcase %}
 
 {% endif %}
 data {{ name }}Response = {{ name }}Response

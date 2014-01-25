@@ -28,6 +28,8 @@ import           Data.Char
 import           Data.Default
 import           Data.Either
 import           Data.Foldable                    (foldl')
+import           Data.HashMap.Strict              (HashMap)
+import qualified Data.HashMap.Strict              as Map
 import           Data.List                        (sort)
 import           Data.List.NonEmpty               (NonEmpty(..))
 import qualified Data.List.NonEmpty               as NonEmpty
@@ -191,6 +193,10 @@ instance FromQuery UTCTime where
 instance FromQuery () where
     fromQuery _ = Right ()
 
+-- FIXME: implement this shizzle
+instance FromQuery (HashMap Text Text) where
+    fromQuery = undefined
+
 valueParser :: AText.Parser a -> Query -> Either String a
 valueParser p (Value v) = AText.parseOnly p v
 valueParser _ _         = Left "Unexpected non-value."
@@ -288,6 +294,10 @@ instance ToQuery UTCTime where
 
 instance ToQuery () where
     toQuery () = mempty
+
+-- FIXME: implement this shizzle
+instance ToQuery (HashMap Text Text) where
+    toQuery = undefined
 
 valueFromIntegral :: Integral a => a -> Query
 valueFromIntegral = valueFromBuilder . LText.decimal

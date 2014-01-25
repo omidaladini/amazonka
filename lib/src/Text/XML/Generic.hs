@@ -23,9 +23,12 @@ import           Control.Applicative
 import           Control.Error                    (note)
 import           Control.Monad
 import qualified Data.Attoparsec.Text             as AText
+import qualified Data.ByteString                  as BS
 import           Data.ByteString.Lazy.Char8       (ByteString)
 import           Data.Default
 import           Data.Foldable                    (foldr', foldrM)
+import           Data.HashMap.Strict              (HashMap)
+import qualified Data.HashMap.Strict              as Map
 import           Data.List.NonEmpty               (NonEmpty(..))
 import qualified Data.List.NonEmpty               as NonEmpty
 import           Data.Monoid
@@ -133,6 +136,10 @@ instance FromXML Text where
     fromXML _ [NodeContent txt] = Right txt
     fromXML _ _                 = Left "Unexpected node contents."
 
+instance FromXML BS.ByteString where
+    fromXMLRoot = fromRoot "ByteString"
+    fromXML o   = fmap Text.encodeUtf8 . fromXML (retag o)
+
 instance FromXML Int where
     fromXMLRoot = fromRoot "Int"
     fromXML     = nodeParser AText.decimal
@@ -182,6 +189,11 @@ instance FromXML UTCTime where
 
 instance FromXML () where
     fromXML _ _ = Right ()
+
+-- FIXME: implement this shizzle generally
+instance (FromXML k, FromXML v) => FromXML (HashMap k v) where
+    fromXMLRoot = undefined
+    fromXML o   = undefined
 
 nodeParser :: AText.Parser a -> Tagged a XMLOptions -> [Node] -> Either String a
 nodeParser p o = join . fmap (AText.parseOnly p) . fromXML (retag o)
@@ -266,6 +278,10 @@ instance ToXML Text where
     toXMLRoot = toRoot "Text"
     toXML _   = (:[]) . NodeContent
 
+instance ToXML BS.ByteString where
+    toXMLRoot = toRoot "ByteString"
+    toXML o   = toXML (retag o) . Text.decodeUtf8
+
 instance ToXML Int where
     toXMLRoot = toRoot "Int"
     toXML _   = nodeFromIntegral
@@ -308,6 +324,11 @@ instance ToXML UTCTime where
 
 instance ToXML () where
     toXML _ () = []
+
+-- FIXME: implement this shizzle
+instance ToXML (HashMap Text Text) where
+    toXMLRoot = toRoot "HashMap"
+    toXML o   = undefined
 
 nodeFromIntegral :: Integral a => a -> [Node]
 nodeFromIntegral =  nodeFromBuilder . LText.decimal
