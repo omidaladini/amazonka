@@ -256,7 +256,7 @@ instance FromJSON Shape where
         <*> o .:? "xmlname"
       where
         f Structure = SStruct
-            <$> (names <$> o .: "members")
+            <$> (names <$> o .:? "members" .!= mempty)
             <*> o .:? "member_order"
 
         f List = SList
@@ -340,11 +340,18 @@ data Pagination = Pagination
     { pLimitKey    :: Maybe Text
     , pInputToken  :: !Text
     , pOutputToken :: !Text
-    , pResultKey   :: !Text
+    , pResultKeys  :: [Text]
     } deriving (Show, Generic)
 
 instance FromJSON Pagination where
-    parseJSON = genericParseJSON options
+    parseJSON (Object o) = Pagination
+        <$> o .:? "limit_key"
+        <*> o .: "input_token"
+        <*> o .: "output_token"
+        <*> (((:[]) <$> o .: "result_key") <|> (o .: "result_key"))
+
+    parseJSON _ =
+        fail "Unable to parse Pagination."
 
 instance ToJSON Pagination where
     toJSON = genericToJSON options

@@ -82,6 +82,7 @@ import qualified Data.Conduit.Binary                   as Conduit
 import           Data.Default
 import           Data.String
 import           Network.AWS.Internal
+import           Network.AWS.Internal.Credentials
 import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           System.IO

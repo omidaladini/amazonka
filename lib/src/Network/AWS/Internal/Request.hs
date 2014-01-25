@@ -18,7 +18,7 @@ import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
 import Network.HTTP.QueryString.Generic
 import Network.HTTP.Types               (StdMethod)
-import Text.XML.Generic
+-- import Text.XML.Generic
 
 v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
 v2Query s@Service{..} m p x =

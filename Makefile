@@ -4,7 +4,7 @@ BIN    := dist/build/generator/generator
 DEPS   := vendor/ede vendor/botocore
 BOTO   := vendor/botocore/botocore/data/aws
 MODELS := \
- $(BOTO)/iam.json
+ $(BOTO)/s3.json
  # $(BOTO)/elasticache.json \
  # $(BOTO)/autoscaling.json \
  # $(BOTO)/cloudformation.json \
@@ -18,7 +18,8 @@ MODELS := \
  # $(BOTO)/sns.json \
  # $(BOTO)/sqs.json \
  # $(BOTO)/sts.json \
- # $(BOTO)/ec2.json
+ # $(BOTO)/ec2.json \
+ # $(BOTO)/iam.json
 
 .PHONY: test lint doc
 

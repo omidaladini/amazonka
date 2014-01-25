@@ -92,10 +92,10 @@ model dir Templates{..} m@Model{..} = do
     -- <dir>/<Service>/Service.hs
     renderService (root </> "Service.hs") $
         case mType of
-            RestXml  -> tRestXMLService
-            RestJson -> tRestJSONService
-            Json     -> tJSONService
-            Query    -> tQueryService
+            RestXml   -> tRestXMLService
+            RestJson  -> tRestJSONService
+            Json      -> tJSONService
+            Query     -> tQueryService
 
     -- <dir>/<Service>/Types.hs
     renderTypes (root </> "Types.hs") tTypes
@@ -104,10 +104,11 @@ model dir Templates{..} m@Model{..} = do
     forM_ ops $ \op ->
         renderOperation (root </> Text.unpack (oName op) <.> "hs") op $
             case mType of
-                RestXml  -> tRestXMLOperation
-                RestJson -> tRestJSONOperation
-                Json     -> tJSONOperation
-                Query    -> tQueryOperation
+                RestXml | "s3" == mEndpointPrefix -> tS3Operation
+                RestXml                           -> tRestXMLOperation
+                RestJson                          -> tRestJSONOperation
+                Json                              -> tJSONOperation
+                Query                             -> tQueryOperation
   where
     (_,   typs) = types pres m
 
@@ -268,6 +269,7 @@ data Templates = Templates
     , tRestJSONService   :: Template
     , tJSONService       :: Template
     , tQueryService      :: Template
+    , tS3Operation       :: Template
     , tRestXMLOperation  :: Template
     , tRestJSONOperation :: Template
     , tJSONOperation     :: Template
@@ -284,6 +286,7 @@ templates = title "Listing tmpl" *>
         <*> load "tmpl/service-rest-json.ede"
         <*> load "tmpl/service-json.ede"
         <*> load "tmpl/service-query.ede"
+        <*> load "tmpl/operation-s3.ede"
         <*> load "tmpl/operation-rest-xml.ede"
         <*> load "tmpl/operation-rest-json.ede"
         <*> load "tmpl/operation-json.ede"
