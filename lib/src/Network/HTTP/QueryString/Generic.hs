@@ -194,7 +194,7 @@ instance FromQuery () where
     fromQuery _ = Right ()
 
 -- FIXME: implement this shizzle
-instance (HashMap k, HashMap v) => FromQuery (HashMap k v) where
+instance (FromQuery k, FromQuery v) => FromQuery (HashMap k v) where
     fromQuery = undefined
 
 valueParser :: AText.Parser a -> Query -> Either String a
@@ -297,7 +297,7 @@ instance ToQuery () where
     toQuery () = mempty
 
 -- FIXME: implement this shizzle
-instance (HashMap k, HashMap v) => ToQuery (HashMap k v) where
+instance (ToQuery k, ToQuery v) => ToQuery (HashMap k v) where
     toQuery = undefined
 
 valueFromIntegral :: Integral a => a -> Query
