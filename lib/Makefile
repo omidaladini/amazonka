@@ -12,14 +12,14 @@ install: cabal.sandbox.config add-sources
 	cabal install $(FLAGS)
 
 clean:
-	-rm -rf dist cabal.sandbox.config .cabal-sandbox gen
+	-rm -rf dist cabal.sandbox.config .cabal-sandbox
 	cabal clean
 
 test:
 	cabal install --enable-tests $(FLAGS)
 
 lint:
-	hlint src && hlint gen
+	hlint src
 
 doc:
 	cabal haddock

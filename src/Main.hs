@@ -92,10 +92,11 @@ model dir Templates{..} m@Model{..} = do
     -- <dir>/<Service>/Service.hs
     renderService (root </> "Service.hs") $
         case mType of
-            RestXml   -> tRestXMLService
-            RestJson  -> tRestJSONService
-            Json      -> tJSONService
-            Query     -> tQueryService
+            RestXml | "s3" == mEndpointPrefix -> tS3Service
+            RestXml                           -> tRestXMLService
+            RestJson                          -> tRestJSONService
+            Json                              -> tJSONService
+            Query                             -> tQueryService
 
     -- <dir>/<Service>/Types.hs
     renderTypes (root </> "Types.hs") tTypes
@@ -133,17 +134,18 @@ model dir Templates{..} m@Model{..} = do
     renderTypes p t =
         render p t mJSON
 
-    renderOperation p o@Operation{..} t = do
+    renderOperation p o@Operation{..} t =
         let Object o' = toJSON o
-        render p t $ mJSON <> o'
+        in  render p t $ mJSON <> o'
 
 updateOperation :: HashSet Text -> Operation -> (HashSet Text, Operation)
 updateOperation s1 o@Operation{..} = f oInput oOutput
   where
+    f :: Maybe Shape -> Maybe Shape -> (HashSet Text, Operation)
     f (Just x) (Just y) =
         let (pre, (s2, inp)) = g s1 x
             opre             = pre <> "rs"
-            out              = prefixes opre $ replace y
+            out              = prefixes opre $ replace (Just oName) y
         in  ( Set.insert opre s2
             , o { oInput  = Just inp
                 , oOutput = Just out
@@ -162,30 +164,27 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
     f Nothing Nothing =
         (s1, o)
 
-    g s = disambiguate s . replace
+    g s = disambiguate s . replace (Just oName)
 
     p x y l@Pagination{..} = l
-        { pInputToken  = x <> upperFirst pInputToken
-        , pOutputToken = y <> upperFirst pOutputToken
+        { pInputToken  = mappend x $ upperFirst pInputToken
+        , pOutputToken = mappend y $ upperFirst pOutputToken
         }
 
 errors :: Model -> [Shape]
-errors = map replace
+errors Model{..} = map (replace $ Just mName)
     . List.sort
     . List.nubBy cmp
-    . concatMap oErrors
-    . mOperations
+    $ concatMap oErrors mOperations
   where
     a `cmp` b = sShapeName a == sShapeName b
 
 types :: HashSet Text -> Model -> (HashSet Text, [Shape])
-types set = disambiguateMany set
-    . filter (except . sShapeName)
-    . map replace
-    . List.sort
+types set Model{..} = disambiguateMany set
     . List.nubBy cmp
-    . concatMap shapes
-    . mOperations
+    . filter (except . sShapeName)
+    . List.sort
+    $ concatMap shapes mOperations
   where
     except (Just "Text") = False
     except _             = True
@@ -193,8 +192,13 @@ types set = disambiguateMany set
     a `cmp` b = sShapeName a == sShapeName b
 
     shapes Operation{..} = concatMap flatten
-         $ fromMaybe [] (Map.elems . sFields <$> oInput)
-        ++ fromMaybe [] (Map.elems . sFields <$> oOutput)
+         $ fromMaybe [] (f <$> oInput)
+        ++ fromMaybe [] (f <$> oOutput)
+      where
+        f = map (\(x, y) -> replace (g x) y) . Map.toList . sFields
+
+        g "" = Just oName
+        g x  = Just x
 
 disambiguateMany :: HashSet Text -> [Shape] -> (HashSet Text, [Shape])
 disambiguateMany set =
@@ -239,20 +243,19 @@ flatten s = s { sFields = fields } : concatMap flatten (Map.elems fields)
         | Nothing <- sShapeName s' = (k, s' { sShapeName = (<> k) <$> sShapeName s })
         | otherwise                = (k, s')
 
--- FIXME:
--- The same way shape field names are disambiguated, enum values need to be
-
-replace :: Shape -> Shape
-replace s@SStruct {..} = s { sFields = Map.map replace sFields }
-replace l@SList   {..} = l { sItem = replace sItem }
-replace m@SMap    {..} = m { sKey = replace sKey, sValue = replace sValue }
-replace p@SPrim   {..}
-    | sType == PEnum
-    , sShapeName == Just "String" = p { sShapeName = Just $ name sType }
-    | sType == PEnum = p { sShapeName = upperFirst <$> sShapeName }
-    | otherwise      = p { sShapeName = Just $ name sType }
+replace :: Maybe Text -> Shape -> Shape
+replace k s' = setName k $ go s'
   where
-    name PString | sShapeName == Just "ResourceName" = "ResourceName"
+    go s@SStruct {..} = s { sFields = Map.fromList . map (\(x, y) -> (x, replace (Just x) y)) $ Map.toList sFields }
+    go l@SList   {..} = l { sItem = replace (f sShapeName) sItem }
+    go m@SMap    {..} = m { sKey = replace (f sShapeName) sKey, sValue = replace (f sShapeName) sValue }
+    go p@SPrim   {..}
+        | sType == PEnum
+        , sShapeName == Just "String" = p { sShapeName = Just $ name sType }
+        | sType == PEnum = p { sShapeName = upperFirst <$> sShapeName }
+        | otherwise      = p { sShapeName = Just $ name sType }
+
+    name PString | Just "ResourceName" <- sShapeName s' = "ResourceName"
     name PString    = "Text"
     name PEnum      = "Text"
     name PInteger   = "Int"
@@ -262,9 +265,25 @@ replace p@SPrim   {..}
     name PTimestamp = "UTCTime"
     name PLong      = "Integer"
 
+    f x = x <|> k
+
+setName :: Maybe Text -> Shape -> Shape
+setName k s = s { sShapeName = Just $ f name }
+  where
+    name = case (sShapeName s, sXmlname s, k) of
+        (Just x, _, _)                          -> ("shape_name", x)
+        (Nothing, Just "xsi:type", Just "Type") -> ("parent shape", "GranteeType")
+        (Nothing, Just x, _)                    -> ("xml_name", x)
+        (Nothing, Nothing, Just x)              -> ("parent shape", x)
+        (Nothing, Nothing, Nothing)             -> ("none", "")
+
+    f (n, "") = error $ "Empty or no name (setName) for: " ++ show (n :: Text, s)
+    f (_, x)  = x
+
 data Templates = Templates
     { tInterface         :: Template
     , tTypes             :: Template
+    , tS3Service         :: Template
     , tRestXMLService    :: Template
     , tRestJSONService   :: Template
     , tJSONService       :: Template
@@ -282,6 +301,7 @@ templates = title "Listing tmpl" *>
     (Templates
         <$> load "tmpl/interface.ede"
         <*> load "tmpl/types.ede"
+        <*> load "tmpl/service-s3.ede"
         <*> load "tmpl/service-rest-xml.ede"
         <*> load "tmpl/service-rest-json.ede"
         <*> load "tmpl/service-json.ede"
@@ -356,8 +376,9 @@ render p t o = do
 
     format n
         | x <- Text.takeWhile (/= '_') n
+        , not $ Text.null x
         , isDigit $ Text.last x = Text.toUpper x <> xlarge (Text.drop (Text.length x) n)
-        | otherwise             = n
+        | otherwise             = fromMaybe n $ Text.stripPrefix "S3:" n
 
     xlarge n
         | "Xl" `Text.isPrefixOf` n = "XL" <> Text.drop 2 n

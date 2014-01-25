@@ -1,0 +1,63 @@
+{-# LANGUAGE DeriveGeneric               #-}
+{-# LANGUAGE OverloadedStrings           #-}
+{-# LANGUAGE TypeFamilies                #-}
+
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
+-- Module      : Network.AWS.{{ module }}.{{ name }}
+{% include "_includes/header.ede" %}
+
+{% for line in documentation %}
+  {% if line.value == "" %}
+-- FIXME: Operation documentation for {{ name }}
+  {% else %}
+    {% if line.first %}
+-- | {{ line.value }}
+    {% else %}
+-- {{ line.value }}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+module Network.AWS.{{ module }}.{{ name }} where
+
+import Control.Monad
+import Data.ByteString      (ByteString)
+import Data.HashMap.Strict  (HashMap)
+import Data.List.NonEmpty   (NonEmpty(..))
+import Data.Text            (Text)
+import Data.Time            (UTCTime)
+import Network.HTTP.Types   (StdMethod(..))
+import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+import Network.AWS.{{ module }}.Service
+import Network.AWS.{{ module }}.Types
+
+data {{ name }} = {{ name }}
+{% if input.fields | mapLength > 0 %}
+{% include "_includes/fields.ede" with input.fields %}
+    } deriving (Eq, Show, Generic)
+{% else %}
+    deriving (Eq, Show, Generic)
+{% endif %}
+
+instance ToQuery {{ name }}
+
+instance AWSRequest {{ name }} where
+    type Er {{ name }} = {{ module }}Error
+    type Rs {{ name }} = {{ name }}Response
+    request = {{ signature_version }}Query service GET "{{ name }}"
+
+data {{ name }}Response = {{ name }}Response
+{% if output.fields | mapLength > 0 %}
+{% include "_includes/fields.ede" with output.fields %}
+    } deriving (Eq, Show, Generic)
+{% else %}
+    deriving (Eq, Show, Generic)
+{% endif %}
+
+instance FromXML {{ name }}Response where
+    fromXMLOptions = xmlOptions
+{% if result_wrapped %}
+    fromXMLRoot    = fromNestedRoot
+         $ "{{ name}}Response"
+        :| ["{{ name }}Result"]
+{% endif %}

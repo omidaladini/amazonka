@@ -163,7 +163,7 @@ data Operation = Operation
 
 instance FromJSON Operation where
     parseJSON (Object o) = Operation
-        <$> o .:  "name"
+        <$> (o .: "alias" <|> o .: "name")
         <*> o .:? "alias"
         <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "documentation_url"
@@ -250,7 +250,7 @@ instance Ord Shape where
 
 instance FromJSON Shape where
     parseJSON (Object o) = (o .: "type" >>= f)
-        <*> o .:? "shape_name"
+        <*> ((Just <$> o .: "shape_name") <|> (Just <$> o .: "alias") <|> o .:? "name")
         <*> o .:? "required" .!= False
         <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "xmlname"
@@ -337,18 +337,22 @@ instance ToJSON Prim where
         }
 
 data Pagination = Pagination
-    { pLimitKey    :: Maybe Text
+    { pMoreKey     :: Maybe Text
+    , pLimitKey    :: Maybe Text
     , pInputToken  :: !Text
     , pOutputToken :: !Text
-    , pResultKeys  :: [Text]
+    , pResultKeys  :: !Text
     } deriving (Show, Generic)
 
 instance FromJSON Pagination where
     parseJSON (Object o) = Pagination
-        <$> o .:? "limit_key"
-        <*> o .: "input_token"
-        <*> o .: "output_token"
-        <*> (((:[]) <$> o .: "result_key") <|> (o .: "result_key"))
+        <$> o .:? "more_key"
+        <*> o .:? "limit_key"
+        <*> f "input_token"
+        <*> f "output_token"
+        <*> f "result_key"
+      where
+        f k = o .: k <|> (head <$> o .: k)
 
     parseJSON _ =
         fail "Unable to parse Pagination."
