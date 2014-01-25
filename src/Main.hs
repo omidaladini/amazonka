@@ -370,7 +370,7 @@ render p t o = do
     name "RecurringChargeFrequency"  = ""
     name "ReportInstanceReasonCodes" = ""
     name "ResourceType"              = "Resource"
-    name "SnapshotAttributeName"     = ""
+    name "SnapshotAttributeName"     = "Snapshot"
     name "VolumeAttachmentState"     = "Volume"
     name n                           = upperFirst n
 
