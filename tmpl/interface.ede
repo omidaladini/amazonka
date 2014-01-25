@@ -5,6 +5,7 @@ module Network.AWS.{{ module }}
     (
     -- * Operations
 {% for op in operations %}
+    -- ** {{ op.value }}
   {% if op.first %}
       module Network.AWS.{{ module }}.{{ op.value }}
   {% else %}
@@ -16,7 +17,10 @@ module Network.AWS.{{ module }}
     , {{ module }}Error (..)
 
     -- * Types
-    , module Network.AWS.{{ module }}.Types
+{% for ty in types %}
+    -- ** {{ ty.value.shape_name }}
+    , {{ ty.value.shape_name }} (..)
+{% endfor %}
     ) where
 
 import Network.AWS.{{ module }}.Service
