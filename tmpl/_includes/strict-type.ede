@@ -9,7 +9,11 @@
   {% endif %}
 {% else %}
   {% if scope.required %}
+    {% if scope.strict %}
  !{{ scope.shape_name }}
+    {% else %}
+ {{ scope.shape_name }}
+    {% endif %}
   {% else %}
  Maybe {{ scope.shape_name }}
   {% endif %}

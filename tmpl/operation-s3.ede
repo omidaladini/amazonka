@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric               #-}
 {-# LANGUAGE OverloadedStrings           #-}
+{-# LANGUAGE RecordWildCards             #-}
 {-# LANGUAGE TypeFamilies                #-}
 
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
@@ -20,14 +21,20 @@
 {% endfor %}
 module Network.AWS.{{ module }}.{{ name }} where
 
-import Control.Monad
-import Data.ByteString      (ByteString)
-import Data.HashMap.Strict  (HashMap)
-import Data.List.NonEmpty   (NonEmpty(..))
-import Data.Text            (Text)
-import Data.Time            (UTCTime)
-import Network.HTTP.Types   (StdMethod(..))
-import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+import           Control.Monad
+import           Data.ByteString      (ByteString)
+import           Data.Conduit         (($$+-))
+import           Data.HashMap.Strict  (HashMap)
+import qualified Data.HashMap.Strict  as Map
+import           Data.List.NonEmpty   (NonEmpty(..))
+import           Data.Text            (Text)
+import qualified Data.Text            as Text
+import           Data.Time            (UTCTime)
+import           Network.AWS.Headers
+import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+import           Network.HTTP.Client  (responseHeaders, responseBody)
+import           Network.HTTP.Types   (StdMethod(..))
+
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
 
@@ -39,12 +46,88 @@ data {{ name }} = {{ name }}
     deriving (Eq, Show, Generic)
 {% endif %}
 
-instance ToQuery {{ name }}
-
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ signature_version }}Query service GET "{{ name }}"
+{% if name == "GetService" %}
+    request {{ name }}{..} =
+        {{ signature_version }}{{ http.method }} service uri ??
+{% else %}
+    request {{ name }}{..} =
+        {{ signature_version }}{{ http.method }} (service {{ input.prefix }}Bucket) uri headers body
+{% endif %}
+      where
+        uri = Text.concat
+        {% for part in http.uri %}
+          {% if part.first %}
+            {% case part.value.type %}
+            {% when "I" %}
+            [ {{ input.prefix }}{{ part.value.value | upperFirst }}
+            {% when "T" %}
+            [ "{{ part.value.value }}"
+          {% endcase %}
+          {% else %}
+            {% case part.value.type %}
+            {% when "I" %}
+            , {{ input.prefix }}{{ part.value.value | upperFirst }}
+            {% when "T" %}
+            , "{{ part.value.value }}"
+            {% endcase %}
+          {% endif %}
+        {% endfor %}
+        {% if http.uri | listLength > 0 %}
+            ]
+        {% endif %}
+
+        {% if input | headers | mapLength > 0 %}
+        headers =
+          {% for hdr in input | headers %}
+            {% if hdr.first %}
+            [ "{{ hdr.value.location_name }}" ::: {{ hdr.key }}
+            {% else %}
+            , "{{ hdr.value.location_name }}" ::: {{ hdr.key }}
+            {% endif %}
+          {% endfor %}
+            ]
+        {% else %}
+        headers = []
+        {% endif %}
+
+        {% if input | payload %}
+          {% for field in input.fields %}
+            {% if field.value.payload %}
+        body = Just {{ field.key }}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+        body = Nothing
+        {% endif %}
+
+        {% if output | payload %}
+    response _ rs = return {{ name }}Response
+          {% if output | headers | mapLength > 0 %}
+            {% for hdr in output | headers %}
+              {% if hdr.first %}
+        { {{ hdr.key }} = h "{{ hdr.value.location_name }}"
+              {% else %}
+        , {{ hdr.key }} = h "{{ hdr.value.location_name }}"
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% if output.fields | mapLength > 0 %}
+            {% for field in output.fields %}
+              {% if field.value.payload %}
+        , {{ field.key }} = responseBody rs
+              {% endif %}
+            {% endfor %}
+        }
+      where
+        h = (`Map.lookup` responseHeaders rs)
+          {% endif %}
+        {% else %}
+    response _ rs = (responseBody rs $$+- return ())
+        >> return {{ name }}Response
+        {% endif %}
 
 data {{ name }}Response = {{ name }}Response
 {% if output.fields | mapLength > 0 %}
@@ -52,12 +135,4 @@ data {{ name }}Response = {{ name }}Response
     } deriving (Eq, Show, Generic)
 {% else %}
     deriving (Eq, Show, Generic)
-{% endif %}
-
-instance FromXML {{ name }}Response where
-    fromXMLOptions = xmlOptions
-{% if result_wrapped %}
-    fromXMLRoot    = fromNestedRoot
-         $ "{{ name}}Response"
-        :| ["{{ name }}Result"]
 {% endif %}

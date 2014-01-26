@@ -34,6 +34,7 @@ import qualified Data.ByteString.Char8             as BS
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
 import           Data.Default
+import           Data.HashMap.Strict               (HashMap)
 import           Data.IORef
 import           Data.Monoid
 import           Data.String

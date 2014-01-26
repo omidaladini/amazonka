@@ -29,7 +29,6 @@ import           Data.Default
 import           Data.Either
 import           Data.Foldable                    (foldl')
 import           Data.HashMap.Strict              (HashMap)
-import qualified Data.HashMap.Strict              as Map
 import           Data.List                        (sort)
 import           Data.List.NonEmpty               (NonEmpty(..))
 import qualified Data.List.NonEmpty               as NonEmpty

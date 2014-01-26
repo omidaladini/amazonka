@@ -62,7 +62,7 @@ module Network.AWS
     , module Network.AWS.Internal.Types.Common
 
     -- * Type Classes
-    , AWSRequest
+    , AWSRequest (Er, Rs)
     , AWSPager
     , AWSError
     ) where

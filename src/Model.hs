@@ -31,6 +31,7 @@ import           Data.Monoid
 import           Data.Ord
 import           Data.Text            (Text)
 import qualified Data.Text            as Text
+import qualified Data.Text.Unsafe     as Text
 import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
 import           Helpers
@@ -179,13 +180,40 @@ instance FromJSON Operation where
 instance ToJSON Operation where
     toJSON = genericToJSON options
 
+data Part
+    = T !Text
+    | I !Text
+      deriving (Eq, Show)
+
+instance ToJSON Part where
+    toJSON p =
+        case p of
+            T t -> f "T" t
+            I i -> f "I" i
+      where
+        f k v = object
+            [ "type"  .= (k :: Text)
+            , "value" .= v
+            ]
+
 data HTTP = HTTP
     { hMethod :: !Text
-    , hUri    :: !Text
+    , hUri    :: [Part]
     } deriving (Show, Generic)
 
 instance FromJSON HTTP where
-    parseJSON = genericParseJSON options
+    parseJSON (Object o) = HTTP <$> o .: "method" <*> (f <$> o .: "uri")
+      where
+        f = filter (/= T "") . go
+          where
+            go x | Text.null s = [T l]
+                 | otherwise   = T l : I m : go (Text.unsafeTail t)
+              where
+                (m, t) = Text.span (/= '}') $ Text.unsafeTail s
+                (l, s) = Text.span (/= '{') x
+
+    parseJSON _ =
+        fail "Unable to parse Operation."
 
 instance ToJSON HTTP where
     toJSON = genericToJSON options
@@ -199,6 +227,8 @@ data Shape
       , sRequired      :: !Bool
       , sDocumentation :: [Text]
       , sXmlname       :: Maybe Text
+      , sPrefix        :: !Text
+      , sPayload       :: !Bool
       }
 
     | SList
@@ -210,6 +240,8 @@ data Shape
       , sRequired      :: !Bool
       , sDocumentation :: [Text]
       , sXmlname       :: Maybe Text
+      , sPrefix        :: !Text
+      , sPayload       :: !Bool
       }
 
     | SMap
@@ -220,20 +252,26 @@ data Shape
       , sRequired      :: !Bool
       , sDocumentation :: [Text]
       , sXmlname       :: Maybe Text
+      , sPrefix        :: !Text
+      , sPayload       :: !Bool
       }
 
     | SPrim
       { sType          :: !Prim
       , sLocation      :: Maybe Text
+      , sLocationName  :: Maybe Text
       , sMinLength     :: Maybe Int
       , sMaxLength     :: Maybe Int
       , sPattern       :: Maybe Text
       , sEnum          :: Maybe (HashMap Text Text)
+      , sStrict        :: !Bool
 
       , sShapeName     :: Maybe Text
       , sRequired      :: !Bool
       , sDocumentation :: [Text]
       , sXmlname       :: Maybe Text
+      , sPrefix        :: !Text
+      , sPayload       :: !Bool
       }
 
       deriving (Eq, Show, Generic)
@@ -254,6 +292,8 @@ instance FromJSON Shape where
         <*> o .:? "required" .!= False
         <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "xmlname"
+        <*> pure ""
+        <*> o .:? "payload" .!= False
       where
         f Structure = SStruct
             <$> (names <$> o .:? "members" .!= mempty)
@@ -282,10 +322,12 @@ instance FromJSON Shape where
             let enum = Map.fromList . map (first pascalize . join (,)) <$> ms
             SPrim (maybe t (const PEnum) enum)
                 <$> o .:? "location"
+                <*> o .:? "location_name"
                 <*> o .:? "min_length"
                 <*> o .:? "max_length"
                 <*> o .:? "pattern"
                 <*> pure enum
+                <*> pure True
 
         names = Map.foldlWithKey' g mempty
           where

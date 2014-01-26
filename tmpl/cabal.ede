@@ -75,6 +75,7 @@ library
       , cryptohash
       , data-default
       , errors                >= 1.4.4
+      , http-client
       , http-conduit
       , http-types
       , lifted-base

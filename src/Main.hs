@@ -135,8 +135,25 @@ model dir Templates{..} m@Model{..} = do
         render p t mJSON
 
     renderOperation p o@Operation{..} t =
-        let Object o' = toJSON o
-        in  render p t $ mJSON <> o'
+        render p t $ mJSON <> o'
+      where
+        Object o' = toJSON $ o
+            { oInput  = streaming True  <$> oInput
+            , oOutput = streaming False <$> oOutput
+            }
+
+        streaming i s = s { sFields = Map.map (body i) $ sFields s }
+
+        body i s@SPrim{..}
+            | PBlob <- sType = s
+                { sShapeName = Just $
+                    if i
+                        then "RequestBody"
+                        else "Response (ResumableSource AWS ByteString)"
+                , sRequired  = True
+                , sStrict    = False
+                }
+        body _ x = x
 
 updateOperation :: HashSet Text -> Operation -> (HashSet Text, Operation)
 updateOperation s1 o@Operation{..} = f oInput oOutput
@@ -221,6 +238,7 @@ unique set p
 prefixes :: Text -> Shape -> Shape
 prefixes pre s@SStruct{..} = s
     { sFields = Map.fromList . map f $ Map.toList sFields
+    , sPrefix = pre
     }
   where
     f (k, v) = (pre <> k, v)
@@ -353,6 +371,8 @@ render p t o = do
     filters = defaultFilters <> Map.fromList
         [ ("enumPrefix", Fun TText TText name)
         , ("enumFormat", Fun TText TText format)
+        , ("headers",    Fun TMap TMap headers)
+        , ("payload",    Fun TMap TBool payload)
         ]
 
     name "AccountAttributeName"      = ""
@@ -383,3 +403,17 @@ render p t o = do
     xlarge n
         | "Xl" `Text.isPrefixOf` n = "XL" <> Text.drop 2 n
         | otherwise                = n
+
+    headers m = fromMaybe (error $ "Unable to filter headers: " ++ show m) $ do
+        Object fs <- Map.lookup "fields" m
+        return $ Map.filter f fs
+      where
+        f (Object s) = Map.lookup "location" s == Just "header"
+        f _          = False
+
+    payload m = fromMaybe False $ do
+        Object fs <- Map.lookup "fields" m
+        return . any f $ Map.elems fs
+      where
+        f (Object s) = maybe False (\(Bool b) -> b) $ Map.lookup "payload" s
+        f _          = False
