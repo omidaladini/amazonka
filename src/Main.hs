@@ -247,7 +247,7 @@ replace :: Maybe Text -> Shape -> Shape
 replace k s' = setName k $ go s'
   where
     go s@SStruct {..} = s { sFields = Map.fromList . map (\(x, y) -> (x, replace (Just x) y)) $ Map.toList sFields }
-    go l@SList   {..} = l { sItem = replace (f sShapeName) sItem }
+    go l@SList   {..} = l { sItem = replace (f $ sXmlname <|> sShapeName) sItem }
     go m@SMap    {..} = m { sKey = replace (f sShapeName) sKey, sValue = replace (f sShapeName) sValue }
     go p@SPrim   {..}
         | sType == PEnum
@@ -273,7 +273,7 @@ setName k s = s { sShapeName = Just $ f name }
     name = case (sShapeName s, sXmlname s, k) of
         (Just x, _, _)                          -> ("shape_name", x)
         (Nothing, Just "xsi:type", Just "Type") -> ("parent shape", "GranteeType")
-        (Nothing, Just x, _)                    -> ("xml_name", x)
+        (Nothing, Just x, _)                    -> ("xmlname", x)
         (Nothing, Nothing, Just x)              -> ("parent shape", x)
         (Nothing, Nothing, Nothing)             -> ("none", "")
 

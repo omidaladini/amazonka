@@ -2,7 +2,7 @@ newtype {{ scope.shape_name }} = {{ scope.shape_name }}
 {% if scope.fields %}
 {% for field in scope.fields %}
   {% if field.first %}
-    { {{ field.key }} :: {{ field.value.shape_name }}
+    { {{ field.key | lowerFirst }} :: {% include "type.ede" with field.value %}
   {% endif %}
   {% for line in field.value.documentation %}
     {% if line.value == "" %}
