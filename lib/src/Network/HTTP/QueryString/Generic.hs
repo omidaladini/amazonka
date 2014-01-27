@@ -33,6 +33,7 @@ import           Data.List                        (sort)
 import           Data.List.NonEmpty               (NonEmpty(..))
 import qualified Data.List.NonEmpty               as NonEmpty
 import           Data.Monoid
+import           Data.String
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
 import qualified Data.Text.Encoding               as Text
@@ -96,6 +97,9 @@ instance Ord Query where
     compare (Pair _ _) (Value _)  = GT
 
     compare _ _ = LT
+
+instance IsString Query where
+    fromString = Value . Text.pack
 
 data QueryOptions = QueryOptions
     { queryCtorMod  :: String -> Text
@@ -270,7 +274,6 @@ instance ToQuery Double where
 
 instance ToQuery Float where
     toQuery = valueFromFloat
-
 
 instance ToQuery a => ToQuery [a] where
     toQuery = List . zipWith (\n v -> Pair (key n) (toQuery v)) idx

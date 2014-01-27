@@ -31,71 +31,65 @@ import           Data.Time.Formatters
 import           Network.AWS.Internal.Types
 import           Network.HTTP.Conduit
 import           Network.HTTP.QueryString.Generic
-import           Network.HTTP.Types
+import           Network.HTTP.Types               hiding (Query, toQuery)
 import           Text.XML.Generic
 
-v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
-v2Query s@Service{..} m p x = RawRequest s m p q [] (RequestBodyBS "")
-  where
-    q = map (second Just) $ encodeQuery x
+getRestXML :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
+           => Service
+           -> a
+           -> RawRequest
+getRestXML = undefined
 
-v4Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
-v4Query s m a q = v2Query s m "/" q .?. [("Action", Just a)]
+postRestXML :: (ToHeaders a, ToPath a, ToQuery a, ToXML a, AWSRequest a)
+            => Service
+            -> a
+            -> RawRequest
+postRestXML = undefined
+
+deleteRestXML :: (ToHeaders a, ToPath a, ToQuery a, ToXML a, AWSRequest a)
+            => Service
+            -> a
+            -> RawRequest
+deleteRestXML = undefined
+
+getQuery :: (ToQuery a, AWSRequest a)
+         => Service
+         -> ByteString
+         -> a
+         -> RawRequest
+getQuery = undefined
+
+-- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- v2Query s@Service{..} m p x = RawRequest s m p q [] (RequestBodyBS "")
+--   where
+--     q = map (second Just) $ encodeQuery x
+
+-- v4Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- v4Query s m a q = v2Query s m "/" q .?. [("Action", Just a)]
+
+-- v3httpsQuery :: AWSRequest a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- v3httpsQuery = undefined
 
 -- xml :: ToXML a => Service -> StdMethod -> ByteString -> a -> RawRequest
 -- xml s@Service{..} m p = RawRequest s m p [] [] . RequestBodyBS . toXML
 -- --     , rqHeaders = [hdr (Content :: XML)]
 
-(.?.) :: RawRequest -> [QueryItem] -> RawRequest
-(.?.) r q = r { rawQuery = rawQuery r ++ q }
+-- (.?.) :: RawRequest -> [QueryItem] -> RawRequest
+-- (.?.) r q = r { rawQuery = rawQuery r ++ q }
 
 -- (.:.) :: RawRequest -> [Header] -> RawRequest
 -- (.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
 
-s3GET :: (ByteString -> Service)
-      -> Text
-      -> Text
-      -> [AnyQuery]
-      -> [AnyHeader]
-      -> RawRequest
-s3GET = undefined
+-- s3GET :: (ByteString -> Service)
+--       -> Text
+--       -> Text
+--       -> [AnyQuery]
+--       -> [AnyHeader]
+--       -> RawRequest
+-- s3GET = undefined
 
-s3DELETE :: (ByteString -> Service)
-      -> Text
-      -> Text
-      -> [AnyQuery]
-      -> [AnyHeader]
-      -> RawRequest
-s3DELETE = undefined
-
-s3POST :: (ByteString -> Service)
-      -> Text
-      -> Text
-      -> [AnyQuery]
-      -> [AnyHeader]
-      -> RequestBody
-      -> RawRequest
-s3POST = undefined
-
-s3PUT :: (ByteString -> Service)
-      -> Text
-      -> Text
-      -> [AnyQuery]
-      -> [AnyHeader]
-      -> RequestBody
-      -> RawRequest
-s3PUT = undefined
-
-s3HEAD :: (ByteString -> Service)
-      -> Text
-      -> Text
-      -> [AnyQuery]
-      -> [AnyHeader]
-      -> RawRequest
-s3HEAD = undefined
-
-xml :: ToXML a => a -> RequestBody
-xml = RequestBodyLBS . encodeXML
+-- xml :: ToXML a => a -> RequestBody
+-- xml = RequestBodyLBS . encodeXML
 
 -- xmlRs :: (FromXML (Er a), FromXML (Rs a))
 --       => a
@@ -107,29 +101,25 @@ xml = RequestBodyLBS . encodeXML
 --         f True  = fmap Right . awsEither . decodeXML
 --         f False = fmap Left  . awsEither . decodeXML
 
-class ToQueryValue a where
-    toQueryValue :: a -> Maybe ByteString
+(=?) :: ToQuery a => Text -> a -> Query
+(=?) k = Pair k . toQuery
 
-instance ToQueryValue ByteString where
-    toQueryValue = Just
-
-instance ToText a => ToQueryValue a where
-    toQueryValue = Just . Text.encodeUtf8 . toText
-
-instance ToQueryValue a => ToQueryValue (Maybe a) where
-    toQueryValue = join . fmap toQueryValue
-
-data AnyQuery where
-    (:?:) :: ToQueryValue a => ByteString -> a -> AnyQuery
-
-data AnyHeader where
-    (:::) :: ToHeader a => ByteString -> a -> AnyHeader
+(=:) :: ToHeader a => ByteString -> a -> (HeaderName, Maybe ByteString)
+(=:) = toHeader
 
 hdr :: FromText a => HeaderName -> Response b -> Maybe a
 hdr k = join
     . fmap (hush . fromText . Text.decodeUtf8)
     . lookup k
     . responseHeaders
+
+class ToPath a where
+    toPath :: a -> Text
+    toPath = const ""
+
+class ToHeaders a where
+    toHeaders :: a -> [(HeaderName, Maybe ByteString)]
+    toHeaders = const []
 
 class ToHeader a where
     toHeader :: ByteString -> a -> (HeaderName, Maybe ByteString)

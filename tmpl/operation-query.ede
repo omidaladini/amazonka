@@ -22,7 +22,6 @@ module Network.AWS.{{ module }}.{{ name }} where
 
 import           Control.Monad
 import           Data.ByteString      (ByteString)
-import           Data.Conduit         (($$+-), ResumableSource)
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
 import           Data.List.NonEmpty   (NonEmpty(..))
@@ -30,8 +29,6 @@ import           Data.Text            (Text)
 import qualified Data.Text            as Text
 import           Data.Time            (UTCTime)
 import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
-import           Network.HTTP.Conduit
-import           Network.HTTP.Types   (StdMethod(..))
 
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
@@ -49,7 +46,7 @@ instance ToQuery {{ name }}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ signature_version }}Query service GET "{{ name }}"
+    request = {{ http.method | lower }}{{ service_type }} service "{{ name }}"
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where

@@ -91,11 +91,11 @@ model dir Templates{..} m@Model{..} = do
 
     -- <dir>/<Service>/Service.hs
     renderService (root </> "Service.hs") $
-        case mType of
-            RestXml | "s3" == mEndpointPrefix -> tS3Service
-            RestXml                           -> tRestXMLService
-            RestJson                          -> tRestJSONService
-            Json                              -> tJSONService
+        case mServiceType of
+            RestXML | "s3" == mEndpointPrefix -> tS3Service
+            RestXML                           -> tRestXMLService
+            RestJSON                          -> tRestJSONService
+            JSON                              -> tJSONService
             Query                             -> tQueryService
 
     -- <dir>/<Service>/Types.hs
@@ -104,11 +104,11 @@ model dir Templates{..} m@Model{..} = do
     -- <dir>/<Service>/[Operation..].hs
     forM_ ops $ \op ->
         renderOperation (root </> Text.unpack (oName op) <.> "hs") op $
-            case mType of
-                RestXml | "s3" == mEndpointPrefix -> tS3Operation
-                RestXml                           -> tRestXMLOperation
-                RestJson                          -> tRestJSONOperation
-                Json                              -> tJSONOperation
+            case mServiceType of
+                RestXML | "s3" == mEndpointPrefix -> tS3Operation
+                RestXML                           -> tRestXMLOperation
+                RestJSON                          -> tRestJSONOperation
+                JSON                              -> tJSONOperation
                 Query                             -> tQueryOperation
   where
     (_,   typs) = types pres m
@@ -366,8 +366,8 @@ msg = scriptIO . putStrLn . ("  - " ++)
 
 render :: FilePath -> Template -> Object -> Script ()
 render p t o = do
-    hs <- hoistEither $ EDE.eitherRenderWith filters t o
     msg $ "Writing " ++ p
+    hs <- hoistEither $ EDE.eitherRenderWith filters t o
     scriptIO $ LText.writeFile p hs
   where
     filters = defaultFilters <> Map.fromList

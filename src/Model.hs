@@ -22,6 +22,7 @@ import           Control.Arrow
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson           hiding (String)
+import qualified Data.Aeson           as Aeson
 import           Data.Aeson.Types     hiding (String)
 import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
@@ -44,7 +45,7 @@ loadModel path = scriptIO (LBS.readFile path) >>= hoistEither . eitherDecode
 
 data Model = Model
     { mApiVersion       :: !Text
-    , mType             :: !ServiceType
+    , mServiceType      :: !ServiceType
     , mResultWrapped    :: !Bool
     , mSignatureVersion :: !SignatureVersion
     , mName             :: !Text
@@ -89,7 +90,7 @@ instance FromJSON Model where
 instance ToJSON Model where
     toJSON Model{..} = object
         [ "api_version"           .= mApiVersion
-        , "type"                  .= mType
+        , "service_type"          .= mServiceType
         , "result_wrapped"        .= mResultWrapped
         , "signature_version"     .= mSignatureVersion
         , "service_abbreviation"  .= mName
@@ -130,14 +131,20 @@ instance FromJSON [Policy] where
 instance ToJSON Policy where
     toJSON = genericToJSON options
 
-data ServiceType = RestXml | RestJson | Json | Query
-    deriving (Show, Generic)
+data ServiceType = RestXML | RestJSON | JSON | Query
+    deriving (Show)
 
 instance FromJSON ServiceType where
-    parseJSON = genericParseJSON options
+    parseJSON (Aeson.String "rest-xml")  = return RestXML
+    parseJSON (Aeson.String "rest-json") = return RestJSON
+    parseJSON (Aeson.String "json")      = return RestJSON
+    parseJSON (Aeson.String "query")     = return Query
+
+    parseJSON _ =
+        fail "Unable to parse ServiceType."
 
 instance ToJSON ServiceType where
-    toJSON = genericToJSON options
+    toJSON = toJSON . Text.pack . show
 
 data SignatureVersion = V2 | V3 | V3HTTPS | V4 | S3
     deriving (Show, Generic)
@@ -148,16 +155,14 @@ instance FromJSON SignatureVersion where
         }
 
 instance ToJSON SignatureVersion where
-    toJSON = genericToJSON $ options
-        { constructorTagModifier = map toLower
-        }
+    toJSON = toJSON . Text.toLower . Text.take 2 . Text.pack . show
 
 data Operation = Operation
     { oName             :: !Text
     , oAlias            :: Maybe Text
     , oDocumentation    :: [Text]
     , oDocumentationUrl :: Maybe Text
-    , oHttp             :: Maybe HTTP
+    , oHttp             :: HTTP
     , oInput            :: Maybe Shape
     , oOutput           :: Maybe Shape
     , oErrors           :: [Shape]
@@ -170,7 +175,7 @@ instance FromJSON Operation where
         <*> o .:? "alias"
         <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "documentation_url"
-        <*> o .:? "http"
+        <*> o .:? "http" .!= HTTP "GET" [] mempty
         <*> o .:? "input"
         <*> (fmap streaming <$> o .:? "output")
         <*> (fmap streaming <$> o .:  "errors")
@@ -183,8 +188,6 @@ instance FromJSON Operation where
 
     parseJSON _ =
         fail "Unable to parse Operation."
-
-
 
 instance ToJSON Operation where
     toJSON = genericToJSON options
