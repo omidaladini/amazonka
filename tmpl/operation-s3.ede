@@ -45,9 +45,9 @@ type {{ alias }}Response = {{ name }}Response
 data {{ name }} = {{ name }}
 {% if input.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with input.fields %}
-    }
+    } deriving (Generic)
 {% else %}
-    deriving (Eq, Show, Generic)
+    deriving (Generic)
 {% endif %}
 
 instance AWSRequest {{ name }} where

@@ -143,15 +143,14 @@ model dir Templates{..} m@Model{..} = do
 
         streaming i s = s { sFields = Map.map (body i) $ sFields s }
 
-        body i s@SPrim{..}
-            | PBlob <- sType = s
-                { sShapeName = Just $
-                    if i
-                        then "RequestBody"
-                        else "ResumableSource AWS ByteString"
-                , sRequired  = True
-                , sStrict    = False
-                }
+        body i s@SPrim{..} | sStreaming = s
+            { sShapeName = Just $
+                if i
+                    then "RequestBody"
+                    else "ResumableSource AWS ByteString"
+            , sRequired  = True
+            , sStrict    = False
+            }
         body _ x = x
 
 updateOperation :: HashSet Text -> Operation -> (HashSet Text, Operation)

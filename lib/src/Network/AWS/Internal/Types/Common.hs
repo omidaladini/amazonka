@@ -41,7 +41,10 @@ instance ToQuery ResourceName where
     toQuery = toQuery . unResourceName
 
 instance FromXML ResourceName where
-    fromXML o = fmap ResourceName . fromXML (retag o)
+    fromXML = primFromXML
+
+instance ToXML ResourceName where
+    toXML = primToXML
 
 data Region
     = NorthVirginia

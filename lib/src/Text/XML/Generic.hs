@@ -326,8 +326,8 @@ instance ToXML () where
     toXML _ () = []
 
 -- FIXME: implement this shizzle
-instance ToXML (HashMap Text Text) where
-    toXMLRoot = toRoot "HashMap"
+instance (ToXML k, ToXML v) => ToXML (HashMap k v) where
+    toXMLRoot = undefined
     toXML o   = undefined
 
 nodeFromIntegral :: Integral a => a -> [Node]
