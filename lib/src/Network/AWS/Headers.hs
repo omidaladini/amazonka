@@ -1,4 +1,3 @@
-{-# LANGUAGE GADTs                      #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE TupleSections              #-}
 
@@ -16,45 +15,30 @@
 
 module Network.AWS.Headers where
 
-import           Control.Arrow
-import           Data.ByteString      (ByteString)
-import qualified Data.CaseInsensitive as CI
-import           Data.Text            (Text)
-import qualified Data.Text            as Text
-import qualified Data.Text.Encoding   as Text
-import           Data.Time
-import           Data.Time.Formatters
-import           Network.HTTP.Types   (Header)
+import Data.ByteString      (ByteString)
+import Data.Time
+import Data.Time.Formatters
+import Network.HTTP.Types   (Header)
 
-class ToHeader a where
-    toHeader :: ByteString -> a -> Header
-
-instance ToHeader ByteString where
-    toHeader k = (CI.mk k,)
-
-instance ToHeader Text where
-    toHeader k = toHeader k . Text.encodeUtf8
-
-data AnyHeader where
-    (:::) :: ToHeader a => ByteString -> Maybe a -> AnyHeader
+default (ByteString)
 
 hAccept :: ByteString -> Header
-hAccept = toHeader "Accept-Encoding"
+hAccept = ("Accept-Encoding",)
 
 hDate :: ByteString -> Header
-hDate = toHeader "Date"
+hDate = ("Date",)
 
 hHost :: ByteString -> Header
-hHost = toHeader "Host"
+hHost = ("Host",)
 
 hAuth :: ByteString -> Header
-hAuth = toHeader "Authorization"
+hAuth = ("Authorization",)
 
 hAMZAuth :: ByteString -> Header
-hAMZAuth = toHeader "X-Amzn-Authorization"
+hAMZAuth = ("X-Amzn-Authorization",)
 
 hAMZDate :: UTCTime -> Header
-hAMZDate = toHeader "X-Amz-Date" . formatISO8601
+hAMZDate = ("X-Amz-Date",) . formatISO8601
 
 hAMZToken :: ByteString -> Header
-hAMZToken = toHeader "X-Amz-Security-Token"
+hAMZToken = ("X-Amz-Security-Token",)

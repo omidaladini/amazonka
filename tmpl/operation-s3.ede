@@ -23,25 +23,29 @@ module Network.AWS.{{ module }}.{{ name }} where
 
 import           Control.Monad
 import           Data.ByteString      (ByteString)
-import           Data.Conduit         (($$+-))
+import           Data.Conduit         (($$+-), ResumableSource)
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
 import           Data.List.NonEmpty   (NonEmpty(..))
 import           Data.Text            (Text)
 import qualified Data.Text            as Text
 import           Data.Time            (UTCTime)
-import           Network.AWS.Headers
 import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
-import           Network.HTTP.Client  (responseHeaders, responseBody)
+import           Network.HTTP.Conduit
 import           Network.HTTP.Types   (StdMethod(..))
 
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
 
+{% if alias /= "" %}
+type {{ alias }} = {{ name }}
+type {{ alias }}Response = {{ name }}Response
+
+{% endif %}
 data {{ name }} = {{ name }}
 {% if input.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with input.fields %}
-    } deriving (Eq, Show, Generic)
+    }
 {% else %}
     deriving (Eq, Show, Generic)
 {% endif %}
@@ -49,15 +53,23 @@ data {{ name }} = {{ name }}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-{% if name == "GetService" %}
     request {{ name }}{..} =
-        {{ signature_version }}{{ http.method }} service uri ??
+{% if name == "ListBuckets" %}
+        {{ signature_version }}{{ http.method }} service "" path query headers
 {% else %}
-    request {{ name }}{..} =
-        {{ signature_version }}{{ http.method }} (service {{ input.prefix }}Bucket) uri headers body
+  {% case http.method %}
+  {% when "GET" %}
+        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers
+  {% when "HEAD" %}
+        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers
+  {% when "DELETE" %}
+        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers
+  {% else %}
+        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers body
+  {% endcase %}
 {% endif %}
       where
-        uri = Text.concat
+        path = Text.concat
         {% for part in http.uri %}
           {% if part.first %}
             {% case part.value.type %}
@@ -79,6 +91,30 @@ instance AWSRequest {{ name }} where
             ]
         {% endif %}
 
+        {% if http.query | mapLength > 0%}
+        query =
+        {% for part in http.query %}
+          {% if part.first %}
+            {% if part.value == "" %}
+            [ "{{ part.key }}" :?: (Nothing :: Maybe ByteString)
+            {% else %}
+            [ "{{ part.key }}" :?: {{ input.prefix }}{{ part.value }}
+            {% endif %}
+          {% else %}
+            {% if part.value == "" %}
+            , "{{ part.key }}" :?: Nothing
+            {% else %}
+            , "{{ part.key }}" :?: {{ input.prefix }}{{ part.value }}
+            {% endif %}
+          {% endif %}
+          {% if part.last %}
+            ]
+          {% endif %}
+        {% endfor %}
+        {% else %}
+        query = []
+        {% endif %}
+
         {% if input | headers | mapLength > 0 %}
         headers =
           {% for hdr in input | headers %}
@@ -96,43 +132,80 @@ instance AWSRequest {{ name }} where
         {% if input | payload %}
           {% for field in input.fields %}
             {% if field.value.payload %}
-        body = Just {{ field.key }}
+              {% if field.value.streaming %}
+        body = {{ field.key }}
+              {% else %}
+        body = xml {{ field.key }}
+              {% endif %}
             {% endif %}
           {% endfor %}
         {% else %}
-        body = Nothing
+        body = RequestBodyBS ""
         {% endif %}
+    {% if output.streaming %}
 
-        {% if output | payload %}
-    response _ rs = return {{ name }}Response
-          {% if output | headers | mapLength > 0 %}
-            {% for hdr in output | headers %}
-              {% if hdr.first %}
-        { {{ hdr.key }} = h "{{ hdr.value.location_name }}"
-              {% else %}
-        , {{ hdr.key }} = h "{{ hdr.value.location_name }}"
-              {% endif %}
-            {% endfor %}
+    response _ rs = return . Right $ {{ name }}Response
+      {% if output | headers | mapLength > 0 %}
+        {% for hdr in output | headers %}
+          {% if hdr.first %}
+        { {{ hdr.key }} = hdr "{{ hdr.value.location_name }}" rs
+          {% else %}
+        , {{ hdr.key }} = hdr "{{ hdr.value.location_name }}" rs
           {% endif %}
-          {% if output.fields | mapLength > 0 %}
-            {% for field in output.fields %}
-              {% if field.value.payload %}
+        {% endfor %}
+      {% endif %}
+      {% if output.fields | mapLength > 0 %}
+        {% for field in output | fields %}
+          {% if field.value.streaming %}
+            {% if output.fields | mapLength == 1 %}
+        { {{ field.key }} = responseBody rs
+            {% else %}
         , {{ field.key }} = responseBody rs
-              {% endif %}
-            {% endfor %}
-        }
-      where
-        h = (`Map.lookup` responseHeaders rs)
+            {% endif %}
           {% endif %}
+        {% endfor %}
+        }
+      {% endif %}
+    {% else %}
+      {% if output | headers | mapLength > 0 %}
+
+        {% if output | onlyHeaders %}
+    response _ rs = do
+        responseBody rs $$+- return ()
+        return . Right $ {{ name }}Response
         {% else %}
-    response _ rs = (responseBody rs $$+- return ())
-        >> return {{ name }}Response
+    response x rs = defaultResponse x rs >>= return . either Left val
+      where
+        val y = Right $ y
         {% endif %}
+        {% for hdr in output | headers %}
+          {% if hdr.first %}
+            { {{ hdr.key }} = hdr "{{ hdr.value.location_name }}" rs
+          {% else %}
+            , {{ hdr.key }} = hdr "{{ hdr.value.location_name }}" rs
+          {% endif %}
+          {% if hdr.last %}
+            }
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
 
 data {{ name }}Response = {{ name }}Response
 {% if output.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with output.fields %}
+  {% if !output.streaming %}
     } deriving (Eq, Show, Generic)
+  {% else %}
+    }
+  {% endif %}
 {% else %}
     deriving (Eq, Show, Generic)
+{% endif %}
+{% if !output.streaming %}
+{% if !output | onlyHeaders %}
+
+instance FromXML {{ name }}Response where
+    fromXMLOptions = xmlOptions
+{% endif %}
 {% endif %}

@@ -13,10 +13,10 @@
 module Network.AWS.{{ module }}.Types where
 
 import Data.ByteString      (ByteString)
-import Data.HashMap.Strict  (HashMap)
 import Data.Monoid
 import Data.List.NonEmpty
 import Data.Text            (Text)
+import Data.HashMap.Strict  (HashMap)
 import Data.Time
 import GHC.Generics
 import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
@@ -46,6 +46,9 @@ instance ToQuery {{ shape.value.shape_name }}
 
 instance FromXML {{ shape.value.shape_name }} where
     fromXMLOptions = xmlOptions
+
+instance ToXML {{ shape.value.shape_name }} where
+    toXMLOptions = xmlOptions
   {% when "enum" %}
     {% include "_includes/enum.ede" with shape.value %}
   {% else %}

@@ -181,9 +181,9 @@ data RawRequest = RawRequest
     { rawService :: !Service
     , rawMethod  :: !StdMethod
     , rawPath    :: !ByteString
-    , rawQuery   :: [(ByteString, ByteString)]
+    , rawQuery   :: [QueryItem]
     , rawHeaders :: [Header]
-    , rawBody    :: !RequestBody
+    , rawBody    :: RequestBody
     }
 
 instance Show RawRequest where
@@ -208,11 +208,17 @@ class AWSRequest a where
                      => a
                      -> Response (ResumableSource AWS ByteString)
                      -> AWS (Either (Er a) (Rs a))
-    response _ rs = (responseBody rs $$+- Conduit.sinkLbs)
-        >>= f (statusIsSuccessful $ responseStatus rs)
-      where
-        f True  = fmap Right . awsEither . decodeXML
-        f False = fmap Left  . awsEither . decodeXML
+    response = defaultResponse
+
+defaultResponse :: (FromXML (Er a), FromXML (Rs a))
+                => a
+                -> Response (ResumableSource AWS ByteString)
+                -> AWS (Either (Er a) (Rs a))
+defaultResponse _ rs = (responseBody rs $$+- Conduit.sinkLbs)
+    >>= f (statusIsSuccessful $ responseStatus rs)
+  where
+    f True  = fmap Right . awsEither . decodeXML
+    f False = fmap Left  . awsEither . decodeXML
 
 class AWSPager a where
     next :: AWSRequest a => a -> Rs a -> Maybe a

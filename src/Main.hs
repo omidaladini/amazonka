@@ -134,8 +134,7 @@ model dir Templates{..} m@Model{..} = do
     renderTypes p t =
         render p t mJSON
 
-    renderOperation p o@Operation{..} t =
-        render p t $ mJSON <> o'
+    renderOperation p o@Operation{..} t = render p t $ mJSON <> o'
       where
         Object o' = toJSON $ o
             { oInput  = streaming True  <$> oInput
@@ -149,7 +148,7 @@ model dir Templates{..} m@Model{..} = do
                 { sShapeName = Just $
                     if i
                         then "RequestBody"
-                        else "Response (ResumableSource AWS ByteString)"
+                        else "ResumableSource AWS ByteString"
                 , sRequired  = True
                 , sStrict    = False
                 }
@@ -264,7 +263,9 @@ flatten s = s { sFields = fields } : concatMap flatten (Map.elems fields)
 replace :: Maybe Text -> Shape -> Shape
 replace k s' = setName k $ go s'
   where
-    go s@SStruct {..} = s { sFields = Map.fromList . map (\(x, y) -> (x, replace (Just x) y)) $ Map.toList sFields }
+    go s@SStruct {..} = s
+        { sFields = Map.fromList . map (\(x, y) -> (x, replace (Just x) y)) $ Map.toList sFields
+        }
     go l@SList   {..} = l { sItem = replace (f $ sXmlname <|> sShapeName) sItem }
     go m@SMap    {..} = m { sKey = replace (f sShapeName) sKey, sValue = replace (f sShapeName) sValue }
     go p@SPrim   {..}
@@ -296,7 +297,9 @@ setName k s = s { sShapeName = Just $ f name }
         (Nothing, Nothing, Nothing)             -> ("none", "")
 
     f (n, "") = error $ "Empty or no name (setName) for: " ++ show (n :: Text, s)
-    f (_, x)  = x
+    f (_, "CompleteMultipartUpload") = "MultipartUpload"
+    f (_, x) = x
+
 
 data Templates = Templates
     { tInterface         :: Template
@@ -369,10 +372,12 @@ render p t o = do
     scriptIO $ LText.writeFile p hs
   where
     filters = defaultFilters <> Map.fromList
-        [ ("enumPrefix", Fun TText TText name)
-        , ("enumFormat", Fun TText TText format)
-        , ("headers",    Fun TMap TMap headers)
-        , ("payload",    Fun TMap TBool payload)
+        [ ("enumPrefix",  Fun TText TText name)
+        , ("enumFormat",  Fun TText TText format)
+        , ("headers",     Fun TMap TMap headers)
+        , ("onlyHeaders", Fun TMap TBool onlyHeaders)
+        , ("fields",      Fun TMap TMap fields)
+        , ("payload",     Fun TMap TBool payload)
         ]
 
     name "AccountAttributeName"      = ""
@@ -409,6 +414,17 @@ render p t o = do
         return $ Map.filter f fs
       where
         f (Object s) = Map.lookup "location" s == Just "header"
+        f _          = False
+
+    onlyHeaders m = fromMaybe (error $ "Unable to determine onlyHeaders") $ do
+       Object fs <- Map.lookup "fields" m
+       return $ Map.size fs - Map.size (headers m) == 0
+
+    fields m = fromMaybe (error $ "Unable to filter fields: " ++ show m) $ do
+        Object fs <- Map.lookup "fields" m
+        return $ Map.filter f fs
+      where
+        f (Object s) = Map.lookup "location" s /= Just "header"
         f _          = False
 
     payload m = fromMaybe False $ do

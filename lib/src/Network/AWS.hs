@@ -1,6 +1,8 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE ExplicitNamespaces #-}
+{-# LANGUAGE FlexibleContexts   #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
+{-# LANGUAGE TypeFamilies       #-}
 
 -- Module      : Network.AWS
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -62,7 +64,7 @@ module Network.AWS
     , module Network.AWS.Internal.Types.Common
 
     -- * Type Classes
-    , AWSRequest (Er, Rs)
+    , AWSRequest (type Er, type Rs)
     , AWSPager
     , AWSError
     ) where

@@ -25,6 +25,7 @@ import           Data.Aeson           hiding (String)
 import           Data.Aeson.Types     hiding (String)
 import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
+import           Data.Foldable        (any)
 import           Data.HashMap.Strict  (HashMap)
 import qualified Data.HashMap.Strict  as Map
 import           Data.Monoid
@@ -35,6 +36,7 @@ import qualified Data.Text.Unsafe     as Text
 import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
 import           Helpers
+import           Prelude              hiding (any)
 import           Text.EDE.Filters
 
 loadModel :: FilePath -> Script Model
@@ -164,18 +166,25 @@ data Operation = Operation
 
 instance FromJSON Operation where
     parseJSON (Object o) = Operation
-        <$> (o .: "alias" <|> o .: "name")
+        <$> (o .: "name" <|> o .: "alias")
         <*> o .:? "alias"
         <*> fmap normalise (o .:? "documentation" .!= "")
         <*> o .:? "documentation_url"
         <*> o .:? "http"
         <*> o .:? "input"
-        <*> o .:? "output"
-        <*> o .:  "errors"
+        <*> (fmap streaming <$> o .:? "output")
+        <*> (fmap streaming <$> o .:  "errors")
         <*> o .:? "pagination"
+      where
+        streaming s
+            | SStruct{} <- s
+            , any sStreaming $ sFields s = s { sStreaming = True }
+            | otherwise                  = s
 
     parseJSON _ =
         fail "Unable to parse Operation."
+
+
 
 instance ToJSON Operation where
     toJSON = genericToJSON options
@@ -199,18 +208,34 @@ instance ToJSON Part where
 data HTTP = HTTP
     { hMethod :: !Text
     , hUri    :: [Part]
+    , hQuery  :: HashMap Text Text
     } deriving (Show, Generic)
 
 instance FromJSON HTTP where
-    parseJSON (Object o) = HTTP <$> o .: "method" <*> (f <$> o .: "uri")
+    parseJSON (Object o) = do
+        u <- o .: "uri"
+        HTTP <$> o .: "method" <*> pure (uri u) <*> pure (query u)
       where
-        f = filter (/= T "") . go
+        uri = filter (/= T "") . go . Text.takeWhile (/= '?')
           where
             go x | Text.null s = [T l]
                  | otherwise   = T l : I m : go (Text.unsafeTail t)
               where
                 (m, t) = Text.span (/= '}') $ Text.unsafeTail s
                 (l, s) = Text.span (/= '{') x
+
+        query = Map.fromList . go . Text.dropWhile (/= '?')
+          where
+            go x | Text.null s
+                 , Text.null l = []
+                 | Text.null s = [(Text.tail l, "")]
+                 | otherwise   = brk : go (Text.unsafeTail t)
+              where
+                (m, t) = Text.span (/= '}') $ Text.unsafeTail s
+                (l, s) = Text.span (/= '{') x
+
+                brk | '=' <- Text.last l = (Text.init $ Text.tail l, m)
+                    | otherwise          = (Text.tail l, "")
 
     parseJSON _ =
         fail "Unable to parse Operation."
@@ -229,6 +254,7 @@ data Shape
       , sXmlname       :: Maybe Text
       , sPrefix        :: !Text
       , sPayload       :: !Bool
+      , sStreaming     :: !Bool
       }
 
     | SList
@@ -242,6 +268,7 @@ data Shape
       , sXmlname       :: Maybe Text
       , sPrefix        :: !Text
       , sPayload       :: !Bool
+      , sStreaming     :: !Bool
       }
 
     | SMap
@@ -254,6 +281,7 @@ data Shape
       , sXmlname       :: Maybe Text
       , sPrefix        :: !Text
       , sPayload       :: !Bool
+      , sStreaming     :: !Bool
       }
 
     | SPrim
@@ -272,6 +300,7 @@ data Shape
       , sXmlname       :: Maybe Text
       , sPrefix        :: !Text
       , sPayload       :: !Bool
+      , sStreaming     :: !Bool
       }
 
       deriving (Eq, Show, Generic)
@@ -294,6 +323,7 @@ instance FromJSON Shape where
         <*> o .:? "xmlname"
         <*> pure ""
         <*> o .:? "payload" .!= False
+        <*> o .:? "streaming" .!= False
       where
         f Structure = SStruct
             <$> (names <$> o .:? "members" .!= mempty)

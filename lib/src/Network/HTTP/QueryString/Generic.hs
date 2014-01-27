@@ -300,13 +300,10 @@ instance (ToQuery k, ToQuery v) => ToQuery (HashMap k v) where
     toQuery = undefined
 
 valueFromIntegral :: Integral a => a -> Query
-valueFromIntegral = valueFromBuilder . LText.decimal
+valueFromIntegral = Value . integralToText
 
 valueFromFloat :: RealFloat a => a -> Query
-valueFromFloat = valueFromBuilder . LText.realFloat
-
-valueFromBuilder :: LText.Builder -> Query
-valueFromBuilder = Value . LText.toStrict . LText.toLazyText
+valueFromFloat = Value . floatToText
 
 class GToQuery f where
     gToQuery :: QueryOptions -> f a -> Query

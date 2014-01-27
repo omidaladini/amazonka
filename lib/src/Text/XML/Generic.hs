@@ -331,13 +331,10 @@ instance ToXML (HashMap Text Text) where
     toXML o   = undefined
 
 nodeFromIntegral :: Integral a => a -> [Node]
-nodeFromIntegral =  nodeFromBuilder . LText.decimal
+nodeFromIntegral = (:[]) . NodeContent . integralToText
 
 nodeFromFloat :: RealFloat a => a -> [Node]
-nodeFromFloat = nodeFromBuilder . LText.realFloat
-
-nodeFromBuilder :: LText.Builder -> [Node]
-nodeFromBuilder = (:[]) . NodeContent . LText.toStrict . LText.toLazyText
+nodeFromFloat = (:[]) . NodeContent . floatToText
 
 class GToXML f where
     gToXML :: XMLOptions -> f a -> [Node]

@@ -44,13 +44,13 @@ import           Network.AWS.Headers
 import           Network.AWS.Internal.Types
 import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types                (Header, StdMethod, urlEncode, renderSimpleQuery)
+import           Network.HTTP.Types                (Header, StdMethod, QueryItem, urlEncode, renderQuery)
 
 data Common = Common
     { _service :: !ByteString
     , _version :: !ByteString
     , _host    :: !ByteString
-    , _query   :: [(ByteString, ByteString)]
+    , _query   :: [QueryItem]
     }
 
 sign :: RawRequest -> AWS Request
@@ -81,15 +81,15 @@ v2 raw@RawRequest{..} auth reg time =
             , encoded
             ]
 
-    encoded = renderSimpleQuery False
+    encoded = renderQuery False
         $ _query
-       ++ [ ("Version",          _version)
-          , ("SignatureVersion", "2")
-          , ("SignatureMethod",  "HmacSHA256")
-          , ("Timestamp",        formatISO8601 time)
-          , ("AWSAccessKeyId",   accessKeyId auth)
+       ++ [ ("Version",          Just _version)
+          , ("SignatureVersion", Just "2")
+          , ("SignatureMethod",  Just "HmacSHA256")
+          , ("Timestamp",        Just $ formatISO8601 time)
+          , ("AWSAccessKeyId",   Just $ accessKeyId auth)
           ]
-       ++ maybeToList ((,) "SecurityToken" <$> securityToken auth)
+       ++ maybeToList ((\t -> ("SecurityToken", Just t)) <$> securityToken auth)
 
     headers = hDate (formatISO8601 time) : rawHeaders
 
@@ -99,7 +99,7 @@ v3 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query   = renderSimpleQuery False _query
+    query   = renderQuery False _query
     headers = hDate (formatRFC822 time)
         : hAMZAuth authorisation
         : maybeToList (hAMZToken <$> securityToken auth)
@@ -116,7 +116,7 @@ v4 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query   = renderSimpleQuery False . sort $ ("Version", _version) : _query
+    query   = renderQuery False . sort $ ("Version", Just _version) : _query
     headers = hAMZDate time
             : maybeToList (hAMZToken <$> securityToken auth)
            ++ rawHeaders
@@ -173,7 +173,7 @@ s3 bucket raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query = renderSimpleQuery False _query
+    query = renderQuery False _query
 
     authorisation = hAuth $ BS.concat ["AWS ", accessKeyId auth, ":", signature]
 
