@@ -13,14 +13,14 @@ module Network.AWS.{{ module }}
   {% endif %}
 {% endfor %}
 
-    -- * Errors
-    , {{ module }}Error (..)
-
     -- * Types
 {% for ty in types %}
     -- ** {{ ty.value.shape_name }}
     , {{ ty.value.shape_name }} (..)
 {% endfor %}
+
+    -- * Errors
+    , {{ module }}Error (..)
     ) where
 
 import Network.AWS.{{ module }}.Service
