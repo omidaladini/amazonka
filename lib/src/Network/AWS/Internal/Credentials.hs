@@ -21,7 +21,6 @@ import           Control.Error
 import           Control.Monad
 import           Control.Monad.IO.Class
 import qualified Data.Aeson                 as Aeson
-import           Data.ByteString            (ByteString)
 import qualified Data.ByteString.Char8      as BS
 import qualified Data.ByteString.Lazy.Char8 as LBS
 import           Data.IORef
@@ -31,7 +30,7 @@ import           Data.Text                  (Text)
 import qualified Data.Text                  as Text
 import qualified Data.Text.Encoding         as Text
 import           Data.Time
-import           Network.AWS.EC2.Metadata   hiding (Profile)
+import           Network.AWS.EC2.Metadata
 import           Network.AWS.Internal.Types
 import           System.Environment
 
@@ -75,7 +74,7 @@ credentials = mk
   where
     mk (AuthBasic   a s)   = ref $ Auth a s Nothing Nothing
     mk (AuthSession a s t) = ref $ Auth a s (Just t) Nothing
-    mk (AuthProfile n)     = fromProfile $ Text.encodeUtf8 n
+    mk (AuthProfile n)     = fromProfile n
     mk (AuthEnv     a s)   = fromKeys a s
     mk AuthDiscover        = fromKeys accessKey secretKey
         <|> (defaultProfile >>= fromProfile)
@@ -89,10 +88,11 @@ credentials = mk
 
     ref = liftIO . newIORef
 
-defaultProfile :: (Applicative m, MonadIO m) => EitherT String m ByteString
+defaultProfile :: (Applicative m, MonadIO m) => EitherT String m Text
 defaultProfile = do
-    ls <- BS.lines <$> metadata SecurityCredentials
-    tryHead "Unable to get default IAM Profile from metadata" ls
+    ls <- BS.lines <$> meta (IAM $ SecurityCredentials Nothing)
+    p  <- tryHead "Unable to get default IAM Profile from metadata" ls
+    return $ Text.decodeUtf8 p
 
 -- | The IORef wrapper + timer is designed so that multiple concurrenct
 -- accesses of 'Auth' from the 'AWS' environment are not required to calculate
@@ -101,7 +101,7 @@ defaultProfile = do
 -- The forked timer ensures a singular owner and pre-emptive refresh of the
 -- temporary session credentials.
 fromProfile :: (Applicative m, MonadIO m)
-            => ByteString
+            => Text
             -> EitherT String m (IORef Auth)
 fromProfile name = do
     !a@Auth{..} <- auth
@@ -112,7 +112,7 @@ fromProfile name = do
   where
     auth :: (Applicative m, MonadIO m) => EitherT String m Auth
     auth = do
-        m <- LBS.fromStrict <$> metadata (SecurityCredential name)
+        m <- LBS.fromStrict <$> meta (IAM . SecurityCredentials $ Just name)
         hoistEither $ Aeson.eitherDecode m
 
     start ref = maybe (return ()) (timer ref <=< delay)

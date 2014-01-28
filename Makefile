@@ -43,7 +43,7 @@ JSON := \
  $(BOTO)/support.json \
  $(BOTO)/swf.json
 
-MODELS := $(JSON) $(QUERY)
+MODELS := $(JSON) $(QUERY) $(RESTXML)
 
 .PHONY: test lint doc
 

@@ -41,6 +41,27 @@ import           Network.HTTP.Types               hiding (Query, toQuery)
 import           Text.XML                         (Node)
 import           Text.XML.Generic
 
+class ToPath a where
+    toPath :: a -> Text
+    toPath = const Text.empty
+
+class ToHeaders a where
+    toHeaders :: a -> [(HeaderName, Maybe ByteString)]
+    toHeaders = const []
+
+class ToHeader a where
+    toHeader :: ByteString -> a -> (HeaderName, Maybe ByteString)
+
+instance ToHeader ByteString where
+    toHeader k = (CI.mk k,) . Just
+
+instance ToText a => ToHeader a where
+    toHeader k = (CI.mk k,) . Just . Text.encodeUtf8 . toText
+
+instance ToHeader a => ToHeader (Maybe a) where
+    toHeader k (Just x) = toHeader k x
+    toHeader k Nothing  = (CI.mk k, Nothing)
+
 (=?) :: ToQuery a => Text -> a -> Query
 (=?) k = Pair k . toQuery
 
@@ -86,24 +107,3 @@ fromTextHashJSON = withObject "HashMap EnumKey v" f
     g (k, v) =
         (,) <$> either fail return (fromText k)
             <*> parseJSON v
-
-class ToPath a where
-    toPath :: a -> Text
-    toPath = const Text.empty
-
-class ToHeaders a where
-    toHeaders :: a -> [(HeaderName, Maybe ByteString)]
-    toHeaders = const []
-
-class ToHeader a where
-    toHeader :: ByteString -> a -> (HeaderName, Maybe ByteString)
-
-instance ToHeader ByteString where
-    toHeader k = (CI.mk k,) . Just
-
-instance ToText a => ToHeader a where
-    toHeader k = (CI.mk k,) . Just . Text.encodeUtf8 . toText
-
-instance ToHeader a => ToHeader (Maybe a) where
-    toHeader k (Just x) = toHeader k x
-    toHeader k Nothing  = (CI.mk k, Nothing)
