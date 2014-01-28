@@ -13,6 +13,7 @@
 module Network.AWS.{{ module }}.Types where
 
 import Data.ByteString      (ByteString)
+import Data.Hashable
 import Data.Monoid
 import Data.List.NonEmpty
 import Data.Text            (Text)
@@ -20,6 +21,7 @@ import Data.HashMap.Strict  (HashMap)
 import Data.Time
 import GHC.Generics         (Generic)
 import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+
 import Network.AWS.{{ module }}.Service
 
 {% for shape in types %}

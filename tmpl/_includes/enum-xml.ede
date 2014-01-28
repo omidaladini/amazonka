@@ -8,6 +8,8 @@ data {{ scope.shape_name }}
 {% endfor %}
       deriving (Eq, Ord, Generic)
 
+instance Hashable {{ scope.shape_name }}
+
 instance FromText {{ scope.shape_name }} where
 {% for branch in scope.enum %}
     fromText "{{ branch.value }}" = Right {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }}

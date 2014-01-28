@@ -43,10 +43,12 @@ JSON := \
  $(BOTO)/support.json \
  $(BOTO)/swf.json
 
+MODELS := $(JSON) $(QUERY)
+
 .PHONY: test lint doc
 
 all: generator
-	rm -rf lib/gen; ./generator $(JSON) && $(MAKE) install -C lib
+	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) build -j -C lib
 
 build:
 	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))

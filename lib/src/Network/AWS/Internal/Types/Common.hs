@@ -22,6 +22,7 @@ import qualified Data.ByteString.Char8              as BS
 import           Data.Default
 import           Data.Monoid
 import           Data.String
+import           Data.Tagged
 import           Data.Text                          (Text)
 import qualified Data.Text                          as Text
 import qualified Data.Text.Encoding                 as Text
@@ -47,10 +48,19 @@ instance ToJSON Key where
     toJSON = toTextJSON
 
 newtype Blob = Blob { unBlob :: ByteString }
-    deriving (Eq, Ord, Show)
+    deriving (Eq, Ord, Show, Generic)
 
 instance IsString Blob where
     fromString = Blob . BS.pack
+
+instance ToQuery Blob where
+    toQuery = toQuery . Text.decodeUtf8 . unBlob
+
+instance FromXML Blob where
+    fromXML o = fmap Blob . fromXML (retag o)
+
+instance ToXML Blob where
+    toXML o = toXML (retag o) . unBlob
 
 instance FromJSON Blob where
     parseJSON = withText "Blob" $ pure . Blob . Text.encodeUtf8

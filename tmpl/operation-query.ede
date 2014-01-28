@@ -28,7 +28,9 @@ import           Data.List.NonEmpty   (NonEmpty(..))
 import           Data.Text            (Text)
 import qualified Data.Text            as Text
 import           Data.Time            (UTCTime)
+import           GHC.Generics         (Generic)
 import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+import           Text.XML.Generic
 
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
