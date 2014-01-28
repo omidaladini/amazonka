@@ -73,35 +73,35 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions
-    { loweidomain :: !Text
+    { loweiDomain :: !Text
       -- ^ The name of the domain that contains the workflow executions to list.
-    , loweiexecutionFilter :: Maybe WorkflowExecutionFilter
+    , loweiExecutionFilter :: Maybe WorkflowExecutionFilter
       -- ^ If specified, only workflow executions matching the workflow id specified
       -- in the filter are returned. executionFilter, typeFilter and tagFilter are
       -- mutually exclusive. You can specify at most one of these in a request.
-    , loweimaximumPageSize :: Maybe Int
+    , loweiMaximumPageSize :: Maybe Int
       -- ^ The maximum number of results returned in each page. The default is 100,
       -- but the caller can override this value to a page size smaller than the
       -- default. You cannot specify a page size greater than 100. Note that the
       -- number of executions may be less than the maxiumum page size, in which
       -- case, the returned page will have fewer results than the maximumPageSize
       -- specified.
-    , loweinextPageToken :: Maybe Text
+    , loweiNextPageToken :: Maybe Text
       -- ^ If on a previous call to this method a NextPageToken was returned, the
       -- results are being paginated. To get the next page of results, repeat the
       -- call with the returned token and all other arguments unchanged.
-    , loweireverseOrder :: Maybe Bool
+    , loweiReverseOrder :: Maybe Bool
       -- ^ When set to true, returns the results in reverse order. By default the
       -- results are returned in descending order of the start time of the
       -- executions.
-    , loweistartTimeFilter :: ExecutionTimeFilter
+    , loweiStartTimeFilter :: ExecutionTimeFilter
       -- ^ Workflow executions are included in the returned results based on whether
       -- their start times are within the range specified by this filter.
-    , loweitagFilter :: Maybe TagFilter
+    , loweiTagFilter :: Maybe TagFilter
       -- ^ If specified, only executions that have the matching tag are listed.
       -- executionFilter, typeFilter and tagFilter are mutually exclusive. You can
       -- specify at most one of these in a request.
-    , loweitypeFilter :: Maybe WorkflowTypeFilter
+    , loweiTypeFilter :: Maybe WorkflowTypeFilter
       -- ^ If specified, only executions of the type specified in the filter are
       -- returned. executionFilter, typeFilter and tagFilter are mutually exclusive.
       -- You can specify at most one of these in a request.
@@ -116,9 +116,9 @@ instance AWSRequest ListOpenWorkflowExecutions where
     response = responseJSON
 
 data ListOpenWorkflowExecutionsResponse = ListOpenWorkflowExecutionsResponse
-    { loweirsexecutionInfos :: [WorkflowExecutionInfo]
+    { loweirsExecutionInfos :: [WorkflowExecutionInfo]
       -- ^ The list of workflow information structures.
-    , loweirsnextPageToken :: Maybe Text
+    , loweirsNextPageToken :: Maybe Text
       -- ^ The token of the next page in the result. If set, the results have more
       -- than one page. The next page can be retrieved by repeating the request with
       -- this token and all other arguments unchanged.

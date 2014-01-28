@@ -66,9 +66,9 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DeprecateWorkflowType = DeprecateWorkflowType
-    { dwtjdomain :: !Text
+    { dwtjDomain :: !Text
       -- ^ The name of the domain in which the workflow type is registered.
-    , dwtjworkflowType :: WorkflowType
+    , dwtjWorkflowType :: WorkflowType
       -- ^ The workflow type to deprecate.
     } deriving (Eq, Show, Generic)
 

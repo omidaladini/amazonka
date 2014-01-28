@@ -38,7 +38,7 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeTrustedAdvisorCheckSummaries = DescribeTrustedAdvisorCheckSummaries
-    { dtacsrcheckIds :: [Text]
+    { dtacsrCheckIds :: [Text]
       -- ^ The IDs of the Trusted Advisor checks.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest DescribeTrustedAdvisorCheckSummaries where
     response = responseJSON
 
 data DescribeTrustedAdvisorCheckSummariesResponse = DescribeTrustedAdvisorCheckSummariesResponse
-    { dtacsrrssummaries :: [TrustedAdvisorCheckSummary]
+    { dtacsrrsSummaries :: [TrustedAdvisorCheckSummary]
       -- ^ The summary information for the requested Trusted Advisor checks.
     } deriving (Eq, Show, Generic)
 

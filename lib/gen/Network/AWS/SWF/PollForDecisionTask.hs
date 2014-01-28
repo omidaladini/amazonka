@@ -97,20 +97,20 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data PollForDecisionTask = PollForDecisionTask
-    { pfdtidomain :: !Text
+    { pfdtiDomain :: !Text
       -- ^ The name of the domain containing the task lists to poll.
-    , pfdtiidentity :: Maybe Text
+    , pfdtiIdentity :: Maybe Text
       -- ^ Identity of the decider making the request, which is recorded in the
       -- DecisionTaskStarted event in the workflow history. This enables diagnostic
       -- tracing when problems arise. The form of this identity is user defined.
-    , pfdtimaximumPageSize :: Maybe Int
+    , pfdtiMaximumPageSize :: Maybe Int
       -- ^ The maximum number of history events returned in each page. The default is
       -- 100, but the caller can override this value to a page size smaller than the
       -- default. You cannot specify a page size greater than 100. Note that the
       -- number of events may be less than the maxiumum page size, in which case,
       -- the returned page will have fewer results than the maximumPageSize
       -- specified.
-    , pfdtinextPageToken :: Maybe Text
+    , pfdtiNextPageToken :: Maybe Text
       -- ^ If on a previous call to this method a NextPageToken was returned, the
       -- results are being paginated. To get the next page of results, repeat the
       -- call with the returned token and all other arguments unchanged. The
@@ -119,11 +119,11 @@ data PollForDecisionTask = PollForDecisionTask
       -- PollForDecisionTask again (with the nextPageToken) to retrieve the next
       -- page of history records. Calling PollForDecisionTask with a nextPageToken
       -- will not return a new decision task..
-    , pfdtireverseOrder :: Maybe Bool
+    , pfdtiReverseOrder :: Maybe Bool
       -- ^ When set to true, returns the events in reverse order. By default the
       -- results are returned in ascending order of the eventTimestamp of the
       -- events.
-    , pfdtitaskList :: TaskList
+    , pfdtiTaskList :: TaskList
       -- ^ Specifies the task list to poll for decision tasks. The specified string
       -- must not start or end with whitespace. It must not contain a : (colon), /
       -- (slash), | (vertical bar), or any control characters (\u0000-\u001f |
@@ -140,27 +140,27 @@ instance AWSRequest PollForDecisionTask where
     response = responseJSON
 
 data PollForDecisionTaskResponse = PollForDecisionTaskResponse
-    { pfdtirsevents :: [HistoryEvent]
+    { pfdtirsEvents :: [HistoryEvent]
       -- ^ A paginated list of history events of the workflow execution. The decider
       -- uses this during the processing of the decision task.
-    , pfdtirsnextPageToken :: Maybe Text
+    , pfdtirsNextPageToken :: Maybe Text
       -- ^ Returns a value if the results are paginated. To get the next page of
       -- results, repeat the request specifying this token and all other arguments
       -- unchanged.
-    , pfdtirspreviousStartedEventId :: Maybe Integer
+    , pfdtirsPreviousStartedEventId :: Maybe Integer
       -- ^ The id of the DecisionTaskStarted event of the previous decision task of
       -- this workflow execution that was processed by the decider. This can be used
       -- to determine the events in the history new since the last decision task
       -- received by the decider.
-    , pfdtirsstartedEventId :: !Integer
+    , pfdtirsStartedEventId :: !Integer
       -- ^ The id of the DecisionTaskStarted event recorded in the history.
-    , pfdtirstaskToken :: !Text
+    , pfdtirsTaskToken :: !Text
       -- ^ The opaque string used as a handle on the task. This token is used by
       -- workers to communicate progress and response information back to the system
       -- about the task.
-    , pfdtirsworkflowExecution :: WorkflowExecution
+    , pfdtirsWorkflowExecution :: WorkflowExecution
       -- ^ The workflow execution for which this decision task was created.
-    , pfdtirsworkflowType :: WorkflowType
+    , pfdtirsWorkflowType :: WorkflowType
       -- ^ The type of the workflow execution for which this decision task was
       -- created.
     } deriving (Eq, Show, Generic)

@@ -40,17 +40,17 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeCommunications = DescribeCommunications
-    { dcsafterTime :: Maybe Text
+    { dcsAfterTime :: Maybe Text
       -- ^ The start date for a filtered date search on support case communications.
-    , dcsbeforeTime :: Maybe Text
+    , dcsBeforeTime :: Maybe Text
       -- ^ The end date for a filtered date search on support case communications.
-    , dcscaseId :: !Text
+    , dcsCaseId :: !Text
       -- ^ The AWS Support case ID requested or returned in the call. The case ID is
       -- an alphanumeric string formatted as shown in this example:
       -- case-12345678910-2013-c4c1d2bf33c5cf47.
-    , dcsmaxResults :: Maybe Int
+    , dcsMaxResults :: Maybe Int
       -- ^ The maximum number of results to return before paginating.
-    , dcsnextToken :: Maybe Text
+    , dcsNextToken :: Maybe Text
       -- ^ A resumption point for pagination.
     } deriving (Eq, Show, Generic)
 
@@ -63,9 +63,9 @@ instance AWSRequest DescribeCommunications where
     response = responseJSON
 
 data DescribeCommunicationsResponse = DescribeCommunicationsResponse
-    { dcsrscommunications :: [Communication]
+    { dcsrsCommunications :: [Communication]
       -- ^ The communications for the case.
-    , dcsrsnextToken :: Maybe Text
+    , dcsrsNextToken :: Maybe Text
       -- ^ A resumption point for pagination.
     } deriving (Eq, Show, Generic)
 

@@ -44,11 +44,11 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeServices = DescribeServices
-    { dsrlanguage :: Maybe Text
+    { dsrLanguage :: Maybe Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS
       -- Support currently supports English ("en") and Japanese ("ja"). Language
       -- parameters must be passed explicitly for operations that take them.
-    , dsrserviceCodeList :: [Text]
+    , dsrServiceCodeList :: [Text]
       -- ^ A JSON-formatted list of service codes available for AWS services.
     } deriving (Eq, Show, Generic)
 
@@ -61,7 +61,7 @@ instance AWSRequest DescribeServices where
     response = responseJSON
 
 data DescribeServicesResponse = DescribeServicesResponse
-    { dsrrsservices :: [Service]
+    { dsrrsServices :: [Service]
       -- ^ A JSON-formatted list of AWS services.
     } deriving (Eq, Show, Generic)
 

@@ -50,7 +50,7 @@ instance AWSRequest DescribeVirtualGateways where
     response = responseJSON
 
 data DescribeVirtualGatewaysResponse = DescribeVirtualGatewaysResponse
-    { vgvirtualGateways :: [VirtualGateway]
+    { vgVirtualGateways :: [VirtualGateway]
       -- ^ A list of virtual private gateways.
     } deriving (Eq, Show, Generic)
 

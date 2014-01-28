@@ -112,7 +112,7 @@ data CreateAutoScalingGroup = CreateAutoScalingGroup
       -- that they are listed. For more information on configuring a termination
       -- policy for your Auto Scaling group, see Instance Termination Policy for
       -- Your Auto Scaling Group in the Auto Scaling Developer Guide.
-    , casgtvpcZoneIdentifier :: Maybe Text
+    , casgtVpcZoneIdentifier :: Maybe Text
       -- ^ A comma-separated list of subnet identifiers of Amazon Virtual Private
       -- Clouds (Amazon VPCs). If you specify subnets and Availability Zones with
       -- this call, ensure that the subnets' Availability Zones match the

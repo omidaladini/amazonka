@@ -65,9 +65,9 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DeprecateActivityType = DeprecateActivityType
-    { datjactivityType :: ActivityType
+    { datjActivityType :: ActivityType
       -- ^ The activity type to deprecate.
-    , datjdomain :: !Text
+    , datjDomain :: !Text
       -- ^ The name of the domain in which the activity type is registered.
     } deriving (Eq, Show, Generic)
 

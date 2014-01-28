@@ -69,7 +69,7 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data RegisterWorkflowType = RegisterWorkflowType
-    { rwtidefaultChildPolicy :: Maybe ChildPolicy
+    { rwtiDefaultChildPolicy :: Maybe ChildPolicy
       -- ^ If set, specifies the default policy to use for the child workflow
       -- executions when a workflow execution of this type is terminated, by calling
       -- the TerminateWorkflowExecution action explicitly or due to an expired
@@ -81,7 +81,7 @@ data RegisterWorkflowType = RegisterWorkflowType
       -- event in its history. It is up to the decider to take appropriate actions
       -- when it receives an execution history with this event. ABANDON: no action
       -- will be taken. The child executions will continue to run.
-    , rwtidefaultExecutionStartToCloseTimeout :: Maybe Text
+    , rwtiDefaultExecutionStartToCloseTimeout :: Maybe Text
       -- ^ If set, specifies the default maximum duration for executions of this
       -- workflow type. You can override this default when starting an execution
       -- through the StartWorkflowExecution Action or StartChildWorkflowExecution
@@ -91,28 +91,28 @@ data RegisterWorkflowType = RegisterWorkflowType
       -- defaultExecutionStartToCloseTimeout; there is a one-year max limit on the
       -- time that a workflow execution can run. Exceeding this limit will always
       -- cause the workflow execution to time out.
-    , rwtidefaultTaskList :: Maybe TaskList
+    , rwtiDefaultTaskList :: Maybe TaskList
       -- ^ If set, specifies the default task list to use for scheduling decision
       -- tasks for executions of this workflow type. This default is used only if a
       -- task list is not provided when starting the execution through the
       -- StartWorkflowExecution Action or StartChildWorkflowExecution Decision.
-    , rwtidefaultTaskStartToCloseTimeout :: Maybe Text
+    , rwtiDefaultTaskStartToCloseTimeout :: Maybe Text
       -- ^ If set, specifies the default maximum duration of decision tasks for this
       -- workflow type. This default can be overridden when starting a workflow
       -- execution using the StartWorkflowExecution action or the
       -- StartChildWorkflowExecution Decision. The valid values are integers greater
       -- than or equal to 0. An integer value can be used to specify the duration in
       -- seconds while NONE can be used to specify unlimited duration.
-    , rwtidescription :: Maybe Text
+    , rwtiDescription :: Maybe Text
       -- ^ Textual description of the workflow type.
-    , rwtidomain :: !Text
+    , rwtiDomain :: !Text
       -- ^ The name of the domain in which to register the workflow type.
-    , rwtiname :: !Text
+    , rwtiName :: !Text
       -- ^ The name of the workflow type. The specified string must not start or end
       -- with whitespace. It must not contain a : (colon), / (slash), | (vertical
       -- bar), or any control characters (\u0000-\u001f | \u007f - \u009f). Also, it
       -- must not contain the literal string &quot;arn&quot;.
-    , rwtiversion :: !Text
+    , rwtiVersion :: !Text
       -- ^ The version of the workflow type. The workflow type consists of the name
       -- and version, the combination of which must be unique within the domain. To
       -- get a list of all currently registered workflow types, use the

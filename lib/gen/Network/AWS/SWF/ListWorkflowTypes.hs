@@ -63,23 +63,23 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data ListWorkflowTypes = ListWorkflowTypes
-    { lwtidomain :: !Text
+    { lwtiDomain :: !Text
       -- ^ The name of the domain in which the workflow types have been registered.
-    , lwtimaximumPageSize :: Maybe Int
+    , lwtiMaximumPageSize :: Maybe Int
       -- ^ The maximum number of results returned in each page. The default is 100,
       -- but the caller can override this value to a page size smaller than the
       -- default. You cannot specify a page size greater than 100. Note that the
       -- number of types may be less than the maxiumum page size, in which case, the
       -- returned page will have fewer results than the maximumPageSize specified.
-    , lwtiname :: Maybe Text
+    , lwtiName :: Maybe Text
       -- ^ If specified, lists the workflow type with this name.
-    , lwtinextPageToken :: Maybe Text
+    , lwtiNextPageToken :: Maybe Text
       -- ^ If on a previous call to this method a NextPageToken was returned, the
       -- results are being paginated. To get the next page of results, repeat the
       -- call with the returned token and all other arguments unchanged.
-    , lwtiregistrationStatus :: !RegistrationStatus
+    , lwtiRegistrationStatus :: !RegistrationStatus
       -- ^ Specifies the registration status of the workflow types to list.
-    , lwtireverseOrder :: Maybe Bool
+    , lwtiReverseOrder :: Maybe Bool
       -- ^ When set to true, returns the results in reverse order. By default the
       -- results are returned in ascending alphabetical order of the name of the
       -- workflow types.
@@ -94,12 +94,12 @@ instance AWSRequest ListWorkflowTypes where
     response = responseJSON
 
 data ListWorkflowTypesResponse = ListWorkflowTypesResponse
-    { lwtirsnextPageToken :: Maybe Text
+    { lwtirsNextPageToken :: Maybe Text
       -- ^ The token for the next page of type information. If set then the list
       -- consists of more than one page. You can retrieve the next page by repeating
       -- the request (that returned the structure) with the this token and all other
       -- arguments unchanged.
-    , lwtirstypeInfos :: [WorkflowTypeInfo]
+    , lwtirsTypeInfos :: [WorkflowTypeInfo]
       -- ^ The list of workflow type information.
     } deriving (Eq, Show, Generic)
 

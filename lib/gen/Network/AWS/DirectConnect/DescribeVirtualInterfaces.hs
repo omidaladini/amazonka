@@ -44,9 +44,9 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data DescribeVirtualInterfaces = DescribeVirtualInterfaces
-    { dvirconnectionId :: Maybe Text
+    { dvirConnectionId :: Maybe Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.
-    , dvirvirtualInterfaceId :: Maybe Text
+    , dvirVirtualInterfaceId :: Maybe Text
       -- ^ ID of the virtual interface. Example: dxvif-123dfg56 Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -59,7 +59,7 @@ instance AWSRequest DescribeVirtualInterfaces where
     response = responseJSON
 
 data DescribeVirtualInterfacesResponse = DescribeVirtualInterfacesResponse
-    { dvirrsvirtualInterfaces :: [VirtualInterface]
+    { dvirrsVirtualInterfaces :: [VirtualInterface]
       -- ^ A list of virtual interfaces.
     } deriving (Eq, Show, Generic)
 

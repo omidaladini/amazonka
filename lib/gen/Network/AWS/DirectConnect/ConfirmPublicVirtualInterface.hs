@@ -37,7 +37,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data ConfirmPublicVirtualInterface = ConfirmPublicVirtualInterface
-    { cpvitvirtualInterfaceId :: !Text
+    { cpvitVirtualInterfaceId :: !Text
       -- ^ ID of the virtual interface. Example: dxvif-123dfg56 Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -50,7 +50,7 @@ instance AWSRequest ConfirmPublicVirtualInterface where
     response = responseJSON
 
 data ConfirmPublicVirtualInterfaceResponse = ConfirmPublicVirtualInterfaceResponse
-    { cpvitrsvirtualInterfaceState :: Maybe VirtualInterfaceState
+    { cpvitrsVirtualInterfaceState :: Maybe VirtualInterfaceState
       -- ^ State of the virtual interface. Confirming: The creation of the virtual
       -- interface is pending confirmation from the virtual interface owner. If the
       -- owner of the virtual interface is different from the owner of the

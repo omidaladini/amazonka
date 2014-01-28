@@ -535,7 +535,7 @@ data AutoScalingGroup = AutoScalingGroup
     , asgTerminationPolicies :: [Text]
       -- ^ A standalone termination policy or a list of termination policies for this
       -- Auto Scaling group.
-    , asgvpcZoneIdentifier :: Maybe Text
+    , asgVpcZoneIdentifier :: Maybe Text
       -- ^ The subnet identifier for the Amazon VPC connection, if applicable. You can
       -- specify several subnets in a comma-separated list. When you specify
       -- VPCZoneIdentifier with AvailabilityZones, ensure that the subnets'

@@ -48,7 +48,7 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data DeletePipeline = DeletePipeline
-    { dpjpipelineId :: !Text
+    { dpjPipelineId :: !Text
       -- ^ The identifier of the pipeline to be deleted.
     } deriving (Eq, Show, Generic)
 

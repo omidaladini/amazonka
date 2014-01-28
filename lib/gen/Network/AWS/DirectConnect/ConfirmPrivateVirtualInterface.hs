@@ -38,12 +38,12 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data ConfirmPrivateVirtualInterface = ConfirmPrivateVirtualInterface
-    { cpvirvirtualGatewayId :: !Text
+    { cpvirVirtualGatewayId :: !Text
       -- ^ ID of the virtual private gateway that will be attached to the virtual
       -- interface. A virtual private gateway can be managed via the Amazon Virtual
       -- Private Cloud (VPC) console or the EC2 CreateVpnGateway action. Default:
       -- None.
-    , cpvirvirtualInterfaceId :: !Text
+    , cpvirVirtualInterfaceId :: !Text
       -- ^ ID of the virtual interface. Example: dxvif-123dfg56 Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -56,7 +56,7 @@ instance AWSRequest ConfirmPrivateVirtualInterface where
     response = responseJSON
 
 data ConfirmPrivateVirtualInterfaceResponse = ConfirmPrivateVirtualInterfaceResponse
-    { cpvirrsvirtualInterfaceState :: Maybe VirtualInterfaceState
+    { cpvirrsVirtualInterfaceState :: Maybe VirtualInterfaceState
       -- ^ State of the virtual interface. Confirming: The creation of the virtual
       -- interface is pending confirmation from the virtual interface owner. If the
       -- owner of the virtual interface is different from the owner of the

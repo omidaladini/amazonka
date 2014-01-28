@@ -64,7 +64,7 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DeprecateDomain = DeprecateDomain
-    { ddjname :: !Text
+    { ddjName :: !Text
       -- ^ The name of the domain to deprecate.
     } deriving (Eq, Show, Generic)
 

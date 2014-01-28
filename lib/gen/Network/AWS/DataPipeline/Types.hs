@@ -35,9 +35,9 @@ import Network.AWS.DataPipeline.Service
 -- activation. The set of validation warnings that can be returned are defined
 -- by AWS Data Pipeline.
 data ValidationWarning = ValidationWarning
-    { vwid :: Maybe Text
+    { vwId :: Maybe Text
       -- ^ The identifier of the object that contains the validation warning.
-    , vwwarnings :: [Text]
+    , vwWarnings :: [Text]
       -- ^ A description of the validation warning.
     } deriving (Eq, Show, Generic)
 
@@ -49,9 +49,9 @@ instance ToJSON ValidationWarning
 -- The set of validation errors that can be returned are defined by AWS Data
 -- Pipeline.
 data ValidationError = ValidationError
-    { veerrors :: [Text]
+    { veErrors :: [Text]
       -- ^ A description of the validation error.
-    , veid :: Maybe Text
+    , veId :: Maybe Text
       -- ^ The identifier of the object that contains the validation error.
     } deriving (Eq, Show, Generic)
 
@@ -65,15 +65,15 @@ instance ToJSON ValidationError
 -- assigned. The calling task runner uses taskId in subsequent calls to
 -- ReportTaskProgress and SetTaskStatus.
 data TaskObject = TaskObject
-    { toattemptId :: Maybe Text
+    { toAttemptId :: Maybe Text
       -- ^ Identifier of the pipeline task attempt object. AWS Data Pipeline uses this
       -- value to track how many times a task is attempted.
-    , toobjects :: HashMap Text PipelineObject
+    , toObjects :: HashMap Text PipelineObject
       -- ^ Connection information for the location where the task runner will publish
       -- the output of the task.
-    , topipelineId :: Maybe Text
+    , toPipelineId :: Maybe Text
       -- ^ Identifier of the pipeline that provided the task.
-    , totaskId :: Maybe Text
+    , toTaskId :: Maybe Text
       -- ^ An internal identifier for the task. This ID is passed to the SetTaskStatus
       -- and ReportTaskProgress actions.
     } deriving (Eq, Show, Generic)
@@ -84,12 +84,12 @@ instance ToJSON TaskObject
 -- | A comparision that is used to determine whether a query should return this
 -- object.
 data Selector = Selector
-    { sfieldName :: Maybe Text
+    { sFieldName :: Maybe Text
       -- ^ The name of the field that the operator will be applied to. The field name
       -- is the "key" portion of the field definition in the pipeline definition
       -- syntax that is used by the AWS Data Pipeline API. If the field is not set
       -- on the object, the condition fails.
-    , soperator :: Maybe Operator
+    , sOperator :: Maybe Operator
       -- ^ Contains a logical operation for comparing the value of a field with a
       -- specified value.
     } deriving (Eq, Show, Generic)
@@ -102,7 +102,7 @@ instance ToJSON Selector
 -- top-level String fields in the object. These filters can be applied to
 -- components, instances, and attempts.
 newtype Query = Query
-    { qselectors :: [Selector]
+    { qSelectors :: [Selector]
       -- ^ List of selectors that define the query. An object must satisfy all of the
       -- selectors to match the query.
     } deriving (Eq, Show, Generic)
@@ -114,11 +114,11 @@ instance ToJSON Query
 -- physical, or physical attempt pipeline object. The complete set of
 -- components of a pipeline defines the pipeline.
 data PipelineObject = PipelineObject
-    { pofields :: [Field]
+    { poFields :: [Field]
       -- ^ Key-value pairs that define the properties of the object.
-    , poid :: !Text
+    , poId :: !Text
       -- ^ Identifier of the object.
-    , poname :: !Text
+    , poName :: !Text
       -- ^ Name of the object.
     } deriving (Eq, Show, Generic)
 
@@ -127,10 +127,10 @@ instance ToJSON PipelineObject
 
 -- | Contains the name and identifier of a pipeline.
 data PipelineIdName = PipelineIdName
-    { pinid :: Maybe Text
+    { pinId :: Maybe Text
       -- ^ Identifier of the pipeline that was assigned by AWS Data Pipeline. This is
       -- a string of the form df-297EG78HU43EEXAMPLE.
-    , pinname :: Maybe Text
+    , pinName :: Maybe Text
       -- ^ Name of the pipeline.
     } deriving (Eq, Show, Generic)
 
@@ -139,14 +139,14 @@ instance ToJSON PipelineIdName
 
 -- | Contains pipeline metadata.
 data PipelineDescription = PipelineDescription
-    { pddescription :: Maybe Text
+    { pdDescription :: Maybe Text
       -- ^ Description of the pipeline.
-    , pdfields :: [Field]
+    , pdFields :: [Field]
       -- ^ A list of read-only fields that contain metadata about the pipeline:
       -- @userId, @accountId, and @pipelineState.
-    , pdname :: !Text
+    , pdName :: !Text
       -- ^ Name of the pipeline.
-    , pdpipelineId :: !Text
+    , pdPipelineId :: !Text
       -- ^ The pipeline identifier that was assigned by AWS Data Pipeline. This is a
       -- string of the form df-297EG78HU43EEXAMPLE.
     } deriving (Eq, Show, Generic)
@@ -157,7 +157,7 @@ instance ToJSON PipelineDescription
 -- | Contains a logical operation for comparing the value of a field with a
 -- specified value.
 data Operator = Operator
-    { otype :: Maybe OperatorType
+    { oType :: Maybe OperatorType
       -- ^ The logical operation to be performed: equal (EQ), equal reference
       -- (REF_EQ), less than or equal (LE), greater than or equal (GE), or between
       -- (BETWEEN). Equal reference (REF_EQ) can be used only with reference fields.
@@ -173,7 +173,7 @@ data Operator = Operator
       -- alpha-numeric values, as symbols may be reserved by AWS Data Pipeline.
       -- User-defined fields that you add to a pipeline should prefix their name
       -- with the string "my".
-    , ovalues :: [Text]
+    , oValues :: [Text]
       -- ^ The value that the actual field value will be compared with.
     } deriving (Eq, Show, Generic)
 
@@ -188,11 +188,11 @@ instance ToJSON Operator
 -- running on an EC2 instance, and ensures the proper AWS Data Pipeline
 -- service charges are applied to your pipeline.
 data InstanceIdentity = InstanceIdentity
-    { iidocument :: Maybe Text
+    { iiDocument :: Maybe Text
       -- ^ A description of an Amazon EC2 instance that is generated when the instance
       -- is launched and exposed to the instance via the instance metadata service
       -- in the form of a JSON representation of an object.
-    , iisignature :: Maybe Text
+    , iiSignature :: Maybe Text
       -- ^ A signature which can be used to verify the accuracy and authenticity of
       -- the information provided in the instance identity document.
     } deriving (Eq, Show, Generic)
@@ -204,11 +204,11 @@ instance ToJSON InstanceIdentity
 -- is specified as either a string value (StringValue) or a reference to
 -- another object (RefValue) but not as both.
 data Field = Field
-    { fkey :: !Text
+    { fKey :: !Text
       -- ^ The field identifier.
-    , frefValue :: Maybe Text
+    , fRefValue :: Maybe Text
       -- ^ The field value, expressed as the identifier of another object.
-    , fstringValue :: Maybe Text
+    , fStringValue :: Maybe Text
       -- ^ The field value, expressed as a String.
     } deriving (Eq, Show, Generic)
 

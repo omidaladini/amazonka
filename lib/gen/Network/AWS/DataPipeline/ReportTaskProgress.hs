@@ -55,7 +55,7 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data ReportTaskProgress = ReportTaskProgress
-    { rtpitaskId :: !Text
+    { rtpiTaskId :: !Text
       -- ^ Identifier of the task assigned to the task runner. This value is provided
       -- in the TaskObject that the service returns with the response for the
       -- PollForTask action.
@@ -70,7 +70,7 @@ instance AWSRequest ReportTaskProgress where
     response = responseJSON
 
 data ReportTaskProgressResponse = ReportTaskProgressResponse
-    { rtpirscanceled :: !Bool
+    { rtpirsCanceled :: !Bool
       -- ^ If True, the calling task runner should cancel processing of the task. The
       -- task runner does not need to call SetTaskStatus for canceled tasks.
     } deriving (Eq, Show, Generic)

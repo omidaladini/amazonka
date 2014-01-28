@@ -53,9 +53,9 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data GetPipelineDefinition = GetPipelineDefinition
-    { gpdipipelineId :: !Text
+    { gpdiPipelineId :: !Text
       -- ^ The identifier of the pipeline.
-    , gpdiversion :: Maybe Text
+    , gpdiVersion :: Maybe Text
       -- ^ The version of the pipeline definition to retrieve. This parameter accepts
       -- the values latest (default) and active. Where latest indicates the last
       -- definition saved to the pipeline and active indicates the last definition
@@ -71,7 +71,7 @@ instance AWSRequest GetPipelineDefinition where
     response = responseJSON
 
 data GetPipelineDefinitionResponse = GetPipelineDefinitionResponse
-    { gpdirspipelineObjects :: [PipelineObject]
+    { gpdirsPipelineObjects :: [PipelineObject]
       -- ^ An array of objects defined in the pipeline.
     } deriving (Eq, Show, Generic)
 

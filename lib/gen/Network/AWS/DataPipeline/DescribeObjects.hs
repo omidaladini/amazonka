@@ -51,19 +51,19 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data DescribeObjects = DescribeObjects
-    { doievaluateExpressions :: Maybe Bool
+    { doiEvaluateExpressions :: Maybe Bool
       -- ^ Indicates whether any expressions in the object should be evaluated when
       -- the object descriptions are returned.
-    , doimarker :: Maybe Text
+    , doiMarker :: Maybe Text
       -- ^ The starting point for the results to be returned. The first time you call
       -- DescribeObjects, this value should be empty. As long as the action returns
       -- HasMoreResults as True, you can call DescribeObjects again and pass the
       -- marker value from the response to retrieve the next set of results.
-    , doiobjectIds :: [Text]
+    , doiObjectIds :: [Text]
       -- ^ Identifiers of the pipeline objects that contain the definitions to be
       -- described. You can pass as many as 25 identifiers in a single call to
       -- DescribeObjects.
-    , doipipelineId :: !Text
+    , doiPipelineId :: !Text
       -- ^ Identifier of the pipeline that contains the object definitions.
     } deriving (Eq, Show, Generic)
 
@@ -76,12 +76,12 @@ instance AWSRequest DescribeObjects where
     response = responseJSON
 
 data DescribeObjectsResponse = DescribeObjectsResponse
-    { doirshasMoreResults :: Maybe Bool
+    { doirsHasMoreResults :: Maybe Bool
       -- ^ If True, there are more pages of results to return.
-    , doirsmarker :: Maybe Text
+    , doirsMarker :: Maybe Text
       -- ^ The starting point for the next page of results. To view the next page of
       -- results, call DescribeObjects again with this marker value.
-    , doirspipelineObjects :: [PipelineObject]
+    , doirsPipelineObjects :: [PipelineObject]
       -- ^ An array of object definitions that are returned by the call to
       -- DescribeObjects.
     } deriving (Eq, Show, Generic)

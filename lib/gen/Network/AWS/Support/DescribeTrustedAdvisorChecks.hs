@@ -38,7 +38,7 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeTrustedAdvisorChecks = DescribeTrustedAdvisorChecks
-    { dtacrlanguage :: !Text
+    { dtacrLanguage :: !Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS
       -- Support currently supports English ("en") and Japanese ("ja"). Language
       -- parameters must be passed explicitly for operations that take them.
@@ -53,7 +53,7 @@ instance AWSRequest DescribeTrustedAdvisorChecks where
     response = responseJSON
 
 data DescribeTrustedAdvisorChecksResponse = DescribeTrustedAdvisorChecksResponse
-    { dtacrrschecks :: [TrustedAdvisorCheckDescription]
+    { dtacrrsChecks :: [TrustedAdvisorCheckDescription]
       -- ^ Information about all available Trusted Advisor checks.
     } deriving (Eq, Show, Generic)
 

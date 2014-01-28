@@ -38,7 +38,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data ConfirmConnection = ConfirmConnection
-    { ccsconnectionId :: !Text
+    { ccsConnectionId :: !Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest ConfirmConnection where
     response = responseJSON
 
 data ConfirmConnectionResponse = ConfirmConnectionResponse
-    { ccsrsconnectionState :: Maybe ConnectionState
+    { ccsrsConnectionState :: Maybe ConnectionState
       -- ^ State of the connection. Ordering: The initial state of a hosted connection
       -- provisioned on an interconnect. The connection stays in the ordering state
       -- until the owner of the hosted connection confirms or declines the

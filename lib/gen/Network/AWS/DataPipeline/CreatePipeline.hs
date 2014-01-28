@@ -44,13 +44,13 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data CreatePipeline = CreatePipeline
-    { cpidescription :: Maybe Text
+    { cpiDescription :: Maybe Text
       -- ^ The description of the new pipeline.
-    , cpiname :: !Text
+    , cpiName :: !Text
       -- ^ The name of the new pipeline. You can use the same name for multiple
       -- pipelines associated with your AWS account, because AWS Data Pipeline
       -- assigns each new pipeline a unique pipeline identifier.
-    , cpiuniqueId :: !Text
+    , cpiUniqueId :: !Text
       -- ^ A unique identifier that you specify. This identifier is not the same as
       -- the pipeline identifier assigned by AWS Data Pipeline. You are responsible
       -- for defining the format and ensuring the uniqueness of this identifier. You
@@ -74,7 +74,7 @@ instance AWSRequest CreatePipeline where
     response = responseJSON
 
 data CreatePipelineResponse = CreatePipelineResponse
-    { cpirspipelineId :: !Text
+    { cpirsPipelineId :: !Text
       -- ^ The ID that AWS Data Pipeline assigns the newly created pipeline. The ID is
       -- a string of the form: df-06372391ZG65EXAMPLE.
     } deriving (Eq, Show, Generic)

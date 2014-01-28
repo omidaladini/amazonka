@@ -101,11 +101,11 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory
-    { gwehidomain :: !Text
+    { gwehiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution.
-    , gwehiexecution :: WorkflowExecution
+    , gwehiExecution :: WorkflowExecution
       -- ^ Specifies the workflow execution for which to return the history.
-    , gwehimaximumPageSize :: Maybe Int
+    , gwehiMaximumPageSize :: Maybe Int
       -- ^ Specifies the maximum number of history events returned in one page. The
       -- next page in the result is identified by the NextPageToken returned. By
       -- default 100 history events are returned in a page but the caller can
@@ -113,11 +113,11 @@ data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory
       -- specify a page size larger than 100. Note that the number of events may be
       -- less than the maxiumum page size, in which case, the returned page will
       -- have fewer results than the maximumPageSize specified.
-    , gwehinextPageToken :: Maybe Text
+    , gwehiNextPageToken :: Maybe Text
       -- ^ If a NextPageToken is returned, the result has more than one pages. To get
       -- the next page, repeat the call and specify the nextPageToken with all other
       -- arguments unchanged.
-    , gwehireverseOrder :: Maybe Bool
+    , gwehiReverseOrder :: Maybe Bool
       -- ^ When set to true, returns the events in reverse order. By default the
       -- results are returned in ascending order of the eventTimeStamp of the
       -- events.
@@ -132,9 +132,9 @@ instance AWSRequest GetWorkflowExecutionHistory where
     response = responseJSON
 
 data GetWorkflowExecutionHistoryResponse = GetWorkflowExecutionHistoryResponse
-    { gwehirsevents :: [HistoryEvent]
+    { gwehirsEvents :: [HistoryEvent]
       -- ^ The list of history events.
-    , gwehirsnextPageToken :: Maybe Text
+    , gwehirsNextPageToken :: Maybe Text
       -- ^ The token for the next page. If set, the history consists of more than one
       -- page and the next page can be retrieved by repeating the request with this
       -- token and all other arguments unchanged.

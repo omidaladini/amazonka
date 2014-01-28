@@ -83,9 +83,9 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data PutPipelineDefinition = PutPipelineDefinition
-    { ppdipipelineId :: !Text
+    { ppdiPipelineId :: !Text
       -- ^ The identifier of the pipeline to be configured.
-    , ppdipipelineObjects :: [PipelineObject]
+    , ppdiPipelineObjects :: [PipelineObject]
       -- ^ The objects that define the pipeline. These will overwrite the existing
       -- pipeline definition.
     } deriving (Eq, Show, Generic)
@@ -99,14 +99,14 @@ instance AWSRequest PutPipelineDefinition where
     response = responseJSON
 
 data PutPipelineDefinitionResponse = PutPipelineDefinitionResponse
-    { ppdirserrored :: !Bool
+    { ppdirsErrored :: !Bool
       -- ^ If True, there were validation errors. If errored is True, the pipeline
       -- definition is stored but cannot be activated until you correct the pipeline
       -- and call PutPipelineDefinition to commit the corrected pipeline.
-    , ppdirsvalidationErrors :: [ValidationError]
+    , ppdirsValidationErrors :: [ValidationError]
       -- ^ A list of the validation errors that are associated with the objects
       -- defined in pipelineObjects.
-    , ppdirsvalidationWarnings :: [ValidationWarning]
+    , ppdirsValidationWarnings :: [ValidationWarning]
       -- ^ A list of the validation warnings that are associated with the objects
       -- defined in pipelineObjects.
     } deriving (Eq, Show, Generic)

@@ -61,7 +61,7 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DescribeDomain = DescribeDomain
-    { ddiname :: !Text
+    { ddiName :: !Text
       -- ^ The name of the domain to describe.
     } deriving (Eq, Show, Generic)
 
@@ -74,9 +74,9 @@ instance AWSRequest DescribeDomain where
     response = responseJSON
 
 data DescribeDomainResponse = DescribeDomainResponse
-    { ddirsconfiguration :: DomainConfiguration
+    { ddirsConfiguration :: DomainConfiguration
       -- ^ Contains the configuration settings of a domain.
-    , ddirsdomainInfo :: DomainInfo
+    , ddirsDomainInfo :: DomainInfo
       -- ^ Contains general information about a domain.
     } deriving (Eq, Show, Generic)
 

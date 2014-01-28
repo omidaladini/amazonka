@@ -72,9 +72,9 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data ValidatePipelineDefinition = ValidatePipelineDefinition
-    { vpdipipelineId :: !Text
+    { vpdiPipelineId :: !Text
       -- ^ Identifies the pipeline whose definition is to be validated.
-    , vpdipipelineObjects :: [PipelineObject]
+    , vpdiPipelineObjects :: [PipelineObject]
       -- ^ A list of objects that define the pipeline changes to validate against the
       -- pipeline.
     } deriving (Eq, Show, Generic)
@@ -88,11 +88,11 @@ instance AWSRequest ValidatePipelineDefinition where
     response = responseJSON
 
 data ValidatePipelineDefinitionResponse = ValidatePipelineDefinitionResponse
-    { vpdirserrored :: !Bool
+    { vpdirsErrored :: !Bool
       -- ^ If True, there were validation errors.
-    , vpdirsvalidationErrors :: [ValidationError]
+    , vpdirsValidationErrors :: [ValidationError]
       -- ^ Lists the validation errors that were found by ValidatePipelineDefinition.
-    , vpdirsvalidationWarnings :: [ValidationWarning]
+    , vpdirsValidationWarnings :: [ValidationWarning]
       -- ^ Lists the validation warnings that were found by
       -- ValidatePipelineDefinition.
     } deriving (Eq, Show, Generic)

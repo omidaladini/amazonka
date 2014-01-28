@@ -66,31 +66,31 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data CountClosedWorkflowExecutions = CountClosedWorkflowExecutions
-    { ccweicloseStatusFilter :: Maybe CloseStatusFilter
+    { ccweiCloseStatusFilter :: Maybe CloseStatusFilter
       -- ^ If specified, only workflow executions that match this close status are
       -- counted. This filter has an affect only if executionStatus is specified as
       -- CLOSED. closeStatusFilter, executionFilter, typeFilter and tagFilter are
       -- mutually exclusive. You can specify at most one of these in a request.
-    , ccweicloseTimeFilter :: Maybe ExecutionTimeFilter
+    , ccweiCloseTimeFilter :: Maybe ExecutionTimeFilter
       -- ^ If specified, only workflow executions that meet the close time criteria of
       -- the filter are counted. startTimeFilter and closeTimeFilter are mutually
       -- exclusive. You must specify one of these in a request but not both.
-    , ccweidomain :: !Text
+    , ccweiDomain :: !Text
       -- ^ The name of the domain containing the workflow executions to count.
-    , ccweiexecutionFilter :: Maybe WorkflowExecutionFilter
+    , ccweiExecutionFilter :: Maybe WorkflowExecutionFilter
       -- ^ If specified, only workflow executions matching the WorkflowId in the
       -- filter are counted. closeStatusFilter, executionFilter, typeFilter and
       -- tagFilter are mutually exclusive. You can specify at most one of these in a
       -- request.
-    , ccweistartTimeFilter :: Maybe ExecutionTimeFilter
+    , ccweiStartTimeFilter :: Maybe ExecutionTimeFilter
       -- ^ If specified, only workflow executions that meet the start time criteria of
       -- the filter are counted. startTimeFilter and closeTimeFilter are mutually
       -- exclusive. You must specify one of these in a request but not both.
-    , ccweitagFilter :: Maybe TagFilter
+    , ccweiTagFilter :: Maybe TagFilter
       -- ^ If specified, only executions that have a tag that matches the filter are
       -- counted. closeStatusFilter, executionFilter, typeFilter and tagFilter are
       -- mutually exclusive. You can specify at most one of these in a request.
-    , ccweitypeFilter :: Maybe WorkflowTypeFilter
+    , ccweiTypeFilter :: Maybe WorkflowTypeFilter
       -- ^ If specified, indicates the type of the workflow executions to be counted.
       -- closeStatusFilter, executionFilter, typeFilter and tagFilter are mutually
       -- exclusive. You can specify at most one of these in a request.
@@ -105,9 +105,9 @@ instance AWSRequest CountClosedWorkflowExecutions where
     response = responseJSON
 
 data CountClosedWorkflowExecutionsResponse = CountClosedWorkflowExecutionsResponse
-    { ccweirscount :: !Int
+    { ccweirsCount :: !Int
       -- ^ The number of workflow executions.
-    , ccweirstruncated :: Maybe Bool
+    , ccweirsTruncated :: Maybe Bool
       -- ^ If set to true, indicates that the actual count was more than the maximum
       -- supported by this API and the count returned is the truncated value.
     } deriving (Eq, Show, Generic)

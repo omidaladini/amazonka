@@ -43,11 +43,11 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data CreateConnection = CreateConnection
-    { ccrbandwidth :: !Text
+    { ccrBandwidth :: !Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.
-    , ccrconnectionName :: !Text
+    , ccrConnectionName :: !Text
       -- ^ The name of the connection. Example: "1G Connection to AWS" Default: None.
-    , ccrlocation :: !Text
+    , ccrLocation :: !Text
       -- ^ Where the connection is located. Example: EqSV5 Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -60,13 +60,13 @@ instance AWSRequest CreateConnection where
     response = responseJSON
 
 data CreateConnectionResponse = CreateConnectionResponse
-    { ccrrsbandwidth :: Maybe Text
+    { ccrrsBandwidth :: Maybe Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.
-    , ccrrsconnectionId :: Maybe Text
+    , ccrrsConnectionId :: Maybe Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.
-    , ccrrsconnectionName :: Maybe Text
+    , ccrrsConnectionName :: Maybe Text
       -- ^ The name of the connection. Example: "1G Connection to AWS" Default: None.
-    , ccrrsconnectionState :: Maybe ConnectionState
+    , ccrrsConnectionState :: Maybe ConnectionState
       -- ^ State of the connection. Ordering: The initial state of a hosted connection
       -- provisioned on an interconnect. The connection stays in the ordering state
       -- until the owner of the hosted connection confirms or declines the
@@ -78,14 +78,14 @@ data CreateConnectionResponse = CreateConnectionResponse
       -- Deleted: The connection has been deleted. Rejected: A hosted connection in
       -- the 'Ordering' state will enter the 'Rejected' state if it is deleted by
       -- the end customer.
-    , ccrrslocation :: Maybe Text
+    , ccrrsLocation :: Maybe Text
       -- ^ Where the connection is located. Example: EqSV5 Default: None.
-    , ccrrsownerAccount :: Maybe Text
-    , ccrrspartnerName :: Maybe Text
-    , ccrrsregion :: Maybe Text
+    , ccrrsOwnerAccount :: Maybe Text
+    , ccrrsPartnerName :: Maybe Text
+    , ccrrsRegion :: Maybe Text
       -- ^ The AWS region where the connection is located. Example: us-east-1 Default:
       -- None.
-    , ccrrsvlan :: Maybe Int
+    , ccrrsVlan :: Maybe Int
       -- ^ The VLAN ID. Example: 101.
     } deriving (Eq, Show, Generic)
 

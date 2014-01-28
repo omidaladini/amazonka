@@ -37,18 +37,18 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data AllocateConnectionOnInterconnect = AllocateConnectionOnInterconnect
-    { acoirbandwidth :: !Text
+    { acoirBandwidth :: !Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.
-    , acoirconnectionName :: !Text
+    , acoirConnectionName :: !Text
       -- ^ Name of the provisioned connection. Example: "500M Connection to AWS"
       -- Default: None.
-    , acoirinterconnectId :: !Text
+    , acoirInterconnectId :: !Text
       -- ^ ID of the interconnect on which the connection will be provisioned.
       -- Example: dxcon-456abc78 Default: None.
-    , acoirownerAccount :: !Text
+    , acoirOwnerAccount :: !Text
       -- ^ Numeric account Id of the customer for whom the connection will be
       -- provisioned. Example: 123443215678 Default: None.
-    , acoirvlan :: !Int
+    , acoirVlan :: !Int
       -- ^ The dedicated VLAN provisioned to the connection. Example: 101 Default:
       -- None.
     } deriving (Eq, Show, Generic)
@@ -62,13 +62,13 @@ instance AWSRequest AllocateConnectionOnInterconnect where
     response = responseJSON
 
 data AllocateConnectionOnInterconnectResponse = AllocateConnectionOnInterconnectResponse
-    { acoirrsbandwidth :: Maybe Text
+    { acoirrsBandwidth :: Maybe Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.
-    , acoirrsconnectionId :: Maybe Text
+    , acoirrsConnectionId :: Maybe Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.
-    , acoirrsconnectionName :: Maybe Text
+    , acoirrsConnectionName :: Maybe Text
       -- ^ The name of the connection. Example: "1G Connection to AWS" Default: None.
-    , acoirrsconnectionState :: Maybe ConnectionState
+    , acoirrsConnectionState :: Maybe ConnectionState
       -- ^ State of the connection. Ordering: The initial state of a hosted connection
       -- provisioned on an interconnect. The connection stays in the ordering state
       -- until the owner of the hosted connection confirms or declines the
@@ -80,14 +80,14 @@ data AllocateConnectionOnInterconnectResponse = AllocateConnectionOnInterconnect
       -- Deleted: The connection has been deleted. Rejected: A hosted connection in
       -- the 'Ordering' state will enter the 'Rejected' state if it is deleted by
       -- the end customer.
-    , acoirrslocation :: Maybe Text
+    , acoirrsLocation :: Maybe Text
       -- ^ Where the connection is located. Example: EqSV5 Default: None.
-    , acoirrsownerAccount :: Maybe Text
-    , acoirrspartnerName :: Maybe Text
-    , acoirrsregion :: Maybe Text
+    , acoirrsOwnerAccount :: Maybe Text
+    , acoirrsPartnerName :: Maybe Text
+    , acoirrsRegion :: Maybe Text
       -- ^ The AWS region where the connection is located. Example: us-east-1 Default:
       -- None.
-    , acoirrsvlan :: Maybe Int
+    , acoirrsVlan :: Maybe Int
       -- ^ The VLAN ID. Example: 101.
     } deriving (Eq, Show, Generic)
 

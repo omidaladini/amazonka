@@ -46,11 +46,11 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data EvaluateExpression = EvaluateExpression
-    { eeiexpression :: !Text
+    { eeiExpression :: !Text
       -- ^ The expression to evaluate.
-    , eeiobjectId :: !Text
+    , eeiObjectId :: !Text
       -- ^ The identifier of the object.
-    , eeipipelineId :: !Text
+    , eeiPipelineId :: !Text
       -- ^ The identifier of the pipeline.
     } deriving (Eq, Show, Generic)
 
@@ -63,7 +63,7 @@ instance AWSRequest EvaluateExpression where
     response = responseJSON
 
 data EvaluateExpressionResponse = EvaluateExpressionResponse
-    { eeirsevaluatedExpression :: !Text
+    { eeirsEvaluatedExpression :: !Text
       -- ^ The evaluated expression.
     } deriving (Eq, Show, Generic)
 

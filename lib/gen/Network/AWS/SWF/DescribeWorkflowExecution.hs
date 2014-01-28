@@ -71,9 +71,9 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DescribeWorkflowExecution = DescribeWorkflowExecution
-    { dweidomain :: !Text
+    { dweiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution.
-    , dweiexecution :: WorkflowExecution
+    , dweiExecution :: WorkflowExecution
       -- ^ The workflow execution to describe.
     } deriving (Eq, Show, Generic)
 
@@ -86,21 +86,21 @@ instance AWSRequest DescribeWorkflowExecution where
     response = responseJSON
 
 data DescribeWorkflowExecutionResponse = DescribeWorkflowExecutionResponse
-    { dweirsexecutionConfiguration :: WorkflowExecutionConfiguration
+    { dweirsExecutionConfiguration :: WorkflowExecutionConfiguration
       -- ^ The configuration settings for this workflow execution including timeout
       -- values, tasklist etc.
-    , dweirsexecutionInfo :: WorkflowExecutionInfo
+    , dweirsExecutionInfo :: WorkflowExecutionInfo
       -- ^ Information about the workflow execution.
-    , dweirslatestActivityTaskTimestamp :: Maybe UTCTime
+    , dweirsLatestActivityTaskTimestamp :: Maybe UTCTime
       -- ^ The time when the last activity task was scheduled for this workflow
       -- execution. You can use this information to determine if the workflow has
       -- not made progress for an unusually long period of time and might require a
       -- corrective action.
-    , dweirslatestExecutionContext :: Maybe Text
+    , dweirsLatestExecutionContext :: Maybe Text
       -- ^ The latest executionContext provided by the decider for this workflow
       -- execution. A decider can provide an executionContext, which is a free form
       -- string, when closing a decision task using RespondDecisionTaskCompleted.
-    , dweirsopenCounts :: WorkflowExecutionOpenCounts
+    , dweirsOpenCounts :: WorkflowExecutionOpenCounts
       -- ^ The number of tasks for this workflow execution. This includes open and
       -- closed tasks of all types.
     } deriving (Eq, Show, Generic)

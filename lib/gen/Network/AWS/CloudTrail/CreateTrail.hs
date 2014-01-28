@@ -54,7 +54,7 @@ data CreateTrail = CreateTrail
     , ctrSnsTopicName :: Maybe Text
       -- ^ Specifies the name of the Amazon SNS topic defined for notification of log
       -- file delivery.
-    , ctrtrail :: Maybe Trail
+    , ctrTrail :: Maybe Trail
       -- ^ Support for passing a Trail object in the CreateTrail or UpdateTrail
       -- actions will end as early as February 15, 2014. Instead of the Trail object
       -- and its members, use the parameters listed for these actions.
@@ -83,7 +83,7 @@ data CreateTrailResponse = CreateTrailResponse
     , ctrrsSnsTopicName :: Maybe Text
       -- ^ Specifies the name of the Amazon SNS topic defined for notification of log
       -- file delivery.
-    , ctrrstrail :: Maybe Trail
+    , ctrrsTrail :: Maybe Trail
       -- ^ Support for passing a Trail object in the CreateTrail or UpdateTrail
       -- actions will end as early as February 15, 2014. Instead of the Trail object
       -- and its members, use the parameters listed for these actions.

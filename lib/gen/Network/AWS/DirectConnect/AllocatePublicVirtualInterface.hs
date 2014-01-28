@@ -41,13 +41,13 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data AllocatePublicVirtualInterface = AllocatePublicVirtualInterface
-    { apvisconnectionId :: !Text
+    { apvisConnectionId :: !Text
       -- ^ The connection ID on which the public virtual interface is provisioned.
       -- Default: None.
-    , apvisnewPublicVirtualInterfaceAllocation :: NewPublicVirtualInterfaceAllocation
+    , apvisNewPublicVirtualInterfaceAllocation :: NewPublicVirtualInterfaceAllocation
       -- ^ Detailed information for the public virtual interface to be provisioned.
       -- Default: None.
-    , apvisownerAccount :: !Text
+    , apvisOwnerAccount :: !Text
       -- ^ The AWS account that will own the new public virtual interface. Default:
       -- None.
     } deriving (Eq, Show, Generic)
@@ -61,34 +61,34 @@ instance AWSRequest AllocatePublicVirtualInterface where
     response = responseJSON
 
 data AllocatePublicVirtualInterfaceResponse = AllocatePublicVirtualInterfaceResponse
-    { apvisrsamazonAddress :: Maybe Text
+    { apvisrsAmazonAddress :: Maybe Text
       -- ^ IP address assigned to the Amazon interface. Example: 192.168.1.1/30.
-    , apvisrsasn :: Maybe Int
+    , apvisrsAsn :: Maybe Int
       -- ^ Autonomous system (AS) number for Border Gateway Protocol (BGP)
       -- configuration. Example: 65000.
-    , apvisrsauthKey :: Maybe Text
+    , apvisrsAuthKey :: Maybe Text
       -- ^ Authentication key for BGP configuration. Example: asdf34example.
-    , apvisrsconnectionId :: Maybe Text
+    , apvisrsConnectionId :: Maybe Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.
-    , apvisrscustomerAddress :: Maybe Text
+    , apvisrsCustomerAddress :: Maybe Text
       -- ^ IP address assigned to the customer interface. Example: 192.168.1.2/30.
-    , apvisrscustomerRouterConfig :: Maybe Text
+    , apvisrsCustomerRouterConfig :: Maybe Text
       -- ^ Information for generating the customer router configuration.
-    , apvisrslocation :: Maybe Text
+    , apvisrsLocation :: Maybe Text
       -- ^ Where the connection is located. Example: EqSV5 Default: None.
-    , apvisrsownerAccount :: Maybe Text
-    , apvisrsrouteFilterPrefixes :: [RouteFilterPrefix]
+    , apvisrsOwnerAccount :: Maybe Text
+    , apvisrsRouteFilterPrefixes :: [RouteFilterPrefix]
       -- ^ A list of routes to be advertised to the AWS network in this region (public
       -- virtual interface) or your VPC (private virtual interface).
-    , apvisrsvirtualGatewayId :: Maybe Text
+    , apvisrsVirtualGatewayId :: Maybe Text
       -- ^ The ID of the virtual private gateway to a VPC. This only applies to
       -- private virtual interfaces. Example: vgw-123er56.
-    , apvisrsvirtualInterfaceId :: Maybe Text
+    , apvisrsVirtualInterfaceId :: Maybe Text
       -- ^ ID of the virtual interface. Example: dxvif-123dfg56 Default: None.
-    , apvisrsvirtualInterfaceName :: Maybe Text
+    , apvisrsVirtualInterfaceName :: Maybe Text
       -- ^ The name of the virtual interface assigned by the customer. Example: "My
       -- VPC".
-    , apvisrsvirtualInterfaceState :: Maybe VirtualInterfaceState
+    , apvisrsVirtualInterfaceState :: Maybe VirtualInterfaceState
       -- ^ State of the virtual interface. Confirming: The creation of the virtual
       -- interface is pending confirmation from the virtual interface owner. If the
       -- owner of the virtual interface is different from the owner of the
@@ -105,10 +105,10 @@ data AllocatePublicVirtualInterfaceResponse = AllocatePublicVirtualInterfaceResp
       -- interface owner has declined creation of the virtual interface. If a
       -- virtual interface in the 'Confirming' state is deleted by the virtual
       -- interface owner, the virtual interface will enter the 'Rejected' state.
-    , apvisrsvirtualInterfaceType :: Maybe Text
+    , apvisrsVirtualInterfaceType :: Maybe Text
       -- ^ The type of virtual interface. Example: private (Amazon VPC) or public
       -- (Amazon S3, Amazon DynamoDB, and so on.).
-    , apvisrsvlan :: Maybe Int
+    , apvisrsVlan :: Maybe Int
       -- ^ The VLAN ID. Example: 101.
     } deriving (Eq, Show, Generic)
 

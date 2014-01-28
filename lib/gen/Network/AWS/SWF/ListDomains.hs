@@ -73,20 +73,20 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data ListDomains = ListDomains
-    { ldimaximumPageSize :: Maybe Int
+    { ldiMaximumPageSize :: Maybe Int
       -- ^ The maximum number of results returned in each page. The default is 100,
       -- but the caller can override this value to a page size smaller than the
       -- default. You cannot specify a page size greater than 100. Note that the
       -- number of domains may be less than the maxiumum page size, in which case,
       -- the returned page will have fewer results than the maximumPageSize
       -- specified.
-    , ldinextPageToken :: Maybe Text
+    , ldiNextPageToken :: Maybe Text
       -- ^ If on a previous call to this method a NextPageToken was returned, the
       -- result has more than one page. To get the next page of results, repeat the
       -- call with the returned token and all other arguments unchanged.
-    , ldiregistrationStatus :: !RegistrationStatus
+    , ldiRegistrationStatus :: !RegistrationStatus
       -- ^ Specifies the registration status of the domains to list.
-    , ldireverseOrder :: Maybe Bool
+    , ldiReverseOrder :: Maybe Bool
       -- ^ When set to true, returns the results in reverse order. By default the
       -- results are returned in ascending alphabetical order of the name of the
       -- domains.
@@ -101,9 +101,9 @@ instance AWSRequest ListDomains where
     response = responseJSON
 
 data ListDomainsResponse = ListDomainsResponse
-    { ldirsdomainInfos :: [DomainInfo]
+    { ldirsDomainInfos :: [DomainInfo]
       -- ^ A list of DomainInfo structures.
-    , ldirsnextPageToken :: Maybe Text
+    , ldirsNextPageToken :: Maybe Text
       -- ^ Returns a value if the results are paginated. To get the next page of
       -- results, repeat the request specifying this token and all other arguments
       -- unchanged.

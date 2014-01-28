@@ -35,7 +35,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data DeleteVirtualInterface = DeleteVirtualInterface
-    { dvisvirtualInterfaceId :: !Text
+    { dvisVirtualInterfaceId :: !Text
       -- ^ ID of the virtual interface. Example: dxvif-123dfg56 Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -48,7 +48,7 @@ instance AWSRequest DeleteVirtualInterface where
     response = responseJSON
 
 data DeleteVirtualInterfaceResponse = DeleteVirtualInterfaceResponse
-    { dvisrsvirtualInterfaceState :: Maybe VirtualInterfaceState
+    { dvisrsVirtualInterfaceState :: Maybe VirtualInterfaceState
       -- ^ State of the virtual interface. Confirming: The creation of the virtual
       -- interface is pending confirmation from the virtual interface owner. If the
       -- owner of the virtual interface is different from the owner of the

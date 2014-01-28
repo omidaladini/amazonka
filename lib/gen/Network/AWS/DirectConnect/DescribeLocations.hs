@@ -48,7 +48,7 @@ instance AWSRequest DescribeLocations where
     response = responseJSON
 
 data DescribeLocationsResponse = DescribeLocationsResponse
-    { llocations :: [Location]
+    { lLocations :: [Location]
     } deriving (Eq, Show, Generic)
 
 instance FromJSON DescribeLocationsResponse

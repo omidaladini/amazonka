@@ -60,29 +60,29 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data CreateCase = CreateCase
-    { ccrcategoryCode :: Maybe Text
+    { ccrCategoryCode :: Maybe Text
       -- ^ The category of problem for the AWS Support case.
-    , ccrccEmailAddresses :: [Text]
+    , ccrCcEmailAddresses :: [Text]
       -- ^ A list of email addresses that AWS Support copies on case correspondence.
-    , ccrcommunicationBody :: !Text
+    , ccrCommunicationBody :: !Text
       -- ^ The communication body text when you create an AWS Support case by calling
       -- CreateCase.
-    , ccrissueType :: Maybe Text
+    , ccrIssueType :: Maybe Text
       -- ^ The type of issue for the case. You can specify either "customer-service"
       -- or "technical." If you do not indicate a value, the default is
       -- "technical.".
-    , ccrlanguage :: Maybe Text
+    , ccrLanguage :: Maybe Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS
       -- Support currently supports English ("en") and Japanese ("ja"). Language
       -- parameters must be passed explicitly for operations that take them.
-    , ccrserviceCode :: Maybe Text
+    , ccrServiceCode :: Maybe Text
       -- ^ The code for the AWS service returned by the call to DescribeServices.
-    , ccrseverityCode :: Maybe Text
+    , ccrSeverityCode :: Maybe Text
       -- ^ The code for the severity level returned by the call to
       -- DescribeSeverityLevels. The availability of severity levels depends on each
       -- customer's support subscription. In other words, your subscription may not
       -- necessarily require the urgent level of response time.
-    , ccrsubject :: !Text
+    , ccrSubject :: !Text
       -- ^ The title of the AWS Support case.
     } deriving (Eq, Show, Generic)
 
@@ -95,7 +95,7 @@ instance AWSRequest CreateCase where
     response = responseJSON
 
 data CreateCaseResponse = CreateCaseResponse
-    { ccrrscaseId :: Maybe Text
+    { ccrrsCaseId :: Maybe Text
       -- ^ The AWS Support case ID requested or returned in the call. The case ID is
       -- an alphanumeric string formatted as shown in this example:
       -- case-12345678910-2013-c4c1d2bf33c5cf47.

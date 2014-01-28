@@ -37,7 +37,7 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeSeverityLevels = DescribeSeverityLevels
-    { dslrlanguage :: Maybe Text
+    { dslrLanguage :: Maybe Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS
       -- Support currently supports English ("en") and Japanese ("ja"). Language
       -- parameters must be passed explicitly for operations that take them.
@@ -52,7 +52,7 @@ instance AWSRequest DescribeSeverityLevels where
     response = responseJSON
 
 data DescribeSeverityLevelsResponse = DescribeSeverityLevelsResponse
-    { dslrrsseverityLevels :: [SeverityLevel]
+    { dslrrsSeverityLevels :: [SeverityLevel]
       -- ^ The available severity levels for the support case. Available severity
       -- levels are defined by your service level agreement with AWS.
     } deriving (Eq, Show, Generic)

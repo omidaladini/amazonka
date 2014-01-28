@@ -35,7 +35,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data DeleteInterconnect = DeleteInterconnect
-    { disinterconnectId :: !Text
+    { disInterconnectId :: !Text
       -- ^ The ID of the interconnect. Example: dxcon-abc123.
     } deriving (Eq, Show, Generic)
 
@@ -48,7 +48,7 @@ instance AWSRequest DeleteInterconnect where
     response = responseJSON
 
 data DeleteInterconnectResponse = DeleteInterconnectResponse
-    { disrsinterconnectState :: Maybe InterconnectState
+    { disrsInterconnectState :: Maybe InterconnectState
       -- ^ State of the interconnect. Requested: The initial state of an interconnect.
       -- The interconnect stays in the requested state until the Letter of
       -- Authorization (LOA) is sent to the customer. Pending: The interconnect has

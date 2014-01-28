@@ -35,7 +35,7 @@ import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
 data DescribeTrails = DescribeTrails
-    { dtrtrailNameList :: [Text]
+    { dtrTrailNameList :: [Text]
       -- ^ The list of trails.
     } deriving (Eq, Show, Generic)
 
@@ -48,7 +48,7 @@ instance AWSRequest DescribeTrails where
     response = responseJSON
 
 data DescribeTrailsResponse = DescribeTrailsResponse
-    { dtrrstrailList :: [Trail]
+    { dtrrsTrailList :: [Trail]
       -- ^ The list of trails.
     } deriving (Eq, Show, Generic)
 

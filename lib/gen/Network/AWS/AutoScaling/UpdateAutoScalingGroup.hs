@@ -94,7 +94,7 @@ data UpdateAutoScalingGroup = UpdateAutoScalingGroup
       -- that they are listed. For more information on creating a termination policy
       -- for your Auto Scaling group, go to Instance Termination Policy for Your
       -- Auto Scaling Group in the the Auto Scaling Developer Guide.
-    , uasgtvpcZoneIdentifier :: Maybe Text
+    , uasgtVpcZoneIdentifier :: Maybe Text
       -- ^ The subnet identifier for the Amazon VPC connection, if applicable. You can
       -- specify several subnets in a comma-separated list. When you specify
       -- VPCZoneIdentifier with AvailabilityZones, ensure that the subnets'

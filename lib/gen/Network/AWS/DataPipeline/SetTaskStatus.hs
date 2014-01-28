@@ -47,25 +47,25 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data SetTaskStatus = SetTaskStatus
-    { stsierrorId :: Maybe Text
+    { stsiErrorId :: Maybe Text
       -- ^ If an error occurred during the task, this value specifies an id value that
       -- represents the error. This value is set on the physical attempt object. It
       -- is used to display error information to the user. It should not start with
       -- string "Service_" which is reserved by the system.
-    , stsierrorMessage :: Maybe Text
+    , stsiErrorMessage :: Maybe Text
       -- ^ If an error occurred during the task, this value specifies a text
       -- description of the error. This value is set on the physical attempt object.
       -- It is used to display error information to the user. The web service does
       -- not parse this value.
-    , stsierrorStackTrace :: Maybe Text
+    , stsiErrorStackTrace :: Maybe Text
       -- ^ If an error occurred during the task, this value specifies the stack trace
       -- associated with the error. This value is set on the physical attempt
       -- object. It is used to display error information to the user. The web
       -- service does not parse this value.
-    , stsitaskId :: !Text
+    , stsiTaskId :: !Text
       -- ^ Identifies the task assigned to the task runner. This value is set in the
       -- TaskObject that is returned by the PollForTask action.
-    , stsitaskStatus :: !TaskStatus
+    , stsiTaskStatus :: !TaskStatus
       -- ^ If FINISHED, the task successfully completed. If FAILED the task ended
       -- unsuccessfully. The FALSE value is used by preconditions.
     } deriving (Eq, Show, Generic)

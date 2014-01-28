@@ -42,7 +42,7 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data RefreshTrustedAdvisorCheck = RefreshTrustedAdvisorCheck
-    { rtacrcheckId :: !Text
+    { rtacrCheckId :: !Text
       -- ^ The unique identifier for the Trusted Advisor check.
     } deriving (Eq, Show, Generic)
 
@@ -55,7 +55,7 @@ instance AWSRequest RefreshTrustedAdvisorCheck where
     response = responseJSON
 
 data RefreshTrustedAdvisorCheckResponse = RefreshTrustedAdvisorCheckResponse
-    { rtacrrsstatus :: TrustedAdvisorCheckRefreshStatus
+    { rtacrrsStatus :: TrustedAdvisorCheckRefreshStatus
       -- ^ The current refresh status for a check, including the amount of time until
       -- the check is eligible for refresh.
     } deriving (Eq, Show, Generic)

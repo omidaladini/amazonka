@@ -36,7 +36,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data DescribeConnectionsOnInterconnect = DescribeConnectionsOnInterconnect
-    { dcoirinterconnectId :: !Text
+    { dcoirInterconnectId :: !Text
       -- ^ ID of the interconnect on which a list of connection is provisioned.
       -- Example: dxcon-abc123 Default: None.
     } deriving (Eq, Show, Generic)
@@ -50,7 +50,7 @@ instance AWSRequest DescribeConnectionsOnInterconnect where
     response = responseJSON
 
 data DescribeConnectionsOnInterconnectResponse = DescribeConnectionsOnInterconnectResponse
-    { dcoirrsconnections :: [Connection]
+    { dcoirrsConnections :: [Connection]
       -- ^ A list of connections.
     } deriving (Eq, Show, Generic)
 

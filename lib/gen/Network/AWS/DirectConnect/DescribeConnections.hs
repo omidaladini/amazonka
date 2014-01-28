@@ -36,7 +36,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data DescribeConnections = DescribeConnections
-    { dcsconnectionId :: Maybe Text
+    { dcsConnectionId :: Maybe Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -49,7 +49,7 @@ instance AWSRequest DescribeConnections where
     response = responseJSON
 
 data DescribeConnectionsResponse = DescribeConnectionsResponse
-    { dcsrsconnections :: [Connection]
+    { dcsrsConnections :: [Connection]
       -- ^ A list of connections.
     } deriving (Eq, Show, Generic)
 

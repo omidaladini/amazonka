@@ -47,13 +47,13 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data CreateInterconnect = CreateInterconnect
-    { cirbandwidth :: !Text
+    { cirBandwidth :: !Text
       -- ^ The port bandwidth Example: 1Gbps Default: None Available values:
       -- 1Gbps,10Gbps.
-    , cirinterconnectName :: !Text
+    , cirInterconnectName :: !Text
       -- ^ The name of the interconnect. Example: "1G Interconnect to AWS" Default:
       -- None.
-    , cirlocation :: !Text
+    , cirLocation :: !Text
       -- ^ Where the interconnect is located Example: EqSV5 Default: None.
     } deriving (Eq, Show, Generic)
 
@@ -66,22 +66,22 @@ instance AWSRequest CreateInterconnect where
     response = responseJSON
 
 data CreateInterconnectResponse = CreateInterconnectResponse
-    { cirrsbandwidth :: Maybe Text
+    { cirrsBandwidth :: Maybe Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.
-    , cirrsinterconnectId :: Maybe Text
+    , cirrsInterconnectId :: Maybe Text
       -- ^ The ID of the interconnect. Example: dxcon-abc123.
-    , cirrsinterconnectName :: Maybe Text
+    , cirrsInterconnectName :: Maybe Text
       -- ^ The name of the interconnect. Example: "1G Interconnect to AWS".
-    , cirrsinterconnectState :: Maybe InterconnectState
+    , cirrsInterconnectState :: Maybe InterconnectState
       -- ^ State of the interconnect. Requested: The initial state of an interconnect.
       -- The interconnect stays in the requested state until the Letter of
       -- Authorization (LOA) is sent to the customer. Pending: The interconnect has
       -- been approved, and is being initialized. Available: The network link is up,
       -- and the interconnect is ready for use. Down: The network link is down.
       -- Deleted: The interconnect has been deleted.
-    , cirrslocation :: Maybe Text
+    , cirrsLocation :: Maybe Text
       -- ^ Where the connection is located. Example: EqSV5 Default: None.
-    , cirrsregion :: Maybe Text
+    , cirrsRegion :: Maybe Text
       -- ^ The AWS region where the connection is located. Example: us-east-1 Default:
       -- None.
     } deriving (Eq, Show, Generic)

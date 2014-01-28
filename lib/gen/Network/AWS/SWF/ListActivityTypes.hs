@@ -55,23 +55,23 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data ListActivityTypes = ListActivityTypes
-    { latidomain :: !Text
+    { latiDomain :: !Text
       -- ^ The name of the domain in which the activity types have been registered.
-    , latimaximumPageSize :: Maybe Int
+    , latiMaximumPageSize :: Maybe Int
       -- ^ The maximum number of results returned in each page. The default is 100,
       -- but the caller can override this value to a page size smaller than the
       -- default. You cannot specify a page size greater than 100. Note that the
       -- number of types may be less than the maxiumum page size, in which case, the
       -- returned page will have fewer results than the maximumPageSize specified.
-    , latiname :: Maybe Text
+    , latiName :: Maybe Text
       -- ^ If specified, only lists the activity types that have this name.
-    , latinextPageToken :: Maybe Text
+    , latiNextPageToken :: Maybe Text
       -- ^ If on a previous call to this method a NextResultToken was returned, the
       -- results have more than one page. To get the next page of results, repeat
       -- the call with the nextPageToken and keep all other arguments unchanged.
-    , latiregistrationStatus :: !RegistrationStatus
+    , latiRegistrationStatus :: !RegistrationStatus
       -- ^ Specifies the registration status of the activity types to list.
-    , latireverseOrder :: Maybe Bool
+    , latiReverseOrder :: Maybe Bool
       -- ^ When set to true, returns the results in reverse order. By default the
       -- results are returned in ascending alphabetical order of the name of the
       -- activity types.
@@ -86,11 +86,11 @@ instance AWSRequest ListActivityTypes where
     response = responseJSON
 
 data ListActivityTypesResponse = ListActivityTypesResponse
-    { latirsnextPageToken :: Maybe Text
+    { latirsNextPageToken :: Maybe Text
       -- ^ Returns a value if the results are paginated. To get the next page of
       -- results, repeat the request specifying this token and all other arguments
       -- unchanged.
-    , latirstypeInfos :: [ActivityTypeInfo]
+    , latirsTypeInfos :: [ActivityTypeInfo]
       -- ^ List of activity type information.
     } deriving (Eq, Show, Generic)
 

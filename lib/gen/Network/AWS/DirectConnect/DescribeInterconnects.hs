@@ -37,7 +37,7 @@ import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
 data DescribeInterconnects = DescribeInterconnects
-    { dirinterconnectId :: Maybe Text
+    { dirInterconnectId :: Maybe Text
       -- ^ The ID of the interconnect. Example: dxcon-abc123.
     } deriving (Eq, Show, Generic)
 
@@ -50,7 +50,7 @@ instance AWSRequest DescribeInterconnects where
     response = responseJSON
 
 data DescribeInterconnectsResponse = DescribeInterconnectsResponse
-    { dirrsinterconnects :: [Interconnect]
+    { dirrsInterconnects :: [Interconnect]
       -- ^ A list of interconnects.
     } deriving (Eq, Show, Generic)
 

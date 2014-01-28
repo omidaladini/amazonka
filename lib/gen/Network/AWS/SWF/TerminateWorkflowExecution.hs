@@ -70,7 +70,7 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data TerminateWorkflowExecution = TerminateWorkflowExecution
-    { tweichildPolicy :: Maybe ChildPolicy
+    { tweiChildPolicy :: Maybe ChildPolicy
       -- ^ If set, specifies the policy to use for the child workflow executions of
       -- the workflow execution being terminated. This policy overrides the child
       -- policy specified for the workflow execution at registration time or when
@@ -84,15 +84,15 @@ data TerminateWorkflowExecution = TerminateWorkflowExecution
       -- specified either as a default for the workflow type or through this
       -- parameter. If neither this parameter is set nor a default child policy was
       -- specified at registration time, a fault will be returned.
-    , tweidetails :: Maybe Text
+    , tweiDetails :: Maybe Text
       -- ^ Optional details for terminating the workflow execution.
-    , tweidomain :: !Text
+    , tweiDomain :: !Text
       -- ^ The domain of the workflow execution to terminate.
-    , tweireason :: Maybe Text
+    , tweiReason :: Maybe Text
       -- ^ An optional descriptive reason for terminating the workflow execution.
-    , tweirunId :: Maybe Text
+    , tweiRunId :: Maybe Text
       -- ^ The runId of the workflow execution to terminate.
-    , tweiworkflowId :: !Text
+    , tweiWorkflowId :: !Text
       -- ^ The workflowId of the workflow execution to terminate.
     } deriving (Eq, Show, Generic)
 

@@ -68,11 +68,11 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data RequestCancelWorkflowExecution = RequestCancelWorkflowExecution
-    { rcweidomain :: !Text
+    { rcweiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution to cancel.
-    , rcweirunId :: Maybe Text
+    , rcweiRunId :: Maybe Text
       -- ^ The runId of the workflow execution to cancel.
-    , rcweiworkflowId :: !Text
+    , rcweiWorkflowId :: !Text
       -- ^ The workflowId of the workflow execution to cancel.
     } deriving (Eq, Show, Generic)
 

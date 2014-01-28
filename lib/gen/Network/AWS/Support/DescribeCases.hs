@@ -40,25 +40,25 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeCases = DescribeCases
-    { dcrafterTime :: Maybe Text
+    { dcrAfterTime :: Maybe Text
       -- ^ The start date for a filtered date search on support case communications.
-    , dcrbeforeTime :: Maybe Text
+    , dcrBeforeTime :: Maybe Text
       -- ^ The end date for a filtered date search on support case communications.
-    , dcrcaseIdList :: [Text]
+    , dcrCaseIdList :: [Text]
       -- ^ A list of ID numbers of the support cases you want returned. The maximum
       -- number of cases is 100.
-    , dcrdisplayId :: Maybe Text
+    , dcrDisplayId :: Maybe Text
       -- ^ The ID displayed for a case in the AWS Support Center user interface.
-    , dcrincludeResolvedCases :: Maybe Bool
+    , dcrIncludeResolvedCases :: Maybe Bool
       -- ^ Specifies whether resolved support cases should be included in the
       -- DescribeCases results.
-    , dcrlanguage :: Maybe Text
+    , dcrLanguage :: Maybe Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS
       -- Support currently supports English ("en") and Japanese ("ja"). Language
       -- parameters must be passed explicitly for operations that take them.
-    , dcrmaxResults :: Maybe Int
+    , dcrMaxResults :: Maybe Int
       -- ^ The maximum number of results to return before paginating.
-    , dcrnextToken :: Maybe Text
+    , dcrNextToken :: Maybe Text
       -- ^ A resumption point for pagination.
     } deriving (Eq, Show, Generic)
 
@@ -71,9 +71,9 @@ instance AWSRequest DescribeCases where
     response = responseJSON
 
 data DescribeCasesResponse = DescribeCasesResponse
-    { dcrrscases :: [CaseDetails]
+    { dcrrsCases :: [CaseDetails]
       -- ^ The details for the cases that match the request.
-    , dcrrsnextToken :: Maybe Text
+    , dcrrsNextToken :: Maybe Text
       -- ^ A resumption point for pagination.
     } deriving (Eq, Show, Generic)
 

@@ -66,20 +66,20 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data CountOpenWorkflowExecutions = CountOpenWorkflowExecutions
-    { coweidomain :: !Text
+    { coweiDomain :: !Text
       -- ^ The name of the domain containing the workflow executions to count.
-    , coweiexecutionFilter :: Maybe WorkflowExecutionFilter
+    , coweiExecutionFilter :: Maybe WorkflowExecutionFilter
       -- ^ If specified, only workflow executions matching the WorkflowId in the
       -- filter are counted. executionFilter, typeFilter and tagFilter are mutually
       -- exclusive. You can specify at most one of these in a request.
-    , coweistartTimeFilter :: ExecutionTimeFilter
+    , coweiStartTimeFilter :: ExecutionTimeFilter
       -- ^ Specifies the start time criteria that workflow executions must meet in
       -- order to be counted.
-    , coweitagFilter :: Maybe TagFilter
+    , coweiTagFilter :: Maybe TagFilter
       -- ^ If specified, only executions that have a tag that matches the filter are
       -- counted. executionFilter, typeFilter and tagFilter are mutually exclusive.
       -- You can specify at most one of these in a request.
-    , coweitypeFilter :: Maybe WorkflowTypeFilter
+    , coweiTypeFilter :: Maybe WorkflowTypeFilter
       -- ^ Specifies the type of the workflow executions to be counted.
       -- executionFilter, typeFilter and tagFilter are mutually exclusive. You can
       -- specify at most one of these in a request.
@@ -94,9 +94,9 @@ instance AWSRequest CountOpenWorkflowExecutions where
     response = responseJSON
 
 data CountOpenWorkflowExecutionsResponse = CountOpenWorkflowExecutionsResponse
-    { coweirscount :: !Int
+    { coweirsCount :: !Int
       -- ^ The number of workflow executions.
-    , coweirstruncated :: Maybe Bool
+    , coweirsTruncated :: Maybe Bool
       -- ^ If set to true, indicates that the actual count was more than the maximum
       -- supported by this API and the count returned is the truncated value.
     } deriving (Eq, Show, Generic)

@@ -60,15 +60,15 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data RegisterDomain = RegisterDomain
-    { rdidescription :: Maybe Text
+    { rdiDescription :: Maybe Text
       -- ^ Textual description of the domain.
-    , rdiname :: !Text
+    , rdiName :: !Text
       -- ^ Name of the domain to register. The name must be unique. The specified
       -- string must not start or end with whitespace. It must not contain a :
       -- (colon), / (slash), | (vertical bar), or any control characters
       -- (\u0000-\u001f | \u007f - \u009f). Also, it must not contain the literal
       -- string &quot;arn&quot;.
-    , rdiworkflowExecutionRetentionPeriodInDays :: !Text
+    , rdiWorkflowExecutionRetentionPeriodInDays :: !Text
       -- ^ A duration (in days) for which the record (including the history) of
       -- workflow executions in this domain should be kept by the service. After the
       -- retention period, the workflow execution will not be available in the

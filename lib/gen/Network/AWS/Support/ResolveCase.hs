@@ -36,7 +36,7 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data ResolveCase = ResolveCase
-    { rcrcaseId :: Maybe Text
+    { rcrCaseId :: Maybe Text
       -- ^ The AWS Support case ID requested or returned in the call. The case ID is
       -- an alphanumeric string formatted as shown in this example:
       -- case-12345678910-2013-c4c1d2bf33c5cf47.
@@ -51,9 +51,9 @@ instance AWSRequest ResolveCase where
     response = responseJSON
 
 data ResolveCaseResponse = ResolveCaseResponse
-    { rcrrsfinalCaseStatus :: Maybe Text
+    { rcrrsFinalCaseStatus :: Maybe Text
       -- ^ The status of the case after the ResolveCase request was processed.
-    , rcrrsinitialCaseStatus :: Maybe Text
+    , rcrrsInitialCaseStatus :: Maybe Text
       -- ^ The status of the case when the ResolveCase request was sent.
     } deriving (Eq, Show, Generic)
 

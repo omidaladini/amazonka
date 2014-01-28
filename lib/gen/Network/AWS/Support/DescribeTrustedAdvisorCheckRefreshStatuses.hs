@@ -37,7 +37,7 @@ import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
 data DescribeTrustedAdvisorCheckRefreshStatuses = DescribeTrustedAdvisorCheckRefreshStatuses
-    { dtacrsrcheckIds :: [Text]
+    { dtacrsrCheckIds :: [Text]
       -- ^ The IDs of the Trusted Advisor checks.
     } deriving (Eq, Show, Generic)
 
@@ -50,7 +50,7 @@ instance AWSRequest DescribeTrustedAdvisorCheckRefreshStatuses where
     response = responseJSON
 
 data DescribeTrustedAdvisorCheckRefreshStatusesResponse = DescribeTrustedAdvisorCheckRefreshStatusesResponse
-    { dtacrsrrsstatuses :: [TrustedAdvisorCheckRefreshStatus]
+    { dtacrsrrsStatuses :: [TrustedAdvisorCheckRefreshStatus]
       -- ^ The refresh status of the specified Trusted Advisor checks.
     } deriving (Eq, Show, Generic)
 

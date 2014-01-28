@@ -63,9 +63,9 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data CountPendingActivityTasks = CountPendingActivityTasks
-    { cpatidomain :: !Text
+    { cpatiDomain :: !Text
       -- ^ The name of the domain that contains the task list.
-    , cpatitaskList :: TaskList
+    , cpatiTaskList :: TaskList
       -- ^ The name of the task list.
     } deriving (Eq, Show, Generic)
 
@@ -78,9 +78,9 @@ instance AWSRequest CountPendingActivityTasks where
     response = responseJSON
 
 data CountPendingActivityTasksResponse = CountPendingActivityTasksResponse
-    { cpatirscount :: !Int
+    { cpatirsCount :: !Int
       -- ^ The number of tasks in the task list.
-    , cpatirstruncated :: Maybe Bool
+    , cpatirsTruncated :: Maybe Bool
       -- ^ If set to true, indicates that the actual count was more than the maximum
       -- supported by this API and the count returned is the truncated value.
     } deriving (Eq, Show, Generic)

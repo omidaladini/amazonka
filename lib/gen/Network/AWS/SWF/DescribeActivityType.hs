@@ -70,9 +70,9 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DescribeActivityType = DescribeActivityType
-    { datiactivityType :: ActivityType
+    { datiActivityType :: ActivityType
       -- ^ The activity type to describe.
-    , datidomain :: !Text
+    , datiDomain :: !Text
       -- ^ The name of the domain in which the activity type is registered.
     } deriving (Eq, Show, Generic)
 
@@ -85,9 +85,9 @@ instance AWSRequest DescribeActivityType where
     response = responseJSON
 
 data DescribeActivityTypeResponse = DescribeActivityTypeResponse
-    { datirsconfiguration :: ActivityTypeConfiguration
+    { datirsConfiguration :: ActivityTypeConfiguration
       -- ^ The configuration settings registered with the activity type.
-    , datirstypeInfo :: ActivityTypeInfo
+    , datirsTypeInfo :: ActivityTypeInfo
       -- ^ General information about the activity type. The status of activity type
       -- (returned in the ActivityTypeInfo structure) can be one of the following.
       -- REGISTERED: The type is registered and available. Workers supporting this

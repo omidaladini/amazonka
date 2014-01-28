@@ -49,22 +49,22 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data QueryObjects = QueryObjects
-    { qoilimit :: Maybe Int
+    { qoiLimit :: Maybe Int
       -- ^ Specifies the maximum number of object names that QueryObjects will return
       -- in a single call. The default value is 100.
-    , qoimarker :: Maybe Text
+    , qoiMarker :: Maybe Text
       -- ^ The starting point for the results to be returned. The first time you call
       -- QueryObjects, this value should be empty. As long as the action returns
       -- HasMoreResults as True, you can call QueryObjects again and pass the marker
       -- value from the response to retrieve the next set of results.
-    , qoipipelineId :: !Text
+    , qoiPipelineId :: !Text
       -- ^ Identifier of the pipeline to be queried for object names.
-    , qoiquery :: Maybe Query
+    , qoiQuery :: Maybe Query
       -- ^ Query that defines the objects to be returned. The Query object can contain
       -- a maximum of ten selectors. The conditions in the query are limited to
       -- top-level String fields in the object. These filters can be applied to
       -- components, instances, and attempts.
-    , qoisphere :: !Text
+    , qoiSphere :: !Text
       -- ^ Specifies whether the query applies to components or instances. Allowable
       -- values: COMPONENT, INSTANCE, ATTEMPT.
     } deriving (Eq, Show, Generic)
@@ -78,12 +78,12 @@ instance AWSRequest QueryObjects where
     response = responseJSON
 
 data QueryObjectsResponse = QueryObjectsResponse
-    { qoirshasMoreResults :: Maybe Bool
+    { qoirsHasMoreResults :: Maybe Bool
       -- ^ If True, there are more results that can be obtained by a subsequent call
       -- to QueryObjects.
-    , qoirsids :: [Text]
+    , qoirsIds :: [Text]
       -- ^ A list of identifiers that match the query selectors.
-    , qoirsmarker :: Maybe Text
+    , qoirsMarker :: Maybe Text
       -- ^ The starting point for the results to be returned. As long as the action
       -- returns HasMoreResults as True, you can call QueryObjects again and pass
       -- the marker value from the response to retrieve the next set of results.

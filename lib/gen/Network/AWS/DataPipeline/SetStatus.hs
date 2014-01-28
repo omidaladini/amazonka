@@ -45,12 +45,12 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data SetStatus = SetStatus
-    { ssiobjectIds :: [Text]
+    { ssiObjectIds :: [Text]
       -- ^ Identifies an array of objects. The corresponding objects can be either
       -- physical or components, but not a mix of both types.
-    , ssipipelineId :: !Text
+    , ssiPipelineId :: !Text
       -- ^ Identifies the pipeline that contains the objects.
-    , ssistatus :: !Text
+    , ssiStatus :: !Text
       -- ^ Specifies the status to be set on all the objects in objectIds. For
       -- components, this can be either PAUSE or RESUME. For instances, this can be
       -- either CANCEL, RERUN, or MARK_FINISHED.

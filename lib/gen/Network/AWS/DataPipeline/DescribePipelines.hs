@@ -58,7 +58,7 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data DescribePipelines = DescribePipelines
-    { dpipipelineIds :: [Text]
+    { dpiPipelineIds :: [Text]
       -- ^ Identifiers of the pipelines to describe. You can pass as many as 25
       -- identifiers in a single call to DescribePipelines. You can obtain pipeline
       -- identifiers by calling ListPipelines.
@@ -73,7 +73,7 @@ instance AWSRequest DescribePipelines where
     response = responseJSON
 
 data DescribePipelinesResponse = DescribePipelinesResponse
-    { dpirspipelineDescriptionList :: [PipelineDescription]
+    { dpirsPipelineDescriptionList :: [PipelineDescription]
       -- ^ An array of descriptions returned for the specified pipelines.
     } deriving (Eq, Show, Generic)
 

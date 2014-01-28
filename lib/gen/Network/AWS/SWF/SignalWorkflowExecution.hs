@@ -67,17 +67,17 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data SignalWorkflowExecution = SignalWorkflowExecution
-    { sweidomain :: !Text
+    { sweiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution to signal.
-    , sweiinput :: Maybe Text
+    , sweiInput :: Maybe Text
       -- ^ Data to attach to the WorkflowExecutionSignaled event in the target
       -- workflow execution's history.
-    , sweirunId :: Maybe Text
+    , sweiRunId :: Maybe Text
       -- ^ The runId of the workflow execution to signal.
-    , sweisignalName :: !Text
+    , sweiSignalName :: !Text
       -- ^ The name of the signal. This name must be meaningful to the target
       -- workflow.
-    , sweiworkflowId :: !Text
+    , sweiWorkflowId :: !Text
       -- ^ The workflowId of the workflow execution to signal.
     } deriving (Eq, Show, Generic)
 

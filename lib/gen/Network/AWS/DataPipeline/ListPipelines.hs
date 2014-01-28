@@ -45,7 +45,7 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data ListPipelines = ListPipelines
-    { lpimarker :: Maybe Text
+    { lpiMarker :: Maybe Text
       -- ^ The starting point for the results to be returned. The first time you call
       -- ListPipelines, this value should be empty. As long as the action returns
       -- HasMoreResults as True, you can call ListPipelines again and pass the
@@ -61,14 +61,14 @@ instance AWSRequest ListPipelines where
     response = responseJSON
 
 data ListPipelinesResponse = ListPipelinesResponse
-    { lpirshasMoreResults :: Maybe Bool
+    { lpirsHasMoreResults :: Maybe Bool
       -- ^ If True, there are more results that can be obtained by a subsequent call
       -- to ListPipelines.
-    , lpirsmarker :: Maybe Text
+    , lpirsMarker :: Maybe Text
       -- ^ If not null, indicates the starting point for the set of pipeline
       -- identifiers that the next call to ListPipelines will retrieve. If null,
       -- there are no more pipeline identifiers.
-    , lpirspipelineIdList :: [PipelineIdName]
+    , lpirsPipelineIdList :: [PipelineIdName]
       -- ^ A list of all the pipeline identifiers that your account has permission to
       -- access. If you require additional information about the pipelines, you can
       -- use these identifiers to call DescribePipelines and GetPipelineDefinition.

@@ -69,9 +69,9 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data DescribeWorkflowType = DescribeWorkflowType
-    { dwtidomain :: !Text
+    { dwtiDomain :: !Text
       -- ^ The name of the domain in which this workflow type is registered.
-    , dwtiworkflowType :: WorkflowType
+    , dwtiWorkflowType :: WorkflowType
       -- ^ The workflow type to describe.
     } deriving (Eq, Show, Generic)
 
@@ -84,10 +84,10 @@ instance AWSRequest DescribeWorkflowType where
     response = responseJSON
 
 data DescribeWorkflowTypeResponse = DescribeWorkflowTypeResponse
-    { dwtirsconfiguration :: WorkflowTypeConfiguration
+    { dwtirsConfiguration :: WorkflowTypeConfiguration
       -- ^ Configuration settings of the workflow type registered through
       -- RegisterWorkflowType.
-    , dwtirstypeInfo :: WorkflowTypeInfo
+    , dwtirsTypeInfo :: WorkflowTypeInfo
       -- ^ General information about the workflow type. The status of the workflow
       -- type (returned in the WorkflowTypeInfo structure) can be one of the
       -- following. REGISTERED: The type is registered and available. Workers

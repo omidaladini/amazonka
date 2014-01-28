@@ -76,13 +76,13 @@ import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
 data PollForActivityTask = PollForActivityTask
-    { pfatidomain :: !Text
+    { pfatiDomain :: !Text
       -- ^ The name of the domain that contains the task lists being polled.
-    , pfatiidentity :: Maybe Text
+    , pfatiIdentity :: Maybe Text
       -- ^ Identity of the worker making the request, which is recorded in the
       -- ActivityTaskStarted event in the workflow history. This enables diagnostic
       -- tracing when problems arise. The form of this identity is user defined.
-    , pfatitaskList :: TaskList
+    , pfatiTaskList :: TaskList
       -- ^ Specifies the task list to poll for activity tasks. The specified string
       -- must not start or end with whitespace. It must not contain a : (colon), /
       -- (slash), | (vertical bar), or any control characters (\u0000-\u001f |
@@ -99,21 +99,21 @@ instance AWSRequest PollForActivityTask where
     response = responseJSON
 
 data PollForActivityTaskResponse = PollForActivityTaskResponse
-    { pfatirsactivityId :: !Text
+    { pfatirsActivityId :: !Text
       -- ^ The unique ID of the task.
-    , pfatirsactivityType :: ActivityType
+    , pfatirsActivityType :: ActivityType
       -- ^ The type of this activity task.
-    , pfatirsinput :: Maybe Text
+    , pfatirsInput :: Maybe Text
       -- ^ The inputs provided when the activity task was scheduled. The form of the
       -- input is user defined and should be meaningful to the activity
       -- implementation.
-    , pfatirsstartedEventId :: !Integer
+    , pfatirsStartedEventId :: !Integer
       -- ^ The id of the ActivityTaskStarted event recorded in the history.
-    , pfatirstaskToken :: !Text
+    , pfatirsTaskToken :: !Text
       -- ^ The opaque string used as a handle on the task. This token is used by
       -- workers to communicate progress and response information back to the system
       -- about the task.
-    , pfatirsworkflowExecution :: WorkflowExecution
+    , pfatirsWorkflowExecution :: WorkflowExecution
       -- ^ The workflow execution that started this activity task.
     } deriving (Eq, Show, Generic)
 

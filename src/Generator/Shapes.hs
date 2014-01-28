@@ -105,7 +105,7 @@ prefixes pre s@SStruct{..} = s
     , sPrefix = pre
     }
   where
-    f (k, v) = (pre <> k, v)
+    f (k, v) = (pre <> upperFirst k, v)
 prefixes _ s = s
 
 flatten :: Shape -> [Shape]

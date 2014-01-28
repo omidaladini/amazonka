@@ -46,7 +46,7 @@ import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
 data ActivatePipeline = ActivatePipeline
-    { apipipelineId :: !Text
+    { apiPipelineId :: !Text
       -- ^ The identifier of the pipeline to activate.
     } deriving (Eq, Show, Generic)
 

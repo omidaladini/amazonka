@@ -215,7 +215,7 @@ data LoadBalancerDescription = LoadBalancerDescription
       -- instance that specifies this source security group as the inbound source.
     , lbdSubnets :: [Text]
       -- ^ Provides a list of VPC subnet IDs for the load balancer.
-    , lbdvpcId :: Maybe Text
+    , lbdVpcId :: Maybe Text
       -- ^ Provides the ID of the VPC attached to the load balancer.
     } deriving (Eq, Show, Generic)
 
