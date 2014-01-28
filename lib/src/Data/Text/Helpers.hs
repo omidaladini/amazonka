@@ -14,6 +14,7 @@ module Data.Text.Helpers where
 
 import qualified Data.Attoparsec.Text             as AText
 import qualified Data.CaseInsensitive             as CI
+import           Data.Maybe
 import           Data.Monoid
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
@@ -25,14 +26,14 @@ import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           Data.Time
 import           Data.Time.Formatters
 
-failFromText :: Text -> Either String a
-failFromText = Left . Text.unpack
+fromTextFail :: Text -> Either String a
+fromTextFail = Left . Text.unpack
 
-readFromText :: FromText a => ReadS a
-readFromText = either (const []) (\x -> [(x, "")]) . fromText . Text.pack
+fromTextRead :: FromText a => ReadS a
+fromTextRead = either (const []) (\x -> [(x, "")]) . fromText . Text.pack
 
-showToText :: ToText a => a -> String
-showToText = Text.unpack . toText
+toTextShow :: ToText a => a -> String
+toTextShow = Text.unpack . toText
 
 class FromText a where
     fromText :: Text -> Either String a
@@ -56,7 +57,7 @@ instance FromText Bool where
     fromText t
         | "false" <- x = Right False
         | "true"  <- x = Right True
-        | otherwise    = failFromText $ "Unrecognised Boolean: " <> t
+        | otherwise    = fromTextFail $ "Unrecognised Boolean: " <> t
       where
         x = CI.foldedCase $ CI.mk t
 
@@ -84,6 +85,10 @@ instance ToText Double where
 
 instance ToText UTCTime where
     toText = Text.decodeUtf8 . formatRFC822
+
+-- FIXME: hur hur hur ..
+instance ToText a => ToText (Maybe a) where
+    toText = fromMaybe "" . fmap toText
 
 integralToText :: Integral a => a -> Text
 integralToText = strictFromBuilder . LText.decimal

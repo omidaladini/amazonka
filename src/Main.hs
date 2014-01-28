@@ -99,7 +99,13 @@ model dir Templates{..} m@Model{..} = do
             Query                             -> tQueryService
 
     -- <dir>/<Service>/Types.hs
-    renderTypes (root </> "Types.hs") tTypes
+    renderTypes (root </> "Types.hs") $
+        case mServiceType of
+            RestXML | "s3" == mEndpointPrefix -> tXMLTypes
+            RestXML                           -> tXMLTypes
+            RestJSON                          -> tJSONTypes
+            JSON                              -> tJSONTypes
+            Query                             -> tXMLTypes
 
     -- <dir>/<Service>/[Operation..].hs
     forM_ ops $ \op ->
@@ -279,7 +285,7 @@ replace k s' = setName k $ go s'
     name PInteger   = "Int"
     name PDouble    = "Double"
     name PBoolean   = "Bool"
-    name PBlob      = "ByteString"
+    name PBlob      = "Blob"
     name PTimestamp = "UTCTime"
     name PLong      = "Integer"
 
@@ -299,10 +305,10 @@ setName k s = s { sShapeName = Just $ f name }
     f (_, "CompleteMultipartUpload") = "MultipartUpload"
     f (_, x) = x
 
-
 data Templates = Templates
     { tInterface         :: Template
-    , tTypes             :: Template
+    , tXMLTypes          :: Template
+    , tJSONTypes         :: Template
     , tS3Service         :: Template
     , tRestXMLService    :: Template
     , tRestJSONService   :: Template
@@ -320,7 +326,8 @@ templates :: Script Templates
 templates = title "Listing tmpl" *>
     (Templates
         <$> load "tmpl/interface.ede"
-        <*> load "tmpl/types.ede"
+        <*> load "tmpl/types-xml.ede"
+        <*> load "tmpl/types-json.ede"
         <*> load "tmpl/service-s3.ede"
         <*> load "tmpl/service-rest-xml.ede"
         <*> load "tmpl/service-rest-json.ede"
@@ -379,6 +386,7 @@ render p t o = do
         , ("payload",     Fun TMap TBool payload)
         ]
 
+    -- EC2
     name "AccountAttributeName"      = ""
     name "ArchitectureValues"        = ""
     name "ContainerFormat"           = ""
@@ -396,6 +404,11 @@ render p t o = do
     name "ResourceType"              = "Resource"
     name "SnapshotAttributeName"     = "Snapshot"
     name "VolumeAttachmentState"     = "Volume"
+
+    -- Kinesis
+    name "ShardIteratorType"         = ""
+    name "StreamStatus"              = ""
+
     name n                           = upperFirst n
 
     format n

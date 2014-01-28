@@ -1,10 +1,4 @@
-{-# LANGUAGE GADTs                #-}
-{-# LANGUAGE FlexibleInstances    #-}
-{-# LANGUAGE OverlappingInstances #-}
-{-# LANGUAGE OverloadedStrings    #-}
-{-# LANGUAGE RecordWildCards      #-}
-{-# LANGUAGE TupleSections        #-}
-{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE FlexibleContexts  #-}
 
 -- Module      : Network.AWS.Internal.Request
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -18,21 +12,14 @@
 
 module Network.AWS.Internal.Request where
 
-import           Control.Arrow
-import           Control.Error
-import           Control.Monad
-import           Data.ByteString                  (ByteString)
-import qualified Data.CaseInsensitive             as CI
-import           Data.Text                        (Text)
-import qualified Data.Text.Encoding               as Text
-import           Data.Text.Helpers
-import           Data.Time
-import           Data.Time.Formatters
-import           Network.AWS.Internal.Types
-import           Network.HTTP.Conduit
-import           Network.HTTP.QueryString.Generic
-import           Network.HTTP.Types               hiding (Query, toQuery)
-import           Text.XML.Generic
+import Data.Aeson
+import Data.ByteString                    (ByteString)
+import Data.Conduit
+import Network.AWS.Internal.Serialisation
+import Network.AWS.Internal.Types
+import Network.HTTP.Conduit
+import Network.HTTP.QueryString.Generic
+import Text.XML.Generic
 
 getRestXML :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
            => Service
@@ -46,6 +33,12 @@ postRestXML :: (ToHeaders a, ToPath a, ToQuery a, ToXML a, AWSRequest a)
             -> RawRequest
 postRestXML = undefined
 
+putRestXML :: (ToHeaders a, ToPath a, ToQuery a, ToXML a, AWSRequest a)
+           => Service
+           -> a
+           -> RawRequest
+putRestXML = undefined
+
 deleteRestXML :: (ToHeaders a, ToPath a, ToQuery a, ToXML a, AWSRequest a)
             => Service
             -> a
@@ -58,6 +51,19 @@ getQuery :: (ToQuery a, AWSRequest a)
          -> a
          -> RawRequest
 getQuery = undefined
+
+getJSON :: (ToJSON a, AWSRequest a)
+        => Service
+        -> a
+        -> RawRequest
+getJSON = undefined
+
+responseJSON :: (FromJSON (Er a), FromJSON (Rs a))
+             => a
+             -> Response (ResumableSource AWS ByteString)
+             -> AWS (Either (Er a) (Rs a))
+responseJSON = undefined
+
 
 -- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
 -- v2Query s@Service{..} m p x = RawRequest s m p q [] (RequestBodyBS "")
@@ -100,36 +106,3 @@ getQuery = undefined
 --       where
 --         f True  = fmap Right . awsEither . decodeXML
 --         f False = fmap Left  . awsEither . decodeXML
-
-(=?) :: ToQuery a => Text -> a -> Query
-(=?) k = Pair k . toQuery
-
-(=:) :: ToHeader a => ByteString -> a -> (HeaderName, Maybe ByteString)
-(=:) = toHeader
-
-hdr :: FromText a => HeaderName -> Response b -> Maybe a
-hdr k = join
-    . fmap (hush . fromText . Text.decodeUtf8)
-    . lookup k
-    . responseHeaders
-
-class ToPath a where
-    toPath :: a -> Text
-    toPath = const ""
-
-class ToHeaders a where
-    toHeaders :: a -> [(HeaderName, Maybe ByteString)]
-    toHeaders = const []
-
-class ToHeader a where
-    toHeader :: ByteString -> a -> (HeaderName, Maybe ByteString)
-
-instance ToHeader ByteString where
-    toHeader k = (CI.mk k,) . Just
-
-instance ToText a => ToHeader a where
-    toHeader k = (CI.mk k,) . Just . Text.encodeUtf8 . toText
-
-instance ToHeader a => ToHeader (Maybe a) where
-    toHeader k (Just x) = toHeader k x
-    toHeader k Nothing  = (CI.mk k, Nothing)

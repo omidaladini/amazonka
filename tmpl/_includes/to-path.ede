@@ -18,14 +18,14 @@ instance ToPath {{ scope.name }} where
         {% if part.first %}
           {% case part.value.type %}
           {% when "I" %}
-        [ {{ scope.input.prefix }}{{ part.value.value | upperFirst }}
+        [ toText {{ scope.input.prefix }}{{ part.value.value | upperFirst }}
           {% when "T" %}
         [ "{{ part.value.value }}"
           {% endcase %}
         {% else %}
           {% case part.value.type %}
           {% when "I" %}
-        , {{ scope.input.prefix }}{{ part.value.value | upperFirst }}
+        , toText {{ scope.input.prefix }}{{ part.value.value | upperFirst }}
           {% when "T" %}
         , "{{ part.value.value }}"
           {% endcase %}

@@ -12,10 +12,10 @@ instance FromText {{ scope.shape_name }} where
 {% for branch in scope.enum %}
     fromText "{{ branch.value }}" = Right {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }}
 {% endfor %}
-    fromText e = failFromText $ "Unrecognised {{ scope.shape_name }}: " <> e
+    fromText e = fromTextFail $ "Unrecognised {{ scope.shape_name }}: " <> e
 
 instance Read {{ scope.shape_name }} where
-    readsPrec _ = readFromText
+    readsPrec _ = fromTextRead
 
 instance ToText {{ scope.shape_name }} where
 {% for branch in scope.enum %}
@@ -23,15 +23,15 @@ instance ToText {{ scope.shape_name }} where
 {% endfor %}
 
 instance Show {{ scope.shape_name }} where
-    show = showToText
+    show = toTextShow
 
 instance ToQuery {{ scope.shape_name }} where
-    toQuery = primToQuery
+    toQuery = toTextQuery
 
 instance FromXML {{ scope.shape_name }} where
     fromXMLOptions = xmlOptions
-    fromXML        = primFromXML
+    fromXML        = fromTextXML
 
 instance ToXML {{ scope.shape_name }} where
     toXMLOptions = xmlOptions
-    toXML        = primToXML
+    toXML        = toTextXML

@@ -41,16 +41,9 @@ import           Data.Text.Helpers
 import qualified Data.Text.Lazy                   as LText
 import qualified Data.Text.Lazy.Builder           as LText
 import qualified Data.Text.Lazy.Builder.Int       as LText
-import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           Data.Time
 import           Data.Time.Formatters
 import           GHC.Generics
-
-primFromQuery :: FromText a => Query -> Either String a
-primFromQuery = join . fmap fromText . fromQuery
-
-primToQuery :: ToText a => a -> Query
-primToQuery = toQuery . toText
 
 decodeQuery :: FromQuery a => [(ByteString, ByteString)] -> Either String a
 decodeQuery = fromQuery . foldl' (\a b -> reify b <> a) mempty

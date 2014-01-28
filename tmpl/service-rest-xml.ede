@@ -12,8 +12,11 @@
 
 module Network.AWS.{{ module }}.Service where
 
-import Network.AWS.Internal
+{% if xmlnamespace %}
 import Data.Tagged
+{% endif %}
+import GHC.Generics         (Generic)
+import Network.AWS.Internal
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: Service

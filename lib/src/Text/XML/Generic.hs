@@ -20,37 +20,26 @@
 module Text.XML.Generic where
 
 import           Control.Applicative
-import           Control.Error                    (note)
+import           Control.Error              (note)
 import           Control.Monad
-import qualified Data.Attoparsec.Text             as AText
-import qualified Data.ByteString                  as BS
-import           Data.ByteString.Lazy.Char8       (ByteString)
+import qualified Data.Attoparsec.Text       as AText
+import qualified Data.ByteString            as BS
+import           Data.ByteString.Lazy.Char8 (ByteString)
 import           Data.Default
-import           Data.Foldable                    (foldr', foldrM)
-import           Data.HashMap.Strict              (HashMap)
-import qualified Data.HashMap.Strict              as Map
-import           Data.List.NonEmpty               (NonEmpty(..))
-import qualified Data.List.NonEmpty               as NonEmpty
+import           Data.Foldable              (foldr', foldrM)
+import           Data.HashMap.Strict        (HashMap)
+import           Data.List.NonEmpty         (NonEmpty(..))
+import qualified Data.List.NonEmpty         as NonEmpty
 import           Data.Monoid
 import           Data.Tagged
-import           Data.Text                        (Text)
-import qualified Data.Text                        as Text
-import qualified Data.Text.Encoding               as Text
+import           Data.Text                  (Text)
+import qualified Data.Text                  as Text
+import qualified Data.Text.Encoding         as Text
 import           Data.Text.Helpers
-import qualified Data.Text.Lazy                   as LText
-import qualified Data.Text.Lazy.Builder           as LText
-import qualified Data.Text.Lazy.Builder.Int       as LText
-import qualified Data.Text.Lazy.Builder.RealFloat as LText
 import           Data.Time
 import           Data.Time.Formatters
 import           GHC.Generics
 import           Text.XML
-
-primFromXML :: FromText a => Tagged a XMLOptions -> [Node] -> Either String a
-primFromXML o = join . fmap fromText . fromXML (retag o)
-
-primToXML :: ToText a => Tagged a XMLOptions -> a -> [Node]
-primToXML o = toXML (retag o) . toText
 
 encodeXML :: forall a. ToXML a => a -> ByteString
 encodeXML = renderLBS def . toXMLRoot o . toXML o
@@ -193,7 +182,7 @@ instance FromXML () where
 -- FIXME: implement this shizzle generally
 instance (FromXML k, FromXML v) => FromXML (HashMap k v) where
     fromXMLRoot = undefined
-    fromXML o   = undefined
+    fromXML _   = undefined
 
 nodeParser :: AText.Parser a -> Tagged a XMLOptions -> [Node] -> Either String a
 nodeParser p o = join . fmap (AText.parseOnly p) . fromXML (retag o)

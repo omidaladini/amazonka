@@ -1,0 +1,32 @@
+data {{ scope.shape_name }}
+{% for branch in scope.enum %}
+  {% if branch.first %}
+    = {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }}
+  {% else %}
+    | {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }}
+  {% endif %}
+{% endfor %}
+      deriving (Eq, Ord, Generic)
+
+instance FromText {{ scope.shape_name }} where
+{% for branch in scope.enum %}
+    fromText "{{ branch.value }}" = Right {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }}
+{% endfor %}
+    fromText e = fromTextFail $ "Unrecognised {{ scope.shape_name }}: " <> e
+
+instance Read {{ scope.shape_name }} where
+    readsPrec _ = fromTextRead
+
+instance ToText {{ scope.shape_name }} where
+{% for branch in scope.enum %}
+    toText {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }} = "{{ branch.value }}"
+{% endfor %}
+
+instance Show {{ scope.shape_name }} where
+    show = toTextShow
+
+instance FromJSON {{ scope.shape_name }} where
+    parseJSON = fromTextJSON "{{ scope.shape_name }}"
+
+instance ToJSON {{ scope.shape_name }} where
+    toJSON = toTextJSON

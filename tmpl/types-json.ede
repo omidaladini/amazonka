@@ -12,13 +12,14 @@
 
 module Network.AWS.{{ module }}.Types where
 
+import Data.Aeson
 import Data.ByteString      (ByteString)
 import Data.Monoid
 import Data.List.NonEmpty
 import Data.Text            (Text)
 import Data.HashMap.Strict  (HashMap)
 import Data.Time
-import GHC.Generics
+import GHC.Generics         (Generic)
 import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
 import Network.AWS.{{ module }}.Service
 
@@ -42,16 +43,13 @@ import Network.AWS.{{ module }}.Service
       {% include "_includes/record.ede" with shape.value %}
     {% endif %}
 
-instance ToQuery {{ shape.value.shape_name }}
-
-instance FromXML {{ shape.value.shape_name }} where
-    fromXMLOptions = xmlOptions
-
-instance ToXML {{ shape.value.shape_name }} where
-    toXMLOptions = xmlOptions
+instance FromJSON {{ shape.value.shape_name }}
+instance ToJSON {{ shape.value.shape_name }}
   {% when "enum" %}
-    {% include "_includes/enum.ede" with shape.value %}
+
+    {% include "_includes/enum-json.ede" with shape.value %}
   {% else %}
+
     {% include "_includes/newtype.ede" with shape.value %}
   {% endcase %}
   {% if !shape.last %}

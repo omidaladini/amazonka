@@ -10,21 +10,31 @@
 
 module Network.AWS.Internal
     (
-    -- * Internal Modules
+    -- * Internal modules
       module Internal
 
-    -- * Convenience Modules
+    -- * Convenience exports
     , module Common
+
+    , ToQuery(..)
+    , FromQuery(..)
+    , ToXML(..)
+    , FromXML(..)
     ) where
 
-import Network.AWS.Internal.Request      as Internal
-import Network.AWS.Internal.Signing      as Internal
-import Network.AWS.Internal.Types        as Internal
-import Network.AWS.Internal.Types.Common as Internal
+import Network.AWS.Internal.Request       as Internal
+import Network.AWS.Internal.Serialisation as Internal
+import Network.AWS.Internal.Signing       as Internal
+import Network.AWS.Internal.Types         as Internal
+import Network.AWS.Internal.Types.Common  as Internal
 
-import Data.Default                      as Common
-import Data.Text.Helpers                 as Common
-import Data.Time.Formatters              as Common
-import GHC.Generics                      as Common
-import Network.HTTP.QueryString.Generic  as Common
-import Text.XML.Generic                  as Common
+import Data.Text.Helpers                  as Common
+import Data.Time.Formatters               as Common
+
+import Network.HTTP.QueryString.Generic
+import Text.XML.Generic
+
+-- FIXME:
+-- remove no-warn-unused-imports from operations/types templates
+-- and then re-export common types from here
+

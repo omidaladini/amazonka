@@ -7,8 +7,6 @@
 {-# LANGUAGE ScopedTypeVariables        #-}
 {-# LANGUAGE TypeFamilies               #-}
 
-{-# LANGUAGE MultiParamTypeClasses               #-}
-
 -- Module      : Network.AWS.Internal.Types
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
@@ -34,7 +32,6 @@ import qualified Data.ByteString.Char8             as BS
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
 import           Data.Default
-import           Data.HashMap.Strict               (HashMap)
 import           Data.IORef
 import           Data.Monoid
 import           Data.String
@@ -149,7 +146,7 @@ awsEitherT = AWS . lift . fmapLT awsError
 awsEither :: AWSError e => Either e a -> AWS a
 awsEither = either awsThrow return
 
-type Signer = RawRequest -> Auth -> Region -> UTCTime -> Request
+type AWSSigner = RawRequest -> Auth -> Region -> UTCTime -> Request
 
 data Endpoint
     = Global
@@ -158,7 +155,7 @@ data Endpoint
 
 data Service = Service
     { svcEndpoint :: !Endpoint
-    , svcSigner   :: !Signer
+    , svcSigner   :: !AWSSigner
     , svcName     :: !ByteString
     , svcVersion  :: !ByteString
     }
@@ -208,13 +205,13 @@ class AWSRequest a where
                      => a
                      -> Response (ResumableSource AWS ByteString)
                      -> AWS (Either (Er a) (Rs a))
-    response = defaultResponse
+    response = responseXML
 
-defaultResponse :: (FromXML (Er a), FromXML (Rs a))
-                => a
-                -> Response (ResumableSource AWS ByteString)
-                -> AWS (Either (Er a) (Rs a))
-defaultResponse _ rs = (responseBody rs $$+- Conduit.sinkLbs)
+responseXML :: (FromXML (Er a), FromXML (Rs a))
+            => a
+            -> Response (ResumableSource AWS ByteString)
+            -> AWS (Either (Er a) (Rs a))
+responseXML _ rs = (responseBody rs $$+- Conduit.sinkLbs)
     >>= f (statusIsSuccessful $ responseStatus rs)
   where
     f True  = fmap Right . awsEither . decodeXML

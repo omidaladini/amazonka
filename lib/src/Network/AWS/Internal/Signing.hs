@@ -64,7 +64,7 @@ sign raw@RawRequest{..} = do
 
     return $! sig (raw { rawHeaders = hs }) auth reg time
 
-v2 :: Signer
+v2 :: AWSSigner
 v2 raw@RawRequest{..} auth reg time =
     signed rawMethod _host rawPath query headers rawBody
   where
@@ -93,7 +93,7 @@ v2 raw@RawRequest{..} auth reg time =
 
     headers = hDate (formatISO8601 time) : rawHeaders
 
-v3 :: Signer
+v3 :: AWSSigner
 v3 raw@RawRequest{..} auth reg time =
     signed rawMethod _host rawPath query headers rawBody
   where
@@ -110,7 +110,7 @@ v3 raw@RawRequest{..} auth reg time =
         <> ", Algorithm=HmacSHA256, Signature="
         <> Base64.encode (hmacSHA256 (secretAccessKey auth) $ formatRFC822 time)
 
-v4 :: Signer
+v4 :: AWSSigner
 v4 raw@RawRequest{..} auth reg time =
     signed rawMethod _host rawPath query (hAuth authorisation : headers) rawBody
   where
@@ -167,7 +167,7 @@ v4 raw@RawRequest{..} auth reg time =
     bodySHA256 = Base16.encode $ SHA256.hash ""
      -- sinkHash :: (Monad m, Hash ctx d) => Consumer ByteString m SHA256
 
-s3 :: ByteString -> Signer
+s3 :: ByteString -> AWSSigner
 s3 bucket raw@RawRequest{..} auth reg time =
     signed rawMethod _host rawPath query (authorisation : headers) rawBody
   where
@@ -281,3 +281,4 @@ lookupHeader (Case.mk -> key) = lookup key
 
 flattenValues :: (CI ByteString, ByteString) -> ByteString
 flattenValues (k, v) = mconcat [Case.foldedCase k, ":", BSH.strip ' ' v, "\n"]
+

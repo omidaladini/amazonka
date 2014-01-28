@@ -1,32 +1,52 @@
-SHELL  := /usr/bin/env bash
-FLAGS  := -j --disable-documentation --disable-library-coverage
-BIN    := dist/build/generator/generator
-DEPS   := vendor/ede vendor/botocore
-BOTO   := vendor/botocore/botocore/data/aws
-MODELS := \
- $(BOTO)/route53.json \
- $(BOTO)/ses.json
+SHELL := /usr/bin/env bash
+FLAGS := -j --disable-documentation --disable-library-coverage
+BIN   := dist/build/generator/generator
+DEPS  := vendor/ede vendor/botocore
+BOTO  := vendor/botocore/botocore/data/aws
 
- # $(BOTO)/s3.json \
- # $(BOTO)/elasticache.json \
- # $(BOTO)/autoscaling.json \
- # $(BOTO)/cloudformation.json \
- # $(BOTO)/cloudsearch.json \
- # $(BOTO)/cloudwatch.json \
- # $(BOTO)/elasticbeanstalk.json \
- # $(BOTO)/elb.json \
- # $(BOTO)/rds.json \
- # $(BOTO)/redshift.json \
- # $(BOTO)/sns.json \
- # $(BOTO)/sqs.json \
- # $(BOTO)/sts.json \
- # $(BOTO)/ec2.json \
- # $(BOTO)/iam.json
+RESTS3 := \
+ $(BOTO)/s3.json
+
+RESTXML := \
+ $(BOTO)/route53.json
+# $(BOTO)/cloudfront.json \ -- doesn't mark types as required correctly
+
+RESTJSON := \
+ $(BOTO)/elastictranscoder.json
+
+QUERY := \
+ $(BOTO)/ses.json \
+ $(BOTO)/elasticache.json \
+ $(BOTO)/autoscaling.json \
+ $(BOTO)/cloudformation.json \
+ $(BOTO)/cloudsearch.json \
+ $(BOTO)/cloudwatch.json \
+ $(BOTO)/elasticbeanstalk.json \
+ $(BOTO)/elb.json \
+ $(BOTO)/rds.json \
+ $(BOTO)/redshift.json \
+ $(BOTO)/sns.json \
+ $(BOTO)/sqs.json \
+ $(BOTO)/sts.json \
+ $(BOTO)/ec2.json \
+ $(BOTO)/iam.json
+
+JSON := \
+ $(BOTO)/kinesis.json \
+ $(BOTO)/cloudtrail.json \
+ $(BOTO)/datapipeline.json \
+ $(BOTO)/directconnect.json \
+ $(BOTO)/dynamodb.json \
+ $(BOTO)/emr.json \
+ $(BOTO)/opsworks.json \
+ $(BOTO)/storagegateway.json \
+ $(BOTO)/support.json \
+ $(BOTO)/swf.json
 
 .PHONY: test lint doc
 
 all: generator
-	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) -j -C lib
+	rm -rf lib/gen; ./generator $(JSON) && $(MAKE) install -C lib
 
 build:
 	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))

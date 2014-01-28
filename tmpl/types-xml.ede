@@ -1,0 +1,60 @@
+{% raw %}
+{-# LANGUAGE DeriveGeneric               #-}
+{-# LANGUAGE FlexibleContexts            #-}
+{-# LANGUAGE FlexibleInstances           #-}
+{-# LANGUAGE OverloadedStrings           #-}
+{% endraw %}
+
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
+-- Module      : Network.AWS.{{ module }}.Types
+{% include "_includes/header.ede" %}
+
+module Network.AWS.{{ module }}.Types where
+
+import Data.ByteString      (ByteString)
+import Data.Monoid
+import Data.List.NonEmpty
+import Data.Text            (Text)
+import Data.HashMap.Strict  (HashMap)
+import Data.Time
+import GHC.Generics         (Generic)
+import Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+import Network.AWS.{{ module }}.Service
+
+{% for shape in types %}
+  {% for line in shape.value.documentation %}
+    {% if line.first %}
+      {% if line.value == "" %}
+-- | FIXME: Type documentation for {{ shape.value.shape_name }}
+      {% else %}
+-- | {{ line.value }}
+      {% endif %}
+    {% else %}
+-- {{ line.value }}
+    {% endif %}
+  {% endfor %}
+  {% case shape.value.type %}
+  {% when "struct" %}
+    {% if shape.value.fields | mapLength == 1 %}
+      {% include "_includes/newtype.ede" with shape.value %}
+    {% else %}
+      {% include "_includes/record.ede" with shape.value %}
+    {% endif %}
+
+instance ToQuery {{ shape.value.shape_name }}
+
+instance FromXML {{ shape.value.shape_name }} where
+    fromXMLOptions = xmlOptions
+
+instance ToXML {{ shape.value.shape_name }} where
+    toXMLOptions = xmlOptions
+  {% when "enum" %}
+    {% include "_includes/enum-xml.ede" with shape.value %}
+  {% else %}
+    {% include "_includes/newtype.ede" with shape.value %}
+  {% endcase %}
+  {% if !shape.last %}
+
+  {% endif %}
+{% endfor %}
