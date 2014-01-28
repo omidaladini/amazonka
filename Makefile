@@ -32,11 +32,11 @@ QUERY := \
  $(BOTO)/iam.json
 
 JSON := \
+ $(BOTO)/dynamodb.json \
  $(BOTO)/kinesis.json \
  $(BOTO)/cloudtrail.json \
  $(BOTO)/datapipeline.json \
  $(BOTO)/directconnect.json \
- $(BOTO)/dynamodb.json \
  $(BOTO)/emr.json \
  $(BOTO)/opsworks.json \
  $(BOTO)/storagegateway.json \

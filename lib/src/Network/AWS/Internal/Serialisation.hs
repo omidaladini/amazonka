@@ -17,12 +17,19 @@
 
 module Network.AWS.Internal.Serialisation where
 
+import           Control.Applicative
+import           Control.Arrow
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
 import           Data.Aeson.Types                 (Parser)
 import           Data.ByteString                  (ByteString)
 import qualified Data.CaseInsensitive             as CI
+import           Data.Foldable                    (foldrM)
+import           Data.HashMap.Strict              (HashMap)
+import qualified Data.HashMap.Strict              as Map
+import           Data.Hashable
+import           Data.Monoid
 import           Data.Tagged
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
@@ -63,6 +70,22 @@ fromTextJSON n = withText n (either fail return . fromText)
 
 toTextJSON :: ToText a => a -> Value
 toTextJSON = String . toText
+
+toTextHashJSON :: (ToText k, ToJSON v)
+               => HashMap k v
+               -> Value
+toTextHashJSON = toJSON . map (first (String . toText)) . Map.toList
+
+fromTextHashJSON :: (Eq a, Hashable a, ToText a, FromText a, FromJSON v)
+                 => Value
+                 -> Parser (HashMap a v)
+fromTextHashJSON = withObject "HashMap EnumKey v" f
+  where
+    f = fmap Map.fromList . mapM g . Map.toList
+
+    g (k, v) =
+        (,) <$> either fail return (fromText k)
+            <*> parseJSON v
 
 class ToPath a where
     toPath :: a -> Text

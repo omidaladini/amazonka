@@ -5,7 +5,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TupleSections       #-}
 
--- Module      : Model
+-- Module      : Generator.Model
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
@@ -15,14 +15,14 @@
 -- Stability   : experimental
 -- Portability : non-portable (GHC extensions)
 
-module Model where
+module Generator.Model where
 
 import           Control.Applicative
 import           Control.Arrow
 import           Control.Error
 import           Control.Monad
-import           Data.Aeson           hiding (String)
 import qualified Data.Aeson           as Aeson
+import           Data.Aeson           hiding (String)
 import           Data.Aeson.Types     hiding (String)
 import qualified Data.ByteString.Lazy as LBS
 import           Data.Char
@@ -36,7 +36,7 @@ import qualified Data.Text            as Text
 import qualified Data.Text.Unsafe     as Text
 import qualified Data.Vector          as Vector
 import           GHC.Generics         (Generic)
-import           Helpers
+import           Generator.Helpers
 import           Prelude              hiding (any)
 import           Text.EDE.Filters
 
@@ -57,6 +57,8 @@ data Model = Model
     , mChecksum         :: Maybe Text
     , mDocumentation    :: [Text]
     , mOperations       :: [Operation]
+    , mJSONVersion      :: !Text
+    , mTargetPrefix     :: Maybe Text
     } deriving (Show, Generic)
 
 instance FromJSON Model where
@@ -79,8 +81,17 @@ instance FromJSON Model where
               <*> o .:? "xmlnamespace"
               <*> o .:? "timestamp_format"
               <*> o .:? "checksum_format"
-              <*> fmap normalise (o .:? "documentation" .!= "")
+              <*> documentation o
               <*> parseJSON ops
+              <*> version
+              <*> o .:? "target_prefix"
+      where
+        version = do
+            v <- o .:? "json_version" .!= Aeson.String "1.0"
+            case v of
+                Aeson.String t -> return t
+                Aeson.Number n -> return . Text.pack $ show n
+                _              -> fail "Unrecognised json_version field."
 
     parseJSON _ =
         fail "Unable to parse Model."
@@ -144,7 +155,7 @@ instance FromJSON Operation where
     parseJSON (Object o) = Operation
         <$> (clean <$> (o .: "name" <|> o .: "alias"))
         <*> o .:? "alias"
-        <*> fmap normalise (o .:? "documentation" .!= "")
+        <*> documentation o
         <*> o .:? "documentation_url"
         <*> o .:? "http" .!= HTTP "GET" [] mempty
         <*> o .:? "input"
@@ -297,7 +308,7 @@ instance FromJSON Shape where
     parseJSON (Object o) = (o .: "type" >>= f)
         <*> ((Just <$> o .: "shape_name") <|> (Just <$> o .: "alias") <|> o .:? "name")
         <*> o .:? "required" .!= False
-        <*> fmap normalise (o .:? "documentation" .!= "")
+        <*> documentation o
         <*> o .:? "xmlname"
         <*> pure ""
         <*> o .:? "payload" .!= False
@@ -419,3 +430,6 @@ options = defaultOptions
 
 shapeName :: Shape -> Text
 shapeName = fromMaybe "?" . sShapeName
+
+documentation :: Object -> Parser [Text]
+documentation o = fmap normalise (o .:? "documentation" .!= "")

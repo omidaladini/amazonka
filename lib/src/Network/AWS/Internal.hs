@@ -25,7 +25,7 @@ module Network.AWS.Internal
 import Network.AWS.Internal.Request       as Internal
 import Network.AWS.Internal.Serialisation as Internal
 import Network.AWS.Internal.Signing       as Internal
-import Network.AWS.Internal.Types         as Internal
+import Network.AWS.Internal.Types         as Internal hiding (Service)
 import Network.AWS.Internal.Types.Common  as Internal
 
 import Data.Text.Helpers                  as Common

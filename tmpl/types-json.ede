@@ -14,6 +14,7 @@ module Network.AWS.{{ module }}.Types where
 
 import Data.Aeson
 import Data.ByteString      (ByteString)
+import Data.Hashable
 import Data.Monoid
 import Data.List.NonEmpty
 import Data.Text            (Text)

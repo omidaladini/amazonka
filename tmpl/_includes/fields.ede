@@ -1,8 +1,8 @@
 {% for field in scope %}
   {% if field.first %}
-    { {{ field.key | lowerFirst }} :: {% include "strict-type.ede" with field.value %}
+    { {{ field.key | lowerFirst }} :: {% include "type-strict.ede" with field.value %}
   {% else %}
-    , {{ field.key | lowerFirst }} :: {% include "strict-type.ede" with field.value %}
+    , {{ field.key | lowerFirst }} :: {% include "type-strict.ede" with field.value %}
   {% endif %}
   {% for line in field.value.documentation %}
     {% if line.value /= "" %}

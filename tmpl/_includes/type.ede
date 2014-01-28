@@ -1,15 +1,19 @@
 {% case scope.type %}
 {% when "map" %}
- HashMap {{ scope.key.shape_name }} {{ scope.value.shape_name }}
+ HashMap {{ scope.key.shape_name }} {% include "type-inline.ede" with scope.value %}
 {% when "list" %}
   {% if scope.length > 0 %}
- NonEmpty {{ scope.item.shape_name }}
+ {% include "type-list.ede" with scope.item %}
   {% else %}
- [{{ scope.item.shape_name }}]
+ {% include "type-list.ede" with scope.item %}
   {% endif %}
 {% else %}
   {% if scope.required %}
+    {% if scope.strict %}
  {{ scope.shape_name }}
+    {% else %}
+ {{ scope.shape_name }}
+    {% endif %}
   {% else %}
  Maybe {{ scope.shape_name }}
   {% endif %}

@@ -75,6 +75,7 @@ library
       , cryptohash
       , data-default
       , errors                >= 1.4.4
+      , hashable
       , http-client
       , http-conduit
       , http-types

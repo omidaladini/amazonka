@@ -31,8 +31,23 @@ import           Network.AWS.Internal.Serialisation
 import           Network.HTTP.QueryString.Generic
 import           Text.XML.Generic
 
+newtype Key = Key { unKey :: Text }
+    deriving (Eq, Ord, Show)
+
+instance FromText Key where
+    fromText = Right . Key
+
+instance ToText Key where
+    toText = unKey
+
+instance FromJSON Key where
+    parseJSON = fromTextJSON "Key"
+
+instance ToJSON Key where
+    toJSON = toTextJSON
+
 newtype Blob = Blob { unBlob :: ByteString }
-    deriving (Show, Eq, Ord)
+    deriving (Eq, Ord, Show)
 
 instance IsString Blob where
     fromString = Blob . BS.pack

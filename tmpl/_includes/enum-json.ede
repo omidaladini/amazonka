@@ -8,6 +8,8 @@ data {{ scope.shape_name }}
 {% endfor %}
       deriving (Eq, Ord, Generic)
 
+instance Hashable {{ scope.shape_name }}
+
 instance FromText {{ scope.shape_name }} where
 {% for branch in scope.enum %}
     fromText "{{ branch.value }}" = Right {{ scope.shape_name | enumPrefix }}{{ branch.key | enumFormat }}
@@ -28,5 +30,11 @@ instance Show {{ scope.shape_name }} where
 instance FromJSON {{ scope.shape_name }} where
     parseJSON = fromTextJSON "{{ scope.shape_name }}"
 
+instance FromJSON v => FromJSON (HashMap {{ scope.shape_name }} v) where
+    parseJSON = fromTextHashJSON
+
 instance ToJSON {{ scope.shape_name }} where
     toJSON = toTextJSON
+
+instance ToJSON v => ToJSON (HashMap {{ scope.shape_name }} v) where
+    toJSON = toTextHashJSON
