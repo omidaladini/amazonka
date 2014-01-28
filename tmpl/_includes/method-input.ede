@@ -1,3 +1,4 @@
+-- | Convenience method utilising default fields where applicable.
 {% if scope.input | required | listLength == 0 %}
 {{ scope.name | lowerFirst }} :: AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
 {{ scope.name | lowerFirst }} = undefined $ {{ scope.name }}

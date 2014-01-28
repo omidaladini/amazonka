@@ -130,6 +130,7 @@ data PutObjectResponse = PutObjectResponse
       -- ^ Version of the object.
     } deriving (Eq, Show, Generic)
 
+-- | Convenience method utilising default fields where applicable.
 putObject :: Text -- ^ Bucket
           -> Text -- ^ Key
           -> RequestBody -- ^ Body

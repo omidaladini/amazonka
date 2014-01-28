@@ -68,6 +68,7 @@ data GetBucketAclResponse = GetBucketAclResponse
 instance FromXML GetBucketAclResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketAcl :: Text -- ^ Bucket
              -> AWS (Either S3Error GetBucketAclResponse)
 getBucketAcl p1 = undefined $ GetBucketAcl

@@ -99,6 +99,7 @@ data ListHostedZonesResponse = ListHostedZonesResponse
 instance FromXML ListHostedZonesResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 listHostedZones :: AWS (Either Route53Error ListHostedZonesResponse)
 listHostedZones = undefined $ ListHostedZones
     { lhzrMarker = Nothing

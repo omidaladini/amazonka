@@ -78,6 +78,7 @@ data CreateHealthCheckResponse = CreateHealthCheckResponse
 instance FromXML CreateHealthCheckResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 createHealthCheck :: HealthCheckConfig -- ^ HealthCheckConfig
                   -> Text -- ^ CallerReference
                   -> AWS (Either Route53Error CreateHealthCheckResponse)

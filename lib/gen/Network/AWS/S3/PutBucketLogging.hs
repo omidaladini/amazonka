@@ -72,6 +72,7 @@ data PutBucketLoggingResponse = PutBucketLoggingResponse
 instance FromXML PutBucketLoggingResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketLogging :: Text -- ^ Bucket
                  -> BucketLoggingStatus -- ^ BucketLoggingStatus
                  -> AWS (Either S3Error PutBucketLoggingResponse)

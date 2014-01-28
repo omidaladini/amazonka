@@ -146,6 +146,7 @@ data CopyObjectResponse = CopyObjectResponse
 instance FromXML CopyObjectResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 copyObject :: Text -- ^ Bucket
            -> Text -- ^ Key
            -> Text -- ^ CopySource

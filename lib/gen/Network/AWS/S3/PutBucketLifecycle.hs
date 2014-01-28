@@ -71,6 +71,7 @@ data PutBucketLifecycleResponse = PutBucketLifecycleResponse
 instance FromXML PutBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketLifecycle :: Text -- ^ Bucket
                    -> AWS (Either S3Error PutBucketLifecycleResponse)
 putBucketLifecycle p1 = undefined $ PutBucketLifecycle

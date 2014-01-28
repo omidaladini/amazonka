@@ -159,6 +159,7 @@ data GetObjectResponse = GetObjectResponse
       -- S3 stores the value of this header in the object metadata.
     }
 
+-- | Convenience method utilising default fields where applicable.
 getObject :: Text -- ^ Bucket
           -> Text -- ^ Key
           -> AWS (Either S3Error GetObjectResponse)

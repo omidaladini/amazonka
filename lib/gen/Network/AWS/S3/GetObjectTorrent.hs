@@ -66,6 +66,7 @@ data GetObjectTorrentResponse = GetObjectTorrentResponse
     { gotrsBody :: ResumableSource AWS ByteString
     }
 
+-- | Convenience method utilising default fields where applicable.
 getObjectTorrent :: Text -- ^ Bucket
                  -> Text -- ^ Key
                  -> AWS (Either S3Error GetObjectTorrentResponse)

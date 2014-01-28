@@ -144,6 +144,7 @@ data HeadObjectResponse = HeadObjectResponse
 instance FromXML HeadObjectResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 headObject :: Text -- ^ Bucket
            -> Text -- ^ Key
            -> AWS (Either S3Error HeadObjectResponse)

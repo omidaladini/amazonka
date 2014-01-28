@@ -66,6 +66,7 @@ data GetBucketCorsResponse = GetBucketCorsResponse
 instance FromXML GetBucketCorsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketCors :: Text -- ^ Bucket
               -> AWS (Either S3Error GetBucketCorsResponse)
 getBucketCors p1 = undefined $ GetBucketCors

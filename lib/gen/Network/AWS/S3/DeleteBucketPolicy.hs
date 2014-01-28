@@ -65,6 +65,7 @@ data DeleteBucketPolicyResponse = DeleteBucketPolicyResponse
 instance FromXML DeleteBucketPolicyResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 deleteBucketPolicy :: Text -- ^ Bucket
                    -> AWS (Either S3Error DeleteBucketPolicyResponse)
 deleteBucketPolicy p1 = undefined $ DeleteBucketPolicy

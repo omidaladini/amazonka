@@ -78,6 +78,7 @@ data DeleteObjectsResponse = DeleteObjectsResponse
 instance FromXML DeleteObjectsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 deleteObjects :: Text -- ^ Bucket
               -> Delete -- ^ Delete
               -> AWS (Either S3Error DeleteObjectsResponse)

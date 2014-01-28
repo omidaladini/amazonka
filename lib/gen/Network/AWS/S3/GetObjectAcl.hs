@@ -73,6 +73,7 @@ data GetObjectAclResponse = GetObjectAclResponse
 instance FromXML GetObjectAclResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getObjectAcl :: Text -- ^ Bucket
              -> Text -- ^ Key
              -> AWS (Either S3Error GetObjectAclResponse)

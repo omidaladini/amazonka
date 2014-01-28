@@ -74,6 +74,7 @@ data GetHostedZoneResponse = GetHostedZoneResponse
 instance FromXML GetHostedZoneResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getHostedZone :: Text -- ^ Id
               -> AWS (Either Route53Error GetHostedZoneResponse)
 getHostedZone p1 = undefined $ GetHostedZone

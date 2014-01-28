@@ -66,6 +66,7 @@ data GetBucketNotificationResponse = GetBucketNotificationResponse
 instance FromXML GetBucketNotificationResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketNotification :: Text -- ^ Bucket
                       -> AWS (Either S3Error GetBucketNotificationResponse)
 getBucketNotification p1 = undefined $ GetBucketNotification

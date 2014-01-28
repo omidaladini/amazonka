@@ -144,6 +144,7 @@ data ListResourceRecordSetsResponse = ListResourceRecordSetsResponse
 instance FromXML ListResourceRecordSetsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 listResourceRecordSets :: Text -- ^ HostedZoneId
                        -> AWS (Either Route53Error ListResourceRecordSetsResponse)
 listResourceRecordSets p1 = undefined $ ListResourceRecordSets

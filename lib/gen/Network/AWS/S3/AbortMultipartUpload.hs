@@ -71,6 +71,7 @@ data AbortMultipartUploadResponse = AbortMultipartUploadResponse
 instance FromXML AbortMultipartUploadResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 abortMultipartUpload :: Text -- ^ Bucket
                      -> Text -- ^ Key
                      -> Text -- ^ UploadId

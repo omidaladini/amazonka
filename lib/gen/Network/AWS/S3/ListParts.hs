@@ -99,6 +99,7 @@ data ListPartsResponse = ListPartsResponse
 instance FromXML ListPartsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 listParts :: Text -- ^ Bucket
           -> Text -- ^ Key
           -> Text -- ^ UploadId

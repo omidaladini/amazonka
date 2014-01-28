@@ -69,6 +69,7 @@ data GetBucketWebsiteResponse = GetBucketWebsiteResponse
 instance FromXML GetBucketWebsiteResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketWebsite :: Text -- ^ Bucket
                  -> AWS (Either S3Error GetBucketWebsiteResponse)
 getBucketWebsite p1 = undefined $ GetBucketWebsite

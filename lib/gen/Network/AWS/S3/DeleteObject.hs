@@ -81,6 +81,7 @@ data DeleteObjectResponse = DeleteObjectResponse
       -- DELETE operation.
     } deriving (Eq, Show, Generic)
 
+-- | Convenience method utilising default fields where applicable.
 deleteObject :: Text -- ^ Bucket
              -> Text -- ^ Key
              -> AWS (Either S3Error DeleteObjectResponse)

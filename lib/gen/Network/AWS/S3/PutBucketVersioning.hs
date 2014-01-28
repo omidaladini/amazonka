@@ -75,6 +75,7 @@ data PutBucketVersioningResponse = PutBucketVersioningResponse
 instance FromXML PutBucketVersioningResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketVersioning :: Text -- ^ Bucket
                     -> VersioningConfiguration -- ^ VersioningConfiguration
                     -> AWS (Either S3Error PutBucketVersioningResponse)

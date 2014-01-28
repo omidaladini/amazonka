@@ -120,6 +120,7 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse
 instance FromXML ListMultipartUploadsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 listMultipartUploads :: Text -- ^ Bucket
                      -> AWS (Either S3Error ListMultipartUploadsResponse)
 listMultipartUploads p1 = undefined $ ListMultipartUploads

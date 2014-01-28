@@ -110,6 +110,7 @@ data ListObjectsResponse = ListObjectsResponse
 instance FromXML ListObjectsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 listObjects :: Text -- ^ Bucket
             -> AWS (Either S3Error ListObjectsResponse)
 listObjects p1 = undefined $ ListObjects

@@ -70,6 +70,7 @@ data PutBucketCorsResponse = PutBucketCorsResponse
 instance FromXML PutBucketCorsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketCors :: Text -- ^ Bucket
               -> AWS (Either S3Error PutBucketCorsResponse)
 putBucketCors p1 = undefined $ PutBucketCors

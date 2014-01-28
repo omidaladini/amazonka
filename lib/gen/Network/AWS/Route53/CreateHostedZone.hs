@@ -101,6 +101,7 @@ data CreateHostedZoneResponse = CreateHostedZoneResponse
 instance FromXML CreateHostedZoneResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 createHostedZone :: Text -- ^ Name
                  -> Text -- ^ CallerReference
                  -> AWS (Either Route53Error CreateHostedZoneResponse)

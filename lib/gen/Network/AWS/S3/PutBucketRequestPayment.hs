@@ -73,6 +73,7 @@ data PutBucketRequestPaymentResponse = PutBucketRequestPaymentResponse
 instance FromXML PutBucketRequestPaymentResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketRequestPayment :: Text -- ^ Bucket
                         -> RequestPaymentConfiguration -- ^ RequestPaymentConfiguration
                         -> AWS (Either S3Error PutBucketRequestPaymentResponse)

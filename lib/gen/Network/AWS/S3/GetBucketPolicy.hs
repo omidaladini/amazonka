@@ -67,6 +67,7 @@ data GetBucketPolicyResponse = GetBucketPolicyResponse
 instance FromXML GetBucketPolicyResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketPolicy :: Text -- ^ Bucket
                 -> AWS (Either S3Error GetBucketPolicyResponse)
 getBucketPolicy p1 = undefined $ GetBucketPolicy

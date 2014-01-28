@@ -66,6 +66,7 @@ data GetBucketTaggingResponse = GetBucketTaggingResponse
 instance FromXML GetBucketTaggingResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketTagging :: Text -- ^ Bucket
                  -> AWS (Either S3Error GetBucketTaggingResponse)
 getBucketTagging p1 = undefined $ GetBucketTagging

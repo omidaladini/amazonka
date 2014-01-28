@@ -72,6 +72,7 @@ data RestoreObjectResponse = RestoreObjectResponse
 instance FromXML RestoreObjectResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 restoreObject :: Text -- ^ Bucket
               -> Text -- ^ Key
               -> AWS (Either S3Error RestoreObjectResponse)

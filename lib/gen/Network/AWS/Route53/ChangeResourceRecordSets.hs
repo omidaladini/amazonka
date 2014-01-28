@@ -93,6 +93,7 @@ data ChangeResourceRecordSetsResponse = ChangeResourceRecordSetsResponse
 instance FromXML ChangeResourceRecordSetsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 changeResourceRecordSets :: Text -- ^ HostedZoneId
                          -> ChangeBatch -- ^ ChangeBatch
                          -> AWS (Either Route53Error ChangeResourceRecordSetsResponse)

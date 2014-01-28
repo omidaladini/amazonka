@@ -70,6 +70,7 @@ data PutBucketWebsiteResponse = PutBucketWebsiteResponse
 instance FromXML PutBucketWebsiteResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketWebsite :: Text -- ^ Bucket
                  -> WebsiteConfiguration -- ^ WebsiteConfiguration
                  -> AWS (Either S3Error PutBucketWebsiteResponse)

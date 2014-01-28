@@ -66,6 +66,7 @@ data GetBucketLifecycleResponse = GetBucketLifecycleResponse
 instance FromXML GetBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketLifecycle :: Text -- ^ Bucket
                    -> AWS (Either S3Error GetBucketLifecycleResponse)
 getBucketLifecycle p1 = undefined $ GetBucketLifecycle

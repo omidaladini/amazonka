@@ -105,6 +105,7 @@ data UploadPartCopyResponse = UploadPartCopyResponse
 instance FromXML UploadPartCopyResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 uploadPartCopy :: Text -- ^ Bucket
                -> Text -- ^ Key
                -> Text -- ^ UploadId

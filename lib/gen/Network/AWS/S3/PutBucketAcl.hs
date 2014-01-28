@@ -89,6 +89,7 @@ data PutBucketAclResponse = PutBucketAclResponse
 instance FromXML PutBucketAclResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketAcl :: Text -- ^ Bucket
              -> AWS (Either S3Error PutBucketAclResponse)
 putBucketAcl p1 = undefined $ PutBucketAcl

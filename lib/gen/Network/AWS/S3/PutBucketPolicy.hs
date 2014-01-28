@@ -72,6 +72,7 @@ data PutBucketPolicyResponse = PutBucketPolicyResponse
 instance FromXML PutBucketPolicyResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketPolicy :: Text -- ^ Bucket
                 -> Text -- ^ Policy
                 -> AWS (Either S3Error PutBucketPolicyResponse)

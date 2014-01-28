@@ -65,6 +65,7 @@ data DeleteBucketCorsResponse = DeleteBucketCorsResponse
 instance FromXML DeleteBucketCorsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 deleteBucketCors :: Text -- ^ Bucket
                  -> AWS (Either S3Error DeleteBucketCorsResponse)
 deleteBucketCors p1 = undefined $ DeleteBucketCors

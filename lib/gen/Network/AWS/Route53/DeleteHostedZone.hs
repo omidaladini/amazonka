@@ -77,6 +77,7 @@ data DeleteHostedZoneResponse = DeleteHostedZoneResponse
 instance FromXML DeleteHostedZoneResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 deleteHostedZone :: Text -- ^ Id
                  -> AWS (Either Route53Error DeleteHostedZoneResponse)
 deleteHostedZone p1 = undefined $ DeleteHostedZone

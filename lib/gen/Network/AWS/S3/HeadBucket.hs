@@ -64,6 +64,7 @@ data HeadBucketResponse = HeadBucketResponse
 instance FromXML HeadBucketResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 headBucket :: Text -- ^ Bucket
            -> AWS (Either S3Error HeadBucketResponse)
 headBucket p1 = undefined $ HeadBucket

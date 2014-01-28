@@ -65,6 +65,7 @@ data DeleteBucketTaggingResponse = DeleteBucketTaggingResponse
 instance FromXML DeleteBucketTaggingResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 deleteBucketTagging :: Text -- ^ Bucket
                     -> AWS (Either S3Error DeleteBucketTaggingResponse)
 deleteBucketTagging p1 = undefined $ DeleteBucketTagging

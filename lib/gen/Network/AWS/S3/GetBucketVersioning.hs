@@ -72,6 +72,7 @@ data GetBucketVersioningResponse = GetBucketVersioningResponse
 instance FromXML GetBucketVersioningResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 getBucketVersioning :: Text -- ^ Bucket
                     -> AWS (Either S3Error GetBucketVersioningResponse)
 getBucketVersioning p1 = undefined $ GetBucketVersioning

@@ -88,6 +88,7 @@ data UploadPartResponse = UploadPartResponse
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
     } deriving (Eq, Show, Generic)
 
+-- | Convenience method utilising default fields where applicable.
 uploadPart :: Text -- ^ Bucket
            -> Text -- ^ Key
            -> Text -- ^ UploadId

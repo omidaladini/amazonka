@@ -83,6 +83,7 @@ data CompleteMultipartUploadResponse = CompleteMultipartUploadResponse
 instance FromXML CompleteMultipartUploadResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 completeMultipartUpload :: Text -- ^ Bucket
                         -> Text -- ^ Key
                         -> Text -- ^ UploadId

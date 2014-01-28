@@ -70,6 +70,7 @@ data PutBucketTaggingResponse = PutBucketTaggingResponse
 instance FromXML PutBucketTaggingResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketTagging :: Text -- ^ Bucket
                  -> Tagging -- ^ Tagging
                  -> AWS (Either S3Error PutBucketTaggingResponse)

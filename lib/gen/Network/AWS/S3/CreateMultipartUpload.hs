@@ -134,6 +134,7 @@ data CreateMultipartUploadResponse = CreateMultipartUploadResponse
 instance FromXML CreateMultipartUploadResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 createMultipartUpload :: Text -- ^ Bucket
                       -> Text -- ^ Key
                       -> AWS (Either S3Error CreateMultipartUploadResponse)

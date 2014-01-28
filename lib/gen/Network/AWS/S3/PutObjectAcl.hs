@@ -93,6 +93,7 @@ data PutObjectAclResponse = PutObjectAclResponse
 instance FromXML PutObjectAclResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putObjectAcl :: Text -- ^ Bucket
              -> Text -- ^ Key
              -> AWS (Either S3Error PutObjectAclResponse)

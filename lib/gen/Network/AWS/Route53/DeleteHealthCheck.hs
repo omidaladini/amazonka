@@ -72,6 +72,7 @@ data DeleteHealthCheckResponse = DeleteHealthCheckResponse
 instance FromXML DeleteHealthCheckResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 deleteHealthCheck :: Text -- ^ HealthCheckId
                   -> AWS (Either Route53Error DeleteHealthCheckResponse)
 deleteHealthCheck p1 = undefined $ DeleteHealthCheck

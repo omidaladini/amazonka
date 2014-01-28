@@ -70,6 +70,7 @@ data PutBucketNotificationResponse = PutBucketNotificationResponse
 instance FromXML PutBucketNotificationResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 putBucketNotification :: Text -- ^ Bucket
                       -> NotificationConfiguration -- ^ NotificationConfiguration
                       -> AWS (Either S3Error PutBucketNotificationResponse)

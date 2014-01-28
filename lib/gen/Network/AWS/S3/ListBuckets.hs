@@ -65,5 +65,6 @@ data ListBucketsResponse = ListBucketsResponse
 instance FromXML ListBucketsResponse where
     fromXMLOptions = xmlOptions
 
+-- | Convenience method utilising default fields where applicable.
 listBuckets :: AWS (Either S3Error ListBucketsResponse)
 listBuckets = undefined ListBuckets
