@@ -64,3 +64,6 @@ data ListBucketsResponse = ListBucketsResponse
 
 instance FromXML ListBucketsResponse where
     fromXMLOptions = xmlOptions
+
+listBuckets :: AWS (Either S3Error ListBucketsResponse)
+listBuckets = undefined ListBuckets

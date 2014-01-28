@@ -113,3 +113,15 @@ data ListObjectVersionsResponse = ListObjectVersionsResponse
 
 instance FromXML ListObjectVersionsResponse where
     fromXMLOptions = xmlOptions
+
+listObjectVersions :: Text -- ^ Bucket
+                   -> AWS (Either S3Error ListObjectVersionsResponse)
+listObjectVersions p1 = undefined $ ListObjectVersions
+    { lovBucket = p1
+    , lovDelimiter = Nothing
+    , lovEncodingType = Nothing
+    , lovKeyMarker = Nothing
+    , lovMaxKeys = Nothing
+    , lovPrefix = Nothing
+    , lovVersionIdMarker = Nothing
+    }

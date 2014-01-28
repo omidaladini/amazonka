@@ -65,3 +65,9 @@ data GetBucketLocationResponse = GetBucketLocationResponse
 
 instance FromXML GetBucketLocationResponse where
     fromXMLOptions = xmlOptions
+
+getBucketLocation :: Text -- ^ Bucket
+                  -> AWS (Either S3Error GetBucketLocationResponse)
+getBucketLocation p1 = undefined $ GetBucketLocation
+    { gblBucket = p1
+    }

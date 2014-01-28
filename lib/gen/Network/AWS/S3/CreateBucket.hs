@@ -85,3 +85,16 @@ instance AWSRequest CreateBucket where
 data CreateBucketResponse = CreateBucketResponse
     { cbrsLocation :: Maybe Text
     } deriving (Eq, Show, Generic)
+
+createBucket :: Text -- ^ Bucket
+             -> AWS (Either S3Error CreateBucketResponse)
+createBucket p1 = undefined $ CreateBucket
+    { cbBucket = p1
+    , cbACL = Nothing
+    , cbCreateBucketConfiguration = Nothing
+    , cbGrantFullControl = Nothing
+    , cbGrantRead = Nothing
+    , cbGrantReadACP = Nothing
+    , cbGrantWrite = Nothing
+    , cbGrantWriteACP = Nothing
+    }

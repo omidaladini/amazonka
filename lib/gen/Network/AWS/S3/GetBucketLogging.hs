@@ -66,3 +66,9 @@ data GetBucketLoggingResponse = GetBucketLoggingResponse
 
 instance FromXML GetBucketLoggingResponse where
     fromXMLOptions = xmlOptions
+
+getBucketLogging :: Text -- ^ Bucket
+                 -> AWS (Either S3Error GetBucketLoggingResponse)
+getBucketLogging p1 = undefined $ GetBucketLogging
+    { gboBucket = p1
+    }

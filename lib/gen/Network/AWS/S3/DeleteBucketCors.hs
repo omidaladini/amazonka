@@ -64,3 +64,9 @@ data DeleteBucketCorsResponse = DeleteBucketCorsResponse
 
 instance FromXML DeleteBucketCorsResponse where
     fromXMLOptions = xmlOptions
+
+deleteBucketCors :: Text -- ^ Bucket
+                 -> AWS (Either S3Error DeleteBucketCorsResponse)
+deleteBucketCors p1 = undefined $ DeleteBucketCors
+    { dbcBucket = p1
+    }

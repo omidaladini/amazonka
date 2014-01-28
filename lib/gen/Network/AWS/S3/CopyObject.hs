@@ -145,3 +145,33 @@ data CopyObjectResponse = CopyObjectResponse
 
 instance FromXML CopyObjectResponse where
     fromXMLOptions = xmlOptions
+
+copyObject :: Text -- ^ Bucket
+           -> Text -- ^ Key
+           -> Text -- ^ CopySource
+           -> AWS (Either S3Error CopyObjectResponse)
+copyObject p1 p2 p3 = undefined $ CopyObject
+    { coBucket = p1
+    , coKey = p2
+    , coCopySource = p3
+    , coACL = Nothing
+    , coCacheControl = Nothing
+    , coContentDisposition = Nothing
+    , coContentEncoding = Nothing
+    , coContentLanguage = Nothing
+    , coContentType = Nothing
+    , coCopySourceIfMatch = Nothing
+    , coCopySourceIfModifiedSince = Nothing
+    , coCopySourceIfNoneMatch = Nothing
+    , coCopySourceIfUnmodifiedSince = Nothing
+    , coExpires = Nothing
+    , coGrantFullControl = Nothing
+    , coGrantRead = Nothing
+    , coGrantReadACP = Nothing
+    , coGrantWriteACP = Nothing
+    , coMetadata = mempty
+    , coMetadataDirective = Nothing
+    , coServerSideEncryption = Nothing
+    , coStorageClass = Nothing
+    , coWebsiteRedirectLocation = Nothing
+    }

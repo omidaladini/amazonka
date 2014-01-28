@@ -67,3 +67,9 @@ data GetHealthCheckResponse = GetHealthCheckResponse
 
 instance FromXML GetHealthCheckResponse where
     fromXMLOptions = xmlOptions
+
+getHealthCheck :: Text -- ^ HealthCheckId
+               -> AWS (Either Route53Error GetHealthCheckResponse)
+getHealthCheck p1 = undefined $ GetHealthCheck
+    { ghcrHealthCheckId = p1
+    }

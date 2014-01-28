@@ -98,3 +98,15 @@ data ListPartsResponse = ListPartsResponse
 
 instance FromXML ListPartsResponse where
     fromXMLOptions = xmlOptions
+
+listParts :: Text -- ^ Bucket
+          -> Text -- ^ Key
+          -> Text -- ^ UploadId
+          -> AWS (Either S3Error ListPartsResponse)
+listParts p1 p2 p3 = undefined $ ListParts
+    { lpBucket = p1
+    , lpKey = p2
+    , lpUploadId = p3
+    , lpMaxParts = Nothing
+    , lpPartNumberMarker = Nothing
+    }

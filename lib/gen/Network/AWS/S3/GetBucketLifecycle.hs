@@ -65,3 +65,9 @@ data GetBucketLifecycleResponse = GetBucketLifecycleResponse
 
 instance FromXML GetBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
+
+getBucketLifecycle :: Text -- ^ Bucket
+                   -> AWS (Either S3Error GetBucketLifecycleResponse)
+getBucketLifecycle p1 = undefined $ GetBucketLifecycle
+    { gbmBucket = p1
+    }

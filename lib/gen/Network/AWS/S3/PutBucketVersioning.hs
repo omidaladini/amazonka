@@ -74,3 +74,13 @@ data PutBucketVersioningResponse = PutBucketVersioningResponse
 
 instance FromXML PutBucketVersioningResponse where
     fromXMLOptions = xmlOptions
+
+putBucketVersioning :: Text -- ^ Bucket
+                    -> VersioningConfiguration -- ^ VersioningConfiguration
+                    -> AWS (Either S3Error PutBucketVersioningResponse)
+putBucketVersioning p1 p2 = undefined $ PutBucketVersioning
+    { pbvBucket = p1
+    , pbvVersioningConfiguration = p2
+    , pbvContentMD5 = Nothing
+    , pbvMFA = Nothing
+    }

@@ -71,3 +71,12 @@ data RestoreObjectResponse = RestoreObjectResponse
 
 instance FromXML RestoreObjectResponse where
     fromXMLOptions = xmlOptions
+
+restoreObject :: Text -- ^ Bucket
+              -> Text -- ^ Key
+              -> AWS (Either S3Error RestoreObjectResponse)
+restoreObject p1 p2 = undefined $ RestoreObject
+    { roBucket = p1
+    , roKey = p2
+    , roRestoreRequest = Nothing
+    }

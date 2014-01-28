@@ -92,3 +92,11 @@ data ChangeResourceRecordSetsResponse = ChangeResourceRecordSetsResponse
 
 instance FromXML ChangeResourceRecordSetsResponse where
     fromXMLOptions = xmlOptions
+
+changeResourceRecordSets :: Text -- ^ HostedZoneId
+                         -> ChangeBatch -- ^ ChangeBatch
+                         -> AWS (Either Route53Error ChangeResourceRecordSetsResponse)
+changeResourceRecordSets p1 p2 = undefined $ ChangeResourceRecordSets
+    { crrsrHostedZoneId = p1
+    , crrsrChangeBatch = p2
+    }

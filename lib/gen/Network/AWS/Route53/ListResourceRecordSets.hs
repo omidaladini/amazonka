@@ -143,3 +143,13 @@ data ListResourceRecordSetsResponse = ListResourceRecordSetsResponse
 
 instance FromXML ListResourceRecordSetsResponse where
     fromXMLOptions = xmlOptions
+
+listResourceRecordSets :: Text -- ^ HostedZoneId
+                       -> AWS (Either Route53Error ListResourceRecordSetsResponse)
+listResourceRecordSets p1 = undefined $ ListResourceRecordSets
+    { lrrsrHostedZoneId = p1
+    , lrrsrMaxItems = Nothing
+    , lrrsrStartRecordIdentifier = Nothing
+    , lrrsrStartRecordName = Nothing
+    , lrrsrStartRecordType = Nothing
+    }

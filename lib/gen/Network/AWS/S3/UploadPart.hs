@@ -87,3 +87,19 @@ data UploadPartResponse = UploadPartResponse
     , uprsServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
     } deriving (Eq, Show, Generic)
+
+uploadPart :: Text -- ^ Bucket
+           -> Text -- ^ Key
+           -> Text -- ^ UploadId
+           -> Int -- ^ PartNumber
+           -> RequestBody -- ^ Body
+           -> AWS (Either S3Error UploadPartResponse)
+uploadPart p1 p2 p3 p4 p5 = undefined $ UploadPart
+    { upBucket = p1
+    , upKey = p2
+    , upUploadId = p3
+    , upPartNumber = p4
+    , upBody = p5
+    , upContentLength = Nothing
+    , upContentMD5 = Nothing
+    }

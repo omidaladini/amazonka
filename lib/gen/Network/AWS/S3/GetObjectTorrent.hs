@@ -65,3 +65,11 @@ instance AWSRequest GetObjectTorrent where
 data GetObjectTorrentResponse = GetObjectTorrentResponse
     { gotrsBody :: ResumableSource AWS ByteString
     }
+
+getObjectTorrent :: Text -- ^ Bucket
+                 -> Text -- ^ Key
+                 -> AWS (Either S3Error GetObjectTorrentResponse)
+getObjectTorrent p1 p2 = undefined $ GetObjectTorrent
+    { gotBucket = p1
+    , gotKey = p2
+    }

@@ -65,3 +65,9 @@ data GetBucketNotificationResponse = GetBucketNotificationResponse
 
 instance FromXML GetBucketNotificationResponse where
     fromXMLOptions = xmlOptions
+
+getBucketNotification :: Text -- ^ Bucket
+                      -> AWS (Either S3Error GetBucketNotificationResponse)
+getBucketNotification p1 = undefined $ GetBucketNotification
+    { gbnBucket = p1
+    }

@@ -64,3 +64,9 @@ data DeleteBucketLifecycleResponse = DeleteBucketLifecycleResponse
 
 instance FromXML DeleteBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
+
+deleteBucketLifecycle :: Text -- ^ Bucket
+                      -> AWS (Either S3Error DeleteBucketLifecycleResponse)
+deleteBucketLifecycle p1 = undefined $ DeleteBucketLifecycle
+    { dblBucket = p1
+    }

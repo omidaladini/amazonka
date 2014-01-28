@@ -77,3 +77,11 @@ data CreateHealthCheckResponse = CreateHealthCheckResponse
 
 instance FromXML CreateHealthCheckResponse where
     fromXMLOptions = xmlOptions
+
+createHealthCheck :: HealthCheckConfig -- ^ HealthCheckConfig
+                  -> Text -- ^ CallerReference
+                  -> AWS (Either Route53Error CreateHealthCheckResponse)
+createHealthCheck p1 p2 = undefined $ CreateHealthCheck
+    { chcrHealthCheckConfig = p1
+    , chcrCallerReference = p2
+    }

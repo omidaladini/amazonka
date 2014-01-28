@@ -68,3 +68,9 @@ data GetBucketWebsiteResponse = GetBucketWebsiteResponse
 
 instance FromXML GetBucketWebsiteResponse where
     fromXMLOptions = xmlOptions
+
+getBucketWebsite :: Text -- ^ Bucket
+                 -> AWS (Either S3Error GetBucketWebsiteResponse)
+getBucketWebsite p1 = undefined $ GetBucketWebsite
+    { gbwBucket = p1
+    }

@@ -69,3 +69,11 @@ data PutBucketCorsResponse = PutBucketCorsResponse
 
 instance FromXML PutBucketCorsResponse where
     fromXMLOptions = xmlOptions
+
+putBucketCors :: Text -- ^ Bucket
+              -> AWS (Either S3Error PutBucketCorsResponse)
+putBucketCors p1 = undefined $ PutBucketCors
+    { pbcBucket = p1
+    , pbcCORSConfiguration = Nothing
+    , pbcContentMD5 = Nothing
+    }

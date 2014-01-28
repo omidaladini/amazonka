@@ -65,3 +65,9 @@ data GetBucketTaggingResponse = GetBucketTaggingResponse
 
 instance FromXML GetBucketTaggingResponse where
     fromXMLOptions = xmlOptions
+
+getBucketTagging :: Text -- ^ Bucket
+                 -> AWS (Either S3Error GetBucketTaggingResponse)
+getBucketTagging p1 = undefined $ GetBucketTagging
+    { gbtBucket = p1
+    }

@@ -66,3 +66,9 @@ data GetBucketRequestPaymentResponse = GetBucketRequestPaymentResponse
 
 instance FromXML GetBucketRequestPaymentResponse where
     fromXMLOptions = xmlOptions
+
+getBucketRequestPayment :: Text -- ^ Bucket
+                        -> AWS (Either S3Error GetBucketRequestPaymentResponse)
+getBucketRequestPayment p1 = undefined $ GetBucketRequestPayment
+    { gbrpBucket = p1
+    }

@@ -158,3 +158,23 @@ data GetObjectResponse = GetObjectResponse
       -- object to another object in the same bucket or to an external URL. Amazon
       -- S3 stores the value of this header in the object metadata.
     }
+
+getObject :: Text -- ^ Bucket
+          -> Text -- ^ Key
+          -> AWS (Either S3Error GetObjectResponse)
+getObject p1 p2 = undefined $ GetObject
+    { goBucket = p1
+    , goKey = p2
+    , goIfMatch = Nothing
+    , goIfModifiedSince = Nothing
+    , goIfNoneMatch = Nothing
+    , goIfUnmodifiedSince = Nothing
+    , goRange = Nothing
+    , goResponseCacheControl = Nothing
+    , goResponseContentDisposition = Nothing
+    , goResponseContentEncoding = Nothing
+    , goResponseContentLanguage = Nothing
+    , goResponseContentType = Nothing
+    , goResponseExpires = Nothing
+    , goVersionId = Nothing
+    }

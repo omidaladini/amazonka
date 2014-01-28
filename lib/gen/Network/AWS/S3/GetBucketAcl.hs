@@ -67,3 +67,9 @@ data GetBucketAclResponse = GetBucketAclResponse
 
 instance FromXML GetBucketAclResponse where
     fromXMLOptions = xmlOptions
+
+getBucketAcl :: Text -- ^ Bucket
+             -> AWS (Either S3Error GetBucketAclResponse)
+getBucketAcl p1 = undefined $ GetBucketAcl
+    { gbaBucket = p1
+    }

@@ -76,3 +76,9 @@ data DeleteHostedZoneResponse = DeleteHostedZoneResponse
 
 instance FromXML DeleteHostedZoneResponse where
     fromXMLOptions = xmlOptions
+
+deleteHostedZone :: Text -- ^ Id
+                 -> AWS (Either Route53Error DeleteHostedZoneResponse)
+deleteHostedZone p1 = undefined $ DeleteHostedZone
+    { dhzrId = p1
+    }

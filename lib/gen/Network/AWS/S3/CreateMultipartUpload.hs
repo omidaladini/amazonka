@@ -133,3 +133,26 @@ data CreateMultipartUploadResponse = CreateMultipartUploadResponse
 
 instance FromXML CreateMultipartUploadResponse where
     fromXMLOptions = xmlOptions
+
+createMultipartUpload :: Text -- ^ Bucket
+                      -> Text -- ^ Key
+                      -> AWS (Either S3Error CreateMultipartUploadResponse)
+createMultipartUpload p1 p2 = undefined $ CreateMultipartUpload
+    { cmuBucket = p1
+    , cmuKey = p2
+    , cmuACL = Nothing
+    , cmuCacheControl = Nothing
+    , cmuContentDisposition = Nothing
+    , cmuContentEncoding = Nothing
+    , cmuContentLanguage = Nothing
+    , cmuContentType = Nothing
+    , cmuExpires = Nothing
+    , cmuGrantFullControl = Nothing
+    , cmuGrantRead = Nothing
+    , cmuGrantReadACP = Nothing
+    , cmuGrantWriteACP = Nothing
+    , cmuMetadata = mempty
+    , cmuServerSideEncryption = Nothing
+    , cmuStorageClass = Nothing
+    , cmuWebsiteRedirectLocation = Nothing
+    }

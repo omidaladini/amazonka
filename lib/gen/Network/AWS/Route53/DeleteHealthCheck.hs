@@ -71,3 +71,9 @@ data DeleteHealthCheckResponse = DeleteHealthCheckResponse
 
 instance FromXML DeleteHealthCheckResponse where
     fromXMLOptions = xmlOptions
+
+deleteHealthCheck :: Text -- ^ HealthCheckId
+                  -> AWS (Either Route53Error DeleteHealthCheckResponse)
+deleteHealthCheck p1 = undefined $ DeleteHealthCheck
+    { dhcrHealthCheckId = p1
+    }

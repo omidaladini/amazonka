@@ -69,3 +69,12 @@ data PutBucketNotificationResponse = PutBucketNotificationResponse
 
 instance FromXML PutBucketNotificationResponse where
     fromXMLOptions = xmlOptions
+
+putBucketNotification :: Text -- ^ Bucket
+                      -> NotificationConfiguration -- ^ NotificationConfiguration
+                      -> AWS (Either S3Error PutBucketNotificationResponse)
+putBucketNotification p1 p2 = undefined $ PutBucketNotification
+    { pbnBucket = p1
+    , pbnNotificationConfiguration = p2
+    , pbnContentMD5 = Nothing
+    }

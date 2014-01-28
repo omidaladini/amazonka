@@ -18,7 +18,7 @@ import           Control.Applicative
 import           Control.Arrow
 import           Control.Error
 import           Control.Monad
-import           Data.Aeson
+import           Data.Aeson           as Aeson
 import           Data.Char            (isDigit)
 import           Data.Foldable        (foldl')
 import qualified Data.HashMap.Strict  as Map
@@ -29,6 +29,7 @@ import           Data.Monoid
 import           Data.Text            (Text)
 import qualified Data.Text            as Text
 import qualified Data.Text.Lazy.IO    as LText
+import qualified Data.Vector          as Vector
 import           Generator.Helpers
 import           Generator.Model
 import           Generator.Operations
@@ -245,10 +246,13 @@ render p t o = do
     filters = defaultFilters <> Map.fromList
         [ ("enumPrefix",  Fun TText TText name)
         , ("enumFormat",  Fun TText TText format)
-        , ("headers",     Fun TMap TMap headers)
-        , ("onlyHeaders", Fun TMap TBool onlyHeaders)
-        , ("fields",      Fun TMap TMap fields)
-        , ("payload",     Fun TMap TBool payload)
+        , ("headers",     Fun TMap  TMap  headers)
+        , ("onlyHeaders", Fun TMap  TBool onlyHeaders)
+        , ("fields",      Fun TMap  TMap  fields)
+        , ("payload",     Fun TMap  TBool payload)
+        , ("dropLower",   Fun TText TText dropLower)
+        , ("required",    Fun TMap  TList required)
+        , ("pad",         Fun TText TText pad)
         ]
 
     -- EC2
@@ -275,6 +279,8 @@ render p t o = do
     name "StreamStatus"              = ""
 
     name n                           = upperFirst n
+
+    pad t = Text.replicate (Text.length t) " "
 
     format n
         | x <- Text.takeWhile (/= '_') n
@@ -310,3 +316,36 @@ render p t o = do
       where
         f (Object s) = maybe False (\(Bool b) -> b) $ Map.lookup "payload" s
         f _          = False
+
+    required m = fromMaybe (error $ "Unable to filter required: " ++ show m) $ do
+       Object fs <- Map.lookup "fields" m
+       return . Vector.fromList
+              . map toJSON
+              . List.sortBy g
+              . List.filter p
+              . map f $ Map.toList fs
+      where
+        f (k, v) = OrdShape (dropLower k) v
+
+        g a b = h (osKey a) (osKey b)
+
+        h y x | x == y             = EQ
+              | x == "Bucket"      = GT
+              | y == "Bucket"      = LT
+              | x == "Key"         = GT
+              | y == "Key"         = LT
+              | x == "RequestBody" = LT
+              | y == "RequestBody" = GT
+              | otherwise          = x `compare` y
+
+        p (OrdShape _ (Object o)) = Map.lookup "required" o == Just (Bool True)
+        p _                       = False
+
+data OrdShape = OrdShape
+    { osKey :: !Text
+    , osVal :: !Value
+    }
+
+instance ToJSON OrdShape where
+    toJSON (OrdShape k (Object o)) = Object $ Map.insert "param" (toJSON k) o
+    toJSON (OrdShape k _) = error $ "Error inserting OrdShape key: " ++ Text.unpack k

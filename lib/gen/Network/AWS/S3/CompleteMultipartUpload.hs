@@ -82,3 +82,14 @@ data CompleteMultipartUploadResponse = CompleteMultipartUploadResponse
 
 instance FromXML CompleteMultipartUploadResponse where
     fromXMLOptions = xmlOptions
+
+completeMultipartUpload :: Text -- ^ Bucket
+                        -> Text -- ^ Key
+                        -> Text -- ^ UploadId
+                        -> AWS (Either S3Error CompleteMultipartUploadResponse)
+completeMultipartUpload p1 p2 p3 = undefined $ CompleteMultipartUpload
+    { muBucket = p1
+    , muKey = p2
+    , muUploadId = p3
+    , muMultipartUpload = Nothing
+    }

@@ -70,3 +70,11 @@ data PutBucketLifecycleResponse = PutBucketLifecycleResponse
 
 instance FromXML PutBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
+
+putBucketLifecycle :: Text -- ^ Bucket
+                   -> AWS (Either S3Error PutBucketLifecycleResponse)
+putBucketLifecycle p1 = undefined $ PutBucketLifecycle
+    { pbmBucket = p1
+    , pbmContentMD5 = Nothing
+    , pbmLifecycleConfiguration = Nothing
+    }

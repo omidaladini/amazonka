@@ -143,3 +143,17 @@ data HeadObjectResponse = HeadObjectResponse
 
 instance FromXML HeadObjectResponse where
     fromXMLOptions = xmlOptions
+
+headObject :: Text -- ^ Bucket
+           -> Text -- ^ Key
+           -> AWS (Either S3Error HeadObjectResponse)
+headObject p1 p2 = undefined $ HeadObject
+    { hoBucket = p1
+    , hoKey = p2
+    , hoIfMatch = Nothing
+    , hoIfModifiedSince = Nothing
+    , hoIfNoneMatch = Nothing
+    , hoIfUnmodifiedSince = Nothing
+    , hoRange = Nothing
+    , hoVersionId = Nothing
+    }

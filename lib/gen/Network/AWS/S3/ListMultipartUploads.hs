@@ -119,3 +119,15 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse
 
 instance FromXML ListMultipartUploadsResponse where
     fromXMLOptions = xmlOptions
+
+listMultipartUploads :: Text -- ^ Bucket
+                     -> AWS (Either S3Error ListMultipartUploadsResponse)
+listMultipartUploads p1 = undefined $ ListMultipartUploads
+    { lmuBucket = p1
+    , lmuDelimiter = Nothing
+    , lmuEncodingType = Nothing
+    , lmuKeyMarker = Nothing
+    , lmuMaxUploads = Nothing
+    , lmuPrefix = Nothing
+    , lmuUploadIdMarker = Nothing
+    }

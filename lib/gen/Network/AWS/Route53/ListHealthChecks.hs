@@ -98,3 +98,9 @@ data ListHealthChecksResponse = ListHealthChecksResponse
 
 instance FromXML ListHealthChecksResponse where
     fromXMLOptions = xmlOptions
+
+listHealthChecks :: AWS (Either Route53Error ListHealthChecksResponse)
+listHealthChecks = undefined $ ListHealthChecks
+    { lhcrMarker = Nothing
+    , lhcrMaxItems = Nothing
+    }

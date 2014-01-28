@@ -69,3 +69,12 @@ data PutBucketTaggingResponse = PutBucketTaggingResponse
 
 instance FromXML PutBucketTaggingResponse where
     fromXMLOptions = xmlOptions
+
+putBucketTagging :: Text -- ^ Bucket
+                 -> Tagging -- ^ Tagging
+                 -> AWS (Either S3Error PutBucketTaggingResponse)
+putBucketTagging p1 p2 = undefined $ PutBucketTagging
+    { pbtBucket = p1
+    , pbtTagging = p2
+    , pbtContentMD5 = Nothing
+    }

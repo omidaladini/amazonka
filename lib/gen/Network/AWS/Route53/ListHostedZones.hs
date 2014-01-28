@@ -98,3 +98,9 @@ data ListHostedZonesResponse = ListHostedZonesResponse
 
 instance FromXML ListHostedZonesResponse where
     fromXMLOptions = xmlOptions
+
+listHostedZones :: AWS (Either Route53Error ListHostedZonesResponse)
+listHostedZones = undefined $ ListHostedZones
+    { lhzrMarker = Nothing
+    , lhzrMaxItems = Nothing
+    }

@@ -72,3 +72,12 @@ data PutBucketRequestPaymentResponse = PutBucketRequestPaymentResponse
 
 instance FromXML PutBucketRequestPaymentResponse where
     fromXMLOptions = xmlOptions
+
+putBucketRequestPayment :: Text -- ^ Bucket
+                        -> RequestPaymentConfiguration -- ^ RequestPaymentConfiguration
+                        -> AWS (Either S3Error PutBucketRequestPaymentResponse)
+putBucketRequestPayment p1 p2 = undefined $ PutBucketRequestPayment
+    { pbrpBucket = p1
+    , pbrpRequestPaymentConfiguration = p2
+    , pbrpContentMD5 = Nothing
+    }

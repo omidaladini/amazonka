@@ -77,3 +77,12 @@ data DeleteObjectsResponse = DeleteObjectsResponse
 
 instance FromXML DeleteObjectsResponse where
     fromXMLOptions = xmlOptions
+
+deleteObjects :: Text -- ^ Bucket
+              -> Delete -- ^ Delete
+              -> AWS (Either S3Error DeleteObjectsResponse)
+deleteObjects p1 p2 = undefined $ DeleteObjects
+    { dpBucket = p1
+    , dpDelete = p2
+    , dpMFA = Nothing
+    }

@@ -71,3 +71,12 @@ data PutBucketPolicyResponse = PutBucketPolicyResponse
 
 instance FromXML PutBucketPolicyResponse where
     fromXMLOptions = xmlOptions
+
+putBucketPolicy :: Text -- ^ Bucket
+                -> Text -- ^ Policy
+                -> AWS (Either S3Error PutBucketPolicyResponse)
+putBucketPolicy p1 p2 = undefined $ PutBucketPolicy
+    { pbpBucket = p1
+    , pbpPolicy = p2
+    , pbpContentMD5 = Nothing
+    }

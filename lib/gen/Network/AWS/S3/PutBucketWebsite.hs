@@ -69,3 +69,12 @@ data PutBucketWebsiteResponse = PutBucketWebsiteResponse
 
 instance FromXML PutBucketWebsiteResponse where
     fromXMLOptions = xmlOptions
+
+putBucketWebsite :: Text -- ^ Bucket
+                 -> WebsiteConfiguration -- ^ WebsiteConfiguration
+                 -> AWS (Either S3Error PutBucketWebsiteResponse)
+putBucketWebsite p1 p2 = undefined $ PutBucketWebsite
+    { pbwBucket = p1
+    , pbwWebsiteConfiguration = p2
+    , pbwContentMD5 = Nothing
+    }

@@ -73,3 +73,9 @@ data GetHostedZoneResponse = GetHostedZoneResponse
 
 instance FromXML GetHostedZoneResponse where
     fromXMLOptions = xmlOptions
+
+getHostedZone :: Text -- ^ Id
+              -> AWS (Either Route53Error GetHostedZoneResponse)
+getHostedZone p1 = undefined $ GetHostedZone
+    { ghzrId = p1
+    }

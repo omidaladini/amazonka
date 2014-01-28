@@ -100,3 +100,12 @@ data CreateHostedZoneResponse = CreateHostedZoneResponse
 
 instance FromXML CreateHostedZoneResponse where
     fromXMLOptions = xmlOptions
+
+createHostedZone :: Text -- ^ Name
+                 -> Text -- ^ CallerReference
+                 -> AWS (Either Route53Error CreateHostedZoneResponse)
+createHostedZone p1 p2 = undefined $ CreateHostedZone
+    { chzrName = p1
+    , chzrCallerReference = p2
+    , chzrHostedZoneConfig = Nothing
+    }

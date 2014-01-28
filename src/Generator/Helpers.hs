@@ -74,3 +74,6 @@ lowerFilter = Text.concatMap f
   where
     f c | isLower c = ""
         | otherwise = Text.singleton c
+
+dropLower :: Text -> Text
+dropLower = Text.dropWhile isLower

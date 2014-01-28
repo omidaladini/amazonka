@@ -71,3 +71,9 @@ data GetBucketVersioningResponse = GetBucketVersioningResponse
 
 instance FromXML GetBucketVersioningResponse where
     fromXMLOptions = xmlOptions
+
+getBucketVersioning :: Text -- ^ Bucket
+                    -> AWS (Either S3Error GetBucketVersioningResponse)
+getBucketVersioning p1 = undefined $ GetBucketVersioning
+    { gbvBucket = p1
+    }

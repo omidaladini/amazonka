@@ -129,3 +129,30 @@ data PutObjectResponse = PutObjectResponse
     , porsVersionId :: Maybe Text
       -- ^ Version of the object.
     } deriving (Eq, Show, Generic)
+
+putObject :: Text -- ^ Bucket
+          -> Text -- ^ Key
+          -> RequestBody -- ^ Body
+          -> AWS (Either S3Error PutObjectResponse)
+putObject p1 p2 p3 = undefined $ PutObject
+    { poBucket = p1
+    , poKey = p2
+    , poBody = p3
+    , poACL = Nothing
+    , poCacheControl = Nothing
+    , poContentDisposition = Nothing
+    , poContentEncoding = Nothing
+    , poContentLanguage = Nothing
+    , poContentLength = Nothing
+    , poContentMD5 = Nothing
+    , poContentType = Nothing
+    , poExpires = Nothing
+    , poGrantFullControl = Nothing
+    , poGrantRead = Nothing
+    , poGrantReadACP = Nothing
+    , poGrantWriteACP = Nothing
+    , poMetadata = mempty
+    , poServerSideEncryption = Nothing
+    , poStorageClass = Nothing
+    , poWebsiteRedirectLocation = Nothing
+    }

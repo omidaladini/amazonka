@@ -66,3 +66,9 @@ data GetBucketPolicyResponse = GetBucketPolicyResponse
 
 instance FromXML GetBucketPolicyResponse where
     fromXMLOptions = xmlOptions
+
+getBucketPolicy :: Text -- ^ Bucket
+                -> AWS (Either S3Error GetBucketPolicyResponse)
+getBucketPolicy p1 = undefined $ GetBucketPolicy
+    { gbpBucket = p1
+    }

@@ -70,3 +70,13 @@ data AbortMultipartUploadResponse = AbortMultipartUploadResponse
 
 instance FromXML AbortMultipartUploadResponse where
     fromXMLOptions = xmlOptions
+
+abortMultipartUpload :: Text -- ^ Bucket
+                     -> Text -- ^ Key
+                     -> Text -- ^ UploadId
+                     -> AWS (Either S3Error AbortMultipartUploadResponse)
+abortMultipartUpload p1 p2 p3 = undefined $ AbortMultipartUpload
+    { amuBucket = p1
+    , amuKey = p2
+    , amuUploadId = p3
+    }

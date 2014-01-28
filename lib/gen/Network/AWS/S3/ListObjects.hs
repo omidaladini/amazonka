@@ -109,3 +109,14 @@ data ListObjectsResponse = ListObjectsResponse
 
 instance FromXML ListObjectsResponse where
     fromXMLOptions = xmlOptions
+
+listObjects :: Text -- ^ Bucket
+            -> AWS (Either S3Error ListObjectsResponse)
+listObjects p1 = undefined $ ListObjects
+    { loBucket = p1
+    , loDelimiter = Nothing
+    , loEncodingType = Nothing
+    , loMarker = Nothing
+    , loMaxKeys = Nothing
+    , loPrefix = Nothing
+    }

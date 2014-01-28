@@ -92,3 +92,19 @@ data PutObjectAclResponse = PutObjectAclResponse
 
 instance FromXML PutObjectAclResponse where
     fromXMLOptions = xmlOptions
+
+putObjectAcl :: Text -- ^ Bucket
+             -> Text -- ^ Key
+             -> AWS (Either S3Error PutObjectAclResponse)
+putObjectAcl p1 p2 = undefined $ PutObjectAcl
+    { poaBucket = p1
+    , poaKey = p2
+    , poaACL = Nothing
+    , poaAccessControlPolicy = Nothing
+    , poaContentMD5 = Nothing
+    , poaGrantFullControl = Nothing
+    , poaGrantRead = Nothing
+    , poaGrantReadACP = Nothing
+    , poaGrantWrite = Nothing
+    , poaGrantWriteACP = Nothing
+    }

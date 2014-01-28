@@ -65,3 +65,9 @@ data GetBucketCorsResponse = GetBucketCorsResponse
 
 instance FromXML GetBucketCorsResponse where
     fromXMLOptions = xmlOptions
+
+getBucketCors :: Text -- ^ Bucket
+              -> AWS (Either S3Error GetBucketCorsResponse)
+getBucketCors p1 = undefined $ GetBucketCors
+    { gbcBucket = p1
+    }

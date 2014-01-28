@@ -64,3 +64,9 @@ data DeleteBucketWebsiteResponse = DeleteBucketWebsiteResponse
 
 instance FromXML DeleteBucketWebsiteResponse where
     fromXMLOptions = xmlOptions
+
+deleteBucketWebsite :: Text -- ^ Bucket
+                    -> AWS (Either S3Error DeleteBucketWebsiteResponse)
+deleteBucketWebsite p1 = undefined $ DeleteBucketWebsite
+    { dbwBucket = p1
+    }

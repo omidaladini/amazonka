@@ -88,3 +88,17 @@ data PutBucketAclResponse = PutBucketAclResponse
 
 instance FromXML PutBucketAclResponse where
     fromXMLOptions = xmlOptions
+
+putBucketAcl :: Text -- ^ Bucket
+             -> AWS (Either S3Error PutBucketAclResponse)
+putBucketAcl p1 = undefined $ PutBucketAcl
+    { pbaBucket = p1
+    , pbaACL = Nothing
+    , pbaAccessControlPolicy = Nothing
+    , pbaContentMD5 = Nothing
+    , pbaGrantFullControl = Nothing
+    , pbaGrantRead = Nothing
+    , pbaGrantReadACP = Nothing
+    , pbaGrantWrite = Nothing
+    , pbaGrantWriteACP = Nothing
+    }

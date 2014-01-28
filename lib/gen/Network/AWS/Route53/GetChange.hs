@@ -73,3 +73,9 @@ data GetChangeResponse = GetChangeResponse
 
 instance FromXML GetChangeResponse where
     fromXMLOptions = xmlOptions
+
+getChange :: Text -- ^ Id
+          -> AWS (Either Route53Error GetChangeResponse)
+getChange p1 = undefined $ GetChange
+    { gcrId = p1
+    }

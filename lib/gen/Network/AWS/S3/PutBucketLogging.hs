@@ -71,3 +71,12 @@ data PutBucketLoggingResponse = PutBucketLoggingResponse
 
 instance FromXML PutBucketLoggingResponse where
     fromXMLOptions = xmlOptions
+
+putBucketLogging :: Text -- ^ Bucket
+                 -> BucketLoggingStatus -- ^ BucketLoggingStatus
+                 -> AWS (Either S3Error PutBucketLoggingResponse)
+putBucketLogging p1 p2 = undefined $ PutBucketLogging
+    { pblBucket = p1
+    , pblBucketLoggingStatus = p2
+    , pblContentMD5 = Nothing
+    }
