@@ -20,18 +20,19 @@ import           Control.Concurrent
 import           Control.Error
 import           Control.Monad
 import           Control.Monad.IO.Class
-import qualified Data.Aeson                 as Aeson
-import qualified Data.ByteString.Char8      as BS
-import qualified Data.ByteString.Lazy.Char8 as LBS
+import qualified Data.Aeson                        as Aeson
+import qualified Data.ByteString.Char8             as BS
+import qualified Data.ByteString.Lazy.Char8        as LBS
 import           Data.IORef
 import           Data.Monoid
 import           Data.String
-import           Data.Text                  (Text)
-import qualified Data.Text                  as Text
-import qualified Data.Text.Encoding         as Text
+import           Data.Text                         (Text)
+import qualified Data.Text                         as Text
+import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           Network.AWS.EC2.Metadata
 import           Network.AWS.Internal.Types
+import           Network.AWS.Internal.Types.Common
 import           System.Environment
 
 data Credentials

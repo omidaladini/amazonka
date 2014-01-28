@@ -26,7 +26,6 @@ import           Control.Monad
 import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
-import           Data.Aeson                        hiding (Error, decode)
 import           Data.ByteString.Char8             (ByteString)
 import qualified Data.ByteString.Char8             as BS
 import           Data.Conduit
@@ -37,36 +36,11 @@ import           Data.Monoid
 import           Data.String
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
-import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types
 import           Text.XML.Generic
-
-data Auth = Auth
-    { authAccessKeyId     :: !Text
-    , authSecretAccessKey :: !Text
-    , authSecurityToken   :: Maybe Text
-    , expiration          :: Maybe UTCTime
-    }
-
-accessKeyId :: Auth -> ByteString
-accessKeyId = Text.encodeUtf8 . authAccessKeyId
-
-secretAccessKey :: Auth -> ByteString
-secretAccessKey = Text.encodeUtf8 . authSecretAccessKey
-
-securityToken :: Auth -> Maybe ByteString
-securityToken = fmap Text.encodeUtf8 . authSecurityToken
-
-instance FromJSON Auth where
-    parseJSON (Object o) = Auth
-        <$> o .:  "AccessKeyId"
-        <*> o .:  "SecretAccessKey"
-        <*> o .:? "Token"
-        <*> o .:? "Expiration"
-    parseJSON _ = mzero
 
 data Env = Env
     { awsRegion   :: !Region

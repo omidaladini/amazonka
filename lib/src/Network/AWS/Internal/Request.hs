@@ -64,6 +64,35 @@ responseJSON :: (FromJSON (Er a), FromJSON (Rs a))
              -> AWS (Either (Er a) (Rs a))
 responseJSON = undefined
 
+headS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
+       => (ByteString -> Service)
+       -> a
+       -> RawRequest
+headS3 = undefined
+
+getS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
+      => (ByteString -> Service)
+      -> a
+      -> RawRequest
+getS3 = undefined
+
+postS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
+       => (ByteString -> Service)
+       -> a
+       -> RawRequest
+postS3 = undefined
+
+putS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
+      => (ByteString -> Service)
+      -> a
+      -> RawRequest
+putS3 = undefined
+
+deleteS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
+         => (ByteString -> Service)
+         -> a
+         -> RawRequest
+deleteS3 = undefined
 
 -- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
 -- v2Query s@Service{..} m p x = RawRequest s m p q [] (RequestBodyBS "")
@@ -85,14 +114,6 @@ responseJSON = undefined
 
 -- (.:.) :: RawRequest -> [Header] -> RawRequest
 -- (.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
-
--- s3GET :: (ByteString -> Service)
---       -> Text
---       -> Text
---       -> [AnyQuery]
---       -> [AnyHeader]
---       -> RawRequest
--- s3GET = undefined
 
 -- xml :: ToXML a => a -> RequestBody
 -- xml = RequestBodyLBS . encodeXML

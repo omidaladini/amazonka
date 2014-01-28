@@ -12,9 +12,15 @@
 
 module Network.AWS.{{ module }}.Service where
 
-import Data.ByteString      (ByteString)
+import Data.ByteString.Char8      (ByteString)
+{% if xmlnamespace %}
+import Data.Default
 import Data.Tagged
+{% endif %}
+import GHC.Generics               (Generic)
 import Network.AWS.Internal
+import Network.AWS.Internal.Types (Service(..))
+import Text.XML.Generic
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: ByteString -> Service

@@ -24,7 +24,6 @@ import qualified Data.ByteString.Lazy    as LBS
 import           Data.Monoid
 import           Data.Text (Text)
 import qualified Data.Text               as Text
-import qualified Data.Text.Encoding      as Text
 import           Data.Text.Helpers
 import           Network.AWS.Internal.Serialisation
 import           Network.HTTP.Conduit

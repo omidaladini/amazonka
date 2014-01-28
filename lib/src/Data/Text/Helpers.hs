@@ -14,7 +14,6 @@ module Data.Text.Helpers where
 
 import qualified Data.Attoparsec.Text             as AText
 import qualified Data.CaseInsensitive             as CI
-import           Data.Maybe
 import           Data.Monoid
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text
@@ -85,10 +84,6 @@ instance ToText Double where
 
 instance ToText UTCTime where
     toText = Text.decodeUtf8 . formatRFC822
-
--- FIXME: hur hur hur ..
-instance ToText a => ToText (Maybe a) where
-    toText = fromMaybe "" . fmap toText
 
 integralToText :: Integral a => a -> Text
 integralToText = strictFromBuilder . LText.decimal

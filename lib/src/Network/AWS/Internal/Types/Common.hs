@@ -27,6 +27,7 @@ import           Data.Text                          (Text)
 import qualified Data.Text                          as Text
 import qualified Data.Text.Encoding                 as Text
 import           Data.Text.Helpers
+import           Data.Time
 import           GHC.Generics
 import           Network.AWS.Internal.Serialisation
 import           Network.HTTP.QueryString.Generic
@@ -88,6 +89,29 @@ instance FromXML ResourceName where
 
 instance ToXML ResourceName where
     toXML = toTextXML
+
+data Auth = Auth
+    { authAccessKeyId     :: !Text
+    , authSecretAccessKey :: !Text
+    , authSecurityToken   :: Maybe Text
+    , expiration          :: Maybe UTCTime
+    }
+
+accessKeyId :: Auth -> ByteString
+accessKeyId = Text.encodeUtf8 . authAccessKeyId
+
+secretAccessKey :: Auth -> ByteString
+secretAccessKey = Text.encodeUtf8 . authSecretAccessKey
+
+securityToken :: Auth -> Maybe ByteString
+securityToken = fmap Text.encodeUtf8 . authSecurityToken
+
+instance FromJSON Auth where
+    parseJSON = withObject "Auth" $ \o -> Auth
+        <$> o .:  "AccessKeyId"
+        <*> o .:  "SecretAccessKey"
+        <*> o .:? "Token"
+        <*> o .:? "Expiration"
 
 data Region
     = NorthVirginia

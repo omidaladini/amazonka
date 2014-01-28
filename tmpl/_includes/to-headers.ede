@@ -1,4 +1,4 @@
-{% if scope.input %}
+{% if scope.input.fields | mapLength > 0 %}
     {% case scope.input | headers | mapLength %}
     {% when 0 %}
 instance ToHeaders {{ scope.name }}
@@ -14,4 +14,6 @@ instance ToHeaders {{ scope.name }} where
       {% endfor %}
         ]
     {% endcase %}
+{% else %}
+instance ToHeaders {{ scope.name }}
 {% endif %}

@@ -3,6 +3,7 @@
 {-# LANGUAGE TupleSections        #-}
 
 -- FIXME: review
+{-# LANGUAGE OverlappingInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 -- Module      : Network.AWS.Internal.Serialisation
@@ -25,11 +26,9 @@ import           Data.Aeson
 import           Data.Aeson.Types                 (Parser)
 import           Data.ByteString                  (ByteString)
 import qualified Data.CaseInsensitive             as CI
-import           Data.Foldable                    (foldrM)
 import           Data.HashMap.Strict              (HashMap)
 import qualified Data.HashMap.Strict              as Map
 import           Data.Hashable
-import           Data.Monoid
 import           Data.Tagged
 import           Data.Text                        (Text)
 import qualified Data.Text                        as Text

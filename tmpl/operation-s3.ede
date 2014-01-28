@@ -22,17 +22,19 @@
 module Network.AWS.{{ module }}.{{ name }} where
 
 import           Control.Monad
-import           Data.ByteString      (ByteString)
-import           Data.Conduit         (($$+-), ResumableSource)
-import           Data.HashMap.Strict  (HashMap)
-import qualified Data.HashMap.Strict  as Map
-import           Data.List.NonEmpty   (NonEmpty(..))
-import           Data.Text            (Text)
-import qualified Data.Text            as Text
-import           Data.Time            (UTCTime)
-import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone)
+import           Data.ByteString                  (ByteString)
+import           Data.Conduit
+import           Data.HashMap.Strict              (HashMap)
+import qualified Data.HashMap.Strict              as Map
+import           Data.List.NonEmpty               (NonEmpty(..))
+import           Data.Monoid
+import           Data.Text                        (Text)
+import qualified Data.Text                        as Text
+import           Data.Time                        (UTCTime)
+import           GHC.Generics                     (Generic)
+import           Network.AWS.Internal             hiding (Endpoint, Region, AvailabilityZone)
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types   (StdMethod(..))
+import           Network.HTTP.QueryString.Generic (Query(List))
 
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
@@ -50,99 +52,39 @@ data {{ name }} = {{ name }}
     deriving (Generic)
 {% endif %}
 
+{% include "_includes/to-headers.ede" %}
+
+{% include "_includes/to-path.ede" %}
+
+{% include "_includes/to-query.ede" %}
+
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request {{ name }}{..} =
-{% if name == "ListBuckets" %}
-        {{ signature_version }}{{ http.method }} service "" path query headers
-{% else %}
-  {% case http.method %}
-  {% when "GET" %}
-        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers
-  {% when "HEAD" %}
-        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers
-  {% when "DELETE" %}
-        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers
+    request  = {{ http.method | lower }}S3 service
+    response = undefined
+
+data {{ name }}Response = {{ name }}Response
+{% if output.fields | mapLength > 0 %}
+{% include "_includes/fields.ede" with output.fields %}
+  {% if !output.streaming %}
+    } deriving (Eq, Show, Generic)
   {% else %}
-        {{ signature_version }}{{ http.method }} service {{ input.prefix }}Bucket path query headers body
-  {% endcase %}
+    }
+  {% endif %}
+{% else %}
+    deriving (Eq, Show, Generic)
 {% endif %}
-      where
-        path = Text.concat
-        {% for part in http.uri %}
-          {% if part.first %}
-            {% case part.value.type %}
-            {% when "I" %}
-            [ {{ input.prefix }}{{ part.value.value | upperFirst }}
-            {% when "T" %}
-            [ "{{ part.value.value }}"
-          {% endcase %}
-          {% else %}
-            {% case part.value.type %}
-            {% when "I" %}
-            , {{ input.prefix }}{{ part.value.value | upperFirst }}
-            {% when "T" %}
-            , "{{ part.value.value }}"
-            {% endcase %}
-          {% endif %}
-        {% endfor %}
-        {% if http.uri | listLength > 0 %}
-            ]
-        {% endif %}
+{% if !output.streaming %}
+{% if !output | onlyHeaders %}
 
-        {% if http.query | mapLength > 0%}
-        query =
-        {% for part in http.query %}
-          {% if part.first %}
-            {% if part.value == "" %}
-            [ "{{ part.key }}" :?: (Nothing :: Maybe ByteString)
-            {% else %}
-            [ "{{ part.key }}" :?: {{ input.prefix }}{{ part.value }}
-            {% endif %}
-          {% else %}
-            {% if part.value == "" %}
-            , "{{ part.key }}" :?: Nothing
-            {% else %}
-            , "{{ part.key }}" :?: {{ input.prefix }}{{ part.value }}
-            {% endif %}
-          {% endif %}
-          {% if part.last %}
-            ]
-          {% endif %}
-        {% endfor %}
-        {% else %}
-        query = []
-        {% endif %}
+instance FromXML {{ name }}Response where
+    fromXMLOptions = xmlOptions
+{% endif %}
+{% endif %}
 
-        {% if input | headers | mapLength > 0 %}
-        headers =
-          {% for hdr in input | headers %}
-            {% if hdr.first %}
-            [ "{{ hdr.value.location_name }}" ::: {{ hdr.key }}
-            {% else %}
-            , "{{ hdr.value.location_name }}" ::: {{ hdr.key }}
-            {% endif %}
-          {% endfor %}
-            ]
-        {% else %}
-        headers = []
-        {% endif %}
 
-        {% if input | payload %}
-          {% for field in input.fields %}
-            {% if field.value.payload %}
-              {% if field.value.streaming %}
-        body = {{ field.key }}
-              {% else %}
-        body = xml {{ field.key }}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        {% else %}
-        body = RequestBodyBS ""
-        {% endif %}
-    {% if output.streaming %}
+
 
     response _ rs = return . Right $ {{ name }}Response
       {% if output | headers | mapLength > 0 %}
@@ -167,6 +109,7 @@ instance AWSRequest {{ name }} where
         }
       {% endif %}
     {% else %}
+
       {% if output | headers | mapLength > 0 %}
 
         {% if output | onlyHeaders %}
@@ -190,22 +133,3 @@ instance AWSRequest {{ name }} where
         {% endfor %}
       {% endif %}
     {% endif %}
-
-data {{ name }}Response = {{ name }}Response
-{% if output.fields | mapLength > 0 %}
-{% include "_includes/fields.ede" with output.fields %}
-  {% if !output.streaming %}
-    } deriving (Eq, Show, Generic)
-  {% else %}
-    }
-  {% endif %}
-{% else %}
-    deriving (Eq, Show, Generic)
-{% endif %}
-{% if !output.streaming %}
-{% if !output | onlyHeaders %}
-
-instance FromXML {{ name }}Response where
-    fromXMLOptions = xmlOptions
-{% endif %}
-{% endif %}
