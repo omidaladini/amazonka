@@ -1,0 +1,65 @@
+{% if scope.input | required | listLength == 0 %}
+{{ scope.name | lowerFirst }} :: AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
+{{ scope.name | lowerFirst }} = undefined $ {{ scope.name }}
+  {% for field in scope.input.fields %}
+    {% if field.first %}
+      {% case field.value.type %}
+      {% when "map" %}
+    { {{ field.key }} = mempty
+      {% when "list" %}
+    { {{ field.key }} = []
+      {% else %}
+    { {{ field.key }} = Nothing
+      {% endcase %}
+    {% else %}
+      {% case field.value.type %}
+      {% when "map" %}
+    , {{ field.key }} = mempty
+      {% when "list" %}
+    , {{ field.key }} = []
+      {% else %}
+    , {{ field.key }} = Nothing
+      {% endcase %}
+    {% endif %}
+    {% if field.last %}
+    }
+    {% endif %}
+  {% endfor %}
+{% else %}
+{% if scope.input.fields | mapLength > 0 %}
+  {% for field in scope.input | required %}
+    {% if field.first %}
+{{ scope.name | lowerFirst }} :: {{ field.value.shape_name }} -- ^ {{ field.value.param }}
+    {% else %}
+{{ scope.name | pad }} -> {{ field.value.shape_name }} -- ^ {{ field.value.param }}
+    {% endif %}
+    {% if field.last %}
+{{ scope.name | pad }} -> AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
+    {% endif %}
+  {% endfor %}
+{{ scope.name | lowerFirst }} {% for field in scope.input | required -%} p{{ field.index }} {% endfor -%} = undefined $ {{ scope.name }}
+  {% for field in scope.input | required %}
+    {% if field.first %}
+    { {{ scope.input.prefix }}{{ field.value.param }} = p{{ field.index }}
+    {% else %}
+    , {{ scope.input.prefix }}{{ field.value.param }} = p{{ field.index }}
+    {% endif %}
+  {% endfor %}
+  {% for field in scope.input.fields %}
+    {% if !field.value.required %}
+      {% case field.value.type %}
+      {% when "map" %}
+    , {{ field.key }} = mempty
+      {% when "list" %}
+    , {{ field.key }} = []
+      {% else %}
+    , {{ field.key }} = Nothing
+      {% endcase %}
+    {% endif %}
+  {% endfor %}
+    }
+{% else %}
+{{ scope.name | lowerFirst }} :: AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
+{{ scope.name | lowerFirst }} = undefined {{ scope.name }}
+{% endif %}
+{% endif %}
