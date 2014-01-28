@@ -3,8 +3,13 @@
    Manage the xmlRoot without using a newtype
    Wrap the sub key/value elements using their respective roots or a generic name?
 ** TODO Generic ToQuery HashMaps
-** TODO RestXML
 ** TODO RestJSON
-** TODO JSON
 ** TODO Remove the FromQuery generics
    Unless it's used for testing
+** TODO Implement actual GET/POST/etc requests
+** TODO Consider the separation of services
+   Dependency order:
+   1. amazonka-signing
+   2. amazonka-core
+   3. amazonka-<service>
+   4. amazonka
