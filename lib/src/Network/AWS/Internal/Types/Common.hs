@@ -129,17 +129,17 @@ instance FromJSON Auth where
         <*> o .:? "Expiration"
 
 data Region
-    = Ireland         -- ^ @Europe@: eu-west-1
-    | Tokyo           -- ^ @Asia Pacific@: ap-northeast-1
-    | Singapore       -- ^ @Asia Pacific@: ap-southeast-1
-    | Sydney          -- ^ @Asia Pacific@: ap-southeast-2
-    | Beijing         -- ^ @China@: cn-north-1
-    | NorthVirginia   -- ^ @US@: us-east-1
-    | NorthCalifornia -- ^ @US@: us-west-1
-    | Oregon          -- ^ @US@: us-west-2
-    | GovCloud        -- ^ @AWS GovCloud@: us-gov-west-1
-    | GovCloudFIPS    -- ^ @AWS GovCloud (FIPS 140-2) S3 Only@: fips-us-gov-west-1
-    | SaoPaulo        -- ^ @South America@: sa-east-1
+    = Ireland         -- ^ Europe: @eu-west-1@
+    | Tokyo           -- ^ Asia Pacific: @ap-northeast-1@
+    | Singapore       -- ^ Asia Pacific: @ap-southeast-1@
+    | Sydney          -- ^ Asia Pacific: @ap-southeast-2@
+    | Beijing         -- ^ China: @cn-north-1@
+    | NorthVirginia   -- ^ US: @us-east-1@
+    | NorthCalifornia -- ^ US: @us-west-1@
+    | Oregon          -- ^ US: @us-west-2@
+    | GovCloud        -- ^ AWS GovCloud: @us-gov-west-1@
+    | GovCloudFIPS    -- ^ AWS GovCloud (FIPS 140-2) S3 Only: @fips-us-gov-west-1@
+    | SaoPaulo        -- ^ South America: @sa-east-1@
       deriving (Eq, Ord, Generic)
 
 instance FromText Region where
