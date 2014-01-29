@@ -18,7 +18,7 @@ module Network.AWS.Internal
 
     , ToQuery   (..)
     , FromQuery (..)
-    , Query     (List)
+    , queryFromList
 
     , ToXML     (..)
     , FromXML   (..)

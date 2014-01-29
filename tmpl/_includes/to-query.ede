@@ -1,6 +1,6 @@
 instance ToQuery {{ scope.name }} where
     {% if scope.http.query | mapLength > 0%}
-    toQuery {{ scope.name }}{..} = List
+    toQuery {{ scope.name }}{..} = queryFromList
     {% for part in scope.http.query %}
       {% if part.first %}
         {% if part.value == "" %}

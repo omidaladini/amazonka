@@ -67,6 +67,9 @@ encodeQuery = enc "" . toQuery
         | Text.null k = enc k' q
         | otherwise   = enc (k <> "." <> k') q
 
+queryFromList :: [Query] -> Query
+queryFromList = List
+
 data Query
     = List  [Query]
     | Value Text
