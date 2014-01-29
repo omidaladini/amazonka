@@ -48,6 +48,21 @@ instance FromJSON Key where
 instance ToJSON Key where
     toJSON = toTextJSON
 
+-- newtype Bucket = Bucket { unBucket :: Text }
+--     deriving (Eq, Ord, Show)
+
+-- instance FromText Bucket where
+--     fromText = Right . Bucket
+
+-- instance ToText Bucket where
+--     toText = unBucket
+
+-- instance FromJSON Bucket where
+--     parseJSON = fromTextJSON "Bucket"
+
+-- instance ToJSON Bucket where
+--     toJSON = toTextJSON
+
 newtype Blob = Blob { unBlob :: ByteString }
     deriving (Eq, Ord, Show, Generic)
 
@@ -114,38 +129,47 @@ instance FromJSON Auth where
         <*> o .:? "Expiration"
 
 data Region
-    = NorthVirginia
-    | NorthCalifornia
-    | Oregon
-    | Ireland
-    | Singapore
-    | Tokyo
-    | Sydney
-    | SaoPaulo
+    = Ireland         -- ^ @Europe@: eu-west-1
+    | Tokyo           -- ^ @Asia Pacific@: ap-northeast-1
+    | Singapore       -- ^ @Asia Pacific@: ap-southeast-1
+    | Sydney          -- ^ @Asia Pacific@: ap-southeast-2
+    | Beijing         -- ^ @China@: cn-north-1
+    | NorthVirginia   -- ^ @US@: us-east-1
+    | NorthCalifornia -- ^ @US@: us-west-1
+    | Oregon          -- ^ @US@: us-west-2
+    | GovCloud        -- ^ @AWS GovCloud@: us-gov-west-1
+    | GovCloudFIPS    -- ^ @AWS GovCloud (FIPS 140-2) S3 Only@: fips-us-gov-west-1
+    | SaoPaulo        -- ^ @South America@: sa-east-1
       deriving (Eq, Ord, Generic)
 
 instance FromText Region where
-    fromText "us-east-1"      = Right NorthVirginia
-    fromText "us-west-1"      = Right NorthCalifornia
-    fromText "us-west-2"      = Right Oregon
-    fromText "eu-west-1"      = Right Ireland
-    fromText "ap-southeast-1" = Right Singapore
-    fromText "ap-northeast-1" = Right Tokyo
-    fromText "ap-southeast-2" = Right Sydney
-    fromText "sa-east-1"      = Right SaoPaulo
-    fromText e                = fromTextFail $ "Unrecognised region: " <> e
+    fromText "eu-west-1"          = Right Ireland
+    fromText "ap-northeast-1"     = Right Tokyo
+    fromText "ap-southeast-1"     = Right Singapore
+    fromText "ap-southeast-2"     = Right Sydney
+    fromText "cn-north-1"         = Right Beijing
+    fromText "us-east-1"          = Right NorthVirginia
+    fromText "us-west-2"          = Right NorthCalifornia
+    fromText "us-west-1"          = Right Oregon
+    fromText "us-gov-west-1"      = Right GovCloud
+    fromText "fips-us-gov-west-1" = Right GovCloudFIPS
+    fromText "sa-east-1"          = Right SaoPaulo
+    fromText e                    = fromTextFail $ "Unrecognised region: " <> e
 
 instance Read Region where
     readsPrec _ = fromTextRead
 
 instance ToText Region where
+    toText Ireland         = "eu-west-1"
+    toText Tokyo           = "ap-northeast-1"
+    toText Singapore       = "ap-southeast-1"
+    toText Sydney          = "ap-southeast-2"
+    toText Beijing         = "cn-north-1"
     toText NorthVirginia   = "us-east-1"
     toText NorthCalifornia = "us-west-1"
     toText Oregon          = "us-west-2"
-    toText Ireland         = "eu-west-1"
-    toText Singapore       = "ap-southeast-1"
-    toText Tokyo           = "ap-northeast-1"
-    toText Sydney          = "ap-southeast-2"
+    toText GovCloud        = "us-gov-west-1"
+    toText GovCloudFIPS    = "fips-us-gov-west-1"
     toText SaoPaulo        = "sa-east-1"
 
 instance Show Region where

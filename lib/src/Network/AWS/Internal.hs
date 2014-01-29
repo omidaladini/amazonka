@@ -34,7 +34,3 @@ import Data.Time.Formatters               as Common
 import Network.HTTP.QueryString.Generic
 import Text.XML.Generic
 
--- FIXME:
--- remove no-warn-unused-imports from operations/types templates
--- and then re-export common types from here
-

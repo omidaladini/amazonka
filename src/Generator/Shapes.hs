@@ -38,18 +38,6 @@ import           Text.EDE            (Template)
 import qualified Text.EDE            as EDE
 import           Text.EDE.Filters
 
-
--- shapeMap :: (a -> Shape -> (a, Shape))
---          -> a
---          -> Shape
---          -> Shape
--- shapeMap f = go
---   where
---     go x s@SStrict {..} = f s $ { map fields }
---     go x SList   {..} = f s $
---     go x SMap    {..} =
---     go x SPrim   {..} =
-
 errors :: Model -> [Shape]
 errors Model{..} = map (replace $ Just mName)
     . List.sort
@@ -147,8 +135,6 @@ replace k s' = setName k $ go s'
         | sType == PEnum = p { sShapeName = upperFirst <$> sShapeName }
         | otherwise      = p { sShapeName = Just $ name sType }
 
-    name PString | Just "ResourceName" <- sShapeName s' = "ResourceName"
-    name PString    = "Text"
     name PEnum      = "Text"
     name PInteger   = "Int"
     name PDouble    = "Double"
@@ -156,6 +142,11 @@ replace k s' = setName k $ go s'
     name PBlob      = "Blob"
     name PTimestamp = "UTCTime"
     name PLong      = "Integer"
+    name PString
+        | cur `elem` ["ResourceName", "Key"] = cur
+        | otherwise                          = "Text"
+      where
+        cur = fromMaybe "Text" $ sShapeName s'
 
     eitherKey x = x <|> k
 

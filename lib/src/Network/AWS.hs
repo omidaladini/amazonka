@@ -17,23 +17,14 @@
 -- |
 module Network.AWS
     (
-    -- * Specifying credentials
-      Credentials (..)
-    , accessKey
-    , secretKey
-
     -- * Running AWS actions
-    , AWS
+      AWS
     , runAWS
 
-    -- * Controlling the region
-    , Region      (..)
-    , within
-    , getRegion
-
-    -- * Debugging
-    , whenDebug
-    , getDebug
+    -- * Specifying credentials
+    , Credentials (..)
+    , accessKey
+    , secretKey
 
     -- * Sending requests
     , send
@@ -51,6 +42,15 @@ module Network.AWS
     , wait_
     , waitCatch
 
+    -- * Controlling the region
+    , Region      (..)
+    , within
+    , getRegion
+
+    -- * Debugging
+    , whenDebug
+    , getDebug
+
     -- * Errors
     , AWSErrors   (..)
     , awsThrow
@@ -62,11 +62,6 @@ module Network.AWS
 
     -- * Types
     , module Network.AWS.Internal.Types.Common
-
-    -- * Type Classes
-    , AWSRequest (type Er, type Rs)
-    , AWSPager
-    , AWSError
     ) where
 
 import           Control.Applicative
