@@ -82,7 +82,7 @@ instance FromJSON Model where
               <*> o .:? "timestamp_format"
               <*> o .:? "checksum_format"
               <*> documentation o
-              <*> parseJSON ops
+              <*> (update abbrev <$> parseJSON ops)
               <*> version
               <*> o .:? "target_prefix"
       where
@@ -92,6 +92,20 @@ instance FromJSON Model where
                 Aeson.String t -> return t
                 Aeson.Number n -> return . Text.pack $ show n
                 _              -> fail "Unrecognised json_version field."
+
+        -- CloudFront + ElasticTranscoder fuckery
+        update n ops
+            | "ElasticTranscoder" == n = map f ops
+            | "CloudFront"        == n = map f ops
+            | otherwise                = ops
+          where
+            f o@Operation{..}
+                | Just x <- oInput = o
+                    { oInput = Just $ x
+                        { sFields = Map.map (\v -> v { sRequired = True }) $ sFields x
+                        }
+                    }
+                | otherwise = o
 
     parseJSON _ =
         fail "Unable to parse Model."
@@ -158,7 +172,7 @@ instance FromJSON Operation where
         <*> documentation o
         <*> o .:? "documentation_url"
         <*> o .:? "http" .!= HTTP "GET" [] mempty
-        <*> (update <$> o .:? "input")
+        <*> o .:? "input"
         <*> (fmap streaming <$> o .:? "output")
         <*> (fmap streaming <$> o .:  "errors")
         <*> o .:? "pagination"
@@ -171,25 +185,6 @@ instance FromJSON Operation where
             | SStruct{} <- s
             , any sStreaming $ sFields s = s { sStreaming = True }
             | otherwise                  = s
-
-        -- Cloudfront fuckery
-        update (Just s)
-            | fromMaybe "" (sShapeName s) `elem`
-              [ "DeleteStreamingDistributionRequest"
-              , "UpdateStreamingDistributionRequest"
-              , "GetDistributionConfigRequest"
-              , "GetDistributionRequest"
-              , "UpdateDistributionRequest"
-              , "DeleteDistributionRequest"
-              , "GetCloudFrontOriginAccessIdentityRequest"
-              , "GetCloudFrontOriginAccessIdentityConfigRequest"
-              , "UpdateCloudFrontOriginAccessIdentityRequest"
-              , "DeleteCloudFrontOriginAccessIdentityRequest"
-              , "GetStreamingDistributionRequest"
-              , "GetStreamingDistributionConfigRequest"
-              ] = Just $ s { sFields = Map.map (\v -> v { sRequired = True }) $ sFields s }
-            | otherwise = Just s
-        update Nothing  = Nothing
 
     parseJSON _ =
         fail "Unable to parse Operation."

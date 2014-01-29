@@ -21,6 +21,19 @@ import Network.HTTP.Conduit
 import Network.HTTP.QueryString.Generic
 import Text.XML.Generic
 
+getQuery :: (ToQuery a, AWSRequest a)
+         => Service
+         -> ByteString
+         -> a
+         -> RawRequest
+getQuery = undefined
+
+getJSON :: (ToJSON a, AWSRequest a)
+        => Service
+        -> a
+        -> RawRequest
+getJSON = undefined
+
 getRestXML :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
            => Service
            -> a
@@ -45,24 +58,23 @@ deleteRestXML :: (ToHeaders a, ToPath a, ToQuery a, ToXML a, AWSRequest a)
             -> RawRequest
 deleteRestXML = undefined
 
-getQuery :: (ToQuery a, AWSRequest a)
-         => Service
-         -> ByteString
-         -> a
-         -> RawRequest
-getQuery = undefined
+getRestJSON :: (ToPath a, ToJSON a, AWSRequest a)
+            => Service
+            -> a
+            -> RawRequest
+getRestJSON = undefined
 
-getJSON :: (ToJSON a, AWSRequest a)
-        => Service
-        -> a
-        -> RawRequest
-getJSON = undefined
+postRestJSON :: (ToPath a, ToJSON a, AWSRequest a)
+             => Service
+             -> a
+             -> RawRequest
+postRestJSON = undefined
 
-responseJSON :: (FromJSON (Er a), FromJSON (Rs a))
-             => a
-             -> Response (ResumableSource AWS ByteString)
-             -> AWS (Either (Er a) (Rs a))
-responseJSON = undefined
+deleteRestJSON :: (ToPath a, ToJSON a, AWSRequest a)
+               => Service
+               -> a
+               -> RawRequest
+deleteRestJSON = undefined
 
 headS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
        => (ByteString -> Service)
@@ -93,6 +105,12 @@ deleteS3 :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
          -> a
          -> RawRequest
 deleteS3 = undefined
+
+responseJSON :: (FromJSON (Er a), FromJSON (Rs a))
+             => a
+             -> Response (ResumableSource AWS ByteString)
+             -> AWS (Either (Er a) (Rs a))
+responseJSON = undefined
 
 -- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
 -- v2Query s@Service{..} m p x = RawRequest s m p q [] (RequestBodyBS "")

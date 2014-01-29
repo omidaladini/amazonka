@@ -1,0 +1,39 @@
+{% raw %}
+{-# LANGUAGE DeriveGeneric               #-}
+{-# LANGUAGE FlexibleContexts            #-}
+{-# LANGUAGE FlexibleInstances           #-}
+{-# LANGUAGE OverloadedStrings           #-}
+{% endraw %}
+
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
+-- Module      : Network.AWS.{{ module }}.Service
+{% include "_includes/header.ede" %}
+
+module Network.AWS.{{ module }}.Service where
+
+import Data.Aeson
+import GHC.Generics               (Generic)
+import Network.AWS.Internal
+import Network.AWS.Internal.Types (Service(..))
+
+-- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
+service :: Service
+service = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+
+{% if errors | listLength > 0 %}
+data {{ module }}Error
+  {% for err in errors %}
+    {% if err.first %}
+    = {{ err.value.shape_name }}
+    {% else %}
+    | {{ err.value.shape_name }}
+    {% endif %}
+  {% endfor %}
+      deriving (Eq, Show, Generic)
+{% else %}
+data {{ module }}Error = {{ module }}Error
+    deriving (Eq, Show, Generic)
+{% endif %}
+
+instance FromJSON {{ module }}Error

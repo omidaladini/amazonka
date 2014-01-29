@@ -45,14 +45,6 @@ import           Text.EDE.Filters
 -- Ability to wrap shapes in a data/newtype representing the service
 -- A 'generic' foldMap instance for mapping over a single Shape and all it's descendents
 
--- data ModelShape = ModelShape
---     { msServiceType
---     , ms
---     }
-
--- annotateService :: Model -> [ModelShape]
-
-
 main :: IO ()
 main = getArgs >>= parse
   where

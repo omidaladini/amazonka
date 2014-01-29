@@ -11,6 +11,8 @@ RESTXML := \
  $(BOTO)/route53.json \
  $(BOTO)/cloudfront.json
 
+# Issues need to be investigated regarding optional/required values,
+# and Textual Booleans, and generally incorrect type info.
 RESTJSON := \
  $(BOTO)/elastictranscoder.json
 
@@ -43,8 +45,7 @@ JSON := \
  $(BOTO)/support.json \
  $(BOTO)/swf.json
 
-# MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
-MODELS := $(BOTO)/cloudfront.json
+MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
 
 .PHONY: test lint doc
 

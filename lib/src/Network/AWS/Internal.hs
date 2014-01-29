@@ -16,10 +16,12 @@ module Network.AWS.Internal
     -- * Convenience exports
     , module Common
 
-    , ToQuery(..)
-    , FromQuery(..)
-    , ToXML(..)
-    , FromXML(..)
+    , ToQuery   (..)
+    , FromQuery (..)
+    , Query     (List)
+
+    , ToXML     (..)
+    , FromXML   (..)
     ) where
 
 import Network.AWS.Internal.Request       as Internal
