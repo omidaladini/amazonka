@@ -1,7 +1,8 @@
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 {% if scope.input | required | listLength == 0 %}
-{{ scope.name | lowerFirst }} :: AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
-{{ scope.name | lowerFirst }} = undefined $ {{ scope.name }}
+{{ scope.name | lowerFirst }} :: {{ scope.name }}
+{{ scope.name | lowerFirst }} = {{ scope.name }}
   {% for field in scope.input.fields %}
     {% if field.first %}
       {% case field.value.type %}
@@ -35,7 +36,7 @@
 {{ scope.name | pad }} -> {% include "type.ede" with field.value %}
     {% endif %}
     {% if field.last %}
-{{ scope.name | pad }} -> AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
+{{ scope.name | pad }} -> {{ scope.name }}
     {% endif %}
   {% endfor %}
 {{ scope.name | lowerFirst }} {% for field in scope.input | required -%} p{{ field.index }} {% endfor -%} = undefined $ {{ scope.name }}
@@ -60,7 +61,7 @@
   {% endfor %}
     }
 {% else %}
-{{ scope.name | lowerFirst }} :: AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
-{{ scope.name | lowerFirst }} = undefined {{ scope.name }}
+{{ scope.name | lowerFirst }} :: {{ scope.name }}
+{{ scope.name | lowerFirst }} = {{ scope.name }}
 {% endif %}
 {% endif %}
