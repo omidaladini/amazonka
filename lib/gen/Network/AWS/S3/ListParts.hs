@@ -36,6 +36,19 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+listParts :: Text -- ^ Bucket
+          -> Text -- ^ Key
+          -> Text -- ^ UploadId
+          -> AWS (Either S3Error ListPartsResponse)
+listParts p1 p2 p3 = undefined $ ListParts
+    { lpBucket = p1
+    , lpKey = p2
+    , lpUploadId = p3
+    , lpMaxParts = Nothing
+    , lpPartNumberMarker = Nothing
+    }
+
 data ListParts = ListParts
     { lpBucket :: !Text
     , lpKey :: !Text
@@ -98,16 +111,3 @@ data ListPartsResponse = ListPartsResponse
 
 instance FromXML ListPartsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-listParts :: Text -- ^ Bucket
-          -> Text -- ^ Key
-          -> Text -- ^ UploadId
-          -> AWS (Either S3Error ListPartsResponse)
-listParts p1 p2 p3 = undefined $ ListParts
-    { lpBucket = p1
-    , lpKey = p2
-    , lpUploadId = p3
-    , lpMaxParts = Nothing
-    , lpPartNumberMarker = Nothing
-    }

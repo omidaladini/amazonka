@@ -38,6 +38,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketLogging :: Text -- ^ Bucket
+                 -> BucketLoggingStatus -- ^ BucketLoggingStatus
+                 -> AWS (Either S3Error PutBucketLoggingResponse)
+putBucketLogging p1 p2 = undefined $ PutBucketLogging
+    { pblBucket = p1
+    , pblBucketLoggingStatus = p2
+    , pblContentMD5 = Nothing
+    }
+
 data PutBucketLogging = PutBucketLogging
     { pblBucket :: !Text
     , pblBucketLoggingStatus :: BucketLoggingStatus
@@ -71,13 +81,3 @@ data PutBucketLoggingResponse = PutBucketLoggingResponse
 
 instance FromXML PutBucketLoggingResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketLogging :: Text -- ^ Bucket
-                 -> BucketLoggingStatus -- ^ BucketLoggingStatus
-                 -> AWS (Either S3Error PutBucketLoggingResponse)
-putBucketLogging p1 p2 = undefined $ PutBucketLogging
-    { pblBucket = p1
-    , pblBucketLoggingStatus = p2
-    , pblContentMD5 = Nothing
-    }

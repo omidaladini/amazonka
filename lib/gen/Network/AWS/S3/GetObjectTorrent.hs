@@ -36,6 +36,15 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+getObjectTorrent :: Text -- ^ Bucket
+                 -> Text -- ^ Key
+                 -> AWS (Either S3Error GetObjectTorrentResponse)
+getObjectTorrent p1 p2 = undefined $ GetObjectTorrent
+    { gotBucket = p1
+    , gotKey = p2
+    }
+
 data GetObjectTorrent = GetObjectTorrent
     { gotBucket :: !Text
     , gotKey :: !Text
@@ -64,13 +73,4 @@ instance AWSRequest GetObjectTorrent where
 
 data GetObjectTorrentResponse = GetObjectTorrentResponse
     { gotrsBody :: ResumableSource AWS ByteString
-    }
-
--- | Convenience method utilising default fields where applicable.
-getObjectTorrent :: Text -- ^ Bucket
-                 -> Text -- ^ Key
-                 -> AWS (Either S3Error GetObjectTorrentResponse)
-getObjectTorrent p1 p2 = undefined $ GetObjectTorrent
-    { gotBucket = p1
-    , gotKey = p2
     }

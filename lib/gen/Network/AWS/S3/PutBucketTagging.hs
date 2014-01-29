@@ -36,6 +36,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketTagging :: Text -- ^ Bucket
+                 -> Tagging -- ^ Tagging
+                 -> AWS (Either S3Error PutBucketTaggingResponse)
+putBucketTagging p1 p2 = undefined $ PutBucketTagging
+    { pbtBucket = p1
+    , pbtTagging = p2
+    , pbtContentMD5 = Nothing
+    }
+
 data PutBucketTagging = PutBucketTagging
     { pbtBucket :: !Text
     , pbtContentMD5 :: Maybe Text
@@ -69,13 +79,3 @@ data PutBucketTaggingResponse = PutBucketTaggingResponse
 
 instance FromXML PutBucketTaggingResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketTagging :: Text -- ^ Bucket
-                 -> Tagging -- ^ Tagging
-                 -> AWS (Either S3Error PutBucketTaggingResponse)
-putBucketTagging p1 p2 = undefined $ PutBucketTagging
-    { pbtBucket = p1
-    , pbtTagging = p2
-    , pbtContentMD5 = Nothing
-    }

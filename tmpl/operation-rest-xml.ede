@@ -37,6 +37,8 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
 
+{% include "_includes/method-input.ede" %}
+
 data {{ name }} = {{ name }}
 {% if input.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with input.fields %}
@@ -86,5 +88,3 @@ instance FromXML {{ name }}Response where
          $ "{{ name}}Response"
         :| ["{{ name }}Result"]
 {% endif %}
-
-{% include "_includes/method-input.ede" %}

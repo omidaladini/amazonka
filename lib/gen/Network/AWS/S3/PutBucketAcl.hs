@@ -36,6 +36,21 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketAcl :: Text -- ^ Bucket
+             -> AWS (Either S3Error PutBucketAclResponse)
+putBucketAcl p1 = undefined $ PutBucketAcl
+    { pbaBucket = p1
+    , pbaACL = Nothing
+    , pbaAccessControlPolicy = Nothing
+    , pbaContentMD5 = Nothing
+    , pbaGrantFullControl = Nothing
+    , pbaGrantRead = Nothing
+    , pbaGrantReadACP = Nothing
+    , pbaGrantWrite = Nothing
+    , pbaGrantWriteACP = Nothing
+    }
+
 data PutBucketAcl = PutBucketAcl
     { pbaACL :: Maybe ACL
       -- ^ The canned ACL to apply to the bucket.
@@ -88,18 +103,3 @@ data PutBucketAclResponse = PutBucketAclResponse
 
 instance FromXML PutBucketAclResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketAcl :: Text -- ^ Bucket
-             -> AWS (Either S3Error PutBucketAclResponse)
-putBucketAcl p1 = undefined $ PutBucketAcl
-    { pbaBucket = p1
-    , pbaACL = Nothing
-    , pbaAccessControlPolicy = Nothing
-    , pbaContentMD5 = Nothing
-    , pbaGrantFullControl = Nothing
-    , pbaGrantRead = Nothing
-    , pbaGrantReadACP = Nothing
-    , pbaGrantWrite = Nothing
-    , pbaGrantWriteACP = Nothing
-    }

@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteBucketPolicy :: Text -- ^ Bucket
+                   -> AWS (Either S3Error DeleteBucketPolicyResponse)
+deleteBucketPolicy p1 = undefined $ DeleteBucketPolicy
+    { dbpBucket = p1
+    }
+
 data DeleteBucketPolicy = DeleteBucketPolicy
     { dbpBucket :: !Text
     } deriving (Generic)
@@ -64,10 +71,3 @@ data DeleteBucketPolicyResponse = DeleteBucketPolicyResponse
 
 instance FromXML DeleteBucketPolicyResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-deleteBucketPolicy :: Text -- ^ Bucket
-                   -> AWS (Either S3Error DeleteBucketPolicyResponse)
-deleteBucketPolicy p1 = undefined $ DeleteBucketPolicy
-    { dbpBucket = p1
-    }

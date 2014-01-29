@@ -65,6 +65,17 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+listResourceRecordSets :: Text -- ^ HostedZoneId
+                       -> AWS (Either Route53Error ListResourceRecordSetsResponse)
+listResourceRecordSets p1 = undefined $ ListResourceRecordSets
+    { lrrsrHostedZoneId = p1
+    , lrrsrMaxItems = Nothing
+    , lrrsrStartRecordIdentifier = Nothing
+    , lrrsrStartRecordName = Nothing
+    , lrrsrStartRecordType = Nothing
+    }
+
 data ListResourceRecordSets = ListResourceRecordSets
     { lrrsrHostedZoneId :: !Text
       -- ^ The ID of the hosted zone that contains the resource record sets that you
@@ -143,14 +154,3 @@ data ListResourceRecordSetsResponse = ListResourceRecordSetsResponse
 
 instance FromXML ListResourceRecordSetsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-listResourceRecordSets :: Text -- ^ HostedZoneId
-                       -> AWS (Either Route53Error ListResourceRecordSetsResponse)
-listResourceRecordSets p1 = undefined $ ListResourceRecordSets
-    { lrrsrHostedZoneId = p1
-    , lrrsrMaxItems = Nothing
-    , lrrsrStartRecordIdentifier = Nothing
-    , lrrsrStartRecordName = Nothing
-    , lrrsrStartRecordType = Nothing
-    }

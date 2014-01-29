@@ -46,6 +46,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+createHostedZone :: Text -- ^ Name
+                 -> Text -- ^ CallerReference
+                 -> AWS (Either Route53Error CreateHostedZoneResponse)
+createHostedZone p1 p2 = undefined $ CreateHostedZone
+    { chzrName = p1
+    , chzrCallerReference = p2
+    , chzrHostedZoneConfig = Nothing
+    }
+
 data CreateHostedZone = CreateHostedZone
     { chzrCallerReference :: !Text
       -- ^ A unique string that identifies the request and that allows failed
@@ -100,13 +110,3 @@ data CreateHostedZoneResponse = CreateHostedZoneResponse
 
 instance FromXML CreateHostedZoneResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-createHostedZone :: Text -- ^ Name
-                 -> Text -- ^ CallerReference
-                 -> AWS (Either Route53Error CreateHostedZoneResponse)
-createHostedZone p1 p2 = undefined $ CreateHostedZone
-    { chzrName = p1
-    , chzrCallerReference = p2
-    , chzrHostedZoneConfig = Nothing
-    }

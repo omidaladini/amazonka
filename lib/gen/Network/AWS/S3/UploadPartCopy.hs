@@ -36,6 +36,26 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+uploadPartCopy :: Text -- ^ Bucket
+               -> Text -- ^ Key
+               -> Text -- ^ UploadId
+               -> Int -- ^ PartNumber
+               -> Text -- ^ CopySource
+               -> AWS (Either S3Error UploadPartCopyResponse)
+uploadPartCopy p1 p2 p3 p4 p5 = undefined $ UploadPartCopy
+    { upcBucket = p1
+    , upcKey = p2
+    , upcUploadId = p3
+    , upcPartNumber = p4
+    , upcCopySource = p5
+    , upcCopySourceIfMatch = Nothing
+    , upcCopySourceIfModifiedSince = Nothing
+    , upcCopySourceIfNoneMatch = Nothing
+    , upcCopySourceIfUnmodifiedSince = Nothing
+    , upcCopySourceRange = Nothing
+    }
+
 data UploadPartCopy = UploadPartCopy
     { upcBucket :: !Text
     , upcCopySource :: !Text
@@ -104,23 +124,3 @@ data UploadPartCopyResponse = UploadPartCopyResponse
 
 instance FromXML UploadPartCopyResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-uploadPartCopy :: Text -- ^ Bucket
-               -> Text -- ^ Key
-               -> Text -- ^ UploadId
-               -> Int -- ^ PartNumber
-               -> Text -- ^ CopySource
-               -> AWS (Either S3Error UploadPartCopyResponse)
-uploadPartCopy p1 p2 p3 p4 p5 = undefined $ UploadPartCopy
-    { upcBucket = p1
-    , upcKey = p2
-    , upcUploadId = p3
-    , upcPartNumber = p4
-    , upcCopySource = p5
-    , upcCopySourceIfMatch = Nothing
-    , upcCopySourceIfModifiedSince = Nothing
-    , upcCopySourceIfNoneMatch = Nothing
-    , upcCopySourceIfUnmodifiedSince = Nothing
-    , upcCopySourceRange = Nothing
-    }

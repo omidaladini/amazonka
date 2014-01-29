@@ -41,6 +41,30 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+createMultipartUpload :: Text -- ^ Bucket
+                      -> Text -- ^ Key
+                      -> AWS (Either S3Error CreateMultipartUploadResponse)
+createMultipartUpload p1 p2 = undefined $ CreateMultipartUpload
+    { cmuBucket = p1
+    , cmuKey = p2
+    , cmuACL = Nothing
+    , cmuCacheControl = Nothing
+    , cmuContentDisposition = Nothing
+    , cmuContentEncoding = Nothing
+    , cmuContentLanguage = Nothing
+    , cmuContentType = Nothing
+    , cmuExpires = Nothing
+    , cmuGrantFullControl = Nothing
+    , cmuGrantRead = Nothing
+    , cmuGrantReadACP = Nothing
+    , cmuGrantWriteACP = Nothing
+    , cmuMetadata = mempty
+    , cmuServerSideEncryption = Nothing
+    , cmuStorageClass = Nothing
+    , cmuWebsiteRedirectLocation = Nothing
+    }
+
 type InitiateMultipartUpload = CreateMultipartUpload
 type InitiateMultipartUploadResponse = CreateMultipartUploadResponse
 
@@ -133,27 +157,3 @@ data CreateMultipartUploadResponse = CreateMultipartUploadResponse
 
 instance FromXML CreateMultipartUploadResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-createMultipartUpload :: Text -- ^ Bucket
-                      -> Text -- ^ Key
-                      -> AWS (Either S3Error CreateMultipartUploadResponse)
-createMultipartUpload p1 p2 = undefined $ CreateMultipartUpload
-    { cmuBucket = p1
-    , cmuKey = p2
-    , cmuACL = Nothing
-    , cmuCacheControl = Nothing
-    , cmuContentDisposition = Nothing
-    , cmuContentEncoding = Nothing
-    , cmuContentLanguage = Nothing
-    , cmuContentType = Nothing
-    , cmuExpires = Nothing
-    , cmuGrantFullControl = Nothing
-    , cmuGrantRead = Nothing
-    , cmuGrantReadACP = Nothing
-    , cmuGrantWriteACP = Nothing
-    , cmuMetadata = mempty
-    , cmuServerSideEncryption = Nothing
-    , cmuStorageClass = Nothing
-    , cmuWebsiteRedirectLocation = Nothing
-    }

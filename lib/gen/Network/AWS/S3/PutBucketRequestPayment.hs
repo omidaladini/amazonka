@@ -39,6 +39,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketRequestPayment :: Text -- ^ Bucket
+                        -> RequestPaymentConfiguration -- ^ RequestPaymentConfiguration
+                        -> AWS (Either S3Error PutBucketRequestPaymentResponse)
+putBucketRequestPayment p1 p2 = undefined $ PutBucketRequestPayment
+    { pbrpBucket = p1
+    , pbrpRequestPaymentConfiguration = p2
+    , pbrpContentMD5 = Nothing
+    }
+
 data PutBucketRequestPayment = PutBucketRequestPayment
     { pbrpBucket :: !Text
     , pbrpContentMD5 :: Maybe Text
@@ -72,13 +82,3 @@ data PutBucketRequestPaymentResponse = PutBucketRequestPaymentResponse
 
 instance FromXML PutBucketRequestPaymentResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketRequestPayment :: Text -- ^ Bucket
-                        -> RequestPaymentConfiguration -- ^ RequestPaymentConfiguration
-                        -> AWS (Either S3Error PutBucketRequestPaymentResponse)
-putBucketRequestPayment p1 p2 = undefined $ PutBucketRequestPayment
-    { pbrpBucket = p1
-    , pbrpRequestPaymentConfiguration = p2
-    , pbrpContentMD5 = Nothing
-    }

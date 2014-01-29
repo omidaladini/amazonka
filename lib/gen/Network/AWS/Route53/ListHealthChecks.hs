@@ -42,6 +42,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+listHealthChecks :: AWS (Either Route53Error ListHealthChecksResponse)
+listHealthChecks = undefined $ ListHealthChecks
+    { lhcrMarker = Nothing
+    , lhcrMaxItems = Nothing
+    }
+
 data ListHealthChecks = ListHealthChecks
     { lhcrMarker :: Maybe Text
       -- ^ If the request returned more than one page of results, submit another
@@ -98,10 +105,3 @@ data ListHealthChecksResponse = ListHealthChecksResponse
 
 instance FromXML ListHealthChecksResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-listHealthChecks :: AWS (Either Route53Error ListHealthChecksResponse)
-listHealthChecks = undefined $ ListHealthChecks
-    { lhcrMarker = Nothing
-    , lhcrMaxItems = Nothing
-    }

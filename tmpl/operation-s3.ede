@@ -39,6 +39,8 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
 
+{% include "_includes/method-input.ede" %}
+
 {% if alias /= "" %}
 type {{ alias }} = {{ name }}
 type {{ alias }}Response = {{ name }}Response
@@ -82,5 +84,3 @@ instance FromXML {{ name }}Response where
     fromXMLOptions = xmlOptions
 {% endif %}
 {% endif %}
-
-{% include "_includes/method-input.ede" %}

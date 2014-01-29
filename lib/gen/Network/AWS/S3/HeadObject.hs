@@ -38,6 +38,21 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+headObject :: Text -- ^ Bucket
+           -> Text -- ^ Key
+           -> AWS (Either S3Error HeadObjectResponse)
+headObject p1 p2 = undefined $ HeadObject
+    { hoBucket = p1
+    , hoKey = p2
+    , hoIfMatch = Nothing
+    , hoIfModifiedSince = Nothing
+    , hoIfNoneMatch = Nothing
+    , hoIfUnmodifiedSince = Nothing
+    , hoRange = Nothing
+    , hoVersionId = Nothing
+    }
+
 data HeadObject = HeadObject
     { hoBucket :: !Text
     , hoIfMatch :: Maybe Text
@@ -143,18 +158,3 @@ data HeadObjectResponse = HeadObjectResponse
 
 instance FromXML HeadObjectResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-headObject :: Text -- ^ Bucket
-           -> Text -- ^ Key
-           -> AWS (Either S3Error HeadObjectResponse)
-headObject p1 p2 = undefined $ HeadObject
-    { hoBucket = p1
-    , hoKey = p2
-    , hoIfMatch = Nothing
-    , hoIfModifiedSince = Nothing
-    , hoIfNoneMatch = Nothing
-    , hoIfUnmodifiedSince = Nothing
-    , hoRange = Nothing
-    , hoVersionId = Nothing
-    }

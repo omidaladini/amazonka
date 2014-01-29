@@ -35,6 +35,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+getHealthCheck :: Text -- ^ HealthCheckId
+               -> AWS (Either Route53Error GetHealthCheckResponse)
+getHealthCheck p1 = undefined $ GetHealthCheck
+    { ghcrHealthCheckId = p1
+    }
+
 data GetHealthCheck = GetHealthCheck
     { ghcrHealthCheckId :: !Text
       -- ^ The ID of the health check to retrieve.
@@ -67,10 +74,3 @@ data GetHealthCheckResponse = GetHealthCheckResponse
 
 instance FromXML GetHealthCheckResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getHealthCheck :: Text -- ^ HealthCheckId
-               -> AWS (Either Route53Error GetHealthCheckResponse)
-getHealthCheck p1 = undefined $ GetHealthCheck
-    { ghcrHealthCheckId = p1
-    }

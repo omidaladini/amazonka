@@ -38,6 +38,17 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteObject :: Text -- ^ Bucket
+             -> Text -- ^ Key
+             -> AWS (Either S3Error DeleteObjectResponse)
+deleteObject p1 p2 = undefined $ DeleteObject
+    { doBucket = p1
+    , doKey = p2
+    , doMFA = Nothing
+    , doVersionId = Nothing
+    }
+
 data DeleteObject = DeleteObject
     { doBucket :: !Text
     , doKey :: !Text
@@ -80,14 +91,3 @@ data DeleteObjectResponse = DeleteObjectResponse
       -- ^ Returns the version ID of the delete marker created as a result of the
       -- DELETE operation.
     } deriving (Eq, Show, Generic)
-
--- | Convenience method utilising default fields where applicable.
-deleteObject :: Text -- ^ Bucket
-             -> Text -- ^ Key
-             -> AWS (Either S3Error DeleteObjectResponse)
-deleteObject p1 p2 = undefined $ DeleteObject
-    { doBucket = p1
-    , doKey = p2
-    , doMFA = Nothing
-    , doVersionId = Nothing
-    }

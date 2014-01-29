@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+getBucketTagging :: Text -- ^ Bucket
+                 -> AWS (Either S3Error GetBucketTaggingResponse)
+getBucketTagging p1 = undefined $ GetBucketTagging
+    { gbtBucket = p1
+    }
+
 data GetBucketTagging = GetBucketTagging
     { gbtBucket :: !Text
     } deriving (Generic)
@@ -65,10 +72,3 @@ data GetBucketTaggingResponse = GetBucketTaggingResponse
 
 instance FromXML GetBucketTaggingResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getBucketTagging :: Text -- ^ Bucket
-                 -> AWS (Either S3Error GetBucketTaggingResponse)
-getBucketTagging p1 = undefined $ GetBucketTagging
-    { gbtBucket = p1
-    }

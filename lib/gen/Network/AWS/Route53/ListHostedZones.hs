@@ -42,6 +42,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+listHostedZones :: AWS (Either Route53Error ListHostedZonesResponse)
+listHostedZones = undefined $ ListHostedZones
+    { lhzrMarker = Nothing
+    , lhzrMaxItems = Nothing
+    }
+
 data ListHostedZones = ListHostedZones
     { lhzrMarker :: Maybe Text
       -- ^ If the request returned more than one page of results, submit another
@@ -98,10 +105,3 @@ data ListHostedZonesResponse = ListHostedZonesResponse
 
 instance FromXML ListHostedZonesResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-listHostedZones :: AWS (Either Route53Error ListHostedZonesResponse)
-listHostedZones = undefined $ ListHostedZones
-    { lhzrMarker = Nothing
-    , lhzrMaxItems = Nothing
-    }

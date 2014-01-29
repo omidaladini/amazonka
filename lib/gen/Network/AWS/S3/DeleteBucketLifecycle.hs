@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteBucketLifecycle :: Text -- ^ Bucket
+                      -> AWS (Either S3Error DeleteBucketLifecycleResponse)
+deleteBucketLifecycle p1 = undefined $ DeleteBucketLifecycle
+    { dblBucket = p1
+    }
+
 data DeleteBucketLifecycle = DeleteBucketLifecycle
     { dblBucket :: !Text
     } deriving (Generic)
@@ -64,10 +71,3 @@ data DeleteBucketLifecycleResponse = DeleteBucketLifecycleResponse
 
 instance FromXML DeleteBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-deleteBucketLifecycle :: Text -- ^ Bucket
-                      -> AWS (Either S3Error DeleteBucketLifecycleResponse)
-deleteBucketLifecycle p1 = undefined $ DeleteBucketLifecycle
-    { dblBucket = p1
-    }

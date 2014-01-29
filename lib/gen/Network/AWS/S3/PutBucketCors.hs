@@ -36,6 +36,15 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketCors :: Text -- ^ Bucket
+              -> AWS (Either S3Error PutBucketCorsResponse)
+putBucketCors p1 = undefined $ PutBucketCors
+    { pbcBucket = p1
+    , pbcCORSConfiguration = Nothing
+    , pbcContentMD5 = Nothing
+    }
+
 data PutBucketCors = PutBucketCors
     { pbcBucket :: !Text
     , pbcCORSConfiguration :: Maybe CORSConfiguration
@@ -69,12 +78,3 @@ data PutBucketCorsResponse = PutBucketCorsResponse
 
 instance FromXML PutBucketCorsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketCors :: Text -- ^ Bucket
-              -> AWS (Either S3Error PutBucketCorsResponse)
-putBucketCors p1 = undefined $ PutBucketCors
-    { pbcBucket = p1
-    , pbcCORSConfiguration = Nothing
-    , pbcContentMD5 = Nothing
-    }

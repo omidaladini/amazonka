@@ -36,6 +36,19 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+listObjectVersions :: Text -- ^ Bucket
+                   -> AWS (Either S3Error ListObjectVersionsResponse)
+listObjectVersions p1 = undefined $ ListObjectVersions
+    { lovBucket = p1
+    , lovDelimiter = Nothing
+    , lovEncodingType = Nothing
+    , lovKeyMarker = Nothing
+    , lovMaxKeys = Nothing
+    , lovPrefix = Nothing
+    , lovVersionIdMarker = Nothing
+    }
+
 type GetBucketObjectVersions = ListObjectVersions
 type GetBucketObjectVersionsResponse = ListObjectVersionsResponse
 
@@ -113,16 +126,3 @@ data ListObjectVersionsResponse = ListObjectVersionsResponse
 
 instance FromXML ListObjectVersionsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-listObjectVersions :: Text -- ^ Bucket
-                   -> AWS (Either S3Error ListObjectVersionsResponse)
-listObjectVersions p1 = undefined $ ListObjectVersions
-    { lovBucket = p1
-    , lovDelimiter = Nothing
-    , lovEncodingType = Nothing
-    , lovKeyMarker = Nothing
-    , lovMaxKeys = Nothing
-    , lovPrefix = Nothing
-    , lovVersionIdMarker = Nothing
-    }

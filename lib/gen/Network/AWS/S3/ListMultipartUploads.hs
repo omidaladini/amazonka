@@ -36,6 +36,19 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+listMultipartUploads :: Text -- ^ Bucket
+                     -> AWS (Either S3Error ListMultipartUploadsResponse)
+listMultipartUploads p1 = undefined $ ListMultipartUploads
+    { lmuBucket = p1
+    , lmuDelimiter = Nothing
+    , lmuEncodingType = Nothing
+    , lmuKeyMarker = Nothing
+    , lmuMaxUploads = Nothing
+    , lmuPrefix = Nothing
+    , lmuUploadIdMarker = Nothing
+    }
+
 data ListMultipartUploads = ListMultipartUploads
     { lmuBucket :: !Text
     , lmuDelimiter :: Maybe Text
@@ -119,16 +132,3 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse
 
 instance FromXML ListMultipartUploadsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-listMultipartUploads :: Text -- ^ Bucket
-                     -> AWS (Either S3Error ListMultipartUploadsResponse)
-listMultipartUploads p1 = undefined $ ListMultipartUploads
-    { lmuBucket = p1
-    , lmuDelimiter = Nothing
-    , lmuEncodingType = Nothing
-    , lmuKeyMarker = Nothing
-    , lmuMaxUploads = Nothing
-    , lmuPrefix = Nothing
-    , lmuUploadIdMarker = Nothing
-    }

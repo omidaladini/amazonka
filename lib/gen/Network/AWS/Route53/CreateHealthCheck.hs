@@ -38,6 +38,15 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+createHealthCheck :: HealthCheckConfig -- ^ HealthCheckConfig
+                  -> Text -- ^ CallerReference
+                  -> AWS (Either Route53Error CreateHealthCheckResponse)
+createHealthCheck p1 p2 = undefined $ CreateHealthCheck
+    { chcrHealthCheckConfig = p1
+    , chcrCallerReference = p2
+    }
+
 data CreateHealthCheck = CreateHealthCheck
     { chcrCallerReference :: !Text
       -- ^ A unique string that identifies the request and that allows failed
@@ -77,12 +86,3 @@ data CreateHealthCheckResponse = CreateHealthCheckResponse
 
 instance FromXML CreateHealthCheckResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-createHealthCheck :: HealthCheckConfig -- ^ HealthCheckConfig
-                  -> Text -- ^ CallerReference
-                  -> AWS (Either Route53Error CreateHealthCheckResponse)
-createHealthCheck p1 p2 = undefined $ CreateHealthCheck
-    { chcrHealthCheckConfig = p1
-    , chcrCallerReference = p2
-    }

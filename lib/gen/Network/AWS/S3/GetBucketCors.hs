@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+getBucketCors :: Text -- ^ Bucket
+              -> AWS (Either S3Error GetBucketCorsResponse)
+getBucketCors p1 = undefined $ GetBucketCors
+    { gbcBucket = p1
+    }
+
 data GetBucketCors = GetBucketCors
     { gbcBucket :: !Text
     } deriving (Generic)
@@ -65,10 +72,3 @@ data GetBucketCorsResponse = GetBucketCorsResponse
 
 instance FromXML GetBucketCorsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getBucketCors :: Text -- ^ Bucket
-              -> AWS (Either S3Error GetBucketCorsResponse)
-getBucketCors p1 = undefined $ GetBucketCors
-    { gbcBucket = p1
-    }

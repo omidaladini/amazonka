@@ -36,6 +36,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketNotification :: Text -- ^ Bucket
+                      -> NotificationConfiguration -- ^ NotificationConfiguration
+                      -> AWS (Either S3Error PutBucketNotificationResponse)
+putBucketNotification p1 p2 = undefined $ PutBucketNotification
+    { pbnBucket = p1
+    , pbnNotificationConfiguration = p2
+    , pbnContentMD5 = Nothing
+    }
+
 data PutBucketNotification = PutBucketNotification
     { pbnBucket :: !Text
     , pbnContentMD5 :: Maybe Text
@@ -69,13 +79,3 @@ data PutBucketNotificationResponse = PutBucketNotificationResponse
 
 instance FromXML PutBucketNotificationResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketNotification :: Text -- ^ Bucket
-                      -> NotificationConfiguration -- ^ NotificationConfiguration
-                      -> AWS (Either S3Error PutBucketNotificationResponse)
-putBucketNotification p1 p2 = undefined $ PutBucketNotification
-    { pbnBucket = p1
-    , pbnNotificationConfiguration = p2
-    , pbnContentMD5 = Nothing
-    }

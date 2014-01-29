@@ -37,6 +37,15 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketLifecycle :: Text -- ^ Bucket
+                   -> AWS (Either S3Error PutBucketLifecycleResponse)
+putBucketLifecycle p1 = undefined $ PutBucketLifecycle
+    { pbmBucket = p1
+    , pbmContentMD5 = Nothing
+    , pbmLifecycleConfiguration = Nothing
+    }
+
 data PutBucketLifecycle = PutBucketLifecycle
     { pbmBucket :: !Text
     , pbmContentMD5 :: Maybe Text
@@ -70,12 +79,3 @@ data PutBucketLifecycleResponse = PutBucketLifecycleResponse
 
 instance FromXML PutBucketLifecycleResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketLifecycle :: Text -- ^ Bucket
-                   -> AWS (Either S3Error PutBucketLifecycleResponse)
-putBucketLifecycle p1 = undefined $ PutBucketLifecycle
-    { pbmBucket = p1
-    , pbmContentMD5 = Nothing
-    , pbmLifecycleConfiguration = Nothing
-    }

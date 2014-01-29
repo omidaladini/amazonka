@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+getBucketNotification :: Text -- ^ Bucket
+                      -> AWS (Either S3Error GetBucketNotificationResponse)
+getBucketNotification p1 = undefined $ GetBucketNotification
+    { gbnBucket = p1
+    }
+
 data GetBucketNotification = GetBucketNotification
     { gbnBucket :: !Text
     } deriving (Generic)
@@ -65,10 +72,3 @@ data GetBucketNotificationResponse = GetBucketNotificationResponse
 
 instance FromXML GetBucketNotificationResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getBucketNotification :: Text -- ^ Bucket
-                      -> AWS (Either S3Error GetBucketNotificationResponse)
-getBucketNotification p1 = undefined $ GetBucketNotification
-    { gbnBucket = p1
-    }

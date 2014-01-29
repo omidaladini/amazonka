@@ -36,6 +36,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+restoreObject :: Text -- ^ Bucket
+              -> Text -- ^ Key
+              -> AWS (Either S3Error RestoreObjectResponse)
+restoreObject p1 p2 = undefined $ RestoreObject
+    { roBucket = p1
+    , roKey = p2
+    , roRestoreRequest = Nothing
+    }
+
 type PostObjectRestore = RestoreObject
 type PostObjectRestoreResponse = RestoreObjectResponse
 
@@ -71,13 +81,3 @@ data RestoreObjectResponse = RestoreObjectResponse
 
 instance FromXML RestoreObjectResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-restoreObject :: Text -- ^ Bucket
-              -> Text -- ^ Key
-              -> AWS (Either S3Error RestoreObjectResponse)
-restoreObject p1 p2 = undefined $ RestoreObject
-    { roBucket = p1
-    , roKey = p2
-    , roRestoreRequest = Nothing
-    }

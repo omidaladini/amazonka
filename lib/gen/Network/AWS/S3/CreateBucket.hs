@@ -36,6 +36,20 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+createBucket :: Text -- ^ Bucket
+             -> AWS (Either S3Error CreateBucketResponse)
+createBucket p1 = undefined $ CreateBucket
+    { cbBucket = p1
+    , cbACL = Nothing
+    , cbCreateBucketConfiguration = Nothing
+    , cbGrantFullControl = Nothing
+    , cbGrantRead = Nothing
+    , cbGrantReadACP = Nothing
+    , cbGrantWrite = Nothing
+    , cbGrantWriteACP = Nothing
+    }
+
 type PutBucket = CreateBucket
 type PutBucketResponse = CreateBucketResponse
 
@@ -85,17 +99,3 @@ instance AWSRequest CreateBucket where
 data CreateBucketResponse = CreateBucketResponse
     { cbrsLocation :: Maybe Text
     } deriving (Eq, Show, Generic)
-
--- | Convenience method utilising default fields where applicable.
-createBucket :: Text -- ^ Bucket
-             -> AWS (Either S3Error CreateBucketResponse)
-createBucket p1 = undefined $ CreateBucket
-    { cbBucket = p1
-    , cbACL = Nothing
-    , cbCreateBucketConfiguration = Nothing
-    , cbGrantFullControl = Nothing
-    , cbGrantRead = Nothing
-    , cbGrantReadACP = Nothing
-    , cbGrantWrite = Nothing
-    , cbGrantWriteACP = Nothing
-    }

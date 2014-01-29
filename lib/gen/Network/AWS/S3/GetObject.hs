@@ -36,6 +36,27 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+getObject :: Text -- ^ Bucket
+          -> Text -- ^ Key
+          -> AWS (Either S3Error GetObjectResponse)
+getObject p1 p2 = undefined $ GetObject
+    { goBucket = p1
+    , goKey = p2
+    , goIfMatch = Nothing
+    , goIfModifiedSince = Nothing
+    , goIfNoneMatch = Nothing
+    , goIfUnmodifiedSince = Nothing
+    , goRange = Nothing
+    , goResponseCacheControl = Nothing
+    , goResponseContentDisposition = Nothing
+    , goResponseContentEncoding = Nothing
+    , goResponseContentLanguage = Nothing
+    , goResponseContentType = Nothing
+    , goResponseExpires = Nothing
+    , goVersionId = Nothing
+    }
+
 data GetObject = GetObject
     { goBucket :: !Text
     , goIfMatch :: Maybe Text
@@ -157,25 +178,4 @@ data GetObjectResponse = GetObjectResponse
       -- ^ If the bucket is configured as a website, redirects requests for this
       -- object to another object in the same bucket or to an external URL. Amazon
       -- S3 stores the value of this header in the object metadata.
-    }
-
--- | Convenience method utilising default fields where applicable.
-getObject :: Text -- ^ Bucket
-          -> Text -- ^ Key
-          -> AWS (Either S3Error GetObjectResponse)
-getObject p1 p2 = undefined $ GetObject
-    { goBucket = p1
-    , goKey = p2
-    , goIfMatch = Nothing
-    , goIfModifiedSince = Nothing
-    , goIfNoneMatch = Nothing
-    , goIfUnmodifiedSince = Nothing
-    , goRange = Nothing
-    , goResponseCacheControl = Nothing
-    , goResponseContentDisposition = Nothing
-    , goResponseContentEncoding = Nothing
-    , goResponseContentLanguage = Nothing
-    , goResponseContentType = Nothing
-    , goResponseExpires = Nothing
-    , goVersionId = Nothing
     }

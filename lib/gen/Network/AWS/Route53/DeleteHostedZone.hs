@@ -43,6 +43,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteHostedZone :: Text -- ^ Id
+                 -> AWS (Either Route53Error DeleteHostedZoneResponse)
+deleteHostedZone p1 = undefined $ DeleteHostedZone
+    { dhzrId = p1
+    }
+
 data DeleteHostedZone = DeleteHostedZone
     { dhzrId :: !Text
       -- ^ The ID of the request. Include this ID in a call to GetChange to track when
@@ -76,10 +83,3 @@ data DeleteHostedZoneResponse = DeleteHostedZoneResponse
 
 instance FromXML DeleteHostedZoneResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-deleteHostedZone :: Text -- ^ Id
-                 -> AWS (Either Route53Error DeleteHostedZoneResponse)
-deleteHostedZone p1 = undefined $ DeleteHostedZone
-    { dhzrId = p1
-    }

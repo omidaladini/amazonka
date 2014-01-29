@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteBucketCors :: Text -- ^ Bucket
+                 -> AWS (Either S3Error DeleteBucketCorsResponse)
+deleteBucketCors p1 = undefined $ DeleteBucketCors
+    { dbcBucket = p1
+    }
+
 data DeleteBucketCors = DeleteBucketCors
     { dbcBucket :: !Text
     } deriving (Generic)
@@ -64,10 +71,3 @@ data DeleteBucketCorsResponse = DeleteBucketCorsResponse
 
 instance FromXML DeleteBucketCorsResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-deleteBucketCors :: Text -- ^ Bucket
-                 -> AWS (Either S3Error DeleteBucketCorsResponse)
-deleteBucketCors p1 = undefined $ DeleteBucketCors
-    { dbcBucket = p1
-    }

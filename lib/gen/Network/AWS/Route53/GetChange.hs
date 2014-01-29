@@ -38,6 +38,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+getChange :: Text -- ^ Id
+          -> AWS (Either Route53Error GetChangeResponse)
+getChange p1 = undefined $ GetChange
+    { gcrId = p1
+    }
+
 data GetChange = GetChange
     { gcrId :: !Text
       -- ^ The ID of the change batch request. The value that you specify here is the
@@ -73,10 +80,3 @@ data GetChangeResponse = GetChangeResponse
 
 instance FromXML GetChangeResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getChange :: Text -- ^ Id
-          -> AWS (Either Route53Error GetChangeResponse)
-getChange p1 = undefined $ GetChange
-    { gcrId = p1
-    }

@@ -36,6 +36,34 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putObject :: Text -- ^ Bucket
+          -> Text -- ^ Key
+          -> RequestBody -- ^ Body
+          -> AWS (Either S3Error PutObjectResponse)
+putObject p1 p2 p3 = undefined $ PutObject
+    { poBucket = p1
+    , poKey = p2
+    , poBody = p3
+    , poACL = Nothing
+    , poCacheControl = Nothing
+    , poContentDisposition = Nothing
+    , poContentEncoding = Nothing
+    , poContentLanguage = Nothing
+    , poContentLength = Nothing
+    , poContentMD5 = Nothing
+    , poContentType = Nothing
+    , poExpires = Nothing
+    , poGrantFullControl = Nothing
+    , poGrantRead = Nothing
+    , poGrantReadACP = Nothing
+    , poGrantWriteACP = Nothing
+    , poMetadata = mempty
+    , poServerSideEncryption = Nothing
+    , poStorageClass = Nothing
+    , poWebsiteRedirectLocation = Nothing
+    }
+
 data PutObject = PutObject
     { poACL :: Maybe ACL
       -- ^ The canned ACL to apply to the object.
@@ -129,31 +157,3 @@ data PutObjectResponse = PutObjectResponse
     , porsVersionId :: Maybe Text
       -- ^ Version of the object.
     } deriving (Eq, Show, Generic)
-
--- | Convenience method utilising default fields where applicable.
-putObject :: Text -- ^ Bucket
-          -> Text -- ^ Key
-          -> RequestBody -- ^ Body
-          -> AWS (Either S3Error PutObjectResponse)
-putObject p1 p2 p3 = undefined $ PutObject
-    { poBucket = p1
-    , poKey = p2
-    , poBody = p3
-    , poACL = Nothing
-    , poCacheControl = Nothing
-    , poContentDisposition = Nothing
-    , poContentEncoding = Nothing
-    , poContentLanguage = Nothing
-    , poContentLength = Nothing
-    , poContentMD5 = Nothing
-    , poContentType = Nothing
-    , poExpires = Nothing
-    , poGrantFullControl = Nothing
-    , poGrantRead = Nothing
-    , poGrantReadACP = Nothing
-    , poGrantWriteACP = Nothing
-    , poMetadata = mempty
-    , poServerSideEncryption = Nothing
-    , poStorageClass = Nothing
-    , poWebsiteRedirectLocation = Nothing
-    }

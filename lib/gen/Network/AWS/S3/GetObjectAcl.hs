@@ -36,6 +36,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+getObjectAcl :: Text -- ^ Bucket
+             -> Text -- ^ Key
+             -> AWS (Either S3Error GetObjectAclResponse)
+getObjectAcl p1 p2 = undefined $ GetObjectAcl
+    { goaBucket = p1
+    , goaKey = p2
+    , goaVersionId = Nothing
+    }
+
 data GetObjectAcl = GetObjectAcl
     { goaBucket :: !Text
     , goaKey :: !Text
@@ -72,13 +82,3 @@ data GetObjectAclResponse = GetObjectAclResponse
 
 instance FromXML GetObjectAclResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getObjectAcl :: Text -- ^ Bucket
-             -> Text -- ^ Key
-             -> AWS (Either S3Error GetObjectAclResponse)
-getObjectAcl p1 p2 = undefined $ GetObjectAcl
-    { goaBucket = p1
-    , goaKey = p2
-    , goaVersionId = Nothing
-    }

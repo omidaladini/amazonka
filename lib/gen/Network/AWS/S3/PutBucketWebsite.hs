@@ -36,6 +36,16 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketWebsite :: Text -- ^ Bucket
+                 -> WebsiteConfiguration -- ^ WebsiteConfiguration
+                 -> AWS (Either S3Error PutBucketWebsiteResponse)
+putBucketWebsite p1 p2 = undefined $ PutBucketWebsite
+    { pbwBucket = p1
+    , pbwWebsiteConfiguration = p2
+    , pbwContentMD5 = Nothing
+    }
+
 data PutBucketWebsite = PutBucketWebsite
     { pbwBucket :: !Text
     , pbwContentMD5 :: Maybe Text
@@ -69,13 +79,3 @@ data PutBucketWebsiteResponse = PutBucketWebsiteResponse
 
 instance FromXML PutBucketWebsiteResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketWebsite :: Text -- ^ Bucket
-                 -> WebsiteConfiguration -- ^ WebsiteConfiguration
-                 -> AWS (Either S3Error PutBucketWebsiteResponse)
-putBucketWebsite p1 p2 = undefined $ PutBucketWebsite
-    { pbwBucket = p1
-    , pbwWebsiteConfiguration = p2
-    , pbwContentMD5 = Nothing
-    }

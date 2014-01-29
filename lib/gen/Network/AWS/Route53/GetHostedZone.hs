@@ -37,6 +37,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
+-- | Convenience method utilising default fields where applicable.
+getHostedZone :: Text -- ^ Id
+              -> AWS (Either Route53Error GetHostedZoneResponse)
+getHostedZone p1 = undefined $ GetHostedZone
+    { ghzrId = p1
+    }
+
 data GetHostedZone = GetHostedZone
     { ghzrId :: !Text
       -- ^ The ID of the hosted zone for which you want to get a list of the name
@@ -73,10 +80,3 @@ data GetHostedZoneResponse = GetHostedZoneResponse
 
 instance FromXML GetHostedZoneResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-getHostedZone :: Text -- ^ Id
-              -> AWS (Either Route53Error GetHostedZoneResponse)
-getHostedZone p1 = undefined $ GetHostedZone
-    { ghzrId = p1
-    }

@@ -37,6 +37,17 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+putBucketVersioning :: Text -- ^ Bucket
+                    -> VersioningConfiguration -- ^ VersioningConfiguration
+                    -> AWS (Either S3Error PutBucketVersioningResponse)
+putBucketVersioning p1 p2 = undefined $ PutBucketVersioning
+    { pbvBucket = p1
+    , pbvVersioningConfiguration = p2
+    , pbvContentMD5 = Nothing
+    , pbvMFA = Nothing
+    }
+
 data PutBucketVersioning = PutBucketVersioning
     { pbvBucket :: !Text
     , pbvContentMD5 :: Maybe Text
@@ -74,14 +85,3 @@ data PutBucketVersioningResponse = PutBucketVersioningResponse
 
 instance FromXML PutBucketVersioningResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-putBucketVersioning :: Text -- ^ Bucket
-                    -> VersioningConfiguration -- ^ VersioningConfiguration
-                    -> AWS (Either S3Error PutBucketVersioningResponse)
-putBucketVersioning p1 p2 = undefined $ PutBucketVersioning
-    { pbvBucket = p1
-    , pbvVersioningConfiguration = p2
-    , pbvContentMD5 = Nothing
-    , pbvMFA = Nothing
-    }

@@ -36,6 +36,13 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteBucketTagging :: Text -- ^ Bucket
+                    -> AWS (Either S3Error DeleteBucketTaggingResponse)
+deleteBucketTagging p1 = undefined $ DeleteBucketTagging
+    { dbtBucket = p1
+    }
+
 data DeleteBucketTagging = DeleteBucketTagging
     { dbtBucket :: !Text
     } deriving (Generic)
@@ -64,10 +71,3 @@ data DeleteBucketTaggingResponse = DeleteBucketTaggingResponse
 
 instance FromXML DeleteBucketTaggingResponse where
     fromXMLOptions = xmlOptions
-
--- | Convenience method utilising default fields where applicable.
-deleteBucketTagging :: Text -- ^ Bucket
-                    -> AWS (Either S3Error DeleteBucketTaggingResponse)
-deleteBucketTagging p1 = undefined $ DeleteBucketTagging
-    { dbtBucket = p1
-    }
