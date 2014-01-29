@@ -38,6 +38,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateElasticIp :: Text
+                -> AWS (Either OpsWorksError UpdateElasticIpResponse)
+updateElasticIp p1 = undefined $ UpdateElasticIp
+    { ueirElasticIp = p1
+    , ueirName = Nothing
+    }
+
 data UpdateElasticIp = UpdateElasticIp
     { ueirElasticIp :: !Text
       -- ^ The address.

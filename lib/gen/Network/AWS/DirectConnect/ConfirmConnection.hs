@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+confirmConnection :: Text
+                  -> AWS (Either DirectConnectError ConfirmConnectionResponse)
+confirmConnection p1 = undefined $ ConfirmConnection
+    { ccsConnectionId = p1
+    }
+
 data ConfirmConnection = ConfirmConnection
     { ccsConnectionId :: !Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.

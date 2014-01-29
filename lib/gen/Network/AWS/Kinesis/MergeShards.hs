@@ -71,6 +71,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+mergeShards :: Text
+            -> Text
+            -> Text
+            -> AWS (Either KinesisError MergeShardsResponse)
+mergeShards p1 p2 p3 = undefined $ MergeShards
+    { msiAdjacentShardToMerge = p1
+    , msiShardToMerge = p2
+    , msiStreamName = p3
+    }
+
 data MergeShards = MergeShards
     { msiAdjacentShardToMerge :: !Text
       -- ^ The shard ID of the adjacent shard for the merge.

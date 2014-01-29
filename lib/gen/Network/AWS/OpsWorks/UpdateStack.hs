@@ -37,6 +37,27 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateStack :: Text
+            -> AWS (Either OpsWorksError UpdateStackResponse)
+updateStack p1 = undefined $ UpdateStack
+    { usrStackId = p1
+    , usrAttributes = Map.empty
+    , usrConfigurationManager = Nothing
+    , usrCustomCookbooksSource = Nothing
+    , usrCustomJson = Nothing
+    , usrDefaultAvailabilityZone = Nothing
+    , usrDefaultInstanceProfileArn = Nothing
+    , usrDefaultOs = Nothing
+    , usrDefaultRootDeviceType = Nothing
+    , usrDefaultSshKeyName = Nothing
+    , usrDefaultSubnetId = Nothing
+    , usrHostnameTheme = Nothing
+    , usrName = Nothing
+    , usrServiceRoleArn = Nothing
+    , usrUseCustomCookbooks = Nothing
+    }
+
 data UpdateStack = UpdateStack
     { usrAttributes :: HashMap StackAttributesKeys Text
       -- ^ One or more user-defined key/value pairs to be added to the stack

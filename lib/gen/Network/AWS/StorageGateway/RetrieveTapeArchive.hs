@@ -34,6 +34,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+retrieveTapeArchive :: Text
+                    -> Text
+                    -> AWS (Either StorageGatewayError RetrieveTapeArchiveResponse)
+retrieveTapeArchive p1 p2 = undefined $ RetrieveTapeArchive
+    { rtaiGatewayARN = p1
+    , rtaiTapeARN = p2
+    }
+
 data RetrieveTapeArchive = RetrieveTapeArchive
     { rtaiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

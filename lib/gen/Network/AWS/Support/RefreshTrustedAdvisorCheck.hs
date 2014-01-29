@@ -41,6 +41,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+refreshTrustedAdvisorCheck :: Text
+                           -> AWS (Either SupportError RefreshTrustedAdvisorCheckResponse)
+refreshTrustedAdvisorCheck p1 = undefined $ RefreshTrustedAdvisorCheck
+    { rtacrCheckId = p1
+    }
+
 data RefreshTrustedAdvisorCheck = RefreshTrustedAdvisorCheck
     { rtacrCheckId :: !Text
       -- ^ The unique identifier for the Trusted Advisor check.

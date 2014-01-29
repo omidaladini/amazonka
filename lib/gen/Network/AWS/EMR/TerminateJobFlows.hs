@@ -55,6 +55,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+terminateJobFlows :: [Text]
+                  -> AWS (Either EMRError TerminateJobFlowsResponse)
+terminateJobFlows p1 = undefined $ TerminateJobFlows
+    { tjfiJobFlowIds = p1
+    }
+
 data TerminateJobFlows = TerminateJobFlows
     { tjfiJobFlowIds :: [Text]
       -- ^ A list of job flows to be shutdown.

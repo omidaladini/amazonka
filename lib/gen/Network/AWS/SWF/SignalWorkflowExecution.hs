@@ -66,6 +66,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+signalWorkflowExecution :: Text
+                        -> Text
+                        -> Text
+                        -> AWS (Either SWFError SignalWorkflowExecutionResponse)
+signalWorkflowExecution p1 p2 p3 = undefined $ SignalWorkflowExecution
+    { sweiDomain = p1
+    , sweiSignalName = p2
+    , sweiWorkflowId = p3
+    , sweiInput = Nothing
+    , sweiRunId = Nothing
+    }
+
 data SignalWorkflowExecution = SignalWorkflowExecution
     { sweiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution to signal.

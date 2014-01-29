@@ -55,6 +55,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+scan :: Text
+     -> AWS (Either DynamoDBError ScanResponse)
+scan p1 = undefined $ Scan
+    { siTableName = p1
+    , siAttributesToGet = []
+    , siExclusiveStartKey = Map.empty
+    , siLimit = Nothing
+    , siReturnConsumedCapacity = Nothing
+    , siScanFilter = Map.empty
+    , siSegment = Nothing
+    , siSelect = Nothing
+    , siTotalSegments = Nothing
+    }
+
 data Scan = Scan
     { siAttributesToGet :: [Text]
       -- ^ The names of one or more attributes to retrieve. If no attribute names are

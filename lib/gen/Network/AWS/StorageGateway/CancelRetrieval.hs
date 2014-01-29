@@ -34,6 +34,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelRetrieval :: Text
+                -> Text
+                -> AWS (Either StorageGatewayError CancelRetrievalResponse)
+cancelRetrieval p1 p2 = undefined $ CancelRetrieval
+    { criGatewayARN = p1
+    , criTapeARN = p2
+    }
+
 data CancelRetrieval = CancelRetrieval
     { criGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

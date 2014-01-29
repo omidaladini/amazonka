@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+rebootInstance :: Text
+               -> AWS (Either OpsWorksError RebootInstanceResponse)
+rebootInstance p1 = undefined $ RebootInstance
+    { rirInstanceId = p1
+    }
+
 data RebootInstance = RebootInstance
     { rirInstanceId :: !Text
       -- ^ The instance ID.

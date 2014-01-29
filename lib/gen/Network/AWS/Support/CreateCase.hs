@@ -59,6 +59,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCase :: Text
+           -> Text
+           -> AWS (Either SupportError CreateCaseResponse)
+createCase p1 p2 = undefined $ CreateCase
+    { ccrCommunicationBody = p1
+    , ccrSubject = p2
+    , ccrCategoryCode = Nothing
+    , ccrCcEmailAddresses = []
+    , ccrIssueType = Nothing
+    , ccrLanguage = Nothing
+    , ccrServiceCode = Nothing
+    , ccrSeverityCode = Nothing
+    }
+
 data CreateCase = CreateCase
     { ccrCategoryCode :: Maybe Text
       -- ^ The category of problem for the AWS Support case.

@@ -54,6 +54,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeBandwidthRateLimit :: Text
+                           -> AWS (Either StorageGatewayError DescribeBandwidthRateLimitResponse)
+describeBandwidthRateLimit p1 = undefined $ DescribeBandwidthRateLimit
+    { dbrliGatewayARN = p1
+    }
+
 data DescribeBandwidthRateLimit = DescribeBandwidthRateLimit
     { dbrliGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

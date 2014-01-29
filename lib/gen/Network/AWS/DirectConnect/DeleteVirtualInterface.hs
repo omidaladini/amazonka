@@ -34,6 +34,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVirtualInterface :: Text
+                       -> AWS (Either DirectConnectError DeleteVirtualInterfaceResponse)
+deleteVirtualInterface p1 = undefined $ DeleteVirtualInterface
+    { dvisVirtualInterfaceId = p1
+    }
+
 data DeleteVirtualInterface = DeleteVirtualInterface
     { dvisVirtualInterfaceId :: !Text
       -- ^ ID of the virtual interface. Example: dxvif-123dfg56 Default: None.

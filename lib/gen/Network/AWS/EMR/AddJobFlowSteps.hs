@@ -72,6 +72,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+addJobFlowSteps :: Text
+                -> [StepConfig]
+                -> AWS (Either EMRError AddJobFlowStepsResponse)
+addJobFlowSteps p1 p2 = undefined $ AddJobFlowSteps
+    { ajfsiJobFlowId = p1
+    , ajfsiSteps = p2
+    }
+
 data AddJobFlowSteps = AddJobFlowSteps
     { ajfsiJobFlowId :: !Text
       -- ^ A string that uniquely identifies the job flow. This identifier is returned

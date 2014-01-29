@@ -54,6 +54,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+reportTaskProgress :: Text
+                   -> AWS (Either DataPipelineError ReportTaskProgressResponse)
+reportTaskProgress p1 = undefined $ ReportTaskProgress
+    { rtpiTaskId = p1
+    }
+
 data ReportTaskProgress = ReportTaskProgress
     { rtpiTaskId :: !Text
       -- ^ Identifier of the task assigned to the task runner. This value is provided

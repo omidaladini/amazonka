@@ -71,6 +71,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+validatePipelineDefinition :: Text
+                           -> [PipelineObject]
+                           -> AWS (Either DataPipelineError ValidatePipelineDefinitionResponse)
+validatePipelineDefinition p1 p2 = undefined $ ValidatePipelineDefinition
+    { vpdiPipelineId = p1
+    , vpdiPipelineObjects = p2
+    }
+
 data ValidatePipelineDefinition = ValidatePipelineDefinition
     { vpdiPipelineId :: !Text
       -- ^ Identifies the pipeline whose definition is to be validated.

@@ -40,6 +40,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+addCommunicationToCase :: Text
+                       -> AWS (Either SupportError AddCommunicationToCaseResponse)
+addCommunicationToCase p1 = undefined $ AddCommunicationToCase
+    { actcrCommunicationBody = p1
+    , actcrCaseId = Nothing
+    , actcrCcEmailAddresses = []
+    }
+
 data AddCommunicationToCase = AddCommunicationToCase
     { actcrCaseId :: Maybe Text
       -- ^ The AWS Support case ID requested or returned in the call. The case ID is

@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeElasticLoadBalancers :: AWS (Either OpsWorksError DescribeElasticLoadBalancersResponse)
+describeElasticLoadBalancers = undefined $ DescribeElasticLoadBalancers
+    { delbsLayerIds = []
+    , delbsStackId = Nothing
+    }
+
 data DescribeElasticLoadBalancers = DescribeElasticLoadBalancers
     { delbsLayerIds :: [Text]
       -- ^ A list of layer IDs. The action describes the Elastic Load Balancing

@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+removeTags :: AWS (Either EMRError RemoveTagsResponse)
+removeTags = undefined $ RemoveTags
+    { rtiResourceId = Nothing
+    , rtiTagKeys = []
+    }
+
 data RemoveTags = RemoveTags
     { rtiResourceId :: Maybe Text
       -- ^ The Amazon EMR resource identifier from which tags will be removed. This

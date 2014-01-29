@@ -38,6 +38,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+detachElasticLoadBalancer :: Text
+                          -> Text
+                          -> AWS (Either OpsWorksError DetachElasticLoadBalancerResponse)
+detachElasticLoadBalancer p1 p2 = undefined $ DetachElasticLoadBalancer
+    { delbrElasticLoadBalancerName = p1
+    , delbrLayerId = p2
+    }
+
 data DetachElasticLoadBalancer = DetachElasticLoadBalancer
     { delbrElasticLoadBalancerName :: !Text
       -- ^ The Elastic Load Balancing instance's name.

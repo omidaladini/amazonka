@@ -37,6 +37,32 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+cloneStack :: Text
+           -> Text
+           -> AWS (Either OpsWorksError CloneStackResponse)
+cloneStack p1 p2 = undefined $ CloneStack
+    { cssServiceRoleArn = p1
+    , cssSourceStackId = p2
+    , cssAttributes = Map.empty
+    , cssCloneAppIds = []
+    , cssClonePermissions = Nothing
+    , cssConfigurationManager = Nothing
+    , cssCustomCookbooksSource = Nothing
+    , cssCustomJson = Nothing
+    , cssDefaultAvailabilityZone = Nothing
+    , cssDefaultInstanceProfileArn = Nothing
+    , cssDefaultOs = Nothing
+    , cssDefaultRootDeviceType = Nothing
+    , cssDefaultSshKeyName = Nothing
+    , cssDefaultSubnetId = Nothing
+    , cssHostnameTheme = Nothing
+    , cssName = Nothing
+    , cssRegion = Nothing
+    , cssUseCustomCookbooks = Nothing
+    , cssVpcId = Nothing
+    }
+
 data CloneStack = CloneStack
     { cssAttributes :: HashMap StackAttributesKeys Text
       -- ^ A list of stack attributes and values as key/value pairs to be added to the

@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeRaidArrays :: AWS (Either OpsWorksError DescribeRaidArraysResponse)
+describeRaidArrays = undefined $ DescribeRaidArrays
+    { drarInstanceId = Nothing
+    , drarRaidArrayIds = []
+    }
+
 data DescribeRaidArrays = DescribeRaidArrays
     { drarInstanceId :: Maybe Text
       -- ^ The instance ID. If you use this parameter, DescribeRaidArrays returns

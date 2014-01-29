@@ -56,6 +56,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStorediSCSIVolumes :: [Text]
+                           -> AWS (Either StorageGatewayError DescribeStorediSCSIVolumesResponse)
+describeStorediSCSIVolumes p1 = undefined $ DescribeStorediSCSIVolumes
+    { dsscsiviVolumeARNs = p1
+    }
+
 data DescribeStorediSCSIVolumes = DescribeStorediSCSIVolumes
     { dsscsiviVolumeARNs :: [Text]
       -- ^ An array of strings where each string represents the Amazon Resource Name

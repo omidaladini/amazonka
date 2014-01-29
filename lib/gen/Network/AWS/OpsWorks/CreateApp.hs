@@ -38,6 +38,24 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+createApp :: Text
+          -> Text
+          -> AppType
+          -> AWS (Either OpsWorksError CreateAppResponse)
+createApp p1 p2 p3 = undefined $ CreateApp
+    { carName = p1
+    , carStackId = p2
+    , carType = p3
+    , carAppSource = Nothing
+    , carAttributes = Map.empty
+    , carDescription = Nothing
+    , carDomains = []
+    , carEnableSsl = Nothing
+    , carShortname = Nothing
+    , carSslConfiguration = Nothing
+    }
+
 data CreateApp = CreateApp
     { carAppSource :: Maybe Source
       -- ^ A Source object that specifies the app repository.

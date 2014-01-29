@@ -38,6 +38,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateVolume :: Text
+             -> AWS (Either OpsWorksError UpdateVolumeResponse)
+updateVolume p1 = undefined $ UpdateVolume
+    { uvsVolumeId = p1
+    , uvsMountPoint = Nothing
+    , uvsName = Nothing
+    }
+
 data UpdateVolume = UpdateVolume
     { uvsMountPoint :: Maybe Text
       -- ^ The new mount point.

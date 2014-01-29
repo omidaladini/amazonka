@@ -40,6 +40,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+allocatePrivateVirtualInterface :: Text
+                                -> NewPrivateVirtualInterfaceAllocation
+                                -> Text
+                                -> AWS (Either DirectConnectError AllocatePrivateVirtualInterfaceResponse)
+allocatePrivateVirtualInterface p1 p2 p3 = undefined $ AllocatePrivateVirtualInterface
+    { apvirConnectionId = p1
+    , apvirNewPrivateVirtualInterfaceAllocation = p2
+    , apvirOwnerAccount = p3
+    }
+
 data AllocatePrivateVirtualInterface = AllocatePrivateVirtualInterface
     { apvirConnectionId :: !Text
       -- ^ The connection ID on which the private virtual interface is provisioned.

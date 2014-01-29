@@ -45,6 +45,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+activatePipeline :: Text
+                 -> AWS (Either DataPipelineError ActivatePipelineResponse)
+activatePipeline p1 = undefined $ ActivatePipeline
+    { apiPipelineId = p1
+    }
+
 data ActivatePipeline = ActivatePipeline
     { apiPipelineId :: !Text
       -- ^ The identifier of the pipeline to activate.

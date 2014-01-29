@@ -54,6 +54,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateSnapshotSchedule :: Int
+                       -> Int
+                       -> Text
+                       -> AWS (Either StorageGatewayError UpdateSnapshotScheduleResponse)
+updateSnapshotSchedule p1 p2 p3 = undefined $ UpdateSnapshotSchedule
+    { ussiRecurrenceInHours = p1
+    , ussiStartAt = p2
+    , ussiVolumeARN = p3
+    , ussiDescription = Nothing
+    }
+
 data UpdateSnapshotSchedule = UpdateSnapshotSchedule
     { ussiDescription :: Maybe Text
       -- ^ Optional description of the snapshot that overwrites the existing

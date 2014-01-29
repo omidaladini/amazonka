@@ -54,6 +54,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+listActivityTypes :: Text
+                  -> RegistrationStatus
+                  -> AWS (Either SWFError ListActivityTypesResponse)
+listActivityTypes p1 p2 = undefined $ ListActivityTypes
+    { latiDomain = p1
+    , latiRegistrationStatus = p2
+    , latiMaximumPageSize = Nothing
+    , latiName = Nothing
+    , latiNextPageToken = Nothing
+    , latiReverseOrder = Nothing
+    }
+
 data ListActivityTypes = ListActivityTypes
     { latiDomain :: !Text
       -- ^ The name of the domain in which the activity types have been registered.

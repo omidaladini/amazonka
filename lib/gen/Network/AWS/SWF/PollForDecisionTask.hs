@@ -96,6 +96,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+pollForDecisionTask :: Text
+                    -> TaskList
+                    -> AWS (Either SWFError PollForDecisionTaskResponse)
+pollForDecisionTask p1 p2 = undefined $ PollForDecisionTask
+    { pfdtiDomain = p1
+    , pfdtiTaskList = p2
+    , pfdtiIdentity = Nothing
+    , pfdtiMaximumPageSize = Nothing
+    , pfdtiNextPageToken = Nothing
+    , pfdtiReverseOrder = Nothing
+    }
+
 data PollForDecisionTask = PollForDecisionTask
     { pfdtiDomain :: !Text
       -- ^ The name of the domain containing the task lists to poll.

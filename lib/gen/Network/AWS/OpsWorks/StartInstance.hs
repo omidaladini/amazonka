@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+startInstance :: Text
+              -> AWS (Either OpsWorksError StartInstanceResponse)
+startInstance p1 = undefined $ StartInstance
+    { sisInstanceId = p1
+    }
+
 data StartInstance = StartInstance
     { sisInstanceId :: !Text
       -- ^ The instance ID.

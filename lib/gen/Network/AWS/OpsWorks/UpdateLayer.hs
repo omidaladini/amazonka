@@ -37,6 +37,25 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateLayer :: Text
+            -> AWS (Either OpsWorksError UpdateLayerResponse)
+updateLayer p1 = undefined $ UpdateLayer
+    { ulrLayerId = p1
+    , ulrAttributes = Map.empty
+    , ulrAutoAssignElasticIps = Nothing
+    , ulrAutoAssignPublicIps = Nothing
+    , ulrCustomInstanceProfileArn = Nothing
+    , ulrCustomRecipes = Nothing
+    , ulrCustomSecurityGroupIds = []
+    , ulrEnableAutoHealing = Nothing
+    , ulrInstallUpdatesOnBoot = Nothing
+    , ulrName = Nothing
+    , ulrPackages = []
+    , ulrShortname = Nothing
+    , ulrVolumeConfigurations = []
+    }
+
 data UpdateLayer = UpdateLayer
     { ulrAttributes :: HashMap LayerAttributesKeys Text
       -- ^ One or more user-defined key/value pairs to be added to the stack

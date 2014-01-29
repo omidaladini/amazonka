@@ -42,6 +42,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateTrail :: AWS (Either CloudTrailError UpdateTrailResponse)
+updateTrail = undefined $ UpdateTrail
+    { utrIncludeGlobalServiceEvents = Nothing
+    , utrName = Nothing
+    , utrS3BucketName = Nothing
+    , utrS3KeyPrefix = Nothing
+    , utrSnsTopicName = Nothing
+    , utrTrail = Nothing
+    }
+
 data UpdateTrail = UpdateTrail
     { utrIncludeGlobalServiceEvents :: Maybe Bool
       -- ^ Specifies whether the trail is publishing events from global services such

@@ -34,6 +34,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStep :: AWS (Either EMRError DescribeStepResponse)
+describeStep = undefined $ DescribeStep
+    { dsiClusterId = Nothing
+    , dsiStepId = Nothing
+    }
+
 data DescribeStep = DescribeStep
     { dsiClusterId :: Maybe Text
       -- ^ The identifier of the cluster with steps to describe.

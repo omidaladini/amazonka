@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+getHostnameSuggestion :: Text
+                      -> AWS (Either OpsWorksError GetHostnameSuggestionResponse)
+getHostnameSuggestion p1 = undefined $ GetHostnameSuggestion
+    { ghsrLayerId = p1
+    }
+
 data GetHostnameSuggestion = GetHostnameSuggestion
     { ghsrLayerId :: !Text
       -- ^ The layer ID.

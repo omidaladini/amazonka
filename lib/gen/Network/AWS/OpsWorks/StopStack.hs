@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+stopStack :: Text
+          -> AWS (Either OpsWorksError StopStackResponse)
+stopStack p1 = undefined $ StopStack
+    { ssrStackId = p1
+    }
+
 data StopStack = StopStack
     { ssrStackId :: !Text
       -- ^ The stack ID.

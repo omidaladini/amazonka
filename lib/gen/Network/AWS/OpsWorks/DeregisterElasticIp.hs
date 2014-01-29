@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deregisterElasticIp :: Text
+                    -> AWS (Either OpsWorksError DeregisterElasticIpResponse)
+deregisterElasticIp p1 = undefined $ DeregisterElasticIp
+    { deisElasticIp = p1
+    }
+
 data DeregisterElasticIp = DeregisterElasticIp
     { deisElasticIp :: !Text
       -- ^ The Elastic IP address.

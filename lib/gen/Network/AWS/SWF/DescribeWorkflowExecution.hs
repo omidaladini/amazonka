@@ -70,6 +70,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeWorkflowExecution :: Text
+                          -> WorkflowExecution
+                          -> AWS (Either SWFError DescribeWorkflowExecutionResponse)
+describeWorkflowExecution p1 p2 = undefined $ DescribeWorkflowExecution
+    { dweiDomain = p1
+    , dweiExecution = p2
+    }
+
 data DescribeWorkflowExecution = DescribeWorkflowExecution
     { dweiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution.

@@ -38,6 +38,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeElasticIps :: AWS (Either OpsWorksError DescribeElasticIpsResponse)
+describeElasticIps = undefined $ DescribeElasticIps
+    { deitInstanceId = Nothing
+    , deitIps = []
+    , deitStackId = Nothing
+    }
+
 data DescribeElasticIps = DescribeElasticIps
     { deitInstanceId :: Maybe Text
       -- ^ The instance ID. If you include this parameter, DescribeElasticIps returns

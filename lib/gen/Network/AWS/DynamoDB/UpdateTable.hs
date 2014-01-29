@@ -61,6 +61,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateTable :: Text
+            -> AWS (Either DynamoDBError UpdateTableResponse)
+updateTable p1 = undefined $ UpdateTable
+    { utiTableName = p1
+    , utiGlobalSecondaryIndexUpdates = []
+    , utiProvisionedThroughput = Nothing
+    }
+
 data UpdateTable = UpdateTable
     { utiGlobalSecondaryIndexUpdates :: [GlobalSecondaryIndexUpdate]
       -- ^ An array of one or more global secondary indexes on the table, together

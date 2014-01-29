@@ -49,6 +49,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTable :: Text
+              -> AWS (Either DynamoDBError DescribeTableResponse)
+describeTable p1 = undefined $ DescribeTable
+    { dtjTableName = p1
+    }
+
 data DescribeTable = DescribeTable
     { dtjTableName :: !Text
       -- ^ The name of the table to describe.

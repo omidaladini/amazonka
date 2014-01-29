@@ -77,6 +77,25 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+runJobFlow :: JobFlowInstancesConfig
+           -> Text
+           -> AWS (Either EMRError RunJobFlowResponse)
+runJobFlow p1 p2 = undefined $ RunJobFlow
+    { rjfiInstances = p1
+    , rjfiName = p2
+    , rjfiAdditionalInfo = Nothing
+    , rjfiAmiVersion = Nothing
+    , rjfiBootstrapActions = []
+    , rjfiJobFlowRole = Nothing
+    , rjfiLogUri = Nothing
+    , rjfiNewSupportedProducts = []
+    , rjfiSteps = []
+    , rjfiSupportedProducts = []
+    , rjfiTags = []
+    , rjfiVisibleToAllUsers = Nothing
+    }
+
 data RunJobFlow = RunJobFlow
     { rjfiAdditionalInfo :: Maybe Text
       -- ^ A JSON string for selecting additional features.

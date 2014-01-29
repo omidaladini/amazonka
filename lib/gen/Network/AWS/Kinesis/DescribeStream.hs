@@ -76,6 +76,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStream :: Text
+               -> AWS (Either KinesisError DescribeStreamResponse)
+describeStream p1 = undefined $ DescribeStream
+    { dsjStreamName = p1
+    , dsjExclusiveStartShardId = Nothing
+    , dsjLimit = Nothing
+    }
+
 data DescribeStream = DescribeStream
     { dsjExclusiveStartShardId :: Maybe Text
       -- ^ The shard ID of the shard to start with for the stream description.

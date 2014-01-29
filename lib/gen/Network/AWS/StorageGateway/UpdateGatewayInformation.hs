@@ -48,6 +48,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateGatewayInformation :: Text
+                         -> AWS (Either StorageGatewayError UpdateGatewayInformationResponse)
+updateGatewayInformation p1 = undefined $ UpdateGatewayInformation
+    { ugiiGatewayARN = p1
+    , ugiiGatewayName = Nothing
+    , ugiiGatewayTimezone = Nothing
+    }
+
 data UpdateGatewayInformation = UpdateGatewayInformation
     { ugiiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

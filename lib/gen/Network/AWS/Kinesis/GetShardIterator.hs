@@ -77,6 +77,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+getShardIterator :: Text
+                 -> ShardIteratorType
+                 -> Text
+                 -> AWS (Either KinesisError GetShardIteratorResponse)
+getShardIterator p1 p2 p3 = undefined $ GetShardIterator
+    { gsiiShardId = p1
+    , gsiiShardIteratorType = p2
+    , gsiiStreamName = p3
+    , gsiiStartingSequenceNumber = Nothing
+    }
+
 data GetShardIterator = GetShardIterator
     { gsiiShardId :: !Text
       -- ^ The shard ID of the shard to get the iterator for.

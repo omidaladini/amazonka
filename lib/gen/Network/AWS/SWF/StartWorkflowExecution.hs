@@ -73,6 +73,23 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+startWorkflowExecution :: Text
+                       -> Text
+                       -> WorkflowType
+                       -> AWS (Either SWFError StartWorkflowExecutionResponse)
+startWorkflowExecution p1 p2 p3 = undefined $ StartWorkflowExecution
+    { swejDomain = p1
+    , swejWorkflowId = p2
+    , swejWorkflowType = p3
+    , swejChildPolicy = Nothing
+    , swejExecutionStartToCloseTimeout = Nothing
+    , swejInput = Nothing
+    , swejTagList = []
+    , swejTaskList = Nothing
+    , swejTaskStartToCloseTimeout = Nothing
+    }
+
 data StartWorkflowExecution = StartWorkflowExecution
     { swejChildPolicy :: Maybe ChildPolicy
       -- ^ If set, specifies the policy to use for the child workflow executions of

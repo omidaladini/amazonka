@@ -44,6 +44,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+setStatus :: [Text]
+          -> Text
+          -> Text
+          -> AWS (Either DataPipelineError SetStatusResponse)
+setStatus p1 p2 p3 = undefined $ SetStatus
+    { ssiObjectIds = p1
+    , ssiPipelineId = p2
+    , ssiStatus = p3
+    }
+
 data SetStatus = SetStatus
     { ssiObjectIds :: [Text]
       -- ^ Identifies an array of objects. The corresponding objects can be either

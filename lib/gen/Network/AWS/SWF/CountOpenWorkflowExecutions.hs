@@ -65,6 +65,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+countOpenWorkflowExecutions :: Text
+                            -> ExecutionTimeFilter
+                            -> AWS (Either SWFError CountOpenWorkflowExecutionsResponse)
+countOpenWorkflowExecutions p1 p2 = undefined $ CountOpenWorkflowExecutions
+    { coweiDomain = p1
+    , coweiStartTimeFilter = p2
+    , coweiExecutionFilter = Nothing
+    , coweiTagFilter = Nothing
+    , coweiTypeFilter = Nothing
+    }
+
 data CountOpenWorkflowExecutions = CountOpenWorkflowExecutions
     { coweiDomain :: !Text
       -- ^ The name of the domain containing the workflow executions to count.

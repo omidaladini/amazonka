@@ -57,6 +57,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVolume :: Text
+             -> AWS (Either StorageGatewayError DeleteVolumeResponse)
+deleteVolume p1 = undefined $ DeleteVolume
+    { dviVolumeARN = p1
+    }
+
 data DeleteVolume = DeleteVolume
     { dviVolumeARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the volume. Use the ListVolumes operation

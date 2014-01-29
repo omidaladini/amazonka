@@ -37,6 +37,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+createPublicVirtualInterface :: Text
+                             -> NewPublicVirtualInterface
+                             -> AWS (Either DirectConnectError CreatePublicVirtualInterfaceResponse)
+createPublicVirtualInterface p1 p2 = undefined $ CreatePublicVirtualInterface
+    { cpvisConnectionId = p1
+    , cpvisNewPublicVirtualInterface = p2
+    }
+
 data CreatePublicVirtualInterface = CreatePublicVirtualInterface
     { cpvisConnectionId :: !Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.

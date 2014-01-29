@@ -68,6 +68,22 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+registerWorkflowType :: Text
+                     -> Text
+                     -> Text
+                     -> AWS (Either SWFError RegisterWorkflowTypeResponse)
+registerWorkflowType p1 p2 p3 = undefined $ RegisterWorkflowType
+    { rwtiDomain = p1
+    , rwtiName = p2
+    , rwtiVersion = p3
+    , rwtiDefaultChildPolicy = Nothing
+    , rwtiDefaultExecutionStartToCloseTimeout = Nothing
+    , rwtiDefaultTaskList = Nothing
+    , rwtiDefaultTaskStartToCloseTimeout = Nothing
+    , rwtiDescription = Nothing
+    }
+
 data RegisterWorkflowType = RegisterWorkflowType
     { rwtiDefaultChildPolicy :: Maybe ChildPolicy
       -- ^ If set, specifies the default policy to use for the child workflow

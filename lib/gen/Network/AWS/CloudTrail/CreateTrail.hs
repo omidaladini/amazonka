@@ -39,6 +39,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
+-- | Convenience method utilising default fields where applicable.
+createTrail :: AWS (Either CloudTrailError CreateTrailResponse)
+createTrail = undefined $ CreateTrail
+    { ctrIncludeGlobalServiceEvents = Nothing
+    , ctrName = Nothing
+    , ctrS3BucketName = Nothing
+    , ctrS3KeyPrefix = Nothing
+    , ctrSnsTopicName = Nothing
+    , ctrTrail = Nothing
+    }
+
 data CreateTrail = CreateTrail
     { ctrIncludeGlobalServiceEvents :: Maybe Bool
       -- ^ Specifies whether the trail is publishing events from global services such

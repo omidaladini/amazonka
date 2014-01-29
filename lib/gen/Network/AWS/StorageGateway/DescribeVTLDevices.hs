@@ -34,6 +34,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeVTLDevices :: Text
+                   -> AWS (Either StorageGatewayError DescribeVTLDevicesResponse)
+describeVTLDevices p1 = undefined $ DescribeVTLDevices
+    { dvtldiGatewayARN = p1
+    , dvtldiLimit = Nothing
+    , dvtldiMarker = Nothing
+    , dvtldiVTLDeviceARNs = []
+    }
+
 data DescribeVTLDevices = DescribeVTLDevices
     { dvtldiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

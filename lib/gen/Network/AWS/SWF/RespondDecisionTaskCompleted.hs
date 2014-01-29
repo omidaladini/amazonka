@@ -68,6 +68,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+respondDecisionTaskCompleted :: Text
+                             -> AWS (Either SWFError RespondDecisionTaskCompletedResponse)
+respondDecisionTaskCompleted p1 = undefined $ RespondDecisionTaskCompleted
+    { rdtciTaskToken = p1
+    , rdtciDecisions = []
+    , rdtciExecutionContext = Nothing
+    }
+
 data RespondDecisionTaskCompleted = RespondDecisionTaskCompleted
     { rdtciDecisions :: [Decision]
       -- ^ The list of decisions (possibly empty) made by the decider while processing

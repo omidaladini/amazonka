@@ -59,6 +59,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCachediSCSIVolumes :: [Text]
+                           -> AWS (Either StorageGatewayError DescribeCachediSCSIVolumesResponse)
+describeCachediSCSIVolumes p1 = undefined $ DescribeCachediSCSIVolumes
+    { dcscsiviVolumeARNs = p1
+    }
+
 data DescribeCachediSCSIVolumes = DescribeCachediSCSIVolumes
     { dcscsiviVolumeARNs :: [Text]
     } deriving (Eq, Show, Generic)

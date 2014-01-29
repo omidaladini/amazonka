@@ -45,6 +45,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+evaluateExpression :: Text
+                   -> Text
+                   -> Text
+                   -> AWS (Either DataPipelineError EvaluateExpressionResponse)
+evaluateExpression p1 p2 p3 = undefined $ EvaluateExpression
+    { eeiExpression = p1
+    , eeiObjectId = p2
+    , eeiPipelineId = p3
+    }
+
 data EvaluateExpression = EvaluateExpression
     { eeiExpression :: !Text
       -- ^ The expression to evaluate.

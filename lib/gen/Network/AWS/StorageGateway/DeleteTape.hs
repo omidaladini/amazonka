@@ -34,6 +34,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteTape :: Text
+           -> Text
+           -> AWS (Either StorageGatewayError DeleteTapeResponse)
+deleteTape p1 p2 = undefined $ DeleteTape
+    { dtjGatewayARN = p1
+    , dtjTapeARN = p2
+    }
+
 data DeleteTape = DeleteTape
     { dtjGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

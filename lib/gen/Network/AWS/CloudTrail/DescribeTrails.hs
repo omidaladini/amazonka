@@ -34,6 +34,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTrails :: AWS (Either CloudTrailError DescribeTrailsResponse)
+describeTrails = undefined $ DescribeTrails
+    { dtrTrailNameList = []
+    }
+
 data DescribeTrails = DescribeTrails
     { dtrTrailNameList :: [Text]
       -- ^ The list of trails.

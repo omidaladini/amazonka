@@ -42,6 +42,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+createConnection :: Text
+                 -> Text
+                 -> Text
+                 -> AWS (Either DirectConnectError CreateConnectionResponse)
+createConnection p1 p2 p3 = undefined $ CreateConnection
+    { ccrBandwidth = p1
+    , ccrConnectionName = p2
+    , ccrLocation = p3
+    }
+
 data CreateConnection = CreateConnection
     { ccrBandwidth :: !Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.

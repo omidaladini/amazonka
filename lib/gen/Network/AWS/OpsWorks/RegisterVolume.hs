@@ -40,6 +40,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+registerVolume :: Text
+               -> AWS (Either OpsWorksError RegisterVolumeResponse)
+registerVolume p1 = undefined $ RegisterVolume
+    { rvrStackId = p1
+    , rvrEc2VolumeId = Nothing
+    }
+
 data RegisterVolume = RegisterVolume
     { rvrEc2VolumeId :: Maybe Text
       -- ^ The Amazon EBS volume ID.

@@ -54,6 +54,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteStream :: Text
+             -> AWS (Either KinesisError DeleteStreamResponse)
+deleteStream p1 = undefined $ DeleteStream
+    { dsiStreamName = p1
+    }
+
 data DeleteStream = DeleteStream
     { dsiStreamName :: !Text
       -- ^ The name of the stream to delete.

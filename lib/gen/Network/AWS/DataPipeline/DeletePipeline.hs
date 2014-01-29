@@ -47,6 +47,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+deletePipeline :: Text
+               -> AWS (Either DataPipelineError DeletePipelineResponse)
+deletePipeline p1 = undefined $ DeletePipeline
+    { dpjPipelineId = p1
+    }
+
 data DeletePipeline = DeletePipeline
     { dpjPipelineId :: !Text
       -- ^ The identifier of the pipeline to be deleted.

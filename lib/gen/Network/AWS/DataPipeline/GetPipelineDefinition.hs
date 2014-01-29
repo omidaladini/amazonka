@@ -52,6 +52,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+getPipelineDefinition :: Text
+                      -> AWS (Either DataPipelineError GetPipelineDefinitionResponse)
+getPipelineDefinition p1 = undefined $ GetPipelineDefinition
+    { gpdiPipelineId = p1
+    , gpdiVersion = Nothing
+    }
+
 data GetPipelineDefinition = GetPipelineDefinition
     { gpdiPipelineId :: !Text
       -- ^ The identifier of the pipeline.

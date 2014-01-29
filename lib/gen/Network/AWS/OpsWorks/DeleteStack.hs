@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteStack :: Text
+            -> AWS (Either OpsWorksError DeleteStackResponse)
+deleteStack p1 = undefined $ DeleteStack
+    { dsrStackId = p1
+    }
+
 data DeleteStack = DeleteStack
     { dsrStackId :: !Text
       -- ^ The stack ID.

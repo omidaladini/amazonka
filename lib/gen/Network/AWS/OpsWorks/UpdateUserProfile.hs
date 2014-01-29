@@ -37,6 +37,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateUserProfile :: Text
+                  -> AWS (Either OpsWorksError UpdateUserProfileResponse)
+updateUserProfile p1 = undefined $ UpdateUserProfile
+    { uuprIamUserArn = p1
+    , uuprAllowSelfManagement = Nothing
+    , uuprSshPublicKey = Nothing
+    , uuprSshUsername = Nothing
+    }
+
 data UpdateUserProfile = UpdateUserProfile
     { uuprAllowSelfManagement :: Maybe Bool
       -- ^ Whether users can specify their own SSH public key through the My Settings

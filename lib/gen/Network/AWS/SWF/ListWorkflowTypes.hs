@@ -62,6 +62,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+listWorkflowTypes :: Text
+                  -> RegistrationStatus
+                  -> AWS (Either SWFError ListWorkflowTypesResponse)
+listWorkflowTypes p1 p2 = undefined $ ListWorkflowTypes
+    { lwtiDomain = p1
+    , lwtiRegistrationStatus = p2
+    , lwtiMaximumPageSize = Nothing
+    , lwtiName = Nothing
+    , lwtiNextPageToken = Nothing
+    , lwtiReverseOrder = Nothing
+    }
+
 data ListWorkflowTypes = ListWorkflowTypes
     { lwtiDomain :: !Text
       -- ^ The name of the domain in which the workflow types have been registered.

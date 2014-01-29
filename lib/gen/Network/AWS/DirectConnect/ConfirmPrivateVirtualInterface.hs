@@ -37,6 +37,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+confirmPrivateVirtualInterface :: Text
+                               -> Text
+                               -> AWS (Either DirectConnectError ConfirmPrivateVirtualInterfaceResponse)
+confirmPrivateVirtualInterface p1 p2 = undefined $ ConfirmPrivateVirtualInterface
+    { cpvirVirtualGatewayId = p1
+    , cpvirVirtualInterfaceId = p2
+    }
+
 data ConfirmPrivateVirtualInterface = ConfirmPrivateVirtualInterface
     { cpvirVirtualGatewayId :: !Text
       -- ^ ID of the virtual private gateway that will be attached to the virtual

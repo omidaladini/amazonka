@@ -48,6 +48,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+queryObjects :: Text
+             -> Text
+             -> AWS (Either DataPipelineError QueryObjectsResponse)
+queryObjects p1 p2 = undefined $ QueryObjects
+    { qoiPipelineId = p1
+    , qoiSphere = p2
+    , qoiLimit = Nothing
+    , qoiMarker = Nothing
+    , qoiQuery = Nothing
+    }
+
 data QueryObjects = QueryObjects
     { qoiLimit :: Maybe Int
       -- ^ Specifies the maximum number of object names that QueryObjects will return

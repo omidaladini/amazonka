@@ -38,6 +38,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+listInstances :: AWS (Either EMRError ListInstancesResponse)
+listInstances = undefined $ ListInstances
+    { liiClusterId = Nothing
+    , liiInstanceGroupId = Nothing
+    , liiInstanceGroupTypes = []
+    , liiMarker = Nothing
+    }
+
 data ListInstances = ListInstances
     { liiClusterId :: Maybe Text
       -- ^ The identifier of the cluster for which to list the instances.

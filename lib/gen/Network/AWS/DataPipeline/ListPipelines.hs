@@ -44,6 +44,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+listPipelines :: AWS (Either DataPipelineError ListPipelinesResponse)
+listPipelines = undefined $ ListPipelines
+    { lpiMarker = Nothing
+    }
+
 data ListPipelines = ListPipelines
     { lpiMarker :: Maybe Text
       -- ^ The starting point for the results to be returned. The first time you call

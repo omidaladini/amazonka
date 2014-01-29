@@ -38,6 +38,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDeployments :: AWS (Either OpsWorksError DescribeDeploymentsResponse)
+describeDeployments = undefined $ DescribeDeployments
+    { ddrAppId = Nothing
+    , ddrDeploymentIds = []
+    , ddrStackId = Nothing
+    }
+
 data DescribeDeployments = DescribeDeployments
     { ddrAppId :: Maybe Text
       -- ^ The app ID. If you include this parameter, DescribeDeployments returns a

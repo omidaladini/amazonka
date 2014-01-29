@@ -34,6 +34,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelArchival :: Text
+               -> Text
+               -> AWS (Either StorageGatewayError CancelArchivalResponse)
+cancelArchival p1 p2 = undefined $ CancelArchival
+    { caiGatewayARN = p1
+    , caiTapeARN = p2
+    }
+
 data CancelArchival = CancelArchival
     { caiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

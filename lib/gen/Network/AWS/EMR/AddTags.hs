@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+addTags :: AWS (Either EMRError AddTagsResponse)
+addTags = undefined $ AddTags
+    { atiResourceId = Nothing
+    , atiTags = []
+    }
+
 data AddTags = AddTags
     { atiResourceId :: Maybe Text
       -- ^ The Amazon EMR resource identifier to which tags will be added. This value

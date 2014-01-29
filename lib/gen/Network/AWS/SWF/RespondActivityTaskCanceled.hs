@@ -69,6 +69,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+respondActivityTaskCanceled :: Text
+                            -> AWS (Either SWFError RespondActivityTaskCanceledResponse)
+respondActivityTaskCanceled p1 = undefined $ RespondActivityTaskCanceled
+    { ratcjTaskToken = p1
+    , ratcjDetails = Nothing
+    }
+
 data RespondActivityTaskCanceled = RespondActivityTaskCanceled
     { ratcjDetails :: Maybe Text
       -- ^ Optional information about the cancellation.

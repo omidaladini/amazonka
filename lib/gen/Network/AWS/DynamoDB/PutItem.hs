@@ -53,6 +53,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+putItem :: HashMap Text AttributeValue
+        -> Text
+        -> AWS (Either DynamoDBError PutItemResponse)
+putItem p1 p2 = undefined $ PutItem
+    { piiItem = p1
+    , piiTableName = p2
+    , piiExpected = Map.empty
+    , piiReturnConsumedCapacity = Nothing
+    , piiReturnItemCollectionMetrics = Nothing
+    , piiReturnValues = Nothing
+    }
+
 data PutItem = PutItem
     { piiExpected :: HashMap Text ExpectedAttributeValue
       -- ^ A map of attribute/condition pairs. This is the conditional block for the

@@ -85,6 +85,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeJobFlows :: AWS (Either EMRError DescribeJobFlowsResponse)
+describeJobFlows = undefined $ DescribeJobFlows
+    { djfiCreatedAfter = Nothing
+    , djfiCreatedBefore = Nothing
+    , djfiJobFlowIds = []
+    , djfiJobFlowStates = []
+    }
+
 data DescribeJobFlows = DescribeJobFlows
     { djfiCreatedAfter :: Maybe UTCTime
       -- ^ Return only job flows created after this date and time.

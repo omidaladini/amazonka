@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeApps :: AWS (Either OpsWorksError DescribeAppsResponse)
+describeApps = undefined $ DescribeApps
+    { dasAppIds = []
+    , dasStackId = Nothing
+    }
+
 data DescribeApps = DescribeApps
     { dasAppIds :: [Text]
       -- ^ An array of app IDs for the apps to be described. If you use this

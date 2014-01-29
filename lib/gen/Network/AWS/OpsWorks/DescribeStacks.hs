@@ -38,6 +38,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStacks :: AWS (Either OpsWorksError DescribeStacksResponse)
+describeStacks = undefined $ DescribeStacks
+    { dssStackIds = []
+    }
+
 data DescribeStacks = DescribeStacks
     { dssStackIds :: [Text]
       -- ^ An array of stack IDs that specify the stacks to be described. If you omit

@@ -36,6 +36,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+createUserProfile :: Text
+                  -> AWS (Either OpsWorksError CreateUserProfileResponse)
+createUserProfile p1 = undefined $ CreateUserProfile
+    { cuprIamUserArn = p1
+    , cuprAllowSelfManagement = Nothing
+    , cuprSshPublicKey = Nothing
+    , cuprSshUsername = Nothing
+    }
+
 data CreateUserProfile = CreateUserProfile
     { cuprAllowSelfManagement :: Maybe Bool
       -- ^ Whether users can specify their own SSH public key through the My Settings

@@ -65,6 +65,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+countClosedWorkflowExecutions :: Text
+                              -> AWS (Either SWFError CountClosedWorkflowExecutionsResponse)
+countClosedWorkflowExecutions p1 = undefined $ CountClosedWorkflowExecutions
+    { ccweiDomain = p1
+    , ccweiCloseStatusFilter = Nothing
+    , ccweiCloseTimeFilter = Nothing
+    , ccweiExecutionFilter = Nothing
+    , ccweiStartTimeFilter = Nothing
+    , ccweiTagFilter = Nothing
+    , ccweiTypeFilter = Nothing
+    }
+
 data CountClosedWorkflowExecutions = CountClosedWorkflowExecutions
     { ccweiCloseStatusFilter :: Maybe CloseStatusFilter
       -- ^ If specified, only workflow executions that match this close status are

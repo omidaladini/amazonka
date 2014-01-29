@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describePermissions :: AWS (Either OpsWorksError DescribePermissionsResponse)
+describePermissions = undefined $ DescribePermissions
+    { dprIamUserArn = Nothing
+    , dprStackId = Nothing
+    }
+
 data DescribePermissions = DescribePermissions
     { dprIamUserArn :: Maybe Text
       -- ^ The user's IAM ARN. For more information about IAM ARNs, see Using

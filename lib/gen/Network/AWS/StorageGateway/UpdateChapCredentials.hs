@@ -54,6 +54,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateChapCredentials :: Text
+                      -> Text
+                      -> Text
+                      -> AWS (Either StorageGatewayError UpdateChapCredentialsResponse)
+updateChapCredentials p1 p2 p3 = undefined $ UpdateChapCredentials
+    { ucciInitiatorName = p1
+    , ucciSecretToAuthenticateInitiator = p2
+    , ucciTargetARN = p3
+    , ucciSecretToAuthenticateTarget = Nothing
+    }
+
 data UpdateChapCredentials = UpdateChapCredentials
     { ucciInitiatorName :: !Text
       -- ^ The iSCSI initiator that connects to the target.

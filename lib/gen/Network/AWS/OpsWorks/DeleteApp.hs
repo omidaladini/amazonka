@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteApp :: Text
+          -> AWS (Either OpsWorksError DeleteAppResponse)
+deleteApp p1 = undefined $ DeleteApp
+    { darAppId = p1
+    }
+
 data DeleteApp = DeleteApp
     { darAppId :: !Text
       -- ^ The app ID.

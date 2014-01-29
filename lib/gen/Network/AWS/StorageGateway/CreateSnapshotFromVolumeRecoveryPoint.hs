@@ -66,6 +66,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSnapshotFromVolumeRecoveryPoint :: Text
+                                      -> Text
+                                      -> AWS (Either StorageGatewayError CreateSnapshotFromVolumeRecoveryPointResponse)
+createSnapshotFromVolumeRecoveryPoint p1 p2 = undefined $ CreateSnapshotFromVolumeRecoveryPoint
+    { csfvrpiSnapshotDescription = p1
+    , csfvrpiVolumeARN = p2
+    }
+
 data CreateSnapshotFromVolumeRecoveryPoint = CreateSnapshotFromVolumeRecoveryPoint
     { csfvrpiSnapshotDescription :: !Text
     , csfvrpiVolumeARN :: !Text

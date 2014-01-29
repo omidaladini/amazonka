@@ -69,6 +69,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+batchGetItem :: HashMap Text KeysAndAttributes
+             -> AWS (Either DynamoDBError BatchGetItemResponse)
+batchGetItem p1 = undefined $ BatchGetItem
+    { bgiiRequestItems = p1
+    , bgiiReturnConsumedCapacity = Nothing
+    }
+
 data BatchGetItem = BatchGetItem
     { bgiiRequestItems :: HashMap Text KeysAndAttributes
       -- ^ A map of one or more table names and, for each table, the corresponding

@@ -79,6 +79,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+recordActivityTaskHeartbeat :: Text
+                            -> AWS (Either SWFError RecordActivityTaskHeartbeatResponse)
+recordActivityTaskHeartbeat p1 = undefined $ RecordActivityTaskHeartbeat
+    { rathiTaskToken = p1
+    , rathiDetails = Nothing
+    }
+
 data RecordActivityTaskHeartbeat = RecordActivityTaskHeartbeat
     { rathiDetails :: Maybe Text
       -- ^ If specified, contains details about the progress of the task.

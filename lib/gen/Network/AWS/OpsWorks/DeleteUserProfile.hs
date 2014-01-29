@@ -36,6 +36,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteUserProfile :: Text
+                  -> AWS (Either OpsWorksError DeleteUserProfileResponse)
+deleteUserProfile p1 = undefined $ DeleteUserProfile
+    { dupsIamUserArn = p1
+    }
+
 data DeleteUserProfile = DeleteUserProfile
     { dupsIamUserArn :: !Text
       -- ^ The user's IAM ARN.

@@ -43,6 +43,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeServices :: AWS (Either SupportError DescribeServicesResponse)
+describeServices = undefined $ DescribeServices
+    { dsrLanguage = Nothing
+    , dsrServiceCodeList = []
+    }
+
 data DescribeServices = DescribeServices
     { dsrLanguage :: Maybe Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS

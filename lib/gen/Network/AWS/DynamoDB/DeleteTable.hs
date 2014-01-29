@@ -49,6 +49,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteTable :: Text
+            -> AWS (Either DynamoDBError DeleteTableResponse)
+deleteTable p1 = undefined $ DeleteTable
+    { dtiTableName = p1
+    }
+
 data DeleteTable = DeleteTable
     { dtiTableName :: !Text
       -- ^ The name of the table to delete.

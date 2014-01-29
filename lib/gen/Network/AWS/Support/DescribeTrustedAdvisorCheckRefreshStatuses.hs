@@ -36,6 +36,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTrustedAdvisorCheckRefreshStatuses :: [Text]
+                                           -> AWS (Either SupportError DescribeTrustedAdvisorCheckRefreshStatusesResponse)
+describeTrustedAdvisorCheckRefreshStatuses p1 = undefined $ DescribeTrustedAdvisorCheckRefreshStatuses
+    { dtacrsrCheckIds = p1
+    }
+
 data DescribeTrustedAdvisorCheckRefreshStatuses = DescribeTrustedAdvisorCheckRefreshStatuses
     { dtacrsrCheckIds :: [Text]
       -- ^ The IDs of the Trusted Advisor checks.

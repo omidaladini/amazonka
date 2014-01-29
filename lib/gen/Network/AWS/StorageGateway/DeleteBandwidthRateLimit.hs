@@ -50,6 +50,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteBandwidthRateLimit :: Text
+                         -> Text
+                         -> AWS (Either StorageGatewayError DeleteBandwidthRateLimitResponse)
+deleteBandwidthRateLimit p1 p2 = undefined $ DeleteBandwidthRateLimit
+    { dbrljBandwidthType = p1
+    , dbrljGatewayARN = p2
+    }
+
 data DeleteBandwidthRateLimit = DeleteBandwidthRateLimit
     { dbrljBandwidthType :: !Text
     , dbrljGatewayARN :: !Text

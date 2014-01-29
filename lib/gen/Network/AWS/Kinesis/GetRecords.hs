@@ -71,6 +71,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+getRecords :: Text
+           -> AWS (Either KinesisError GetRecordsResponse)
+getRecords p1 = undefined $ GetRecords
+    { griShardIterator = p1
+    , griLimit = Nothing
+    }
+
 data GetRecords = GetRecords
     { griLimit :: Maybe Int
       -- ^ The maximum number of records to return, which can be set to a value of up

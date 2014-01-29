@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLayers :: AWS (Either OpsWorksError DescribeLayersResponse)
+describeLayers = undefined $ DescribeLayers
+    { dlrLayerIds = []
+    , dlrStackId = Nothing
+    }
+
 data DescribeLayers = DescribeLayers
     { dlrLayerIds :: [Text]
       -- ^ An array of layer IDs that specify the layers to be described. If you omit

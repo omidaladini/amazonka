@@ -70,6 +70,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+putRecord :: Blob
+          -> Text
+          -> Text
+          -> AWS (Either KinesisError PutRecordResponse)
+putRecord p1 p2 p3 = undefined $ PutRecord
+    { priData = p1
+    , priPartitionKey = p2
+    , priStreamName = p3
+    , priExplicitHashKey = Nothing
+    , priSequenceNumberForOrdering = Nothing
+    }
+
 data PutRecord = PutRecord
     { priData :: !Blob
       -- ^ The data blob to put into the record, which must be Base64 encoded. The

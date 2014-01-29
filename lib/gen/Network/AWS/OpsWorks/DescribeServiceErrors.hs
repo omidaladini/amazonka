@@ -37,6 +37,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeServiceErrors :: AWS (Either OpsWorksError DescribeServiceErrorsResponse)
+describeServiceErrors = undefined $ DescribeServiceErrors
+    { dserInstanceId = Nothing
+    , dserServiceErrorIds = []
+    , dserStackId = Nothing
+    }
+
 data DescribeServiceErrors = DescribeServiceErrors
     { dserInstanceId :: Maybe Text
       -- ^ The instance ID. If you use this parameter, DescribeServiceErrors returns

@@ -55,6 +55,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+listGateways :: AWS (Either StorageGatewayError ListGatewaysResponse)
+listGateways = undefined $ ListGateways
+    { lgiLimit = Nothing
+    , lgiMarker = Nothing
+    }
+
 data ListGateways = ListGateways
     { lgiLimit :: Maybe Int
       -- ^ Specifies that the list of gateways returned be limited to the specified

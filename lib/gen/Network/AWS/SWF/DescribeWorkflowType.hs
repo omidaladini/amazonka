@@ -68,6 +68,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeWorkflowType :: Text
+                     -> WorkflowType
+                     -> AWS (Either SWFError DescribeWorkflowTypeResponse)
+describeWorkflowType p1 p2 = undefined $ DescribeWorkflowType
+    { dwtiDomain = p1
+    , dwtiWorkflowType = p2
+    }
+
 data DescribeWorkflowType = DescribeWorkflowType
     { dwtiDomain :: !Text
       -- ^ The name of the domain in which this workflow type is registered.

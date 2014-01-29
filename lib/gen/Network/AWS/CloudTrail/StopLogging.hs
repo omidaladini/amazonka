@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
+-- | Convenience method utilising default fields where applicable.
+stopLogging :: Text
+            -> AWS (Either CloudTrailError StopLoggingResponse)
+stopLogging p1 = undefined $ StopLogging
+    { slrName = p1
+    }
+
 data StopLogging = StopLogging
     { slrName :: !Text
       -- ^ Communicates to CloudTrail the name of the trail for which to stop logging

@@ -56,6 +56,22 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+query :: Text
+      -> AWS (Either DynamoDBError QueryResponse)
+query p1 = undefined $ Query
+    { qiTableName = p1
+    , qiAttributesToGet = []
+    , qiConsistentRead = Nothing
+    , qiExclusiveStartKey = Map.empty
+    , qiIndexName = Nothing
+    , qiKeyConditions = Map.empty
+    , qiLimit = Nothing
+    , qiReturnConsumedCapacity = Nothing
+    , qiScanIndexForward = Nothing
+    , qiSelect = Nothing
+    }
+
 data Query = Query
     { qiAttributesToGet :: [Text]
       -- ^ The names of one or more attributes to retrieve. If no attribute names are

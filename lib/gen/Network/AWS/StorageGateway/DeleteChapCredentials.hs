@@ -50,6 +50,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteChapCredentials :: Text
+                      -> Text
+                      -> AWS (Either StorageGatewayError DeleteChapCredentialsResponse)
+deleteChapCredentials p1 p2 = undefined $ DeleteChapCredentials
+    { dccjInitiatorName = p1
+    , dccjTargetARN = p2
+    }
+
 data DeleteChapCredentials = DeleteChapCredentials
     { dccjInitiatorName :: !Text
       -- ^ The iSCSI initiator that connects to the target.

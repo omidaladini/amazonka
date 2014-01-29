@@ -36,6 +36,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+createPrivateVirtualInterface :: Text
+                              -> NewPrivateVirtualInterface
+                              -> AWS (Either DirectConnectError CreatePrivateVirtualInterfaceResponse)
+createPrivateVirtualInterface p1 p2 = undefined $ CreatePrivateVirtualInterface
+    { cpviuConnectionId = p1
+    , cpviuNewPrivateVirtualInterface = p2
+    }
+
 data CreatePrivateVirtualInterface = CreatePrivateVirtualInterface
     { cpviuConnectionId :: !Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.

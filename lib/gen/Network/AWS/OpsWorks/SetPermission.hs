@@ -38,6 +38,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+setPermission :: Text
+              -> Text
+              -> AWS (Either OpsWorksError SetPermissionResponse)
+setPermission p1 p2 = undefined $ SetPermission
+    { sprIamUserArn = p1
+    , sprStackId = p2
+    , sprAllowSsh = Nothing
+    , sprAllowSudo = Nothing
+    , sprLevel = Nothing
+    }
+
 data SetPermission = SetPermission
     { sprAllowSsh :: Maybe Bool
       -- ^ The user is allowed to use SSH to communicate with the instance.

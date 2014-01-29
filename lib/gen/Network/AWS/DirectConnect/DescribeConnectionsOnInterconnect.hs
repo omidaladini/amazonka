@@ -35,6 +35,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeConnectionsOnInterconnect :: Text
+                                  -> AWS (Either DirectConnectError DescribeConnectionsOnInterconnectResponse)
+describeConnectionsOnInterconnect p1 = undefined $ DescribeConnectionsOnInterconnect
+    { dcoirInterconnectId = p1
+    }
+
 data DescribeConnectionsOnInterconnect = DescribeConnectionsOnInterconnect
     { dcoirInterconnectId :: !Text
       -- ^ ID of the interconnect on which a list of connection is provisioned.

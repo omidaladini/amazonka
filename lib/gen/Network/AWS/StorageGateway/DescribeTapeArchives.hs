@@ -34,6 +34,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTapeArchives :: AWS (Either StorageGatewayError DescribeTapeArchivesResponse)
+describeTapeArchives = undefined $ DescribeTapeArchives
+    { dtaiLimit = Nothing
+    , dtaiMarker = Nothing
+    , dtaiTapeARNs = []
+    }
+
 data DescribeTapeArchives = DescribeTapeArchives
     { dtaiLimit :: Maybe Int
     , dtaiMarker :: Maybe Text

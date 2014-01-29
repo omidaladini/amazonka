@@ -72,6 +72,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+listDomains :: RegistrationStatus
+            -> AWS (Either SWFError ListDomainsResponse)
+listDomains p1 = undefined $ ListDomains
+    { ldiRegistrationStatus = p1
+    , ldiMaximumPageSize = Nothing
+    , ldiNextPageToken = Nothing
+    , ldiReverseOrder = Nothing
+    }
+
 data ListDomains = ListDomains
     { ldiMaximumPageSize :: Maybe Int
       -- ^ The maximum number of results returned in each page. The default is 100,

@@ -72,6 +72,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+listOpenWorkflowExecutions :: Text
+                           -> ExecutionTimeFilter
+                           -> AWS (Either SWFError ListOpenWorkflowExecutionsResponse)
+listOpenWorkflowExecutions p1 p2 = undefined $ ListOpenWorkflowExecutions
+    { loweiDomain = p1
+    , loweiStartTimeFilter = p2
+    , loweiExecutionFilter = Nothing
+    , loweiMaximumPageSize = Nothing
+    , loweiNextPageToken = Nothing
+    , loweiReverseOrder = Nothing
+    , loweiTagFilter = Nothing
+    , loweiTypeFilter = Nothing
+    }
+
 data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions
     { loweiDomain :: !Text
       -- ^ The name of the domain that contains the workflow executions to list.

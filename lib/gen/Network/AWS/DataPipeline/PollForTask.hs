@@ -73,6 +73,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+pollForTask :: Text
+            -> AWS (Either DataPipelineError PollForTaskResponse)
+pollForTask p1 = undefined $ PollForTask
+    { pftiWorkerGroup = p1
+    , pftiHostname = Nothing
+    , pftiInstanceIdentity = Nothing
+    }
+
 data PollForTask = PollForTask
     { pftiHostname :: Maybe Text
       -- ^ The public DNS name of the calling task runner.

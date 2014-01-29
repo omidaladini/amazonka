@@ -43,6 +43,20 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateItem :: HashMap Text AttributeValue
+           -> Text
+           -> AWS (Either DynamoDBError UpdateItemResponse)
+updateItem p1 p2 = undefined $ UpdateItem
+    { uiiKey = p1
+    , uiiTableName = p2
+    , uiiAttributeUpdates = Map.empty
+    , uiiExpected = Map.empty
+    , uiiReturnConsumedCapacity = Nothing
+    , uiiReturnItemCollectionMetrics = Nothing
+    , uiiReturnValues = Nothing
+    }
+
 data UpdateItem = UpdateItem
     { uiiAttributeUpdates :: HashMap Text AttributeValueUpdate
       -- ^ The names of attributes to be modified, the action to perform on each, and

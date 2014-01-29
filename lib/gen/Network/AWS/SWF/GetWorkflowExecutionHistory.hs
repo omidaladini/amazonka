@@ -100,6 +100,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+getWorkflowExecutionHistory :: Text
+                            -> WorkflowExecution
+                            -> AWS (Either SWFError GetWorkflowExecutionHistoryResponse)
+getWorkflowExecutionHistory p1 p2 = undefined $ GetWorkflowExecutionHistory
+    { gwehiDomain = p1
+    , gwehiExecution = p2
+    , gwehiMaximumPageSize = Nothing
+    , gwehiNextPageToken = Nothing
+    , gwehiReverseOrder = Nothing
+    }
+
 data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory
     { gwehiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution.

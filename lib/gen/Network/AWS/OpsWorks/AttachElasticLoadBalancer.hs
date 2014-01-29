@@ -40,6 +40,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachElasticLoadBalancer :: Text
+                          -> Text
+                          -> AWS (Either OpsWorksError AttachElasticLoadBalancerResponse)
+attachElasticLoadBalancer p1 p2 = undefined $ AttachElasticLoadBalancer
+    { aelbrElasticLoadBalancerName = p1
+    , aelbrLayerId = p2
+    }
+
 data AttachElasticLoadBalancer = AttachElasticLoadBalancer
     { aelbrElasticLoadBalancerName :: !Text
       -- ^ The Elastic Load Balancing instance's name.

@@ -60,6 +60,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDomain :: Text
+               -> AWS (Either SWFError DescribeDomainResponse)
+describeDomain p1 = undefined $ DescribeDomain
+    { ddiName = p1
+    }
+
 data DescribeDomain = DescribeDomain
     { ddiName :: !Text
       -- ^ The name of the domain to describe.

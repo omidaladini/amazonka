@@ -36,6 +36,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCluster :: AWS (Either EMRError DescribeClusterResponse)
+describeCluster = undefined $ DescribeCluster
+    { dciClusterId = Nothing
+    }
+
 data DescribeCluster = DescribeCluster
     { dciClusterId :: Maybe Text
       -- ^ The identifier of the cluster to describe.

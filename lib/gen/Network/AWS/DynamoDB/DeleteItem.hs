@@ -51,6 +51,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteItem :: HashMap Text AttributeValue
+           -> Text
+           -> AWS (Either DynamoDBError DeleteItemResponse)
+deleteItem p1 p2 = undefined $ DeleteItem
+    { diiKey = p1
+    , diiTableName = p2
+    , diiExpected = Map.empty
+    , diiReturnConsumedCapacity = Nothing
+    , diiReturnItemCollectionMetrics = Nothing
+    , diiReturnValues = Nothing
+    }
+
 data DeleteItem = DeleteItem
     { diiExpected :: HashMap Text ExpectedAttributeValue
       -- ^ A map of attribute/condition pairs. This is the conditional block for the

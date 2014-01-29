@@ -54,6 +54,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteSnapshotSchedule :: Text
+                       -> AWS (Either StorageGatewayError DeleteSnapshotScheduleResponse)
+deleteSnapshotSchedule p1 = undefined $ DeleteSnapshotSchedule
+    { dssjVolumeARN = p1
+    }
+
 data DeleteSnapshotSchedule = DeleteSnapshotSchedule
     { dssjVolumeARN :: !Text
     } deriving (Eq, Show, Generic)

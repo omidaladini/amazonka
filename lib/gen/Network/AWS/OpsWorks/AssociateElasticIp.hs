@@ -40,6 +40,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+associateElasticIp :: Text
+                   -> AWS (Either OpsWorksError AssociateElasticIpResponse)
+associateElasticIp p1 = undefined $ AssociateElasticIp
+    { aeirElasticIp = p1
+    , aeirInstanceId = Nothing
+    }
+
 data AssociateElasticIp = AssociateElasticIp
     { aeirElasticIp :: !Text
       -- ^ The Elastic IP address.

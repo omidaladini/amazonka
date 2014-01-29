@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTimeBasedAutoScaling :: [Text]
+                             -> AWS (Either OpsWorksError DescribeTimeBasedAutoScalingResponse)
+describeTimeBasedAutoScaling p1 = undefined $ DescribeTimeBasedAutoScaling
+    { dtbasrInstanceIds = p1
+    }
+
 data DescribeTimeBasedAutoScaling = DescribeTimeBasedAutoScaling
     { dtbasrInstanceIds :: [Text]
       -- ^ An array of instance IDs.

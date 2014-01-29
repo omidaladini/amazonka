@@ -60,6 +60,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+createTable :: [AttributeDefinition]
+            -> [KeySchemaElement]
+            -> ProvisionedThroughput
+            -> Text
+            -> AWS (Either DynamoDBError CreateTableResponse)
+createTable p1 p2 p3 p4 = undefined $ CreateTable
+    { ctiAttributeDefinitions = p1
+    , ctiKeySchema = p2
+    , ctiProvisionedThroughput = p3
+    , ctiTableName = p4
+    , ctiGlobalSecondaryIndexes = []
+    , ctiLocalSecondaryIndexes = []
+    }
+
 data CreateTable = CreateTable
     { ctiAttributeDefinitions :: [AttributeDefinition]
       -- ^ An array of attributes that describe the key schema for the table and

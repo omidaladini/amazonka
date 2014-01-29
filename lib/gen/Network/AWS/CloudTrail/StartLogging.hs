@@ -34,6 +34,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
+-- | Convenience method utilising default fields where applicable.
+startLogging :: Text
+             -> AWS (Either CloudTrailError StartLoggingResponse)
+startLogging p1 = undefined $ StartLogging
+    { slsName = p1
+    }
+
 data StartLogging = StartLogging
     { slsName :: !Text
       -- ^ The name of the trail for which CloudTrail logs AWS API calls.

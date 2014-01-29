@@ -68,6 +68,23 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+registerActivityType :: Text
+                     -> Text
+                     -> Text
+                     -> AWS (Either SWFError RegisterActivityTypeResponse)
+registerActivityType p1 p2 p3 = undefined $ RegisterActivityType
+    { ratiDomain = p1
+    , ratiName = p2
+    , ratiVersion = p3
+    , ratiDefaultTaskHeartbeatTimeout = Nothing
+    , ratiDefaultTaskList = Nothing
+    , ratiDefaultTaskScheduleToCloseTimeout = Nothing
+    , ratiDefaultTaskScheduleToStartTimeout = Nothing
+    , ratiDefaultTaskStartToCloseTimeout = Nothing
+    , ratiDescription = Nothing
+    }
+
 data RegisterActivityType = RegisterActivityType
     { ratiDefaultTaskHeartbeatTimeout :: Maybe Text
       -- ^ If set, specifies the default maximum time before which a worker processing

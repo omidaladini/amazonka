@@ -70,6 +70,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+respondActivityTaskCompleted :: Text
+                             -> AWS (Either SWFError RespondActivityTaskCompletedResponse)
+respondActivityTaskCompleted p1 = undefined $ RespondActivityTaskCompleted
+    { ratciTaskToken = p1
+    , ratciResult = Nothing
+    }
+
 data RespondActivityTaskCompleted = RespondActivityTaskCompleted
     { ratciResult :: Maybe Text
       -- ^ The result of the activity task. It is a free form string that is

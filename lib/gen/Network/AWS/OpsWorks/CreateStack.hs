@@ -37,6 +37,31 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+createStack :: Text
+            -> Text
+            -> Text
+            -> Text
+            -> AWS (Either OpsWorksError CreateStackResponse)
+createStack p1 p2 p3 p4 = undefined $ CreateStack
+    { csrDefaultInstanceProfileArn = p1
+    , csrName = p2
+    , csrRegion = p3
+    , csrServiceRoleArn = p4
+    , csrAttributes = Map.empty
+    , csrConfigurationManager = Nothing
+    , csrCustomCookbooksSource = Nothing
+    , csrCustomJson = Nothing
+    , csrDefaultAvailabilityZone = Nothing
+    , csrDefaultOs = Nothing
+    , csrDefaultRootDeviceType = Nothing
+    , csrDefaultSshKeyName = Nothing
+    , csrDefaultSubnetId = Nothing
+    , csrHostnameTheme = Nothing
+    , csrUseCustomCookbooks = Nothing
+    , csrVpcId = Nothing
+    }
+
 data CreateStack = CreateStack
     { csrAttributes :: HashMap StackAttributesKeys Text
       -- ^ One or more user-defined key/value pairs to be added to the stack

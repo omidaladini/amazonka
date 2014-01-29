@@ -34,6 +34,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+createTapes :: Text
+            -> Text
+            -> Int
+            -> Text
+            -> Integer
+            -> AWS (Either StorageGatewayError CreateTapesResponse)
+createTapes p1 p2 p3 p4 p5 = undefined $ CreateTapes
+    { ctiClientToken = p1
+    , ctiGatewayARN = p2
+    , ctiNumTapesToCreate = p3
+    , ctiTapeBarcodePrefix = p4
+    , ctiTapeSizeInBytes = p5
+    }
+
 data CreateTapes = CreateTapes
     { ctiClientToken :: !Text
     , ctiGatewayARN :: !Text

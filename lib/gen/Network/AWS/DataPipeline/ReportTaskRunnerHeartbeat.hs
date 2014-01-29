@@ -46,6 +46,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+reportTaskRunnerHeartbeat :: Text
+                          -> AWS (Either DataPipelineError ReportTaskRunnerHeartbeatResponse)
+reportTaskRunnerHeartbeat p1 = undefined $ ReportTaskRunnerHeartbeat
+    { rtrhiTaskrunnerId = p1
+    , rtrhiHostname = Nothing
+    , rtrhiWorkerGroup = Nothing
+    }
+
 data ReportTaskRunnerHeartbeat = ReportTaskRunnerHeartbeat
     { rtrhiHostname :: Maybe Text
       -- ^ The public DNS name of the calling task runner.

@@ -50,6 +50,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeChapCredentials :: Text
+                        -> AWS (Either StorageGatewayError DescribeChapCredentialsResponse)
+describeChapCredentials p1 = undefined $ DescribeChapCredentials
+    { dcciTargetARN = p1
+    }
+
 data DescribeChapCredentials = DescribeChapCredentials
     { dcciTargetARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the iSCSI volume target. Use the

@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTrustedAdvisorChecks :: Text
+                             -> AWS (Either SupportError DescribeTrustedAdvisorChecksResponse)
+describeTrustedAdvisorChecks p1 = undefined $ DescribeTrustedAdvisorChecks
+    { dtacrLanguage = p1
+    }
+
 data DescribeTrustedAdvisorChecks = DescribeTrustedAdvisorChecks
     { dtacrLanguage :: !Text
       -- ^ The ISO 639-1 code for the language in which AWS provides support. AWS

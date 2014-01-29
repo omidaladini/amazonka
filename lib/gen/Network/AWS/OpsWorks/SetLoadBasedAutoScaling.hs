@@ -43,6 +43,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+setLoadBasedAutoScaling :: Text
+                        -> AWS (Either OpsWorksError SetLoadBasedAutoScalingResponse)
+setLoadBasedAutoScaling p1 = undefined $ SetLoadBasedAutoScaling
+    { slbasrLayerId = p1
+    , slbasrDownScaling = Nothing
+    , slbasrEnable = Nothing
+    , slbasrUpScaling = Nothing
+    }
+
 data SetLoadBasedAutoScaling = SetLoadBasedAutoScaling
     { slbasrDownScaling :: Maybe AutoScalingThresholds
       -- ^ An AutoScalingThresholds object with the downscaling threshold

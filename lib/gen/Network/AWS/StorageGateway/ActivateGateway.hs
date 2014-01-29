@@ -53,6 +53,20 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+activateGateway :: Text
+                -> Text
+                -> Text
+                -> Text
+                -> AWS (Either StorageGatewayError ActivateGatewayResponse)
+activateGateway p1 p2 p3 p4 = undefined $ ActivateGateway
+    { agiActivationKey = p1
+    , agiGatewayName = p2
+    , agiGatewayRegion = p3
+    , agiGatewayTimezone = p4
+    , agiGatewayType = Nothing
+    }
+
 data ActivateGateway = ActivateGateway
     { agiActivationKey :: !Text
       -- ^ Your gateway activation key. You can obtain the activation key by sending

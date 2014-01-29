@@ -43,6 +43,29 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLayer :: Text
+            -> Text
+            -> Text
+            -> LayerType
+            -> AWS (Either OpsWorksError CreateLayerResponse)
+createLayer p1 p2 p3 p4 = undefined $ CreateLayer
+    { clrName = p1
+    , clrShortname = p2
+    , clrStackId = p3
+    , clrType = p4
+    , clrAttributes = Map.empty
+    , clrAutoAssignElasticIps = Nothing
+    , clrAutoAssignPublicIps = Nothing
+    , clrCustomInstanceProfileArn = Nothing
+    , clrCustomRecipes = Nothing
+    , clrCustomSecurityGroupIds = []
+    , clrEnableAutoHealing = Nothing
+    , clrInstallUpdatesOnBoot = Nothing
+    , clrPackages = []
+    , clrVolumeConfigurations = []
+    }
+
 data CreateLayer = CreateLayer
     { clrAttributes :: HashMap LayerAttributesKeys Text
       -- ^ One or more user-defined key/value pairs to be added to the stack

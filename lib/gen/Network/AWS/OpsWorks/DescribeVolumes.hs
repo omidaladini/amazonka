@@ -38,6 +38,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeVolumes :: AWS (Either OpsWorksError DescribeVolumesResponse)
+describeVolumes = undefined $ DescribeVolumes
+    { dvsInstanceId = Nothing
+    , dvsRaidArrayId = Nothing
+    , dvsStackId = Nothing
+    , dvsVolumeIds = []
+    }
+
 data DescribeVolumes = DescribeVolumes
     { dvsInstanceId :: Maybe Text
       -- ^ The instance ID. If you use this parameter, DescribeVolumes returns

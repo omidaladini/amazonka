@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStackSummary :: Text
+                     -> AWS (Either OpsWorksError DescribeStackSummaryResponse)
+describeStackSummary p1 = undefined $ DescribeStackSummary
+    { dssrStackId = p1
+    }
+
 data DescribeStackSummary = DescribeStackSummary
     { dssrStackId :: !Text
       -- ^ The stack ID.

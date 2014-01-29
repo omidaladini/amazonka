@@ -36,6 +36,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeUserProfiles :: AWS (Either OpsWorksError DescribeUserProfilesResponse)
+describeUserProfiles = undefined $ DescribeUserProfiles
+    { duprIamUserArns = []
+    }
+
 data DescribeUserProfiles = DescribeUserProfiles
     { duprIamUserArns :: [Text]
       -- ^ An array of IAM user ARNs that identify the users to be described.

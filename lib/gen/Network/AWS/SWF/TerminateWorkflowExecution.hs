@@ -69,6 +69,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+terminateWorkflowExecution :: Text
+                           -> Text
+                           -> AWS (Either SWFError TerminateWorkflowExecutionResponse)
+terminateWorkflowExecution p1 p2 = undefined $ TerminateWorkflowExecution
+    { tweiDomain = p1
+    , tweiWorkflowId = p2
+    , tweiChildPolicy = Nothing
+    , tweiDetails = Nothing
+    , tweiReason = Nothing
+    , tweiRunId = Nothing
+    }
+
 data TerminateWorkflowExecution = TerminateWorkflowExecution
     { tweiChildPolicy :: Maybe ChildPolicy
       -- ^ If set, specifies the policy to use for the child workflow executions of

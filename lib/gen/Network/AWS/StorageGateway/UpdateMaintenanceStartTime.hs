@@ -48,6 +48,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateMaintenanceStartTime :: Int
+                           -> Text
+                           -> Int
+                           -> Int
+                           -> AWS (Either StorageGatewayError UpdateMaintenanceStartTimeResponse)
+updateMaintenanceStartTime p1 p2 p3 p4 = undefined $ UpdateMaintenanceStartTime
+    { umstiDayOfWeek = p1
+    , umstiGatewayARN = p2
+    , umstiHourOfDay = p3
+    , umstiMinuteOfHour = p4
+    }
+
 data UpdateMaintenanceStartTime = UpdateMaintenanceStartTime
     { umstiDayOfWeek :: !Int
       -- ^ The maintenance start time day of the week.

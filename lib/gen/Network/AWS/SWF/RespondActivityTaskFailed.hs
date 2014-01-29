@@ -66,6 +66,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+respondActivityTaskFailed :: Text
+                          -> AWS (Either SWFError RespondActivityTaskFailedResponse)
+respondActivityTaskFailed p1 = undefined $ RespondActivityTaskFailed
+    { ratfiTaskToken = p1
+    , ratfiDetails = Nothing
+    , ratfiReason = Nothing
+    }
+
 data RespondActivityTaskFailed = RespondActivityTaskFailed
     { ratfiDetails :: Maybe Text
       -- ^ Optional detailed information about the failure.

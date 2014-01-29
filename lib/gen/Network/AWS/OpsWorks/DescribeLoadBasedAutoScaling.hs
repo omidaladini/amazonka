@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLoadBasedAutoScaling :: [Text]
+                             -> AWS (Either OpsWorksError DescribeLoadBasedAutoScalingResponse)
+describeLoadBasedAutoScaling p1 = undefined $ DescribeLoadBasedAutoScaling
+    { dlbasrLayerIds = p1
+    }
+
 data DescribeLoadBasedAutoScaling = DescribeLoadBasedAutoScaling
     { dlbasrLayerIds :: [Text]
       -- ^ An array of layer IDs.

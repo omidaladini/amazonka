@@ -37,6 +37,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateApp :: Text
+          -> AWS (Either OpsWorksError UpdateAppResponse)
+updateApp p1 = undefined $ UpdateApp
+    { uarAppId = p1
+    , uarAppSource = Nothing
+    , uarAttributes = Map.empty
+    , uarDescription = Nothing
+    , uarDomains = []
+    , uarEnableSsl = Nothing
+    , uarName = Nothing
+    , uarSslConfiguration = Nothing
+    , uarType = Nothing
+    }
+
 data UpdateApp = UpdateApp
     { uarAppId :: !Text
       -- ^ The app ID.

@@ -67,6 +67,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+requestCancelWorkflowExecution :: Text
+                               -> Text
+                               -> AWS (Either SWFError RequestCancelWorkflowExecutionResponse)
+requestCancelWorkflowExecution p1 p2 = undefined $ RequestCancelWorkflowExecution
+    { rcweiDomain = p1
+    , rcweiWorkflowId = p2
+    , rcweiRunId = Nothing
+    }
+
 data RequestCancelWorkflowExecution = RequestCancelWorkflowExecution
     { rcweiDomain :: !Text
       -- ^ The name of the domain containing the workflow execution to cancel.

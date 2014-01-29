@@ -51,6 +51,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeGatewayInformation :: Text
+                           -> AWS (Either StorageGatewayError DescribeGatewayInformationResponse)
+describeGatewayInformation p1 = undefined $ DescribeGatewayInformation
+    { dgiiGatewayARN = p1
+    }
+
 data DescribeGatewayInformation = DescribeGatewayInformation
     { dgiiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

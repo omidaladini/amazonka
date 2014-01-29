@@ -53,6 +53,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+addWorkingStorage :: [Text]
+                  -> Text
+                  -> AWS (Either StorageGatewayError AddWorkingStorageResponse)
+addWorkingStorage p1 p2 = undefined $ AddWorkingStorage
+    { awsiDiskIds = p1
+    , awsiGatewayARN = p2
+    }
+
 data AddWorkingStorage = AddWorkingStorage
     { awsiDiskIds :: [Text]
       -- ^ An array of strings that identify disks that are to be configured as

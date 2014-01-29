@@ -46,6 +46,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+setTaskStatus :: Text
+              -> TaskStatus
+              -> AWS (Either DataPipelineError SetTaskStatusResponse)
+setTaskStatus p1 p2 = undefined $ SetTaskStatus
+    { stsiTaskId = p1
+    , stsiTaskStatus = p2
+    , stsiErrorId = Nothing
+    , stsiErrorMessage = Nothing
+    , stsiErrorStackTrace = Nothing
+    }
+
 data SetTaskStatus = SetTaskStatus
     { stsiErrorId :: Maybe Text
       -- ^ If an error occurred during the task, this value specifies an id value that

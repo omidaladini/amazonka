@@ -37,6 +37,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteConnection :: Text
+                 -> AWS (Either DirectConnectError DeleteConnectionResponse)
+deleteConnection p1 = undefined $ DeleteConnection
+    { dcrConnectionId = p1
+    }
+
 data DeleteConnection = DeleteConnection
     { dcrConnectionId :: !Text
       -- ^ ID of the connection. Example: dxcon-fg5678gh Default: None.

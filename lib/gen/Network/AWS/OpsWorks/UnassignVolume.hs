@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+unassignVolume :: Text
+               -> AWS (Either OpsWorksError UnassignVolumeResponse)
+unassignVolume p1 = undefined $ UnassignVolume
+    { uvrVolumeId = p1
+    }
+
 data UnassignVolume = UnassignVolume
     { uvrVolumeId :: !Text
       -- ^ The volume ID.

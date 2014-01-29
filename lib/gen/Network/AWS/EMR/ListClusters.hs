@@ -38,6 +38,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+listClusters :: AWS (Either EMRError ListClustersResponse)
+listClusters = undefined $ ListClusters
+    { lciClusterStates = []
+    , lciCreatedAfter = Nothing
+    , lciCreatedBefore = Nothing
+    , lciMarker = Nothing
+    }
+
 data ListClusters = ListClusters
     { lciClusterStates :: [ClusterState]
       -- ^ The cluster state filters to apply when listing clusters.

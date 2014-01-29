@@ -82,6 +82,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+batchWriteItem :: HashMap Text [WriteRequest]
+               -> AWS (Either DynamoDBError BatchWriteItemResponse)
+batchWriteItem p1 = undefined $ BatchWriteItem
+    { bwiiRequestItems = p1
+    , bwiiReturnConsumedCapacity = Nothing
+    , bwiiReturnItemCollectionMetrics = Nothing
+    }
+
 data BatchWriteItem = BatchWriteItem
     { bwiiRequestItems :: HashMap Text [WriteRequest]
       -- ^ A map of one or more table names and, for each table, a list of operations

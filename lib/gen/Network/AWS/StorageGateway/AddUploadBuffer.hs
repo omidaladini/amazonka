@@ -39,6 +39,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+addUploadBuffer :: [Text]
+                -> Text
+                -> AWS (Either StorageGatewayError AddUploadBufferResponse)
+addUploadBuffer p1 p2 = undefined $ AddUploadBuffer
+    { aubiDiskIds = p1
+    , aubiGatewayARN = p2
+    }
+
 data AddUploadBuffer = AddUploadBuffer
     { aubiDiskIds :: [Text]
     , aubiGatewayARN :: !Text

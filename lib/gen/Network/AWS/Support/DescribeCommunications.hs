@@ -39,6 +39,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCommunications :: Text
+                       -> AWS (Either SupportError DescribeCommunicationsResponse)
+describeCommunications p1 = undefined $ DescribeCommunications
+    { dcsCaseId = p1
+    , dcsAfterTime = Nothing
+    , dcsBeforeTime = Nothing
+    , dcsMaxResults = Nothing
+    , dcsNextToken = Nothing
+    }
+
 data DescribeCommunications = DescribeCommunications
     { dcsAfterTime :: Maybe Text
       -- ^ The start date for a filtered date search on support case communications.

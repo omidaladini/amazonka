@@ -60,6 +60,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+listVolumes :: Text
+            -> AWS (Either StorageGatewayError ListVolumesResponse)
+listVolumes p1 = undefined $ ListVolumes
+    { lviGatewayARN = p1
+    , lviLimit = Nothing
+    , lviMarker = Nothing
+    }
+
 data ListVolumes = ListVolumes
     { lviGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

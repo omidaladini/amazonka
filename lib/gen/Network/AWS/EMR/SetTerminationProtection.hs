@@ -62,6 +62,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+setTerminationProtection :: [Text]
+                         -> Bool
+                         -> AWS (Either EMRError SetTerminationProtectionResponse)
+setTerminationProtection p1 p2 = undefined $ SetTerminationProtection
+    { stpiJobFlowIds = p1
+    , stpiTerminationProtected = p2
+    }
+
 data SetTerminationProtection = SetTerminationProtection
     { stpiJobFlowIds :: [Text]
       -- ^ A list of strings that uniquely identify the job flows to protect. This

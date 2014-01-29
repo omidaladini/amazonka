@@ -60,6 +60,22 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+createStorediSCSIVolume :: Text
+                        -> Text
+                        -> Text
+                        -> Bool
+                        -> Text
+                        -> AWS (Either StorageGatewayError CreateStorediSCSIVolumeResponse)
+createStorediSCSIVolume p1 p2 p3 p4 p5 = undefined $ CreateStorediSCSIVolume
+    { csscsiviDiskId = p1
+    , csscsiviGatewayARN = p2
+    , csscsiviNetworkInterfaceId = p3
+    , csscsiviPreserveExistingData = p4
+    , csscsiviTargetName = p5
+    , csscsiviSnapshotId = Nothing
+    }
+
 data CreateStorediSCSIVolume = CreateStorediSCSIVolume
     { csscsiviDiskId :: !Text
       -- ^ The unique identifier for the gateway local disk that is configured as a

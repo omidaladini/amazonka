@@ -78,6 +78,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+splitShard :: Text
+           -> Text
+           -> Text
+           -> AWS (Either KinesisError SplitShardResponse)
+splitShard p1 p2 p3 = undefined $ SplitShard
+    { ssiNewStartingHashKey = p1
+    , ssiShardToSplit = p2
+    , ssiStreamName = p3
+    }
+
 data SplitShard = SplitShard
     { ssiNewStartingHashKey :: !Text
       -- ^ A hash key value for the starting hash key of one of the child shards

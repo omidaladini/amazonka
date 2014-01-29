@@ -63,6 +63,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+deprecateDomain :: Text
+                -> AWS (Either SWFError DeprecateDomainResponse)
+deprecateDomain p1 = undefined $ DeprecateDomain
+    { ddjName = p1
+    }
+
 data DeprecateDomain = DeprecateDomain
     { ddjName :: !Text
       -- ^ The name of the domain to deprecate.

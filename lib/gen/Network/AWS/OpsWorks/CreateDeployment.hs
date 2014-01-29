@@ -41,6 +41,19 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDeployment :: DeploymentCommand
+                 -> Text
+                 -> AWS (Either OpsWorksError CreateDeploymentResponse)
+createDeployment p1 p2 = undefined $ CreateDeployment
+    { cdrCommand = p1
+    , cdrStackId = p2
+    , cdrAppId = Nothing
+    , cdrComment = Nothing
+    , cdrCustomJson = Nothing
+    , cdrInstanceIds = []
+    }
+
 data CreateDeployment = CreateDeployment
     { cdrAppId :: Maybe Text
       -- ^ The app ID. This parameter is required for app deployments, but not for

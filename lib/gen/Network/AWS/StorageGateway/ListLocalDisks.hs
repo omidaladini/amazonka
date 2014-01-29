@@ -54,6 +54,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+listLocalDisks :: Text
+               -> AWS (Either StorageGatewayError ListLocalDisksResponse)
+listLocalDisks p1 = undefined $ ListLocalDisks
+    { lldiGatewayARN = p1
+    }
+
 data ListLocalDisks = ListLocalDisks
     { lldiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

@@ -56,6 +56,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
+-- | Convenience method utilising default fields where applicable.
+getTrailStatus :: Text
+               -> AWS (Either CloudTrailError GetTrailStatusResponse)
+getTrailStatus p1 = undefined $ GetTrailStatus
+    { gtsrName = p1
+    }
+
 data GetTrailStatus = GetTrailStatus
     { gtsrName :: !Text
       -- ^ The name of the trail for which you are requesting the current status.

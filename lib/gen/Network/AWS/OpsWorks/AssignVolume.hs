@@ -40,6 +40,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+assignVolume :: Text
+             -> AWS (Either OpsWorksError AssignVolumeResponse)
+assignVolume p1 = undefined $ AssignVolume
+    { avrVolumeId = p1
+    , avrInstanceId = Nothing
+    }
+
 data AssignVolume = AssignVolume
     { avrInstanceId :: Maybe Text
       -- ^ The instance ID.

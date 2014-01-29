@@ -34,6 +34,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+listBootstrapActions :: AWS (Either EMRError ListBootstrapActionsResponse)
+listBootstrapActions = undefined $ ListBootstrapActions
+    { lbaiClusterId = Nothing
+    , lbaiMarker = Nothing
+    }
+
 data ListBootstrapActions = ListBootstrapActions
     { lbaiClusterId :: Maybe Text
       -- ^ The cluster identifier for the bootstrap actions to list.

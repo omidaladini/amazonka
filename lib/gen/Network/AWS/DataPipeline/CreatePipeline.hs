@@ -43,6 +43,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+createPipeline :: Text
+               -> Text
+               -> AWS (Either DataPipelineError CreatePipelineResponse)
+createPipeline p1 p2 = undefined $ CreatePipeline
+    { cpiName = p1
+    , cpiUniqueId = p2
+    , cpiDescription = Nothing
+    }
+
 data CreatePipeline = CreatePipeline
     { cpiDescription :: Maybe Text
       -- ^ The description of the new pipeline.

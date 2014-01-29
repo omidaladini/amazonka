@@ -39,6 +39,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteInstance :: Text
+               -> AWS (Either OpsWorksError DeleteInstanceResponse)
+deleteInstance p1 = undefined $ DeleteInstance
+    { dirInstanceId = p1
+    , dirDeleteElasticIp = Nothing
+    , dirDeleteVolumes = Nothing
+    }
+
 data DeleteInstance = DeleteInstance
     { dirDeleteElasticIp :: Maybe Bool
       -- ^ Whether to delete the instance Elastic IP address.

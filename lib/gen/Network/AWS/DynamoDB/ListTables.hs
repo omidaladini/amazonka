@@ -38,6 +38,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+listTables :: AWS (Either DynamoDBError ListTablesResponse)
+listTables = undefined $ ListTables
+    { ltiExclusiveStartTableName = Nothing
+    , ltiLimit = Nothing
+    }
+
 data ListTables = ListTables
     { ltiExclusiveStartTableName :: Maybe Text
       -- ^ The name of the table that starts the list. If you already ran a ListTables

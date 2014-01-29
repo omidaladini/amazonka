@@ -53,6 +53,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+addCache :: [Text]
+         -> Text
+         -> AWS (Either StorageGatewayError AddCacheResponse)
+addCache p1 p2 = undefined $ AddCache
+    { aciDiskIds = p1
+    , aciGatewayARN = p2
+    }
+
 data AddCache = AddCache
     { aciDiskIds :: [Text]
     , aciGatewayARN :: !Text

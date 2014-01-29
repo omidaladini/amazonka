@@ -58,6 +58,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+listVolumeRecoveryPoints :: Text
+                         -> AWS (Either StorageGatewayError ListVolumeRecoveryPointsResponse)
+listVolumeRecoveryPoints p1 = undefined $ ListVolumeRecoveryPoints
+    { lvrpiGatewayARN = p1
+    }
+
 data ListVolumeRecoveryPoints = ListVolumeRecoveryPoints
     { lvrpiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

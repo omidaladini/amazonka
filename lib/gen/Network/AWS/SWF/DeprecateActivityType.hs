@@ -64,6 +64,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+deprecateActivityType :: ActivityType
+                      -> Text
+                      -> AWS (Either SWFError DeprecateActivityTypeResponse)
+deprecateActivityType p1 p2 = undefined $ DeprecateActivityType
+    { datjActivityType = p1
+    , datjDomain = p2
+    }
+
 data DeprecateActivityType = DeprecateActivityType
     { datjActivityType :: ActivityType
       -- ^ The activity type to deprecate.

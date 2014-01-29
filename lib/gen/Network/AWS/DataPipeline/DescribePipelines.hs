@@ -57,6 +57,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+describePipelines :: [Text]
+                  -> AWS (Either DataPipelineError DescribePipelinesResponse)
+describePipelines p1 = undefined $ DescribePipelines
+    { dpiPipelineIds = p1
+    }
+
 data DescribePipelines = DescribePipelines
     { dpiPipelineIds :: [Text]
       -- ^ Identifiers of the pipelines to describe. You can pass as many as 25

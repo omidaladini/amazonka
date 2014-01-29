@@ -49,6 +49,18 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
+-- | Convenience method utilising default fields where applicable.
+getItem :: HashMap Text AttributeValue
+        -> Text
+        -> AWS (Either DynamoDBError GetItemResponse)
+getItem p1 p2 = undefined $ GetItem
+    { giiKey = p1
+    , giiTableName = p2
+    , giiAttributesToGet = []
+    , giiConsistentRead = Nothing
+    , giiReturnConsumedCapacity = Nothing
+    }
+
 data GetItem = GetItem
     { giiAttributesToGet :: [Text]
       -- ^ The names of one or more attributes to retrieve. If no attribute names are

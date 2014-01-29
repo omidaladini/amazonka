@@ -39,6 +39,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+setTimeBasedAutoScaling :: Text
+                        -> AWS (Either OpsWorksError SetTimeBasedAutoScalingResponse)
+setTimeBasedAutoScaling p1 = undefined $ SetTimeBasedAutoScaling
+    { stbasrInstanceId = p1
+    , stbasrAutoScalingSchedule = Nothing
+    }
+
 data SetTimeBasedAutoScaling = SetTimeBasedAutoScaling
     { stbasrAutoScalingSchedule :: Maybe WeeklyAutoScalingSchedule
       -- ^ An AutoScalingSchedule with the instance schedule.

@@ -52,6 +52,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+addInstanceGroups :: [InstanceGroupConfig]
+                  -> Text
+                  -> AWS (Either EMRError AddInstanceGroupsResponse)
+addInstanceGroups p1 p2 = undefined $ AddInstanceGroups
+    { aigiInstanceGroups = p1
+    , aigiJobFlowId = p2
+    }
+
 data AddInstanceGroups = AddInstanceGroups
     { aigiInstanceGroups :: [InstanceGroupConfig]
       -- ^ Instance Groups to add.

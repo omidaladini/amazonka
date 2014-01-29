@@ -75,6 +75,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+pollForActivityTask :: Text
+                    -> TaskList
+                    -> AWS (Either SWFError PollForActivityTaskResponse)
+pollForActivityTask p1 p2 = undefined $ PollForActivityTask
+    { pfatiDomain = p1
+    , pfatiTaskList = p2
+    , pfatiIdentity = Nothing
+    }
+
 data PollForActivityTask = PollForActivityTask
     { pfatiDomain :: !Text
       -- ^ The name of the domain that contains the task lists being polled.

@@ -34,6 +34,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteInterconnect :: Text
+                   -> AWS (Either DirectConnectError DeleteInterconnectResponse)
+deleteInterconnect p1 = undefined $ DeleteInterconnect
+    { disInterconnectId = p1
+    }
+
 data DeleteInterconnect = DeleteInterconnect
     { disInterconnectId :: !Text
       -- ^ The ID of the interconnect. Example: dxcon-abc123.

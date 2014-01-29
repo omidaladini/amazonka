@@ -62,6 +62,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+countPendingDecisionTasks :: Text
+                          -> TaskList
+                          -> AWS (Either SWFError CountPendingDecisionTasksResponse)
+countPendingDecisionTasks p1 p2 = undefined $ CountPendingDecisionTasks
+    { cpdtiDomain = p1
+    , cpdtiTaskList = p2
+    }
+
 data CountPendingDecisionTasks = CountPendingDecisionTasks
     { cpdtiDomain :: !Text
       -- ^ The name of the domain that contains the task list.

@@ -54,6 +54,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+startGateway :: Text
+             -> AWS (Either StorageGatewayError StartGatewayResponse)
+startGateway p1 = undefined $ StartGateway
+    { sgiGatewayARN = p1
+    }
+
 data StartGateway = StartGateway
     { sgiGatewayARN :: !Text
       -- ^ The Amazon Resource Name (ARN) of the gateway. Use the ListGateways

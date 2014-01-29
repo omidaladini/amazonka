@@ -35,6 +35,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
+-- | Convenience method utilising default fields where applicable.
+resolveCase :: AWS (Either SupportError ResolveCaseResponse)
+resolveCase = undefined $ ResolveCase
+    { rcrCaseId = Nothing
+    }
+
 data ResolveCase = ResolveCase
     { rcrCaseId :: Maybe Text
       -- ^ The AWS Support case ID requested or returned in the call. The case ID is

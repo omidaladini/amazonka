@@ -59,6 +59,16 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+registerDomain :: Text
+               -> Text
+               -> AWS (Either SWFError RegisterDomainResponse)
+registerDomain p1 p2 = undefined $ RegisterDomain
+    { rdiName = p1
+    , rdiWorkflowExecutionRetentionPeriodInDays = p2
+    , rdiDescription = Nothing
+    }
+
 data RegisterDomain = RegisterDomain
     { rdiDescription :: Maybe Text
       -- ^ Textual description of the domain.

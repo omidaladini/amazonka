@@ -38,6 +38,27 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+createInstance :: Text
+               -> [Text]
+               -> Text
+               -> AWS (Either OpsWorksError CreateInstanceResponse)
+createInstance p1 p2 p3 = undefined $ CreateInstance
+    { cirInstanceType = p1
+    , cirLayerIds = p2
+    , cirStackId = p3
+    , cirAmiId = Nothing
+    , cirArchitecture = Nothing
+    , cirAutoScalingType = Nothing
+    , cirAvailabilityZone = Nothing
+    , cirHostname = Nothing
+    , cirInstallUpdatesOnBoot = Nothing
+    , cirOs = Nothing
+    , cirRootDeviceType = Nothing
+    , cirSshKeyName = Nothing
+    , cirSubnetId = Nothing
+    }
+
 data CreateInstance = CreateInstance
     { cirAmiId :: Maybe Text
       -- ^ A custom AMI ID to be used to create the instance. The AMI should be based

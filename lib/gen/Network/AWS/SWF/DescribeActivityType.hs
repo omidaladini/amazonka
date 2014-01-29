@@ -69,6 +69,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeActivityType :: ActivityType
+                     -> Text
+                     -> AWS (Either SWFError DescribeActivityTypeResponse)
+describeActivityType p1 p2 = undefined $ DescribeActivityType
+    { datiActivityType = p1
+    , datiDomain = p2
+    }
+
 data DescribeActivityType = DescribeActivityType
     { datiActivityType :: ActivityType
       -- ^ The activity type to describe.

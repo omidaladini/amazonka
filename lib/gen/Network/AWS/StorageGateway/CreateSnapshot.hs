@@ -61,6 +61,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSnapshot :: Text
+               -> Text
+               -> AWS (Either StorageGatewayError CreateSnapshotResponse)
+createSnapshot p1 p2 = undefined $ CreateSnapshot
+    { csiSnapshotDescription = p1
+    , csiVolumeARN = p2
+    }
+
 data CreateSnapshot = CreateSnapshot
     { csiSnapshotDescription :: !Text
       -- ^ Textual description of the snapshot that appears in the Amazon EC2 console,

@@ -50,6 +50,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeObjects :: [Text]
+                -> Text
+                -> AWS (Either DataPipelineError DescribeObjectsResponse)
+describeObjects p1 p2 = undefined $ DescribeObjects
+    { doiObjectIds = p1
+    , doiPipelineId = p2
+    , doiEvaluateExpressions = Nothing
+    , doiMarker = Nothing
+    }
+
 data DescribeObjects = DescribeObjects
     { doiEvaluateExpressions :: Maybe Bool
       -- ^ Indicates whether any expressions in the object should be evaluated when

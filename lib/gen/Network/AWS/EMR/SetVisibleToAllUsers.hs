@@ -54,6 +54,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
+-- | Convenience method utilising default fields where applicable.
+setVisibleToAllUsers :: [Text]
+                     -> Bool
+                     -> AWS (Either EMRError SetVisibleToAllUsersResponse)
+setVisibleToAllUsers p1 p2 = undefined $ SetVisibleToAllUsers
+    { svtauiJobFlowIds = p1
+    , svtauiVisibleToAllUsers = p2
+    }
+
 data SetVisibleToAllUsers = SetVisibleToAllUsers
     { svtauiJobFlowIds :: [Text]
       -- ^ Identifiers of the job flows to receive the new visibility setting.

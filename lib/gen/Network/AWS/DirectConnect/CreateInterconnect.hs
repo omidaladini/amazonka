@@ -46,6 +46,17 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+createInterconnect :: Text
+                   -> Text
+                   -> Text
+                   -> AWS (Either DirectConnectError CreateInterconnectResponse)
+createInterconnect p1 p2 p3 = undefined $ CreateInterconnect
+    { cirBandwidth = p1
+    , cirInterconnectName = p2
+    , cirLocation = p3
+    }
+
 data CreateInterconnect = CreateInterconnect
     { cirBandwidth :: !Text
       -- ^ The port bandwidth Example: 1Gbps Default: None Available values:

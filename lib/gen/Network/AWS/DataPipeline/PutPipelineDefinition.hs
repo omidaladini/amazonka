@@ -82,6 +82,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
+-- | Convenience method utilising default fields where applicable.
+putPipelineDefinition :: Text
+                      -> [PipelineObject]
+                      -> AWS (Either DataPipelineError PutPipelineDefinitionResponse)
+putPipelineDefinition p1 p2 = undefined $ PutPipelineDefinition
+    { ppdiPipelineId = p1
+    , ppdiPipelineObjects = p2
+    }
+
 data PutPipelineDefinition = PutPipelineDefinition
     { ppdiPipelineId :: !Text
       -- ^ The identifier of the pipeline to be configured.

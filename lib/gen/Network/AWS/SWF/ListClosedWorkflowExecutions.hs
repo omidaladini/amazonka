@@ -84,6 +84,22 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
+-- | Convenience method utilising default fields where applicable.
+listClosedWorkflowExecutions :: Text
+                             -> AWS (Either SWFError ListClosedWorkflowExecutionsResponse)
+listClosedWorkflowExecutions p1 = undefined $ ListClosedWorkflowExecutions
+    { lcweiDomain = p1
+    , lcweiCloseStatusFilter = Nothing
+    , lcweiCloseTimeFilter = Nothing
+    , lcweiExecutionFilter = Nothing
+    , lcweiMaximumPageSize = Nothing
+    , lcweiNextPageToken = Nothing
+    , lcweiReverseOrder = Nothing
+    , lcweiStartTimeFilter = Nothing
+    , lcweiTagFilter = Nothing
+    , lcweiTypeFilter = Nothing
+    }
+
 data ListClosedWorkflowExecutions = ListClosedWorkflowExecutions
     { lcweiCloseStatusFilter :: Maybe CloseStatusFilter
       -- ^ If specified, only workflow executions that match this close status are

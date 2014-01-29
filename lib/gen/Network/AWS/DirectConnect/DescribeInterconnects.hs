@@ -36,6 +36,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeInterconnects :: AWS (Either DirectConnectError DescribeInterconnectsResponse)
+describeInterconnects = undefined $ DescribeInterconnects
+    { dirInterconnectId = Nothing
+    }
+
 data DescribeInterconnects = DescribeInterconnects
     { dirInterconnectId :: Maybe Text
       -- ^ The ID of the interconnect. Example: dxcon-abc123.

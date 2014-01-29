@@ -37,6 +37,22 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateInstance :: Text
+               -> AWS (Either OpsWorksError UpdateInstanceResponse)
+updateInstance p1 = undefined $ UpdateInstance
+    { uirInstanceId = p1
+    , uirAmiId = Nothing
+    , uirArchitecture = Nothing
+    , uirAutoScalingType = Nothing
+    , uirHostname = Nothing
+    , uirInstallUpdatesOnBoot = Nothing
+    , uirInstanceType = Nothing
+    , uirLayerIds = []
+    , uirOs = Nothing
+    , uirSshKeyName = Nothing
+    }
+
 data UpdateInstance = UpdateInstance
     { uirAmiId :: Maybe Text
       -- ^ A custom AMI ID to be used to create the instance. The AMI should be based

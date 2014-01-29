@@ -38,6 +38,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeInstances :: AWS (Either OpsWorksError DescribeInstancesResponse)
+describeInstances = undefined $ DescribeInstances
+    { disInstanceIds = []
+    , disLayerId = Nothing
+    , disStackId = Nothing
+    }
+
 data DescribeInstances = DescribeInstances
     { disInstanceIds :: [Text]
       -- ^ An array of instance IDs to be described. If you use this parameter,

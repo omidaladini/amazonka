@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deregisterVolume :: Text
+                 -> AWS (Either OpsWorksError DeregisterVolumeResponse)
+deregisterVolume p1 = undefined $ DeregisterVolume
+    { dvrVolumeId = p1
+    }
+
 data DeregisterVolume = DeregisterVolume
     { dvrVolumeId :: !Text
       -- ^ The volume ID.

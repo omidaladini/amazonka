@@ -39,6 +39,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteLayer :: Text
+            -> AWS (Either OpsWorksError DeleteLayerResponse)
+deleteLayer p1 = undefined $ DeleteLayer
+    { dlsLayerId = p1
+    }
+
 data DeleteLayer = DeleteLayer
     { dlsLayerId :: !Text
       -- ^ The layer ID.

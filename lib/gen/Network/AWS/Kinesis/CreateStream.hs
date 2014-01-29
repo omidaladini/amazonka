@@ -70,6 +70,15 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
+-- | Convenience method utilising default fields where applicable.
+createStream :: Int
+             -> Text
+             -> AWS (Either KinesisError CreateStreamResponse)
+createStream p1 p2 = undefined $ CreateStream
+    { csiShardCount = p1
+    , csiStreamName = p2
+    }
+
 data CreateStream = CreateStream
     { csiShardCount :: !Int
       -- ^ The number of shards that the stream will use. The throughput of the stream

@@ -36,6 +36,21 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
+-- | Convenience method utilising default fields where applicable.
+allocateConnectionOnInterconnect :: Text
+                                 -> Text
+                                 -> Text
+                                 -> Text
+                                 -> Int
+                                 -> AWS (Either DirectConnectError AllocateConnectionOnInterconnectResponse)
+allocateConnectionOnInterconnect p1 p2 p3 p4 p5 = undefined $ AllocateConnectionOnInterconnect
+    { acoirBandwidth = p1
+    , acoirConnectionName = p2
+    , acoirInterconnectId = p3
+    , acoirOwnerAccount = p4
+    , acoirVlan = p5
+    }
+
 data AllocateConnectionOnInterconnect = AllocateConnectionOnInterconnect
     { acoirBandwidth :: !Text
       -- ^ Bandwidth of the connection. Example: 1Gbps Default: None.
