@@ -8,8 +8,8 @@ RESTS3 := \
  $(BOTO)/s3.json
 
 RESTXML := \
- $(BOTO)/route53.json
-# $(BOTO)/cloudfront.json \ -- doesn't mark types as required correctly
+ $(BOTO)/route53.json \
+ $(BOTO)/cloudfront.json
 
 RESTJSON := \
  $(BOTO)/elastictranscoder.json
@@ -43,8 +43,8 @@ JSON := \
  $(BOTO)/support.json \
  $(BOTO)/swf.json
 
-MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
-# MODELS := $(BOTO)/autoscaling.json
+# MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
+MODELS := $(BOTO)/cloudfront.json
 
 .PHONY: test lint doc
 

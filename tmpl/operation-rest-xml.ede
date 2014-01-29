@@ -68,9 +68,9 @@ instance AWSRequest {{ name }} where
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where
-    next rq rs
-        | Just x <- {{ pagination.output_token }} rs = Just $ rq { {{ pagination.input_token }} = Just x }
-        | otherwise = Nothing
+    next rq rs = undefined
+--        | Just x <- {{ pagination.output_token }} rs = Just $ rq { {{ pagination.input_token }} = Just x }
+--        | otherwise = Nothing
 
 {% endif %}
 data {{ name }}Response = {{ name }}Response

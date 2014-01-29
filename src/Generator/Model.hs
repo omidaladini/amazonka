@@ -158,7 +158,7 @@ instance FromJSON Operation where
         <*> documentation o
         <*> o .:? "documentation_url"
         <*> o .:? "http" .!= HTTP "GET" [] mempty
-        <*> o .:? "input"
+        <*> (update <$> o .:? "input")
         <*> (fmap streaming <$> o .:? "output")
         <*> (fmap streaming <$> o .:  "errors")
         <*> o .:? "pagination"
@@ -171,6 +171,25 @@ instance FromJSON Operation where
             | SStruct{} <- s
             , any sStreaming $ sFields s = s { sStreaming = True }
             | otherwise                  = s
+
+        -- Cloudfront fuckery
+        update (Just s)
+            | fromMaybe "" (sShapeName s) `elem`
+              [ "DeleteStreamingDistributionRequest"
+              , "UpdateStreamingDistributionRequest"
+              , "GetDistributionConfigRequest"
+              , "GetDistributionRequest"
+              , "UpdateDistributionRequest"
+              , "DeleteDistributionRequest"
+              , "GetCloudFrontOriginAccessIdentityRequest"
+              , "GetCloudFrontOriginAccessIdentityConfigRequest"
+              , "UpdateCloudFrontOriginAccessIdentityRequest"
+              , "DeleteCloudFrontOriginAccessIdentityRequest"
+              , "GetStreamingDistributionRequest"
+              , "GetStreamingDistributionConfigRequest"
+              ] = Just $ s { sFields = Map.map (\v -> v { sRequired = True }) $ sFields s }
+            | otherwise = Just s
+        update Nothing  = Nothing
 
     parseJSON _ =
         fail "Unable to parse Operation."
