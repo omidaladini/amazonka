@@ -45,6 +45,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLoadBalancers :: AWS (Either ElasticLoadBalancingError DescribeLoadBalancersResponse)
+describeLoadBalancers = undefined $ DescribeLoadBalancers
+    { dapiLoadBalancerNames = []
+    , dapiMarker = Nothing
+    }
+
 data DescribeLoadBalancers = DescribeLoadBalancers
     { dapiLoadBalancerNames :: [Text]
       -- ^ A list of load balancer names associated with the account.

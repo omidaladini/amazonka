@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteRankExpression :: Text
+                     -> Text
+                     -> AWS (Either CloudSearchError DeleteRankExpressionResponse)
+deleteRankExpression p1 p2 = undefined $ DeleteRankExpression
+    { dresDomainName = p1
+    , dresRankName = p2
+    }
+
 data DeleteRankExpression = DeleteRankExpression
     { dresDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

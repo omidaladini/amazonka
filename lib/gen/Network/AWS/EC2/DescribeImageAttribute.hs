@@ -33,6 +33,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeImageAttribute :: ImageAttributeName
+                       -> Text
+                       -> AWS (Either EC2Error DescribeImageAttributeResponse)
+describeImageAttribute p1 p2 = undefined $ DescribeImageAttribute
+    { diasAttribute = p1
+    , diasImageId = p2
+    , diasDryRun = Nothing
+    }
+
 data DescribeImageAttribute = DescribeImageAttribute
     { diasAttribute :: !ImageAttributeName
       -- ^ The name of the attribute to describe. Available attribute names:

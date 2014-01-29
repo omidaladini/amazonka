@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeHsmClientCertificates :: AWS (Either RedshiftError DescribeHsmClientCertificatesResponse)
+describeHsmClientCertificates = undefined $ DescribeHsmClientCertificates
+    { dhccmHsmClientCertificateIdentifier = Nothing
+    , dhccmMarker = Nothing
+    , dhccmMaxRecords = Nothing
+    }
+
 data DescribeHsmClientCertificates = DescribeHsmClientCertificates
     { dhccmHsmClientCertificateIdentifier :: Maybe Text
       -- ^ The identifier of a specific HSM client certificate for which you want

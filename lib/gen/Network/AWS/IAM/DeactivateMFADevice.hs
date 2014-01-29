@@ -35,6 +35,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deactivateMFADevice :: Text
+                    -> Text
+                    -> AWS (Either IAMError DeactivateMFADeviceResponse)
+deactivateMFADevice p1 p2 = undefined $ DeactivateMFADevice
+    { dmfadrSerialNumber = p1
+    , dmfadrUserName = p2
+    }
+
 data DeactivateMFADevice = DeactivateMFADevice
     { dmfadrSerialNumber :: !Text
       -- ^ The serial number that uniquely identifies the MFA device. For virtual MFA

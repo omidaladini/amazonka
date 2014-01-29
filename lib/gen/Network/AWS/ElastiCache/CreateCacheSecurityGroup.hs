@@ -44,6 +44,15 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCacheSecurityGroup :: Text
+                         -> Text
+                         -> AWS (Either ElastiCacheError CreateCacheSecurityGroupResponse)
+createCacheSecurityGroup p1 p2 = undefined $ CreateCacheSecurityGroup
+    { ccsgmCacheSecurityGroupName = p1
+    , ccsgmDescription = p2
+    }
+
 data CreateCacheSecurityGroup = CreateCacheSecurityGroup
     { ccsgmCacheSecurityGroupName :: !Text
       -- ^ A name for the cache security group. This value is stored as a lowercase

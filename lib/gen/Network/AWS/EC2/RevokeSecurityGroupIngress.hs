@@ -40,6 +40,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+revokeSecurityGroupIngress :: AWS (Either EC2Error RevokeSecurityGroupIngressResponse)
+revokeSecurityGroupIngress = undefined $ RevokeSecurityGroupIngress
+    { rsgirDryRun = Nothing
+    , rsgirGroupId = Nothing
+    , rsgirGroupName = Nothing
+    , rsgirIpPermissions = []
+    }
+
 data RevokeSecurityGroupIngress = RevokeSecurityGroupIngress
     { rsgirDryRun :: Maybe Bool
     , rsgirGroupId :: Maybe Text

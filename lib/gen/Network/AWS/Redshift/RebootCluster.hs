@@ -47,6 +47,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+rebootCluster :: Text
+              -> AWS (Either RedshiftError RebootClusterResponse)
+rebootCluster p1 = undefined $ RebootCluster
+    { rcmClusterIdentifier = p1
+    }
+
 data RebootCluster = RebootCluster
     { rcmClusterIdentifier :: !Text
       -- ^ The cluster identifier.

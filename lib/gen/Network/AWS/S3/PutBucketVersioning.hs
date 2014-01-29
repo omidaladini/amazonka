@@ -38,8 +38,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putBucketVersioning :: Text -- ^ Bucket
-                    -> VersioningConfiguration -- ^ VersioningConfiguration
+putBucketVersioning :: Text
+                    -> VersioningConfiguration
                     -> AWS (Either S3Error PutBucketVersioningResponse)
 putBucketVersioning p1 p2 = undefined $ PutBucketVersioning
     { pbvBucket = p1

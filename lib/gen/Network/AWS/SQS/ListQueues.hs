@@ -32,6 +32,12 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+listQueues :: AWS (Either SQSError ListQueuesResponse)
+listQueues = undefined $ ListQueues
+    { lqrQueueNamePrefix = Nothing
+    }
+
 data ListQueues = ListQueues
     { lqrQueueNamePrefix :: Maybe Text
       -- ^ A string to use for filtering the list results. Only those queues whose

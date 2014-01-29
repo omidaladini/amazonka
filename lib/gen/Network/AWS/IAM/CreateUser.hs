@@ -39,6 +39,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createUser :: Text
+           -> AWS (Either IAMError CreateUserResponse)
+createUser p1 = undefined $ CreateUser
+    { curUserName = p1
+    , curPath = Nothing
+    }
+
 data CreateUser = CreateUser
     { curPath :: Maybe Text
       -- ^ The path for the user name. For more information about paths, see

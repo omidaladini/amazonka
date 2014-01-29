@@ -49,6 +49,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteCluster :: Text
+              -> AWS (Either RedshiftError DeleteClusterResponse)
+deleteCluster p1 = undefined $ DeleteCluster
+    { dcnClusterIdentifier = p1
+    , dcnFinalClusterSnapshotIdentifier = Nothing
+    , dcnSkipFinalClusterSnapshot = Nothing
+    }
+
 data DeleteCluster = DeleteCluster
     { dcnClusterIdentifier :: !Text
       -- ^ The identifier of the cluster to be deleted. Constraints: Must contain

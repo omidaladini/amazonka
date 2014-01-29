@@ -34,6 +34,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+disableAlarmActions :: [Text]
+                    -> AWS (Either CloudWatchError DisableAlarmActionsResponse)
+disableAlarmActions p1 = undefined $ DisableAlarmActions
+    { daaiAlarmNames = p1
+    }
+
 data DisableAlarmActions = DisableAlarmActions
     { daaiAlarmNames :: [Text]
       -- ^ The names of the alarms to disable actions for.

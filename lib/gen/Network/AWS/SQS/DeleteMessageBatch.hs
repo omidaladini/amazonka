@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteMessageBatch :: [DeleteMessageBatchRequestEntry]
+                   -> Text
+                   -> AWS (Either SQSError DeleteMessageBatchResponse)
+deleteMessageBatch p1 p2 = undefined $ DeleteMessageBatch
+    { dmbrEntries = p1
+    , dmbrQueueUrl = p2
+    }
+
 data DeleteMessageBatch = DeleteMessageBatch
     { dmbrEntries :: [DeleteMessageBatchRequestEntry]
       -- ^ A list of receipt handles for the messages to be deleted.

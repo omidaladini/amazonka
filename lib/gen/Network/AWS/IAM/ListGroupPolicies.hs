@@ -36,6 +36,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listGroupPolicies :: Text
+                  -> AWS (Either IAMError ListGroupPoliciesResponse)
+listGroupPolicies p1 = undefined $ ListGroupPolicies
+    { lgprGroupName = p1
+    , lgprMarker = Nothing
+    , lgprMaxItems = Nothing
+    }
+
 data ListGroupPolicies = ListGroupPolicies
     { lgprGroupName :: !Text
       -- ^ The name of the group to list policies for.

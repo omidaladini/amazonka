@@ -32,6 +32,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifySnapshotAttribute :: Text
+                        -> AWS (Either EC2Error ModifySnapshotAttributeResponse)
+modifySnapshotAttribute p1 = undefined $ ModifySnapshotAttribute
+    { msarSnapshotId = p1
+    , msarAttribute = Nothing
+    , msarCreateVolumePermission = Nothing
+    , msarDryRun = Nothing
+    , msarGroupNames = []
+    , msarOperationType = Nothing
+    , msarUserIds = []
+    }
+
 data ModifySnapshotAttribute = ModifySnapshotAttribute
     { msarAttribute :: Maybe SnapshotAttributeName
       -- ^ The name of the attribute being modified. Available attribute names:

@@ -49,6 +49,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyDBParameterGroup :: Text
+                       -> [Parameter]
+                       -> AWS (Either RDSError ModifyDBParameterGroupResponse)
+modifyDBParameterGroup p1 p2 = undefined $ ModifyDBParameterGroup
+    { mdbpgmDBParameterGroupName = p1
+    , mdbpgmParameters = p2
+    }
+
 data ModifyDBParameterGroup = ModifyDBParameterGroup
     { mdbpgmDBParameterGroupName :: !Text
       -- ^ The name of the DB parameter group. Constraints: Must be the name of an

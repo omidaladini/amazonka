@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteNotificationConfiguration :: ResourceName
+                                -> ResourceName
+                                -> AWS (Either AutoScalingError DeleteNotificationConfigurationResponse)
+deleteNotificationConfiguration p1 p2 = undefined $ DeleteNotificationConfiguration
+    { dnctAutoScalingGroupName = p1
+    , dnctTopicARN = p2
+    }
+
 data DeleteNotificationConfiguration = DeleteNotificationConfiguration
     { dnctAutoScalingGroupName :: !ResourceName
       -- ^ The name of the Auto Scaling group.

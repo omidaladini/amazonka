@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyLoadBalancerAttributes :: LoadBalancerAttributes
+                             -> Text
+                             -> AWS (Either ElasticLoadBalancingError ModifyLoadBalancerAttributesResponse)
+modifyLoadBalancerAttributes p1 p2 = undefined $ ModifyLoadBalancerAttributes
+    { mlbaiLoadBalancerAttributes = p1
+    , mlbaiLoadBalancerName = p2
+    }
+
 data ModifyLoadBalancerAttributes = ModifyLoadBalancerAttributes
     { mlbaiLoadBalancerAttributes :: LoadBalancerAttributes
       -- ^ Attributes of the load balancer.

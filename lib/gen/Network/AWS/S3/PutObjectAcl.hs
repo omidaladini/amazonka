@@ -38,8 +38,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putObjectAcl :: Text -- ^ Bucket
-             -> Text -- ^ Key
+putObjectAcl :: Text
+             -> Text
              -> AWS (Either S3Error PutObjectAclResponse)
 putObjectAcl p1 p2 = undefined $ PutObjectAcl
     { poaBucket = p1

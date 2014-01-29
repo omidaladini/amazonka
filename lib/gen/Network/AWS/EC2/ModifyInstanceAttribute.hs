@@ -32,6 +32,27 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyInstanceAttribute :: Text
+                        -> AWS (Either EC2Error ModifyInstanceAttributeResponse)
+modifyInstanceAttribute p1 = undefined $ ModifyInstanceAttribute
+    { miasInstanceId = p1
+    , miasAttribute = Nothing
+    , miasBlockDeviceMappings = []
+    , miasDisableApiTermination = Nothing
+    , miasDryRun = Nothing
+    , miasEbsOptimized = Nothing
+    , miasGroups = []
+    , miasInstanceInitiatedShutdownBehavior = Nothing
+    , miasInstanceType = Nothing
+    , miasKernel = Nothing
+    , miasRamdisk = Nothing
+    , miasSourceDestCheck = Nothing
+    , miasSriovNetSupport = Nothing
+    , miasUserData = Nothing
+    , miasValue = Nothing
+    }
+
 data ModifyInstanceAttribute = ModifyInstanceAttribute
     { miasAttribute :: Maybe InstanceAttributeName
       -- ^ The name of the attribute being modified. Available attribute names:

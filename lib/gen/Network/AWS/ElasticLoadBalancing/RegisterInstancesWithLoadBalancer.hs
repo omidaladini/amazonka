@@ -56,6 +56,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+registerInstancesWithLoadBalancer :: [Instance]
+                                  -> Text
+                                  -> AWS (Either ElasticLoadBalancingError RegisterInstancesWithLoadBalancerResponse)
+registerInstancesWithLoadBalancer p1 p2 = undefined $ RegisterInstancesWithLoadBalancer
+    { repiInstances = p1
+    , repiLoadBalancerName = p2
+    }
+
 data RegisterInstancesWithLoadBalancer = RegisterInstancesWithLoadBalancer
     { repiInstances :: [Instance]
       -- ^ A list of instance IDs that should be registered with the load balancer.

@@ -38,6 +38,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+replaceRouteTableAssociation :: Text
+                             -> Text
+                             -> AWS (Either EC2Error ReplaceRouteTableAssociationResponse)
+replaceRouteTableAssociation p1 p2 = undefined $ ReplaceRouteTableAssociation
+    { rrtarAssociationId = p1
+    , rrtarRouteTableId = p2
+    , rrtarDryRun = Nothing
+    }
+
 data ReplaceRouteTableAssociation = ReplaceRouteTableAssociation
     { rrtarAssociationId :: !Text
       -- ^ The ID representing the current association between the original route

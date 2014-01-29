@@ -44,6 +44,17 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+putRolePolicy :: Text
+              -> Text
+              -> Text
+              -> AWS (Either IAMError PutRolePolicyResponse)
+putRolePolicy p1 p2 p3 = undefined $ PutRolePolicy
+    { prprPolicyDocument = p1
+    , prprPolicyName = p2
+    , prprRoleName = p3
+    }
+
 data PutRolePolicy = PutRolePolicy
     { prprPolicyDocument :: !Text
       -- ^ The policy document.

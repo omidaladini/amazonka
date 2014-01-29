@@ -45,6 +45,24 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDBInstanceReadReplica :: Text
+                            -> Text
+                            -> AWS (Either RDSError CreateDBInstanceReadReplicaResponse)
+createDBInstanceReadReplica p1 p2 = undefined $ CreateDBInstanceReadReplica
+    { cdbirrmDBInstanceIdentifier = p1
+    , cdbirrmSourceDBInstanceIdentifier = p2
+    , cdbirrmAutoMinorVersionUpgrade = Nothing
+    , cdbirrmAvailabilityZone = Nothing
+    , cdbirrmDBInstanceClass = Nothing
+    , cdbirrmDBSubnetGroupName = Nothing
+    , cdbirrmIops = Nothing
+    , cdbirrmOptionGroupName = Nothing
+    , cdbirrmPort = Nothing
+    , cdbirrmPubliclyAccessible = Nothing
+    , cdbirrmTags = []
+    }
+
 data CreateDBInstanceReadReplica = CreateDBInstanceReadReplica
     { cdbirrmAutoMinorVersionUpgrade :: Maybe Bool
       -- ^ Indicates that minor engine upgrades will be applied automatically to the

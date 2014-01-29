@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteLoginProfile :: Text
+                   -> AWS (Either IAMError DeleteLoginProfileResponse)
+deleteLoginProfile p1 = undefined $ DeleteLoginProfile
+    { dlprUserName = p1
+    }
+
 data DeleteLoginProfile = DeleteLoginProfile
     { dlprUserName :: !Text
       -- ^ Name of the user whose password you want to delete.

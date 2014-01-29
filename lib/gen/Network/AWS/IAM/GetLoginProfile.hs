@@ -36,6 +36,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getLoginProfile :: Text
+                -> AWS (Either IAMError GetLoginProfileResponse)
+getLoginProfile p1 = undefined $ GetLoginProfile
+    { glprUserName = p1
+    }
+
 data GetLoginProfile = GetLoginProfile
     { glprUserName :: !Text
       -- ^ Name of the user whose login profile you want to retrieve.

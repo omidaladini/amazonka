@@ -38,6 +38,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+associateRouteTable :: Text
+                    -> Text
+                    -> AWS (Either EC2Error AssociateRouteTableResponse)
+associateRouteTable p1 p2 = undefined $ AssociateRouteTable
+    { artrRouteTableId = p1
+    , artrSubnetId = p2
+    , artrDryRun = Nothing
+    }
+
 data AssociateRouteTable = AssociateRouteTable
     { artrDryRun :: Maybe Bool
     , artrRouteTableId :: !Text

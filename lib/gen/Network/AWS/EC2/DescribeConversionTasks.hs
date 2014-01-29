@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeConversionTasks :: AWS (Either EC2Error DescribeConversionTasksResponse)
+describeConversionTasks = undefined $ DescribeConversionTasks
+    { dctrConversionTaskIds = []
+    , dctrDryRun = Nothing
+    , dctrFilters = []
+    }
+
 data DescribeConversionTasks = DescribeConversionTasks
     { dctrConversionTaskIds :: [Text]
     , dctrDryRun :: Maybe Bool

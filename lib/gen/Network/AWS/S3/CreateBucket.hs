@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-createBucket :: Text -- ^ Bucket
+createBucket :: Text
              -> AWS (Either S3Error CreateBucketResponse)
 createBucket p1 = undefined $ CreateBucket
     { cbBucket = p1

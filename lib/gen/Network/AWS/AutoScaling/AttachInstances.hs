@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachInstances :: ResourceName
+                -> AWS (Either AutoScalingError AttachInstancesResponse)
+attachInstances p1 = undefined $ AttachInstances
+    { aiqAutoScalingGroupName = p1
+    , aiqInstanceIds = []
+    }
+
 data AttachInstances = AttachInstances
     { aiqAutoScalingGroupName :: !ResourceName
       -- ^ The name of the Auto Scaling group to which to attach the specified

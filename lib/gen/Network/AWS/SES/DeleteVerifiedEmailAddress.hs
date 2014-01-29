@@ -43,6 +43,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVerifiedEmailAddress :: Text
+                           -> AWS (Either SESError DeleteVerifiedEmailAddressResponse)
+deleteVerifiedEmailAddress p1 = undefined $ DeleteVerifiedEmailAddress
+    { dvearEmailAddress = p1
+    }
+
 data DeleteVerifiedEmailAddress = DeleteVerifiedEmailAddress
     { dvearEmailAddress :: !Text
       -- ^ An email address to be removed from the list of verified addresses.

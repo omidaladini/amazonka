@@ -36,6 +36,16 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+enableMetricsCollection :: ResourceName
+                        -> Text
+                        -> AWS (Either AutoScalingError EnableMetricsCollectionResponse)
+enableMetricsCollection p1 p2 = undefined $ EnableMetricsCollection
+    { emcqAutoScalingGroupName = p1
+    , emcqGranularity = p2
+    , emcqMetrics = []
+    }
+
 data EnableMetricsCollection = EnableMetricsCollection
     { emcqAutoScalingGroupName :: !ResourceName
       -- ^ The name or ARN of the Auto Scaling group.

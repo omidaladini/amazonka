@@ -39,6 +39,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+associateDhcpOptions :: Text
+                     -> Text
+                     -> AWS (Either EC2Error AssociateDhcpOptionsResponse)
+associateDhcpOptions p1 p2 = undefined $ AssociateDhcpOptions
+    { adorDhcpOptionsId = p1
+    , adorVpcId = p2
+    , adorDryRun = Nothing
+    }
+
 data AssociateDhcpOptions = AssociateDhcpOptions
     { adorDhcpOptionsId :: !Text
       -- ^ The ID of the DHCP options to associate with the VPC. Specify "default" to

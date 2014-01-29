@@ -36,6 +36,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+purchaseReservedInstancesOffering :: Int
+                                  -> Text
+                                  -> AWS (Either EC2Error PurchaseReservedInstancesOfferingResponse)
+purchaseReservedInstancesOffering p1 p2 = undefined $ PurchaseReservedInstancesOffering
+    { priorInstanceCount = p1
+    , priorReservedInstancesOfferingId = p2
+    , priorDryRun = Nothing
+    , priorLimitPrice = Nothing
+    }
+
 data PurchaseReservedInstancesOffering = PurchaseReservedInstancesOffering
     { priorDryRun :: Maybe Bool
     , priorInstanceCount :: !Int

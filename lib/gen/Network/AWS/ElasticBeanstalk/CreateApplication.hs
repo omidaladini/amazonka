@@ -39,6 +39,14 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+createApplication :: Text
+                  -> AWS (Either ElasticBeanstalkError CreateApplicationResponse)
+createApplication p1 = undefined $ CreateApplication
+    { camApplicationName = p1
+    , camDescription = Nothing
+    }
+
 data CreateApplication = CreateApplication
     { camApplicationName :: !Text
       -- ^ The name of the application. Constraint: This name must be unique within

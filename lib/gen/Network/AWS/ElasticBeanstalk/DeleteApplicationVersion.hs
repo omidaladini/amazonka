@@ -37,6 +37,16 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteApplicationVersion :: Text
+                         -> Text
+                         -> AWS (Either ElasticBeanstalkError DeleteApplicationVersionResponse)
+deleteApplicationVersion p1 p2 = undefined $ DeleteApplicationVersion
+    { davmApplicationName = p1
+    , davmVersionLabel = p2
+    , davmDeleteSourceBundle = Nothing
+    }
+
 data DeleteApplicationVersion = DeleteApplicationVersion
     { davmApplicationName :: !Text
       -- ^ The name of the application to delete releases from.

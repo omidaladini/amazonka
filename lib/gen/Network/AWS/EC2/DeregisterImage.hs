@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deregisterImage :: Text
+                -> AWS (Either EC2Error DeregisterImageResponse)
+deregisterImage p1 = undefined $ DeregisterImage
+    { dirImageId = p1
+    , dirDryRun = Nothing
+    }
+
 data DeregisterImage = DeregisterImage
     { dirDryRun :: Maybe Bool
     , dirImageId :: !Text

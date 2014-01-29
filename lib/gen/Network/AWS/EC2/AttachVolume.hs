@@ -32,6 +32,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachVolume :: Text
+             -> Text
+             -> Text
+             -> AWS (Either EC2Error AttachVolumeResponse)
+attachVolume p1 p2 p3 = undefined $ AttachVolume
+    { avrDevice = p1
+    , avrInstanceId = p2
+    , avrVolumeId = p3
+    , avrDryRun = Nothing
+    }
+
 data AttachVolume = AttachVolume
     { avrDevice :: !Text
       -- ^ Specifies how the device is exposed to the instance (e.g., /dev/sdh).

@@ -33,6 +33,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+removeTagsFromResource :: Text
+                       -> [Text]
+                       -> AWS (Either RDSError RemoveTagsFromResourceResponse)
+removeTagsFromResource p1 p2 = undefined $ RemoveTagsFromResource
+    { rtfrmResourceName = p1
+    , rtfrmTagKeys = p2
+    }
+
 data RemoveTagsFromResource = RemoveTagsFromResource
     { rtfrmResourceName :: !Text
       -- ^ The Amazon RDS resource the tags will be removed from. This value is an

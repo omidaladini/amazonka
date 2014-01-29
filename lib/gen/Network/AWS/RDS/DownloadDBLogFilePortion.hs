@@ -43,6 +43,17 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+downloadDBLogFilePortion :: Text
+                         -> Text
+                         -> AWS (Either RDSError DownloadDBLogFilePortionResponse)
+downloadDBLogFilePortion p1 p2 = undefined $ DownloadDBLogFilePortion
+    { ddblfpmDBInstanceIdentifier = p1
+    , ddblfpmLogFileName = p2
+    , ddblfpmMarker = Nothing
+    , ddblfpmNumberOfLines = Nothing
+    }
+
 data DownloadDBLogFilePortion = DownloadDBLogFilePortion
     { ddblfpmDBInstanceIdentifier :: !Text
       -- ^ The customer-assigned name of the DB instance that contains the log files

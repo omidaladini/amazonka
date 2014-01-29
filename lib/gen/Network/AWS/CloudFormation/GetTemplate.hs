@@ -41,6 +41,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+getTemplate :: Text
+            -> AWS (Either CloudFormationError GetTemplateResponse)
+getTemplate p1 = undefined $ GetTemplate
+    { gtiStackName = p1
+    }
+
 data GetTemplate = GetTemplate
     { gtiStackName :: !Text
       -- ^ The name or the unique identifier associated with the stack, which are not

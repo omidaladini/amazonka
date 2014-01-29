@@ -38,6 +38,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteAccessKey :: Text
+                -> AWS (Either IAMError DeleteAccessKeyResponse)
+deleteAccessKey p1 = undefined $ DeleteAccessKey
+    { dakrAccessKeyId = p1
+    , dakrUserName = Nothing
+    }
+
 data DeleteAccessKey = DeleteAccessKey
     { dakrAccessKeyId :: !Text
       -- ^ The access key ID for the access key ID and secret access key you want to

@@ -40,6 +40,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyOptionGroup :: Text
+                  -> AWS (Either RDSError ModifyOptionGroupResponse)
+modifyOptionGroup p1 = undefined $ ModifyOptionGroup
+    { mogmOptionGroupName = p1
+    , mogmApplyImmediately = Nothing
+    , mogmOptionsToInclude = []
+    , mogmOptionsToRemove = []
+    }
+
 data ModifyOptionGroup = ModifyOptionGroup
     { mogmApplyImmediately :: Maybe Bool
       -- ^ Indicates whether the changes should be applied immediately, or during the

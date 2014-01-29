@@ -34,6 +34,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+replaceRoute :: Text
+             -> Text
+             -> AWS (Either EC2Error ReplaceRouteResponse)
+replaceRoute p1 p2 = undefined $ ReplaceRoute
+    { rrrDestinationCidrBlock = p1
+    , rrrRouteTableId = p2
+    , rrrDryRun = Nothing
+    , rrrGatewayId = Nothing
+    , rrrInstanceId = Nothing
+    , rrrNetworkInterfaceId = Nothing
+    }
+
 data ReplaceRoute = ReplaceRoute
     { rrrDestinationCidrBlock :: !Text
       -- ^ The CIDR address block used for the destination match. For example:

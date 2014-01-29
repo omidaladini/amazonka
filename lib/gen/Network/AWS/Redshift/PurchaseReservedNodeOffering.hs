@@ -48,6 +48,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+purchaseReservedNodeOffering :: Text
+                             -> AWS (Either RedshiftError PurchaseReservedNodeOfferingResponse)
+purchaseReservedNodeOffering p1 = undefined $ PurchaseReservedNodeOffering
+    { prnomReservedNodeOfferingId = p1
+    , prnomNodeCount = Nothing
+    }
+
 data PurchaseReservedNodeOffering = PurchaseReservedNodeOffering
     { prnomNodeCount :: Maybe Int
       -- ^ The number of reserved nodes you want to purchase. Default: 1.

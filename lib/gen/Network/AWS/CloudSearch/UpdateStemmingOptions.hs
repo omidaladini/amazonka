@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateStemmingOptions :: Text
+                      -> Text
+                      -> AWS (Either CloudSearchError UpdateStemmingOptionsResponse)
+updateStemmingOptions p1 p2 = undefined $ UpdateStemmingOptions
+    { usotDomainName = p1
+    , usotStems = p2
+    }
+
 data UpdateStemmingOptions = UpdateStemmingOptions
     { usotDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

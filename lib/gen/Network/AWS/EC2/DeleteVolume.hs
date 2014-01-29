@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVolume :: Text
+             -> AWS (Either EC2Error DeleteVolumeResponse)
+deleteVolume p1 = undefined $ DeleteVolume
+    { dvvVolumeId = p1
+    , dvvDryRun = Nothing
+    }
+
 data DeleteVolume = DeleteVolume
     { dvvDryRun :: Maybe Bool
     , dvvVolumeId :: !Text

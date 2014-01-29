@@ -49,6 +49,17 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+createAppCookieStickinessPolicy :: Text
+                                -> Text
+                                -> Text
+                                -> AWS (Either ElasticLoadBalancingError CreateAppCookieStickinessPolicyResponse)
+createAppCookieStickinessPolicy p1 p2 p3 = undefined $ CreateAppCookieStickinessPolicy
+    { cacspiCookieName = p1
+    , cacspiLoadBalancerName = p2
+    , cacspiPolicyName = p3
+    }
+
 data CreateAppCookieStickinessPolicy = CreateAppCookieStickinessPolicy
     { cacspiCookieName :: !Text
       -- ^ Name of the application cookie used for stickiness.

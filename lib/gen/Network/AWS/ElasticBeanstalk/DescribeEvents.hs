@@ -47,6 +47,22 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEvents :: AWS (Either ElasticBeanstalkError DescribeEventsResponse)
+describeEvents = undefined $ DescribeEvents
+    { demApplicationName = Nothing
+    , demEndTime = Nothing
+    , demEnvironmentId = Nothing
+    , demEnvironmentName = Nothing
+    , demMaxRecords = Nothing
+    , demNextToken = Nothing
+    , demRequestId = Nothing
+    , demSeverity = Nothing
+    , demStartTime = Nothing
+    , demTemplateName = Nothing
+    , demVersionLabel = Nothing
+    }
+
 data DescribeEvents = DescribeEvents
     { demApplicationName :: Maybe Text
       -- ^ If specified, AWS Elastic Beanstalk restricts the returned descriptions to

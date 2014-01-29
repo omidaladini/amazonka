@@ -6,7 +6,7 @@
     {% if field.first %}
       {% case field.value.type %}
       {% when "map" %}
-    { {{ field.key }} = mempty
+    { {{ field.key }} = Map.empty
       {% when "list" %}
     { {{ field.key }} = []
       {% else %}
@@ -15,7 +15,7 @@
     {% else %}
       {% case field.value.type %}
       {% when "map" %}
-    , {{ field.key }} = mempty
+    , {{ field.key }} = Map.empty
       {% when "list" %}
     , {{ field.key }} = []
       {% else %}
@@ -30,9 +30,9 @@
 {% if scope.input.fields | mapLength > 0 %}
   {% for field in scope.input | required %}
     {% if field.first %}
-{{ scope.name | lowerFirst }} :: {{ field.value.shape_name }} -- ^ {{ field.value.param }}
+{{ scope.name | lowerFirst }} :: {% include "type.ede" with field.value %}
     {% else %}
-{{ scope.name | pad }} -> {{ field.value.shape_name }} -- ^ {{ field.value.param }}
+{{ scope.name | pad }} -> {% include "type.ede" with field.value %}
     {% endif %}
     {% if field.last %}
 {{ scope.name | pad }} -> AWS (Either {{ scope.module }}Error {{ scope.name }}Response)
@@ -50,7 +50,7 @@
     {% if !field.value.required %}
       {% case field.value.type %}
       {% when "map" %}
-    , {{ field.key }} = mempty
+    , {{ field.key }} = Map.empty
       {% when "list" %}
     , {{ field.key }} = []
       {% else %}

@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+deletePolicy :: ResourceName
+             -> AWS (Either AutoScalingError DeletePolicyResponse)
+deletePolicy p1 = undefined $ DeletePolicy
+    { dptPolicyName = p1
+    , dptAutoScalingGroupName = Nothing
+    }
+
 data DeletePolicy = DeletePolicy
     { dptAutoScalingGroupName :: Maybe ResourceName
       -- ^ The name of the Auto Scaling group.

@@ -38,6 +38,19 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeReservedDBInstancesOfferings :: AWS (Either RDSError DescribeReservedDBInstancesOfferingsResponse)
+describeReservedDBInstancesOfferings = undefined $ DescribeReservedDBInstancesOfferings
+    { drdbiomDBInstanceClass = Nothing
+    , drdbiomDuration = Nothing
+    , drdbiomMarker = Nothing
+    , drdbiomMaxRecords = Nothing
+    , drdbiomMultiAZ = Nothing
+    , drdbiomOfferingType = Nothing
+    , drdbiomProductDescription = Nothing
+    , drdbiomReservedDBInstancesOfferingId = Nothing
+    }
+
 data DescribeReservedDBInstancesOfferings = DescribeReservedDBInstancesOfferings
     { drdbiomDBInstanceClass :: Maybe Text
       -- ^ The DB instance class filter value. Specify this parameter to show only the

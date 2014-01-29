@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVpnConnectionRoute :: Text
+                         -> Text
+                         -> AWS (Either EC2Error DeleteVpnConnectionRouteResponse)
+deleteVpnConnectionRoute p1 p2 = undefined $ DeleteVpnConnectionRoute
+    { dvcrrDestinationCidrBlock = p1
+    , dvcrrVpnConnectionId = p2
+    }
+
 data DeleteVpnConnectionRoute = DeleteVpnConnectionRoute
     { dvcrrDestinationCidrBlock :: !Text
     , dvcrrVpnConnectionId :: !Text

@@ -44,6 +44,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getEndpointAttributes :: Text
+                      -> AWS (Either SNSError GetEndpointAttributesResponse)
+getEndpointAttributes p1 = undefined $ GetEndpointAttributes
+    { geaiEndpointArn = p1
+    }
+
 data GetEndpointAttributes = GetEndpointAttributes
     { geaiEndpointArn :: !Text
       -- ^ EndpointArn for GetEndpointAttributes input.

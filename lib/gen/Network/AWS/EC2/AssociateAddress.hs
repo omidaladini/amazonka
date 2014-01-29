@@ -36,6 +36,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+associateAddress :: AWS (Either EC2Error AssociateAddressResponse)
+associateAddress = undefined $ AssociateAddress
+    { aasAllocationId = Nothing
+    , aasAllowReassociation = Nothing
+    , aasDryRun = Nothing
+    , aasInstanceId = Nothing
+    , aasNetworkInterfaceId = Nothing
+    , aasPrivateIpAddress = Nothing
+    , aasPublicIp = Nothing
+    }
+
 data AssociateAddress = AssociateAddress
     { aasAllocationId :: Maybe Text
       -- ^ The allocation ID that AWS returned when you allocated the elastic IP

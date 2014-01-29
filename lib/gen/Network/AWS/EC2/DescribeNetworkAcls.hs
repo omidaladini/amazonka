@@ -44,6 +44,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeNetworkAcls :: AWS (Either EC2Error DescribeNetworkAclsResponse)
+describeNetworkAcls = undefined $ DescribeNetworkAcls
+    { dnasDryRun = Nothing
+    , dnasFilters = []
+    , dnasNetworkAclIds = []
+    }
+
 data DescribeNetworkAcls = DescribeNetworkAcls
     { dnasDryRun :: Maybe Bool
     , dnasFilters :: [Filter]

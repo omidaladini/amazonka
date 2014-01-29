@@ -44,6 +44,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listAccessKeys :: AWS (Either IAMError ListAccessKeysResponse)
+listAccessKeys = undefined $ ListAccessKeys
+    { lakrMarker = Nothing
+    , lakrMaxItems = Nothing
+    , lakrUserName = Nothing
+    }
+
 data ListAccessKeys = ListAccessKeys
     { lakrMarker :: Maybe Text
       -- ^ Use this parameter only when paginating results, and only in a subsequent

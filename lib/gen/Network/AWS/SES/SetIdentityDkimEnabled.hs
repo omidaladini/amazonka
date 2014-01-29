@@ -51,6 +51,15 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+setIdentityDkimEnabled :: Bool
+                       -> Text
+                       -> AWS (Either SESError SetIdentityDkimEnabledResponse)
+setIdentityDkimEnabled p1 p2 = undefined $ SetIdentityDkimEnabled
+    { siderDkimEnabled = p1
+    , siderIdentity = p2
+    }
+
 data SetIdentityDkimEnabled = SetIdentityDkimEnabled
     { siderDkimEnabled :: !Bool
       -- ^ Sets whether DKIM signing is enabled for an identity. Set to true to enable

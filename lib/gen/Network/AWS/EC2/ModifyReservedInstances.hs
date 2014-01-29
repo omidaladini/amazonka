@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyReservedInstances :: [Text]
+                        -> [ReservedInstancesConfiguration]
+                        -> AWS (Either EC2Error ModifyReservedInstancesResponse)
+modifyReservedInstances p1 p2 = undefined $ ModifyReservedInstances
+    { mrirReservedInstancesIds = p1
+    , mrirTargetConfigurations = p2
+    , mrirClientToken = Nothing
+    }
+
 data ModifyReservedInstances = ModifyReservedInstances
     { mrirClientToken :: Maybe Text
       -- ^ A unique, case-sensitive, token you provide to ensure idempotency of your

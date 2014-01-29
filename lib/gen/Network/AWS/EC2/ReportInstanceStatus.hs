@@ -32,6 +32,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+reportInstanceStatus :: AWS (Either EC2Error ReportInstanceStatusResponse)
+reportInstanceStatus = undefined $ ReportInstanceStatus
+    { risrDescription = Nothing
+    , risrDryRun = Nothing
+    , risrEndTime = Nothing
+    , risrInstances = []
+    , risrReasonCodes = []
+    , risrStartTime = Nothing
+    , risrStatus = Nothing
+    }
+
 data ReportInstanceStatus = ReportInstanceStatus
     { risrDescription :: Maybe Text
     , risrDryRun :: Maybe Bool

@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+setInstanceHealth :: Text
+                  -> Text
+                  -> AWS (Either AutoScalingError SetInstanceHealthResponse)
+setInstanceHealth p1 p2 = undefined $ SetInstanceHealth
+    { sihqHealthStatus = p1
+    , sihqInstanceId = p2
+    , sihqShouldRespectGracePeriod = Nothing
+    }
+
 data SetInstanceHealth = SetInstanceHealth
     { sihqHealthStatus :: !Text
       -- ^ The health status of the instance. Set to Healthy if you want the instance

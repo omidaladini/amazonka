@@ -37,6 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeScalingProcessTypes :: AWS (Either AutoScalingError DescribeScalingProcessTypesResponse)
+describeScalingProcessTypes = undefined DescribeScalingProcessTypes
+
 data DescribeScalingProcessTypes = DescribeScalingProcessTypes
     deriving (Eq, Show, Generic)
 

@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEventSubscriptions :: AWS (Either RedshiftError DescribeEventSubscriptionsResponse)
+describeEventSubscriptions = undefined $ DescribeEventSubscriptions
+    { desnMarker = Nothing
+    , desnMaxRecords = Nothing
+    , desnSubscriptionName = Nothing
+    }
+
 data DescribeEventSubscriptions = DescribeEventSubscriptions
     { desnMarker :: Maybe Text
       -- ^ An optional pagination token provided by a previous

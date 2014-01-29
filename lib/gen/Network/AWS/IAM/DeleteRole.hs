@@ -38,6 +38,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteRole :: Text
+           -> AWS (Either IAMError DeleteRoleResponse)
+deleteRole p1 = undefined $ DeleteRole
+    { drrRoleName = p1
+    }
+
 data DeleteRole = DeleteRole
     { drrRoleName :: !Text
       -- ^ Name of the role to delete.

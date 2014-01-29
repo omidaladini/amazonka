@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteHsmConfiguration :: Text
+                       -> AWS (Either RedshiftError DeleteHsmConfigurationResponse)
+deleteHsmConfiguration p1 = undefined $ DeleteHsmConfiguration
+    { dhcmHsmConfigurationIdentifier = p1
+    }
+
 data DeleteHsmConfiguration = DeleteHsmConfiguration
     { dhcmHsmConfigurationIdentifier :: !Text
       -- ^ The identifier of the Amazon Redshift HSM configuration to be deleted.

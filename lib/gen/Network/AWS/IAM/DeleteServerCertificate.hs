@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteServerCertificate :: Text
+                        -> AWS (Either IAMError DeleteServerCertificateResponse)
+deleteServerCertificate p1 = undefined $ DeleteServerCertificate
+    { dscsServerCertificateName = p1
+    }
+
 data DeleteServerCertificate = DeleteServerCertificate
     { dscsServerCertificateName :: !Text
       -- ^ The name of the server certificate you want to delete.

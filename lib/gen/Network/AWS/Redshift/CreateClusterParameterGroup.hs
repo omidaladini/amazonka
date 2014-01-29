@@ -48,6 +48,17 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+createClusterParameterGroup :: Text
+                            -> Text
+                            -> Text
+                            -> AWS (Either RedshiftError CreateClusterParameterGroupResponse)
+createClusterParameterGroup p1 p2 p3 = undefined $ CreateClusterParameterGroup
+    { ccpgmDescription = p1
+    , ccpgmParameterGroupFamily = p2
+    , ccpgmParameterGroupName = p3
+    }
+
 data CreateClusterParameterGroup = CreateClusterParameterGroup
     { ccpgmDescription :: !Text
       -- ^ A description of the parameter group.

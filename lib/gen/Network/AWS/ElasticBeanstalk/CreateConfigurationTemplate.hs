@@ -81,6 +81,20 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+createConfigurationTemplate :: Text
+                            -> Text
+                            -> AWS (Either ElasticBeanstalkError CreateConfigurationTemplateResponse)
+createConfigurationTemplate p1 p2 = undefined $ CreateConfigurationTemplate
+    { cctmApplicationName = p1
+    , cctmTemplateName = p2
+    , cctmDescription = Nothing
+    , cctmEnvironmentId = Nothing
+    , cctmOptionSettings = []
+    , cctmSolutionStackName = Nothing
+    , cctmSourceConfiguration = Nothing
+    }
+
 data CreateConfigurationTemplate = CreateConfigurationTemplate
     { cctmApplicationName :: !Text
       -- ^ The name of the application to associate with this configuration template.

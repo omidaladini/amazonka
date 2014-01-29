@@ -38,6 +38,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+listMetrics :: AWS (Either CloudWatchError ListMetricsResponse)
+listMetrics = undefined $ ListMetrics
+    { lmiDimensions = []
+    , lmiMetricName = Nothing
+    , lmiNamespace = Nothing
+    , lmiNextToken = Nothing
+    }
+
 data ListMetrics = ListMetrics
     { lmiDimensions :: [DimensionFilter]
       -- ^ A list of dimensions to filter against.

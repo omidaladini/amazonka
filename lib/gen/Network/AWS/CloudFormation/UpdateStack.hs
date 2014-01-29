@@ -48,6 +48,21 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateStack :: Text
+            -> AWS (Either CloudFormationError UpdateStackResponse)
+updateStack p1 = undefined $ UpdateStack
+    { usiStackName = p1
+    , usiCapabilities = []
+    , usiParameters = []
+    , usiStackPolicyBody = Nothing
+    , usiStackPolicyDuringUpdateBody = Nothing
+    , usiStackPolicyDuringUpdateURL = Nothing
+    , usiStackPolicyURL = Nothing
+    , usiTemplateBody = Nothing
+    , usiTemplateURL = Nothing
+    }
+
 data UpdateStack = UpdateStack
     { usiCapabilities :: [Capability]
       -- ^ The list of capabilities that you want to allow in the stack. If your stack

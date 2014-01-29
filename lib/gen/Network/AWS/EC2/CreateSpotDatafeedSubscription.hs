@@ -35,6 +35,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSpotDatafeedSubscription :: Text
+                               -> AWS (Either EC2Error CreateSpotDatafeedSubscriptionResponse)
+createSpotDatafeedSubscription p1 = undefined $ CreateSpotDatafeedSubscription
+    { csdsrBucket = p1
+    , csdsrDryRun = Nothing
+    , csdsrPrefix = Nothing
+    }
+
 data CreateSpotDatafeedSubscription = CreateSpotDatafeedSubscription
     { csdsrBucket :: !Text
       -- ^ The Amazon S3 bucket in which to store the Spot Instance datafeed.

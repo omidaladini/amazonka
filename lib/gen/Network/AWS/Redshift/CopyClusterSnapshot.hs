@@ -50,6 +50,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+copyClusterSnapshot :: Text
+                    -> Text
+                    -> AWS (Either RedshiftError CopyClusterSnapshotResponse)
+copyClusterSnapshot p1 p2 = undefined $ CopyClusterSnapshot
+    { ccsnSourceSnapshotIdentifier = p1
+    , ccsnTargetSnapshotIdentifier = p2
+    , ccsnSourceSnapshotClusterIdentifier = Nothing
+    }
+
 data CopyClusterSnapshot = CopyClusterSnapshot
     { ccsnSourceSnapshotClusterIdentifier :: Maybe Text
       -- ^ The identifier of the cluster the source snapshot was created from. This

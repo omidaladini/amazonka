@@ -42,6 +42,17 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+validateConfigurationSettings :: Text
+                              -> [ConfigurationOptionSetting]
+                              -> AWS (Either ElasticBeanstalkError ValidateConfigurationSettingsResponse)
+validateConfigurationSettings p1 p2 = undefined $ ValidateConfigurationSettings
+    { vcsmApplicationName = p1
+    , vcsmOptionSettings = p2
+    , vcsmEnvironmentName = Nothing
+    , vcsmTemplateName = Nothing
+    }
+
 data ValidateConfigurationSettings = ValidateConfigurationSettings
     { vcsmApplicationName :: !Text
       -- ^ The name of the application that the configuration template or environment

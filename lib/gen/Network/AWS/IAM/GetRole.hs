@@ -44,6 +44,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getRole :: Text
+        -> AWS (Either IAMError GetRoleResponse)
+getRole p1 = undefined $ GetRole
+    { grrRoleName = p1
+    }
+
 data GetRole = GetRole
     { grrRoleName :: !Text
       -- ^ Name of the role to get information about.

@@ -37,6 +37,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+detachInternetGateway :: Text
+                      -> Text
+                      -> AWS (Either EC2Error DetachInternetGatewayResponse)
+detachInternetGateway p1 p2 = undefined $ DetachInternetGateway
+    { digrInternetGatewayId = p1
+    , digrVpcId = p2
+    , digrDryRun = Nothing
+    }
+
 data DetachInternetGateway = DetachInternetGateway
     { digrDryRun :: Maybe Bool
     , digrInternetGatewayId :: !Text

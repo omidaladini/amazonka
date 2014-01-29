@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteTags :: [Tag]
+           -> AWS (Either AutoScalingError DeleteTagsResponse)
+deleteTags p1 = undefined $ DeleteTags
+    { dtuTags = p1
+    }
+
 data DeleteTags = DeleteTags
     { dtuTags :: [Tag]
       -- ^ Each tag should be defined by its resource type, resource ID, key, value,

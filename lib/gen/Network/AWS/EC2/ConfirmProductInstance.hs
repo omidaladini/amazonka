@@ -37,6 +37,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+confirmProductInstance :: Text
+                       -> Text
+                       -> AWS (Either EC2Error ConfirmProductInstanceResponse)
+confirmProductInstance p1 p2 = undefined $ ConfirmProductInstance
+    { cpirInstanceId = p1
+    , cpirProductCode = p2
+    , cpirDryRun = Nothing
+    }
+
 data ConfirmProductInstance = ConfirmProductInstance
     { cpirDryRun :: Maybe Bool
     , cpirInstanceId :: !Text

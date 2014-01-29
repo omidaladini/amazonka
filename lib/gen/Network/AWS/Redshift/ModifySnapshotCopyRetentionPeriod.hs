@@ -33,6 +33,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifySnapshotCopyRetentionPeriod :: Text
+                                  -> Int
+                                  -> AWS (Either RedshiftError ModifySnapshotCopyRetentionPeriodResponse)
+modifySnapshotCopyRetentionPeriod p1 p2 = undefined $ ModifySnapshotCopyRetentionPeriod
+    { mscrpmClusterIdentifier = p1
+    , mscrpmRetentionPeriod = p2
+    }
+
 data ModifySnapshotCopyRetentionPeriod = ModifySnapshotCopyRetentionPeriod
     { mscrpmClusterIdentifier :: !Text
       -- ^ The unique identifier of the cluster for which you want to change the

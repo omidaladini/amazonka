@@ -38,7 +38,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putBucketLifecycle :: Text -- ^ Bucket
+putBucketLifecycle :: Text
                    -> AWS (Either S3Error PutBucketLifecycleResponse)
 putBucketLifecycle p1 = undefined $ PutBucketLifecycle
     { pbmBucket = p1

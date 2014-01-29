@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+executePolicy :: ResourceName
+              -> AWS (Either AutoScalingError ExecutePolicyResponse)
+executePolicy p1 = undefined $ ExecutePolicy
+    { eptPolicyName = p1
+    , eptAutoScalingGroupName = Nothing
+    , eptHonorCooldown = Nothing
+    }
+
 data ExecutePolicy = ExecutePolicy
     { eptAutoScalingGroupName :: Maybe ResourceName
       -- ^ The name or the Amazon Resource Name (ARN) of the Auto Scaling group.

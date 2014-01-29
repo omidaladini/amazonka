@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEngineDefaultParameters :: Text
+                                -> AWS (Either RDSError DescribeEngineDefaultParametersResponse)
+describeEngineDefaultParameters p1 = undefined $ DescribeEngineDefaultParameters
+    { dedpmDBParameterGroupFamily = p1
+    , dedpmMarker = Nothing
+    , dedpmMaxRecords = Nothing
+    }
+
 data DescribeEngineDefaultParameters = DescribeEngineDefaultParameters
     { dedpmDBParameterGroupFamily :: !Text
       -- ^ The name of the DB parameter group family.

@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createTopic :: Text
+            -> AWS (Either SNSError CreateTopicResponse)
+createTopic p1 = undefined $ CreateTopic
+    { ctiName = p1
+    }
+
 data CreateTopic = CreateTopic
     { ctiName :: !Text
       -- ^ The name of the topic you want to create. Constraints: Topic names must be

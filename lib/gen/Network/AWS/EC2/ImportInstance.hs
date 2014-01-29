@@ -32,6 +32,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+importInstance :: PlatformValues
+               -> AWS (Either EC2Error ImportInstanceResponse)
+importInstance p1 = undefined $ ImportInstance
+    { iirPlatform = p1
+    , iirDescription = Nothing
+    , iirDiskImages = []
+    , iirDryRun = Nothing
+    , iirLaunchSpecification = Nothing
+    }
+
 data ImportInstance = ImportInstance
     { iirDescription :: Maybe Text
     , iirDiskImages :: [DiskImage]

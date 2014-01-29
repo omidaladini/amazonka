@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetNetworkInterfaceAttribute :: Text
+                               -> AWS (Either EC2Error ResetNetworkInterfaceAttributeResponse)
+resetNetworkInterfaceAttribute p1 = undefined $ ResetNetworkInterfaceAttribute
+    { rniarNetworkInterfaceId = p1
+    , rniarDryRun = Nothing
+    , rniarSourceDestCheck = Nothing
+    }
+
 data ResetNetworkInterfaceAttribute = ResetNetworkInterfaceAttribute
     { rniarDryRun :: Maybe Bool
     , rniarNetworkInterfaceId :: !Text

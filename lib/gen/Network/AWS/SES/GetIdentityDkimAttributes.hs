@@ -56,6 +56,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+getIdentityDkimAttributes :: [Text]
+                          -> AWS (Either SESError GetIdentityDkimAttributesResponse)
+getIdentityDkimAttributes p1 = undefined $ GetIdentityDkimAttributes
+    { gidarIdentities = p1
+    }
+
 data GetIdentityDkimAttributes = GetIdentityDkimAttributes
     { gidarIdentities :: [Text]
       -- ^ A list of one or more verified identities - email addresses, domains, or

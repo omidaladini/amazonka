@@ -38,7 +38,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-headBucket :: Text -- ^ Bucket
+headBucket :: Text
            -> AWS (Either S3Error HeadBucketResponse)
 headBucket p1 = undefined $ HeadBucket
     { hbBucket = p1

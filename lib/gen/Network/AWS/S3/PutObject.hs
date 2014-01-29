@@ -37,9 +37,9 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putObject :: Text -- ^ Bucket
-          -> Text -- ^ Key
-          -> RequestBody -- ^ Body
+putObject :: Text
+          -> Text
+          -> RequestBody
           -> AWS (Either S3Error PutObjectResponse)
 putObject p1 p2 p3 = undefined $ PutObject
     { poBucket = p1
@@ -58,7 +58,7 @@ putObject p1 p2 p3 = undefined $ PutObject
     , poGrantRead = Nothing
     , poGrantReadACP = Nothing
     , poGrantWriteACP = Nothing
-    , poMetadata = mempty
+    , poMetadata = Map.empty
     , poServerSideEncryption = Nothing
     , poStorageClass = Nothing
     , poWebsiteRedirectLocation = Nothing

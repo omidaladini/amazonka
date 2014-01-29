@@ -42,6 +42,14 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createQueue :: Text
+            -> AWS (Either SQSError CreateQueueResponse)
+createQueue p1 = undefined $ CreateQueue
+    { cqrQueueName = p1
+    , cqrAttributes = Map.empty
+    }
+
 data CreateQueue = CreateQueue
     { cqrAttributes :: HashMap QueueAttributeName Text
       -- ^ A map of attributes with their corresponding values.

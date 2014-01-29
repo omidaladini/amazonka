@@ -38,6 +38,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getUserPolicy :: Text
+              -> Text
+              -> AWS (Either IAMError GetUserPolicyResponse)
+getUserPolicy p1 p2 = undefined $ GetUserPolicy
+    { guprPolicyName = p1
+    , guprUserName = p2
+    }
+
 data GetUserPolicy = GetUserPolicy
     { guprPolicyName :: !Text
       -- ^ Name of the policy document to get.

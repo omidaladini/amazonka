@@ -48,6 +48,22 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+putScheduledUpdateGroupAction :: ResourceName
+                              -> Text
+                              -> AWS (Either AutoScalingError PutScheduledUpdateGroupActionResponse)
+putScheduledUpdateGroupAction p1 p2 = undefined $ PutScheduledUpdateGroupAction
+    { psugatAutoScalingGroupName = p1
+    , psugatScheduledActionName = p2
+    , psugatDesiredCapacity = Nothing
+    , psugatEndTime = Nothing
+    , psugatMaxSize = Nothing
+    , psugatMinSize = Nothing
+    , psugatRecurrence = Nothing
+    , psugatStartTime = Nothing
+    , psugatTime = Nothing
+    }
+
 data PutScheduledUpdateGroupAction = PutScheduledUpdateGroupAction
     { psugatAutoScalingGroupName :: !ResourceName
       -- ^ The name or ARN of the Auto Scaling group.

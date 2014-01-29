@@ -40,6 +40,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteEndpoint :: Text
+               -> AWS (Either SNSError DeleteEndpointResponse)
+deleteEndpoint p1 = undefined $ DeleteEndpoint
+    { deiEndpointArn = p1
+    }
+
 data DeleteEndpoint = DeleteEndpoint
     { deiEndpointArn :: !Text
       -- ^ EndpointArn of endpoint to delete.

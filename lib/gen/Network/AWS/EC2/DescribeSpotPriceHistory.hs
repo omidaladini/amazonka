@@ -37,6 +37,20 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeSpotPriceHistory :: AWS (Either EC2Error DescribeSpotPriceHistoryResponse)
+describeSpotPriceHistory = undefined $ DescribeSpotPriceHistory
+    { dsphrAvailabilityZone = Nothing
+    , dsphrDryRun = Nothing
+    , dsphrEndTime = Nothing
+    , dsphrFilters = []
+    , dsphrInstanceTypes = []
+    , dsphrMaxResults = Nothing
+    , dsphrNextToken = Nothing
+    , dsphrProductDescriptions = []
+    , dsphrStartTime = Nothing
+    }
+
 data DescribeSpotPriceHistory = DescribeSpotPriceHistory
     { dsphrAvailabilityZone :: Maybe Text
       -- ^ Filters the results by availability zone (ex: 'us-east-1a').

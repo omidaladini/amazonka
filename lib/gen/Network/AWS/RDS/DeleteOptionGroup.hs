@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteOptionGroup :: Text
+                  -> AWS (Either RDSError DeleteOptionGroupResponse)
+deleteOptionGroup p1 = undefined $ DeleteOptionGroup
+    { dognOptionGroupName = p1
+    }
+
 data DeleteOptionGroup = DeleteOptionGroup
     { dognOptionGroupName :: !Text
       -- ^ The name of the option group to be deleted. You cannot delete default

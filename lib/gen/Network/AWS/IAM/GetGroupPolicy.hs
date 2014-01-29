@@ -38,6 +38,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getGroupPolicy :: Text
+               -> Text
+               -> AWS (Either IAMError GetGroupPolicyResponse)
+getGroupPolicy p1 p2 = undefined $ GetGroupPolicy
+    { ggprGroupName = p1
+    , ggprPolicyName = p2
+    }
+
 data GetGroupPolicy = GetGroupPolicy
     { ggprGroupName :: !Text
       -- ^ Name of the group the policy is associated with.

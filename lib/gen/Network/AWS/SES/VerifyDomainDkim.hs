@@ -53,6 +53,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+verifyDomainDkim :: Text
+                 -> AWS (Either SESError VerifyDomainDkimResponse)
+verifyDomainDkim p1 = undefined $ VerifyDomainDkim
+    { vddrDomain = p1
+    }
+
 data VerifyDomainDkim = VerifyDomainDkim
     { vddrDomain :: !Text
       -- ^ The name of the domain to be verified for Easy DKIM signing.

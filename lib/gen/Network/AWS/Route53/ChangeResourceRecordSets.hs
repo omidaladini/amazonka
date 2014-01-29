@@ -54,12 +54,12 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-changeResourceRecordSets :: Text -- ^ HostedZoneId
-                         -> ChangeBatch -- ^ ChangeBatch
+changeResourceRecordSets :: ChangeBatch
+                         -> Text
                          -> AWS (Either Route53Error ChangeResourceRecordSetsResponse)
 changeResourceRecordSets p1 p2 = undefined $ ChangeResourceRecordSets
-    { crrsrHostedZoneId = p1
-    , crrsrChangeBatch = p2
+    { crrsrChangeBatch = p1
+    , crrsrHostedZoneId = p2
     }
 
 data ChangeResourceRecordSets = ChangeResourceRecordSets

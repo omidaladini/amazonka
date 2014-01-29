@@ -70,6 +70,15 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+sendRawEmail :: RawMessage
+             -> AWS (Either SESError SendRawEmailResponse)
+sendRawEmail p1 = undefined $ SendRawEmail
+    { srerRawMessage = p1
+    , srerDestinations = []
+    , srerSource = Nothing
+    }
+
 data SendRawEmail = SendRawEmail
     { srerDestinations :: [Text]
       -- ^ A list of destinations for the message.

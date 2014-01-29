@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getPlatformApplicationAttributes :: Text
+                                 -> AWS (Either SNSError GetPlatformApplicationAttributesResponse)
+getPlatformApplicationAttributes p1 = undefined $ GetPlatformApplicationAttributes
+    { gpaaiPlatformApplicationArn = p1
+    }
+
 data GetPlatformApplicationAttributes = GetPlatformApplicationAttributes
     { gpaaiPlatformApplicationArn :: !Text
       -- ^ PlatformApplicationArn for GetPlatformApplicationAttributesInput.

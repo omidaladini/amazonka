@@ -2,18 +2,10 @@
 {% when "map" %}
  HashMap {{ scope.key.shape_name }} {% include "type-inline.ede" with scope.value %}
 {% when "list" %}
-  {% if scope.length > 0 %}
  {% include "type-list.ede" with scope.item %}
-  {% else %}
- {% include "type-list.ede" with scope.item %}
-  {% endif %}
 {% else %}
   {% if scope.required %}
-    {% if scope.strict %}
  {{ scope.shape_name }}
-    {% else %}
- {{ scope.shape_name }}
-    {% endif %}
   {% else %}
  Maybe {{ scope.shape_name }}
   {% endif %}

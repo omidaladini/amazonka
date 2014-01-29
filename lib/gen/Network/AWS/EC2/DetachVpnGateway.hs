@@ -37,6 +37,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+detachVpnGateway :: Text
+                 -> Text
+                 -> AWS (Either EC2Error DetachVpnGatewayResponse)
+detachVpnGateway p1 p2 = undefined $ DetachVpnGateway
+    { dvgsVpcId = p1
+    , dvgsVpnGatewayId = p2
+    , dvgsDryRun = Nothing
+    }
+
 data DetachVpnGateway = DetachVpnGateway
     { dvgsDryRun :: Maybe Bool
     , dvgsVpcId :: !Text

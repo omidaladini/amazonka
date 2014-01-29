@@ -38,7 +38,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketLogging :: Text -- ^ Bucket
+getBucketLogging :: Text
                  -> AWS (Either S3Error GetBucketLoggingResponse)
 getBucketLogging p1 = undefined $ GetBucketLogging
     { gboBucket = p1

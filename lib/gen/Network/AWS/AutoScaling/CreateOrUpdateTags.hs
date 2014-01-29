@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+createOrUpdateTags :: [Tag]
+                   -> AWS (Either AutoScalingError CreateOrUpdateTagsResponse)
+createOrUpdateTags p1 = undefined $ CreateOrUpdateTags
+    { couttTags = p1
+    }
+
 data CreateOrUpdateTags = CreateOrUpdateTags
     { couttTags :: [Tag]
       -- ^ The tag to be created or updated. Each tag should be defined by its

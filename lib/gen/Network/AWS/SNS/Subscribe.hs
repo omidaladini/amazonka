@@ -42,6 +42,16 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+subscribe :: Text
+          -> Text
+          -> AWS (Either SNSError SubscribeResponse)
+subscribe p1 p2 = undefined $ Subscribe
+    { siProtocol = p1
+    , siTopicArn = p2
+    , siEndpoint = Nothing
+    }
+
 data Subscribe = Subscribe
     { siEndpoint :: Maybe Text
       -- ^ The endpoint that you want to receive notifications. Endpoints vary by

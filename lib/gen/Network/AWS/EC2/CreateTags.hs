@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createTags :: [Text]
+           -> [Tag]
+           -> AWS (Either EC2Error CreateTagsResponse)
+createTags p1 p2 = undefined $ CreateTags
+    { ctrResources = p1
+    , ctrTags = p2
+    , ctrDryRun = Nothing
+    }
+
 data CreateTags = CreateTags
     { ctrDryRun :: Maybe Bool
     , ctrResources :: [Text]

@@ -38,6 +38,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listMFADevices :: AWS (Either IAMError ListMFADevicesResponse)
+listMFADevices = undefined $ ListMFADevices
+    { lmfadrMarker = Nothing
+    , lmfadrMaxItems = Nothing
+    , lmfadrUserName = Nothing
+    }
+
 data ListMFADevices = ListMFADevices
     { lmfadrMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

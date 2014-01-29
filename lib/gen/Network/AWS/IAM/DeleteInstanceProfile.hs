@@ -40,6 +40,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteInstanceProfile :: Text
+                      -> AWS (Either IAMError DeleteInstanceProfileResponse)
+deleteInstanceProfile p1 = undefined $ DeleteInstanceProfile
+    { diprInstanceProfileName = p1
+    }
+
 data DeleteInstanceProfile = DeleteInstanceProfile
     { diprInstanceProfileName :: !Text
       -- ^ Name of the instance profile to delete.

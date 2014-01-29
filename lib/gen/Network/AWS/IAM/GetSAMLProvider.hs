@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getSAMLProvider :: Text
+                -> AWS (Either IAMError GetSAMLProviderResponse)
+getSAMLProvider p1 = undefined $ GetSAMLProvider
+    { gsamlprSAMLProviderArn = p1
+    }
+
 data GetSAMLProvider = GetSAMLProvider
     { gsamlprSAMLProviderArn :: !Text
       -- ^ The Amazon Resource Name (ARN) of the SAML provider to get information

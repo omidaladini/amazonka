@@ -34,6 +34,17 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeScheduledActions :: AWS (Either AutoScalingError DescribeScheduledActionsResponse)
+describeScheduledActions = undefined $ DescribeScheduledActions
+    { dsauAutoScalingGroupName = Nothing
+    , dsauEndTime = Nothing
+    , dsauMaxRecords = Nothing
+    , dsauNextToken = Nothing
+    , dsauScheduledActionNames = []
+    , dsauStartTime = Nothing
+    }
+
 data DescribeScheduledActions = DescribeScheduledActions
     { dsauAutoScalingGroupName :: Maybe ResourceName
       -- ^ The name of the Auto Scaling group.

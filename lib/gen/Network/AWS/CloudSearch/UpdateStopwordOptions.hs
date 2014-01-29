@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateStopwordOptions :: Text
+                      -> Text
+                      -> AWS (Either CloudSearchError UpdateStopwordOptionsResponse)
+updateStopwordOptions p1 p2 = undefined $ UpdateStopwordOptions
+    { usorDomainName = p1
+    , usorStopwords = p2
+    }
+
 data UpdateStopwordOptions = UpdateStopwordOptions
     { usorDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

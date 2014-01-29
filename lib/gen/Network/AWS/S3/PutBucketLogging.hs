@@ -39,8 +39,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putBucketLogging :: Text -- ^ Bucket
-                 -> BucketLoggingStatus -- ^ BucketLoggingStatus
+putBucketLogging :: Text
+                 -> BucketLoggingStatus
                  -> AWS (Either S3Error PutBucketLoggingResponse)
 putBucketLogging p1 p2 = undefined $ PutBucketLogging
     { pblBucket = p1

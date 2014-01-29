@@ -43,6 +43,14 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCacheParameterGroups :: AWS (Either ElastiCacheError DescribeCacheParameterGroupsResponse)
+describeCacheParameterGroups = undefined $ DescribeCacheParameterGroups
+    { dcpgmCacheParameterGroupName = Nothing
+    , dcpgmMarker = Nothing
+    , dcpgmMaxRecords = Nothing
+    }
+
 data DescribeCacheParameterGroups = DescribeCacheParameterGroups
     { dcpgmCacheParameterGroupName :: Maybe Text
       -- ^ The name of a specific cache parameter group to return details for.

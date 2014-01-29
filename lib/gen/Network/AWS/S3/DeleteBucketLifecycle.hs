@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-deleteBucketLifecycle :: Text -- ^ Bucket
+deleteBucketLifecycle :: Text
                       -> AWS (Either S3Error DeleteBucketLifecycleResponse)
 deleteBucketLifecycle p1 = undefined $ DeleteBucketLifecycle
     { dblBucket = p1

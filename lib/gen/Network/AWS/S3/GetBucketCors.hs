@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketCors :: Text -- ^ Bucket
+getBucketCors :: Text
               -> AWS (Either S3Error GetBucketCorsResponse)
 getBucketCors p1 = undefined $ GetBucketCors
     { gbcBucket = p1

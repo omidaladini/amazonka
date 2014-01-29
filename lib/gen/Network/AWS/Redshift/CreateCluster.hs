@@ -60,6 +60,37 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCluster :: Text
+              -> Text
+              -> Text
+              -> Text
+              -> AWS (Either RedshiftError CreateClusterResponse)
+createCluster p1 p2 p3 p4 = undefined $ CreateCluster
+    { ccmClusterIdentifier = p1
+    , ccmMasterUserPassword = p2
+    , ccmMasterUsername = p3
+    , ccmNodeType = p4
+    , ccmAllowVersionUpgrade = Nothing
+    , ccmAutomatedSnapshotRetentionPeriod = Nothing
+    , ccmAvailabilityZone = Nothing
+    , ccmClusterParameterGroupName = Nothing
+    , ccmClusterSecurityGroups = []
+    , ccmClusterSubnetGroupName = Nothing
+    , ccmClusterType = Nothing
+    , ccmClusterVersion = Nothing
+    , ccmDBName = Nothing
+    , ccmElasticIp = Nothing
+    , ccmEncrypted = Nothing
+    , ccmHsmClientCertificateIdentifier = Nothing
+    , ccmHsmConfigurationIdentifier = Nothing
+    , ccmNumberOfNodes = Nothing
+    , ccmPort = Nothing
+    , ccmPreferredMaintenanceWindow = Nothing
+    , ccmPubliclyAccessible = Nothing
+    , ccmVpcSecurityGroupIds = []
+    }
+
 data CreateCluster = CreateCluster
     { ccmAllowVersionUpgrade :: Maybe Bool
       -- ^ If true, upgrades can be applied during the maintenance window to the

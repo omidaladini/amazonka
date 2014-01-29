@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+setQueueAttributes :: HashMap QueueAttributeName Text
+                   -> Text
+                   -> AWS (Either SQSError SetQueueAttributesResponse)
+setQueueAttributes p1 p2 = undefined $ SetQueueAttributes
+    { sqarAttributes = p1
+    , sqarQueueUrl = p2
+    }
+
 data SetQueueAttributes = SetQueueAttributes
     { sqarAttributes :: HashMap QueueAttributeName Text
       -- ^ A map of attributes to set.

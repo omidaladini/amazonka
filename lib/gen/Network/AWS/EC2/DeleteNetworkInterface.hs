@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteNetworkInterface :: Text
+                       -> AWS (Either EC2Error DeleteNetworkInterfaceResponse)
+deleteNetworkInterface p1 = undefined $ DeleteNetworkInterface
+    { dnitNetworkInterfaceId = p1
+    , dnitDryRun = Nothing
+    }
+
 data DeleteNetworkInterface = DeleteNetworkInterface
     { dnitDryRun :: Maybe Bool
     , dnitNetworkInterfaceId :: !Text

@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyVpcAttribute :: Text
+                   -> AWS (Either EC2Error ModifyVpcAttributeResponse)
+modifyVpcAttribute p1 = undefined $ ModifyVpcAttribute
+    { mvasVpcId = p1
+    , mvasEnableDnsHostnames = Nothing
+    , mvasEnableDnsSupport = Nothing
+    }
+
 data ModifyVpcAttribute = ModifyVpcAttribute
     { mvasEnableDnsHostnames :: Maybe AttributeBooleanValue
       -- ^ Boolean value.

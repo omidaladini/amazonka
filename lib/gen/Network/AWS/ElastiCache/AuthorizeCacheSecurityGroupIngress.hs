@@ -43,6 +43,17 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+authorizeCacheSecurityGroupIngress :: Text
+                                   -> Text
+                                   -> Text
+                                   -> AWS (Either ElastiCacheError AuthorizeCacheSecurityGroupIngressResponse)
+authorizeCacheSecurityGroupIngress p1 p2 p3 = undefined $ AuthorizeCacheSecurityGroupIngress
+    { acsgimCacheSecurityGroupName = p1
+    , acsgimEC2SecurityGroupName = p2
+    , acsgimEC2SecurityGroupOwnerId = p3
+    }
+
 data AuthorizeCacheSecurityGroupIngress = AuthorizeCacheSecurityGroupIngress
     { acsgimCacheSecurityGroupName :: !Text
       -- ^ The cache security group which will allow network ingress.

@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachInternetGateway :: Text
+                      -> Text
+                      -> AWS (Either EC2Error AttachInternetGatewayResponse)
+attachInternetGateway p1 p2 = undefined $ AttachInternetGateway
+    { aigrInternetGatewayId = p1
+    , aigrVpcId = p2
+    , aigrDryRun = Nothing
+    }
+
 data AttachInternetGateway = AttachInternetGateway
     { aigrDryRun :: Maybe Bool
     , aigrInternetGatewayId :: !Text

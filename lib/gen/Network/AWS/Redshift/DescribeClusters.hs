@@ -45,6 +45,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeClusters :: AWS (Either RedshiftError DescribeClustersResponse)
+describeClusters = undefined $ DescribeClusters
+    { dcmClusterIdentifier = Nothing
+    , dcmMarker = Nothing
+    , dcmMaxRecords = Nothing
+    }
+
 data DescribeClusters = DescribeClusters
     { dcmClusterIdentifier :: Maybe Text
       -- ^ The unique identifier of a cluster whose properties you are requesting.

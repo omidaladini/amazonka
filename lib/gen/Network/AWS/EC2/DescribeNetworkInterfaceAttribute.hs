@@ -32,6 +32,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeNetworkInterfaceAttribute :: Text
+                                  -> AWS (Either EC2Error DescribeNetworkInterfaceAttributeResponse)
+describeNetworkInterfaceAttribute p1 = undefined $ DescribeNetworkInterfaceAttribute
+    { dniarNetworkInterfaceId = p1
+    , dniarAttachment = Nothing
+    , dniarDescription = Nothing
+    , dniarDryRun = Nothing
+    , dniarGroups = Nothing
+    , dniarSourceDestCheck = Nothing
+    }
+
 data DescribeNetworkInterfaceAttribute = DescribeNetworkInterfaceAttribute
     { dniarAttachment :: Maybe Text
     , dniarDescription :: Maybe Text

@@ -41,6 +41,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteTopic :: Text
+            -> AWS (Either SNSError DeleteTopicResponse)
+deleteTopic p1 = undefined $ DeleteTopic
+    { dtiTopicArn = p1
+    }
+
 data DeleteTopic = DeleteTopic
     { dtiTopicArn :: !Text
       -- ^ The ARN of the topic you want to delete.

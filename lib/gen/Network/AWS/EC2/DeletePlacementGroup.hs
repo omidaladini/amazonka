@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deletePlacementGroup :: Text
+                     -> AWS (Either EC2Error DeletePlacementGroupResponse)
+deletePlacementGroup p1 = undefined $ DeletePlacementGroup
+    { dpgrGroupName = p1
+    , dpgrDryRun = Nothing
+    }
+
 data DeletePlacementGroup = DeletePlacementGroup
     { dpgrDryRun :: Maybe Bool
     , dpgrGroupName :: !Text

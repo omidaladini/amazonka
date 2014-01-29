@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeBundleTasks :: AWS (Either EC2Error DescribeBundleTasksResponse)
+describeBundleTasks = undefined $ DescribeBundleTasks
+    { dbtrBundleIds = []
+    , dbtrDryRun = Nothing
+    , dbtrFilters = []
+    }
+
 data DescribeBundleTasks = DescribeBundleTasks
     { dbtrBundleIds :: [Text]
       -- ^ The list of bundle task IDs to describe.

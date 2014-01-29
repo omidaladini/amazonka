@@ -39,6 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+startInstances :: [Text]
+               -> AWS (Either EC2Error StartInstancesResponse)
+startInstances p1 = undefined $ StartInstances
+    { sisInstanceIds = p1
+    , sisAdditionalInfo = Nothing
+    , sisDryRun = Nothing
+    }
+
 data StartInstances = StartInstances
     { sisAdditionalInfo :: Maybe Text
     , sisDryRun :: Maybe Bool

@@ -38,6 +38,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createVpc :: Text
+          -> AWS (Either EC2Error CreateVpcResponse)
+createVpc p1 = undefined $ CreateVpc
+    { cvrCidrBlock = p1
+    , cvrDryRun = Nothing
+    , cvrInstanceTenancy = Nothing
+    }
+
 data CreateVpc = CreateVpc
     { cvrCidrBlock :: !Text
       -- ^ A valid CIDR block.

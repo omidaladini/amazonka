@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLoggingStatus :: Text
+                      -> AWS (Either RedshiftError DescribeLoggingStatusResponse)
+describeLoggingStatus p1 = undefined $ DescribeLoggingStatus
+    { dlsmClusterIdentifier = p1
+    }
+
 data DescribeLoggingStatus = DescribeLoggingStatus
     { dlsmClusterIdentifier :: !Text
       -- ^ The identifier of the cluster to get the logging status from. Example:

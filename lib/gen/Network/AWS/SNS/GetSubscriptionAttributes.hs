@@ -43,6 +43,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getSubscriptionAttributes :: Text
+                          -> AWS (Either SNSError GetSubscriptionAttributesResponse)
+getSubscriptionAttributes p1 = undefined $ GetSubscriptionAttributes
+    { gsaiSubscriptionArn = p1
+    }
+
 data GetSubscriptionAttributes = GetSubscriptionAttributes
     { gsaiSubscriptionArn :: !Text
       -- ^ The ARN of the subscription whose properties you want to get.

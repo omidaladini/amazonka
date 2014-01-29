@@ -32,6 +32,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyNetworkInterfaceAttribute :: Text
+                                -> AWS (Either EC2Error ModifyNetworkInterfaceAttributeResponse)
+modifyNetworkInterfaceAttribute p1 = undefined $ ModifyNetworkInterfaceAttribute
+    { mniarNetworkInterfaceId = p1
+    , mniarAttachment = Nothing
+    , mniarDescription = Nothing
+    , mniarDryRun = Nothing
+    , mniarGroups = []
+    , mniarSourceDestCheck = Nothing
+    }
+
 data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute
     { mniarAttachment :: Maybe NetworkInterfaceAttachmentChanges
     , mniarDescription :: Maybe AttributeValue

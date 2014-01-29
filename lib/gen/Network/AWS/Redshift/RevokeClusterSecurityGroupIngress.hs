@@ -44,6 +44,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+revokeClusterSecurityGroupIngress :: Text
+                                  -> AWS (Either RedshiftError RevokeClusterSecurityGroupIngressResponse)
+revokeClusterSecurityGroupIngress p1 = undefined $ RevokeClusterSecurityGroupIngress
+    { rcsgimClusterSecurityGroupName = p1
+    , rcsgimCIDRIP = Nothing
+    , rcsgimEC2SecurityGroupName = Nothing
+    , rcsgimEC2SecurityGroupOwnerId = Nothing
+    }
+
 data RevokeClusterSecurityGroupIngress = RevokeClusterSecurityGroupIngress
     { rcsgimCIDRIP :: Maybe Text
       -- ^ The IP range for which to revoke access. This range must be a valid

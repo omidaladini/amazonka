@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteRouteTable :: Text
+                 -> AWS (Either EC2Error DeleteRouteTableResponse)
+deleteRouteTable p1 = undefined $ DeleteRouteTable
+    { drtsRouteTableId = p1
+    , drtsDryRun = Nothing
+    }
+
 data DeleteRouteTable = DeleteRouteTable
     { drtsDryRun :: Maybe Bool
     , drtsRouteTableId :: !Text

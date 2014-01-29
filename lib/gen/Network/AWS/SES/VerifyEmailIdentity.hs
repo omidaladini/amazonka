@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+verifyEmailIdentity :: Text
+                    -> AWS (Either SESError VerifyEmailIdentityResponse)
+verifyEmailIdentity p1 = undefined $ VerifyEmailIdentity
+    { veirEmailAddress = p1
+    }
+
 data VerifyEmailIdentity = VerifyEmailIdentity
     { veirEmailAddress :: !Text
       -- ^ The email address to be verified.

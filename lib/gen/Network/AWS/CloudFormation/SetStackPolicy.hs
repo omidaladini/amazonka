@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+setStackPolicy :: Text
+               -> AWS (Either CloudFormationError SetStackPolicyResponse)
+setStackPolicy p1 = undefined $ SetStackPolicy
+    { sspiStackName = p1
+    , sspiStackPolicyBody = Nothing
+    , sspiStackPolicyURL = Nothing
+    }
+
 data SetStackPolicy = SetStackPolicy
     { sspiStackName :: !Text
       -- ^ The name or stack ID that you want to associate a policy with.

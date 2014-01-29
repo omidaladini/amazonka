@@ -43,7 +43,7 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-deleteHealthCheck :: Text -- ^ HealthCheckId
+deleteHealthCheck :: Text
                   -> AWS (Either Route53Error DeleteHealthCheckResponse)
 deleteHealthCheck p1 = undefined $ DeleteHealthCheck
     { dhcrHealthCheckId = p1

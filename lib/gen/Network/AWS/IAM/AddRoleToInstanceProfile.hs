@@ -37,6 +37,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+addRoleToInstanceProfile :: Text
+                         -> Text
+                         -> AWS (Either IAMError AddRoleToInstanceProfileResponse)
+addRoleToInstanceProfile p1 p2 = undefined $ AddRoleToInstanceProfile
+    { artiprInstanceProfileName = p1
+    , artiprRoleName = p2
+    }
+
 data AddRoleToInstanceProfile = AddRoleToInstanceProfile
     { artiprInstanceProfileName :: !Text
       -- ^ Name of the instance profile to update.

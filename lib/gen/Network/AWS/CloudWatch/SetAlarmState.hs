@@ -35,6 +35,18 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+setAlarmState :: Text
+              -> Text
+              -> StateValue
+              -> AWS (Either CloudWatchError SetAlarmStateResponse)
+setAlarmState p1 p2 p3 = undefined $ SetAlarmState
+    { sasiAlarmName = p1
+    , sasiStateReason = p2
+    , sasiStateValue = p3
+    , sasiStateReasonData = Nothing
+    }
+
 data SetAlarmState = SetAlarmState
     { sasiAlarmName :: !Text
       -- ^ The descriptive name for the alarm. This name must be unique within the

@@ -46,6 +46,16 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+confirmSubscription :: Text
+                    -> Text
+                    -> AWS (Either SNSError ConfirmSubscriptionResponse)
+confirmSubscription p1 p2 = undefined $ ConfirmSubscription
+    { csiToken = p1
+    , csiTopicArn = p2
+    , csiAuthenticateOnUnsubscribe = Nothing
+    }
+
 data ConfirmSubscription = ConfirmSubscription
     { csiAuthenticateOnUnsubscribe :: Maybe Text
       -- ^ Disallows unauthenticated unsubscribes of the subscription. If the value of

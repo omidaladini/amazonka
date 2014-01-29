@@ -47,6 +47,19 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeClusterSnapshots :: AWS (Either RedshiftError DescribeClusterSnapshotsResponse)
+describeClusterSnapshots = undefined $ DescribeClusterSnapshots
+    { dcsnClusterIdentifier = Nothing
+    , dcsnEndTime = Nothing
+    , dcsnMarker = Nothing
+    , dcsnMaxRecords = Nothing
+    , dcsnOwnerAccount = Nothing
+    , dcsnSnapshotIdentifier = Nothing
+    , dcsnSnapshotType = Nothing
+    , dcsnStartTime = Nothing
+    }
+
 data DescribeClusterSnapshots = DescribeClusterSnapshots
     { dcsnClusterIdentifier :: Maybe Text
       -- ^ The identifier of the cluster for which information about snapshots is

@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createNetworkAcl :: Text
+                 -> AWS (Either EC2Error CreateNetworkAclResponse)
+createNetworkAcl p1 = undefined $ CreateNetworkAcl
+    { cnarVpcId = p1
+    , cnarDryRun = Nothing
+    }
+
 data CreateNetworkAcl = CreateNetworkAcl
     { cnarDryRun :: Maybe Bool
     , cnarVpcId :: !Text

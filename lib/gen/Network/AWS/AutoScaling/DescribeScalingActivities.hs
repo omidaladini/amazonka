@@ -49,6 +49,15 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeScalingActivities :: AWS (Either AutoScalingError DescribeScalingActivitiesResponse)
+describeScalingActivities = undefined $ DescribeScalingActivities
+    { dsavActivityIds = []
+    , dsavAutoScalingGroupName = Nothing
+    , dsavMaxRecords = Nothing
+    , dsavNextToken = Nothing
+    }
+
 data DescribeScalingActivities = DescribeScalingActivities
     { dsavActivityIds :: [Text]
       -- ^ A list containing the activity IDs of the desired scaling activities. If

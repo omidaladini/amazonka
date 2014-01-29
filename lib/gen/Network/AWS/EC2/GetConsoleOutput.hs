@@ -36,6 +36,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+getConsoleOutput :: Text
+                 -> AWS (Either EC2Error GetConsoleOutputResponse)
+getConsoleOutput p1 = undefined $ GetConsoleOutput
+    { gcorInstanceId = p1
+    , gcorDryRun = Nothing
+    }
+
 data GetConsoleOutput = GetConsoleOutput
     { gcorDryRun :: Maybe Bool
     , gcorInstanceId :: !Text

@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+enableAlarmActions :: [Text]
+                   -> AWS (Either CloudWatchError EnableAlarmActionsResponse)
+enableAlarmActions p1 = undefined $ EnableAlarmActions
+    { eaaiAlarmNames = p1
+    }
+
 data EnableAlarmActions = EnableAlarmActions
     { eaaiAlarmNames :: [Text]
       -- ^ The names of the alarms to enable actions for.

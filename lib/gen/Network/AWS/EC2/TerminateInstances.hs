@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+terminateInstances :: [Text]
+                   -> AWS (Either EC2Error TerminateInstancesResponse)
+terminateInstances p1 = undefined $ TerminateInstances
+    { tirInstanceIds = p1
+    , tirDryRun = Nothing
+    }
+
 data TerminateInstances = TerminateInstances
     { tirDryRun :: Maybe Bool
     , tirInstanceIds :: [Text]

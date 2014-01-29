@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createVpnConnectionRoute :: Text
+                         -> Text
+                         -> AWS (Either EC2Error CreateVpnConnectionRouteResponse)
+createVpnConnectionRoute p1 p2 = undefined $ CreateVpnConnectionRoute
+    { cvcrrDestinationCidrBlock = p1
+    , cvcrrVpnConnectionId = p2
+    }
+
 data CreateVpnConnectionRoute = CreateVpnConnectionRoute
     { cvcrrDestinationCidrBlock :: !Text
     , cvcrrVpnConnectionId :: !Text

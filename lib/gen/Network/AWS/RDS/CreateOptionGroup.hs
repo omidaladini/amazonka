@@ -37,6 +37,20 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createOptionGroup :: Text
+                  -> Text
+                  -> Text
+                  -> Text
+                  -> AWS (Either RDSError CreateOptionGroupResponse)
+createOptionGroup p1 p2 p3 p4 = undefined $ CreateOptionGroup
+    { cogmEngineName = p1
+    , cogmMajorEngineVersion = p2
+    , cogmOptionGroupDescription = p3
+    , cogmOptionGroupName = p4
+    , cogmTags = []
+    }
+
 data CreateOptionGroup = CreateOptionGroup
     { cogmEngineName :: !Text
       -- ^ Specifies the name of the engine that this option group should be

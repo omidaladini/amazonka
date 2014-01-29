@@ -44,6 +44,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeRouteTables :: AWS (Either EC2Error DescribeRouteTablesResponse)
+describeRouteTables = undefined $ DescribeRouteTables
+    { drttDryRun = Nothing
+    , drttFilters = []
+    , drttRouteTableIds = []
+    }
+
 data DescribeRouteTables = DescribeRouteTables
     { drttDryRun :: Maybe Bool
     , drttFilters :: [Filter]

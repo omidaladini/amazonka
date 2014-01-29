@@ -55,6 +55,26 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyCluster :: Text
+              -> AWS (Either RedshiftError ModifyClusterResponse)
+modifyCluster p1 = undefined $ ModifyCluster
+    { mcmClusterIdentifier = p1
+    , mcmAllowVersionUpgrade = Nothing
+    , mcmAutomatedSnapshotRetentionPeriod = Nothing
+    , mcmClusterParameterGroupName = Nothing
+    , mcmClusterSecurityGroups = []
+    , mcmClusterType = Nothing
+    , mcmClusterVersion = Nothing
+    , mcmHsmClientCertificateIdentifier = Nothing
+    , mcmHsmConfigurationIdentifier = Nothing
+    , mcmMasterUserPassword = Nothing
+    , mcmNodeType = Nothing
+    , mcmNumberOfNodes = Nothing
+    , mcmPreferredMaintenanceWindow = Nothing
+    , mcmVpcSecurityGroupIds = []
+    }
+
 data ModifyCluster = ModifyCluster
     { mcmAllowVersionUpgrade :: Maybe Bool
       -- ^ If true, upgrades will be applied automatically to the cluster during the

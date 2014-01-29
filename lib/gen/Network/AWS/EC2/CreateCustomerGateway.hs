@@ -45,6 +45,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCustomerGateway :: Int
+                      -> Text
+                      -> GatewayType
+                      -> AWS (Either EC2Error CreateCustomerGatewayResponse)
+createCustomerGateway p1 p2 p3 = undefined $ CreateCustomerGateway
+    { ccgrBgpAsn = p1
+    , ccgrPublicIp = p2
+    , ccgrType = p3
+    , ccgrDryRun = Nothing
+    }
+
 data CreateCustomerGateway = CreateCustomerGateway
     { ccgrBgpAsn :: !Int
       -- ^ The customer gateway's Border Gateway Protocol (BGP) Autonomous System

@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+setIdentityFeedbackForwardingEnabled :: Bool
+                                     -> Text
+                                     -> AWS (Either SESError SetIdentityFeedbackForwardingEnabledResponse)
+setIdentityFeedbackForwardingEnabled p1 p2 = undefined $ SetIdentityFeedbackForwardingEnabled
+    { sifferForwardingEnabled = p1
+    , sifferIdentity = p2
+    }
+
 data SetIdentityFeedbackForwardingEnabled = SetIdentityFeedbackForwardingEnabled
     { sifferForwardingEnabled :: !Bool
       -- ^ Sets whether Amazon SES will forward feedback notifications as email. true

@@ -36,6 +36,25 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeReservedInstancesOfferings :: AWS (Either EC2Error DescribeReservedInstancesOfferingsResponse)
+describeReservedInstancesOfferings = undefined $ DescribeReservedInstancesOfferings
+    { driorAvailabilityZone = Nothing
+    , driorDryRun = Nothing
+    , driorFilters = []
+    , driorIncludeMarketplace = Nothing
+    , driorInstanceTenancy = Nothing
+    , driorInstanceType = Nothing
+    , driorMaxDuration = Nothing
+    , driorMaxInstanceCount = Nothing
+    , driorMaxResults = Nothing
+    , driorMinDuration = Nothing
+    , driorNextToken = Nothing
+    , driorOfferingType = Nothing
+    , driorProductDescription = Nothing
+    , driorReservedInstancesOfferingIds = []
+    }
+
 data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings
     { driorAvailabilityZone :: Maybe Text
       -- ^ The Availability Zone in which the Reserved Instance can be used.

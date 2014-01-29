@@ -49,6 +49,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeOrderableClusterOptions :: AWS (Either RedshiftError DescribeOrderableClusterOptionsResponse)
+describeOrderableClusterOptions = undefined $ DescribeOrderableClusterOptions
+    { docomClusterVersion = Nothing
+    , docomMarker = Nothing
+    , docomMaxRecords = Nothing
+    , docomNodeType = Nothing
+    }
+
 data DescribeOrderableClusterOptions = DescribeOrderableClusterOptions
     { docomClusterVersion :: Maybe Text
       -- ^ The version filter value. Specify this parameter to show only the available

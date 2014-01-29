@@ -43,6 +43,42 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDBInstance :: Int
+                 -> Text
+                 -> Text
+                 -> Text
+                 -> Text
+                 -> Text
+                 -> AWS (Either RDSError CreateDBInstanceResponse)
+createDBInstance p1 p2 p3 p4 p5 p6 = undefined $ CreateDBInstance
+    { cdbimAllocatedStorage = p1
+    , cdbimDBInstanceClass = p2
+    , cdbimDBInstanceIdentifier = p3
+    , cdbimEngine = p4
+    , cdbimMasterUserPassword = p5
+    , cdbimMasterUsername = p6
+    , cdbimAutoMinorVersionUpgrade = Nothing
+    , cdbimAvailabilityZone = Nothing
+    , cdbimBackupRetentionPeriod = Nothing
+    , cdbimCharacterSetName = Nothing
+    , cdbimDBName = Nothing
+    , cdbimDBParameterGroupName = Nothing
+    , cdbimDBSecurityGroups = []
+    , cdbimDBSubnetGroupName = Nothing
+    , cdbimEngineVersion = Nothing
+    , cdbimIops = Nothing
+    , cdbimLicenseModel = Nothing
+    , cdbimMultiAZ = Nothing
+    , cdbimOptionGroupName = Nothing
+    , cdbimPort = Nothing
+    , cdbimPreferredBackupWindow = Nothing
+    , cdbimPreferredMaintenanceWindow = Nothing
+    , cdbimPubliclyAccessible = Nothing
+    , cdbimTags = []
+    , cdbimVpcSecurityGroupIds = []
+    }
+
 data CreateDBInstance = CreateDBInstance
     { cdbimAllocatedStorage :: !Int
       -- ^ The amount of storage (in gigabytes) to be initially allocated for the

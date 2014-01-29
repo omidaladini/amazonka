@@ -67,6 +67,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeInstanceStatus :: AWS (Either EC2Error DescribeInstanceStatusResponse)
+describeInstanceStatus = undefined $ DescribeInstanceStatus
+    { disrDryRun = Nothing
+    , disrFilters = []
+    , disrIncludeAllInstances = Nothing
+    , disrInstanceIds = []
+    , disrMaxResults = Nothing
+    , disrNextToken = Nothing
+    }
+
 data DescribeInstanceStatus = DescribeInstanceStatus
     { disrDryRun :: Maybe Bool
     , disrFilters :: [Filter]

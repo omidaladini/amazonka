@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteNetworkAcl :: Text
+                 -> AWS (Either EC2Error DeleteNetworkAclResponse)
+deleteNetworkAcl p1 = undefined $ DeleteNetworkAcl
+    { dnarNetworkAclId = p1
+    , dnarDryRun = Nothing
+    }
+
 data DeleteNetworkAcl = DeleteNetworkAcl
     { dnarDryRun :: Maybe Bool
     , dnarNetworkAclId :: !Text

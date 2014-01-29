@@ -32,6 +32,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeVolumeStatus :: AWS (Either EC2Error DescribeVolumeStatusResponse)
+describeVolumeStatus = undefined $ DescribeVolumeStatus
+    { dvsrDryRun = Nothing
+    , dvsrFilters = []
+    , dvsrMaxResults = Nothing
+    , dvsrNextToken = Nothing
+    , dvsrVolumeIds = []
+    }
+
 data DescribeVolumeStatus = DescribeVolumeStatus
     { dvsrDryRun :: Maybe Bool
     , dvsrFilters :: [Filter]

@@ -35,6 +35,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+indexDocuments :: Text
+               -> AWS (Either CloudSearchError IndexDocumentsResponse)
+indexDocuments p1 = undefined $ IndexDocuments
+    { idrDomainName = p1
+    }
+
 data IndexDocuments = IndexDocuments
     { idrDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

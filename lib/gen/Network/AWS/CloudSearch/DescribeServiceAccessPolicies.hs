@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeServiceAccessPolicies :: Text
+                              -> AWS (Either CloudSearchError DescribeServiceAccessPoliciesResponse)
+describeServiceAccessPolicies p1 = undefined $ DescribeServiceAccessPolicies
+    { dsaprDomainName = p1
+    }
+
 data DescribeServiceAccessPolicies = DescribeServiceAccessPolicies
     { dsaprDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

@@ -37,6 +37,17 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+putNotificationConfiguration :: ResourceName
+                             -> [Text]
+                             -> ResourceName
+                             -> AWS (Either AutoScalingError PutNotificationConfigurationResponse)
+putNotificationConfiguration p1 p2 p3 = undefined $ PutNotificationConfiguration
+    { pnctAutoScalingGroupName = p1
+    , pnctNotificationTypes = p2
+    , pnctTopicARN = p3
+    }
+
 data PutNotificationConfiguration = PutNotificationConfiguration
     { pnctAutoScalingGroupName :: !ResourceName
       -- ^ The name of the Auto Scaling group.

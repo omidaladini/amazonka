@@ -41,6 +41,17 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCacheSubnetGroup :: Text
+                       -> Text
+                       -> [Text]
+                       -> AWS (Either ElastiCacheError CreateCacheSubnetGroupResponse)
+createCacheSubnetGroup p1 p2 p3 = undefined $ CreateCacheSubnetGroup
+    { ccsgnCacheSubnetGroupDescription = p1
+    , ccsgnCacheSubnetGroupName = p2
+    , ccsgnSubnetIds = p3
+    }
+
 data CreateCacheSubnetGroup = CreateCacheSubnetGroup
     { ccsgnCacheSubnetGroupDescription :: !Text
       -- ^ A description for the cache subnet group.

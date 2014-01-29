@@ -42,6 +42,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+createClusterSecurityGroup :: Text
+                           -> Text
+                           -> AWS (Either RedshiftError CreateClusterSecurityGroupResponse)
+createClusterSecurityGroup p1 p2 = undefined $ CreateClusterSecurityGroup
+    { ccsgnClusterSecurityGroupName = p1
+    , ccsgnDescription = p2
+    }
+
 data CreateClusterSecurityGroup = CreateClusterSecurityGroup
     { ccsgnClusterSecurityGroupName :: !Text
       -- ^ The name for the security group. Amazon Redshift stores the value as a

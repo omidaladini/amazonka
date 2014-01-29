@@ -44,6 +44,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listGroups :: AWS (Either IAMError ListGroupsResponse)
+listGroups = undefined $ ListGroups
+    { lgrMarker = Nothing
+    , lgrMaxItems = Nothing
+    , lgrPathPrefix = Nothing
+    }
+
 data ListGroups = ListGroups
     { lgrMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

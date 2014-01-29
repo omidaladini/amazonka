@@ -37,6 +37,19 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+enableMFADevice :: Text
+                -> Text
+                -> Text
+                -> Text
+                -> AWS (Either IAMError EnableMFADeviceResponse)
+enableMFADevice p1 p2 p3 p4 = undefined $ EnableMFADevice
+    { emfadrAuthenticationCode1 = p1
+    , emfadrAuthenticationCode2 = p2
+    , emfadrSerialNumber = p3
+    , emfadrUserName = p4
+    }
+
 data EnableMFADevice = EnableMFADevice
     { emfadrAuthenticationCode1 :: !Text
       -- ^ An authentication code emitted by the device.

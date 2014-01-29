@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+disassociateRouteTable :: Text
+                       -> AWS (Either EC2Error DisassociateRouteTableResponse)
+disassociateRouteTable p1 = undefined $ DisassociateRouteTable
+    { drtrAssociationId = p1
+    , drtrDryRun = Nothing
+    }
+
 data DisassociateRouteTable = DisassociateRouteTable
     { drtrAssociationId :: !Text
       -- ^ The association ID representing the current association between the route

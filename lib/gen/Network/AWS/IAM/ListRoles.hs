@@ -48,6 +48,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listRoles :: AWS (Either IAMError ListRolesResponse)
+listRoles = undefined $ ListRoles
+    { lrrMarker = Nothing
+    , lrrMaxItems = Nothing
+    , lrrPathPrefix = Nothing
+    }
+
 data ListRoles = ListRoles
     { lrrMarker :: Maybe Text
       -- ^ Use this parameter only when paginating results, and only in a subsequent

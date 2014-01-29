@@ -46,6 +46,18 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDBParameterGroup :: Text
+                       -> Text
+                       -> Text
+                       -> AWS (Either RDSError CreateDBParameterGroupResponse)
+createDBParameterGroup p1 p2 p3 = undefined $ CreateDBParameterGroup
+    { cdbpgmDBParameterGroupFamily = p1
+    , cdbpgmDBParameterGroupName = p2
+    , cdbpgmDescription = p3
+    , cdbpgmTags = []
+    }
+
 data CreateDBParameterGroup = CreateDBParameterGroup
     { cdbpgmDBParameterGroupFamily :: !Text
       -- ^ The DB parameter group family name. A DB parameter group can be associated

@@ -33,6 +33,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeInstanceAttribute :: InstanceAttributeName
+                          -> Text
+                          -> AWS (Either EC2Error DescribeInstanceAttributeResponse)
+describeInstanceAttribute p1 p2 = undefined $ DescribeInstanceAttribute
+    { diarAttribute = p1
+    , diarInstanceId = p2
+    , diarDryRun = Nothing
+    }
+
 data DescribeInstanceAttribute = DescribeInstanceAttribute
     { diarAttribute :: !InstanceAttributeName
       -- ^ The name of the attribute to describe. Available attribute names:

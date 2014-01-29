@@ -47,6 +47,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+getIdentityNotificationAttributes :: [Text]
+                                  -> AWS (Either SESError GetIdentityNotificationAttributesResponse)
+getIdentityNotificationAttributes p1 = undefined $ GetIdentityNotificationAttributes
+    { ginarIdentities = p1
+    }
+
 data GetIdentityNotificationAttributes = GetIdentityNotificationAttributes
     { ginarIdentities :: [Text]
       -- ^ A list of one or more identities.

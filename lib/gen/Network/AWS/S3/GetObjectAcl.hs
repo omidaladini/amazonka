@@ -37,8 +37,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getObjectAcl :: Text -- ^ Bucket
-             -> Text -- ^ Key
+getObjectAcl :: Text
+             -> Text
              -> AWS (Either S3Error GetObjectAclResponse)
 getObjectAcl p1 p2 = undefined $ GetObjectAcl
     { goaBucket = p1

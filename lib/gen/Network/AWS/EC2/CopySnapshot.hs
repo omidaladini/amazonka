@@ -32,6 +32,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+copySnapshot :: Text
+             -> Text
+             -> AWS (Either EC2Error CopySnapshotResponse)
+copySnapshot p1 p2 = undefined $ CopySnapshot
+    { csrSourceRegion = p1
+    , csrSourceSnapshotId = p2
+    , csrDescription = Nothing
+    , csrDryRun = Nothing
+    }
+
 data CopySnapshot = CopySnapshot
     { csrDescription :: Maybe Text
     , csrDryRun :: Maybe Bool

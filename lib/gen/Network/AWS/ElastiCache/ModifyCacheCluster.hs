@@ -42,6 +42,24 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyCacheCluster :: Text
+                   -> AWS (Either ElastiCacheError ModifyCacheClusterResponse)
+modifyCacheCluster p1 = undefined $ ModifyCacheCluster
+    { mccmCacheClusterId = p1
+    , mccmApplyImmediately = Nothing
+    , mccmAutoMinorVersionUpgrade = Nothing
+    , mccmCacheNodeIdsToRemove = []
+    , mccmCacheParameterGroupName = Nothing
+    , mccmCacheSecurityGroupNames = []
+    , mccmEngineVersion = Nothing
+    , mccmNotificationTopicArn = Nothing
+    , mccmNotificationTopicStatus = Nothing
+    , mccmNumCacheNodes = Nothing
+    , mccmPreferredMaintenanceWindow = Nothing
+    , mccmSecurityGroupIds = []
+    }
+
 data ModifyCacheCluster = ModifyCacheCluster
     { mccmApplyImmediately :: Maybe Bool
       -- ^ If true, this parameter causes the modifications in this request and any

@@ -40,6 +40,14 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCacheSecurityGroups :: AWS (Either ElastiCacheError DescribeCacheSecurityGroupsResponse)
+describeCacheSecurityGroups = undefined $ DescribeCacheSecurityGroups
+    { dcsgoCacheSecurityGroupName = Nothing
+    , dcsgoMarker = Nothing
+    , dcsgoMaxRecords = Nothing
+    }
+
 data DescribeCacheSecurityGroups = DescribeCacheSecurityGroups
     { dcsgoCacheSecurityGroupName :: Maybe Text
       -- ^ The name of the cache security group to return details for.

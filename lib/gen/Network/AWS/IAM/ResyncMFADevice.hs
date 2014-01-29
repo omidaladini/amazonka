@@ -35,6 +35,19 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+resyncMFADevice :: Text
+                -> Text
+                -> Text
+                -> Text
+                -> AWS (Either IAMError ResyncMFADeviceResponse)
+resyncMFADevice p1 p2 p3 p4 = undefined $ ResyncMFADevice
+    { rmfadrAuthenticationCode1 = p1
+    , rmfadrAuthenticationCode2 = p2
+    , rmfadrSerialNumber = p3
+    , rmfadrUserName = p4
+    }
+
 data ResyncMFADevice = ResyncMFADevice
     { rmfadrAuthenticationCode1 :: !Text
       -- ^ An authentication code emitted by the device.

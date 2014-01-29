@@ -41,6 +41,18 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLoadBalancerPolicy :: Text
+                         -> Text
+                         -> Text
+                         -> AWS (Either ElasticLoadBalancingError CreateLoadBalancerPolicyResponse)
+createLoadBalancerPolicy p1 p2 p3 = undefined $ CreateLoadBalancerPolicy
+    { clbpiLoadBalancerName = p1
+    , clbpiPolicyName = p2
+    , clbpiPolicyTypeName = p3
+    , clbpiPolicyAttributes = []
+    }
+
 data CreateLoadBalancerPolicy = CreateLoadBalancerPolicy
     { clbpiLoadBalancerName :: !Text
       -- ^ The name associated with the LoadBalancer for which the policy is being

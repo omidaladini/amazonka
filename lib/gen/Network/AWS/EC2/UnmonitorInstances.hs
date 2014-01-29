@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+unmonitorInstances :: [Text]
+                   -> AWS (Either EC2Error UnmonitorInstancesResponse)
+unmonitorInstances p1 = undefined $ UnmonitorInstances
+    { uirInstanceIds = p1
+    , uirDryRun = Nothing
+    }
+
 data UnmonitorInstances = UnmonitorInstances
     { uirDryRun :: Maybe Bool
     , uirInstanceIds :: [Text]

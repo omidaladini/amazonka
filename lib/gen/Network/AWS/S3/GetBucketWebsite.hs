@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketWebsite :: Text -- ^ Bucket
+getBucketWebsite :: Text
                  -> AWS (Either S3Error GetBucketWebsiteResponse)
 getBucketWebsite p1 = undefined $ GetBucketWebsite
     { gbwBucket = p1

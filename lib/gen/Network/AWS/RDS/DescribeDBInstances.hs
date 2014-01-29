@@ -41,6 +41,14 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDBInstances :: AWS (Either RDSError DescribeDBInstancesResponse)
+describeDBInstances = undefined $ DescribeDBInstances
+    { ddbinDBInstanceIdentifier = Nothing
+    , ddbinMarker = Nothing
+    , ddbinMaxRecords = Nothing
+    }
+
 data DescribeDBInstances = DescribeDBInstances
     { ddbinDBInstanceIdentifier :: Maybe Text
       -- ^ The user-supplied instance identifier. If this parameter is specified,

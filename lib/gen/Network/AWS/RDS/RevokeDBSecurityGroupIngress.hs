@@ -41,6 +41,17 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+revokeDBSecurityGroupIngress :: Text
+                             -> AWS (Either RDSError RevokeDBSecurityGroupIngressResponse)
+revokeDBSecurityGroupIngress p1 = undefined $ RevokeDBSecurityGroupIngress
+    { rdbsgimDBSecurityGroupName = p1
+    , rdbsgimCIDRIP = Nothing
+    , rdbsgimEC2SecurityGroupId = Nothing
+    , rdbsgimEC2SecurityGroupName = Nothing
+    , rdbsgimEC2SecurityGroupOwnerId = Nothing
+    }
+
 data RevokeDBSecurityGroupIngress = RevokeDBSecurityGroupIngress
     { rdbsgimCIDRIP :: Maybe Text
       -- ^ The IP range to revoke access from. Must be a valid CIDR range. If CIDRIP

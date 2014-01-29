@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+detachNetworkInterface :: Text
+                       -> AWS (Either EC2Error DetachNetworkInterfaceResponse)
+detachNetworkInterface p1 = undefined $ DetachNetworkInterface
+    { dnirAttachmentId = p1
+    , dnirDryRun = Nothing
+    , dnirForce = Nothing
+    }
+
 data DetachNetworkInterface = DetachNetworkInterface
     { dnirAttachmentId :: !Text
     , dnirDryRun :: Maybe Bool

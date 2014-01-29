@@ -36,6 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+listAvailableSolutionStacks :: AWS (Either ElasticBeanstalkError ListAvailableSolutionStacksResponse)
+listAvailableSolutionStacks = undefined ListAvailableSolutionStacks
+
 data ListAvailableSolutionStacks = ListAvailableSolutionStacks
     deriving (Eq, Show, Generic)
 

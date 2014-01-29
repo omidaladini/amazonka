@@ -36,6 +36,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+restartAppServer :: AWS (Either ElasticBeanstalkError RestartAppServerResponse)
+restartAppServer = undefined $ RestartAppServer
+    { rasmEnvironmentId = Nothing
+    , rasmEnvironmentName = Nothing
+    }
+
 data RestartAppServer = RestartAppServer
     { rasmEnvironmentId :: Maybe Text
       -- ^ The ID of the environment to restart the server for. Condition: You must

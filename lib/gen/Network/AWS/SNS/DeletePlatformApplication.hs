@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deletePlatformApplication :: Text
+                          -> AWS (Either SNSError DeletePlatformApplicationResponse)
+deletePlatformApplication p1 = undefined $ DeletePlatformApplication
+    { dpaiPlatformApplicationArn = p1
+    }
+
 data DeletePlatformApplication = DeletePlatformApplication
     { dpaiPlatformApplicationArn :: !Text
       -- ^ PlatformApplicationArn of platform application object to delete.

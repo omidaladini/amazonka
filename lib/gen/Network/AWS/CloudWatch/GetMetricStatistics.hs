@@ -49,6 +49,25 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+getMetricStatistics :: UTCTime
+                    -> Text
+                    -> Text
+                    -> Int
+                    -> UTCTime
+                    -> [Statistic]
+                    -> AWS (Either CloudWatchError GetMetricStatisticsResponse)
+getMetricStatistics p1 p2 p3 p4 p5 p6 = undefined $ GetMetricStatistics
+    { gmsiEndTime = p1
+    , gmsiMetricName = p2
+    , gmsiNamespace = p3
+    , gmsiPeriod = p4
+    , gmsiStartTime = p5
+    , gmsiStatistics = p6
+    , gmsiDimensions = []
+    , gmsiUnit = Nothing
+    }
+
 data GetMetricStatistics = GetMetricStatistics
     { gmsiDimensions :: [Dimension]
       -- ^ A list of dimensions describing qualities of the metric.

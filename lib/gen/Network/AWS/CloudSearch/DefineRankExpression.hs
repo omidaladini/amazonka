@@ -35,6 +35,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+defineRankExpression :: Text
+                     -> NamedRankExpression
+                     -> AWS (Either CloudSearchError DefineRankExpressionResponse)
+defineRankExpression p1 p2 = undefined $ DefineRankExpression
+    { dretDomainName = p1
+    , dretRankExpression = p2
+    }
+
 data DefineRankExpression = DefineRankExpression
     { dretDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelConversionTask :: Text
+                     -> AWS (Either EC2Error CancelConversionTaskResponse)
+cancelConversionTask p1 = undefined $ CancelConversionTask
+    { ccrConversionTaskId = p1
+    , ccrDryRun = Nothing
+    , ccrReasonMessage = Nothing
+    }
+
 data CancelConversionTask = CancelConversionTask
     { ccrConversionTaskId :: !Text
     , ccrDryRun :: Maybe Bool

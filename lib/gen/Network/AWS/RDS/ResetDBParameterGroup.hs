@@ -46,6 +46,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetDBParameterGroup :: Text
+                      -> AWS (Either RDSError ResetDBParameterGroupResponse)
+resetDBParameterGroup p1 = undefined $ ResetDBParameterGroup
+    { rdbpgmDBParameterGroupName = p1
+    , rdbpgmParameters = []
+    , rdbpgmResetAllParameters = Nothing
+    }
+
 data ResetDBParameterGroup = ResetDBParameterGroup
     { rdbpgmDBParameterGroupName :: !Text
       -- ^ The name of the DB parameter group. Constraints: Must be 1 to 255

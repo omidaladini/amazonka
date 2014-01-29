@@ -88,6 +88,19 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLoadBalancer :: [Listener]
+                   -> Text
+                   -> AWS (Either ElasticLoadBalancingError CreateLoadBalancerResponse)
+createLoadBalancer p1 p2 = undefined $ CreateLoadBalancer
+    { capiListeners = p1
+    , capiLoadBalancerName = p2
+    , capiAvailabilityZones = []
+    , capiScheme = Nothing
+    , capiSecurityGroups = []
+    , capiSubnets = []
+    }
+
 data CreateLoadBalancer = CreateLoadBalancer
     { capiAvailabilityZones :: [Text]
       -- ^ A list of Availability Zones. At least one Availability Zone must be

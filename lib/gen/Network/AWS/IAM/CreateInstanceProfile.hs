@@ -40,6 +40,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createInstanceProfile :: Text
+                      -> AWS (Either IAMError CreateInstanceProfileResponse)
+createInstanceProfile p1 = undefined $ CreateInstanceProfile
+    { ciprInstanceProfileName = p1
+    , ciprPath = Nothing
+    }
+
 data CreateInstanceProfile = CreateInstanceProfile
     { ciprInstanceProfileName :: !Text
       -- ^ Name of the instance profile to create.

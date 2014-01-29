@@ -48,6 +48,17 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createPlatformEndpoint :: Text
+                       -> Text
+                       -> AWS (Either SNSError CreatePlatformEndpointResponse)
+createPlatformEndpoint p1 p2 = undefined $ CreatePlatformEndpoint
+    { cpeiPlatformApplicationArn = p1
+    , cpeiToken = p2
+    , cpeiAttributes = Map.empty
+    , cpeiCustomUserData = Nothing
+    }
+
 data CreatePlatformEndpoint = CreatePlatformEndpoint
     { cpeiAttributes :: HashMap Text Text
       -- ^ For a list of attributes, see SetEndpointAttributes.

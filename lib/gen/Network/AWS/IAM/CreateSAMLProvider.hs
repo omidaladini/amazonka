@@ -50,6 +50,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSAMLProvider :: Text
+                   -> Text
+                   -> AWS (Either IAMError CreateSAMLProviderResponse)
+createSAMLProvider p1 p2 = undefined $ CreateSAMLProvider
+    { csamlprName = p1
+    , csamlprSAMLMetadataDocument = p2
+    }
+
 data CreateSAMLProvider = CreateSAMLProvider
     { csamlprName :: !Text
       -- ^ The name of the provider to create.

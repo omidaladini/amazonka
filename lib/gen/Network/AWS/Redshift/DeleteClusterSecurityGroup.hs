@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteClusterSecurityGroup :: Text
+                           -> AWS (Either RedshiftError DeleteClusterSecurityGroupResponse)
+deleteClusterSecurityGroup p1 = undefined $ DeleteClusterSecurityGroup
+    { dcsgpClusterSecurityGroupName = p1
+    }
+
 data DeleteClusterSecurityGroup = DeleteClusterSecurityGroup
     { dcsgpClusterSecurityGroupName :: !Text
       -- ^ The name of the cluster security group to be deleted.

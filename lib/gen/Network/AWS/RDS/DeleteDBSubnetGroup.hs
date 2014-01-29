@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDBSubnetGroup :: Text
+                    -> AWS (Either RDSError DeleteDBSubnetGroupResponse)
+deleteDBSubnetGroup p1 = undefined $ DeleteDBSubnetGroup
+    { ddbsgnDBSubnetGroupName = p1
+    }
+
 data DeleteDBSubnetGroup = DeleteDBSubnetGroup
     { ddbsgnDBSubnetGroupName :: !Text
       -- ^ The name of the database subnet group to delete. You cannot delete the

@@ -39,6 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+configureHealthCheck :: HealthCheck
+                     -> Text
+                     -> AWS (Either ElasticLoadBalancingError ConfigureHealthCheckResponse)
+configureHealthCheck p1 p2 = undefined $ ConfigureHealthCheck
+    { chciHealthCheck = p1
+    , chciLoadBalancerName = p2
+    }
+
 data ConfigureHealthCheck = ConfigureHealthCheck
     { chciHealthCheck :: HealthCheck
       -- ^ A structure containing the configuration information for the new

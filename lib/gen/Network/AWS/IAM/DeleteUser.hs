@@ -35,6 +35,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteUser :: Text
+           -> AWS (Either IAMError DeleteUserResponse)
+deleteUser p1 = undefined $ DeleteUser
+    { durUserName = p1
+    }
+
 data DeleteUser = DeleteUser
     { durUserName :: !Text
       -- ^ Name of the user to delete.

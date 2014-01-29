@@ -44,6 +44,18 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDBLogFiles :: Text
+                   -> AWS (Either RDSError DescribeDBLogFilesResponse)
+describeDBLogFiles p1 = undefined $ DescribeDBLogFiles
+    { ddblfmDBInstanceIdentifier = p1
+    , ddblfmFileLastWritten = Nothing
+    , ddblfmFileSize = Nothing
+    , ddblfmFilenameContains = Nothing
+    , ddblfmMarker = Nothing
+    , ddblfmMaxRecords = Nothing
+    }
+
 data DescribeDBLogFiles = DescribeDBLogFiles
     { ddblfmDBInstanceIdentifier :: !Text
       -- ^ The customer-assigned name of the DB instance that contains the log files

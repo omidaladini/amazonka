@@ -40,6 +40,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachLoadBalancerToSubnets :: Text
+                            -> [Text]
+                            -> AWS (Either ElasticLoadBalancingError AttachLoadBalancerToSubnetsResponse)
+attachLoadBalancerToSubnets p1 p2 = undefined $ AttachLoadBalancerToSubnets
+    { albtsiLoadBalancerName = p1
+    , albtsiSubnets = p2
+    }
+
 data AttachLoadBalancerToSubnets = AttachLoadBalancerToSubnets
     { albtsiLoadBalancerName :: !Text
       -- ^ The name associated with the load balancer. The name must be unique within

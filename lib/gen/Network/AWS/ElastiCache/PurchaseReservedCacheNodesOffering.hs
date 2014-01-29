@@ -41,6 +41,15 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+purchaseReservedCacheNodesOffering :: Text
+                                   -> AWS (Either ElastiCacheError PurchaseReservedCacheNodesOfferingResponse)
+purchaseReservedCacheNodesOffering p1 = undefined $ PurchaseReservedCacheNodesOffering
+    { prcnomReservedCacheNodesOfferingId = p1
+    , prcnomCacheNodeCount = Nothing
+    , prcnomReservedCacheNodeId = Nothing
+    }
+
 data PurchaseReservedCacheNodesOffering = PurchaseReservedCacheNodesOffering
     { prcnomCacheNodeCount :: Maybe Int
       -- ^ The number of cache node instances to reserve. Default: 1.

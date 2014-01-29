@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketTagging :: Text -- ^ Bucket
+getBucketTagging :: Text
                  -> AWS (Either S3Error GetBucketTaggingResponse)
 getBucketTagging p1 = undefined $ GetBucketTagging
     { gbtBucket = p1

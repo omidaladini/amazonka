@@ -60,6 +60,18 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDBEngineVersions :: AWS (Either RDSError DescribeDBEngineVersionsResponse)
+describeDBEngineVersions = undefined $ DescribeDBEngineVersions
+    { ddbevmDBParameterGroupFamily = Nothing
+    , ddbevmDefaultOnly = Nothing
+    , ddbevmEngine = Nothing
+    , ddbevmEngineVersion = Nothing
+    , ddbevmListSupportedCharacterSets = Nothing
+    , ddbevmMarker = Nothing
+    , ddbevmMaxRecords = Nothing
+    }
+
 data DescribeDBEngineVersions = DescribeDBEngineVersions
     { ddbevmDBParameterGroupFamily :: Maybe Text
       -- ^ The name of a specific DB parameter group family to return details for.

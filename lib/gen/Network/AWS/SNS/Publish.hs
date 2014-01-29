@@ -63,6 +63,17 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+publish :: Text
+        -> AWS (Either SNSError PublishResponse)
+publish p1 = undefined $ Publish
+    { piMessage = p1
+    , piMessageStructure = Nothing
+    , piSubject = Nothing
+    , piTargetArn = Nothing
+    , piTopicArn = Nothing
+    }
+
 data Publish = Publish
     { piMessage :: !Text
       -- ^ The message you want to send to the topic. If you want to send the same

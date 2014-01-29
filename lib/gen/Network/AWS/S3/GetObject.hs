@@ -37,8 +37,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getObject :: Text -- ^ Bucket
-          -> Text -- ^ Key
+getObject :: Text
+          -> Text
           -> AWS (Either S3Error GetObjectResponse)
 getObject p1 p2 = undefined $ GetObject
     { goBucket = p1

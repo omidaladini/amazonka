@@ -41,6 +41,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTags :: AWS (Either AutoScalingError DescribeTagsResponse)
+describeTags = undefined $ DescribeTags
+    { dttFilters = []
+    , dttMaxRecords = Nothing
+    , dttNextToken = Nothing
+    }
+
 data DescribeTags = DescribeTags
     { dttFilters :: [Filter]
       -- ^ The value of the filter type used to identify the tags to be returned. For

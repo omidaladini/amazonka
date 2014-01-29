@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTags :: AWS (Either EC2Error DescribeTagsResponse)
+describeTags = undefined $ DescribeTags
+    { dtrDryRun = Nothing
+    , dtrFilters = []
+    , dtrMaxResults = Nothing
+    , dtrNextToken = Nothing
+    }
+
 data DescribeTags = DescribeTags
     { dtrDryRun :: Maybe Bool
     , dtrFilters :: [Filter]

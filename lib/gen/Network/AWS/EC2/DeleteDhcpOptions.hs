@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDhcpOptions :: Text
+                  -> AWS (Either EC2Error DeleteDhcpOptionsResponse)
+deleteDhcpOptions p1 = undefined $ DeleteDhcpOptions
+    { ddosDhcpOptionsId = p1
+    , ddosDryRun = Nothing
+    }
+
 data DeleteDhcpOptions = DeleteDhcpOptions
     { ddosDhcpOptionsId :: !Text
       -- ^ The ID of the DHCP options set to delete.

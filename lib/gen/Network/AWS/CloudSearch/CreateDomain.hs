@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDomain :: Text
+             -> AWS (Either CloudSearchError CreateDomainResponse)
+createDomain p1 = undefined $ CreateDomain
+    { cdrDomainName = p1
+    }
+
 data CreateDomain = CreateDomain
     { cdrDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

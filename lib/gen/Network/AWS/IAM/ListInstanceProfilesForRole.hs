@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listInstanceProfilesForRole :: Text
+                            -> AWS (Either IAMError ListInstanceProfilesForRoleResponse)
+listInstanceProfilesForRole p1 = undefined $ ListInstanceProfilesForRole
+    { lipfrrRoleName = p1
+    , lipfrrMarker = Nothing
+    , lipfrrMaxItems = Nothing
+    }
+
 data ListInstanceProfilesForRole = ListInstanceProfilesForRole
     { lipfrrMarker :: Maybe Text
       -- ^ Use this parameter only when paginating results, and only in a subsequent

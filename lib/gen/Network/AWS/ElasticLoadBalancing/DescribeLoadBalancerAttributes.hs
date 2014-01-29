@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLoadBalancerAttributes :: Text
+                               -> AWS (Either ElasticLoadBalancingError DescribeLoadBalancerAttributesResponse)
+describeLoadBalancerAttributes p1 = undefined $ DescribeLoadBalancerAttributes
+    { dlbaiLoadBalancerName = p1
+    }
+
 data DescribeLoadBalancerAttributes = DescribeLoadBalancerAttributes
     { dlbaiLoadBalancerName :: !Text
       -- ^ The name of the load balancer.

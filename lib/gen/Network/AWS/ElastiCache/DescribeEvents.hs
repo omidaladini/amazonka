@@ -37,6 +37,18 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEvents :: AWS (Either ElastiCacheError DescribeEventsResponse)
+describeEvents = undefined $ DescribeEvents
+    { demDuration = Nothing
+    , demEndTime = Nothing
+    , demMarker = Nothing
+    , demMaxRecords = Nothing
+    , demSourceIdentifier = Nothing
+    , demSourceType = Nothing
+    , demStartTime = Nothing
+    }
+
 data DescribeEvents = DescribeEvents
     { demDuration :: Maybe Int
       -- ^ The number of minutes' worth of events to retrieve.

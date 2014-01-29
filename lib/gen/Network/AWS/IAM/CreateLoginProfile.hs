@@ -37,6 +37,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLoginProfile :: Text
+                   -> Text
+                   -> AWS (Either IAMError CreateLoginProfileResponse)
+createLoginProfile p1 p2 = undefined $ CreateLoginProfile
+    { clprPassword = p1
+    , clprUserName = p2
+    }
+
 data CreateLoginProfile = CreateLoginProfile
     { clprPassword :: !Text
       -- ^ The new password for the user name.

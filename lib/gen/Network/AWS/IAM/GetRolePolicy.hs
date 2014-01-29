@@ -39,6 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getRolePolicy :: Text
+              -> Text
+              -> AWS (Either IAMError GetRolePolicyResponse)
+getRolePolicy p1 p2 = undefined $ GetRolePolicy
+    { grprPolicyName = p1
+    , grprRoleName = p2
+    }
+
 data GetRolePolicy = GetRolePolicy
     { grprPolicyName :: !Text
       -- ^ Name of the policy document to get.

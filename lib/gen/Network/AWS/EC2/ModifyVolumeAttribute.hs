@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyVolumeAttribute :: Text
+                      -> AWS (Either EC2Error ModifyVolumeAttributeResponse)
+modifyVolumeAttribute p1 = undefined $ ModifyVolumeAttribute
+    { mvarVolumeId = p1
+    , mvarAutoEnableIO = Nothing
+    , mvarDryRun = Nothing
+    }
+
 data ModifyVolumeAttribute = ModifyVolumeAttribute
     { mvarAutoEnableIO :: Maybe Bool
     , mvarDryRun :: Maybe Bool

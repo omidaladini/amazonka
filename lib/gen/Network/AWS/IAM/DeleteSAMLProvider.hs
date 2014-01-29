@@ -38,6 +38,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteSAMLProvider :: Text
+                   -> AWS (Either IAMError DeleteSAMLProviderResponse)
+deleteSAMLProvider p1 = undefined $ DeleteSAMLProvider
+    { dsamlprSAMLProviderArn = p1
+    }
+
 data DeleteSAMLProvider = DeleteSAMLProvider
     { dsamlprSAMLProviderArn :: !Text
       -- ^ The Amazon Resource Name (ARN) of the SAML provider to delete.

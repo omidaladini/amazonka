@@ -41,6 +41,14 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDBSecurityGroups :: AWS (Either RDSError DescribeDBSecurityGroupsResponse)
+describeDBSecurityGroups = undefined $ DescribeDBSecurityGroups
+    { ddbsgpDBSecurityGroupName = Nothing
+    , ddbsgpMarker = Nothing
+    , ddbsgpMaxRecords = Nothing
+    }
+
 data DescribeDBSecurityGroups = DescribeDBSecurityGroups
     { ddbsgpDBSecurityGroupName :: Maybe Text
       -- ^ The name of the DB security group to return details for.

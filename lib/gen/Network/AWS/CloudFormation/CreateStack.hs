@@ -44,6 +44,24 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+createStack :: Text
+            -> AWS (Either CloudFormationError CreateStackResponse)
+createStack p1 = undefined $ CreateStack
+    { csiStackName = p1
+    , csiCapabilities = []
+    , csiDisableRollback = Nothing
+    , csiNotificationARNs = []
+    , csiOnFailure = Nothing
+    , csiParameters = []
+    , csiStackPolicyBody = Nothing
+    , csiStackPolicyURL = Nothing
+    , csiTags = []
+    , csiTemplateBody = Nothing
+    , csiTemplateURL = Nothing
+    , csiTimeoutInMinutes = Nothing
+    }
+
 data CreateStack = CreateStack
     { csiCapabilities :: [Capability]
       -- ^ The list of capabilities that you want to allow in the stack. If your

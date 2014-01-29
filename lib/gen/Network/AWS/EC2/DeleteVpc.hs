@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVpc :: Text
+          -> AWS (Either EC2Error DeleteVpcResponse)
+deleteVpc p1 = undefined $ DeleteVpc
+    { dvuVpcId = p1
+    , dvuDryRun = Nothing
+    }
+
 data DeleteVpc = DeleteVpc
     { dvuDryRun :: Maybe Bool
     , dvuVpcId :: !Text

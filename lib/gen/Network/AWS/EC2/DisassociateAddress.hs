@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+disassociateAddress :: AWS (Either EC2Error DisassociateAddressResponse)
+disassociateAddress = undefined $ DisassociateAddress
+    { dasAssociationId = Nothing
+    , dasDryRun = Nothing
+    , dasPublicIp = Nothing
+    }
+
 data DisassociateAddress = DisassociateAddress
     { dasAssociationId :: Maybe Text
       -- ^ Association ID corresponding to the VPC elastic IP address you want to

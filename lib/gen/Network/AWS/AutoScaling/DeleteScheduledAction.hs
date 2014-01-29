@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteScheduledAction :: ResourceName
+                      -> AWS (Either AutoScalingError DeleteScheduledActionResponse)
+deleteScheduledAction p1 = undefined $ DeleteScheduledAction
+    { dsatScheduledActionName = p1
+    , dsatAutoScalingGroupName = Nothing
+    }
+
 data DeleteScheduledAction = DeleteScheduledAction
     { dsatAutoScalingGroupName :: Maybe ResourceName
       -- ^ The name of the Auto Scaling group.

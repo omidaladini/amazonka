@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEngineDefaultParameters :: Text
+                                -> AWS (Either ElastiCacheError DescribeEngineDefaultParametersResponse)
+describeEngineDefaultParameters p1 = undefined $ DescribeEngineDefaultParameters
+    { dedpmCacheParameterGroupFamily = p1
+    , dedpmMarker = Nothing
+    , dedpmMaxRecords = Nothing
+    }
+
 data DescribeEngineDefaultParameters = DescribeEngineDefaultParameters
     { dedpmCacheParameterGroupFamily :: !Text
       -- ^ The name of the cache parameter group family. Valid values are:

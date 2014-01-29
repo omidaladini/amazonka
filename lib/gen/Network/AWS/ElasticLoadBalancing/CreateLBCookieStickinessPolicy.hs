@@ -49,6 +49,16 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLBCookieStickinessPolicy :: Text
+                               -> Text
+                               -> AWS (Either ElasticLoadBalancingError CreateLBCookieStickinessPolicyResponse)
+createLBCookieStickinessPolicy p1 p2 = undefined $ CreateLBCookieStickinessPolicy
+    { clbcspiLoadBalancerName = p1
+    , clbcspiPolicyName = p2
+    , clbcspiCookieExpirationPeriod = Nothing
+    }
+
 data CreateLBCookieStickinessPolicy = CreateLBCookieStickinessPolicy
     { clbcspiCookieExpirationPeriod :: Maybe Integer
       -- ^ The time period in seconds after which the cookie should be considered

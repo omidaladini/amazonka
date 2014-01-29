@@ -37,6 +37,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteVpnGateway :: Text
+                 -> AWS (Either EC2Error DeleteVpnGatewayResponse)
+deleteVpnGateway p1 = undefined $ DeleteVpnGateway
+    { dvgrVpnGatewayId = p1
+    , dvgrDryRun = Nothing
+    }
+
 data DeleteVpnGateway = DeleteVpnGateway
     { dvgrDryRun :: Maybe Bool
     , dvgrVpnGatewayId :: !Text

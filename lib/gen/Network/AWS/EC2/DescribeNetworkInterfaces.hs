@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeNetworkInterfaces :: AWS (Either EC2Error DescribeNetworkInterfacesResponse)
+describeNetworkInterfaces = undefined $ DescribeNetworkInterfaces
+    { dnisDryRun = Nothing
+    , dnisFilters = []
+    , dnisNetworkInterfaceIds = []
+    }
+
 data DescribeNetworkInterfaces = DescribeNetworkInterfaces
     { dnisDryRun :: Maybe Bool
     , dnisFilters :: [Filter]

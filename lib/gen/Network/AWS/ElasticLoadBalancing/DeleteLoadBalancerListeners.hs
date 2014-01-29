@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteLoadBalancerListeners :: Text
+                            -> [Int]
+                            -> AWS (Either ElasticLoadBalancingError DeleteLoadBalancerListenersResponse)
+deleteLoadBalancerListeners p1 p2 = undefined $ DeleteLoadBalancerListeners
+    { dlbliLoadBalancerName = p1
+    , dlbliLoadBalancerPorts = p2
+    }
+
 data DeleteLoadBalancerListeners = DeleteLoadBalancerListeners
     { dlbliLoadBalancerName :: !Text
       -- ^ The mnemonic name associated with the load balancer.

@@ -41,6 +41,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+removeRoleFromInstanceProfile :: Text
+                              -> Text
+                              -> AWS (Either IAMError RemoveRoleFromInstanceProfileResponse)
+removeRoleFromInstanceProfile p1 p2 = undefined $ RemoveRoleFromInstanceProfile
+    { rrfiprInstanceProfileName = p1
+    , rrfiprRoleName = p2
+    }
+
 data RemoveRoleFromInstanceProfile = RemoveRoleFromInstanceProfile
     { rrfiprInstanceProfileName :: !Text
       -- ^ Name of the instance profile to update.

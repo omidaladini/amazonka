@@ -49,6 +49,17 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+authorizeDBSecurityGroupIngress :: Text
+                                -> AWS (Either RDSError AuthorizeDBSecurityGroupIngressResponse)
+authorizeDBSecurityGroupIngress p1 = undefined $ AuthorizeDBSecurityGroupIngress
+    { adbsgimDBSecurityGroupName = p1
+    , adbsgimCIDRIP = Nothing
+    , adbsgimEC2SecurityGroupId = Nothing
+    , adbsgimEC2SecurityGroupName = Nothing
+    , adbsgimEC2SecurityGroupOwnerId = Nothing
+    }
+
 data AuthorizeDBSecurityGroupIngress = AuthorizeDBSecurityGroupIngress
     { adbsgimCIDRIP :: Maybe Text
       -- ^ The IP range to authorize.

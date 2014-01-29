@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteRoute :: Text
+            -> Text
+            -> AWS (Either EC2Error DeleteRouteResponse)
+deleteRoute p1 p2 = undefined $ DeleteRoute
+    { drrDestinationCidrBlock = p1
+    , drrRouteTableId = p2
+    , drrDryRun = Nothing
+    }
+
 data DeleteRoute = DeleteRoute
     { drrDestinationCidrBlock :: !Text
       -- ^ The CIDR range for the route you want to delete. The value you specify must

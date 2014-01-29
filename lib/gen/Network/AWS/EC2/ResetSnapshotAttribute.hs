@@ -32,6 +32,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetSnapshotAttribute :: SnapshotAttributeName
+                       -> Text
+                       -> AWS (Either EC2Error ResetSnapshotAttributeResponse)
+resetSnapshotAttribute p1 p2 = undefined $ ResetSnapshotAttribute
+    { rsarAttribute = p1
+    , rsarSnapshotId = p2
+    , rsarDryRun = Nothing
+    }
+
 data ResetSnapshotAttribute = ResetSnapshotAttribute
     { rsarAttribute :: !SnapshotAttributeName
       -- ^ The name of the attribute being reset. Available attribute names:

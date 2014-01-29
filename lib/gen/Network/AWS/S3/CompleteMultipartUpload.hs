@@ -37,9 +37,9 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-completeMultipartUpload :: Text -- ^ Bucket
-                        -> Text -- ^ Key
-                        -> Text -- ^ UploadId
+completeMultipartUpload :: Text
+                        -> Text
+                        -> Text
                         -> AWS (Either S3Error CompleteMultipartUploadResponse)
 completeMultipartUpload p1 p2 p3 = undefined $ CompleteMultipartUpload
     { muBucket = p1

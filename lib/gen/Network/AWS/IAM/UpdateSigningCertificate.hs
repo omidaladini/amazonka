@@ -43,6 +43,16 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateSigningCertificate :: Text
+                         -> StatusType
+                         -> AWS (Either IAMError UpdateSigningCertificateResponse)
+updateSigningCertificate p1 p2 = undefined $ UpdateSigningCertificate
+    { uscrCertificateId = p1
+    , uscrStatus = p2
+    , uscrUserName = Nothing
+    }
+
 data UpdateSigningCertificate = UpdateSigningCertificate
     { uscrCertificateId :: !Text
       -- ^ The ID of the signing certificate you want to update.

@@ -43,6 +43,18 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+createApplicationVersion :: Text
+                         -> Text
+                         -> AWS (Either ElasticBeanstalkError CreateApplicationVersionResponse)
+createApplicationVersion p1 p2 = undefined $ CreateApplicationVersion
+    { cavmApplicationName = p1
+    , cavmVersionLabel = p2
+    , cavmAutoCreateApplication = Nothing
+    , cavmDescription = Nothing
+    , cavmSourceBundle = Nothing
+    }
+
 data CreateApplicationVersion = CreateApplicationVersion
     { cavmApplicationName :: !Text
       -- ^ The name of the application. If no application is found with this name, and

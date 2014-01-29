@@ -41,6 +41,17 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+setLoadBalancerListenerSSLCertificate :: Text
+                                      -> Int
+                                      -> Text
+                                      -> AWS (Either ElasticLoadBalancingError SetLoadBalancerListenerSSLCertificateResponse)
+setLoadBalancerListenerSSLCertificate p1 p2 p3 = undefined $ SetLoadBalancerListenerSSLCertificate
+    { slblsslciLoadBalancerName = p1
+    , slblsslciLoadBalancerPort = p2
+    , slblsslciSSLCertificateId = p3
+    }
+
 data SetLoadBalancerListenerSSLCertificate = SetLoadBalancerListenerSSLCertificate
     { slblsslciLoadBalancerName :: !Text
       -- ^ The name of the load balancer.

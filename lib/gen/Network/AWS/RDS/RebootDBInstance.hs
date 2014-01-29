@@ -54,6 +54,14 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+rebootDBInstance :: Text
+                 -> AWS (Either RDSError RebootDBInstanceResponse)
+rebootDBInstance p1 = undefined $ RebootDBInstance
+    { rdbimDBInstanceIdentifier = p1
+    , rdbimForceFailover = Nothing
+    }
+
 data RebootDBInstance = RebootDBInstance
     { rdbimDBInstanceIdentifier :: !Text
       -- ^ The DB instance identifier. This parameter is stored as a lowercase string.

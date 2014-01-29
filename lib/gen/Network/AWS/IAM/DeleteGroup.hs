@@ -35,6 +35,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteGroup :: Text
+            -> AWS (Either IAMError DeleteGroupResponse)
+deleteGroup p1 = undefined $ DeleteGroup
+    { dgrGroupName = p1
+    }
+
 data DeleteGroup = DeleteGroup
     { dgrGroupName :: !Text
       -- ^ Name of the group to delete.

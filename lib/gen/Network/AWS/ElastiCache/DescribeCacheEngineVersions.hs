@@ -40,6 +40,17 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCacheEngineVersions :: AWS (Either ElastiCacheError DescribeCacheEngineVersionsResponse)
+describeCacheEngineVersions = undefined $ DescribeCacheEngineVersions
+    { dcevmCacheParameterGroupFamily = Nothing
+    , dcevmDefaultOnly = Nothing
+    , dcevmEngine = Nothing
+    , dcevmEngineVersion = Nothing
+    , dcevmMarker = Nothing
+    , dcevmMaxRecords = Nothing
+    }
+
 data DescribeCacheEngineVersions = DescribeCacheEngineVersions
     { dcevmCacheParameterGroupFamily :: Maybe Text
       -- ^ The name of a specific cache parameter group family to return details for.

@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listAccountAliases :: AWS (Either IAMError ListAccountAliasesResponse)
+listAccountAliases = undefined $ ListAccountAliases
+    { laarMarker = Nothing
+    , laarMaxItems = Nothing
+    }
+
 data ListAccountAliases = ListAccountAliases
     { laarMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

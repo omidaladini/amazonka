@@ -39,12 +39,12 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-createHealthCheck :: HealthCheckConfig -- ^ HealthCheckConfig
-                  -> Text -- ^ CallerReference
+createHealthCheck :: Text
+                  -> HealthCheckConfig
                   -> AWS (Either Route53Error CreateHealthCheckResponse)
 createHealthCheck p1 p2 = undefined $ CreateHealthCheck
-    { chcrHealthCheckConfig = p1
-    , chcrCallerReference = p2
+    { chcrCallerReference = p1
+    , chcrHealthCheckConfig = p2
     }
 
 data CreateHealthCheck = CreateHealthCheck

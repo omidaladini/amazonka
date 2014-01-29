@@ -35,6 +35,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateDefaultSearchField :: Text
+                         -> Text
+                         -> AWS (Either CloudSearchError UpdateDefaultSearchFieldResponse)
+updateDefaultSearchField p1 p2 = undefined $ UpdateDefaultSearchField
+    { udsfrDefaultSearchField = p1
+    , udsfrDomainName = p2
+    }
+
 data UpdateDefaultSearchField = UpdateDefaultSearchField
     { udsfrDefaultSearchField :: !Text
       -- ^ The IndexField to use for search requests issued with the q parameter. The

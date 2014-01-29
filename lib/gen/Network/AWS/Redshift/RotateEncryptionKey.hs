@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+rotateEncryptionKey :: Text
+                    -> AWS (Either RedshiftError RotateEncryptionKeyResponse)
+rotateEncryptionKey p1 = undefined $ RotateEncryptionKey
+    { rekmClusterIdentifier = p1
+    }
+
 data RotateEncryptionKey = RotateEncryptionKey
     { rekmClusterIdentifier :: !Text
       -- ^ The unique identifier of the cluster that you want to rotate the encryption

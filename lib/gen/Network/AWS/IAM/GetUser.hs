@@ -39,6 +39,12 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getUser :: AWS (Either IAMError GetUserResponse)
+getUser = undefined $ GetUser
+    { gurUserName = Nothing
+    }
+
 data GetUser = GetUser
     { gurUserName :: Maybe Text
       -- ^ Name of the user to get information about. This parameter is optional. If

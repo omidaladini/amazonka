@@ -45,6 +45,17 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+receiveMessage :: Text
+               -> AWS (Either SQSError ReceiveMessageResponse)
+receiveMessage p1 = undefined $ ReceiveMessage
+    { rmrQueueUrl = p1
+    , rmrAttributeNames = []
+    , rmrMaxNumberOfMessages = Nothing
+    , rmrVisibilityTimeout = Nothing
+    , rmrWaitTimeSeconds = Nothing
+    }
+
 data ReceiveMessage = ReceiveMessage
     { rmrAttributeNames :: [QueueAttributeName]
       -- ^ A list of attributes that need to be returned along with each message. The

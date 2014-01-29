@@ -36,6 +36,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDhcpOptions :: [DhcpConfiguration]
+                  -> AWS (Either EC2Error CreateDhcpOptionsResponse)
+createDhcpOptions p1 = undefined $ CreateDhcpOptions
+    { cdorDhcpConfigurations = p1
+    , cdorDryRun = Nothing
+    }
+
 data CreateDhcpOptions = CreateDhcpOptions
     { cdorDhcpConfigurations :: [DhcpConfiguration]
       -- ^ A set of one or more DHCP configurations.

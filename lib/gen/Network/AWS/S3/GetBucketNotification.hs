@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketNotification :: Text -- ^ Bucket
+getBucketNotification :: Text
                       -> AWS (Either S3Error GetBucketNotificationResponse)
 getBucketNotification p1 = undefined $ GetBucketNotification
     { gbnBucket = p1

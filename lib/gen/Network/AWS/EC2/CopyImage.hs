@@ -32,6 +32,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+copyImage :: Text
+          -> Text
+          -> AWS (Either EC2Error CopyImageResponse)
+copyImage p1 p2 = undefined $ CopyImage
+    { cirSourceImageId = p1
+    , cirSourceRegion = p2
+    , cirClientToken = Nothing
+    , cirDescription = Nothing
+    , cirDryRun = Nothing
+    , cirName = Nothing
+    }
+
 data CopyImage = CopyImage
     { cirClientToken :: Maybe Text
     , cirDescription :: Maybe Text

@@ -40,6 +40,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+releaseAddress :: AWS (Either EC2Error ReleaseAddressResponse)
+releaseAddress = undefined $ ReleaseAddress
+    { rarAllocationId = Nothing
+    , rarDryRun = Nothing
+    , rarPublicIp = Nothing
+    }
+
 data ReleaseAddress = ReleaseAddress
     { rarAllocationId :: Maybe Text
       -- ^ The allocation ID that AWS provided when you allocated the address for use

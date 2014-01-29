@@ -36,7 +36,7 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-getHealthCheck :: Text -- ^ HealthCheckId
+getHealthCheck :: Text
                -> AWS (Either Route53Error GetHealthCheckResponse)
 getHealthCheck p1 = undefined $ GetHealthCheck
     { ghcrHealthCheckId = p1

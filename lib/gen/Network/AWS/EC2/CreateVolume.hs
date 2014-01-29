@@ -32,6 +32,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createVolume :: Text
+             -> AWS (Either EC2Error CreateVolumeResponse)
+createVolume p1 = undefined $ CreateVolume
+    { cvsAvailabilityZone = p1
+    , cvsDryRun = Nothing
+    , cvsIops = Nothing
+    , cvsSize = Nothing
+    , cvsSnapshotId = Nothing
+    , cvsVolumeType = Nothing
+    }
+
 data CreateVolume = CreateVolume
     { cvsAvailabilityZone :: !Text
       -- ^ The Availability Zone in which to create the new volume.

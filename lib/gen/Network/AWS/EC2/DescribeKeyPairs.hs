@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeKeyPairs :: AWS (Either EC2Error DescribeKeyPairsResponse)
+describeKeyPairs = undefined $ DescribeKeyPairs
+    { dkpsDryRun = Nothing
+    , dkpsFilters = []
+    , dkpsKeyNames = []
+    }
+
 data DescribeKeyPairs = DescribeKeyPairs
     { dkpsDryRun :: Maybe Bool
     , dkpsFilters :: [Filter]

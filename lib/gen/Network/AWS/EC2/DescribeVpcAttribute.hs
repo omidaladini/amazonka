@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeVpcAttribute :: Text
+                     -> AWS (Either EC2Error DescribeVpcAttributeResponse)
+describeVpcAttribute p1 = undefined $ DescribeVpcAttribute
+    { dvasVpcId = p1
+    , dvasAttribute = Nothing
+    , dvasDryRun = Nothing
+    }
+
 data DescribeVpcAttribute = DescribeVpcAttribute
     { dvasAttribute :: Maybe VpcAttributeName
     , dvasDryRun :: Maybe Bool

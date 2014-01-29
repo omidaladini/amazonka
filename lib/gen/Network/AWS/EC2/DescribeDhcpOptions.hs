@@ -35,6 +35,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDhcpOptions :: AWS (Either EC2Error DescribeDhcpOptionsResponse)
+describeDhcpOptions = undefined $ DescribeDhcpOptions
+    { ddorDhcpOptionsIds = []
+    , ddorDryRun = Nothing
+    , ddorFilters = []
+    }
+
 data DescribeDhcpOptions = DescribeDhcpOptions
     { ddorDhcpOptionsIds :: [Text]
     , ddorDryRun :: Maybe Bool

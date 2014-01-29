@@ -37,18 +37,18 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-uploadPartCopy :: Text -- ^ Bucket
-               -> Text -- ^ Key
-               -> Text -- ^ UploadId
-               -> Int -- ^ PartNumber
-               -> Text -- ^ CopySource
+uploadPartCopy :: Text
+               -> Text
+               -> Text
+               -> Int
+               -> Text
                -> AWS (Either S3Error UploadPartCopyResponse)
 uploadPartCopy p1 p2 p3 p4 p5 = undefined $ UploadPartCopy
     { upcBucket = p1
     , upcKey = p2
-    , upcUploadId = p3
+    , upcCopySource = p3
     , upcPartNumber = p4
-    , upcCopySource = p5
+    , upcUploadId = p5
     , upcCopySourceIfMatch = Nothing
     , upcCopySourceIfModifiedSince = Nothing
     , upcCopySourceIfNoneMatch = Nothing

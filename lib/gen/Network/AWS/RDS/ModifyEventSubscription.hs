@@ -45,6 +45,17 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyEventSubscription :: Text
+                        -> AWS (Either RDSError ModifyEventSubscriptionResponse)
+modifyEventSubscription p1 = undefined $ ModifyEventSubscription
+    { mesmSubscriptionName = p1
+    , mesmEnabled = Nothing
+    , mesmEventCategories = []
+    , mesmSnsTopicArn = Nothing
+    , mesmSourceType = Nothing
+    }
+
 data ModifyEventSubscription = ModifyEventSubscription
     { mesmEnabled :: Maybe Bool
       -- ^ A Boolean value; set to true to activate the subscription.

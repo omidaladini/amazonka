@@ -39,6 +39,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDBSecurityGroup :: Text
+                      -> Text
+                      -> AWS (Either RDSError CreateDBSecurityGroupResponse)
+createDBSecurityGroup p1 p2 = undefined $ CreateDBSecurityGroup
+    { cdbsgmDBSecurityGroupDescription = p1
+    , cdbsgmDBSecurityGroupName = p2
+    , cdbsgmTags = []
+    }
+
 data CreateDBSecurityGroup = CreateDBSecurityGroup
     { cdbsgmDBSecurityGroupDescription :: !Text
       -- ^ The description for the DB security group.

@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteSubnet :: Text
+             -> AWS (Either EC2Error DeleteSubnetResponse)
+deleteSubnet p1 = undefined $ DeleteSubnet
+    { dstSubnetId = p1
+    , dstDryRun = Nothing
+    }
+
 data DeleteSubnet = DeleteSubnet
     { dstDryRun :: Maybe Bool
     , dstSubnetId :: !Text

@@ -40,6 +40,27 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLaunchConfiguration :: Text
+                          -> AWS (Either AutoScalingError CreateLaunchConfigurationResponse)
+createLaunchConfiguration p1 = undefined $ CreateLaunchConfiguration
+    { clctLaunchConfigurationName = p1
+    , clctAssociatePublicIpAddress = Nothing
+    , clctBlockDeviceMappings = []
+    , clctEbsOptimized = Nothing
+    , clctIamInstanceProfile = Nothing
+    , clctImageId = Nothing
+    , clctInstanceId = Nothing
+    , clctInstanceMonitoring = Nothing
+    , clctInstanceType = Nothing
+    , clctKernelId = Nothing
+    , clctKeyName = Nothing
+    , clctRamdiskId = Nothing
+    , clctSecurityGroups = []
+    , clctSpotPrice = Nothing
+    , clctUserData = Nothing
+    }
+
 data CreateLaunchConfiguration = CreateLaunchConfiguration
     { clctAssociatePublicIpAddress :: Maybe Bool
       -- ^ Used for Auto Scaling groups that launch instances into an Amazon Virtual

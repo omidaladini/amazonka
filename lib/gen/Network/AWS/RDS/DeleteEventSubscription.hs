@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteEventSubscription :: Text
+                        -> AWS (Either RDSError DeleteEventSubscriptionResponse)
+deleteEventSubscription p1 = undefined $ DeleteEventSubscription
+    { desmSubscriptionName = p1
+    }
+
 data DeleteEventSubscription = DeleteEventSubscription
     { desmSubscriptionName :: !Text
       -- ^ The name of the RDS event notification subscription you want to delete.

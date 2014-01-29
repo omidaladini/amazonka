@@ -40,6 +40,14 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDBParameterGroups :: AWS (Either RDSError DescribeDBParameterGroupsResponse)
+describeDBParameterGroups = undefined $ DescribeDBParameterGroups
+    { ddbpgmDBParameterGroupName = Nothing
+    , ddbpgmMarker = Nothing
+    , ddbpgmMaxRecords = Nothing
+    }
+
 data DescribeDBParameterGroups = DescribeDBParameterGroups
     { ddbpgmDBParameterGroupName :: Maybe Text
       -- ^ The name of a specific DB parameter group to return details for.

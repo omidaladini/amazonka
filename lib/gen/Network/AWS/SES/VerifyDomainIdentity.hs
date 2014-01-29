@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+verifyDomainIdentity :: Text
+                     -> AWS (Either SESError VerifyDomainIdentityResponse)
+verifyDomainIdentity p1 = undefined $ VerifyDomainIdentity
+    { vdirDomain = p1
+    }
+
 data VerifyDomainIdentity = VerifyDomainIdentity
     { vdirDomain :: !Text
       -- ^ The domain to be verified.

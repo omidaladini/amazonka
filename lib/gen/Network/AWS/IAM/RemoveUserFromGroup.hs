@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+removeUserFromGroup :: Text
+                    -> Text
+                    -> AWS (Either IAMError RemoveUserFromGroupResponse)
+removeUserFromGroup p1 p2 = undefined $ RemoveUserFromGroup
+    { rufgrGroupName = p1
+    , rufgrUserName = p2
+    }
+
 data RemoveUserFromGroup = RemoveUserFromGroup
     { rufgrGroupName :: !Text
       -- ^ Name of the group to update.

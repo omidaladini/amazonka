@@ -34,6 +34,17 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAlarms :: AWS (Either CloudWatchError DescribeAlarmsResponse)
+describeAlarms = undefined $ DescribeAlarms
+    { daiActionPrefix = Nothing
+    , daiAlarmNamePrefix = Nothing
+    , daiAlarmNames = []
+    , daiMaxRecords = Nothing
+    , daiNextToken = Nothing
+    , daiStateValue = Nothing
+    }
+
 data DescribeAlarms = DescribeAlarms
     { daiActionPrefix :: Maybe Text
       -- ^ The action name prefix.

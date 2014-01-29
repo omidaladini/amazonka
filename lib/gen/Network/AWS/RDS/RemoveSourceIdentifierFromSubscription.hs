@@ -40,6 +40,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+removeSourceIdentifierFromSubscription :: Text
+                                       -> Text
+                                       -> AWS (Either RDSError RemoveSourceIdentifierFromSubscriptionResponse)
+removeSourceIdentifierFromSubscription p1 p2 = undefined $ RemoveSourceIdentifierFromSubscription
+    { rsifsmSourceIdentifier = p1
+    , rsifsmSubscriptionName = p2
+    }
+
 data RemoveSourceIdentifierFromSubscription = RemoveSourceIdentifierFromSubscription
     { rsifsmSourceIdentifier :: !Text
       -- ^ The source identifier to be removed from the subscription, such as the DB

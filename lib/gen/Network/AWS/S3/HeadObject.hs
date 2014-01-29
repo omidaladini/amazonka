@@ -39,8 +39,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-headObject :: Text -- ^ Bucket
-           -> Text -- ^ Key
+headObject :: Text
+           -> Text
            -> AWS (Either S3Error HeadObjectResponse)
 headObject p1 p2 = undefined $ HeadObject
     { hoBucket = p1

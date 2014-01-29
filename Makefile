@@ -44,6 +44,7 @@ JSON := \
  $(BOTO)/swf.json
 
 MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
+# MODELS := $(BOTO)/autoscaling.json
 
 .PHONY: test lint doc
 

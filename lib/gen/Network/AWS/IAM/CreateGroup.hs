@@ -37,6 +37,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createGroup :: Text
+            -> AWS (Either IAMError CreateGroupResponse)
+createGroup p1 = undefined $ CreateGroup
+    { cgrGroupName = p1
+    , cgrPath = Nothing
+    }
+
 data CreateGroup = CreateGroup
     { cgrGroupName :: !Text
       -- ^ Name of the group to create. Do not include the path in this value.

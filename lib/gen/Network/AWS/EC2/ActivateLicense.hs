@@ -33,6 +33,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+activateLicense :: Int
+                -> Text
+                -> AWS (Either EC2Error ActivateLicenseResponse)
+activateLicense p1 p2 = undefined $ ActivateLicense
+    { alrCapacity = p1
+    , alrLicenseId = p2
+    , alrDryRun = Nothing
+    }
+
 data ActivateLicense = ActivateLicense
     { alrCapacity :: !Int
       -- ^ Specifies the additional number of licenses to activate.

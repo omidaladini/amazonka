@@ -38,6 +38,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteConfigurationTemplate :: Text
+                            -> Text
+                            -> AWS (Either ElasticBeanstalkError DeleteConfigurationTemplateResponse)
+deleteConfigurationTemplate p1 p2 = undefined $ DeleteConfigurationTemplate
+    { dctmApplicationName = p1
+    , dctmTemplateName = p2
+    }
+
 data DeleteConfigurationTemplate = DeleteConfigurationTemplate
     { dctmApplicationName :: !Text
       -- ^ The name of the application to delete the configuration template from.

@@ -32,6 +32,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetInstanceAttribute :: InstanceAttributeName
+                       -> Text
+                       -> AWS (Either EC2Error ResetInstanceAttributeResponse)
+resetInstanceAttribute p1 p2 = undefined $ ResetInstanceAttribute
+    { riarAttribute = p1
+    , riarInstanceId = p2
+    , riarDryRun = Nothing
+    }
+
 data ResetInstanceAttribute = ResetInstanceAttribute
     { riarAttribute :: !InstanceAttributeName
       -- ^ The name of the attribute being reset. Available attribute names: kernel,

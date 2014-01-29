@@ -42,6 +42,14 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+estimateTemplateCost :: AWS (Either CloudFormationError EstimateTemplateCostResponse)
+estimateTemplateCost = undefined $ EstimateTemplateCost
+    { etciParameters = []
+    , etciTemplateBody = Nothing
+    , etciTemplateURL = Nothing
+    }
+
 data EstimateTemplateCost = EstimateTemplateCost
     { etciParameters :: [Parameter]
       -- ^ A list of Parameter structures that specify input parameters.

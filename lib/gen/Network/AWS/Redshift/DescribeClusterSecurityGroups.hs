@@ -43,6 +43,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeClusterSecurityGroups :: AWS (Either RedshiftError DescribeClusterSecurityGroupsResponse)
+describeClusterSecurityGroups = undefined $ DescribeClusterSecurityGroups
+    { dcsgnClusterSecurityGroupName = Nothing
+    , dcsgnMarker = Nothing
+    , dcsgnMaxRecords = Nothing
+    }
+
 data DescribeClusterSecurityGroups = DescribeClusterSecurityGroups
     { dcsgnClusterSecurityGroupName :: Maybe Text
       -- ^ The name of a cluster security group for which you are requesting details.

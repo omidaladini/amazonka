@@ -37,9 +37,9 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-copyObject :: Text -- ^ Bucket
-           -> Text -- ^ Key
-           -> Text -- ^ CopySource
+copyObject :: Text
+           -> Text
+           -> Text
            -> AWS (Either S3Error CopyObjectResponse)
 copyObject p1 p2 p3 = undefined $ CopyObject
     { coBucket = p1
@@ -60,7 +60,7 @@ copyObject p1 p2 p3 = undefined $ CopyObject
     , coGrantRead = Nothing
     , coGrantReadACP = Nothing
     , coGrantWriteACP = Nothing
-    , coMetadata = mempty
+    , coMetadata = Map.empty
     , coMetadataDirective = Nothing
     , coServerSideEncryption = Nothing
     , coStorageClass = Nothing

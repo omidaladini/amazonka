@@ -43,6 +43,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSubnet :: Text
+             -> Text
+             -> AWS (Either EC2Error CreateSubnetResponse)
+createSubnet p1 p2 = undefined $ CreateSubnet
+    { cssCidrBlock = p1
+    , cssVpcId = p2
+    , cssAvailabilityZone = Nothing
+    , cssDryRun = Nothing
+    }
+
 data CreateSubnet = CreateSubnet
     { cssAvailabilityZone :: Maybe Text
       -- ^ The Availability Zone to create the subnet in.

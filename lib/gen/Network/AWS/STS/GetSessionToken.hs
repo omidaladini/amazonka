@@ -63,6 +63,14 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getSessionToken :: AWS (Either STSError GetSessionTokenResponse)
+getSessionToken = undefined $ GetSessionToken
+    { gstrDurationSeconds = Nothing
+    , gstrSerialNumber = Nothing
+    , gstrTokenCode = Nothing
+    }
+
 data GetSessionToken = GetSessionToken
     { gstrDurationSeconds :: Maybe Int
       -- ^ The duration, in seconds, that the credentials should remain valid.

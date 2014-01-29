@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+addUserToGroup :: Text
+               -> Text
+               -> AWS (Either IAMError AddUserToGroupResponse)
+addUserToGroup p1 p2 = undefined $ AddUserToGroup
+    { autgrGroupName = p1
+    , autgrUserName = p2
+    }
+
 data AddUserToGroup = AddUserToGroup
     { autgrGroupName :: !Text
       -- ^ Name of the group to update.

@@ -58,6 +58,19 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+sendEmail :: Destination
+          -> Message
+          -> Text
+          -> AWS (Either SESError SendEmailResponse)
+sendEmail p1 p2 p3 = undefined $ SendEmail
+    { serDestination = p1
+    , serMessage = p2
+    , serSource = p3
+    , serReplyToAddresses = []
+    , serReturnPath = Nothing
+    }
+
 data SendEmail = SendEmail
     { serDestination :: Destination
       -- ^ The destination for this email, composed of To:, CC:, and BCC: fields.

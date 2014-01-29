@@ -35,6 +35,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createInternetGateway :: AWS (Either EC2Error CreateInternetGatewayResponse)
+createInternetGateway = undefined $ CreateInternetGateway
+    { cigrDryRun = Nothing
+    }
+
 data CreateInternetGateway = CreateInternetGateway
     { cigrDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)

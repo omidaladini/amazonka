@@ -42,6 +42,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStackResource :: Text
+                      -> Text
+                      -> AWS (Either CloudFormationError DescribeStackResourceResponse)
+describeStackResource p1 p2 = undefined $ DescribeStackResource
+    { dsrjLogicalResourceId = p1
+    , dsrjStackName = p2
+    }
+
 data DescribeStackResource = DescribeStackResource
     { dsrjLogicalResourceId :: !Text
       -- ^ The logical name of the resource as specified in the template. Default:

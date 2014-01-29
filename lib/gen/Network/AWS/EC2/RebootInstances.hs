@@ -36,6 +36,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+rebootInstances :: [Text]
+                -> AWS (Either EC2Error RebootInstancesResponse)
+rebootInstances p1 = undefined $ RebootInstances
+    { ritInstanceIds = p1
+    , ritDryRun = Nothing
+    }
+
 data RebootInstances = RebootInstances
     { ritDryRun :: Maybe Bool
     , ritInstanceIds :: [Text]

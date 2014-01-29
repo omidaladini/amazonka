@@ -39,6 +39,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createDBSnapshot :: Text
+                 -> Text
+                 -> AWS (Either RDSError CreateDBSnapshotResponse)
+createDBSnapshot p1 p2 = undefined $ CreateDBSnapshot
+    { cdbsnDBInstanceIdentifier = p1
+    , cdbsnDBSnapshotIdentifier = p2
+    , cdbsnTags = []
+    }
+
 data CreateDBSnapshot = CreateDBSnapshot
     { cdbsnDBInstanceIdentifier :: !Text
       -- ^ The DB instance identifier. This is the unique key that identifies a DB

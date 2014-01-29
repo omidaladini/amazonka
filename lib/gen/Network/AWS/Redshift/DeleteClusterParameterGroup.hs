@@ -40,6 +40,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteClusterParameterGroup :: Text
+                            -> AWS (Either RedshiftError DeleteClusterParameterGroupResponse)
+deleteClusterParameterGroup p1 = undefined $ DeleteClusterParameterGroup
+    { dcpgnParameterGroupName = p1
+    }
+
 data DeleteClusterParameterGroup = DeleteClusterParameterGroup
     { dcpgnParameterGroupName :: !Text
       -- ^ The name of the parameter group to be deleted. Constraints: Must be the

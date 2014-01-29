@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStemmingOptions :: Text
+                        -> AWS (Either CloudSearchError DescribeStemmingOptionsResponse)
+describeStemmingOptions p1 = undefined $ DescribeStemmingOptions
+    { dsotDomainName = p1
+    }
+
 data DescribeStemmingOptions = DescribeStemmingOptions
     { dsotDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

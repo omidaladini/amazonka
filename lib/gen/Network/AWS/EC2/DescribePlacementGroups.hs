@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describePlacementGroups :: AWS (Either EC2Error DescribePlacementGroupsResponse)
+describePlacementGroups = undefined $ DescribePlacementGroups
+    { dpgsDryRun = Nothing
+    , dpgsFilters = []
+    , dpgsGroupNames = []
+    }
+
 data DescribePlacementGroups = DescribePlacementGroups
     { dpgsDryRun :: Maybe Bool
     , dpgsFilters :: [Filter]

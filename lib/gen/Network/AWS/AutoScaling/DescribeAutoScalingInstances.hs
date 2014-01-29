@@ -42,6 +42,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAutoScalingInstances :: AWS (Either AutoScalingError DescribeAutoScalingInstancesResponse)
+describeAutoScalingInstances = undefined $ DescribeAutoScalingInstances
+    { dasitInstanceIds = []
+    , dasitMaxRecords = Nothing
+    , dasitNextToken = Nothing
+    }
+
 data DescribeAutoScalingInstances = DescribeAutoScalingInstances
     { dasitInstanceIds :: [Text]
       -- ^ The list of Auto Scaling instances to describe. If this list is omitted,

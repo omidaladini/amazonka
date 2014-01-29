@@ -45,6 +45,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeResize :: Text
+               -> AWS (Either RedshiftError DescribeResizeResponse)
+describeResize p1 = undefined $ DescribeResize
+    { drmClusterIdentifier = p1
+    }
+
 data DescribeResize = DescribeResize
     { drmClusterIdentifier :: !Text
       -- ^ The unique identifier of a cluster whose resize progress you are

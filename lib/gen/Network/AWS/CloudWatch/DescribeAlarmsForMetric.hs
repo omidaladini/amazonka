@@ -33,6 +33,19 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAlarmsForMetric :: Text
+                        -> Text
+                        -> AWS (Either CloudWatchError DescribeAlarmsForMetricResponse)
+describeAlarmsForMetric p1 p2 = undefined $ DescribeAlarmsForMetric
+    { dafmiMetricName = p1
+    , dafmiNamespace = p2
+    , dafmiDimensions = []
+    , dafmiPeriod = Nothing
+    , dafmiStatistic = Nothing
+    , dafmiUnit = Nothing
+    }
+
 data DescribeAlarmsForMetric = DescribeAlarmsForMetric
     { dafmiDimensions :: [Dimension]
       -- ^ The list of dimensions associated with the metric.

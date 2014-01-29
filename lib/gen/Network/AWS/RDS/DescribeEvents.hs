@@ -46,6 +46,19 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEvents :: AWS (Either RDSError DescribeEventsResponse)
+describeEvents = undefined $ DescribeEvents
+    { demDuration = Nothing
+    , demEndTime = Nothing
+    , demEventCategories = []
+    , demMarker = Nothing
+    , demMaxRecords = Nothing
+    , demSourceIdentifier = Nothing
+    , demSourceType = Nothing
+    , demStartTime = Nothing
+    }
+
 data DescribeEvents = DescribeEvents
     { demDuration :: Maybe Int
       -- ^ The number of minutes to retrieve events for. Default: 60.

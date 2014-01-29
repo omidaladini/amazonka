@@ -35,6 +35,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+bundleInstance :: Text
+               -> Storage
+               -> AWS (Either EC2Error BundleInstanceResponse)
+bundleInstance p1 p2 = undefined $ BundleInstance
+    { birInstanceId = p1
+    , birStorage = p2
+    , birDryRun = Nothing
+    }
+
 data BundleInstance = BundleInstance
     { birDryRun :: Maybe Bool
     , birInstanceId :: !Text

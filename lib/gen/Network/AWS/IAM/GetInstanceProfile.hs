@@ -45,6 +45,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getInstanceProfile :: Text
+                   -> AWS (Either IAMError GetInstanceProfileResponse)
+getInstanceProfile p1 = undefined $ GetInstanceProfile
+    { giprInstanceProfileName = p1
+    }
+
 data GetInstanceProfile = GetInstanceProfile
     { giprInstanceProfileName :: !Text
       -- ^ Name of the instance profile to get information about.

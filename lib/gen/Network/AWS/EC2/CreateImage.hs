@@ -35,6 +35,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createImage :: Text
+            -> Text
+            -> AWS (Either EC2Error CreateImageResponse)
+createImage p1 p2 = undefined $ CreateImage
+    { cisInstanceId = p1
+    , cisName = p2
+    , cisBlockDeviceMappings = []
+    , cisDescription = Nothing
+    , cisDryRun = Nothing
+    , cisNoReboot = Nothing
+    }
+
 data CreateImage = CreateImage
     { cisBlockDeviceMappings :: [BlockDeviceMapping]
     , cisDescription :: Maybe Text

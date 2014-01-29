@@ -47,6 +47,16 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createRole :: Text
+           -> Text
+           -> AWS (Either IAMError CreateRoleResponse)
+createRole p1 p2 = undefined $ CreateRole
+    { crrAssumeRolePolicyDocument = p1
+    , crrRoleName = p2
+    , crrPath = Nothing
+    }
+
 data CreateRole = CreateRole
     { crrAssumeRolePolicyDocument :: !Text
       -- ^ The policy that grants an entity permission to assume the role.

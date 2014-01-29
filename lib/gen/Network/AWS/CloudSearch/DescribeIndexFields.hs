@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeIndexFields :: Text
+                    -> AWS (Either CloudSearchError DescribeIndexFieldsResponse)
+describeIndexFields p1 = undefined $ DescribeIndexFields
+    { difrDomainName = p1
+    , difrFieldNames = []
+    }
+
 data DescribeIndexFields = DescribeIndexFields
     { difrDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

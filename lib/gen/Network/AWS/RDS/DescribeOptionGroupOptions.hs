@@ -35,6 +35,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeOptionGroupOptions :: Text
+                           -> AWS (Either RDSError DescribeOptionGroupOptionsResponse)
+describeOptionGroupOptions p1 = undefined $ DescribeOptionGroupOptions
+    { dogomEngineName = p1
+    , dogomMajorEngineVersion = Nothing
+    , dogomMarker = Nothing
+    , dogomMaxRecords = Nothing
+    }
+
 data DescribeOptionGroupOptions = DescribeOptionGroupOptions
     { dogomEngineName :: !Text
       -- ^ A required parameter. Options available for the given Engine name will be

@@ -34,6 +34,12 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEventCategories :: AWS (Either RedshiftError DescribeEventCategoriesResponse)
+describeEventCategories = undefined $ DescribeEventCategories
+    { decmSourceType = Nothing
+    }
+
 data DescribeEventCategories = DescribeEventCategories
     { decmSourceType :: Maybe Text
       -- ^ The source type, such as cluster or parameter group, to which the described

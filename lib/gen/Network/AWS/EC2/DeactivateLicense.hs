@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deactivateLicense :: Int
+                  -> Text
+                  -> AWS (Either EC2Error DeactivateLicenseResponse)
+deactivateLicense p1 p2 = undefined $ DeactivateLicense
+    { dlsCapacity = p1
+    , dlsLicenseId = p2
+    , dlsDryRun = Nothing
+    }
+
 data DeactivateLicense = DeactivateLicense
     { dlsCapacity :: !Int
       -- ^ Specifies the amount of capacity to deactivate against the license.

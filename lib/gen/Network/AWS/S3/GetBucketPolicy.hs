@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketPolicy :: Text -- ^ Bucket
+getBucketPolicy :: Text
                 -> AWS (Either S3Error GetBucketPolicyResponse)
 getBucketPolicy p1 = undefined $ GetBucketPolicy
     { gbpBucket = p1

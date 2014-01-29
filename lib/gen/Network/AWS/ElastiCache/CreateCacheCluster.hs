@@ -41,6 +41,28 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCacheCluster :: Text
+                   -> AWS (Either ElastiCacheError CreateCacheClusterResponse)
+createCacheCluster p1 = undefined $ CreateCacheCluster
+    { cccmCacheClusterId = p1
+    , cccmAutoMinorVersionUpgrade = Nothing
+    , cccmCacheNodeType = Nothing
+    , cccmCacheParameterGroupName = Nothing
+    , cccmCacheSecurityGroupNames = []
+    , cccmCacheSubnetGroupName = Nothing
+    , cccmEngine = Nothing
+    , cccmEngineVersion = Nothing
+    , cccmNotificationTopicArn = Nothing
+    , cccmNumCacheNodes = Nothing
+    , cccmPort = Nothing
+    , cccmPreferredAvailabilityZone = Nothing
+    , cccmPreferredMaintenanceWindow = Nothing
+    , cccmReplicationGroupId = Nothing
+    , cccmSecurityGroupIds = []
+    , cccmSnapshotArns = []
+    }
+
 data CreateCacheCluster = CreateCacheCluster
     { cccmAutoMinorVersionUpgrade :: Maybe Bool
       -- ^ Determines whether minor engine upgrades will be applied automatically to

@@ -33,6 +33,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteLoadBalancerPolicy :: Text
+                         -> Text
+                         -> AWS (Either ElasticLoadBalancingError DeleteLoadBalancerPolicyResponse)
+deleteLoadBalancerPolicy p1 p2 = undefined $ DeleteLoadBalancerPolicy
+    { dlbpjLoadBalancerName = p1
+    , dlbpjPolicyName = p2
+    }
+
 data DeleteLoadBalancerPolicy = DeleteLoadBalancerPolicy
     { dlbpjLoadBalancerName :: !Text
       -- ^ The mnemonic name associated with the load balancer.

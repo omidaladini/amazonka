@@ -36,6 +36,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+checkDNSAvailability :: Text
+                     -> AWS (Either ElasticBeanstalkError CheckDNSAvailabilityResponse)
+checkDNSAvailability p1 = undefined $ CheckDNSAvailability
+    { cdnsamCNAMEPrefix = p1
+    }
+
 data CheckDNSAvailability = CheckDNSAvailability
     { cdnsamCNAMEPrefix :: !Text
       -- ^ The prefix used when this CNAME is reserved.

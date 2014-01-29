@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteSnapshot :: Text
+               -> AWS (Either EC2Error DeleteSnapshotResponse)
+deleteSnapshot p1 = undefined $ DeleteSnapshot
+    { dsuSnapshotId = p1
+    , dsuDryRun = Nothing
+    }
+
 data DeleteSnapshot = DeleteSnapshot
     { dsuDryRun :: Maybe Bool
     , dsuSnapshotId :: !Text

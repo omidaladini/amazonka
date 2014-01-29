@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+allocateAddress :: AWS (Either EC2Error AllocateAddressResponse)
+allocateAddress = undefined $ AllocateAddress
+    { aarDomain = Nothing
+    , aarDryRun = Nothing
+    }
+
 data AllocateAddress = AllocateAddress
     { aarDomain :: Maybe DomainType
       -- ^ Set to vpc to allocate the address to your VPC. By default, will allocate

@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateLoginProfile :: Text
+                   -> Text
+                   -> AWS (Either IAMError UpdateLoginProfileResponse)
+updateLoginProfile p1 p2 = undefined $ UpdateLoginProfile
+    { ulprPassword = p1
+    , ulprUserName = p2
+    }
+
 data UpdateLoginProfile = UpdateLoginProfile
     { ulprPassword :: !Text
       -- ^ The new password for the user name.

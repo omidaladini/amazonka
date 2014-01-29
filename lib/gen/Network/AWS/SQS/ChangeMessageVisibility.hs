@@ -51,6 +51,17 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+changeMessageVisibility :: Text
+                        -> Text
+                        -> Int
+                        -> AWS (Either SQSError ChangeMessageVisibilityResponse)
+changeMessageVisibility p1 p2 p3 = undefined $ ChangeMessageVisibility
+    { cmvrQueueUrl = p1
+    , cmvrReceiptHandle = p2
+    , cmvrVisibilityTimeout = p3
+    }
+
 data ChangeMessageVisibility = ChangeMessageVisibility
     { cmvrQueueUrl :: !Text
       -- ^ The URL of the SQS queue to take action on.

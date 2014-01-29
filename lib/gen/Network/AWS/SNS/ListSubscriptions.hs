@@ -42,6 +42,12 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+listSubscriptions :: AWS (Either SNSError ListSubscriptionsResponse)
+listSubscriptions = undefined $ ListSubscriptions
+    { lsiNextToken = Nothing
+    }
+
 data ListSubscriptions = ListSubscriptions
     { lsiNextToken :: Maybe Text
       -- ^ Token returned by the previous ListSubscriptions request.

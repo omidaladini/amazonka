@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeVolumes :: AWS (Either EC2Error DescribeVolumesResponse)
+describeVolumes = undefined $ DescribeVolumes
+    { dvtDryRun = Nothing
+    , dvtFilters = []
+    , dvtVolumeIds = []
+    }
+
 data DescribeVolumes = DescribeVolumes
     { dvtDryRun :: Maybe Bool
     , dvtFilters :: [Filter]

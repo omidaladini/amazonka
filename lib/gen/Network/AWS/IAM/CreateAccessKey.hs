@@ -47,6 +47,12 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createAccessKey :: AWS (Either IAMError CreateAccessKeyResponse)
+createAccessKey = undefined $ CreateAccessKey
+    { cakrUserName = Nothing
+    }
+
 data CreateAccessKey = CreateAccessKey
     { cakrUserName :: Maybe Text
       -- ^ The user name that the new key will belong to.

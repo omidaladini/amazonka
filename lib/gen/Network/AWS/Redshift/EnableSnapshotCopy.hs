@@ -33,6 +33,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+enableSnapshotCopy :: Text
+                   -> Text
+                   -> AWS (Either RedshiftError EnableSnapshotCopyResponse)
+enableSnapshotCopy p1 p2 = undefined $ EnableSnapshotCopy
+    { escmClusterIdentifier = p1
+    , escmDestinationRegion = p2
+    , escmRetentionPeriod = Nothing
+    }
+
 data EnableSnapshotCopy = EnableSnapshotCopy
     { escmClusterIdentifier :: !Text
       -- ^ The unique identifier of the source cluster to copy snapshots from.

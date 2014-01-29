@@ -32,6 +32,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createNetworkInterface :: Text
+                       -> AWS (Either EC2Error CreateNetworkInterfaceResponse)
+createNetworkInterface p1 = undefined $ CreateNetworkInterface
+    { cnirSubnetId = p1
+    , cnirDescription = Nothing
+    , cnirDryRun = Nothing
+    , cnirGroups = []
+    , cnirPrivateIpAddress = Nothing
+    , cnirPrivateIpAddresses = []
+    , cnirSecondaryPrivateIpAddressCount = Nothing
+    }
+
 data CreateNetworkInterface = CreateNetworkInterface
     { cnirDescription :: Maybe Text
     , cnirDryRun :: Maybe Bool

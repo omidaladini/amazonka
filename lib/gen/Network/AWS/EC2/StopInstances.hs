@@ -41,6 +41,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+stopInstances :: [Text]
+              -> AWS (Either EC2Error StopInstancesResponse)
+stopInstances p1 = undefined $ StopInstances
+    { sirInstanceIds = p1
+    , sirDryRun = Nothing
+    , sirForce = Nothing
+    }
+
 data StopInstances = StopInstances
     { sirDryRun :: Maybe Bool
     , sirForce :: Maybe Bool

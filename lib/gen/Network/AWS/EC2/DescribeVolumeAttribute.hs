@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeVolumeAttribute :: Text
+                        -> AWS (Either EC2Error DescribeVolumeAttributeResponse)
+describeVolumeAttribute p1 = undefined $ DescribeVolumeAttribute
+    { dvarVolumeId = p1
+    , dvarAttribute = Nothing
+    , dvarDryRun = Nothing
+    }
+
 data DescribeVolumeAttribute = DescribeVolumeAttribute
     { dvarAttribute :: Maybe VolumeAttributeName
     , dvarDryRun :: Maybe Bool

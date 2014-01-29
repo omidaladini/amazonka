@@ -43,6 +43,29 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+createAutoScalingGroup :: Text
+                       -> Int
+                       -> Int
+                       -> AWS (Either AutoScalingError CreateAutoScalingGroupResponse)
+createAutoScalingGroup p1 p2 p3 = undefined $ CreateAutoScalingGroup
+    { casgtAutoScalingGroupName = p1
+    , casgtMaxSize = p2
+    , casgtMinSize = p3
+    , casgtAvailabilityZones = []
+    , casgtDefaultCooldown = Nothing
+    , casgtDesiredCapacity = Nothing
+    , casgtHealthCheckGracePeriod = Nothing
+    , casgtHealthCheckType = Nothing
+    , casgtInstanceId = Nothing
+    , casgtLaunchConfigurationName = Nothing
+    , casgtLoadBalancerNames = []
+    , casgtPlacementGroup = Nothing
+    , casgtTags = []
+    , casgtTerminationPolicies = []
+    , casgtVpcZoneIdentifier = Nothing
+    }
+
 data CreateAutoScalingGroup = CreateAutoScalingGroup
     { casgtAutoScalingGroupName :: !Text
       -- ^ The name of the Auto Scaling group.

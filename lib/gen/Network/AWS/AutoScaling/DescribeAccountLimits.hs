@@ -40,6 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAccountLimits :: AWS (Either AutoScalingError DescribeAccountLimitsResponse)
+describeAccountLimits = undefined DescribeAccountLimits
+
 data DescribeAccountLimits = DescribeAccountLimits
     deriving (Eq, Show, Generic)
 

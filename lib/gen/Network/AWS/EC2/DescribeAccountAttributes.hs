@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAccountAttributes :: AWS (Either EC2Error DescribeAccountAttributesResponse)
+describeAccountAttributes = undefined $ DescribeAccountAttributes
+    { daarAttributeNames = []
+    , daarDryRun = Nothing
+    }
+
 data DescribeAccountAttributes = DescribeAccountAttributes
     { daarAttributeNames :: [AccountAttributeName]
     , daarDryRun :: Maybe Bool

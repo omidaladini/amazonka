@@ -53,6 +53,25 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+restoreFromClusterSnapshot :: Text
+                           -> Text
+                           -> AWS (Either RedshiftError RestoreFromClusterSnapshotResponse)
+restoreFromClusterSnapshot p1 p2 = undefined $ RestoreFromClusterSnapshot
+    { rfcsmClusterIdentifier = p1
+    , rfcsmSnapshotIdentifier = p2
+    , rfcsmAllowVersionUpgrade = Nothing
+    , rfcsmAvailabilityZone = Nothing
+    , rfcsmClusterSubnetGroupName = Nothing
+    , rfcsmElasticIp = Nothing
+    , rfcsmHsmClientCertificateIdentifier = Nothing
+    , rfcsmHsmConfigurationIdentifier = Nothing
+    , rfcsmOwnerAccount = Nothing
+    , rfcsmPort = Nothing
+    , rfcsmPubliclyAccessible = Nothing
+    , rfcsmSnapshotClusterIdentifier = Nothing
+    }
+
 data RestoreFromClusterSnapshot = RestoreFromClusterSnapshot
     { rfcsmAllowVersionUpgrade :: Maybe Bool
       -- ^ If true, upgrades can be applied during the maintenance window to the

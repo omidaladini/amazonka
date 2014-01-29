@@ -39,6 +39,17 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEnvironments :: AWS (Either ElasticBeanstalkError DescribeEnvironmentsResponse)
+describeEnvironments = undefined $ DescribeEnvironments
+    { denApplicationName = Nothing
+    , denEnvironmentIds = []
+    , denEnvironmentNames = []
+    , denIncludeDeleted = Nothing
+    , denIncludedDeletedBackTo = Nothing
+    , denVersionLabel = Nothing
+    }
+
 data DescribeEnvironments = DescribeEnvironments
     { denApplicationName :: Maybe Text
       -- ^ If specified, AWS Elastic Beanstalk restricts the returned descriptions to

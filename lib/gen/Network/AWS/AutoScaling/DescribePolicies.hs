@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describePolicies :: AWS (Either AutoScalingError DescribePoliciesResponse)
+describePolicies = undefined $ DescribePolicies
+    { dpuAutoScalingGroupName = Nothing
+    , dpuMaxRecords = Nothing
+    , dpuNextToken = Nothing
+    , dpuPolicyNames = []
+    }
+
 data DescribePolicies = DescribePolicies
     { dpuAutoScalingGroupName :: Maybe ResourceName
       -- ^ The name of the Auto Scaling group.

@@ -32,6 +32,18 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachNetworkInterface :: Int
+                       -> Text
+                       -> Text
+                       -> AWS (Either EC2Error AttachNetworkInterfaceResponse)
+attachNetworkInterface p1 p2 p3 = undefined $ AttachNetworkInterface
+    { anirDeviceIndex = p1
+    , anirInstanceId = p2
+    , anirNetworkInterfaceId = p3
+    , anirDryRun = Nothing
+    }
+
 data AttachNetworkInterface = AttachNetworkInterface
     { anirDeviceIndex :: !Int
     , anirDryRun :: Maybe Bool

@@ -45,6 +45,17 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+createClusterSubnetGroup :: Text
+                         -> Text
+                         -> [Text]
+                         -> AWS (Either RedshiftError CreateClusterSubnetGroupResponse)
+createClusterSubnetGroup p1 p2 p3 = undefined $ CreateClusterSubnetGroup
+    { ccsgmClusterSubnetGroupName = p1
+    , ccsgmDescription = p2
+    , ccsgmSubnetIds = p3
+    }
+
 data CreateClusterSubnetGroup = CreateClusterSubnetGroup
     { ccsgmClusterSubnetGroupName :: !Text
       -- ^ The name for the subnet group. Amazon Redshift stores the value as a

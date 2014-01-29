@@ -61,6 +61,24 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateAutoScalingGroup :: ResourceName
+                       -> AWS (Either AutoScalingError UpdateAutoScalingGroupResponse)
+updateAutoScalingGroup p1 = undefined $ UpdateAutoScalingGroup
+    { uasgtAutoScalingGroupName = p1
+    , uasgtAvailabilityZones = []
+    , uasgtDefaultCooldown = Nothing
+    , uasgtDesiredCapacity = Nothing
+    , uasgtHealthCheckGracePeriod = Nothing
+    , uasgtHealthCheckType = Nothing
+    , uasgtLaunchConfigurationName = Nothing
+    , uasgtMaxSize = Nothing
+    , uasgtMinSize = Nothing
+    , uasgtPlacementGroup = Nothing
+    , uasgtTerminationPolicies = []
+    , uasgtVpcZoneIdentifier = Nothing
+    }
+
 data UpdateAutoScalingGroup = UpdateAutoScalingGroup
     { uasgtAutoScalingGroupName :: !ResourceName
       -- ^ The name of the Auto Scaling group.

@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteLaunchConfiguration :: ResourceName
+                          -> AWS (Either AutoScalingError DeleteLaunchConfigurationResponse)
+deleteLaunchConfiguration p1 = undefined $ DeleteLaunchConfiguration
+    { lcntLaunchConfigurationName = p1
+    }
+
 data DeleteLaunchConfiguration = DeleteLaunchConfiguration
     { lcntLaunchConfigurationName :: !ResourceName
       -- ^ The name of the launch configuration.

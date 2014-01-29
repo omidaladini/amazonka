@@ -39,6 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+rebootCacheCluster :: Text
+                   -> [Text]
+                   -> AWS (Either ElastiCacheError RebootCacheClusterResponse)
+rebootCacheCluster p1 p2 = undefined $ RebootCacheCluster
+    { rccmCacheClusterId = p1
+    , rccmCacheNodeIdsToReboot = p2
+    }
+
 data RebootCacheCluster = RebootCacheCluster
     { rccmCacheClusterId :: !Text
       -- ^ The cache cluster identifier. This parameter is stored as a lowercase

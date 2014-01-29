@@ -48,6 +48,17 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+setLoadBalancerPoliciesForBackendServer :: Int
+                                        -> Text
+                                        -> [Text]
+                                        -> AWS (Either ElasticLoadBalancingError SetLoadBalancerPoliciesForBackendServerResponse)
+setLoadBalancerPoliciesForBackendServer p1 p2 p3 = undefined $ SetLoadBalancerPoliciesForBackendServer
+    { slbpfbsiInstancePort = p1
+    , slbpfbsiLoadBalancerName = p2
+    , slbpfbsiPolicyNames = p3
+    }
+
 data SetLoadBalancerPoliciesForBackendServer = SetLoadBalancerPoliciesForBackendServer
     { slbpfbsiInstancePort :: !Int
       -- ^ The port number associated with the back-end server.

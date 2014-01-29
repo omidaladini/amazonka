@@ -33,6 +33,12 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDomains :: AWS (Either CloudSearchError DescribeDomainsResponse)
+describeDomains = undefined $ DescribeDomains
+    { ddrDomainNames = []
+    }
+
 data DescribeDomains = DescribeDomains
     { ddrDomainNames :: [Text]
       -- ^ Limits the DescribeDomains response to the specified search domains.

@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteIndexField :: Text
+                 -> Text
+                 -> AWS (Either CloudSearchError DeleteIndexFieldResponse)
+deleteIndexField p1 p2 = undefined $ DeleteIndexField
+    { difsDomainName = p1
+    , difsIndexFieldName = p2
+    }
+
 data DeleteIndexField = DeleteIndexField
     { difsDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

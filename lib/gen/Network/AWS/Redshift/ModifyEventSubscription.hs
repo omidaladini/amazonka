@@ -32,6 +32,19 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyEventSubscription :: Text
+                        -> AWS (Either RedshiftError ModifyEventSubscriptionResponse)
+modifyEventSubscription p1 = undefined $ ModifyEventSubscription
+    { mesmSubscriptionName = p1
+    , mesmEnabled = Nothing
+    , mesmEventCategories = []
+    , mesmSeverity = Nothing
+    , mesmSnsTopicArn = Nothing
+    , mesmSourceIds = []
+    , mesmSourceType = Nothing
+    }
+
 data ModifyEventSubscription = ModifyEventSubscription
     { mesmEnabled :: Maybe Bool
       -- ^ A Boolean value indicating if the subscription is enabled. true indicates

@@ -48,6 +48,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getTopicAttributes :: Text
+                   -> AWS (Either SNSError GetTopicAttributesResponse)
+getTopicAttributes p1 = undefined $ GetTopicAttributes
+    { gtaiTopicArn = p1
+    }
+
 data GetTopicAttributes = GetTopicAttributes
     { gtaiTopicArn :: !Text
       -- ^ The ARN of the topic whose properties you want to get.

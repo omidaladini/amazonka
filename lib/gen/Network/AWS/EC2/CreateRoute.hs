@@ -41,6 +41,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createRoute :: Text
+            -> Text
+            -> AWS (Either EC2Error CreateRouteResponse)
+createRoute p1 p2 = undefined $ CreateRoute
+    { crrDestinationCidrBlock = p1
+    , crrRouteTableId = p2
+    , crrDryRun = Nothing
+    , crrGatewayId = Nothing
+    , crrInstanceId = Nothing
+    , crrNetworkInterfaceId = Nothing
+    }
+
 data CreateRoute = CreateRoute
     { crrDestinationCidrBlock :: !Text
       -- ^ The CIDR address block used for the destination match. For example:

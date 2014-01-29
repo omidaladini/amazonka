@@ -42,6 +42,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+putMetricData :: [MetricDatum]
+              -> Text
+              -> AWS (Either CloudWatchError PutMetricDataResponse)
+putMetricData p1 p2 = undefined $ PutMetricData
+    { pmdiMetricData = p1
+    , pmdiNamespace = p2
+    }
+
 data PutMetricData = PutMetricData
     { pmdiMetricData :: [MetricDatum]
       -- ^ A list of data describing the metric.

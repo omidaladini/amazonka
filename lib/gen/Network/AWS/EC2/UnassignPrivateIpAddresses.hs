@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+unassignPrivateIpAddresses :: Text
+                           -> [Text]
+                           -> AWS (Either EC2Error UnassignPrivateIpAddressesResponse)
+unassignPrivateIpAddresses p1 p2 = undefined $ UnassignPrivateIpAddresses
+    { upiarNetworkInterfaceId = p1
+    , upiarPrivateIpAddresses = p2
+    }
+
 data UnassignPrivateIpAddresses = UnassignPrivateIpAddresses
     { upiarNetworkInterfaceId :: !Text
     , upiarPrivateIpAddresses :: [Text]

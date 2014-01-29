@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+listTagsForResource :: Text
+                    -> AWS (Either RDSError ListTagsForResourceResponse)
+listTagsForResource p1 = undefined $ ListTagsForResource
+    { ltfrmResourceName = p1
+    }
+
 data ListTagsForResource = ListTagsForResource
     { ltfrmResourceName :: !Text
       -- ^ The Amazon RDS resource with tags to be listed. This value is an Amazon

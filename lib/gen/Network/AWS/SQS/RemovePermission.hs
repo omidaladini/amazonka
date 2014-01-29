@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+removePermission :: Text
+                 -> Text
+                 -> AWS (Either SQSError RemovePermissionResponse)
+removePermission p1 p2 = undefined $ RemovePermission
+    { rprLabel = p1
+    , rprQueueUrl = p2
+    }
+
 data RemovePermission = RemovePermission
     { rprLabel :: !Text
       -- ^ The identification of the permission to remove. This is the label added

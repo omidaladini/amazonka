@@ -34,6 +34,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteSpotDatafeedSubscription :: AWS (Either EC2Error DeleteSpotDatafeedSubscriptionResponse)
+deleteSpotDatafeedSubscription = undefined $ DeleteSpotDatafeedSubscription
+    { dsdssDryRun = Nothing
+    }
+
 data DeleteSpotDatafeedSubscription = DeleteSpotDatafeedSubscription
     { dsdssDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)

@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyClusterParameterGroup :: Text
+                            -> [Parameter]
+                            -> AWS (Either RedshiftError ModifyClusterParameterGroupResponse)
+modifyClusterParameterGroup p1 p2 = undefined $ ModifyClusterParameterGroup
+    { mcpgmParameterGroupName = p1
+    , mcpgmParameters = p2
+    }
+
 data ModifyClusterParameterGroup = ModifyClusterParameterGroup
     { mcpgmParameterGroupName :: !Text
       -- ^ The name of the parameter group to be modified.

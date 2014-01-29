@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteAlarms :: [Text]
+             -> AWS (Either CloudWatchError DeleteAlarmsResponse)
+deleteAlarms p1 = undefined $ DeleteAlarms
+    { dajAlarmNames = p1
+    }
+
 data DeleteAlarms = DeleteAlarms
     { dajAlarmNames :: [Text]
       -- ^ A list of alarms to be deleted.

@@ -6,7 +6,11 @@
   {% when "map" %}
  [{{ scope.item.value.shape_name }}]
   {% else %}
+    {% if scope.length > 0 %}
  [{{ scope.item.shape_name }}]
+    {% else %}
+ [{{ scope.item.shape_name }}]
+    {% endif %}
   {% endcase %}
 {% when "map" %}
  [HashMap {{ scope.key.shape_name }} {{ scope.value.shape_name }}]

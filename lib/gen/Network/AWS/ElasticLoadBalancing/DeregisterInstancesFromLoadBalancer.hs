@@ -43,6 +43,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+deregisterInstancesFromLoadBalancer :: [Instance]
+                                    -> Text
+                                    -> AWS (Either ElasticLoadBalancingError DeregisterInstancesFromLoadBalancerResponse)
+deregisterInstancesFromLoadBalancer p1 p2 = undefined $ DeregisterInstancesFromLoadBalancer
+    { depiInstances = p1
+    , depiLoadBalancerName = p2
+    }
+
 data DeregisterInstancesFromLoadBalancer = DeregisterInstancesFromLoadBalancer
     { depiInstances :: [Instance]
       -- ^ A list of EC2 instance IDs consisting of all instances to be deregistered.

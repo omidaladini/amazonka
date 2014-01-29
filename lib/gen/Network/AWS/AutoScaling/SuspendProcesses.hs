@@ -39,6 +39,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+suspendProcesses :: ResourceName
+                 -> AWS (Either AutoScalingError SuspendProcessesResponse)
+suspendProcesses p1 = undefined $ SuspendProcesses
+    { spqAutoScalingGroupName = p1
+    , spqScalingProcesses = []
+    }
+
 data SuspendProcesses = SuspendProcesses
     { spqAutoScalingGroupName :: !ResourceName
       -- ^ The name or Amazon Resource Name (ARN) of the Auto Scaling group.

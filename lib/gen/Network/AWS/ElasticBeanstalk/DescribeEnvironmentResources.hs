@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEnvironmentResources :: AWS (Either ElasticBeanstalkError DescribeEnvironmentResourcesResponse)
+describeEnvironmentResources = undefined $ DescribeEnvironmentResources
+    { dermEnvironmentId = Nothing
+    , dermEnvironmentName = Nothing
+    }
+
 data DescribeEnvironmentResources = DescribeEnvironmentResources
     { dermEnvironmentId :: Maybe Text
       -- ^ The ID of the environment to retrieve AWS resource usage data. Condition:

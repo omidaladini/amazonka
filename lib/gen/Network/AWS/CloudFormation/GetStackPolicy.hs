@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+getStackPolicy :: Text
+               -> AWS (Either CloudFormationError GetStackPolicyResponse)
+getStackPolicy p1 = undefined $ GetStackPolicy
+    { gspiStackName = p1
+    }
+
 data GetStackPolicy = GetStackPolicy
     { gspiStackName :: !Text
       -- ^ The name or stack ID that is associated with the stack whose policy you

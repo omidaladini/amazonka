@@ -32,6 +32,16 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+sendMessage :: Text
+            -> Text
+            -> AWS (Either SQSError SendMessageResponse)
+sendMessage p1 p2 = undefined $ SendMessage
+    { smrMessageBody = p1
+    , smrQueueUrl = p2
+    , smrDelaySeconds = Nothing
+    }
+
 data SendMessage = SendMessage
     { smrDelaySeconds :: Maybe Int
       -- ^ The number of seconds the message has to be delayed.

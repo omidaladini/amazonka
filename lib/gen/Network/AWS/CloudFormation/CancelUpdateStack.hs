@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelUpdateStack :: Text
+                  -> AWS (Either CloudFormationError CancelUpdateStackResponse)
+cancelUpdateStack p1 = undefined $ CancelUpdateStack
+    { cusiStackName = p1
+    }
+
 data CancelUpdateStack = CancelUpdateStack
     { cusiStackName :: !Text
       -- ^ The name or the unique identifier associated with the stack.

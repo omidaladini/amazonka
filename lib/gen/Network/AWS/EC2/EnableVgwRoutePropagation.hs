@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+enableVgwRoutePropagation :: Text
+                          -> Text
+                          -> AWS (Either EC2Error EnableVgwRoutePropagationResponse)
+enableVgwRoutePropagation p1 p2 = undefined $ EnableVgwRoutePropagation
+    { evrprGatewayId = p1
+    , evrprRouteTableId = p2
+    }
+
 data EnableVgwRoutePropagation = EnableVgwRoutePropagation
     { evrprGatewayId :: !Text
     , evrprRouteTableId :: !Text

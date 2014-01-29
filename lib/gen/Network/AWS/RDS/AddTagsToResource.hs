@@ -36,6 +36,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+addTagsToResource :: Text
+                  -> [Tag]
+                  -> AWS (Either RDSError AddTagsToResourceResponse)
+addTagsToResource p1 p2 = undefined $ AddTagsToResource
+    { attrmResourceName = p1
+    , attrmTags = p2
+    }
+
 data AddTagsToResource = AddTagsToResource
     { attrmResourceName :: !Text
       -- ^ The Amazon RDS resource the tags will be added to. This value is an Amazon

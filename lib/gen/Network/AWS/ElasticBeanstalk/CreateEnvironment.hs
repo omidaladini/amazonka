@@ -40,6 +40,23 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+createEnvironment :: Text
+                  -> Text
+                  -> AWS (Either ElasticBeanstalkError CreateEnvironmentResponse)
+createEnvironment p1 p2 = undefined $ CreateEnvironment
+    { cemApplicationName = p1
+    , cemEnvironmentName = p2
+    , cemCNAMEPrefix = Nothing
+    , cemDescription = Nothing
+    , cemOptionSettings = []
+    , cemOptionsToRemove = []
+    , cemSolutionStackName = Nothing
+    , cemTemplateName = Nothing
+    , cemTier = Nothing
+    , cemVersionLabel = Nothing
+    }
+
 data CreateEnvironment = CreateEnvironment
     { cemApplicationName :: !Text
       -- ^ The name of the application that contains the version to be deployed. If no

@@ -42,6 +42,28 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+restoreDBInstanceFromDBSnapshot :: Text
+                                -> Text
+                                -> AWS (Either RDSError RestoreDBInstanceFromDBSnapshotResponse)
+restoreDBInstanceFromDBSnapshot p1 p2 = undefined $ RestoreDBInstanceFromDBSnapshot
+    { rdbifdbsmDBInstanceIdentifier = p1
+    , rdbifdbsmDBSnapshotIdentifier = p2
+    , rdbifdbsmAutoMinorVersionUpgrade = Nothing
+    , rdbifdbsmAvailabilityZone = Nothing
+    , rdbifdbsmDBInstanceClass = Nothing
+    , rdbifdbsmDBName = Nothing
+    , rdbifdbsmDBSubnetGroupName = Nothing
+    , rdbifdbsmEngine = Nothing
+    , rdbifdbsmIops = Nothing
+    , rdbifdbsmLicenseModel = Nothing
+    , rdbifdbsmMultiAZ = Nothing
+    , rdbifdbsmOptionGroupName = Nothing
+    , rdbifdbsmPort = Nothing
+    , rdbifdbsmPubliclyAccessible = Nothing
+    , rdbifdbsmTags = []
+    }
+
 data RestoreDBInstanceFromDBSnapshot = RestoreDBInstanceFromDBSnapshot
     { rdbifdbsmAutoMinorVersionUpgrade :: Maybe Bool
       -- ^ Indicates that minor version upgrades will be applied automatically to the

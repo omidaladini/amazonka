@@ -52,6 +52,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeSpotInstanceRequests :: AWS (Either EC2Error DescribeSpotInstanceRequestsResponse)
+describeSpotInstanceRequests = undefined $ DescribeSpotInstanceRequests
+    { dsirrDryRun = Nothing
+    , dsirrFilters = []
+    , dsirrSpotInstanceRequestIds = []
+    }
+
 data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests
     { dsirrDryRun :: Maybe Bool
     , dsirrFilters :: [Filter]

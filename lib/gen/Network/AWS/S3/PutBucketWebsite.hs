@@ -37,8 +37,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putBucketWebsite :: Text -- ^ Bucket
-                 -> WebsiteConfiguration -- ^ WebsiteConfiguration
+putBucketWebsite :: Text
+                 -> WebsiteConfiguration
                  -> AWS (Either S3Error PutBucketWebsiteResponse)
 putBucketWebsite p1 p2 = undefined $ PutBucketWebsite
     { pbwBucket = p1

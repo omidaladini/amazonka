@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteHsmClientCertificate :: Text
+                           -> AWS (Either RedshiftError DeleteHsmClientCertificateResponse)
+deleteHsmClientCertificate p1 = undefined $ DeleteHsmClientCertificate
+    { dhccnHsmClientCertificateIdentifier = p1
+    }
+
 data DeleteHsmClientCertificate = DeleteHsmClientCertificate
     { dhccnHsmClientCertificateIdentifier :: !Text
       -- ^ The identifier of the HSM client certificate to be deleted.

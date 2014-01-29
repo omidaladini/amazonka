@@ -42,6 +42,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeClusterVersions :: AWS (Either RedshiftError DescribeClusterVersionsResponse)
+describeClusterVersions = undefined $ DescribeClusterVersions
+    { dcvmClusterParameterGroupFamily = Nothing
+    , dcvmClusterVersion = Nothing
+    , dcvmMarker = Nothing
+    , dcvmMaxRecords = Nothing
+    }
+
 data DescribeClusterVersions = DescribeClusterVersions
     { dcvmClusterParameterGroupFamily :: Maybe Text
       -- ^ The name of a specific cluster parameter group family to return details

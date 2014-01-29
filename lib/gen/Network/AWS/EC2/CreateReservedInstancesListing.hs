@@ -32,6 +32,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createReservedInstancesListing :: Text
+                               -> Int
+                               -> [PriceScheduleSpecification]
+                               -> Text
+                               -> AWS (Either EC2Error CreateReservedInstancesListingResponse)
+createReservedInstancesListing p1 p2 p3 p4 = undefined $ CreateReservedInstancesListing
+    { crilsClientToken = p1
+    , crilsInstanceCount = p2
+    , crilsPriceSchedules = p3
+    , crilsReservedInstancesId = p4
+    }
+
 data CreateReservedInstancesListing = CreateReservedInstancesListing
     { crilsClientToken :: !Text
     , crilsInstanceCount :: !Int

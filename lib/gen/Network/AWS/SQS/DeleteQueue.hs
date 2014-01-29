@@ -35,6 +35,13 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteQueue :: Text
+            -> AWS (Either SQSError DeleteQueueResponse)
+deleteQueue p1 = undefined $ DeleteQueue
+    { dqrQueueUrl = p1
+    }
+
 data DeleteQueue = DeleteQueue
     { dqrQueueUrl :: !Text
       -- ^ The URL of the SQS queue to take action on.

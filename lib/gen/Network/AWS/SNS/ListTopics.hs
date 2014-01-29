@@ -40,6 +40,12 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+listTopics :: AWS (Either SNSError ListTopicsResponse)
+listTopics = undefined $ ListTopics
+    { ltiNextToken = Nothing
+    }
+
 data ListTopics = ListTopics
     { ltiNextToken :: Maybe Text
       -- ^ Token returned by the previous ListTopics request.

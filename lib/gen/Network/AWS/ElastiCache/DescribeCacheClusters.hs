@@ -58,6 +58,15 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCacheClusters :: AWS (Either ElastiCacheError DescribeCacheClustersResponse)
+describeCacheClusters = undefined $ DescribeCacheClusters
+    { dccnCacheClusterId = Nothing
+    , dccnMarker = Nothing
+    , dccnMaxRecords = Nothing
+    , dccnShowCacheNodeInfo = Nothing
+    }
+
 data DescribeCacheClusters = DescribeCacheClusters
     { dccnCacheClusterId :: Maybe Text
       -- ^ The user-supplied cluster identifier. If this parameter is specified, only

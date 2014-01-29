@@ -40,6 +40,15 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyCacheSubnetGroup :: Text
+                       -> AWS (Either ElastiCacheError ModifyCacheSubnetGroupResponse)
+modifyCacheSubnetGroup p1 = undefined $ ModifyCacheSubnetGroup
+    { mcsgmCacheSubnetGroupName = p1
+    , mcsgmCacheSubnetGroupDescription = Nothing
+    , mcsgmSubnetIds = []
+    }
+
 data ModifyCacheSubnetGroup = ModifyCacheSubnetGroup
     { mcsgmCacheSubnetGroupDescription :: Maybe Text
       -- ^ A description for the cache subnet group.

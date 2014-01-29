@@ -36,6 +36,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+changePassword :: Text
+               -> Text
+               -> AWS (Either IAMError ChangePasswordResponse)
+changePassword p1 p2 = undefined $ ChangePassword
+    { cprNewPassword = p1
+    , cprOldPassword = p2
+    }
+
 data ChangePassword = ChangePassword
     { cprNewPassword :: !Text
     , cprOldPassword :: !Text

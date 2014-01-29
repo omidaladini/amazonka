@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDBParameterGroup :: Text
+                       -> AWS (Either RDSError DeleteDBParameterGroupResponse)
+deleteDBParameterGroup p1 = undefined $ DeleteDBParameterGroup
+    { ddbpgnDBParameterGroupName = p1
+    }
+
 data DeleteDBParameterGroup = DeleteDBParameterGroup
     { ddbpgnDBParameterGroupName :: !Text
       -- ^ The name of the DB parameter group. Constraints: Must be the name of an

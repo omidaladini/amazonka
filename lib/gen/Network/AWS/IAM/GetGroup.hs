@@ -41,6 +41,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getGroup :: Text
+         -> AWS (Either IAMError GetGroupResponse)
+getGroup p1 = undefined $ GetGroup
+    { ggrGroupName = p1
+    , ggrMarker = Nothing
+    , ggrMaxItems = Nothing
+    }
+
 data GetGroup = GetGroup
     { ggrGroupName :: !Text
       -- ^ Name of the group.

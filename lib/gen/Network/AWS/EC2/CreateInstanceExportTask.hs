@@ -32,6 +32,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createInstanceExportTask :: Text
+                         -> AWS (Either EC2Error CreateInstanceExportTaskResponse)
+createInstanceExportTask p1 = undefined $ CreateInstanceExportTask
+    { cietrInstanceId = p1
+    , cietrDescription = Nothing
+    , cietrExportToS3Task = Nothing
+    , cietrTargetEnvironment = Nothing
+    }
+
 data CreateInstanceExportTask = CreateInstanceExportTask
     { cietrDescription :: Maybe Text
     , cietrExportToS3Task :: Maybe ExportToS3TaskSpecification

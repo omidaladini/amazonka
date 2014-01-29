@@ -44,6 +44,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeDBSnapshots :: AWS (Either RDSError DescribeDBSnapshotsResponse)
+describeDBSnapshots = undefined $ DescribeDBSnapshots
+    { ddbsmDBInstanceIdentifier = Nothing
+    , ddbsmDBSnapshotIdentifier = Nothing
+    , ddbsmMarker = Nothing
+    , ddbsmMaxRecords = Nothing
+    , ddbsmSnapshotType = Nothing
+    }
+
 data DescribeDBSnapshots = DescribeDBSnapshots
     { ddbsmDBInstanceIdentifier :: Maybe Text
       -- ^ A DB instance identifier to retrieve the list of DB snapshots for. Cannot

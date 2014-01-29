@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+createHsmClientCertificate :: Text
+                           -> AWS (Either RedshiftError CreateHsmClientCertificateResponse)
+createHsmClientCertificate p1 = undefined $ CreateHsmClientCertificate
+    { chccmHsmClientCertificateIdentifier = p1
+    }
+
 data CreateHsmClientCertificate = CreateHsmClientCertificate
     { chccmHsmClientCertificateIdentifier :: !Text
       -- ^ The identifier to be assigned to the new HSM client certificate that the

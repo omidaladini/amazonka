@@ -41,6 +41,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeCustomerGateways :: AWS (Either EC2Error DescribeCustomerGatewaysResponse)
+describeCustomerGateways = undefined $ DescribeCustomerGateways
+    { dcgrCustomerGatewayIds = []
+    , dcgrDryRun = Nothing
+    , dcgrFilters = []
+    }
+
 data DescribeCustomerGateways = DescribeCustomerGateways
     { dcgrCustomerGatewayIds :: [Text]
       -- ^ A set of one or more customer gateway IDs.

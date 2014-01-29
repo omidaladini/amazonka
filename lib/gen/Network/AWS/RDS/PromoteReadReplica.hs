@@ -41,6 +41,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+promoteReadReplica :: Text
+                   -> AWS (Either RDSError PromoteReadReplicaResponse)
+promoteReadReplica p1 = undefined $ PromoteReadReplica
+    { prrmDBInstanceIdentifier = p1
+    , prrmBackupRetentionPeriod = Nothing
+    , prrmPreferredBackupWindow = Nothing
+    }
+
 data PromoteReadReplica = PromoteReadReplica
     { prrmBackupRetentionPeriod :: Maybe Int
       -- ^ The number of days to retain automated backups. Setting this parameter to a

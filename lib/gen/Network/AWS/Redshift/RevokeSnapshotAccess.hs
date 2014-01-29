@@ -36,6 +36,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+revokeSnapshotAccess :: Text
+                     -> Text
+                     -> AWS (Either RedshiftError RevokeSnapshotAccessResponse)
+revokeSnapshotAccess p1 p2 = undefined $ RevokeSnapshotAccess
+    { rsamAccountWithRestoreAccess = p1
+    , rsamSnapshotIdentifier = p2
+    , rsamSnapshotClusterIdentifier = Nothing
+    }
+
 data RevokeSnapshotAccess = RevokeSnapshotAccess
     { rsamAccountWithRestoreAccess :: !Text
       -- ^ The identifier of the AWS customer account that can no longer restore the

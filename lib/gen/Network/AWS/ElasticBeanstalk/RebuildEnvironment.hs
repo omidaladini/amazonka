@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+rebuildEnvironment :: AWS (Either ElasticBeanstalkError RebuildEnvironmentResponse)
+rebuildEnvironment = undefined $ RebuildEnvironment
+    { remEnvironmentId = Nothing
+    , remEnvironmentName = Nothing
+    }
+
 data RebuildEnvironment = RebuildEnvironment
     { remEnvironmentId :: Maybe Text
       -- ^ The ID of the environment to rebuild. Condition: You must specify either

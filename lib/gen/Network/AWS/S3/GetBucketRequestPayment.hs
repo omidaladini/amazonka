@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketRequestPayment :: Text -- ^ Bucket
+getBucketRequestPayment :: Text
                         -> AWS (Either S3Error GetBucketRequestPaymentResponse)
 getBucketRequestPayment p1 = undefined $ GetBucketRequestPayment
     { gbrpBucket = p1

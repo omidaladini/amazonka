@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+monitorInstances :: [Text]
+                 -> AWS (Either EC2Error MonitorInstancesResponse)
+monitorInstances p1 = undefined $ MonitorInstances
+    { mirInstanceIds = p1
+    , mirDryRun = Nothing
+    }
+
 data MonitorInstances = MonitorInstances
     { mirDryRun :: Maybe Bool
     , mirInstanceIds :: [Text]

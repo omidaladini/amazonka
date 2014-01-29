@@ -58,6 +58,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listSigningCertificates :: AWS (Either IAMError ListSigningCertificatesResponse)
+listSigningCertificates = undefined $ ListSigningCertificates
+    { lscsMarker = Nothing
+    , lscsMaxItems = Nothing
+    , lscsUserName = Nothing
+    }
+
 data ListSigningCertificates = ListSigningCertificates
     { lscsMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

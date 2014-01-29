@@ -38,6 +38,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteStack :: Text
+            -> AWS (Either CloudFormationError DeleteStackResponse)
+deleteStack p1 = undefined $ DeleteStack
+    { dsiStackName = p1
+    }
+
 data DeleteStack = DeleteStack
     { dsiStackName :: !Text
       -- ^ The name or the unique identifier associated with the stack.

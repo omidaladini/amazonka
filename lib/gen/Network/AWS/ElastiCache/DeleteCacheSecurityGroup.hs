@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteCacheSecurityGroup :: Text
+                         -> AWS (Either ElastiCacheError DeleteCacheSecurityGroupResponse)
+deleteCacheSecurityGroup p1 = undefined $ DeleteCacheSecurityGroup
+    { dcsgmCacheSecurityGroupName = p1
+    }
+
 data DeleteCacheSecurityGroup = DeleteCacheSecurityGroup
     { dcsgmCacheSecurityGroupName :: !Text
       -- ^ The name of the cache security group to delete. You cannot delete the

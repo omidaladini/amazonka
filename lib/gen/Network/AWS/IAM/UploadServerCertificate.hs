@@ -74,6 +74,19 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+uploadServerCertificate :: Text
+                        -> Text
+                        -> Text
+                        -> AWS (Either IAMError UploadServerCertificateResponse)
+uploadServerCertificate p1 p2 p3 = undefined $ UploadServerCertificate
+    { usctCertificateBody = p1
+    , usctPrivateKey = p2
+    , usctServerCertificateName = p3
+    , usctCertificateChain = Nothing
+    , usctPath = Nothing
+    }
+
 data UploadServerCertificate = UploadServerCertificate
     { usctCertificateBody :: !Text
       -- ^ The contents of the public key certificate in PEM-encoded format.

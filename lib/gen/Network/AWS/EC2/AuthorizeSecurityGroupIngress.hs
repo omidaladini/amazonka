@@ -39,6 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+authorizeSecurityGroupIngress :: AWS (Either EC2Error AuthorizeSecurityGroupIngressResponse)
+authorizeSecurityGroupIngress = undefined $ AuthorizeSecurityGroupIngress
+    { asgirDryRun = Nothing
+    , asgirGroupId = Nothing
+    , asgirGroupName = Nothing
+    , asgirIpPermissions = []
+    }
+
 data AuthorizeSecurityGroupIngress = AuthorizeSecurityGroupIngress
     { asgirDryRun :: Maybe Bool
     , asgirGroupId :: Maybe Text

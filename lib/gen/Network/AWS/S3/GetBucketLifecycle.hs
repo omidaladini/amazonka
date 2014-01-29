@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketLifecycle :: Text -- ^ Bucket
+getBucketLifecycle :: Text
                    -> AWS (Either S3Error GetBucketLifecycleResponse)
 getBucketLifecycle p1 = undefined $ GetBucketLifecycle
     { gbmBucket = p1

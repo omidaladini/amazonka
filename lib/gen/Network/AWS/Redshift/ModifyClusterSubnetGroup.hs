@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyClusterSubnetGroup :: Text
+                         -> [Text]
+                         -> AWS (Either RedshiftError ModifyClusterSubnetGroupResponse)
+modifyClusterSubnetGroup p1 p2 = undefined $ ModifyClusterSubnetGroup
+    { mcsgmClusterSubnetGroupName = p1
+    , mcsgmSubnetIds = p2
+    , mcsgmDescription = Nothing
+    }
+
 data ModifyClusterSubnetGroup = ModifyClusterSubnetGroup
     { mcsgmClusterSubnetGroupName :: !Text
       -- ^ The name of the subnet group to be modified.

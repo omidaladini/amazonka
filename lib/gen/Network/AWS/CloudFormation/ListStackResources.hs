@@ -49,6 +49,14 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+listStackResources :: Text
+                   -> AWS (Either CloudFormationError ListStackResourcesResponse)
+listStackResources p1 = undefined $ ListStackResources
+    { lsriStackName = p1
+    , lsriNextToken = Nothing
+    }
+
 data ListStackResources = ListStackResources
     { lsriNextToken :: Maybe Text
       -- ^ String that identifies the start of the next list of stack resource

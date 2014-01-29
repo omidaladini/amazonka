@@ -38,6 +38,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelSpotInstanceRequests :: [Text]
+                           -> AWS (Either EC2Error CancelSpotInstanceRequestsResponse)
+cancelSpotInstanceRequests p1 = undefined $ CancelSpotInstanceRequests
+    { csirrSpotInstanceRequestIds = p1
+    , csirrDryRun = Nothing
+    }
+
 data CancelSpotInstanceRequests = CancelSpotInstanceRequests
     { csirrDryRun :: Maybe Bool
     , csirrSpotInstanceRequestIds :: [Text]

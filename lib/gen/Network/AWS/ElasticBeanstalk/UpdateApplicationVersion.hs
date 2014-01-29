@@ -39,6 +39,16 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateApplicationVersion :: Text
+                         -> Text
+                         -> AWS (Either ElasticBeanstalkError UpdateApplicationVersionResponse)
+updateApplicationVersion p1 p2 = undefined $ UpdateApplicationVersion
+    { uavmApplicationName = p1
+    , uavmVersionLabel = p2
+    , uavmDescription = Nothing
+    }
+
 data UpdateApplicationVersion = UpdateApplicationVersion
     { uavmApplicationName :: !Text
       -- ^ The name of the application associated with this version. If no application

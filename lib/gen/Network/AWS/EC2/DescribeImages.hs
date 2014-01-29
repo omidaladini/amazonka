@@ -57,6 +57,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeImages :: AWS (Either EC2Error DescribeImagesResponse)
+describeImages = undefined $ DescribeImages
+    { ditDryRun = Nothing
+    , ditExecutableUsers = []
+    , ditFilters = []
+    , ditImageIds = []
+    , ditOwners = []
+    }
+
 data DescribeImages = DescribeImages
     { ditDryRun :: Maybe Bool
     , ditExecutableUsers :: [Text]

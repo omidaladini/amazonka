@@ -43,6 +43,17 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+createCacheParameterGroup :: Text
+                          -> Text
+                          -> Text
+                          -> AWS (Either ElastiCacheError CreateCacheParameterGroupResponse)
+createCacheParameterGroup p1 p2 p3 = undefined $ CreateCacheParameterGroup
+    { ccpgmCacheParameterGroupFamily = p1
+    , ccpgmCacheParameterGroupName = p2
+    , ccpgmDescription = p3
+    }
+
 data CreateCacheParameterGroup = CreateCacheParameterGroup
     { ccpgmCacheParameterGroupFamily :: !Text
       -- ^ The name of the cache parameter group family the cache parameter group can

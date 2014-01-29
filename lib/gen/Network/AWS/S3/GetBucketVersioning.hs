@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-getBucketVersioning :: Text -- ^ Bucket
+getBucketVersioning :: Text
                     -> AWS (Either S3Error GetBucketVersioningResponse)
 getBucketVersioning p1 = undefined $ GetBucketVersioning
     { gbvBucket = p1

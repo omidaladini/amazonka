@@ -50,6 +50,13 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLoadBalancerPolicies :: AWS (Either ElasticLoadBalancingError DescribeLoadBalancerPoliciesResponse)
+describeLoadBalancerPolicies = undefined $ DescribeLoadBalancerPolicies
+    { dlbpiLoadBalancerName = Nothing
+    , dlbpiPolicyNames = []
+    }
+
 data DescribeLoadBalancerPolicies = DescribeLoadBalancerPolicies
     { dlbpiLoadBalancerName :: Maybe Text
       -- ^ The mnemonic name associated with the load balancer. If no name is

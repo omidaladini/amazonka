@@ -32,6 +32,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteTags :: [Text]
+           -> AWS (Either EC2Error DeleteTagsResponse)
+deleteTags p1 = undefined $ DeleteTags
+    { dtsResources = p1
+    , dtsDryRun = Nothing
+    , dtsTags = []
+    }
+
 data DeleteTags = DeleteTags
     { dtsDryRun :: Maybe Bool
     , dtsResources :: [Text]

@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-deleteBucketWebsite :: Text -- ^ Bucket
+deleteBucketWebsite :: Text
                     -> AWS (Either S3Error DeleteBucketWebsiteResponse)
 deleteBucketWebsite p1 = undefined $ DeleteBucketWebsite
     { dbwBucket = p1

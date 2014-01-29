@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteCacheParameterGroup :: Text
+                          -> AWS (Either ElastiCacheError DeleteCacheParameterGroupResponse)
+deleteCacheParameterGroup p1 = undefined $ DeleteCacheParameterGroup
+    { dcpgnCacheParameterGroupName = p1
+    }
+
 data DeleteCacheParameterGroup = DeleteCacheParameterGroup
     { dcpgnCacheParameterGroupName :: !Text
       -- ^ The name of the cache parameter group to delete. The specified cache

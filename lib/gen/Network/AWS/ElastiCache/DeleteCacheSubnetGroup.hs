@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteCacheSubnetGroup :: Text
+                       -> AWS (Either ElastiCacheError DeleteCacheSubnetGroupResponse)
+deleteCacheSubnetGroup p1 = undefined $ DeleteCacheSubnetGroup
+    { dcsgpCacheSubnetGroupName = p1
+    }
+
 data DeleteCacheSubnetGroup = DeleteCacheSubnetGroup
     { dcsgpCacheSubnetGroupName :: !Text
       -- ^ The name of the cache subnet group to delete. Constraints: Must contain no

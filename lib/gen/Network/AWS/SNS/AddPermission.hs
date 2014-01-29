@@ -42,6 +42,19 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+addPermission :: [Text]
+              -> [Text]
+              -> Text
+              -> Text
+              -> AWS (Either SNSError AddPermissionResponse)
+addPermission p1 p2 p3 p4 = undefined $ AddPermission
+    { apiAWSAccountId = p1
+    , apiActionName = p2
+    , apiLabel = p3
+    , apiTopicArn = p4
+    }
+
 data AddPermission = AddPermission
     { apiAWSAccountId :: [Text]
       -- ^ The AWS account IDs of the users (principals) who will be given access to

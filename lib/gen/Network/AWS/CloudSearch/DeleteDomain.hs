@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDomain :: Text
+             -> AWS (Either CloudSearchError DeleteDomainResponse)
+deleteDomain p1 = undefined $ DeleteDomain
+    { ddsDomainName = p1
+    }
+
 data DeleteDomain = DeleteDomain
     { ddsDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

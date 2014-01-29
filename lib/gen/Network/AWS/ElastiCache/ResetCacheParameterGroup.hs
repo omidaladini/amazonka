@@ -36,6 +36,16 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetCacheParameterGroup :: Text
+                         -> [ParameterNameValue]
+                         -> AWS (Either ElastiCacheError ResetCacheParameterGroupResponse)
+resetCacheParameterGroup p1 p2 = undefined $ ResetCacheParameterGroup
+    { rcpgmCacheParameterGroupName = p1
+    , rcpgmParameterNameValues = p2
+    , rcpgmResetAllParameters = Nothing
+    }
+
 data ResetCacheParameterGroup = ResetCacheParameterGroup
     { rcpgmCacheParameterGroupName :: !Text
       -- ^ The name of the cache parameter group to reset.

@@ -43,6 +43,13 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+unsubscribe :: Text
+            -> AWS (Either SNSError UnsubscribeResponse)
+unsubscribe p1 = undefined $ Unsubscribe
+    { uiSubscriptionArn = p1
+    }
+
 data Unsubscribe = Unsubscribe
     { uiSubscriptionArn :: !Text
       -- ^ The ARN of the subscription to be deleted.

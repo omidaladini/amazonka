@@ -64,6 +64,19 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
+-- | Convenience method utilising default fields where applicable.
+assumeRoleWithSAML :: Text
+                   -> Text
+                   -> Text
+                   -> AWS (Either STSError AssumeRoleWithSAMLResponse)
+assumeRoleWithSAML p1 p2 p3 = undefined $ AssumeRoleWithSAML
+    { arwsamlrPrincipalArn = p1
+    , arwsamlrRoleArn = p2
+    , arwsamlrSAMLAssertion = p3
+    , arwsamlrDurationSeconds = Nothing
+    , arwsamlrPolicy = Nothing
+    }
+
 data AssumeRoleWithSAML = AssumeRoleWithSAML
     { arwsamlrDurationSeconds :: Maybe Int
       -- ^ The duration, in seconds, of the role session. The value can range from 900

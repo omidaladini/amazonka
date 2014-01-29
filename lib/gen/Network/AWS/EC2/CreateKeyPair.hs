@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createKeyPair :: Text
+              -> AWS (Either EC2Error CreateKeyPairResponse)
+createKeyPair p1 = undefined $ CreateKeyPair
+    { ckprKeyName = p1
+    , ckprDryRun = Nothing
+    }
+
 data CreateKeyPair = CreateKeyPair
     { ckprDryRun :: Maybe Bool
     , ckprKeyName :: !Text

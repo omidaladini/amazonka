@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+changeMessageVisibilityBatch :: [ChangeMessageVisibilityBatchRequestEntry]
+                             -> Text
+                             -> AWS (Either SQSError ChangeMessageVisibilityBatchResponse)
+changeMessageVisibilityBatch p1 p2 = undefined $ ChangeMessageVisibilityBatch
+    { cmvbrEntries = p1
+    , cmvbrQueueUrl = p2
+    }
+
 data ChangeMessageVisibilityBatch = ChangeMessageVisibilityBatch
     { cmvbrEntries :: [ChangeMessageVisibilityBatchRequestEntry]
       -- ^ A list of receipt handles of the messages for which the visibility timeout

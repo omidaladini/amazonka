@@ -46,6 +46,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+disableAvailabilityZonesForLoadBalancer :: [Text]
+                                        -> Text
+                                        -> AWS (Either ElasticLoadBalancingError DisableAvailabilityZonesForLoadBalancerResponse)
+disableAvailabilityZonesForLoadBalancer p1 p2 = undefined $ DisableAvailabilityZonesForLoadBalancer
+    { raziAvailabilityZones = p1
+    , raziLoadBalancerName = p2
+    }
+
 data DisableAvailabilityZonesForLoadBalancer = DisableAvailabilityZonesForLoadBalancer
     { raziAvailabilityZones :: [Text]
       -- ^ A list of Availability Zones to be removed from the load balancer. There

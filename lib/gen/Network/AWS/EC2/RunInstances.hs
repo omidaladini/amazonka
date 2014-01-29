@@ -62,6 +62,38 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+runInstances :: Text
+             -> Int
+             -> Int
+             -> AWS (Either EC2Error RunInstancesResponse)
+runInstances p1 p2 p3 = undefined $ RunInstances
+    { rirImageId = p1
+    , rirMaxCount = p2
+    , rirMinCount = p3
+    , rirAdditionalInfo = Nothing
+    , rirBlockDeviceMappings = []
+    , rirClientToken = Nothing
+    , rirDisableApiTermination = Nothing
+    , rirDryRun = Nothing
+    , rirEbsOptimized = Nothing
+    , rirIamInstanceProfile = Nothing
+    , rirInstanceInitiatedShutdownBehavior = Nothing
+    , rirInstanceType = Nothing
+    , rirKernelId = Nothing
+    , rirKeyName = Nothing
+    , rirLicense = Nothing
+    , rirMonitoring = Nothing
+    , rirNetworkInterfaces = []
+    , rirPlacement = Nothing
+    , rirPrivateIpAddress = Nothing
+    , rirRamdiskId = Nothing
+    , rirSecurityGroupIds = []
+    , rirSecurityGroups = []
+    , rirSubnetId = Nothing
+    , rirUserData = Nothing
+    }
+
 data RunInstances = RunInstances
     { rirAdditionalInfo :: Maybe Text
       -- ^ Do not use. Reserved for internal use.

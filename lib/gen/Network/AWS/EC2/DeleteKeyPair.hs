@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteKeyPair :: Text
+              -> AWS (Either EC2Error DeleteKeyPairResponse)
+deleteKeyPair p1 = undefined $ DeleteKeyPair
+    { dkprKeyName = p1
+    , dkprDryRun = Nothing
+    }
+
 data DeleteKeyPair = DeleteKeyPair
     { dkprDryRun :: Maybe Bool
     , dkprKeyName :: !Text

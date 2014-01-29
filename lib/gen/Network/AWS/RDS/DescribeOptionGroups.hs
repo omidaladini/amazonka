@@ -38,6 +38,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeOptionGroups :: AWS (Either RDSError DescribeOptionGroupsResponse)
+describeOptionGroups = undefined $ DescribeOptionGroups
+    { dogmEngineName = Nothing
+    , dogmMajorEngineVersion = Nothing
+    , dogmMarker = Nothing
+    , dogmMaxRecords = Nothing
+    , dogmOptionGroupName = Nothing
+    }
+
 data DescribeOptionGroups = DescribeOptionGroups
     { dogmEngineName :: Maybe Text
       -- ^ Filters the list of option groups to only include groups associated with a

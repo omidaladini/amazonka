@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+resumeProcesses :: ResourceName
+                -> AWS (Either AutoScalingError ResumeProcessesResponse)
+resumeProcesses p1 = undefined $ ResumeProcesses
+    { sprAutoScalingGroupName = p1
+    , sprScalingProcesses = []
+    }
+
 data ResumeProcesses = ResumeProcesses
     { sprAutoScalingGroupName :: !ResourceName
       -- ^ The name or Amazon Resource Name (ARN) of the Auto Scaling group.

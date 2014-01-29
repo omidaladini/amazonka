@@ -41,6 +41,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyDBSubnetGroup :: Text
+                    -> [Text]
+                    -> AWS (Either RDSError ModifyDBSubnetGroupResponse)
+modifyDBSubnetGroup p1 p2 = undefined $ ModifyDBSubnetGroup
+    { mdbsgmDBSubnetGroupName = p1
+    , mdbsgmSubnetIds = p2
+    , mdbsgmDBSubnetGroupDescription = Nothing
+    }
+
 data ModifyDBSubnetGroup = ModifyDBSubnetGroup
     { mdbsgmDBSubnetGroupDescription :: Maybe Text
       -- ^ The description for the DB subnet group.

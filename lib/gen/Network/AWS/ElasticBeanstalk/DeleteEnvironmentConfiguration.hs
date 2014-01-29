@@ -41,6 +41,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteEnvironmentConfiguration :: Text
+                               -> Text
+                               -> AWS (Either ElasticBeanstalkError DeleteEnvironmentConfigurationResponse)
+deleteEnvironmentConfiguration p1 p2 = undefined $ DeleteEnvironmentConfiguration
+    { decmApplicationName = p1
+    , decmEnvironmentName = p2
+    }
+
 data DeleteEnvironmentConfiguration = DeleteEnvironmentConfiguration
     { decmApplicationName :: !Text
       -- ^ The name of the application the environment is associated with.

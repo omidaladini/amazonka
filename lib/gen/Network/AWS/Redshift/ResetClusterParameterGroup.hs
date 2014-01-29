@@ -44,6 +44,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetClusterParameterGroup :: Text
+                           -> AWS (Either RedshiftError ResetClusterParameterGroupResponse)
+resetClusterParameterGroup p1 = undefined $ ResetClusterParameterGroup
+    { rcpgmParameterGroupName = p1
+    , rcpgmParameters = []
+    , rcpgmResetAllParameters = Nothing
+    }
+
 data ResetClusterParameterGroup = ResetClusterParameterGroup
     { rcpgmParameterGroupName :: !Text
       -- ^ The name of the cluster parameter group to be reset.

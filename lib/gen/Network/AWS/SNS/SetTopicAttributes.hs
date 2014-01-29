@@ -56,6 +56,16 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+setTopicAttributes :: Text
+                   -> Text
+                   -> AWS (Either SNSError SetTopicAttributesResponse)
+setTopicAttributes p1 p2 = undefined $ SetTopicAttributes
+    { staiAttributeName = p1
+    , staiTopicArn = p2
+    , staiAttributeValue = Nothing
+    }
+
 data SetTopicAttributes = SetTopicAttributes
     { staiAttributeName :: !Text
       -- ^ The name of the attribute you want to set. Only a subset of the topic's

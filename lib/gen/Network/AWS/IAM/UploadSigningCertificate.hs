@@ -77,6 +77,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+uploadSigningCertificate :: Text
+                         -> AWS (Either IAMError UploadSigningCertificateResponse)
+uploadSigningCertificate p1 = undefined $ UploadSigningCertificate
+    { uscsCertificateBody = p1
+    , uscsUserName = Nothing
+    }
+
 data UploadSigningCertificate = UploadSigningCertificate
     { uscsCertificateBody :: !Text
       -- ^ The contents of the signing certificate.

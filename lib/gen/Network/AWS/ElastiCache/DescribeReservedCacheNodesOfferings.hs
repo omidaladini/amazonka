@@ -39,6 +39,18 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeReservedCacheNodesOfferings :: AWS (Either ElastiCacheError DescribeReservedCacheNodesOfferingsResponse)
+describeReservedCacheNodesOfferings = undefined $ DescribeReservedCacheNodesOfferings
+    { drcnomCacheNodeType = Nothing
+    , drcnomDuration = Nothing
+    , drcnomMarker = Nothing
+    , drcnomMaxRecords = Nothing
+    , drcnomOfferingType = Nothing
+    , drcnomProductDescription = Nothing
+    , drcnomReservedCacheNodesOfferingId = Nothing
+    }
+
 data DescribeReservedCacheNodesOfferings = DescribeReservedCacheNodesOfferings
     { drcnomCacheNodeType :: Maybe Text
       -- ^ The cache node type filter value. Use this parameter to show only the

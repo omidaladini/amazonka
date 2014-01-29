@@ -44,6 +44,17 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+putUserPolicy :: Text
+              -> Text
+              -> Text
+              -> AWS (Either IAMError PutUserPolicyResponse)
+putUserPolicy p1 p2 p3 = undefined $ PutUserPolicy
+    { puprPolicyDocument = p1
+    , puprPolicyName = p2
+    , puprUserName = p3
+    }
+
 data PutUserPolicy = PutUserPolicy
     { puprPolicyDocument :: !Text
       -- ^ The policy document.

@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteInternetGateway :: Text
+                      -> AWS (Either EC2Error DeleteInternetGatewayResponse)
+deleteInternetGateway p1 = undefined $ DeleteInternetGateway
+    { digtInternetGatewayId = p1
+    , digtDryRun = Nothing
+    }
+
 data DeleteInternetGateway = DeleteInternetGateway
     { digtDryRun :: Maybe Bool
     , digtInternetGatewayId :: !Text

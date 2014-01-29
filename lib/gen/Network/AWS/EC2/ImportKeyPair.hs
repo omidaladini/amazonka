@@ -40,6 +40,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+importKeyPair :: Text
+              -> Blob
+              -> AWS (Either EC2Error ImportKeyPairResponse)
+importKeyPair p1 p2 = undefined $ ImportKeyPair
+    { ikprKeyName = p1
+    , ikprPublicKeyMaterial = p2
+    , ikprDryRun = Nothing
+    }
+
 data ImportKeyPair = ImportKeyPair
     { ikprDryRun :: Maybe Bool
     , ikprKeyName :: !Text

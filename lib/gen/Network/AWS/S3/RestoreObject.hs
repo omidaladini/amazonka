@@ -37,8 +37,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-restoreObject :: Text -- ^ Bucket
-              -> Text -- ^ Key
+restoreObject :: Text
+              -> Text
               -> AWS (Either S3Error RestoreObjectResponse)
 restoreObject p1 p2 = undefined $ RestoreObject
     { roBucket = p1

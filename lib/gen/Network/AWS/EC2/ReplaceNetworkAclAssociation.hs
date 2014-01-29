@@ -35,6 +35,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+replaceNetworkAclAssociation :: Text
+                             -> Text
+                             -> AWS (Either EC2Error ReplaceNetworkAclAssociationResponse)
+replaceNetworkAclAssociation p1 p2 = undefined $ ReplaceNetworkAclAssociation
+    { rnaarAssociationId = p1
+    , rnaarNetworkAclId = p2
+    , rnaarDryRun = Nothing
+    }
+
 data ReplaceNetworkAclAssociation = ReplaceNetworkAclAssociation
     { rnaarAssociationId :: !Text
       -- ^ The ID representing the current association between the original network

@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+createLoadBalancerListeners :: [Listener]
+                            -> Text
+                            -> AWS (Either ElasticLoadBalancingError CreateLoadBalancerListenersResponse)
+createLoadBalancerListeners p1 p2 = undefined $ CreateLoadBalancerListeners
+    { clbliListeners = p1
+    , clbliLoadBalancerName = p2
+    }
+
 data CreateLoadBalancerListeners = CreateLoadBalancerListeners
     { clbliListeners :: [Listener]
       -- ^ A list of LoadBalancerPort, InstancePort, Protocol, and SSLCertificateId

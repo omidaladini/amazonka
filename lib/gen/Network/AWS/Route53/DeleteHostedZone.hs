@@ -44,7 +44,7 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-deleteHostedZone :: Text -- ^ Id
+deleteHostedZone :: Text
                  -> AWS (Either Route53Error DeleteHostedZoneResponse)
 deleteHostedZone p1 = undefined $ DeleteHostedZone
     { dhzrId = p1

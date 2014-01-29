@@ -39,6 +39,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSecurityGroup :: Text
+                    -> Text
+                    -> AWS (Either EC2Error CreateSecurityGroupResponse)
+createSecurityGroup p1 p2 = undefined $ CreateSecurityGroup
+    { csgrDescription = p1
+    , csgrGroupName = p2
+    , csgrDryRun = Nothing
+    , csgrVpcId = Nothing
+    }
+
 data CreateSecurityGroup = CreateSecurityGroup
     { csgrDescription :: !Text
       -- ^ Description of the group. This is informational only.

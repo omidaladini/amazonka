@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteEventSubscription :: Text
+                        -> AWS (Either RedshiftError DeleteEventSubscriptionResponse)
+deleteEventSubscription p1 = undefined $ DeleteEventSubscription
+    { desmSubscriptionName = p1
+    }
+
 data DeleteEventSubscription = DeleteEventSubscription
     { desmSubscriptionName :: !Text
       -- ^ The name of the Amazon Redshift event notification subscription to be

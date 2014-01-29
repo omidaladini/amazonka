@@ -40,6 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getAccountSummary :: AWS (Either IAMError GetAccountSummaryResponse)
+getAccountSummary = undefined GetAccountSummary
+
 data GetAccountSummary = GetAccountSummary
     deriving (Eq, Show, Generic)
 

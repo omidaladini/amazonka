@@ -52,6 +52,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+getServerCertificate :: Text
+                     -> AWS (Either IAMError GetServerCertificateResponse)
+getServerCertificate p1 = undefined $ GetServerCertificate
+    { gscrServerCertificateName = p1
+    }
+
 data GetServerCertificate = GetServerCertificate
     { gscrServerCertificateName :: !Text
       -- ^ The name of the server certificate you want to retrieve information about.

@@ -39,6 +39,17 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+createReplicationGroup :: Text
+                       -> Text
+                       -> Text
+                       -> AWS (Either ElastiCacheError CreateReplicationGroupResponse)
+createReplicationGroup p1 p2 p3 = undefined $ CreateReplicationGroup
+    { crgmPrimaryClusterId = p1
+    , crgmReplicationGroupDescription = p2
+    , crgmReplicationGroupId = p3
+    }
+
 data CreateReplicationGroup = CreateReplicationGroup
     { crgmPrimaryClusterId :: !Text
       -- ^ The identifier of the cache cluster that will serve as the primary for this

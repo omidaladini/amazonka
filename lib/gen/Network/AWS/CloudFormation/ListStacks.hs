@@ -48,6 +48,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+listStacks :: AWS (Either CloudFormationError ListStacksResponse)
+listStacks = undefined $ ListStacks
+    { lsiNextToken = Nothing
+    , lsiStackStatusFilter = []
+    }
+
 data ListStacks = ListStacks
     { lsiNextToken :: Maybe Text
       -- ^ String that identifies the start of the next list of stacks, if there is

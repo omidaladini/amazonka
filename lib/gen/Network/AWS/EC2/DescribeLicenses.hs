@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeLicenses :: AWS (Either EC2Error DescribeLicensesResponse)
+describeLicenses = undefined $ DescribeLicenses
+    { dlrDryRun = Nothing
+    , dlrFilters = []
+    , dlrLicenseIds = []
+    }
+
 data DescribeLicenses = DescribeLicenses
     { dlrDryRun :: Maybe Bool
     , dlrFilters :: [Filter]

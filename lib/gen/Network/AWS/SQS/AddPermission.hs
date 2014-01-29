@@ -40,6 +40,19 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+addPermission :: [Text]
+              -> [Text]
+              -> Text
+              -> Text
+              -> AWS (Either SQSError AddPermissionResponse)
+addPermission p1 p2 p3 p4 = undefined $ AddPermission
+    { aprAWSAccountIds = p1
+    , aprActions = p2
+    , aprLabel = p3
+    , aprQueueUrl = p4
+    }
+
 data AddPermission = AddPermission
     { aprAWSAccountIds :: [Text]
       -- ^ The AWS account number of the principal who will be given permission. The

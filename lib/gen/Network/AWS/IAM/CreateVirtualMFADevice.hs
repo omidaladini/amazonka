@@ -47,6 +47,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createVirtualMFADevice :: Text
+                       -> AWS (Either IAMError CreateVirtualMFADeviceResponse)
+createVirtualMFADevice p1 = undefined $ CreateVirtualMFADevice
+    { cvmfadrVirtualMFADeviceName = p1
+    , cvmfadrPath = Nothing
+    }
+
 data CreateVirtualMFADevice = CreateVirtualMFADevice
     { cvmfadrPath :: Maybe Text
       -- ^ The path for the virtual MFA device. For more information about paths, see

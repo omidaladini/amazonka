@@ -36,6 +36,16 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+setDesiredCapacity :: ResourceName
+                   -> Int
+                   -> AWS (Either AutoScalingError SetDesiredCapacityResponse)
+setDesiredCapacity p1 p2 = undefined $ SetDesiredCapacity
+    { sdctAutoScalingGroupName = p1
+    , sdctDesiredCapacity = p2
+    , sdctHonorCooldown = Nothing
+    }
+
 data SetDesiredCapacity = SetDesiredCapacity
     { sdctAutoScalingGroupName :: !ResourceName
       -- ^ The name of the Auto Scaling group.

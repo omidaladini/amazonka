@@ -33,6 +33,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAddresses :: AWS (Either EC2Error DescribeAddressesResponse)
+describeAddresses = undefined $ DescribeAddresses
+    { darAllocationIds = []
+    , darDryRun = Nothing
+    , darFilters = []
+    , darPublicIps = []
+    }
+
 data DescribeAddresses = DescribeAddresses
     { darAllocationIds :: [Text]
     , darDryRun :: Maybe Bool

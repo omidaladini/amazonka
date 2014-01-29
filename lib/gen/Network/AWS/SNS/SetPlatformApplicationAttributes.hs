@@ -43,6 +43,15 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+setPlatformApplicationAttributes :: HashMap Text Text
+                                 -> Text
+                                 -> AWS (Either SNSError SetPlatformApplicationAttributesResponse)
+setPlatformApplicationAttributes p1 p2 = undefined $ SetPlatformApplicationAttributes
+    { spaaiAttributes = p1
+    , spaaiPlatformApplicationArn = p2
+    }
+
 data SetPlatformApplicationAttributes = SetPlatformApplicationAttributes
     { spaaiAttributes :: HashMap Text Text
       -- ^ A map of the platform application attributes. Attributes in this map

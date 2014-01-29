@@ -43,6 +43,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listUsers :: AWS (Either IAMError ListUsersResponse)
+listUsers = undefined $ ListUsers
+    { lurMarker = Nothing
+    , lurMaxItems = Nothing
+    , lurPathPrefix = Nothing
+    }
+
 data ListUsers = ListUsers
     { lurMarker :: Maybe Text
       -- ^ Use this parameter only when paginating results, and only in a subsequent

@@ -40,6 +40,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+requestEnvironmentInfo :: EnvironmentInfoType
+                       -> AWS (Either ElasticBeanstalkError RequestEnvironmentInfoResponse)
+requestEnvironmentInfo p1 = undefined $ RequestEnvironmentInfo
+    { reimInfoType = p1
+    , reimEnvironmentId = Nothing
+    , reimEnvironmentName = Nothing
+    }
+
 data RequestEnvironmentInfo = RequestEnvironmentInfo
     { reimEnvironmentId :: Maybe Text
       -- ^ The ID of the environment of the requested data. If no such environment is

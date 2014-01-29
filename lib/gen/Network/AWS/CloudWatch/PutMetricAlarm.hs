@@ -38,6 +38,34 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
+-- | Convenience method utilising default fields where applicable.
+putMetricAlarm :: Text
+               -> ComparisonOperator
+               -> Int
+               -> Text
+               -> Text
+               -> Int
+               -> Statistic
+               -> Double
+               -> AWS (Either CloudWatchError PutMetricAlarmResponse)
+putMetricAlarm p1 p2 p3 p4 p5 p6 p7 p8 = undefined $ PutMetricAlarm
+    { pmaiAlarmName = p1
+    , pmaiComparisonOperator = p2
+    , pmaiEvaluationPeriods = p3
+    , pmaiMetricName = p4
+    , pmaiNamespace = p5
+    , pmaiPeriod = p6
+    , pmaiStatistic = p7
+    , pmaiThreshold = p8
+    , pmaiActionsEnabled = Nothing
+    , pmaiAlarmActions = []
+    , pmaiAlarmDescription = Nothing
+    , pmaiDimensions = []
+    , pmaiInsufficientDataActions = []
+    , pmaiOKActions = []
+    , pmaiUnit = Nothing
+    }
+
 data PutMetricAlarm = PutMetricAlarm
     { pmaiActionsEnabled :: Maybe Bool
       -- ^ Indicates whether or not actions should be executed during any changes to

@@ -37,9 +37,9 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-listParts :: Text -- ^ Bucket
-          -> Text -- ^ Key
-          -> Text -- ^ UploadId
+listParts :: Text
+          -> Text
+          -> Text
           -> AWS (Either S3Error ListPartsResponse)
 listParts p1 p2 p3 = undefined $ ListParts
     { lpBucket = p1

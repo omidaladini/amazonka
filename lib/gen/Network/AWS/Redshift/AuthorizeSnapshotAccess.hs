@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+authorizeSnapshotAccess :: Text
+                        -> Text
+                        -> AWS (Either RedshiftError AuthorizeSnapshotAccessResponse)
+authorizeSnapshotAccess p1 p2 = undefined $ AuthorizeSnapshotAccess
+    { asamAccountWithRestoreAccess = p1
+    , asamSnapshotIdentifier = p2
+    , asamSnapshotClusterIdentifier = Nothing
+    }
+
 data AuthorizeSnapshotAccess = AuthorizeSnapshotAccess
     { asamAccountWithRestoreAccess :: !Text
       -- ^ The identifier of the AWS customer account authorized to restore the

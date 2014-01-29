@@ -47,6 +47,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteClusterSnapshot :: Text
+                      -> AWS (Either RedshiftError DeleteClusterSnapshotResponse)
+deleteClusterSnapshot p1 = undefined $ DeleteClusterSnapshot
+    { dcsmSnapshotIdentifier = p1
+    , dcsmSnapshotClusterIdentifier = Nothing
+    }
+
 data DeleteClusterSnapshot = DeleteClusterSnapshot
     { dcsmSnapshotClusterIdentifier :: Maybe Text
       -- ^ The unique identifier of the cluster the snapshot was created from. This

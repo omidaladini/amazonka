@@ -50,6 +50,19 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateEnvironment :: AWS (Either ElasticBeanstalkError UpdateEnvironmentResponse)
+updateEnvironment = undefined $ UpdateEnvironment
+    { uemDescription = Nothing
+    , uemEnvironmentId = Nothing
+    , uemEnvironmentName = Nothing
+    , uemOptionSettings = []
+    , uemOptionsToRemove = []
+    , uemTemplateName = Nothing
+    , uemTier = Nothing
+    , uemVersionLabel = Nothing
+    }
+
 data UpdateEnvironment = UpdateEnvironment
     { uemDescription :: Maybe Text
       -- ^ If this parameter is specified, AWS Elastic Beanstalk updates the

@@ -36,6 +36,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+getPasswordData :: Text
+                -> AWS (Either EC2Error GetPasswordDataResponse)
+getPasswordData p1 = undefined $ GetPasswordData
+    { gpdrInstanceId = p1
+    , gpdrDryRun = Nothing
+    }
+
 data GetPasswordData = GetPasswordData
     { gpdrDryRun :: Maybe Bool
     , gpdrInstanceId :: !Text

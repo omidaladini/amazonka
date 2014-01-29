@@ -52,6 +52,14 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getQueueAttributes :: Text
+                   -> AWS (Either SQSError GetQueueAttributesResponse)
+getQueueAttributes p1 = undefined $ GetQueueAttributes
+    { gqarQueueUrl = p1
+    , gqarAttributeNames = []
+    }
+
 data GetQueueAttributes = GetQueueAttributes
     { gqarAttributeNames :: [QueueAttributeName]
       -- ^ A list of attributes to retrieve information for.

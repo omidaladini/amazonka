@@ -38,6 +38,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteAutoScalingGroup :: ResourceName
+                       -> AWS (Either AutoScalingError DeleteAutoScalingGroupResponse)
+deleteAutoScalingGroup p1 = undefined $ DeleteAutoScalingGroup
+    { dasgtAutoScalingGroupName = p1
+    , dasgtForceDelete = Nothing
+    }
+
 data DeleteAutoScalingGroup = DeleteAutoScalingGroup
     { dasgtAutoScalingGroupName :: !ResourceName
       -- ^ The name of the Auto Scaling group to delete.

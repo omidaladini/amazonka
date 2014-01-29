@@ -33,6 +33,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+resetImageAttribute :: ResetImageAttributeName
+                    -> Text
+                    -> AWS (Either EC2Error ResetImageAttributeResponse)
+resetImageAttribute p1 p2 = undefined $ ResetImageAttribute
+    { riasAttribute = p1
+    , riasImageId = p2
+    , riasDryRun = Nothing
+    }
+
 data ResetImageAttribute = ResetImageAttribute
     { riasAttribute :: !ResetImageAttributeName
       -- ^ The name of the attribute being reset. Available attribute names:

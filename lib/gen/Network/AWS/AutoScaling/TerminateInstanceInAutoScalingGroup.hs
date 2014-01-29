@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+terminateInstanceInAutoScalingGroup :: Text
+                                    -> Bool
+                                    -> AWS (Either AutoScalingError TerminateInstanceInAutoScalingGroupResponse)
+terminateInstanceInAutoScalingGroup p1 p2 = undefined $ TerminateInstanceInAutoScalingGroup
+    { tiiasgtInstanceId = p1
+    , tiiasgtShouldDecrementDesiredCapacity = p2
+    }
+
 data TerminateInstanceInAutoScalingGroup = TerminateInstanceInAutoScalingGroup
     { tiiasgtInstanceId :: !Text
       -- ^ The ID of the Amazon EC2 instance to be terminated.

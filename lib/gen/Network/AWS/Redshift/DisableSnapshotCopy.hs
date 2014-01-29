@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+disableSnapshotCopy :: Text
+                    -> AWS (Either RedshiftError DisableSnapshotCopyResponse)
+disableSnapshotCopy p1 = undefined $ DisableSnapshotCopy
+    { dscmClusterIdentifier = p1
+    }
+
 data DisableSnapshotCopy = DisableSnapshotCopy
     { dscmClusterIdentifier :: !Text
       -- ^ The unique identifier of the source cluster that you want to disable

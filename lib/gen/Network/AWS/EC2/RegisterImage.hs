@@ -41,6 +41,22 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+registerImage :: AWS (Either EC2Error RegisterImageResponse)
+registerImage = undefined $ RegisterImage
+    { risArchitecture = Nothing
+    , risBlockDeviceMappings = []
+    , risDescription = Nothing
+    , risDryRun = Nothing
+    , risImageLocation = Nothing
+    , risKernelId = Nothing
+    , risName = Nothing
+    , risRamdiskId = Nothing
+    , risRootDeviceName = Nothing
+    , risSriovNetSupport = Nothing
+    , risVirtualizationType = Nothing
+    }
+
 data RegisterImage = RegisterImage
     { risArchitecture :: Maybe ArchitectureValues
       -- ^ The architecture of the image. Valid Values: i386, x86_64.

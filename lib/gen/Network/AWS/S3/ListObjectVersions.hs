@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-listObjectVersions :: Text -- ^ Bucket
+listObjectVersions :: Text
                    -> AWS (Either S3Error ListObjectVersionsResponse)
 listObjectVersions p1 = undefined $ ListObjectVersions
     { lovBucket = p1

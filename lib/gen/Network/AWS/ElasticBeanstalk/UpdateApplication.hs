@@ -38,6 +38,14 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateApplication :: Text
+                  -> AWS (Either ElasticBeanstalkError UpdateApplicationResponse)
+updateApplication p1 = undefined $ UpdateApplication
+    { uamApplicationName = p1
+    , uamDescription = Nothing
+    }
+
 data UpdateApplication = UpdateApplication
     { uamApplicationName :: !Text
       -- ^ The name of the application to update. If no such application is found,

@@ -45,6 +45,30 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+restoreDBInstanceToPointInTime :: Text
+                               -> Text
+                               -> AWS (Either RDSError RestoreDBInstanceToPointInTimeResponse)
+restoreDBInstanceToPointInTime p1 p2 = undefined $ RestoreDBInstanceToPointInTime
+    { rdbitpitmSourceDBInstanceIdentifier = p1
+    , rdbitpitmTargetDBInstanceIdentifier = p2
+    , rdbitpitmAutoMinorVersionUpgrade = Nothing
+    , rdbitpitmAvailabilityZone = Nothing
+    , rdbitpitmDBInstanceClass = Nothing
+    , rdbitpitmDBName = Nothing
+    , rdbitpitmDBSubnetGroupName = Nothing
+    , rdbitpitmEngine = Nothing
+    , rdbitpitmIops = Nothing
+    , rdbitpitmLicenseModel = Nothing
+    , rdbitpitmMultiAZ = Nothing
+    , rdbitpitmOptionGroupName = Nothing
+    , rdbitpitmPort = Nothing
+    , rdbitpitmPubliclyAccessible = Nothing
+    , rdbitpitmRestoreTime = Nothing
+    , rdbitpitmTags = []
+    , rdbitpitmUseLatestRestorableTime = Nothing
+    }
+
 data RestoreDBInstanceToPointInTime = RestoreDBInstanceToPointInTime
     { rdbitpitmAutoMinorVersionUpgrade :: Maybe Bool
       -- ^ Indicates that minor version upgrades will be applied automatically to the

@@ -42,6 +42,16 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateAccessKey :: Text
+                -> StatusType
+                -> AWS (Either IAMError UpdateAccessKeyResponse)
+updateAccessKey p1 p2 = undefined $ UpdateAccessKey
+    { uakrAccessKeyId = p1
+    , uakrStatus = p2
+    , uakrUserName = Nothing
+    }
+
 data UpdateAccessKey = UpdateAccessKey
     { uakrAccessKeyId :: !Text
       -- ^ The access key ID of the secret access key you want to update.

@@ -35,6 +35,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+attachVpnGateway :: Text
+                 -> Text
+                 -> AWS (Either EC2Error AttachVpnGatewayResponse)
+attachVpnGateway p1 p2 = undefined $ AttachVpnGateway
+    { avgrVpcId = p1
+    , avgrVpnGatewayId = p2
+    , avgrDryRun = Nothing
+    }
+
 data AttachVpnGateway = AttachVpnGateway
     { avgrDryRun :: Maybe Bool
     , avgrVpcId :: !Text

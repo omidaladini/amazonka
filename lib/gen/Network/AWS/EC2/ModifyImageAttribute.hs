@@ -32,6 +32,22 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyImageAttribute :: Text
+                     -> AWS (Either EC2Error ModifyImageAttributeResponse)
+modifyImageAttribute p1 = undefined $ ModifyImageAttribute
+    { miarImageId = p1
+    , miarAttribute = Nothing
+    , miarDescription = Nothing
+    , miarDryRun = Nothing
+    , miarLaunchPermission = Nothing
+    , miarOperationType = Nothing
+    , miarProductCodes = []
+    , miarUserGroups = []
+    , miarUserIds = []
+    , miarValue = Nothing
+    }
+
 data ModifyImageAttribute = ModifyImageAttribute
     { miarAttribute :: Maybe Text
       -- ^ The name of the AMI attribute you want to modify. Available attributes:

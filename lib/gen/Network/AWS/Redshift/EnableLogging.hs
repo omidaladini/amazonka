@@ -33,6 +33,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+enableLogging :: Text
+              -> Text
+              -> AWS (Either RedshiftError EnableLoggingResponse)
+enableLogging p1 p2 = undefined $ EnableLogging
+    { elmBucketName = p1
+    , elmClusterIdentifier = p2
+    , elmS3KeyPrefix = Nothing
+    }
+
 data EnableLogging = EnableLogging
     { elmBucketName :: !Text
       -- ^ The name of an existing S3 bucket where the log files are to be stored.

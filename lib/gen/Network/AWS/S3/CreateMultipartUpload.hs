@@ -42,8 +42,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-createMultipartUpload :: Text -- ^ Bucket
-                      -> Text -- ^ Key
+createMultipartUpload :: Text
+                      -> Text
                       -> AWS (Either S3Error CreateMultipartUploadResponse)
 createMultipartUpload p1 p2 = undefined $ CreateMultipartUpload
     { cmuBucket = p1
@@ -59,7 +59,7 @@ createMultipartUpload p1 p2 = undefined $ CreateMultipartUpload
     , cmuGrantRead = Nothing
     , cmuGrantReadACP = Nothing
     , cmuGrantWriteACP = Nothing
-    , cmuMetadata = mempty
+    , cmuMetadata = Map.empty
     , cmuServerSideEncryption = Nothing
     , cmuStorageClass = Nothing
     , cmuWebsiteRedirectLocation = Nothing

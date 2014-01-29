@@ -39,6 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createSnapshot :: Text
+               -> AWS (Either EC2Error CreateSnapshotResponse)
+createSnapshot p1 = undefined $ CreateSnapshot
+    { cstVolumeId = p1
+    , cstDescription = Nothing
+    , cstDryRun = Nothing
+    }
+
 data CreateSnapshot = CreateSnapshot
     { cstDescription :: Maybe Text
       -- ^ The description for the new snapshot.

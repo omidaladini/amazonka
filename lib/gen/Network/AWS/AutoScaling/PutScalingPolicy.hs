@@ -42,6 +42,21 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+putScalingPolicy :: Text
+                 -> ResourceName
+                 -> Text
+                 -> Int
+                 -> AWS (Either AutoScalingError PutScalingPolicyResponse)
+putScalingPolicy p1 p2 p3 p4 = undefined $ PutScalingPolicy
+    { psptAdjustmentType = p1
+    , psptAutoScalingGroupName = p2
+    , psptPolicyName = p3
+    , psptScalingAdjustment = p4
+    , psptCooldown = Nothing
+    , psptMinAdjustmentStep = Nothing
+    }
+
 data PutScalingPolicy = PutScalingPolicy
     { psptAdjustmentType :: !Text
       -- ^ Specifies whether the ScalingAdjustment is an absolute number or a

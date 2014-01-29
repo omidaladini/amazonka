@@ -38,6 +38,14 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteApplication :: Text
+                  -> AWS (Either ElasticBeanstalkError DeleteApplicationResponse)
+deleteApplication p1 = undefined $ DeleteApplication
+    { danApplicationName = p1
+    , danTerminateEnvByForce = Nothing
+    }
+
 data DeleteApplication = DeleteApplication
     { danApplicationName :: !Text
       -- ^ The name of the application to delete.

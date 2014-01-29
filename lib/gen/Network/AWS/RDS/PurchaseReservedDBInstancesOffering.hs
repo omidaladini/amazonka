@@ -40,6 +40,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+purchaseReservedDBInstancesOffering :: Text
+                                    -> AWS (Either RDSError PurchaseReservedDBInstancesOfferingResponse)
+purchaseReservedDBInstancesOffering p1 = undefined $ PurchaseReservedDBInstancesOffering
+    { prdbiomReservedDBInstancesOfferingId = p1
+    , prdbiomDBInstanceCount = Nothing
+    , prdbiomReservedDBInstanceId = Nothing
+    , prdbiomTags = []
+    }
+
 data PurchaseReservedDBInstancesOffering = PurchaseReservedDBInstancesOffering
     { prdbiomDBInstanceCount :: Maybe Int
       -- ^ The number of instances to reserve. Default: 1.

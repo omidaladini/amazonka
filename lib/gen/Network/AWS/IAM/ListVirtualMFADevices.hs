@@ -46,6 +46,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listVirtualMFADevices :: AWS (Either IAMError ListVirtualMFADevicesResponse)
+listVirtualMFADevices = undefined $ ListVirtualMFADevices
+    { lvmfadrAssignmentStatus = Nothing
+    , lvmfadrMarker = Nothing
+    , lvmfadrMaxItems = Nothing
+    }
+
 data ListVirtualMFADevices = ListVirtualMFADevices
     { lvmfadrAssignmentStatus :: Maybe AssignmentStatusType
       -- ^ The status (unassigned or assigned) of the devices to list. If you do not

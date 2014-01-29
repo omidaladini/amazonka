@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteClusterSubnetGroup :: Text
+                         -> AWS (Either RedshiftError DeleteClusterSubnetGroupResponse)
+deleteClusterSubnetGroup p1 = undefined $ DeleteClusterSubnetGroup
+    { dcsgmClusterSubnetGroupName = p1
+    }
+
 data DeleteClusterSubnetGroup = DeleteClusterSubnetGroup
     { dcsgmClusterSubnetGroupName :: !Text
       -- ^ The name of the cluster subnet group name to be deleted.

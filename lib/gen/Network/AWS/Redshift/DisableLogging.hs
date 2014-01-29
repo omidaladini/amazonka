@@ -33,6 +33,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+disableLogging :: Text
+               -> AWS (Either RedshiftError DisableLoggingResponse)
+disableLogging p1 = undefined $ DisableLogging
+    { dlmClusterIdentifier = p1
+    }
+
 data DisableLogging = DisableLogging
     { dlmClusterIdentifier :: !Text
       -- ^ The identifier of the cluster on which logging is to be stopped. Example:

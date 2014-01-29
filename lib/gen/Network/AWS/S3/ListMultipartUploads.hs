@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-listMultipartUploads :: Text -- ^ Bucket
+listMultipartUploads :: Text
                      -> AWS (Either S3Error ListMultipartUploadsResponse)
 listMultipartUploads p1 = undefined $ ListMultipartUploads
     { lmuBucket = p1

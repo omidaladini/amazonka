@@ -336,7 +336,7 @@ render p t o = do
               | y == "Key"         = LT
               | x == "RequestBody" = LT
               | y == "RequestBody" = GT
-              | otherwise          = x `compare` y
+              | otherwise          = y `compare` x
 
         p (OrdShape _ (Object o)) = Map.lookup "required" o == Just (Bool True)
         p _                       = False

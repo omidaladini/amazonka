@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeHsmConfigurations :: AWS (Either RedshiftError DescribeHsmConfigurationsResponse)
+describeHsmConfigurations = undefined $ DescribeHsmConfigurations
+    { dhcnHsmConfigurationIdentifier = Nothing
+    , dhcnMarker = Nothing
+    , dhcnMaxRecords = Nothing
+    }
+
 data DescribeHsmConfigurations = DescribeHsmConfigurations
     { dhcnHsmConfigurationIdentifier :: Maybe Text
       -- ^ The identifier of a specific Amazon Redshift HSM configuration to be

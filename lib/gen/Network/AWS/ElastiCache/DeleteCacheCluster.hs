@@ -44,6 +44,13 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteCacheCluster :: Text
+                   -> AWS (Either ElastiCacheError DeleteCacheClusterResponse)
+deleteCacheCluster p1 = undefined $ DeleteCacheCluster
+    { dccmCacheClusterId = p1
+    }
+
 data DeleteCacheCluster = DeleteCacheCluster
     { dccmCacheClusterId :: !Text
       -- ^ The cache cluster identifier for the cluster to be deleted. This parameter

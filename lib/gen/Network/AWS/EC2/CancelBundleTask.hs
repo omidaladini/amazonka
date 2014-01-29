@@ -36,6 +36,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelBundleTask :: Text
+                 -> AWS (Either EC2Error CancelBundleTaskResponse)
+cancelBundleTask p1 = undefined $ CancelBundleTask
+    { cbtrBundleId = p1
+    , cbtrDryRun = Nothing
+    }
+
 data CancelBundleTask = CancelBundleTask
     { cbtrBundleId :: !Text
       -- ^ The ID of the bundle task to cancel.

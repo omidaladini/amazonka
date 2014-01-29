@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-deleteBucketPolicy :: Text -- ^ Bucket
+deleteBucketPolicy :: Text
                    -> AWS (Either S3Error DeleteBucketPolicyResponse)
 deleteBucketPolicy p1 = undefined $ DeleteBucketPolicy
     { dbpBucket = p1

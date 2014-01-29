@@ -39,6 +39,14 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+terminateEnvironment :: AWS (Either ElasticBeanstalkError TerminateEnvironmentResponse)
+terminateEnvironment = undefined $ TerminateEnvironment
+    { temEnvironmentId = Nothing
+    , temEnvironmentName = Nothing
+    , temTerminateResources = Nothing
+    }
+
 data TerminateEnvironment = TerminateEnvironment
     { temEnvironmentId :: Maybe Text
       -- ^ The ID of the environment to terminate. Condition: You must specify either

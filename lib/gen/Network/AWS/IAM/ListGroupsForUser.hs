@@ -37,6 +37,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listGroupsForUser :: Text
+                  -> AWS (Either IAMError ListGroupsForUserResponse)
+listGroupsForUser p1 = undefined $ ListGroupsForUser
+    { lgfurUserName = p1
+    , lgfurMarker = Nothing
+    , lgfurMaxItems = Nothing
+    }
+
 data ListGroupsForUser = ListGroupsForUser
     { lgfurMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

@@ -33,6 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAutoScalingNotificationTypes :: AWS (Either AutoScalingError DescribeAutoScalingNotificationTypesResponse)
+describeAutoScalingNotificationTypes = undefined DescribeAutoScalingNotificationTypes
+
 data DescribeAutoScalingNotificationTypes = DescribeAutoScalingNotificationTypes
     deriving (Eq, Show, Generic)
 

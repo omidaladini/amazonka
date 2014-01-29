@@ -32,6 +32,14 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getQueueUrl :: Text
+            -> AWS (Either SQSError GetQueueUrlResponse)
+getQueueUrl p1 = undefined $ GetQueueUrl
+    { gqurQueueName = p1
+    , gqurQueueOwnerAWSAccountId = Nothing
+    }
+
 data GetQueueUrl = GetQueueUrl
     { gqurQueueName :: !Text
       -- ^ The name of the queue whose URL must be fetched.

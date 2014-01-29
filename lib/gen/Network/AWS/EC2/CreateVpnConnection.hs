@@ -45,6 +45,19 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createVpnConnection :: Text
+                    -> Text
+                    -> Text
+                    -> AWS (Either EC2Error CreateVpnConnectionResponse)
+createVpnConnection p1 p2 p3 = undefined $ CreateVpnConnection
+    { cvcrCustomerGatewayId = p1
+    , cvcrType = p2
+    , cvcrVpnGatewayId = p3
+    , cvcrDryRun = Nothing
+    , cvcrOptions = Nothing
+    }
+
 data CreateVpnConnection = CreateVpnConnection
     { cvcrCustomerGatewayId :: !Text
       -- ^ The ID of the customer gateway.

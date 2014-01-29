@@ -36,6 +36,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteAccountAlias :: Text
+                   -> AWS (Either IAMError DeleteAccountAliasResponse)
+deleteAccountAlias p1 = undefined $ DeleteAccountAlias
+    { daarAccountAlias = p1
+    }
+
 data DeleteAccountAlias = DeleteAccountAlias
     { daarAccountAlias :: !Text
       -- ^ Name of the account alias to delete.

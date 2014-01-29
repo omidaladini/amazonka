@@ -57,6 +57,17 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createPlatformApplication :: HashMap Text Text
+                          -> Text
+                          -> Text
+                          -> AWS (Either SNSError CreatePlatformApplicationResponse)
+createPlatformApplication p1 p2 p3 = undefined $ CreatePlatformApplication
+    { cpaiAttributes = p1
+    , cpaiName = p2
+    , cpaiPlatform = p3
+    }
+
 data CreatePlatformApplication = CreatePlatformApplication
     { cpaiAttributes :: HashMap Text Text
       -- ^ For a list of attributes, see SetPlatformApplicationAttributes.

@@ -48,6 +48,16 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+setIdentityNotificationTopic :: Text
+                             -> NotificationType
+                             -> AWS (Either SESError SetIdentityNotificationTopicResponse)
+setIdentityNotificationTopic p1 p2 = undefined $ SetIdentityNotificationTopic
+    { sintrIdentity = p1
+    , sintrNotificationType = p2
+    , sintrSnsTopic = Nothing
+    }
+
 data SetIdentityNotificationTopic = SetIdentityNotificationTopic
     { sintrIdentity :: !Text
       -- ^ The identity for which the topic will be set. Examples: user@example.com,

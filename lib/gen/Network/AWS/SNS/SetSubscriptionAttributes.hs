@@ -45,6 +45,16 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+setSubscriptionAttributes :: Text
+                          -> Text
+                          -> AWS (Either SNSError SetSubscriptionAttributesResponse)
+setSubscriptionAttributes p1 p2 = undefined $ SetSubscriptionAttributes
+    { ssaiAttributeName = p1
+    , ssaiSubscriptionArn = p2
+    , ssaiAttributeValue = Nothing
+    }
+
 data SetSubscriptionAttributes = SetSubscriptionAttributes
     { ssaiAttributeName :: !Text
       -- ^ The name of the attribute you want to set. Only a subset of the

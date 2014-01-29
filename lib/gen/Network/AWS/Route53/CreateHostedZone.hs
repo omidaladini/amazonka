@@ -47,12 +47,12 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-createHostedZone :: Text -- ^ Name
-                 -> Text -- ^ CallerReference
+createHostedZone :: Text
+                 -> Text
                  -> AWS (Either Route53Error CreateHostedZoneResponse)
 createHostedZone p1 p2 = undefined $ CreateHostedZone
-    { chzrName = p1
-    , chzrCallerReference = p2
+    { chzrCallerReference = p1
+    , chzrName = p2
     , chzrHostedZoneConfig = Nothing
     }
 

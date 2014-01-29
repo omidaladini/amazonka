@@ -44,6 +44,17 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+putGroupPolicy :: Text
+               -> Text
+               -> Text
+               -> AWS (Either IAMError PutGroupPolicyResponse)
+putGroupPolicy p1 p2 p3 = undefined $ PutGroupPolicy
+    { pgprGroupName = p1
+    , pgprPolicyDocument = p2
+    , pgprPolicyName = p3
+    }
+
 data PutGroupPolicy = PutGroupPolicy
     { pgprGroupName :: !Text
       -- ^ Name of the group to associate the policy with.

@@ -39,6 +39,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteSigningCertificate :: Text
+                         -> AWS (Either IAMError DeleteSigningCertificateResponse)
+deleteSigningCertificate p1 = undefined $ DeleteSigningCertificate
+    { dscrCertificateId = p1
+    , dscrUserName = Nothing
+    }
+
 data DeleteSigningCertificate = DeleteSigningCertificate
     { dscrCertificateId :: !Text
       -- ^ ID of the signing certificate to delete.

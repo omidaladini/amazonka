@@ -49,6 +49,15 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDBInstance :: Text
+                 -> AWS (Either RDSError DeleteDBInstanceResponse)
+deleteDBInstance p1 = undefined $ DeleteDBInstance
+    { ddbimDBInstanceIdentifier = p1
+    , ddbimFinalDBSnapshotIdentifier = Nothing
+    , ddbimSkipFinalSnapshot = Nothing
+    }
+
 data DeleteDBInstance = DeleteDBInstance
     { ddbimDBInstanceIdentifier :: !Text
       -- ^ The DB instance identifier for the DB instance to be deleted. This

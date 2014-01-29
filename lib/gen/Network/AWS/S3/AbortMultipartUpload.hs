@@ -39,9 +39,9 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-abortMultipartUpload :: Text -- ^ Bucket
-                     -> Text -- ^ Key
-                     -> Text -- ^ UploadId
+abortMultipartUpload :: Text
+                     -> Text
+                     -> Text
                      -> AWS (Either S3Error AbortMultipartUploadResponse)
 abortMultipartUpload p1 p2 p3 = undefined $ AbortMultipartUpload
     { amuBucket = p1

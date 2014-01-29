@@ -72,6 +72,15 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
+-- | Convenience method utilising default fields where applicable.
+getFederationToken :: Text
+                   -> AWS (Either STSError GetFederationTokenResponse)
+getFederationToken p1 = undefined $ GetFederationToken
+    { gftrName = p1
+    , gftrDurationSeconds = Nothing
+    , gftrPolicy = Nothing
+    }
+
 data GetFederationToken = GetFederationToken
     { gftrDurationSeconds :: Maybe Int
       -- ^ The duration, in seconds, that the session should last. Acceptable

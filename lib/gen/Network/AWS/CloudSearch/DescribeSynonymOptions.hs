@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeSynonymOptions :: Text
+                       -> AWS (Either CloudSearchError DescribeSynonymOptionsResponse)
+describeSynonymOptions p1 = undefined $ DescribeSynonymOptions
+    { dsorDomainName = p1
+    }
+
 data DescribeSynonymOptions = DescribeSynonymOptions
     { dsorDomainName :: !Text
       -- ^ A string that represents the name of a domain. Domain names must be unique

@@ -39,7 +39,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-listObjects :: Text -- ^ Bucket
+listObjects :: Text
             -> AWS (Either S3Error ListObjectsResponse)
 listObjects p1 = undefined $ ListObjects
     { loBucket = p1

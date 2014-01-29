@@ -82,6 +82,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeConfigurationSettings :: Text
+                              -> AWS (Either ElasticBeanstalkError DescribeConfigurationSettingsResponse)
+describeConfigurationSettings p1 = undefined $ DescribeConfigurationSettings
+    { dcsmApplicationName = p1
+    , dcsmEnvironmentName = Nothing
+    , dcsmTemplateName = Nothing
+    }
+
 data DescribeConfigurationSettings = DescribeConfigurationSettings
     { dcsmApplicationName :: !Text
       -- ^ The application for the environment or configuration template.

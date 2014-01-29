@@ -47,6 +47,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeStackEvents :: AWS (Either CloudFormationError DescribeStackEventsResponse)
+describeStackEvents = undefined $ DescribeStackEvents
+    { dseiNextToken = Nothing
+    , dseiStackName = Nothing
+    }
+
 data DescribeStackEvents = DescribeStackEvents
     { dseiNextToken :: Maybe Text
       -- ^ String that identifies the start of the next list of events, if there is

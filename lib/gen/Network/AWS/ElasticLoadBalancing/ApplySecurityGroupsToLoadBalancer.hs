@@ -40,6 +40,15 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+applySecurityGroupsToLoadBalancer :: Text
+                                  -> [Text]
+                                  -> AWS (Either ElasticLoadBalancingError ApplySecurityGroupsToLoadBalancerResponse)
+applySecurityGroupsToLoadBalancer p1 p2 = undefined $ ApplySecurityGroupsToLoadBalancer
+    { asgtlbiLoadBalancerName = p1
+    , asgtlbiSecurityGroups = p2
+    }
+
 data ApplySecurityGroupsToLoadBalancer = ApplySecurityGroupsToLoadBalancer
     { asgtlbiLoadBalancerName :: !Text
       -- ^ The name associated with the load balancer. The name must be unique within

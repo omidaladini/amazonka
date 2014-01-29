@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteGroupPolicy :: Text
+                  -> Text
+                  -> AWS (Either IAMError DeleteGroupPolicyResponse)
+deleteGroupPolicy p1 p2 = undefined $ DeleteGroupPolicy
+    { dgprGroupName = p1
+    , dgprPolicyName = p2
+    }
+
 data DeleteGroupPolicy = DeleteGroupPolicy
     { dgprGroupName :: !Text
       -- ^ Name of the group the policy is associated with.

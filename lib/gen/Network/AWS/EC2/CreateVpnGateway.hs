@@ -34,6 +34,15 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createVpnGateway :: GatewayType
+                 -> AWS (Either EC2Error CreateVpnGatewayResponse)
+createVpnGateway p1 = undefined $ CreateVpnGateway
+    { cvgrType = p1
+    , cvgrAvailabilityZone = Nothing
+    , cvgrDryRun = Nothing
+    }
+
 data CreateVpnGateway = CreateVpnGateway
     { cvgrAvailabilityZone :: Maybe Text
       -- ^ The Availability Zone in which to create the VPN gateway.

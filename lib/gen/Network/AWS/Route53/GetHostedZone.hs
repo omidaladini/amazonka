@@ -38,7 +38,7 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-getHostedZone :: Text -- ^ Id
+getHostedZone :: Text
               -> AWS (Either Route53Error GetHostedZoneResponse)
 getHostedZone p1 = undefined $ GetHostedZone
     { ghzrId = p1

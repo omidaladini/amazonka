@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelReservedInstancesListing :: Text
+                               -> AWS (Either EC2Error CancelReservedInstancesListingResponse)
+cancelReservedInstancesListing p1 = undefined $ CancelReservedInstancesListing
+    { crilrReservedInstancesListingId = p1
+    }
+
 data CancelReservedInstancesListing = CancelReservedInstancesListing
     { crilrReservedInstancesListingId :: !Text
     } deriving (Eq, Show, Generic)

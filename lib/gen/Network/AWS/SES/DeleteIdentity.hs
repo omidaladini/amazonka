@@ -42,6 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteIdentity :: Text
+               -> AWS (Either SESError DeleteIdentityResponse)
+deleteIdentity p1 = undefined $ DeleteIdentity
+    { dirIdentity = p1
+    }
+
 data DeleteIdentity = DeleteIdentity
     { dirIdentity :: !Text
       -- ^ The identity to be removed from the list of identities for the AWS Account.

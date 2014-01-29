@@ -35,6 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeAdjustmentTypes :: AWS (Either AutoScalingError DescribeAdjustmentTypesResponse)
+describeAdjustmentTypes = undefined DescribeAdjustmentTypes
+
 data DescribeAdjustmentTypes = DescribeAdjustmentTypes
     deriving (Eq, Show, Generic)
 

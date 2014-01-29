@@ -42,6 +42,30 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyDBInstance :: Text
+                 -> AWS (Either RDSError ModifyDBInstanceResponse)
+modifyDBInstance p1 = undefined $ ModifyDBInstance
+    { mdbimDBInstanceIdentifier = p1
+    , mdbimAllocatedStorage = Nothing
+    , mdbimAllowMajorVersionUpgrade = Nothing
+    , mdbimApplyImmediately = Nothing
+    , mdbimAutoMinorVersionUpgrade = Nothing
+    , mdbimBackupRetentionPeriod = Nothing
+    , mdbimDBInstanceClass = Nothing
+    , mdbimDBParameterGroupName = Nothing
+    , mdbimDBSecurityGroups = []
+    , mdbimEngineVersion = Nothing
+    , mdbimIops = Nothing
+    , mdbimMasterUserPassword = Nothing
+    , mdbimMultiAZ = Nothing
+    , mdbimNewDBInstanceIdentifier = Nothing
+    , mdbimOptionGroupName = Nothing
+    , mdbimPreferredBackupWindow = Nothing
+    , mdbimPreferredMaintenanceWindow = Nothing
+    , mdbimVpcSecurityGroupIds = []
+    }
+
 data ModifyDBInstance = ModifyDBInstance
     { mdbimAllocatedStorage :: Maybe Int
       -- ^ The new storage capacity of the RDS instance. Changing this parameter does

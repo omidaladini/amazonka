@@ -50,6 +50,14 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeInstanceHealth :: Text
+                       -> AWS (Either ElasticLoadBalancingError DescribeInstanceHealthResponse)
+describeInstanceHealth p1 = undefined $ DescribeInstanceHealth
+    { depsiLoadBalancerName = p1
+    , depsiInstances = []
+    }
+
 data DescribeInstanceHealth = DescribeInstanceHealth
     { depsiInstances :: [Instance]
       -- ^ A list of instance IDs whose states are being queried.

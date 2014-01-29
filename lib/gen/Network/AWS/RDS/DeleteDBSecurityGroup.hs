@@ -37,6 +37,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDBSecurityGroup :: Text
+                      -> AWS (Either RDSError DeleteDBSecurityGroupResponse)
+deleteDBSecurityGroup p1 = undefined $ DeleteDBSecurityGroup
+    { ddbsgoDBSecurityGroupName = p1
+    }
+
 data DeleteDBSecurityGroup = DeleteDBSecurityGroup
     { ddbsgoDBSecurityGroupName :: !Text
       -- ^ The name of the DB security group to delete. You cannot delete the default

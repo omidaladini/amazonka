@@ -40,6 +40,13 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
+-- | Convenience method utilising default fields where applicable.
+validateTemplate :: AWS (Either CloudFormationError ValidateTemplateResponse)
+validateTemplate = undefined $ ValidateTemplate
+    { vtiTemplateBody = Nothing
+    , vtiTemplateURL = Nothing
+    }
+
 data ValidateTemplate = ValidateTemplate
     { vtiTemplateBody :: Maybe Text
       -- ^ String containing the template body. (For more information, go to the AWS

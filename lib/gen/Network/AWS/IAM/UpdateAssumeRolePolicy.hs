@@ -38,6 +38,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateAssumeRolePolicy :: Text
+                       -> Text
+                       -> AWS (Either IAMError UpdateAssumeRolePolicyResponse)
+updateAssumeRolePolicy p1 p2 = undefined $ UpdateAssumeRolePolicy
+    { uarprPolicyDocument = p1
+    , uarprRoleName = p2
+    }
+
 data UpdateAssumeRolePolicy = UpdateAssumeRolePolicy
     { uarprPolicyDocument :: !Text
       -- ^ The policy that grants an entity permission to assume the role.

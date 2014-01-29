@@ -51,6 +51,14 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+listEndpointsByPlatformApplication :: Text
+                                   -> AWS (Either SNSError ListEndpointsByPlatformApplicationResponse)
+listEndpointsByPlatformApplication p1 = undefined $ ListEndpointsByPlatformApplication
+    { lebpaiPlatformApplicationArn = p1
+    , lebpaiNextToken = Nothing
+    }
+
 data ListEndpointsByPlatformApplication = ListEndpointsByPlatformApplication
     { lebpaiNextToken :: Maybe Text
       -- ^ NextToken string is used when calling ListEndpointsByPlatformApplication

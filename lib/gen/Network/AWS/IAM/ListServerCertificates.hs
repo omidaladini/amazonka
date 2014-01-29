@@ -45,6 +45,14 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listServerCertificates :: AWS (Either IAMError ListServerCertificatesResponse)
+listServerCertificates = undefined $ ListServerCertificates
+    { lscrMarker = Nothing
+    , lscrMaxItems = Nothing
+    , lscrPathPrefix = Nothing
+    }
+
 data ListServerCertificates = ListServerCertificates
     { lscrMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

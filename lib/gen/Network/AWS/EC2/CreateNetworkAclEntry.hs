@@ -43,6 +43,26 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createNetworkAclEntry :: Text
+                      -> Bool
+                      -> Text
+                      -> Text
+                      -> RuleAction
+                      -> Int
+                      -> AWS (Either EC2Error CreateNetworkAclEntryResponse)
+createNetworkAclEntry p1 p2 p3 p4 p5 p6 = undefined $ CreateNetworkAclEntry
+    { cnaerCidrBlock = p1
+    , cnaerEgress = p2
+    , cnaerNetworkAclId = p3
+    , cnaerProtocol = p4
+    , cnaerRuleAction = p5
+    , cnaerRuleNumber = p6
+    , cnaerDryRun = Nothing
+    , cnaerIcmpTypeCode = Nothing
+    , cnaerPortRange = Nothing
+    }
+
 data CreateNetworkAclEntry = CreateNetworkAclEntry
     { cnaerCidrBlock :: !Text
       -- ^ The CIDR range to allow or deny, in CIDR notation (e.g., 172.16.0.0/24).

@@ -37,6 +37,21 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+requestSpotInstances :: Text
+                     -> AWS (Either EC2Error RequestSpotInstancesResponse)
+requestSpotInstances p1 = undefined $ RequestSpotInstances
+    { rsirSpotPrice = p1
+    , rsirAvailabilityZoneGroup = Nothing
+    , rsirDryRun = Nothing
+    , rsirInstanceCount = Nothing
+    , rsirLaunchGroup = Nothing
+    , rsirLaunchSpecification = Nothing
+    , rsirType = Nothing
+    , rsirValidFrom = Nothing
+    , rsirValidUntil = Nothing
+    }
+
 data RequestSpotInstances = RequestSpotInstances
     { rsirAvailabilityZoneGroup :: Maybe Text
       -- ^ Specifies the Availability Zone group. When specifying the same

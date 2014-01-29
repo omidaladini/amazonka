@@ -36,6 +36,13 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+createAccountAlias :: Text
+                   -> AWS (Either IAMError CreateAccountAliasResponse)
+createAccountAlias p1 = undefined $ CreateAccountAlias
+    { caarAccountAlias = p1
+    }
+
 data CreateAccountAlias = CreateAccountAlias
     { caarAccountAlias :: !Text
       -- ^ Name of the account alias to create.

@@ -36,6 +36,12 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeApplications :: AWS (Either ElasticBeanstalkError DescribeApplicationsResponse)
+describeApplications = undefined $ DescribeApplications
+    { damApplicationNames = []
+    }
+
 data DescribeApplications = DescribeApplications
     { damApplicationNames :: [Text]
       -- ^ If specified, AWS Elastic Beanstalk restricts the returned descriptions to

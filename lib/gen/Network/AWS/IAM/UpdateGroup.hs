@@ -45,6 +45,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateGroup :: Text
+            -> AWS (Either IAMError UpdateGroupResponse)
+updateGroup p1 = undefined $ UpdateGroup
+    { ugrGroupName = p1
+    , ugrNewGroupName = Nothing
+    , ugrNewPath = Nothing
+    }
+
 data UpdateGroup = UpdateGroup
     { ugrGroupName :: !Text
       -- ^ Name of the group to update. If you're changing the name of the group, this

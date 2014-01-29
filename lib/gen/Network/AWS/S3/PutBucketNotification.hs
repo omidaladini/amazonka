@@ -37,8 +37,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putBucketNotification :: Text -- ^ Bucket
-                      -> NotificationConfiguration -- ^ NotificationConfiguration
+putBucketNotification :: Text
+                      -> NotificationConfiguration
                       -> AWS (Either S3Error PutBucketNotificationResponse)
 putBucketNotification p1 p2 = undefined $ PutBucketNotification
     { pbnBucket = p1

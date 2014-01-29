@@ -81,6 +81,18 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
+-- | Convenience method utilising default fields where applicable.
+assumeRole :: Text
+           -> Text
+           -> AWS (Either STSError AssumeRoleResponse)
+assumeRole p1 p2 = undefined $ AssumeRole
+    { arrRoleArn = p1
+    , arrRoleSessionName = p2
+    , arrDurationSeconds = Nothing
+    , arrExternalId = Nothing
+    , arrPolicy = Nothing
+    }
+
 data AssumeRole = AssumeRole
     { arrDurationSeconds :: Maybe Int
       -- ^ The duration, in seconds, of the role session. The value can range from 900

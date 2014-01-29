@@ -34,6 +34,14 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+disableMetricsCollection :: ResourceName
+                         -> AWS (Either AutoScalingError DisableMetricsCollectionResponse)
+disableMetricsCollection p1 = undefined $ DisableMetricsCollection
+    { dmcqAutoScalingGroupName = p1
+    , dmcqMetrics = []
+    }
+
 data DisableMetricsCollection = DisableMetricsCollection
     { dmcqAutoScalingGroupName :: !ResourceName
       -- ^ The name or ARN of the Auto Scaling Group.

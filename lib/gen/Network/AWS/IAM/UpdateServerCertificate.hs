@@ -44,6 +44,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateServerCertificate :: Text
+                        -> AWS (Either IAMError UpdateServerCertificateResponse)
+updateServerCertificate p1 = undefined $ UpdateServerCertificate
+    { uscuServerCertificateName = p1
+    , uscuNewPath = Nothing
+    , uscuNewServerCertificateName = Nothing
+    }
+
 data UpdateServerCertificate = UpdateServerCertificate
     { uscuNewPath :: Maybe Text
       -- ^ The new path for the server certificate. Include this only if you are

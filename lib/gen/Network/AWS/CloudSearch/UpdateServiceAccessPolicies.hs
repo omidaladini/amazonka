@@ -33,6 +33,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateServiceAccessPolicies :: Text
+                            -> Text
+                            -> AWS (Either CloudSearchError UpdateServiceAccessPoliciesResponse)
+updateServiceAccessPolicies p1 p2 = undefined $ UpdateServiceAccessPolicies
+    { usaprAccessPolicies = p1
+    , usaprDomainName = p2
+    }
+
 data UpdateServiceAccessPolicies = UpdateServiceAccessPolicies
     { usaprAccessPolicies :: !Text
       -- ^ An IAM access policy as described in The Access Policy Language in Using

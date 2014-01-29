@@ -33,6 +33,24 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
+-- | Convenience method utilising default fields where applicable.
+modifyReplicationGroup :: Text
+                       -> AWS (Either ElastiCacheError ModifyReplicationGroupResponse)
+modifyReplicationGroup p1 = undefined $ ModifyReplicationGroup
+    { mrgmReplicationGroupId = p1
+    , mrgmApplyImmediately = Nothing
+    , mrgmAutoMinorVersionUpgrade = Nothing
+    , mrgmCacheParameterGroupName = Nothing
+    , mrgmCacheSecurityGroupNames = []
+    , mrgmEngineVersion = Nothing
+    , mrgmNotificationTopicArn = Nothing
+    , mrgmNotificationTopicStatus = Nothing
+    , mrgmPreferredMaintenanceWindow = Nothing
+    , mrgmPrimaryClusterId = Nothing
+    , mrgmReplicationGroupDescription = Nothing
+    , mrgmSecurityGroupIds = []
+    }
+
 data ModifyReplicationGroup = ModifyReplicationGroup
     { mrgmApplyImmediately :: Maybe Bool
       -- ^ If true, this parameter causes the modifications in this request and any

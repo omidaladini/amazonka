@@ -38,6 +38,17 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateAccountPasswordPolicy :: AWS (Either IAMError UpdateAccountPasswordPolicyResponse)
+updateAccountPasswordPolicy = undefined $ UpdateAccountPasswordPolicy
+    { uapprAllowUsersToChangePassword = Nothing
+    , uapprMinimumPasswordLength = Nothing
+    , uapprRequireLowercaseCharacters = Nothing
+    , uapprRequireNumbers = Nothing
+    , uapprRequireSymbols = Nothing
+    , uapprRequireUppercaseCharacters = Nothing
+    }
+
 data UpdateAccountPasswordPolicy = UpdateAccountPasswordPolicy
     { uapprAllowUsersToChangePassword :: Maybe Bool
     , uapprMinimumPasswordLength :: Maybe Int

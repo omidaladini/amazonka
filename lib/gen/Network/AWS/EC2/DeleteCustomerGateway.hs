@@ -36,6 +36,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteCustomerGateway :: Text
+                      -> AWS (Either EC2Error DeleteCustomerGatewayResponse)
+deleteCustomerGateway p1 = undefined $ DeleteCustomerGateway
+    { dcgsCustomerGatewayId = p1
+    , dcgsDryRun = Nothing
+    }
+
 data DeleteCustomerGateway = DeleteCustomerGateway
     { dcgsCustomerGatewayId :: !Text
       -- ^ The ID of the customer gateway to delete.

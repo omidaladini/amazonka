@@ -52,6 +52,16 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+authorizeClusterSecurityGroupIngress :: Text
+                                     -> AWS (Either RedshiftError AuthorizeClusterSecurityGroupIngressResponse)
+authorizeClusterSecurityGroupIngress p1 = undefined $ AuthorizeClusterSecurityGroupIngress
+    { acsgimClusterSecurityGroupName = p1
+    , acsgimCIDRIP = Nothing
+    , acsgimEC2SecurityGroupName = Nothing
+    , acsgimEC2SecurityGroupOwnerId = Nothing
+    }
+
 data AuthorizeClusterSecurityGroupIngress = AuthorizeClusterSecurityGroupIngress
     { acsgimCIDRIP :: Maybe Text
       -- ^ The IP range to be added the Amazon Redshift security group.

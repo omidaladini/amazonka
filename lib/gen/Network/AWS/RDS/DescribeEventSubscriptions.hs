@@ -43,6 +43,14 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEventSubscriptions :: AWS (Either RDSError DescribeEventSubscriptionsResponse)
+describeEventSubscriptions = undefined $ DescribeEventSubscriptions
+    { desnMarker = Nothing
+    , desnMaxRecords = Nothing
+    , desnSubscriptionName = Nothing
+    }
+
 data DescribeEventSubscriptions = DescribeEventSubscriptions
     { desnMarker :: Maybe Text
       -- ^ An optional pagination token provided by a previous

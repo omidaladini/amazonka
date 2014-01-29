@@ -32,6 +32,17 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+detachVolume :: Text
+             -> AWS (Either EC2Error DetachVolumeResponse)
+detachVolume p1 = undefined $ DetachVolume
+    { dvrVolumeId = p1
+    , dvrDevice = Nothing
+    , dvrDryRun = Nothing
+    , dvrForce = Nothing
+    , dvrInstanceId = Nothing
+    }
+
 data DetachVolume = DetachVolume
     { dvrDevice :: Maybe Text
       -- ^ The device name to which the volume is attached on the specified instance.

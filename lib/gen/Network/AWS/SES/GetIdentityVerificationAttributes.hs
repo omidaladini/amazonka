@@ -46,6 +46,13 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+getIdentityVerificationAttributes :: [Text]
+                                  -> AWS (Either SESError GetIdentityVerificationAttributesResponse)
+getIdentityVerificationAttributes p1 = undefined $ GetIdentityVerificationAttributes
+    { givarIdentities = p1
+    }
+
 data GetIdentityVerificationAttributes = GetIdentityVerificationAttributes
     { givarIdentities :: [Text]
       -- ^ A list of identities.

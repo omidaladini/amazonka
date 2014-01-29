@@ -36,6 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeTerminationPolicyTypes :: AWS (Either AutoScalingError DescribeTerminationPolicyTypesResponse)
+describeTerminationPolicyTypes = undefined DescribeTerminationPolicyTypes
+
 data DescribeTerminationPolicyTypes = DescribeTerminationPolicyTypes
     deriving (Eq, Show, Generic)
 

@@ -39,7 +39,7 @@ import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
 -- | Convenience method utilising default fields where applicable.
-getChange :: Text -- ^ Id
+getChange :: Text
           -> AWS (Either Route53Error GetChangeResponse)
 getChange p1 = undefined $ GetChange
     { gcrId = p1

@@ -35,6 +35,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteUserPolicy :: Text
+                 -> Text
+                 -> AWS (Either IAMError DeleteUserPolicyResponse)
+deleteUserPolicy p1 p2 = undefined $ DeleteUserPolicy
+    { duprPolicyName = p1
+    , duprUserName = p2
+    }
+
 data DeleteUserPolicy = DeleteUserPolicy
     { duprPolicyName :: !Text
       -- ^ Name of the policy document to delete.

@@ -37,8 +37,8 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-putBucketTagging :: Text -- ^ Bucket
-                 -> Tagging -- ^ Tagging
+putBucketTagging :: Text
+                 -> Tagging
                  -> AWS (Either S3Error PutBucketTaggingResponse)
 putBucketTagging p1 p2 = undefined $ PutBucketTagging
     { pbtBucket = p1

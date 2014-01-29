@@ -63,6 +63,13 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
+-- | Convenience method utilising default fields where applicable.
+decodeAuthorizationMessage :: Text
+                           -> AWS (Either STSError DecodeAuthorizationMessageResponse)
+decodeAuthorizationMessage p1 = undefined $ DecodeAuthorizationMessage
+    { damrEncodedMessage = p1
+    }
+
 data DecodeAuthorizationMessage = DecodeAuthorizationMessage
     { damrEncodedMessage :: !Text
       -- ^ The encoded message that was returned with the response.

@@ -44,6 +44,19 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeOrderableDBInstanceOptions :: Text
+                                   -> AWS (Either RDSError DescribeOrderableDBInstanceOptionsResponse)
+describeOrderableDBInstanceOptions p1 = undefined $ DescribeOrderableDBInstanceOptions
+    { dodbiomEngine = p1
+    , dodbiomDBInstanceClass = Nothing
+    , dodbiomEngineVersion = Nothing
+    , dodbiomLicenseModel = Nothing
+    , dodbiomMarker = Nothing
+    , dodbiomMaxRecords = Nothing
+    , dodbiomVpc = Nothing
+    }
+
 data DescribeOrderableDBInstanceOptions = DescribeOrderableDBInstanceOptions
     { dodbiomDBInstanceClass :: Maybe Text
       -- ^ The DB instance class filter value. Specify this parameter to show only the

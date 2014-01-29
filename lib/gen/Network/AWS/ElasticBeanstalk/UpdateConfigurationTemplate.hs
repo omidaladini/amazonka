@@ -79,6 +79,18 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateConfigurationTemplate :: Text
+                            -> Text
+                            -> AWS (Either ElasticBeanstalkError UpdateConfigurationTemplateResponse)
+updateConfigurationTemplate p1 p2 = undefined $ UpdateConfigurationTemplate
+    { uctmApplicationName = p1
+    , uctmTemplateName = p2
+    , uctmDescription = Nothing
+    , uctmOptionSettings = []
+    , uctmOptionsToRemove = []
+    }
+
 data UpdateConfigurationTemplate = UpdateConfigurationTemplate
     { uctmApplicationName :: !Text
       -- ^ The name of the application associated with the configuration template to

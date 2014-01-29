@@ -37,6 +37,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+listUserPolicies :: Text
+                 -> AWS (Either IAMError ListUserPoliciesResponse)
+listUserPolicies p1 = undefined $ ListUserPolicies
+    { luprUserName = p1
+    , luprMarker = Nothing
+    , luprMaxItems = Nothing
+    }
+
 data ListUserPolicies = ListUserPolicies
     { luprMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request

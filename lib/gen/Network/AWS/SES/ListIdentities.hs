@@ -42,6 +42,14 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
+-- | Convenience method utilising default fields where applicable.
+listIdentities :: AWS (Either SESError ListIdentitiesResponse)
+listIdentities = undefined $ ListIdentities
+    { lirIdentityType = Nothing
+    , lirMaxItems = Nothing
+    , lirNextToken = Nothing
+    }
+
 data ListIdentities = ListIdentities
     { lirIdentityType :: Maybe IdentityType
       -- ^ The type of the identities to list. Possible values are "EmailAddress" and

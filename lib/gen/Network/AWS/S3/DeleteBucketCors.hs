@@ -37,7 +37,7 @@ import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
 -- | Convenience method utilising default fields where applicable.
-deleteBucketCors :: Text -- ^ Bucket
+deleteBucketCors :: Text
                  -> AWS (Either S3Error DeleteBucketCorsResponse)
 deleteBucketCors p1 = undefined $ DeleteBucketCors
     { dbcBucket = p1

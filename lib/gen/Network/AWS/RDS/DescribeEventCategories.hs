@@ -40,6 +40,12 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEventCategories :: AWS (Either RDSError DescribeEventCategoriesResponse)
+describeEventCategories = undefined $ DescribeEventCategories
+    { decmSourceType = Nothing
+    }
+
 data DescribeEventCategories = DescribeEventCategories
     { decmSourceType :: Maybe Text
       -- ^ The type of source that will be generating the events. Valid values:

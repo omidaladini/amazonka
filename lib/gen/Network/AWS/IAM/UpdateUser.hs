@@ -43,6 +43,15 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
+-- | Convenience method utilising default fields where applicable.
+updateUser :: Text
+           -> AWS (Either IAMError UpdateUserResponse)
+updateUser p1 = undefined $ UpdateUser
+    { uurUserName = p1
+    , uurNewPath = Nothing
+    , uurNewUserName = Nothing
+    }
+
 data UpdateUser = UpdateUser
     { uurNewPath :: Maybe Text
       -- ^ New path for the user. Include this parameter only if you're changing the

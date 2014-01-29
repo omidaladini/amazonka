@@ -43,6 +43,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+createClusterSnapshot :: Text
+                      -> Text
+                      -> AWS (Either RedshiftError CreateClusterSnapshotResponse)
+createClusterSnapshot p1 p2 = undefined $ CreateClusterSnapshot
+    { ccsmClusterIdentifier = p1
+    , ccsmSnapshotIdentifier = p2
+    }
+
 data CreateClusterSnapshot = CreateClusterSnapshot
     { ccsmClusterIdentifier :: !Text
       -- ^ The cluster identifier for which you want a snapshot.

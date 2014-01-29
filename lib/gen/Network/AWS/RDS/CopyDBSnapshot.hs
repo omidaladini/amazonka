@@ -40,6 +40,16 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+copyDBSnapshot :: Text
+               -> Text
+               -> AWS (Either RDSError CopyDBSnapshotResponse)
+copyDBSnapshot p1 p2 = undefined $ CopyDBSnapshot
+    { cdbsmSourceDBSnapshotIdentifier = p1
+    , cdbsmTargetDBSnapshotIdentifier = p2
+    , cdbsmTags = []
+    }
+
 data CopyDBSnapshot = CopyDBSnapshot
     { cdbsmSourceDBSnapshotIdentifier :: !Text
       -- ^ The identifier for the source DB snapshot. Constraints: Must specify a

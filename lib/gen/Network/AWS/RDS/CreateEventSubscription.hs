@@ -67,6 +67,20 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+createEventSubscription :: Text
+                        -> Text
+                        -> AWS (Either RDSError CreateEventSubscriptionResponse)
+createEventSubscription p1 p2 = undefined $ CreateEventSubscription
+    { cesmSnsTopicArn = p1
+    , cesmSubscriptionName = p2
+    , cesmEnabled = Nothing
+    , cesmEventCategories = []
+    , cesmSourceIds = []
+    , cesmSourceType = Nothing
+    , cesmTags = []
+    }
+
 data CreateEventSubscription = CreateEventSubscription
     { cesmEnabled :: Maybe Bool
       -- ^ A Boolean value; set to true to activate the subscription, set to false to

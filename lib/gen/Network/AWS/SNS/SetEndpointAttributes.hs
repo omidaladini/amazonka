@@ -43,6 +43,15 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
+-- | Convenience method utilising default fields where applicable.
+setEndpointAttributes :: HashMap Text Text
+                      -> Text
+                      -> AWS (Either SNSError SetEndpointAttributesResponse)
+setEndpointAttributes p1 p2 = undefined $ SetEndpointAttributes
+    { seaiAttributes = p1
+    , seaiEndpointArn = p2
+    }
+
 data SetEndpointAttributes = SetEndpointAttributes
     { seaiAttributes :: HashMap Text Text
       -- ^ A map of the endpoint attributes. Attributes in this map include the

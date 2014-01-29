@@ -34,6 +34,16 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+createPlacementGroup :: Text
+                     -> PlacementStrategy
+                     -> AWS (Either EC2Error CreatePlacementGroupResponse)
+createPlacementGroup p1 p2 = undefined $ CreatePlacementGroup
+    { cpgrGroupName = p1
+    , cpgrStrategy = p2
+    , cpgrDryRun = Nothing
+    }
+
 data CreatePlacementGroup = CreatePlacementGroup
     { cpgrDryRun :: Maybe Bool
     , cpgrGroupName :: !Text

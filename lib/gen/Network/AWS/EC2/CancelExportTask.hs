@@ -32,6 +32,13 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+cancelExportTask :: Text
+                 -> AWS (Either EC2Error CancelExportTaskResponse)
+cancelExportTask p1 = undefined $ CancelExportTask
+    { cetrExportTaskId = p1
+    }
+
 data CancelExportTask = CancelExportTask
     { cetrExportTaskId :: !Text
     } deriving (Eq, Show, Generic)

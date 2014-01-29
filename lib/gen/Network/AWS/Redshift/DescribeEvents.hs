@@ -44,6 +44,18 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeEvents :: AWS (Either RedshiftError DescribeEventsResponse)
+describeEvents = undefined $ DescribeEvents
+    { demDuration = Nothing
+    , demEndTime = Nothing
+    , demMarker = Nothing
+    , demMaxRecords = Nothing
+    , demSourceIdentifier = Nothing
+    , demSourceType = Nothing
+    , demStartTime = Nothing
+    }
+
 data DescribeEvents = DescribeEvents
     { demDuration :: Maybe Int
       -- ^ The number of minutes prior to the time of the request for which to

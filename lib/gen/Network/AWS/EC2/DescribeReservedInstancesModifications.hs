@@ -33,6 +33,14 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
+-- | Convenience method utilising default fields where applicable.
+describeReservedInstancesModifications :: AWS (Either EC2Error DescribeReservedInstancesModificationsResponse)
+describeReservedInstancesModifications = undefined $ DescribeReservedInstancesModifications
+    { drimrFilters = []
+    , drimrNextToken = Nothing
+    , drimrReservedInstancesModificationIds = []
+    }
+
 data DescribeReservedInstancesModifications = DescribeReservedInstancesModifications
     { drimrFilters :: [Filter]
       -- ^ A list of filters used to match properties for

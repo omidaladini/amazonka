@@ -39,6 +39,13 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
+-- | Convenience method utilising default fields where applicable.
+deleteDBSnapshot :: Text
+                 -> AWS (Either RDSError DeleteDBSnapshotResponse)
+deleteDBSnapshot p1 = undefined $ DeleteDBSnapshot
+    { ddbsnDBSnapshotIdentifier = p1
+    }
+
 data DeleteDBSnapshot = DeleteDBSnapshot
     { ddbsnDBSnapshotIdentifier :: !Text
       -- ^ The DBSnapshot identifier. Constraints: Must be the name of an existing DB
