@@ -43,9 +43,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteHostedZone :: Text
-                 -> AWS (Either Route53Error DeleteHostedZoneResponse)
+                 -> DeleteHostedZone
 deleteHostedZone p1 = undefined $ DeleteHostedZone
     { dhzrId = p1
     }

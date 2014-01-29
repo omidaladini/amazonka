@@ -36,10 +36,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 purchaseReservedInstancesOffering :: Int
                                   -> Text
-                                  -> AWS (Either EC2Error PurchaseReservedInstancesOfferingResponse)
+                                  -> PurchaseReservedInstancesOffering
 purchaseReservedInstancesOffering p1 p2 = undefined $ PurchaseReservedInstancesOffering
     { priorInstanceCount = p1
     , priorReservedInstancesOfferingId = p2

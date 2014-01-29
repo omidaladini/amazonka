@@ -63,9 +63,10 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 publish :: Text
-        -> AWS (Either SNSError PublishResponse)
+        -> Publish
 publish p1 = undefined $ Publish
     { piMessage = p1
     , piMessageStructure = Nothing

@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteSAMLProvider :: Text
-                   -> AWS (Either IAMError DeleteSAMLProviderResponse)
+                   -> DeleteSAMLProvider
 deleteSAMLProvider p1 = undefined $ DeleteSAMLProvider
     { dsamlprSAMLProviderArn = p1
     }

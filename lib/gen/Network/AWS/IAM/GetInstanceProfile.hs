@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getInstanceProfile :: Text
-                   -> AWS (Either IAMError GetInstanceProfileResponse)
+                   -> GetInstanceProfile
 getInstanceProfile p1 = undefined $ GetInstanceProfile
     { giprInstanceProfileName = p1
     }

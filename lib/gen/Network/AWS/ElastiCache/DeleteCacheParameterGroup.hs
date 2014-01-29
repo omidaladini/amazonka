@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteCacheParameterGroup :: Text
-                          -> AWS (Either ElastiCacheError DeleteCacheParameterGroupResponse)
+                          -> DeleteCacheParameterGroup
 deleteCacheParameterGroup p1 = undefined $ DeleteCacheParameterGroup
     { dcpgnCacheParameterGroupName = p1
     }

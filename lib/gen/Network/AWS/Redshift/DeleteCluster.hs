@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteCluster :: Text
-              -> AWS (Either RedshiftError DeleteClusterResponse)
+              -> DeleteCluster
 deleteCluster p1 = undefined $ DeleteCluster
     { dcnClusterIdentifier = p1
     , dcnFinalClusterSnapshotIdentifier = Nothing

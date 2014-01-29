@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
-describeLoadBalancerPolicyTypes :: AWS (Either ElasticLoadBalancingError DescribeLoadBalancerPolicyTypesResponse)
-describeLoadBalancerPolicyTypes = undefined $ DescribeLoadBalancerPolicyTypes
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeLoadBalancerPolicyTypes :: DescribeLoadBalancerPolicyTypes
+describeLoadBalancerPolicyTypes = DescribeLoadBalancerPolicyTypes
     { dlbptiPolicyTypeNames = []
     }
 

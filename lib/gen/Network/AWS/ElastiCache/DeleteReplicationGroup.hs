@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteReplicationGroup :: Text
-                       -> AWS (Either ElastiCacheError DeleteReplicationGroupResponse)
+                       -> DeleteReplicationGroup
 deleteReplicationGroup p1 = undefined $ DeleteReplicationGroup
     { drgmReplicationGroupId = p1
     , drgmRetainPrimaryCluster = Nothing

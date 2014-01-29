@@ -43,10 +43,11 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 downloadDBLogFilePortion :: Text
                          -> Text
-                         -> AWS (Either RDSError DownloadDBLogFilePortionResponse)
+                         -> DownloadDBLogFilePortion
 downloadDBLogFilePortion p1 p2 = undefined $ DownloadDBLogFilePortion
     { ddblfpmDBInstanceIdentifier = p1
     , ddblfpmLogFileName = p2

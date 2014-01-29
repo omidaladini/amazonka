@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteDhcpOptions :: Text
-                  -> AWS (Either EC2Error DeleteDhcpOptionsResponse)
+                  -> DeleteDhcpOptions
 deleteDhcpOptions p1 = undefined $ DeleteDhcpOptions
     { ddosDhcpOptionsId = p1
     , ddosDryRun = Nothing

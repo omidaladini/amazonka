@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createKeyPair :: Text
-              -> AWS (Either EC2Error CreateKeyPairResponse)
+              -> CreateKeyPair
 createKeyPair p1 = undefined $ CreateKeyPair
     { ckprKeyName = p1
     , ckprDryRun = Nothing

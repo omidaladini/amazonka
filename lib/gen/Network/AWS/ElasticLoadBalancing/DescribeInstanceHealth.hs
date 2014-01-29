@@ -50,9 +50,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeInstanceHealth :: Text
-                       -> AWS (Either ElasticLoadBalancingError DescribeInstanceHealthResponse)
+                       -> DescribeInstanceHealth
 describeInstanceHealth p1 = undefined $ DescribeInstanceHealth
     { depsiLoadBalancerName = p1
     , depsiInstances = []

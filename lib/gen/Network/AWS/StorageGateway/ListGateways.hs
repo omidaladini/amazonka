@@ -55,9 +55,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
-listGateways :: AWS (Either StorageGatewayError ListGatewaysResponse)
-listGateways = undefined $ ListGateways
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listGateways :: ListGateways
+listGateways = ListGateways
     { lgiLimit = Nothing
     , lgiMarker = Nothing
     }

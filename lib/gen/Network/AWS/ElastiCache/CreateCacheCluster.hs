@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createCacheCluster :: Text
-                   -> AWS (Either ElastiCacheError CreateCacheClusterResponse)
+                   -> CreateCacheCluster
 createCacheCluster p1 = undefined $ CreateCacheCluster
     { cccmCacheClusterId = p1
     , cccmAutoMinorVersionUpgrade = Nothing

@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyDBInstance :: Text
-                 -> AWS (Either RDSError ModifyDBInstanceResponse)
+                 -> ModifyDBInstance
 modifyDBInstance p1 = undefined $ ModifyDBInstance
     { mdbimDBInstanceIdentifier = p1
     , mdbimAllocatedStorage = Nothing

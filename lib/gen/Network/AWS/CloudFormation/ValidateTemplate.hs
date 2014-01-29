@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
-validateTemplate :: AWS (Either CloudFormationError ValidateTemplateResponse)
-validateTemplate = undefined $ ValidateTemplate
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+validateTemplate :: ValidateTemplate
+validateTemplate = ValidateTemplate
     { vtiTemplateBody = Nothing
     , vtiTemplateURL = Nothing
     }

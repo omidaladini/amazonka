@@ -48,9 +48,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateStack :: Text
-            -> AWS (Either CloudFormationError UpdateStackResponse)
+            -> UpdateStack
 updateStack p1 = undefined $ UpdateStack
     { usiStackName = p1
     , usiCapabilities = []

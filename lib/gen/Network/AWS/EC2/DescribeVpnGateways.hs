@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeVpnGateways :: AWS (Either EC2Error DescribeVpnGatewaysResponse)
-describeVpnGateways = undefined $ DescribeVpnGateways
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeVpnGateways :: DescribeVpnGateways
+describeVpnGateways = DescribeVpnGateways
     { dvgtDryRun = Nothing
     , dvgtFilters = []
     , dvgtVpnGatewayIds = []

@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-listClusters :: AWS (Either EMRError ListClustersResponse)
-listClusters = undefined $ ListClusters
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listClusters :: ListClusters
+listClusters = ListClusters
     { lciClusterStates = []
     , lciCreatedAfter = Nothing
     , lciCreatedBefore = Nothing

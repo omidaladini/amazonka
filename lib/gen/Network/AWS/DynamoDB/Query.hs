@@ -56,9 +56,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 query :: Text
-      -> AWS (Either DynamoDBError QueryResponse)
+      -> Query
 query p1 = undefined $ Query
     { qiTableName = p1
     , qiAttributesToGet = []

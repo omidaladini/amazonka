@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 executePolicy :: ResourceName
-              -> AWS (Either AutoScalingError ExecutePolicyResponse)
+              -> ExecutePolicy
 executePolicy p1 = undefined $ ExecutePolicy
     { eptPolicyName = p1
     , eptAutoScalingGroupName = Nothing

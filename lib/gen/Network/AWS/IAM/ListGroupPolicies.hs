@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listGroupPolicies :: Text
-                  -> AWS (Either IAMError ListGroupPoliciesResponse)
+                  -> ListGroupPolicies
 listGroupPolicies p1 = undefined $ ListGroupPolicies
     { lgprGroupName = p1
     , lgprMarker = Nothing

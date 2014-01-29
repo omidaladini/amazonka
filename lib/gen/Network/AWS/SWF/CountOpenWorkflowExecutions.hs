@@ -65,10 +65,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 countOpenWorkflowExecutions :: Text
                             -> ExecutionTimeFilter
-                            -> AWS (Either SWFError CountOpenWorkflowExecutionsResponse)
+                            -> CountOpenWorkflowExecutions
 countOpenWorkflowExecutions p1 p2 = undefined $ CountOpenWorkflowExecutions
     { coweiDomain = p1
     , coweiStartTimeFilter = p2

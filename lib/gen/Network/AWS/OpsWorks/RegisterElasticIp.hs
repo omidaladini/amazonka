@@ -40,10 +40,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 registerElasticIp :: Text
                   -> Text
-                  -> AWS (Either OpsWorksError RegisterElasticIpResponse)
+                  -> RegisterElasticIp
 registerElasticIp p1 p2 = undefined $ RegisterElasticIp
     { reirElasticIp = p1
     , reirStackId = p2

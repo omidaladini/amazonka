@@ -71,10 +71,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 validatePipelineDefinition :: Text
                            -> [PipelineObject]
-                           -> AWS (Either DataPipelineError ValidatePipelineDefinitionResponse)
+                           -> ValidatePipelineDefinition
 validatePipelineDefinition p1 p2 = undefined $ ValidatePipelineDefinition
     { vpdiPipelineId = p1
     , vpdiPipelineObjects = p2

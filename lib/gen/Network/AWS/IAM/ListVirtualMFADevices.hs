@@ -46,9 +46,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listVirtualMFADevices :: AWS (Either IAMError ListVirtualMFADevicesResponse)
-listVirtualMFADevices = undefined $ ListVirtualMFADevices
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listVirtualMFADevices :: ListVirtualMFADevices
+listVirtualMFADevices = ListVirtualMFADevices
     { lvmfadrAssignmentStatus = Nothing
     , lvmfadrMarker = Nothing
     , lvmfadrMaxItems = Nothing

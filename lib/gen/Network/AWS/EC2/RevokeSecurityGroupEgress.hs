@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 revokeSecurityGroupEgress :: Text
-                          -> AWS (Either EC2Error RevokeSecurityGroupEgressResponse)
+                          -> RevokeSecurityGroupEgress
 revokeSecurityGroupEgress p1 = undefined $ RevokeSecurityGroupEgress
     { rsgerGroupId = p1
     , rsgerDryRun = Nothing

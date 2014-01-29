@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 rotateEncryptionKey :: Text
-                    -> AWS (Either RedshiftError RotateEncryptionKeyResponse)
+                    -> RotateEncryptionKey
 rotateEncryptionKey p1 = undefined $ RotateEncryptionKey
     { rekmClusterIdentifier = p1
     }

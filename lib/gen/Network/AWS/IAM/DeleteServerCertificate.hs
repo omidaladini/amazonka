@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteServerCertificate :: Text
-                        -> AWS (Either IAMError DeleteServerCertificateResponse)
+                        -> DeleteServerCertificate
 deleteServerCertificate p1 = undefined $ DeleteServerCertificate
     { dscsServerCertificateName = p1
     }

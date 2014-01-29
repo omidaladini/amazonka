@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteClusterSecurityGroup :: Text
-                           -> AWS (Either RedshiftError DeleteClusterSecurityGroupResponse)
+                           -> DeleteClusterSecurityGroup
 deleteClusterSecurityGroup p1 = undefined $ DeleteClusterSecurityGroup
     { dcsgpClusterSecurityGroupName = p1
     }

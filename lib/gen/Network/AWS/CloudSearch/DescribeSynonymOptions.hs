@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeSynonymOptions :: Text
-                       -> AWS (Either CloudSearchError DescribeSynonymOptionsResponse)
+                       -> DescribeSynonymOptions
 describeSynonymOptions p1 = undefined $ DescribeSynonymOptions
     { dsorDomainName = p1
     }

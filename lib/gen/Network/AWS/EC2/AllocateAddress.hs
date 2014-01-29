@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-allocateAddress :: AWS (Either EC2Error AllocateAddressResponse)
-allocateAddress = undefined $ AllocateAddress
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+allocateAddress :: AllocateAddress
+allocateAddress = AllocateAddress
     { aarDomain = Nothing
     , aarDryRun = Nothing
     }

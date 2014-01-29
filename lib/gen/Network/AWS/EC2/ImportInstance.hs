@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 importInstance :: PlatformValues
-               -> AWS (Either EC2Error ImportInstanceResponse)
+               -> ImportInstance
 importInstance p1 = undefined $ ImportInstance
     { iirPlatform = p1
     , iirDescription = Nothing

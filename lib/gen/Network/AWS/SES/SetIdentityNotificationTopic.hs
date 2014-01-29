@@ -48,10 +48,11 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setIdentityNotificationTopic :: Text
                              -> NotificationType
-                             -> AWS (Either SESError SetIdentityNotificationTopicResponse)
+                             -> SetIdentityNotificationTopic
 setIdentityNotificationTopic p1 p2 = undefined $ SetIdentityNotificationTopic
     { sintrIdentity = p1
     , sintrNotificationType = p2

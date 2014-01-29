@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeScheduledActions :: AWS (Either AutoScalingError DescribeScheduledActionsResponse)
-describeScheduledActions = undefined $ DescribeScheduledActions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeScheduledActions :: DescribeScheduledActions
+describeScheduledActions = DescribeScheduledActions
     { dsauAutoScalingGroupName = Nothing
     , dsauEndTime = Nothing
     , dsauMaxRecords = Nothing

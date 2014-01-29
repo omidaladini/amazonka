@@ -44,11 +44,12 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putUserPolicy :: Text
               -> Text
               -> Text
-              -> AWS (Either IAMError PutUserPolicyResponse)
+              -> PutUserPolicy
 putUserPolicy p1 p2 p3 = undefined $ PutUserPolicy
     { puprPolicyDocument = p1
     , puprPolicyName = p2

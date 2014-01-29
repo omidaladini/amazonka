@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createStack :: Text
-            -> AWS (Either CloudFormationError CreateStackResponse)
+            -> CreateStack
 createStack p1 = undefined $ CreateStack
     { csiStackName = p1
     , csiCapabilities = []

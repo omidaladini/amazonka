@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-authorizeSecurityGroupIngress :: AWS (Either EC2Error AuthorizeSecurityGroupIngressResponse)
-authorizeSecurityGroupIngress = undefined $ AuthorizeSecurityGroupIngress
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+authorizeSecurityGroupIngress :: AuthorizeSecurityGroupIngress
+authorizeSecurityGroupIngress = AuthorizeSecurityGroupIngress
     { asgirDryRun = Nothing
     , asgirGroupId = Nothing
     , asgirGroupName = Nothing

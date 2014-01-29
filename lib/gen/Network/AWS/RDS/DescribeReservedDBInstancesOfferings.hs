@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeReservedDBInstancesOfferings :: AWS (Either RDSError DescribeReservedDBInstancesOfferingsResponse)
-describeReservedDBInstancesOfferings = undefined $ DescribeReservedDBInstancesOfferings
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeReservedDBInstancesOfferings :: DescribeReservedDBInstancesOfferings
+describeReservedDBInstancesOfferings = DescribeReservedDBInstancesOfferings
     { drdbiomDBInstanceClass = Nothing
     , drdbiomDuration = Nothing
     , drdbiomMarker = Nothing

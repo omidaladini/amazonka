@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteHsmConfiguration :: Text
-                       -> AWS (Either RedshiftError DeleteHsmConfigurationResponse)
+                       -> DeleteHsmConfiguration
 deleteHsmConfiguration p1 = undefined $ DeleteHsmConfiguration
     { dhcmHsmConfigurationIdentifier = p1
     }

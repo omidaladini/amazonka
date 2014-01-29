@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeRegions :: AWS (Either EC2Error DescribeRegionsResponse)
-describeRegions = undefined $ DescribeRegions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeRegions :: DescribeRegions
+describeRegions = DescribeRegions
     { drsDryRun = Nothing
     , drsFilters = []
     , drsRegionNames = []

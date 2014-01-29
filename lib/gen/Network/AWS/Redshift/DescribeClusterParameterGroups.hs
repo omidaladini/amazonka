@@ -46,9 +46,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeClusterParameterGroups :: AWS (Either RedshiftError DescribeClusterParameterGroupsResponse)
-describeClusterParameterGroups = undefined $ DescribeClusterParameterGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeClusterParameterGroups :: DescribeClusterParameterGroups
+describeClusterParameterGroups = DescribeClusterParameterGroups
     { dcpgmMarker = Nothing
     , dcpgmMaxRecords = Nothing
     , dcpgmParameterGroupName = Nothing

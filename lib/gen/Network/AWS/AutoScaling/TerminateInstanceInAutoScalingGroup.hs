@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 terminateInstanceInAutoScalingGroup :: Text
                                     -> Bool
-                                    -> AWS (Either AutoScalingError TerminateInstanceInAutoScalingGroupResponse)
+                                    -> TerminateInstanceInAutoScalingGroup
 terminateInstanceInAutoScalingGroup p1 p2 = undefined $ TerminateInstanceInAutoScalingGroup
     { tiiasgtInstanceId = p1
     , tiiasgtShouldDecrementDesiredCapacity = p2

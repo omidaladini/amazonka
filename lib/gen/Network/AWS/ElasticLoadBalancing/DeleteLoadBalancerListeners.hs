@@ -32,10 +32,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteLoadBalancerListeners :: Text
                             -> [Int]
-                            -> AWS (Either ElasticLoadBalancingError DeleteLoadBalancerListenersResponse)
+                            -> DeleteLoadBalancerListeners
 deleteLoadBalancerListeners p1 p2 = undefined $ DeleteLoadBalancerListeners
     { dlbliLoadBalancerName = p1
     , dlbliLoadBalancerPorts = p2

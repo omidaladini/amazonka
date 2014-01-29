@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listMFADevices :: AWS (Either IAMError ListMFADevicesResponse)
-listMFADevices = undefined $ ListMFADevices
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listMFADevices :: ListMFADevices
+listMFADevices = ListMFADevices
     { lmfadrMarker = Nothing
     , lmfadrMaxItems = Nothing
     , lmfadrUserName = Nothing

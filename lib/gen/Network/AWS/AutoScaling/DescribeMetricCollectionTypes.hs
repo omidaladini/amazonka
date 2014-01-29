@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeMetricCollectionTypes :: AWS (Either AutoScalingError DescribeMetricCollectionTypesResponse)
-describeMetricCollectionTypes = undefined DescribeMetricCollectionTypes
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeMetricCollectionTypes :: DescribeMetricCollectionTypes
+describeMetricCollectionTypes = DescribeMetricCollectionTypes
 
 data DescribeMetricCollectionTypes = DescribeMetricCollectionTypes
     deriving (Eq, Show, Generic)

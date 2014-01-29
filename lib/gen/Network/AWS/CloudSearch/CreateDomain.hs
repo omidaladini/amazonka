@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createDomain :: Text
-             -> AWS (Either CloudSearchError CreateDomainResponse)
+             -> CreateDomain
 createDomain p1 = undefined $ CreateDomain
     { cdrDomainName = p1
     }

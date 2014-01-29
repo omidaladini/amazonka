@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteMessageBatch :: [DeleteMessageBatchRequestEntry]
                    -> Text
-                   -> AWS (Either SQSError DeleteMessageBatchResponse)
+                   -> DeleteMessageBatch
 deleteMessageBatch p1 p2 = undefined $ DeleteMessageBatch
     { dmbrEntries = p1
     , dmbrQueueUrl = p2

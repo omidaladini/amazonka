@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-terminateEnvironment :: AWS (Either ElasticBeanstalkError TerminateEnvironmentResponse)
-terminateEnvironment = undefined $ TerminateEnvironment
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+terminateEnvironment :: TerminateEnvironment
+terminateEnvironment = TerminateEnvironment
     { temEnvironmentId = Nothing
     , temEnvironmentName = Nothing
     , temTerminateResources = Nothing

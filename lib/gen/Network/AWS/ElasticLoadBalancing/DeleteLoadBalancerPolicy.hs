@@ -33,10 +33,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteLoadBalancerPolicy :: Text
                          -> Text
-                         -> AWS (Either ElasticLoadBalancingError DeleteLoadBalancerPolicyResponse)
+                         -> DeleteLoadBalancerPolicy
 deleteLoadBalancerPolicy p1 p2 = undefined $ DeleteLoadBalancerPolicy
     { dlbpjLoadBalancerName = p1
     , dlbpjPolicyName = p2

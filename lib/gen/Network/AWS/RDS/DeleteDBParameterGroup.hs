@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteDBParameterGroup :: Text
-                       -> AWS (Either RDSError DeleteDBParameterGroupResponse)
+                       -> DeleteDBParameterGroup
 deleteDBParameterGroup p1 = undefined $ DeleteDBParameterGroup
     { ddbpgnDBParameterGroupName = p1
     }

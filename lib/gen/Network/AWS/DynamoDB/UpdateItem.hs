@@ -43,10 +43,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateItem :: HashMap Text AttributeValue
            -> Text
-           -> AWS (Either DynamoDBError UpdateItemResponse)
+           -> UpdateItem
 updateItem p1 p2 = undefined $ UpdateItem
     { uiiKey = p1
     , uiiTableName = p2

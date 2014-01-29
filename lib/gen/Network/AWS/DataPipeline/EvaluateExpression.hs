@@ -45,11 +45,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 evaluateExpression :: Text
                    -> Text
                    -> Text
-                   -> AWS (Either DataPipelineError EvaluateExpressionResponse)
+                   -> EvaluateExpression
 evaluateExpression p1 p2 p3 = undefined $ EvaluateExpression
     { eeiExpression = p1
     , eeiObjectId = p2

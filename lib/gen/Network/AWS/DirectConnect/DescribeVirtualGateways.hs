@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
-describeVirtualGateways :: AWS (Either DirectConnectError DescribeVirtualGatewaysResponse)
-describeVirtualGateways = undefined DescribeVirtualGateways
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeVirtualGateways :: DescribeVirtualGateways
+describeVirtualGateways = DescribeVirtualGateways
 
 data DescribeVirtualGateways = DescribeVirtualGateways
     deriving (Eq, Show, Generic)

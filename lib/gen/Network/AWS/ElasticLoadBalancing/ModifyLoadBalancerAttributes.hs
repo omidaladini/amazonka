@@ -32,10 +32,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyLoadBalancerAttributes :: LoadBalancerAttributes
                              -> Text
-                             -> AWS (Either ElasticLoadBalancingError ModifyLoadBalancerAttributesResponse)
+                             -> ModifyLoadBalancerAttributes
 modifyLoadBalancerAttributes p1 p2 = undefined $ ModifyLoadBalancerAttributes
     { mlbaiLoadBalancerAttributes = p1
     , mlbaiLoadBalancerName = p2

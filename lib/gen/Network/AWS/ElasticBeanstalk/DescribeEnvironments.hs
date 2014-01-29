@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-describeEnvironments :: AWS (Either ElasticBeanstalkError DescribeEnvironmentsResponse)
-describeEnvironments = undefined $ DescribeEnvironments
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeEnvironments :: DescribeEnvironments
+describeEnvironments = DescribeEnvironments
     { denApplicationName = Nothing
     , denEnvironmentIds = []
     , denEnvironmentNames = []

@@ -36,9 +36,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
--- | Convenience method utilising default fields where applicable.
-describeSeverityLevels :: AWS (Either SupportError DescribeSeverityLevelsResponse)
-describeSeverityLevels = undefined $ DescribeSeverityLevels
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeSeverityLevels :: DescribeSeverityLevels
+describeSeverityLevels = DescribeSeverityLevels
     { dslrLanguage = Nothing
     }
 

@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
-describeAlarms :: AWS (Either CloudWatchError DescribeAlarmsResponse)
-describeAlarms = undefined $ DescribeAlarms
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeAlarms :: DescribeAlarms
+describeAlarms = DescribeAlarms
     { daiActionPrefix = Nothing
     , daiAlarmNamePrefix = Nothing
     , daiAlarmNames = []

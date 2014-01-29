@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 rebootInstance :: Text
-               -> AWS (Either OpsWorksError RebootInstanceResponse)
+               -> RebootInstance
 rebootInstance p1 = undefined $ RebootInstance
     { rirInstanceId = p1
     }

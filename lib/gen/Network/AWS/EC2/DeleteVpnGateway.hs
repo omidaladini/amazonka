@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteVpnGateway :: Text
-                 -> AWS (Either EC2Error DeleteVpnGatewayResponse)
+                 -> DeleteVpnGateway
 deleteVpnGateway p1 = undefined $ DeleteVpnGateway
     { dvgrVpnGatewayId = p1
     , dvgrDryRun = Nothing

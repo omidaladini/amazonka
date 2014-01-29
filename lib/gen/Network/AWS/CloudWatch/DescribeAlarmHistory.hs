@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
-describeAlarmHistory :: AWS (Either CloudWatchError DescribeAlarmHistoryResponse)
-describeAlarmHistory = undefined $ DescribeAlarmHistory
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeAlarmHistory :: DescribeAlarmHistory
+describeAlarmHistory = DescribeAlarmHistory
     { dahiAlarmName = Nothing
     , dahiEndDate = Nothing
     , dahiHistoryItemType = Nothing

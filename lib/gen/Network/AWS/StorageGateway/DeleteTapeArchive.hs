@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteTapeArchive :: Text
-                  -> AWS (Either StorageGatewayError DeleteTapeArchiveResponse)
+                  -> DeleteTapeArchive
 deleteTapeArchive p1 = undefined $ DeleteTapeArchive
     { dtajTapeARN = p1
     }

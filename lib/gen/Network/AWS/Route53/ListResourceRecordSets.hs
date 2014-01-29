@@ -65,9 +65,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listResourceRecordSets :: Text
-                       -> AWS (Either Route53Error ListResourceRecordSetsResponse)
+                       -> ListResourceRecordSets
 listResourceRecordSets p1 = undefined $ ListResourceRecordSets
     { lrrsrHostedZoneId = p1
     , lrrsrMaxItems = Nothing

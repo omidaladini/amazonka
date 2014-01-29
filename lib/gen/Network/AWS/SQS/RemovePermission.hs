@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 removePermission :: Text
                  -> Text
-                 -> AWS (Either SQSError RemovePermissionResponse)
+                 -> RemovePermission
 removePermission p1 p2 = undefined $ RemovePermission
     { rprLabel = p1
     , rprQueueUrl = p2

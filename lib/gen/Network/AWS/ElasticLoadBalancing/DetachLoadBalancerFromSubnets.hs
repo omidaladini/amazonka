@@ -41,10 +41,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 detachLoadBalancerFromSubnets :: Text
                               -> [Text]
-                              -> AWS (Either ElasticLoadBalancingError DetachLoadBalancerFromSubnetsResponse)
+                              -> DetachLoadBalancerFromSubnets
 detachLoadBalancerFromSubnets p1 p2 = undefined $ DetachLoadBalancerFromSubnets
     { dlbfsiLoadBalancerName = p1
     , dlbfsiSubnets = p2

@@ -35,10 +35,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deactivateMFADevice :: Text
                     -> Text
-                    -> AWS (Either IAMError DeactivateMFADeviceResponse)
+                    -> DeactivateMFADevice
 deactivateMFADevice p1 p2 = undefined $ DeactivateMFADevice
     { dmfadrSerialNumber = p1
     , dmfadrUserName = p2

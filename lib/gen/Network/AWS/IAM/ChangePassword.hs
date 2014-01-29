@@ -36,10 +36,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 changePassword :: Text
                -> Text
-               -> AWS (Either IAMError ChangePasswordResponse)
+               -> ChangePassword
 changePassword p1 p2 = undefined $ ChangePassword
     { cprNewPassword = p1
     , cprOldPassword = p2

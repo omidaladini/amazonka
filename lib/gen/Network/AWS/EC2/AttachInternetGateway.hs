@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 attachInternetGateway :: Text
                       -> Text
-                      -> AWS (Either EC2Error AttachInternetGatewayResponse)
+                      -> AttachInternetGateway
 attachInternetGateway p1 p2 = undefined $ AttachInternetGateway
     { aigrInternetGatewayId = p1
     , aigrVpcId = p2

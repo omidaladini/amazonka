@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getTemplate :: Text
-            -> AWS (Either CloudFormationError GetTemplateResponse)
+            -> GetTemplate
 getTemplate p1 = undefined $ GetTemplate
     { gtiStackName = p1
     }

@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeLicenses :: AWS (Either EC2Error DescribeLicensesResponse)
-describeLicenses = undefined $ DescribeLicenses
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeLicenses :: DescribeLicenses
+describeLicenses = DescribeLicenses
     { dlrDryRun = Nothing
     , dlrFilters = []
     , dlrLicenseIds = []

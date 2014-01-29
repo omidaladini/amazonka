@@ -41,11 +41,12 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createLoadBalancerPolicy :: Text
                          -> Text
                          -> Text
-                         -> AWS (Either ElasticLoadBalancingError CreateLoadBalancerPolicyResponse)
+                         -> CreateLoadBalancerPolicy
 createLoadBalancerPolicy p1 p2 p3 = undefined $ CreateLoadBalancerPolicy
     { clbpiLoadBalancerName = p1
     , clbpiPolicyName = p2

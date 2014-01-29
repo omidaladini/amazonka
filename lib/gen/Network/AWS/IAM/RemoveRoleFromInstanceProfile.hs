@@ -41,10 +41,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 removeRoleFromInstanceProfile :: Text
                               -> Text
-                              -> AWS (Either IAMError RemoveRoleFromInstanceProfileResponse)
+                              -> RemoveRoleFromInstanceProfile
 removeRoleFromInstanceProfile p1 p2 = undefined $ RemoveRoleFromInstanceProfile
     { rrfiprInstanceProfileName = p1
     , rrfiprRoleName = p2

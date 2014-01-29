@@ -51,10 +51,11 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createEventSubscription :: Text
                         -> Text
-                        -> AWS (Either RedshiftError CreateEventSubscriptionResponse)
+                        -> CreateEventSubscription
 createEventSubscription p1 p2 = undefined $ CreateEventSubscription
     { cesmSnsTopicArn = p1
     , cesmSubscriptionName = p2

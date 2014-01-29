@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeSpotPriceHistory :: AWS (Either EC2Error DescribeSpotPriceHistoryResponse)
-describeSpotPriceHistory = undefined $ DescribeSpotPriceHistory
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeSpotPriceHistory :: DescribeSpotPriceHistory
+describeSpotPriceHistory = DescribeSpotPriceHistory
     { dsphrAvailabilityZone = Nothing
     , dsphrDryRun = Nothing
     , dsphrEndTime = Nothing

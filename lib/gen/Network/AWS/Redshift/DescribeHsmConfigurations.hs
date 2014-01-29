@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeHsmConfigurations :: AWS (Either RedshiftError DescribeHsmConfigurationsResponse)
-describeHsmConfigurations = undefined $ DescribeHsmConfigurations
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeHsmConfigurations :: DescribeHsmConfigurations
+describeHsmConfigurations = DescribeHsmConfigurations
     { dhcnHsmConfigurationIdentifier = Nothing
     , dhcnMarker = Nothing
     , dhcnMaxRecords = Nothing

@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteInstanceProfile :: Text
-                      -> AWS (Either IAMError DeleteInstanceProfileResponse)
+                      -> DeleteInstanceProfile
 deleteInstanceProfile p1 = undefined $ DeleteInstanceProfile
     { diprInstanceProfileName = p1
     }

@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
-describeRaidArrays :: AWS (Either OpsWorksError DescribeRaidArraysResponse)
-describeRaidArrays = undefined $ DescribeRaidArrays
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeRaidArrays :: DescribeRaidArrays
+describeRaidArrays = DescribeRaidArrays
     { drarInstanceId = Nothing
     , drarRaidArrayIds = []
     }

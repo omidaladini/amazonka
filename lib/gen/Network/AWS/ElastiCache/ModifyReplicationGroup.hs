@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyReplicationGroup :: Text
-                       -> AWS (Either ElastiCacheError ModifyReplicationGroupResponse)
+                       -> ModifyReplicationGroup
 modifyReplicationGroup p1 = undefined $ ModifyReplicationGroup
     { mrgmReplicationGroupId = p1
     , mrgmApplyImmediately = Nothing

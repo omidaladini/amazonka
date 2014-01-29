@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 checkDNSAvailability :: Text
-                     -> AWS (Either ElasticBeanstalkError CheckDNSAvailabilityResponse)
+                     -> CheckDNSAvailability
 checkDNSAvailability p1 = undefined $ CheckDNSAvailability
     { cdnsamCNAMEPrefix = p1
     }

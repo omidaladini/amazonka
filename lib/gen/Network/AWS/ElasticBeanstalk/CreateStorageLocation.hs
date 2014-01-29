@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-createStorageLocation :: AWS (Either ElasticBeanstalkError CreateStorageLocationResponse)
-createStorageLocation = undefined CreateStorageLocation
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+createStorageLocation :: CreateStorageLocation
+createStorageLocation = CreateStorageLocation
 
 data CreateStorageLocation = CreateStorageLocation
     deriving (Eq, Show, Generic)

@@ -57,9 +57,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
--- | Convenience method utilising default fields where applicable.
-listStreams :: AWS (Either KinesisError ListStreamsResponse)
-listStreams = undefined $ ListStreams
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listStreams :: ListStreams
+listStreams = ListStreams
     { lsiExclusiveStartStreamName = Nothing
     , lsiLimit = Nothing
     }

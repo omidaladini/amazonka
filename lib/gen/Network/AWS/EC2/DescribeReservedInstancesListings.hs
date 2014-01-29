@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeReservedInstancesListings :: AWS (Either EC2Error DescribeReservedInstancesListingsResponse)
-describeReservedInstancesListings = undefined $ DescribeReservedInstancesListings
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeReservedInstancesListings :: DescribeReservedInstancesListings
+describeReservedInstancesListings = DescribeReservedInstancesListings
     { drilrFilters = []
     , drilrReservedInstancesId = Nothing
     , drilrReservedInstancesListingId = Nothing

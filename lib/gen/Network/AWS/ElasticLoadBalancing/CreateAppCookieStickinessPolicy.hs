@@ -49,11 +49,12 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createAppCookieStickinessPolicy :: Text
                                 -> Text
                                 -> Text
-                                -> AWS (Either ElasticLoadBalancingError CreateAppCookieStickinessPolicyResponse)
+                                -> CreateAppCookieStickinessPolicy
 createAppCookieStickinessPolicy p1 p2 p3 = undefined $ CreateAppCookieStickinessPolicy
     { cacspiCookieName = p1
     , cacspiLoadBalancerName = p2

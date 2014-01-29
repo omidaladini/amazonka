@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 promoteReadReplica :: Text
-                   -> AWS (Either RDSError PromoteReadReplicaResponse)
+                   -> PromoteReadReplica
 promoteReadReplica p1 = undefined $ PromoteReadReplica
     { prrmDBInstanceIdentifier = p1
     , prrmBackupRetentionPeriod = Nothing

@@ -39,10 +39,11 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createDBSnapshot :: Text
                  -> Text
-                 -> AWS (Either RDSError CreateDBSnapshotResponse)
+                 -> CreateDBSnapshot
 createDBSnapshot p1 p2 = undefined $ CreateDBSnapshot
     { cdbsnDBInstanceIdentifier = p1
     , cdbsnDBSnapshotIdentifier = p2

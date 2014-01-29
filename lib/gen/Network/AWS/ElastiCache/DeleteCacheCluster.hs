@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteCacheCluster :: Text
-                   -> AWS (Either ElastiCacheError DeleteCacheClusterResponse)
+                   -> DeleteCacheCluster
 deleteCacheCluster p1 = undefined $ DeleteCacheCluster
     { dccmCacheClusterId = p1
     }

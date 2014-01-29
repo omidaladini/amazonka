@@ -81,10 +81,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createConfigurationTemplate :: Text
                             -> Text
-                            -> AWS (Either ElasticBeanstalkError CreateConfigurationTemplateResponse)
+                            -> CreateConfigurationTemplate
 createConfigurationTemplate p1 p2 = undefined $ CreateConfigurationTemplate
     { cctmApplicationName = p1
     , cctmTemplateName = p2

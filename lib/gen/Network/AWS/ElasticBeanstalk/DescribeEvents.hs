@@ -47,9 +47,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-describeEvents :: AWS (Either ElasticBeanstalkError DescribeEventsResponse)
-describeEvents = undefined $ DescribeEvents
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeEvents :: DescribeEvents
+describeEvents = DescribeEvents
     { demApplicationName = Nothing
     , demEndTime = Nothing
     , demEnvironmentId = Nothing

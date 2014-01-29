@@ -56,10 +56,11 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setTopicAttributes :: Text
                    -> Text
-                   -> AWS (Either SNSError SetTopicAttributesResponse)
+                   -> SetTopicAttributes
 setTopicAttributes p1 p2 = undefined $ SetTopicAttributes
     { staiAttributeName = p1
     , staiTopicArn = p2

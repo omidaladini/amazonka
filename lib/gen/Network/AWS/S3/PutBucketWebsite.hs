@@ -36,10 +36,11 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putBucketWebsite :: Text
                  -> WebsiteConfiguration
-                 -> AWS (Either S3Error PutBucketWebsiteResponse)
+                 -> PutBucketWebsite
 putBucketWebsite p1 p2 = undefined $ PutBucketWebsite
     { pbwBucket = p1
     , pbwWebsiteConfiguration = p2

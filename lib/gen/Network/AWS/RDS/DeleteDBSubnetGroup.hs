@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteDBSubnetGroup :: Text
-                    -> AWS (Either RDSError DeleteDBSubnetGroupResponse)
+                    -> DeleteDBSubnetGroup
 deleteDBSubnetGroup p1 = undefined $ DeleteDBSubnetGroup
     { ddbsgnDBSubnetGroupName = p1
     }

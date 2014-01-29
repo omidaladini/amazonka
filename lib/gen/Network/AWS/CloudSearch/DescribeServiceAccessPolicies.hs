@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeServiceAccessPolicies :: Text
-                              -> AWS (Either CloudSearchError DescribeServiceAccessPoliciesResponse)
+                              -> DescribeServiceAccessPolicies
 describeServiceAccessPolicies p1 = undefined $ DescribeServiceAccessPolicies
     { dsaprDomainName = p1
     }

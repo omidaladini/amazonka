@@ -47,9 +47,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 rebootCluster :: Text
-              -> AWS (Either RedshiftError RebootClusterResponse)
+              -> RebootCluster
 rebootCluster p1 = undefined $ RebootCluster
     { rcmClusterIdentifier = p1
     }

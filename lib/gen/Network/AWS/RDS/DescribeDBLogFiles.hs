@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeDBLogFiles :: Text
-                   -> AWS (Either RDSError DescribeDBLogFilesResponse)
+                   -> DescribeDBLogFiles
 describeDBLogFiles p1 = undefined $ DescribeDBLogFiles
     { ddblfmDBInstanceIdentifier = p1
     , ddblfmFileLastWritten = Nothing

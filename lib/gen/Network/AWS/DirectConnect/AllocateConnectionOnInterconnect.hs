@@ -36,13 +36,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 allocateConnectionOnInterconnect :: Text
                                  -> Text
                                  -> Text
                                  -> Text
                                  -> Int
-                                 -> AWS (Either DirectConnectError AllocateConnectionOnInterconnectResponse)
+                                 -> AllocateConnectionOnInterconnect
 allocateConnectionOnInterconnect p1 p2 p3 p4 p5 = undefined $ AllocateConnectionOnInterconnect
     { acoirBandwidth = p1
     , acoirConnectionName = p2

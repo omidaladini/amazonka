@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteIdentity :: Text
-               -> AWS (Either SESError DeleteIdentityResponse)
+               -> DeleteIdentity
 deleteIdentity p1 = undefined $ DeleteIdentity
     { dirIdentity = p1
     }

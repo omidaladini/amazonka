@@ -38,9 +38,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getChange :: Text
-          -> AWS (Either Route53Error GetChangeResponse)
+          -> GetChange
 getChange p1 = undefined $ GetChange
     { gcrId = p1
     }

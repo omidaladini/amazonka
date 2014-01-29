@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 disassociateRouteTable :: Text
-                       -> AWS (Either EC2Error DisassociateRouteTableResponse)
+                       -> DisassociateRouteTable
 disassociateRouteTable p1 = undefined $ DisassociateRouteTable
     { drtrAssociationId = p1
     , drtrDryRun = Nothing

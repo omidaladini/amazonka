@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createVpc :: Text
-          -> AWS (Either EC2Error CreateVpcResponse)
+          -> CreateVpc
 createVpc p1 = undefined $ CreateVpc
     { cvrCidrBlock = p1
     , cvrDryRun = Nothing

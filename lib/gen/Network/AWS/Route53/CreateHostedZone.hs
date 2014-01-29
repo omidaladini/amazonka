@@ -46,10 +46,11 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createHostedZone :: Text
                  -> Text
-                 -> AWS (Either Route53Error CreateHostedZoneResponse)
+                 -> CreateHostedZone
 createHostedZone p1 p2 = undefined $ CreateHostedZone
     { chzrCallerReference = p1
     , chzrName = p2

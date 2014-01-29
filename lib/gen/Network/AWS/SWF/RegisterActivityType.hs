@@ -68,11 +68,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 registerActivityType :: Text
                      -> Text
                      -> Text
-                     -> AWS (Either SWFError RegisterActivityTypeResponse)
+                     -> RegisterActivityType
 registerActivityType p1 p2 p3 = undefined $ RegisterActivityType
     { ratiDomain = p1
     , ratiName = p2

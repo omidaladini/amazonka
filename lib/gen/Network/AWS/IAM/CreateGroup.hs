@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createGroup :: Text
-            -> AWS (Either IAMError CreateGroupResponse)
+            -> CreateGroup
 createGroup p1 = undefined $ CreateGroup
     { cgrGroupName = p1
     , cgrPath = Nothing

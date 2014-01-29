@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 receiveMessage :: Text
-               -> AWS (Either SQSError ReceiveMessageResponse)
+               -> ReceiveMessage
 receiveMessage p1 = undefined $ ReceiveMessage
     { rmrQueueUrl = p1
     , rmrAttributeNames = []

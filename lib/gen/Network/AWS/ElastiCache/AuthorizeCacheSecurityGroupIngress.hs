@@ -43,11 +43,12 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 authorizeCacheSecurityGroupIngress :: Text
                                    -> Text
                                    -> Text
-                                   -> AWS (Either ElastiCacheError AuthorizeCacheSecurityGroupIngressResponse)
+                                   -> AuthorizeCacheSecurityGroupIngress
 authorizeCacheSecurityGroupIngress p1 p2 p3 = undefined $ AuthorizeCacheSecurityGroupIngress
     { acsgimCacheSecurityGroupName = p1
     , acsgimEC2SecurityGroupName = p2

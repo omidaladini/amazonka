@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateUser :: Text
-           -> AWS (Either IAMError UpdateUserResponse)
+           -> UpdateUser
 updateUser p1 = undefined $ UpdateUser
     { uurUserName = p1
     , uurNewPath = Nothing

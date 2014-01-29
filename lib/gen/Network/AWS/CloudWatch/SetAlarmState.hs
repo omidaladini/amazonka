@@ -35,11 +35,12 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setAlarmState :: Text
               -> Text
               -> StateValue
-              -> AWS (Either CloudWatchError SetAlarmStateResponse)
+              -> SetAlarmState
 setAlarmState p1 p2 p3 = undefined $ SetAlarmState
     { sasiAlarmName = p1
     , sasiStateReason = p2

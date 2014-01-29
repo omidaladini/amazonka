@@ -50,9 +50,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-updateEnvironment :: AWS (Either ElasticBeanstalkError UpdateEnvironmentResponse)
-updateEnvironment = undefined $ UpdateEnvironment
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+updateEnvironment :: UpdateEnvironment
+updateEnvironment = UpdateEnvironment
     { uemDescription = Nothing
     , uemEnvironmentId = Nothing
     , uemEnvironmentName = Nothing

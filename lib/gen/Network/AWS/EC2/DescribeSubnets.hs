@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeSubnets :: AWS (Either EC2Error DescribeSubnetsResponse)
-describeSubnets = undefined $ DescribeSubnets
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeSubnets :: DescribeSubnets
+describeSubnets = DescribeSubnets
     { dsrDryRun = Nothing
     , dsrFilters = []
     , dsrSubnetIds = []

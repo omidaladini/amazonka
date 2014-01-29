@@ -62,10 +62,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listWorkflowTypes :: Text
                   -> RegistrationStatus
-                  -> AWS (Either SWFError ListWorkflowTypesResponse)
+                  -> ListWorkflowTypes
 listWorkflowTypes p1 p2 = undefined $ ListWorkflowTypes
     { lwtiDomain = p1
     , lwtiRegistrationStatus = p2

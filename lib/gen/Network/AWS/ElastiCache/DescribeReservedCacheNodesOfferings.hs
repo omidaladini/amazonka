@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
-describeReservedCacheNodesOfferings :: AWS (Either ElastiCacheError DescribeReservedCacheNodesOfferingsResponse)
-describeReservedCacheNodesOfferings = undefined $ DescribeReservedCacheNodesOfferings
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeReservedCacheNodesOfferings :: DescribeReservedCacheNodesOfferings
+describeReservedCacheNodesOfferings = DescribeReservedCacheNodesOfferings
     { drcnomCacheNodeType = Nothing
     , drcnomDuration = Nothing
     , drcnomMarker = Nothing

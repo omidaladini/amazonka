@@ -36,9 +36,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteBucketLifecycle :: Text
-                      -> AWS (Either S3Error DeleteBucketLifecycleResponse)
+                      -> DeleteBucketLifecycle
 deleteBucketLifecycle p1 = undefined $ DeleteBucketLifecycle
     { dblBucket = p1
     }

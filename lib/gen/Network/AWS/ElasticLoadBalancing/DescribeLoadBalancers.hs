@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
-describeLoadBalancers :: AWS (Either ElasticLoadBalancingError DescribeLoadBalancersResponse)
-describeLoadBalancers = undefined $ DescribeLoadBalancers
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeLoadBalancers :: DescribeLoadBalancers
+describeLoadBalancers = DescribeLoadBalancers
     { dapiLoadBalancerNames = []
     , dapiMarker = Nothing
     }

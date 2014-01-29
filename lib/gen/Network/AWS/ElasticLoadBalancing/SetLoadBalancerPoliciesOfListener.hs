@@ -39,11 +39,12 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setLoadBalancerPoliciesOfListener :: Text
                                   -> Int
                                   -> [Text]
-                                  -> AWS (Either ElasticLoadBalancingError SetLoadBalancerPoliciesOfListenerResponse)
+                                  -> SetLoadBalancerPoliciesOfListener
 setLoadBalancerPoliciesOfListener p1 p2 p3 = undefined $ SetLoadBalancerPoliciesOfListener
     { slbpoliLoadBalancerName = p1
     , slbpoliLoadBalancerPort = p2

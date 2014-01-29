@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
-listTables :: AWS (Either DynamoDBError ListTablesResponse)
-listTables = undefined $ ListTables
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listTables :: ListTables
+listTables = ListTables
     { ltiExclusiveStartTableName = Nothing
     , ltiLimit = Nothing
     }

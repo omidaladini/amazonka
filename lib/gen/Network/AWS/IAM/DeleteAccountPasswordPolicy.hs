@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-deleteAccountPasswordPolicy :: AWS (Either IAMError DeleteAccountPasswordPolicyResponse)
-deleteAccountPasswordPolicy = undefined DeleteAccountPasswordPolicy
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+deleteAccountPasswordPolicy :: DeleteAccountPasswordPolicy
+deleteAccountPasswordPolicy = DeleteAccountPasswordPolicy
 
 data DeleteAccountPasswordPolicy = DeleteAccountPasswordPolicy
     deriving (Eq, Show, Generic)

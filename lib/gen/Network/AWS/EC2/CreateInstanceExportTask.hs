@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createInstanceExportTask :: Text
-                         -> AWS (Either EC2Error CreateInstanceExportTaskResponse)
+                         -> CreateInstanceExportTask
 createInstanceExportTask p1 = undefined $ CreateInstanceExportTask
     { cietrInstanceId = p1
     , cietrDescription = Nothing

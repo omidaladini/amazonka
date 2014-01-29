@@ -47,9 +47,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createVirtualMFADevice :: Text
-                       -> AWS (Either IAMError CreateVirtualMFADeviceResponse)
+                       -> CreateVirtualMFADevice
 createVirtualMFADevice p1 = undefined $ CreateVirtualMFADevice
     { cvmfadrVirtualMFADeviceName = p1
     , cvmfadrPath = Nothing

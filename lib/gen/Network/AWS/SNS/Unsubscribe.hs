@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 unsubscribe :: Text
-            -> AWS (Either SNSError UnsubscribeResponse)
+            -> Unsubscribe
 unsubscribe p1 = undefined $ Unsubscribe
     { uiSubscriptionArn = p1
     }

@@ -45,10 +45,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createLoadBalancerListeners :: [Listener]
                             -> Text
-                            -> AWS (Either ElasticLoadBalancingError CreateLoadBalancerListenersResponse)
+                            -> CreateLoadBalancerListeners
 createLoadBalancerListeners p1 p2 = undefined $ CreateLoadBalancerListeners
     { clbliListeners = p1
     , clbliLoadBalancerName = p2

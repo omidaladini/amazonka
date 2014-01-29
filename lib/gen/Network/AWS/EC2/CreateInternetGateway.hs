@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-createInternetGateway :: AWS (Either EC2Error CreateInternetGatewayResponse)
-createInternetGateway = undefined $ CreateInternetGateway
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+createInternetGateway :: CreateInternetGateway
+createInternetGateway = CreateInternetGateway
     { cigrDryRun = Nothing
     }
 

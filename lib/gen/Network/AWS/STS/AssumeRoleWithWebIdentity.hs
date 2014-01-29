@@ -85,11 +85,12 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 assumeRoleWithWebIdentity :: Text
                           -> Text
                           -> Text
-                          -> AWS (Either STSError AssumeRoleWithWebIdentityResponse)
+                          -> AssumeRoleWithWebIdentity
 assumeRoleWithWebIdentity p1 p2 p3 = undefined $ AssumeRoleWithWebIdentity
     { arwwirRoleArn = p1
     , arwwirRoleSessionName = p2

@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteApplication :: Text
-                  -> AWS (Either ElasticBeanstalkError DeleteApplicationResponse)
+                  -> DeleteApplication
 deleteApplication p1 = undefined $ DeleteApplication
     { danApplicationName = p1
     , danTerminateEnvByForce = Nothing

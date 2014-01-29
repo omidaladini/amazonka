@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createLaunchConfiguration :: Text
-                          -> AWS (Either AutoScalingError CreateLaunchConfigurationResponse)
+                          -> CreateLaunchConfiguration
 createLaunchConfiguration p1 = undefined $ CreateLaunchConfiguration
     { clctLaunchConfigurationName = p1
     , clctAssociatePublicIpAddress = Nothing

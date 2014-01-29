@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
-describeCacheSubnetGroups :: AWS (Either ElastiCacheError DescribeCacheSubnetGroupsResponse)
-describeCacheSubnetGroups = undefined $ DescribeCacheSubnetGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeCacheSubnetGroups :: DescribeCacheSubnetGroups
+describeCacheSubnetGroups = DescribeCacheSubnetGroups
     { dcsgnCacheSubnetGroupName = Nothing
     , dcsgnMarker = Nothing
     , dcsgnMaxRecords = Nothing

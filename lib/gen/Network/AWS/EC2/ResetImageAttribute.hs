@@ -33,10 +33,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 resetImageAttribute :: ResetImageAttributeName
                     -> Text
-                    -> AWS (Either EC2Error ResetImageAttributeResponse)
+                    -> ResetImageAttribute
 resetImageAttribute p1 p2 = undefined $ ResetImageAttribute
     { riasAttribute = p1
     , riasImageId = p2

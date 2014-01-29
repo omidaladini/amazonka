@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateLayer :: Text
-            -> AWS (Either OpsWorksError UpdateLayerResponse)
+            -> UpdateLayer
 updateLayer p1 = undefined $ UpdateLayer
     { ulrLayerId = p1
     , ulrAttributes = Map.empty

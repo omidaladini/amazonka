@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
-getSendQuota :: AWS (Either SESError GetSendQuotaResponse)
-getSendQuota = undefined GetSendQuota
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+getSendQuota :: GetSendQuota
+getSendQuota = GetSendQuota
 
 data GetSendQuota = GetSendQuota
     deriving (Eq, Show, Generic)

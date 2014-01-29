@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeNotificationConfigurations :: AWS (Either AutoScalingError DescribeNotificationConfigurationsResponse)
-describeNotificationConfigurations = undefined $ DescribeNotificationConfigurations
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeNotificationConfigurations :: DescribeNotificationConfigurations
+describeNotificationConfigurations = DescribeNotificationConfigurations
     { dncuAutoScalingGroupNames = []
     , dncuMaxRecords = Nothing
     , dncuNextToken = Nothing

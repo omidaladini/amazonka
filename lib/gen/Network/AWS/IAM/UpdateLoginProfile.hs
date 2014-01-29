@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateLoginProfile :: Text
                    -> Text
-                   -> AWS (Either IAMError UpdateLoginProfileResponse)
+                   -> UpdateLoginProfile
 updateLoginProfile p1 p2 = undefined $ UpdateLoginProfile
     { ulprPassword = p1
     , ulprUserName = p2

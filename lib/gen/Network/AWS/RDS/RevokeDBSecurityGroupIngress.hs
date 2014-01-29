@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 revokeDBSecurityGroupIngress :: Text
-                             -> AWS (Either RDSError RevokeDBSecurityGroupIngressResponse)
+                             -> RevokeDBSecurityGroupIngress
 revokeDBSecurityGroupIngress p1 = undefined $ RevokeDBSecurityGroupIngress
     { rdbsgimDBSecurityGroupName = p1
     , rdbsgimCIDRIP = Nothing

@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 revokeClusterSecurityGroupIngress :: Text
-                                  -> AWS (Either RedshiftError RevokeClusterSecurityGroupIngressResponse)
+                                  -> RevokeClusterSecurityGroupIngress
 revokeClusterSecurityGroupIngress p1 = undefined $ RevokeClusterSecurityGroupIngress
     { rcsgimClusterSecurityGroupName = p1
     , rcsgimCIDRIP = Nothing

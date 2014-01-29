@@ -77,9 +77,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 uploadSigningCertificate :: Text
-                         -> AWS (Either IAMError UploadSigningCertificateResponse)
+                         -> UploadSigningCertificate
 uploadSigningCertificate p1 = undefined $ UploadSigningCertificate
     { uscsCertificateBody = p1
     , uscsUserName = Nothing

@@ -70,9 +70,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 respondActivityTaskCompleted :: Text
-                             -> AWS (Either SWFError RespondActivityTaskCompletedResponse)
+                             -> RespondActivityTaskCompleted
 respondActivityTaskCompleted p1 = undefined $ RespondActivityTaskCompleted
     { ratciTaskToken = p1
     , ratciResult = Nothing

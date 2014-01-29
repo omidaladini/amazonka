@@ -53,10 +53,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addCache :: [Text]
          -> Text
-         -> AWS (Either StorageGatewayError AddCacheResponse)
+         -> AddCache
 addCache p1 p2 = undefined $ AddCache
     { aciDiskIds = p1
     , aciGatewayARN = p2

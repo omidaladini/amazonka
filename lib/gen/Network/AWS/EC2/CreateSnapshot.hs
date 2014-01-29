@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createSnapshot :: Text
-               -> AWS (Either EC2Error CreateSnapshotResponse)
+               -> CreateSnapshot
 createSnapshot p1 = undefined $ CreateSnapshot
     { cstVolumeId = p1
     , cstDescription = Nothing

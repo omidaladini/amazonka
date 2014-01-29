@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listInstanceProfilesForRole :: Text
-                            -> AWS (Either IAMError ListInstanceProfilesForRoleResponse)
+                            -> ListInstanceProfilesForRole
 listInstanceProfilesForRole p1 = undefined $ ListInstanceProfilesForRole
     { lipfrrRoleName = p1
     , lipfrrMarker = Nothing

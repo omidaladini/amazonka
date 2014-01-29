@@ -54,9 +54,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateBandwidthRateLimit :: Text
-                         -> AWS (Either StorageGatewayError UpdateBandwidthRateLimitResponse)
+                         -> UpdateBandwidthRateLimit
 updateBandwidthRateLimit p1 = undefined $ UpdateBandwidthRateLimit
     { ubrliGatewayARN = p1
     , ubrliAverageDownloadRateLimitInBitsPerSec = Nothing

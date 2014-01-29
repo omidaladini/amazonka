@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeEngineDefaultParameters :: Text
-                                -> AWS (Either RDSError DescribeEngineDefaultParametersResponse)
+                                -> DescribeEngineDefaultParameters
 describeEngineDefaultParameters p1 = undefined $ DescribeEngineDefaultParameters
     { dedpmDBParameterGroupFamily = p1
     , dedpmMarker = Nothing

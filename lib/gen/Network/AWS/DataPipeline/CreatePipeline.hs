@@ -43,10 +43,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createPipeline :: Text
                -> Text
-               -> AWS (Either DataPipelineError CreatePipelineResponse)
+               -> CreatePipeline
 createPipeline p1 p2 = undefined $ CreatePipeline
     { cpiName = p1
     , cpiUniqueId = p2

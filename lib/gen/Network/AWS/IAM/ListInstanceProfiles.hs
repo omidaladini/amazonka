@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listInstanceProfiles :: AWS (Either IAMError ListInstanceProfilesResponse)
-listInstanceProfiles = undefined $ ListInstanceProfiles
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listInstanceProfiles :: ListInstanceProfiles
+listInstanceProfiles = ListInstanceProfiles
     { liprMarker = Nothing
     , liprMaxItems = Nothing
     , liprPathPrefix = Nothing

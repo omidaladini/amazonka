@@ -57,9 +57,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeImages :: AWS (Either EC2Error DescribeImagesResponse)
-describeImages = undefined $ DescribeImages
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeImages :: DescribeImages
+describeImages = DescribeImages
     { ditDryRun = Nothing
     , ditExecutableUsers = []
     , ditFilters = []

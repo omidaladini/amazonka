@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 requestSpotInstances :: Text
-                     -> AWS (Either EC2Error RequestSpotInstancesResponse)
+                     -> RequestSpotInstances
 requestSpotInstances p1 = undefined $ RequestSpotInstances
     { rsirSpotPrice = p1
     , rsirAvailabilityZoneGroup = Nothing

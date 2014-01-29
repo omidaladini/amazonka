@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
-describeDomains :: AWS (Either CloudSearchError DescribeDomainsResponse)
-describeDomains = undefined $ DescribeDomains
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeDomains :: DescribeDomains
+describeDomains = DescribeDomains
     { ddrDomainNames = []
     }
 

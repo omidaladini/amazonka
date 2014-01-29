@@ -81,10 +81,11 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 assumeRole :: Text
            -> Text
-           -> AWS (Either STSError AssumeRoleResponse)
+           -> AssumeRole
 assumeRole p1 p2 = undefined $ AssumeRole
     { arrRoleArn = p1
     , arrRoleSessionName = p2

@@ -70,11 +70,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putRecord :: Blob
           -> Text
           -> Text
-          -> AWS (Either KinesisError PutRecordResponse)
+          -> PutRecord
 putRecord p1 p2 p3 = undefined $ PutRecord
     { priData = p1
     , priPartitionKey = p2

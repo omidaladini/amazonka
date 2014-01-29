@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-rebuildEnvironment :: AWS (Either ElasticBeanstalkError RebuildEnvironmentResponse)
-rebuildEnvironment = undefined $ RebuildEnvironment
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+rebuildEnvironment :: RebuildEnvironment
+rebuildEnvironment = RebuildEnvironment
     { remEnvironmentId = Nothing
     , remEnvironmentName = Nothing
     }

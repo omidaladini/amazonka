@@ -53,10 +53,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addWorkingStorage :: [Text]
                   -> Text
-                  -> AWS (Either StorageGatewayError AddWorkingStorageResponse)
+                  -> AddWorkingStorage
 addWorkingStorage p1 p2 = undefined $ AddWorkingStorage
     { awsiDiskIds = p1
     , awsiGatewayARN = p2

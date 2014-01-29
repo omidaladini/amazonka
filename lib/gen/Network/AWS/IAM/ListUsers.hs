@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listUsers :: AWS (Either IAMError ListUsersResponse)
-listUsers = undefined $ ListUsers
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listUsers :: ListUsers
+listUsers = ListUsers
     { lurMarker = Nothing
     , lurMaxItems = Nothing
     , lurPathPrefix = Nothing

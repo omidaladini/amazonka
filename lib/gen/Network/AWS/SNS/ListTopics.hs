@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
-listTopics :: AWS (Either SNSError ListTopicsResponse)
-listTopics = undefined $ ListTopics
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listTopics :: ListTopics
+listTopics = ListTopics
     { ltiNextToken = Nothing
     }
 

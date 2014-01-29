@@ -48,9 +48,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 purchaseReservedNodeOffering :: Text
-                             -> AWS (Either RedshiftError PurchaseReservedNodeOfferingResponse)
+                             -> PurchaseReservedNodeOffering
 purchaseReservedNodeOffering p1 = undefined $ PurchaseReservedNodeOffering
     { prnomReservedNodeOfferingId = p1
     , prnomNodeCount = Nothing

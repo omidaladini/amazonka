@@ -62,11 +62,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 runInstances :: Text
              -> Int
              -> Int
-             -> AWS (Either EC2Error RunInstancesResponse)
+             -> RunInstances
 runInstances p1 p2 p3 = undefined $ RunInstances
     { rirImageId = p1
     , rirMaxCount = p2

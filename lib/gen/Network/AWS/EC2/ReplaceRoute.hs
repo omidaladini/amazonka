@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 replaceRoute :: Text
              -> Text
-             -> AWS (Either EC2Error ReplaceRouteResponse)
+             -> ReplaceRoute
 replaceRoute p1 p2 = undefined $ ReplaceRoute
     { rrrDestinationCidrBlock = p1
     , rrrRouteTableId = p2

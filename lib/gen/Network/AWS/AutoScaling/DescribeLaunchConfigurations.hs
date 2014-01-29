@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeLaunchConfigurations :: AWS (Either AutoScalingError DescribeLaunchConfigurationsResponse)
-describeLaunchConfigurations = undefined $ DescribeLaunchConfigurations
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeLaunchConfigurations :: DescribeLaunchConfigurations
+describeLaunchConfigurations = DescribeLaunchConfigurations
     { lcnuLaunchConfigurationNames = []
     , lcnuMaxRecords = Nothing
     , lcnuNextToken = Nothing

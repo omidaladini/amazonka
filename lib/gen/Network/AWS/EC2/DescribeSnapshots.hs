@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeSnapshots :: AWS (Either EC2Error DescribeSnapshotsResponse)
-describeSnapshots = undefined $ DescribeSnapshots
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeSnapshots :: DescribeSnapshots
+describeSnapshots = DescribeSnapshots
     { dssDryRun = Nothing
     , dssFilters = []
     , dssOwnerIds = []

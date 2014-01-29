@@ -39,10 +39,11 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 removePermission :: Text
                  -> Text
-                 -> AWS (Either SNSError RemovePermissionResponse)
+                 -> RemovePermission
 removePermission p1 p2 = undefined $ RemovePermission
     { rpiLabel = p1
     , rpiTopicArn = p2

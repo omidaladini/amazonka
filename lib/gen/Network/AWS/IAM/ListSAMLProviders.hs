@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listSAMLProviders :: AWS (Either IAMError ListSAMLProvidersResponse)
-listSAMLProviders = undefined $ ListSAMLProviders
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listSAMLProviders :: ListSAMLProviders
+listSAMLProviders = ListSAMLProviders
 
 data ListSAMLProviders = ListSAMLProviders
     deriving (Eq, Show, Generic)

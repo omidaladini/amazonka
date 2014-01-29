@@ -67,10 +67,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 requestCancelWorkflowExecution :: Text
                                -> Text
-                               -> AWS (Either SWFError RequestCancelWorkflowExecutionResponse)
+                               -> RequestCancelWorkflowExecution
 requestCancelWorkflowExecution p1 p2 = undefined $ RequestCancelWorkflowExecution
     { rcweiDomain = p1
     , rcweiWorkflowId = p2

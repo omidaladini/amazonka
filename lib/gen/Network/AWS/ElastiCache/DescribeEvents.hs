@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
-describeEvents :: AWS (Either ElastiCacheError DescribeEventsResponse)
-describeEvents = undefined $ DescribeEvents
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeEvents :: DescribeEvents
+describeEvents = DescribeEvents
     { demDuration = Nothing
     , demEndTime = Nothing
     , demMarker = Nothing

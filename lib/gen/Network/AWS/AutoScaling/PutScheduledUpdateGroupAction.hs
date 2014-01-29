@@ -48,10 +48,11 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putScheduledUpdateGroupAction :: ResourceName
                               -> Text
-                              -> AWS (Either AutoScalingError PutScheduledUpdateGroupActionResponse)
+                              -> PutScheduledUpdateGroupAction
 putScheduledUpdateGroupAction p1 p2 = undefined $ PutScheduledUpdateGroupAction
     { psugatAutoScalingGroupName = p1
     , psugatScheduledActionName = p2

@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteAccessKey :: Text
-                -> AWS (Either IAMError DeleteAccessKeyResponse)
+                -> DeleteAccessKey
 deleteAccessKey p1 = undefined $ DeleteAccessKey
     { dakrAccessKeyId = p1
     , dakrUserName = Nothing

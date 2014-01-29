@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeStemmingOptions :: Text
-                        -> AWS (Either CloudSearchError DescribeStemmingOptionsResponse)
+                        -> DescribeStemmingOptions
 describeStemmingOptions p1 = undefined $ DescribeStemmingOptions
     { dsotDomainName = p1
     }

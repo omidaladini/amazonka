@@ -68,10 +68,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeWorkflowType :: Text
                      -> WorkflowType
-                     -> AWS (Either SWFError DescribeWorkflowTypeResponse)
+                     -> DescribeWorkflowType
 describeWorkflowType p1 p2 = undefined $ DescribeWorkflowType
     { dwtiDomain = p1
     , dwtiWorkflowType = p2

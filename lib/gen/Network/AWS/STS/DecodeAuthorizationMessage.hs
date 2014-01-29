@@ -63,9 +63,10 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 decodeAuthorizationMessage :: Text
-                           -> AWS (Either STSError DecodeAuthorizationMessageResponse)
+                           -> DecodeAuthorizationMessage
 decodeAuthorizationMessage p1 = undefined $ DecodeAuthorizationMessage
     { damrEncodedMessage = p1
     }

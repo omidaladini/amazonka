@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeTrustedAdvisorChecks :: Text
-                             -> AWS (Either SupportError DescribeTrustedAdvisorChecksResponse)
+                             -> DescribeTrustedAdvisorChecks
 describeTrustedAdvisorChecks p1 = undefined $ DescribeTrustedAdvisorChecks
     { dtacrLanguage = p1
     }

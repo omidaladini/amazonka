@@ -47,9 +47,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-createAccessKey :: AWS (Either IAMError CreateAccessKeyResponse)
-createAccessKey = undefined $ CreateAccessKey
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+createAccessKey :: CreateAccessKey
+createAccessKey = CreateAccessKey
     { cakrUserName = Nothing
     }
 

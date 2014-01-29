@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteGroupPolicy :: Text
                   -> Text
-                  -> AWS (Either IAMError DeleteGroupPolicyResponse)
+                  -> DeleteGroupPolicy
 deleteGroupPolicy p1 p2 = undefined $ DeleteGroupPolicy
     { dgprGroupName = p1
     , dgprPolicyName = p2

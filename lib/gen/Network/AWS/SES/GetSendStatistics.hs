@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
-getSendStatistics :: AWS (Either SESError GetSendStatisticsResponse)
-getSendStatistics = undefined GetSendStatistics
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+getSendStatistics :: GetSendStatistics
+getSendStatistics = GetSendStatistics
 
 data GetSendStatistics = GetSendStatistics
     deriving (Eq, Show, Generic)

@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeEvents :: AWS (Either RedshiftError DescribeEventsResponse)
-describeEvents = undefined $ DescribeEvents
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeEvents :: DescribeEvents
+describeEvents = DescribeEvents
     { demDuration = Nothing
     , demEndTime = Nothing
     , demMarker = Nothing

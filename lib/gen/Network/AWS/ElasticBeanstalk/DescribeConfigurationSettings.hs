@@ -82,9 +82,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeConfigurationSettings :: Text
-                              -> AWS (Either ElasticBeanstalkError DescribeConfigurationSettingsResponse)
+                              -> DescribeConfigurationSettings
 describeConfigurationSettings p1 = undefined $ DescribeConfigurationSettings
     { dcsmApplicationName = p1
     , dcsmEnvironmentName = Nothing

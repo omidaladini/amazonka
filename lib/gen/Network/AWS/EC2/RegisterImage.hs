@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-registerImage :: AWS (Either EC2Error RegisterImageResponse)
-registerImage = undefined $ RegisterImage
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+registerImage :: RegisterImage
+registerImage = RegisterImage
     { risArchitecture = Nothing
     , risBlockDeviceMappings = []
     , risDescription = Nothing

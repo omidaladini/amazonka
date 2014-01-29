@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deactivateLicense :: Int
                   -> Text
-                  -> AWS (Either EC2Error DeactivateLicenseResponse)
+                  -> DeactivateLicense
 deactivateLicense p1 p2 = undefined $ DeactivateLicense
     { dlsCapacity = p1
     , dlsLicenseId = p2

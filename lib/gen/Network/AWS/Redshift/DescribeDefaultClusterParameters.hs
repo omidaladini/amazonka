@@ -52,9 +52,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeDefaultClusterParameters :: Text
-                                 -> AWS (Either RedshiftError DescribeDefaultClusterParametersResponse)
+                                 -> DescribeDefaultClusterParameters
 describeDefaultClusterParameters p1 = undefined $ DescribeDefaultClusterParameters
     { ddcpmParameterGroupFamily = p1
     , ddcpmMarker = Nothing

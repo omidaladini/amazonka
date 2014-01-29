@@ -39,9 +39,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
--- | Convenience method utilising default fields where applicable.
-describeCases :: AWS (Either SupportError DescribeCasesResponse)
-describeCases = undefined $ DescribeCases
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeCases :: DescribeCases
+describeCases = DescribeCases
     { dcrAfterTime = Nothing
     , dcrBeforeTime = Nothing
     , dcrCaseIdList = []

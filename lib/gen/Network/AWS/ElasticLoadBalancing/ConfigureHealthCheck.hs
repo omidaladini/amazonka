@@ -39,10 +39,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 configureHealthCheck :: HealthCheck
                      -> Text
-                     -> AWS (Either ElasticLoadBalancingError ConfigureHealthCheckResponse)
+                     -> ConfigureHealthCheck
 configureHealthCheck p1 p2 = undefined $ ConfigureHealthCheck
     { chciHealthCheck = p1
     , chciLoadBalancerName = p2

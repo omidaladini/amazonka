@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeDBInstances :: AWS (Either RDSError DescribeDBInstancesResponse)
-describeDBInstances = undefined $ DescribeDBInstances
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeDBInstances :: DescribeDBInstances
+describeDBInstances = DescribeDBInstances
     { ddbinDBInstanceIdentifier = Nothing
     , ddbinMarker = Nothing
     , ddbinMaxRecords = Nothing

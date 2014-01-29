@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteClusterParameterGroup :: Text
-                            -> AWS (Either RedshiftError DeleteClusterParameterGroupResponse)
+                            -> DeleteClusterParameterGroup
 deleteClusterParameterGroup p1 = undefined $ DeleteClusterParameterGroup
     { dcpgnParameterGroupName = p1
     }

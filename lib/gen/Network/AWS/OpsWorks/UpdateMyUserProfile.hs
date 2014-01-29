@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
-updateMyUserProfile :: AWS (Either OpsWorksError UpdateMyUserProfileResponse)
-updateMyUserProfile = undefined $ UpdateMyUserProfile
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+updateMyUserProfile :: UpdateMyUserProfile
+updateMyUserProfile = UpdateMyUserProfile
     { umuprSshPublicKey = Nothing
     }
 

@@ -50,9 +50,10 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
-listPlatformApplications :: AWS (Either SNSError ListPlatformApplicationsResponse)
-listPlatformApplications = undefined $ ListPlatformApplications
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listPlatformApplications :: ListPlatformApplications
+listPlatformApplications = ListPlatformApplications
     { lpaiNextToken = Nothing
     }
 

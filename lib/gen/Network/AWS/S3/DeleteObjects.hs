@@ -37,10 +37,11 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteObjects :: Text
               -> Delete
-              -> AWS (Either S3Error DeleteObjectsResponse)
+              -> DeleteObjects
 deleteObjects p1 p2 = undefined $ DeleteObjects
     { dpBucket = p1
     , dpDelete = p2

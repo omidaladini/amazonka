@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeClusterSecurityGroups :: AWS (Either RedshiftError DescribeClusterSecurityGroupsResponse)
-describeClusterSecurityGroups = undefined $ DescribeClusterSecurityGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeClusterSecurityGroups :: DescribeClusterSecurityGroups
+describeClusterSecurityGroups = DescribeClusterSecurityGroups
     { dcsgnClusterSecurityGroupName = Nothing
     , dcsgnMarker = Nothing
     , dcsgnMaxRecords = Nothing

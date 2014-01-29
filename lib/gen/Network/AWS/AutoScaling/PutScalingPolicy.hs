@@ -42,12 +42,13 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putScalingPolicy :: Text
                  -> ResourceName
                  -> Text
                  -> Int
-                 -> AWS (Either AutoScalingError PutScalingPolicyResponse)
+                 -> PutScalingPolicy
 putScalingPolicy p1 p2 p3 p4 = undefined $ PutScalingPolicy
     { psptAdjustmentType = p1
     , psptAutoScalingGroupName = p2

@@ -48,9 +48,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
-listStacks :: AWS (Either CloudFormationError ListStacksResponse)
-listStacks = undefined $ ListStacks
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listStacks :: ListStacks
+listStacks = ListStacks
     { lsiNextToken = Nothing
     , lsiStackStatusFilter = []
     }

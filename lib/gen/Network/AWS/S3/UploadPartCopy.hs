@@ -36,13 +36,14 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 uploadPartCopy :: Text
                -> Text
                -> Text
                -> Int
                -> Text
-               -> AWS (Either S3Error UploadPartCopyResponse)
+               -> UploadPartCopy
 uploadPartCopy p1 p2 p3 p4 p5 = undefined $ UploadPartCopy
     { upcBucket = p1
     , upcKey = p2

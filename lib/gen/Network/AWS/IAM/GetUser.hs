@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-getUser :: AWS (Either IAMError GetUserResponse)
-getUser = undefined $ GetUser
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+getUser :: GetUser
+getUser = GetUser
     { gurUserName = Nothing
     }
 

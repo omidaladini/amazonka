@@ -36,10 +36,11 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getObjectTorrent :: Text
                  -> Text
-                 -> AWS (Either S3Error GetObjectTorrentResponse)
+                 -> GetObjectTorrent
 getObjectTorrent p1 p2 = undefined $ GetObjectTorrent
     { gotBucket = p1
     , gotKey = p2

@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-listSteps :: AWS (Either EMRError ListStepsResponse)
-listSteps = undefined $ ListSteps
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listSteps :: ListSteps
+listSteps = ListSteps
     { lsiClusterId = Nothing
     , lsiMarker = Nothing
     , lsiStepStates = []

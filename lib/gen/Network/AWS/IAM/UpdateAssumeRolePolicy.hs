@@ -38,10 +38,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateAssumeRolePolicy :: Text
                        -> Text
-                       -> AWS (Either IAMError UpdateAssumeRolePolicyResponse)
+                       -> UpdateAssumeRolePolicy
 updateAssumeRolePolicy p1 p2 = undefined $ UpdateAssumeRolePolicy
     { uarprPolicyDocument = p1
     , uarprRoleName = p2

@@ -69,10 +69,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 terminateWorkflowExecution :: Text
                            -> Text
-                           -> AWS (Either SWFError TerminateWorkflowExecutionResponse)
+                           -> TerminateWorkflowExecution
 terminateWorkflowExecution p1 p2 = undefined $ TerminateWorkflowExecution
     { tweiDomain = p1
     , tweiWorkflowId = p2

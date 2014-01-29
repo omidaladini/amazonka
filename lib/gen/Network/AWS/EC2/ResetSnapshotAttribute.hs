@@ -32,10 +32,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 resetSnapshotAttribute :: SnapshotAttributeName
                        -> Text
-                       -> AWS (Either EC2Error ResetSnapshotAttributeResponse)
+                       -> ResetSnapshotAttribute
 resetSnapshotAttribute p1 p2 = undefined $ ResetSnapshotAttribute
     { rsarAttribute = p1
     , rsarSnapshotId = p2

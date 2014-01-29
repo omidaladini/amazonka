@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateSynonymOptions :: Text
                      -> Text
-                     -> AWS (Either CloudSearchError UpdateSynonymOptionsResponse)
+                     -> UpdateSynonymOptions
 updateSynonymOptions p1 p2 = undefined $ UpdateSynonymOptions
     { usosDomainName = p1
     , usosSynonyms = p2

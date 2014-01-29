@@ -48,11 +48,12 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createClusterParameterGroup :: Text
                             -> Text
                             -> Text
-                            -> AWS (Either RedshiftError CreateClusterParameterGroupResponse)
+                            -> CreateClusterParameterGroup
 createClusterParameterGroup p1 p2 p3 = undefined $ CreateClusterParameterGroup
     { ccpgmDescription = p1
     , ccpgmParameterGroupFamily = p2

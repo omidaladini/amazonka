@@ -39,10 +39,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createSecurityGroup :: Text
                     -> Text
-                    -> AWS (Either EC2Error CreateSecurityGroupResponse)
+                    -> CreateSecurityGroup
 createSecurityGroup p1 p2 = undefined $ CreateSecurityGroup
     { csgrDescription = p1
     , csgrGroupName = p2

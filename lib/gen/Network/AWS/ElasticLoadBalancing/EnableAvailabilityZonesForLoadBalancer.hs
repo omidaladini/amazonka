@@ -43,10 +43,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 enableAvailabilityZonesForLoadBalancer :: [Text]
                                        -> Text
-                                       -> AWS (Either ElasticLoadBalancingError EnableAvailabilityZonesForLoadBalancerResponse)
+                                       -> EnableAvailabilityZonesForLoadBalancer
 enableAvailabilityZonesForLoadBalancer p1 p2 = undefined $ EnableAvailabilityZonesForLoadBalancer
     { aaziAvailabilityZones = p1
     , aaziLoadBalancerName = p2

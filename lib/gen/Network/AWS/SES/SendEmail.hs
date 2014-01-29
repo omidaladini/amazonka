@@ -58,11 +58,12 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 sendEmail :: Destination
           -> Message
           -> Text
-          -> AWS (Either SESError SendEmailResponse)
+          -> SendEmail
 sendEmail p1 p2 p3 = undefined $ SendEmail
     { serDestination = p1
     , serMessage = p2

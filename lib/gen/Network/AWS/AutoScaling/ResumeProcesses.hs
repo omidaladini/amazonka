@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 resumeProcesses :: ResourceName
-                -> AWS (Either AutoScalingError ResumeProcessesResponse)
+                -> ResumeProcesses
 resumeProcesses p1 = undefined $ ResumeProcesses
     { sprAutoScalingGroupName = p1
     , sprScalingProcesses = []

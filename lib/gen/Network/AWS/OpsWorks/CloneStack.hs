@@ -37,10 +37,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 cloneStack :: Text
            -> Text
-           -> AWS (Either OpsWorksError CloneStackResponse)
+           -> CloneStack
 cloneStack p1 p2 = undefined $ CloneStack
     { cssServiceRoleArn = p1
     , cssSourceStackId = p2

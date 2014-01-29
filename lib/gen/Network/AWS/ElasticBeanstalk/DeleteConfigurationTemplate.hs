@@ -38,10 +38,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteConfigurationTemplate :: Text
                             -> Text
-                            -> AWS (Either ElasticBeanstalkError DeleteConfigurationTemplateResponse)
+                            -> DeleteConfigurationTemplate
 deleteConfigurationTemplate p1 p2 = undefined $ DeleteConfigurationTemplate
     { dctmApplicationName = p1
     , dctmTemplateName = p2

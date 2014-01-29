@@ -54,11 +54,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateSnapshotSchedule :: Int
                        -> Int
                        -> Text
-                       -> AWS (Either StorageGatewayError UpdateSnapshotScheduleResponse)
+                       -> UpdateSnapshotSchedule
 updateSnapshotSchedule p1 p2 p3 = undefined $ UpdateSnapshotSchedule
     { ussiRecurrenceInHours = p1
     , ussiStartAt = p2

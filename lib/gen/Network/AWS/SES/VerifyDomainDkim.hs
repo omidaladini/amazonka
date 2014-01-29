@@ -53,9 +53,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 verifyDomainDkim :: Text
-                 -> AWS (Either SESError VerifyDomainDkimResponse)
+                 -> VerifyDomainDkim
 verifyDomainDkim p1 = undefined $ VerifyDomainDkim
     { vddrDomain = p1
     }

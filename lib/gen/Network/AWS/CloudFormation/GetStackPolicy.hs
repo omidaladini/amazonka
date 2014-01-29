@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getStackPolicy :: Text
-               -> AWS (Either CloudFormationError GetStackPolicyResponse)
+               -> GetStackPolicy
 getStackPolicy p1 = undefined $ GetStackPolicy
     { gspiStackName = p1
     }

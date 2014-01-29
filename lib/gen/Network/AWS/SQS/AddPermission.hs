@@ -40,12 +40,13 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addPermission :: [Text]
               -> [Text]
               -> Text
               -> Text
-              -> AWS (Either SQSError AddPermissionResponse)
+              -> AddPermission
 addPermission p1 p2 p3 p4 = undefined $ AddPermission
     { aprAWSAccountIds = p1
     , aprActions = p2

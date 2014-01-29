@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeIndexFields :: Text
-                    -> AWS (Either CloudSearchError DescribeIndexFieldsResponse)
+                    -> DescribeIndexFields
 describeIndexFields p1 = undefined $ DescribeIndexFields
     { difrDomainName = p1
     , difrFieldNames = []

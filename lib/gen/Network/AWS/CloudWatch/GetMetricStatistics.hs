@@ -49,14 +49,15 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getMetricStatistics :: UTCTime
                     -> Text
                     -> Text
                     -> Int
                     -> UTCTime
                     -> [Statistic]
-                    -> AWS (Either CloudWatchError GetMetricStatisticsResponse)
+                    -> GetMetricStatistics
 getMetricStatistics p1 p2 p3 p4 p5 p6 = undefined $ GetMetricStatistics
     { gmsiEndTime = p1
     , gmsiMetricName = p2

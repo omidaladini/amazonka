@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
-listMetrics :: AWS (Either CloudWatchError ListMetricsResponse)
-listMetrics = undefined $ ListMetrics
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listMetrics :: ListMetrics
+listMetrics = ListMetrics
     { lmiDimensions = []
     , lmiMetricName = Nothing
     , lmiNamespace = Nothing

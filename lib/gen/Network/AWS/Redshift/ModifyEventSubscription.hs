@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyEventSubscription :: Text
-                        -> AWS (Either RedshiftError ModifyEventSubscriptionResponse)
+                        -> ModifyEventSubscription
 modifyEventSubscription p1 = undefined $ ModifyEventSubscription
     { mesmSubscriptionName = p1
     , mesmEnabled = Nothing

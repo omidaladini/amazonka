@@ -41,10 +41,11 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyDBSubnetGroup :: Text
                     -> [Text]
-                    -> AWS (Either RDSError ModifyDBSubnetGroupResponse)
+                    -> ModifyDBSubnetGroup
 modifyDBSubnetGroup p1 p2 = undefined $ ModifyDBSubnetGroup
     { mdbsgmDBSubnetGroupName = p1
     , mdbsgmSubnetIds = p2

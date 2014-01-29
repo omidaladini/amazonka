@@ -88,10 +88,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createLoadBalancer :: [Listener]
                    -> Text
-                   -> AWS (Either ElasticLoadBalancingError CreateLoadBalancerResponse)
+                   -> CreateLoadBalancer
 createLoadBalancer p1 p2 = undefined $ CreateLoadBalancer
     { capiListeners = p1
     , capiLoadBalancerName = p2

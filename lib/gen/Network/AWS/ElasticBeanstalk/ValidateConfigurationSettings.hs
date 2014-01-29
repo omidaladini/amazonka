@@ -42,10 +42,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 validateConfigurationSettings :: Text
                               -> [ConfigurationOptionSetting]
-                              -> AWS (Either ElasticBeanstalkError ValidateConfigurationSettingsResponse)
+                              -> ValidateConfigurationSettings
 validateConfigurationSettings p1 p2 = undefined $ ValidateConfigurationSettings
     { vcsmApplicationName = p1
     , vcsmOptionSettings = p2

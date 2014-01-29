@@ -42,10 +42,11 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 restoreDBInstanceFromDBSnapshot :: Text
                                 -> Text
-                                -> AWS (Either RDSError RestoreDBInstanceFromDBSnapshotResponse)
+                                -> RestoreDBInstanceFromDBSnapshot
 restoreDBInstanceFromDBSnapshot p1 p2 = undefined $ RestoreDBInstanceFromDBSnapshot
     { rdbifdbsmDBInstanceIdentifier = p1
     , rdbifdbsmDBSnapshotIdentifier = p2

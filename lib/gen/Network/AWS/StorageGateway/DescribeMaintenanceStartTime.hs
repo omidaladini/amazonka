@@ -49,9 +49,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeMaintenanceStartTime :: Text
-                             -> AWS (Either StorageGatewayError DescribeMaintenanceStartTimeResponse)
+                             -> DescribeMaintenanceStartTime
 describeMaintenanceStartTime p1 = undefined $ DescribeMaintenanceStartTime
     { dmstiGatewayARN = p1
     }

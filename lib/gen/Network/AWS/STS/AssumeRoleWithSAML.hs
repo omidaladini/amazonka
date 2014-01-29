@@ -64,11 +64,12 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 assumeRoleWithSAML :: Text
                    -> Text
                    -> Text
-                   -> AWS (Either STSError AssumeRoleWithSAMLResponse)
+                   -> AssumeRoleWithSAML
 assumeRoleWithSAML p1 p2 p3 = undefined $ AssumeRoleWithSAML
     { arwsamlrPrincipalArn = p1
     , arwsamlrRoleArn = p2

@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 assignPrivateIpAddresses :: Text
-                         -> AWS (Either EC2Error AssignPrivateIpAddressesResponse)
+                         -> AssignPrivateIpAddresses
 assignPrivateIpAddresses p1 = undefined $ AssignPrivateIpAddresses
     { apiarNetworkInterfaceId = p1
     , apiarAllowReassignment = Nothing

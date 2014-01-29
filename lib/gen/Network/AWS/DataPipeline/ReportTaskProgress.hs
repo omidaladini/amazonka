@@ -54,9 +54,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 reportTaskProgress :: Text
-                   -> AWS (Either DataPipelineError ReportTaskProgressResponse)
+                   -> ReportTaskProgress
 reportTaskProgress p1 = undefined $ ReportTaskProgress
     { rtpiTaskId = p1
     }

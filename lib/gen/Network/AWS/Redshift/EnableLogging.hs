@@ -33,10 +33,11 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 enableLogging :: Text
               -> Text
-              -> AWS (Either RedshiftError EnableLoggingResponse)
+              -> EnableLogging
 enableLogging p1 p2 = undefined $ EnableLogging
     { elmBucketName = p1
     , elmClusterIdentifier = p2

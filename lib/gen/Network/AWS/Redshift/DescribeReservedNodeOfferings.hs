@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeReservedNodeOfferings :: AWS (Either RedshiftError DescribeReservedNodeOfferingsResponse)
-describeReservedNodeOfferings = undefined $ DescribeReservedNodeOfferings
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeReservedNodeOfferings :: DescribeReservedNodeOfferings
+describeReservedNodeOfferings = DescribeReservedNodeOfferings
     { drnomMarker = Nothing
     , drnomMaxRecords = Nothing
     , drnomReservedNodeOfferingId = Nothing

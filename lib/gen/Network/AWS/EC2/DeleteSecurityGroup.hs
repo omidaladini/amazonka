@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-deleteSecurityGroup :: AWS (Either EC2Error DeleteSecurityGroupResponse)
-deleteSecurityGroup = undefined $ DeleteSecurityGroup
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+deleteSecurityGroup :: DeleteSecurityGroup
+deleteSecurityGroup = DeleteSecurityGroup
     { dsgrDryRun = Nothing
     , dsgrGroupId = Nothing
     , dsgrGroupName = Nothing

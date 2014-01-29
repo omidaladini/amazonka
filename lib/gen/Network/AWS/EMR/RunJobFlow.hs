@@ -77,10 +77,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 runJobFlow :: JobFlowInstancesConfig
            -> Text
-           -> AWS (Either EMRError RunJobFlowResponse)
+           -> RunJobFlow
 runJobFlow p1 p2 = undefined $ RunJobFlow
     { rjfiInstances = p1
     , rjfiName = p2

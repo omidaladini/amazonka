@@ -42,10 +42,11 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putMetricData :: [MetricDatum]
               -> Text
-              -> AWS (Either CloudWatchError PutMetricDataResponse)
+              -> PutMetricData
 putMetricData p1 p2 = undefined $ PutMetricData
     { pmdiMetricData = p1
     , pmdiNamespace = p2

@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 disableGateway :: Text
-               -> AWS (Either StorageGatewayError DisableGatewayResponse)
+               -> DisableGateway
 disableGateway p1 = undefined $ DisableGateway
     { dgjGatewayARN = p1
     }

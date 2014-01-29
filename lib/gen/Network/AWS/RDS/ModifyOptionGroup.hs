@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyOptionGroup :: Text
-                  -> AWS (Either RDSError ModifyOptionGroupResponse)
+                  -> ModifyOptionGroup
 modifyOptionGroup p1 = undefined $ ModifyOptionGroup
     { mogmOptionGroupName = p1
     , mogmApplyImmediately = Nothing

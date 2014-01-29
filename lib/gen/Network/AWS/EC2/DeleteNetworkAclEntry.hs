@@ -34,11 +34,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteNetworkAclEntry :: Bool
                       -> Text
                       -> Int
-                      -> AWS (Either EC2Error DeleteNetworkAclEntryResponse)
+                      -> DeleteNetworkAclEntry
 deleteNetworkAclEntry p1 p2 p3 = undefined $ DeleteNetworkAclEntry
     { dnaerEgress = p1
     , dnaerNetworkAclId = p2

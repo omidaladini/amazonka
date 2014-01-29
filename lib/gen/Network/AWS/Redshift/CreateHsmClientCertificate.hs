@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createHsmClientCertificate :: Text
-                           -> AWS (Either RedshiftError CreateHsmClientCertificateResponse)
+                           -> CreateHsmClientCertificate
 createHsmClientCertificate p1 = undefined $ CreateHsmClientCertificate
     { chccmHsmClientCertificateIdentifier = p1
     }

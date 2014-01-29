@@ -48,10 +48,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 queryObjects :: Text
              -> Text
-             -> AWS (Either DataPipelineError QueryObjectsResponse)
+             -> QueryObjects
 queryObjects p1 p2 = undefined $ QueryObjects
     { qoiPipelineId = p1
     , qoiSphere = p2

@@ -60,12 +60,13 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createCluster :: Text
               -> Text
               -> Text
               -> Text
-              -> AWS (Either RedshiftError CreateClusterResponse)
+              -> CreateCluster
 createCluster p1 p2 p3 p4 = undefined $ CreateCluster
     { ccmClusterIdentifier = p1
     , ccmMasterUserPassword = p2

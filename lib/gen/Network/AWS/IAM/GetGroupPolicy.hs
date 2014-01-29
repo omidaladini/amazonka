@@ -38,10 +38,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getGroupPolicy :: Text
                -> Text
-               -> AWS (Either IAMError GetGroupPolicyResponse)
+               -> GetGroupPolicy
 getGroupPolicy p1 p2 = undefined $ GetGroupPolicy
     { ggprGroupName = p1
     , ggprPolicyName = p2

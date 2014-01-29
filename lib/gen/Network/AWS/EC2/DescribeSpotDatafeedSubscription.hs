@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeSpotDatafeedSubscription :: AWS (Either EC2Error DescribeSpotDatafeedSubscriptionResponse)
-describeSpotDatafeedSubscription = undefined $ DescribeSpotDatafeedSubscription
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeSpotDatafeedSubscription :: DescribeSpotDatafeedSubscription
+describeSpotDatafeedSubscription = DescribeSpotDatafeedSubscription
     { dsdsrDryRun = Nothing
     }
 

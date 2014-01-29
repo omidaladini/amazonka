@@ -65,9 +65,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 countClosedWorkflowExecutions :: Text
-                              -> AWS (Either SWFError CountClosedWorkflowExecutionsResponse)
+                              -> CountClosedWorkflowExecutions
 countClosedWorkflowExecutions p1 = undefined $ CountClosedWorkflowExecutions
     { ccweiDomain = p1
     , ccweiCloseStatusFilter = Nothing

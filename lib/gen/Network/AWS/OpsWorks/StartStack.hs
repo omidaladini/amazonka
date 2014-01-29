@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 startStack :: Text
-           -> AWS (Either OpsWorksError StartStackResponse)
+           -> StartStack
 startStack p1 = undefined $ StartStack
     { sssStackId = p1
     }

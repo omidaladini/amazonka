@@ -55,9 +55,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 scan :: Text
-     -> AWS (Either DynamoDBError ScanResponse)
+     -> Scan
 scan p1 = undefined $ Scan
     { siTableName = p1
     , siAttributesToGet = []

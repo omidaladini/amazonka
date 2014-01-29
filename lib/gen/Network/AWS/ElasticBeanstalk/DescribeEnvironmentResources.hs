@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-describeEnvironmentResources :: AWS (Either ElasticBeanstalkError DescribeEnvironmentResourcesResponse)
-describeEnvironmentResources = undefined $ DescribeEnvironmentResources
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeEnvironmentResources :: DescribeEnvironmentResources
+describeEnvironmentResources = DescribeEnvironmentResources
     { dermEnvironmentId = Nothing
     , dermEnvironmentName = Nothing
     }

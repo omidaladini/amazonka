@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 startLogging :: Text
-             -> AWS (Either CloudTrailError StartLoggingResponse)
+             -> StartLogging
 startLogging p1 = undefined $ StartLogging
     { slsName = p1
     }

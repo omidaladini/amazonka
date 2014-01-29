@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeClusterSubnetGroups :: AWS (Either RedshiftError DescribeClusterSubnetGroupsResponse)
-describeClusterSubnetGroups = undefined $ DescribeClusterSubnetGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeClusterSubnetGroups :: DescribeClusterSubnetGroups
+describeClusterSubnetGroups = DescribeClusterSubnetGroups
     { dcsgoClusterSubnetGroupName = Nothing
     , dcsgoMarker = Nothing
     , dcsgoMaxRecords = Nothing

@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeHsmClientCertificates :: AWS (Either RedshiftError DescribeHsmClientCertificatesResponse)
-describeHsmClientCertificates = undefined $ DescribeHsmClientCertificates
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeHsmClientCertificates :: DescribeHsmClientCertificates
+describeHsmClientCertificates = DescribeHsmClientCertificates
     { dhccmHsmClientCertificateIdentifier = Nothing
     , dhccmMarker = Nothing
     , dhccmMaxRecords = Nothing

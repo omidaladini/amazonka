@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 retrieveEnvironmentInfo :: EnvironmentInfoType
-                        -> AWS (Either ElasticBeanstalkError RetrieveEnvironmentInfoResponse)
+                        -> RetrieveEnvironmentInfo
 retrieveEnvironmentInfo p1 = undefined $ RetrieveEnvironmentInfo
     { reinInfoType = p1
     , reinEnvironmentId = Nothing

@@ -40,9 +40,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 assignVolume :: Text
-             -> AWS (Either OpsWorksError AssignVolumeResponse)
+             -> AssignVolume
 assignVolume p1 = undefined $ AssignVolume
     { avrVolumeId = p1
     , avrInstanceId = Nothing

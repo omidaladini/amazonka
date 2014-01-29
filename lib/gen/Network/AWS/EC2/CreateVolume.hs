@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createVolume :: Text
-             -> AWS (Either EC2Error CreateVolumeResponse)
+             -> CreateVolume
 createVolume p1 = undefined $ CreateVolume
     { cvsAvailabilityZone = p1
     , cvsDryRun = Nothing

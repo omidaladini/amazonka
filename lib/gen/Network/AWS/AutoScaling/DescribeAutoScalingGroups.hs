@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeAutoScalingGroups :: AWS (Either AutoScalingError DescribeAutoScalingGroupsResponse)
-describeAutoScalingGroups = undefined $ DescribeAutoScalingGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeAutoScalingGroups :: DescribeAutoScalingGroups
+describeAutoScalingGroups = DescribeAutoScalingGroups
     { asgntAutoScalingGroupNames = []
     , asgntMaxRecords = Nothing
     , asgntNextToken = Nothing

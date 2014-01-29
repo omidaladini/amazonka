@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-importVolume :: AWS (Either EC2Error ImportVolumeResponse)
-importVolume = undefined $ ImportVolume
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+importVolume :: ImportVolume
+importVolume = ImportVolume
     { ivrAvailabilityZone = Nothing
     , ivrDescription = Nothing
     , ivrDryRun = Nothing

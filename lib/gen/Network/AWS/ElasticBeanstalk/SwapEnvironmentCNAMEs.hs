@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-swapEnvironmentCNAMEs :: AWS (Either ElasticBeanstalkError SwapEnvironmentCNAMEsResponse)
-swapEnvironmentCNAMEs = undefined $ SwapEnvironmentCNAMEs
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+swapEnvironmentCNAMEs :: SwapEnvironmentCNAMEs
+swapEnvironmentCNAMEs = SwapEnvironmentCNAMEs
     { secnamemDestinationEnvironmentId = Nothing
     , secnamemDestinationEnvironmentName = Nothing
     , secnamemSourceEnvironmentId = Nothing

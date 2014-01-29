@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 attachInstances :: ResourceName
-                -> AWS (Either AutoScalingError AttachInstancesResponse)
+                -> AttachInstances
 attachInstances p1 = undefined $ AttachInstances
     { aiqAutoScalingGroupName = p1
     , aiqInstanceIds = []

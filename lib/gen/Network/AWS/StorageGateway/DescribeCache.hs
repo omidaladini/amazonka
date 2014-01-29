@@ -54,9 +54,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeCache :: Text
-              -> AWS (Either StorageGatewayError DescribeCacheResponse)
+              -> DescribeCache
 describeCache p1 = undefined $ DescribeCache
     { dciGatewayARN = p1
     }

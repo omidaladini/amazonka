@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createTags :: [Text]
            -> [Tag]
-           -> AWS (Either EC2Error CreateTagsResponse)
+           -> CreateTags
 createTags p1 p2 = undefined $ CreateTags
     { ctrResources = p1
     , ctrTags = p2

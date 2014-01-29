@@ -44,9 +44,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
-listPipelines :: AWS (Either DataPipelineError ListPipelinesResponse)
-listPipelines = undefined $ ListPipelines
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listPipelines :: ListPipelines
+listPipelines = ListPipelines
     { lpiMarker = Nothing
     }
 

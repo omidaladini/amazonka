@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeVpcs :: AWS (Either EC2Error DescribeVpcsResponse)
-describeVpcs = undefined $ DescribeVpcs
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeVpcs :: DescribeVpcs
+describeVpcs = DescribeVpcs
     { dvsDryRun = Nothing
     , dvsFilters = []
     , dvsVpcIds = []

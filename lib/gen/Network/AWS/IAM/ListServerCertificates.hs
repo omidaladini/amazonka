@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listServerCertificates :: AWS (Either IAMError ListServerCertificatesResponse)
-listServerCertificates = undefined $ ListServerCertificates
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listServerCertificates :: ListServerCertificates
+listServerCertificates = ListServerCertificates
     { lscrMarker = Nothing
     , lscrMaxItems = Nothing
     , lscrPathPrefix = Nothing

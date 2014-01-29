@@ -63,9 +63,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deprecateDomain :: Text
-                -> AWS (Either SWFError DeprecateDomainResponse)
+                -> DeprecateDomain
 deprecateDomain p1 = undefined $ DeprecateDomain
     { ddjName = p1
     }

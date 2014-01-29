@@ -39,14 +39,15 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createHsmConfiguration :: Text
                        -> Text
                        -> Text
                        -> Text
                        -> Text
                        -> Text
-                       -> AWS (Either RedshiftError CreateHsmConfigurationResponse)
+                       -> CreateHsmConfiguration
 createHsmConfiguration p1 p2 p3 p4 p5 p6 = undefined $ CreateHsmConfiguration
     { chcmDescription = p1
     , chcmHsmConfigurationIdentifier = p2

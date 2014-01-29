@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 resetClusterParameterGroup :: Text
-                           -> AWS (Either RedshiftError ResetClusterParameterGroupResponse)
+                           -> ResetClusterParameterGroup
 resetClusterParameterGroup p1 = undefined $ ResetClusterParameterGroup
     { rcpgmParameterGroupName = p1
     , rcpgmParameters = []

@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
-estimateTemplateCost :: AWS (Either CloudFormationError EstimateTemplateCostResponse)
-estimateTemplateCost = undefined $ EstimateTemplateCost
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+estimateTemplateCost :: EstimateTemplateCost
+estimateTemplateCost = EstimateTemplateCost
     { etciParameters = []
     , etciTemplateBody = Nothing
     , etciTemplateURL = Nothing

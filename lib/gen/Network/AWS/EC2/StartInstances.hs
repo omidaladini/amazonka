@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 startInstances :: [Text]
-               -> AWS (Either EC2Error StartInstancesResponse)
+               -> StartInstances
 startInstances p1 = undefined $ StartInstances
     { sisInstanceIds = p1
     , sisAdditionalInfo = Nothing

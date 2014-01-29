@@ -42,11 +42,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createConnection :: Text
                  -> Text
                  -> Text
-                 -> AWS (Either DirectConnectError CreateConnectionResponse)
+                 -> CreateConnection
 createConnection p1 p2 p3 = undefined $ CreateConnection
     { ccrBandwidth = p1
     , ccrConnectionName = p2

@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeOptionGroupOptions :: Text
-                           -> AWS (Either RDSError DescribeOptionGroupOptionsResponse)
+                           -> DescribeOptionGroupOptions
 describeOptionGroupOptions p1 = undefined $ DescribeOptionGroupOptions
     { dogomEngineName = p1
     , dogomMajorEngineVersion = Nothing

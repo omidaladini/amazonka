@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createSpotDatafeedSubscription :: Text
-                               -> AWS (Either EC2Error CreateSpotDatafeedSubscriptionResponse)
+                               -> CreateSpotDatafeedSubscription
 createSpotDatafeedSubscription p1 = undefined $ CreateSpotDatafeedSubscription
     { csdsrBucket = p1
     , csdsrDryRun = Nothing

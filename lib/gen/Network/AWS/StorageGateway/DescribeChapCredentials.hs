@@ -50,9 +50,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeChapCredentials :: Text
-                        -> AWS (Either StorageGatewayError DescribeChapCredentialsResponse)
+                        -> DescribeChapCredentials
 describeChapCredentials p1 = undefined $ DescribeChapCredentials
     { dcciTargetARN = p1
     }

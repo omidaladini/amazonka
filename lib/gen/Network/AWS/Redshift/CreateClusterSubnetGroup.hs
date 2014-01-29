@@ -45,11 +45,12 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createClusterSubnetGroup :: Text
                          -> Text
                          -> [Text]
-                         -> AWS (Either RedshiftError CreateClusterSubnetGroupResponse)
+                         -> CreateClusterSubnetGroup
 createClusterSubnetGroup p1 p2 p3 = undefined $ CreateClusterSubnetGroup
     { ccsgmClusterSubnetGroupName = p1
     , ccsgmDescription = p2

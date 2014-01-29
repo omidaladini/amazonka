@@ -82,9 +82,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 batchWriteItem :: HashMap Text [WriteRequest]
-               -> AWS (Either DynamoDBError BatchWriteItemResponse)
+               -> BatchWriteItem
 batchWriteItem p1 = undefined $ BatchWriteItem
     { bwiiRequestItems = p1
     , bwiiReturnConsumedCapacity = Nothing

@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 enableVolumeIO :: Text
-               -> AWS (Either EC2Error EnableVolumeIOResponse)
+               -> EnableVolumeIO
 enableVolumeIO p1 = undefined $ EnableVolumeIO
     { eviorVolumeId = p1
     , eviorDryRun = Nothing

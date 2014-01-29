@@ -36,9 +36,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getBucketWebsite :: Text
-                 -> AWS (Either S3Error GetBucketWebsiteResponse)
+                 -> GetBucketWebsite
 getBucketWebsite p1 = undefined $ GetBucketWebsite
     { gbwBucket = p1
     }

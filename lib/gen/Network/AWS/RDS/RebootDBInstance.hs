@@ -54,9 +54,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 rebootDBInstance :: Text
-                 -> AWS (Either RDSError RebootDBInstanceResponse)
+                 -> RebootDBInstance
 rebootDBInstance p1 = undefined $ RebootDBInstance
     { rdbimDBInstanceIdentifier = p1
     , rdbimForceFailover = Nothing

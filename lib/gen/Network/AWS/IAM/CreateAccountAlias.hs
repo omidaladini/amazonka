@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createAccountAlias :: Text
-                   -> AWS (Either IAMError CreateAccountAliasResponse)
+                   -> CreateAccountAlias
 createAccountAlias p1 = undefined $ CreateAccountAlias
     { caarAccountAlias = p1
     }

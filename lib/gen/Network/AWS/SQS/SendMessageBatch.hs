@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 sendMessageBatch :: [SendMessageBatchRequestEntry]
                  -> Text
-                 -> AWS (Either SQSError SendMessageBatchResponse)
+                 -> SendMessageBatch
 sendMessageBatch p1 p2 = undefined $ SendMessageBatch
     { smbrEntries = p1
     , smbrQueueUrl = p2

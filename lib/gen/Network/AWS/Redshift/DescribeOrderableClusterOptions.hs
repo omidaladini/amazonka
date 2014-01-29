@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeOrderableClusterOptions :: AWS (Either RedshiftError DescribeOrderableClusterOptionsResponse)
-describeOrderableClusterOptions = undefined $ DescribeOrderableClusterOptions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeOrderableClusterOptions :: DescribeOrderableClusterOptions
+describeOrderableClusterOptions = DescribeOrderableClusterOptions
     { docomClusterVersion = Nothing
     , docomMarker = Nothing
     , docomMaxRecords = Nothing

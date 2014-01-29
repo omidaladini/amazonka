@@ -37,9 +37,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getHostedZone :: Text
-              -> AWS (Either Route53Error GetHostedZoneResponse)
+              -> GetHostedZone
 getHostedZone p1 = undefined $ GetHostedZone
     { ghzrId = p1
     }

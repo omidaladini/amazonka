@@ -41,11 +41,12 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createCacheSubnetGroup :: Text
                        -> Text
                        -> [Text]
-                       -> AWS (Either ElastiCacheError CreateCacheSubnetGroupResponse)
+                       -> CreateCacheSubnetGroup
 createCacheSubnetGroup p1 p2 p3 = undefined $ CreateCacheSubnetGroup
     { ccsgnCacheSubnetGroupDescription = p1
     , ccsgnCacheSubnetGroupName = p2

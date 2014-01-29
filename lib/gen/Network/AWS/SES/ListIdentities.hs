@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
-listIdentities :: AWS (Either SESError ListIdentitiesResponse)
-listIdentities = undefined $ ListIdentities
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listIdentities :: ListIdentities
+listIdentities = ListIdentities
     { lirIdentityType = Nothing
     , lirMaxItems = Nothing
     , lirNextToken = Nothing

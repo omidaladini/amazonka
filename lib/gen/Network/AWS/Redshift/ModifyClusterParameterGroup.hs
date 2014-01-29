@@ -45,10 +45,11 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyClusterParameterGroup :: Text
                             -> [Parameter]
-                            -> AWS (Either RedshiftError ModifyClusterParameterGroupResponse)
+                            -> ModifyClusterParameterGroup
 modifyClusterParameterGroup p1 p2 = undefined $ ModifyClusterParameterGroup
     { mcpgmParameterGroupName = p1
     , mcpgmParameters = p2

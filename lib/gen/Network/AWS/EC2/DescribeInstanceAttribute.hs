@@ -33,10 +33,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeInstanceAttribute :: InstanceAttributeName
                           -> Text
-                          -> AWS (Either EC2Error DescribeInstanceAttributeResponse)
+                          -> DescribeInstanceAttribute
 describeInstanceAttribute p1 p2 = undefined $ DescribeInstanceAttribute
     { diarAttribute = p1
     , diarInstanceId = p2

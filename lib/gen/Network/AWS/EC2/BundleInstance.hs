@@ -35,10 +35,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 bundleInstance :: Text
                -> Storage
-               -> AWS (Either EC2Error BundleInstanceResponse)
+               -> BundleInstance
 bundleInstance p1 p2 = undefined $ BundleInstance
     { birInstanceId = p1
     , birStorage = p2

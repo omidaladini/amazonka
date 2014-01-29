@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeLoadBalancerAttributes :: Text
-                               -> AWS (Either ElasticLoadBalancingError DescribeLoadBalancerAttributesResponse)
+                               -> DescribeLoadBalancerAttributes
 describeLoadBalancerAttributes p1 = undefined $ DescribeLoadBalancerAttributes
     { dlbaiLoadBalancerName = p1
     }

@@ -36,11 +36,12 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listParts :: Text
           -> Text
           -> Text
-          -> AWS (Either S3Error ListPartsResponse)
+          -> ListParts
 listParts p1 p2 p3 = undefined $ ListParts
     { lpBucket = p1
     , lpKey = p2

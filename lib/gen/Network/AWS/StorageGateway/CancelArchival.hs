@@ -34,10 +34,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 cancelArchival :: Text
                -> Text
-               -> AWS (Either StorageGatewayError CancelArchivalResponse)
+               -> CancelArchival
 cancelArchival p1 p2 = undefined $ CancelArchival
     { caiGatewayARN = p1
     , caiTapeARN = p2

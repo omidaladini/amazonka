@@ -32,10 +32,11 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteNotificationConfiguration :: ResourceName
                                 -> ResourceName
-                                -> AWS (Either AutoScalingError DeleteNotificationConfigurationResponse)
+                                -> DeleteNotificationConfiguration
 deleteNotificationConfiguration p1 p2 = undefined $ DeleteNotificationConfiguration
     { dnctAutoScalingGroupName = p1
     , dnctTopicARN = p2

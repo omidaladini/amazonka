@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeClusterVersions :: AWS (Either RedshiftError DescribeClusterVersionsResponse)
-describeClusterVersions = undefined $ DescribeClusterVersions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeClusterVersions :: DescribeClusterVersions
+describeClusterVersions = DescribeClusterVersions
     { dcvmClusterParameterGroupFamily = Nothing
     , dcvmClusterVersion = Nothing
     , dcvmMarker = Nothing

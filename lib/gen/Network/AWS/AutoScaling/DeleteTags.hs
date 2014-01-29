@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteTags :: [Tag]
-           -> AWS (Either AutoScalingError DeleteTagsResponse)
+           -> DeleteTags
 deleteTags p1 = undefined $ DeleteTags
     { dtuTags = p1
     }

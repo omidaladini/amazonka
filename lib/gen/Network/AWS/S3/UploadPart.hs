@@ -41,13 +41,14 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 uploadPart :: Text
            -> Text
            -> RequestBody
            -> Int
            -> Text
-           -> AWS (Either S3Error UploadPartResponse)
+           -> UploadPart
 uploadPart p1 p2 p3 p4 p5 = undefined $ UploadPart
     { upBucket = p1
     , upKey = p2

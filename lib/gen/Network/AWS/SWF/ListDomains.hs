@@ -72,9 +72,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listDomains :: RegistrationStatus
-            -> AWS (Either SWFError ListDomainsResponse)
+            -> ListDomains
 listDomains p1 = undefined $ ListDomains
     { ldiRegistrationStatus = p1
     , ldiMaximumPageSize = Nothing

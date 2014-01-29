@@ -36,10 +36,11 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 resetCacheParameterGroup :: Text
                          -> [ParameterNameValue]
-                         -> AWS (Either ElastiCacheError ResetCacheParameterGroupResponse)
+                         -> ResetCacheParameterGroup
 resetCacheParameterGroup p1 p2 = undefined $ ResetCacheParameterGroup
     { rcpgmCacheParameterGroupName = p1
     , rcpgmParameterNameValues = p2

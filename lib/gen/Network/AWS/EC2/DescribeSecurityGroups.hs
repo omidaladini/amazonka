@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeSecurityGroups :: AWS (Either EC2Error DescribeSecurityGroupsResponse)
-describeSecurityGroups = undefined $ DescribeSecurityGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeSecurityGroups :: DescribeSecurityGroups
+describeSecurityGroups = DescribeSecurityGroups
     { dsgsDryRun = Nothing
     , dsgsFilters = []
     , dsgsGroupIds = []

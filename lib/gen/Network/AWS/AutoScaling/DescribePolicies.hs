@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describePolicies :: AWS (Either AutoScalingError DescribePoliciesResponse)
-describePolicies = undefined $ DescribePolicies
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describePolicies :: DescribePolicies
+describePolicies = DescribePolicies
     { dpuAutoScalingGroupName = Nothing
     , dpuMaxRecords = Nothing
     , dpuNextToken = Nothing

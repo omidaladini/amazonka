@@ -55,9 +55,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeUploadBuffer :: Text
-                     -> AWS (Either StorageGatewayError DescribeUploadBufferResponse)
+                     -> DescribeUploadBuffer
 describeUploadBuffer p1 = undefined $ DescribeUploadBuffer
     { dubiGatewayARN = p1
     }

@@ -51,10 +51,11 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setIdentityDkimEnabled :: Bool
                        -> Text
-                       -> AWS (Either SESError SetIdentityDkimEnabledResponse)
+                       -> SetIdentityDkimEnabled
 setIdentityDkimEnabled p1 p2 = undefined $ SetIdentityDkimEnabled
     { siderDkimEnabled = p1
     , siderIdentity = p2

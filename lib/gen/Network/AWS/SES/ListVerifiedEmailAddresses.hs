@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
-listVerifiedEmailAddresses :: AWS (Either SESError ListVerifiedEmailAddressesResponse)
-listVerifiedEmailAddresses = undefined ListVerifiedEmailAddresses
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listVerifiedEmailAddresses :: ListVerifiedEmailAddresses
+listVerifiedEmailAddresses = ListVerifiedEmailAddresses
 
 data ListVerifiedEmailAddresses = ListVerifiedEmailAddresses
     deriving (Eq, Show, Generic)

@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeLoggingStatus :: Text
-                      -> AWS (Either RedshiftError DescribeLoggingStatusResponse)
+                      -> DescribeLoggingStatus
 describeLoggingStatus p1 = undefined $ DescribeLoggingStatus
     { dlsmClusterIdentifier = p1
     }

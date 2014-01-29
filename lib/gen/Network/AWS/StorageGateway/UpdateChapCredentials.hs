@@ -54,11 +54,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateChapCredentials :: Text
                       -> Text
                       -> Text
-                      -> AWS (Either StorageGatewayError UpdateChapCredentialsResponse)
+                      -> UpdateChapCredentials
 updateChapCredentials p1 p2 p3 = undefined $ UpdateChapCredentials
     { ucciInitiatorName = p1
     , ucciSecretToAuthenticateInitiator = p2

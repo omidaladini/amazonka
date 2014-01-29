@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeScalingActivities :: AWS (Either AutoScalingError DescribeScalingActivitiesResponse)
-describeScalingActivities = undefined $ DescribeScalingActivities
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeScalingActivities :: DescribeScalingActivities
+describeScalingActivities = DescribeScalingActivities
     { dsavActivityIds = []
     , dsavAutoScalingGroupName = Nothing
     , dsavMaxRecords = Nothing

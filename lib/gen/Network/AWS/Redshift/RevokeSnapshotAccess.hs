@@ -36,10 +36,11 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 revokeSnapshotAccess :: Text
                      -> Text
-                     -> AWS (Either RedshiftError RevokeSnapshotAccessResponse)
+                     -> RevokeSnapshotAccess
 revokeSnapshotAccess p1 p2 = undefined $ RevokeSnapshotAccess
     { rsamAccountWithRestoreAccess = p1
     , rsamSnapshotIdentifier = p2

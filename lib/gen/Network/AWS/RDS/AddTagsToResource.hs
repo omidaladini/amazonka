@@ -36,10 +36,11 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addTagsToResource :: Text
                   -> [Tag]
-                  -> AWS (Either RDSError AddTagsToResourceResponse)
+                  -> AddTagsToResource
 addTagsToResource p1 p2 = undefined $ AddTagsToResource
     { attrmResourceName = p1
     , attrmTags = p2

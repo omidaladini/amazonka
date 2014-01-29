@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
-describeInstances :: AWS (Either OpsWorksError DescribeInstancesResponse)
-describeInstances = undefined $ DescribeInstances
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeInstances :: DescribeInstances
+describeInstances = DescribeInstances
     { disInstanceIds = []
     , disLayerId = Nothing
     , disStackId = Nothing

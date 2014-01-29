@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteEventSubscription :: Text
-                        -> AWS (Either RDSError DeleteEventSubscriptionResponse)
+                        -> DeleteEventSubscription
 deleteEventSubscription p1 = undefined $ DeleteEventSubscription
     { desmSubscriptionName = p1
     }

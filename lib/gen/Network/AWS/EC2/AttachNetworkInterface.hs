@@ -32,11 +32,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 attachNetworkInterface :: Int
                        -> Text
                        -> Text
-                       -> AWS (Either EC2Error AttachNetworkInterfaceResponse)
+                       -> AttachNetworkInterface
 attachNetworkInterface p1 p2 p3 = undefined $ AttachNetworkInterface
     { anirDeviceIndex = p1
     , anirInstanceId = p2

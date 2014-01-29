@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createRouteTable :: Text
-                 -> AWS (Either EC2Error CreateRouteTableResponse)
+                 -> CreateRouteTable
 createRouteTable p1 = undefined $ CreateRouteTable
     { crtrVpcId = p1
     , crtrDryRun = Nothing

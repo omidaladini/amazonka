@@ -43,9 +43,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteVerifiedEmailAddress :: Text
-                           -> AWS (Either SESError DeleteVerifiedEmailAddressResponse)
+                           -> DeleteVerifiedEmailAddress
 deleteVerifiedEmailAddress p1 = undefined $ DeleteVerifiedEmailAddress
     { dvearEmailAddress = p1
     }

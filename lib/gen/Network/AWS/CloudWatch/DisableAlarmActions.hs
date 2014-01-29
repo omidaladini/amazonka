@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 disableAlarmActions :: [Text]
-                    -> AWS (Either CloudWatchError DisableAlarmActionsResponse)
+                    -> DisableAlarmActions
 disableAlarmActions p1 = undefined $ DisableAlarmActions
     { daaiAlarmNames = p1
     }

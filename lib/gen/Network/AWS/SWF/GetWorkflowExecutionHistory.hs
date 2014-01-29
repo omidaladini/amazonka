@@ -100,10 +100,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getWorkflowExecutionHistory :: Text
                             -> WorkflowExecution
-                            -> AWS (Either SWFError GetWorkflowExecutionHistoryResponse)
+                            -> GetWorkflowExecutionHistory
 getWorkflowExecutionHistory p1 p2 = undefined $ GetWorkflowExecutionHistory
     { gwehiDomain = p1
     , gwehiExecution = p2

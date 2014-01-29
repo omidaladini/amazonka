@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-associateAddress :: AWS (Either EC2Error AssociateAddressResponse)
-associateAddress = undefined $ AssociateAddress
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+associateAddress :: AssociateAddress
+associateAddress = AssociateAddress
     { aasAllocationId = Nothing
     , aasAllowReassociation = Nothing
     , aasDryRun = Nothing

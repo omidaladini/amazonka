@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 indexDocuments :: Text
-               -> AWS (Either CloudSearchError IndexDocumentsResponse)
+               -> IndexDocuments
 indexDocuments p1 = undefined $ IndexDocuments
     { idrDomainName = p1
     }

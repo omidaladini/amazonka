@@ -36,10 +36,11 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setDesiredCapacity :: ResourceName
                    -> Int
-                   -> AWS (Either AutoScalingError SetDesiredCapacityResponse)
+                   -> SetDesiredCapacity
 setDesiredCapacity p1 p2 = undefined $ SetDesiredCapacity
     { sdctAutoScalingGroupName = p1
     , sdctDesiredCapacity = p2

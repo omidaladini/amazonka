@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteTrail :: Text
-            -> AWS (Either CloudTrailError DeleteTrailResponse)
+            -> DeleteTrail
 deleteTrail p1 = undefined $ DeleteTrail
     { dtsName = p1
     }

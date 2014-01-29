@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createApplication :: Text
-                  -> AWS (Either ElasticBeanstalkError CreateApplicationResponse)
+                  -> CreateApplication
 createApplication p1 = undefined $ CreateApplication
     { camApplicationName = p1
     , camDescription = Nothing

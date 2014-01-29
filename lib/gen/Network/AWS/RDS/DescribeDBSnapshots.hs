@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeDBSnapshots :: AWS (Either RDSError DescribeDBSnapshotsResponse)
-describeDBSnapshots = undefined $ DescribeDBSnapshots
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeDBSnapshots :: DescribeDBSnapshots
+describeDBSnapshots = DescribeDBSnapshots
     { ddbsmDBInstanceIdentifier = Nothing
     , ddbsmDBSnapshotIdentifier = Nothing
     , ddbsmMarker = Nothing

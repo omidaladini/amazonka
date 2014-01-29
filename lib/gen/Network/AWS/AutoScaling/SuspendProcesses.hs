@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 suspendProcesses :: ResourceName
-                 -> AWS (Either AutoScalingError SuspendProcessesResponse)
+                 -> SuspendProcesses
 suspendProcesses p1 = undefined $ SuspendProcesses
     { spqAutoScalingGroupName = p1
     , spqScalingProcesses = []

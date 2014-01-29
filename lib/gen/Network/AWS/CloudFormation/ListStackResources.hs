@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 listStackResources :: Text
-                   -> AWS (Either CloudFormationError ListStackResourcesResponse)
+                   -> ListStackResources
 listStackResources p1 = undefined $ ListStackResources
     { lsriStackName = p1
     , lsriNextToken = Nothing

@@ -49,9 +49,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeTable :: Text
-              -> AWS (Either DynamoDBError DescribeTableResponse)
+              -> DescribeTable
 describeTable p1 = undefined $ DescribeTable
     { dtjTableName = p1
     }

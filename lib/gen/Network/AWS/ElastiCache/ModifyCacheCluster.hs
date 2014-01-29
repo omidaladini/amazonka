@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 modifyCacheCluster :: Text
-                   -> AWS (Either ElastiCacheError ModifyCacheClusterResponse)
+                   -> ModifyCacheCluster
 modifyCacheCluster p1 = undefined $ ModifyCacheCluster
     { mccmCacheClusterId = p1
     , mccmApplyImmediately = Nothing

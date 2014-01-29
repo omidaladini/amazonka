@@ -40,10 +40,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 attachElasticLoadBalancer :: Text
                           -> Text
-                          -> AWS (Either OpsWorksError AttachElasticLoadBalancerResponse)
+                          -> AttachElasticLoadBalancer
 attachElasticLoadBalancer p1 p2 = undefined $ AttachElasticLoadBalancer
     { aelbrElasticLoadBalancerName = p1
     , aelbrLayerId = p2

@@ -64,10 +64,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deprecateActivityType :: ActivityType
                       -> Text
-                      -> AWS (Either SWFError DeprecateActivityTypeResponse)
+                      -> DeprecateActivityType
 deprecateActivityType p1 p2 = undefined $ DeprecateActivityType
     { datjActivityType = p1
     , datjDomain = p2

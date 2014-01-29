@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getQueueUrl :: Text
-            -> AWS (Either SQSError GetQueueUrlResponse)
+            -> GetQueueUrl
 getQueueUrl p1 = undefined $ GetQueueUrl
     { gqurQueueName = p1
     , gqurQueueOwnerAWSAccountId = Nothing

@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createPlacementGroup :: Text
                      -> PlacementStrategy
-                     -> AWS (Either EC2Error CreatePlacementGroupResponse)
+                     -> CreatePlacementGroup
 createPlacementGroup p1 p2 = undefined $ CreatePlacementGroup
     { cpgrGroupName = p1
     , cpgrStrategy = p2

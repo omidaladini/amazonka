@@ -36,10 +36,11 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 restoreObject :: Text
               -> Text
-              -> AWS (Either S3Error RestoreObjectResponse)
+              -> RestoreObject
 restoreObject p1 p2 = undefined $ RestoreObject
     { roBucket = p1
     , roKey = p2

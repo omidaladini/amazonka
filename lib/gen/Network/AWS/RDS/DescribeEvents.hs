@@ -46,9 +46,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeEvents :: AWS (Either RDSError DescribeEventsResponse)
-describeEvents = undefined $ DescribeEvents
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeEvents :: DescribeEvents
+describeEvents = DescribeEvents
     { demDuration = Nothing
     , demEndTime = Nothing
     , demEventCategories = []

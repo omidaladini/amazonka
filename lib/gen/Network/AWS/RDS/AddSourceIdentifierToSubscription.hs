@@ -41,10 +41,11 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addSourceIdentifierToSubscription :: Text
                                   -> Text
-                                  -> AWS (Either RDSError AddSourceIdentifierToSubscriptionResponse)
+                                  -> AddSourceIdentifierToSubscription
 addSourceIdentifierToSubscription p1 p2 = undefined $ AddSourceIdentifierToSubscription
     { asitsmSourceIdentifier = p1
     , asitsmSubscriptionName = p2

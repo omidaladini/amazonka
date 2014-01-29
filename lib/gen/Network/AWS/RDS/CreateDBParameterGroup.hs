@@ -46,11 +46,12 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createDBParameterGroup :: Text
                        -> Text
                        -> Text
-                       -> AWS (Either RDSError CreateDBParameterGroupResponse)
+                       -> CreateDBParameterGroup
 createDBParameterGroup p1 p2 p3 = undefined $ CreateDBParameterGroup
     { cdbpgmDBParameterGroupFamily = p1
     , cdbpgmDBParameterGroupName = p2

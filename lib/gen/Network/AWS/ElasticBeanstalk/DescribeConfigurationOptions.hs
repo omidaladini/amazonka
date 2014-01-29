@@ -106,9 +106,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-describeConfigurationOptions :: AWS (Either ElasticBeanstalkError DescribeConfigurationOptionsResponse)
-describeConfigurationOptions = undefined $ DescribeConfigurationOptions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeConfigurationOptions :: DescribeConfigurationOptions
+describeConfigurationOptions = DescribeConfigurationOptions
     { dcomApplicationName = Nothing
     , dcomEnvironmentName = Nothing
     , dcomOptions = []

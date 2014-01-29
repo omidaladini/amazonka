@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteRole :: Text
-           -> AWS (Either IAMError DeleteRoleResponse)
+           -> DeleteRole
 deleteRole p1 = undefined $ DeleteRole
     { drrRoleName = p1
     }

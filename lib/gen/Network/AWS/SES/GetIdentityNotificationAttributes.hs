@@ -47,9 +47,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getIdentityNotificationAttributes :: [Text]
-                                  -> AWS (Either SESError GetIdentityNotificationAttributesResponse)
+                                  -> GetIdentityNotificationAttributes
 getIdentityNotificationAttributes p1 = undefined $ GetIdentityNotificationAttributes
     { ginarIdentities = p1
     }

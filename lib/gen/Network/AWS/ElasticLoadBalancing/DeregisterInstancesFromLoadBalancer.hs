@@ -43,10 +43,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deregisterInstancesFromLoadBalancer :: [Instance]
                                     -> Text
-                                    -> AWS (Either ElasticLoadBalancingError DeregisterInstancesFromLoadBalancerResponse)
+                                    -> DeregisterInstancesFromLoadBalancer
 deregisterInstancesFromLoadBalancer p1 p2 = undefined $ DeregisterInstancesFromLoadBalancer
     { depiInstances = p1
     , depiLoadBalancerName = p2

@@ -40,11 +40,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 allocatePrivateVirtualInterface :: Text
                                 -> NewPrivateVirtualInterfaceAllocation
                                 -> Text
-                                -> AWS (Either DirectConnectError AllocatePrivateVirtualInterfaceResponse)
+                                -> AllocatePrivateVirtualInterface
 allocatePrivateVirtualInterface p1 p2 p3 = undefined $ AllocatePrivateVirtualInterface
     { apvirConnectionId = p1
     , apvirNewPrivateVirtualInterfaceAllocation = p2

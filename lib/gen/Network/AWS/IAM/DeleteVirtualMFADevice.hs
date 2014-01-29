@@ -38,9 +38,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteVirtualMFADevice :: Text
-                       -> AWS (Either IAMError DeleteVirtualMFADeviceResponse)
+                       -> DeleteVirtualMFADevice
 deleteVirtualMFADevice p1 = undefined $ DeleteVirtualMFADevice
     { dvmfadrSerialNumber = p1
     }

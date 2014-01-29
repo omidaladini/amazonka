@@ -37,9 +37,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
-listBuckets :: AWS (Either S3Error ListBucketsResponse)
-listBuckets = undefined ListBuckets
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listBuckets :: ListBuckets
+listBuckets = ListBuckets
 
 type GetService = ListBuckets
 type GetServiceResponse = ListBucketsResponse

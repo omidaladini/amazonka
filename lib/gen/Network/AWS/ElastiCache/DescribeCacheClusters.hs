@@ -58,9 +58,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
-describeCacheClusters :: AWS (Either ElastiCacheError DescribeCacheClustersResponse)
-describeCacheClusters = undefined $ DescribeCacheClusters
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeCacheClusters :: DescribeCacheClusters
+describeCacheClusters = DescribeCacheClusters
     { dccnCacheClusterId = Nothing
     , dccnMarker = Nothing
     , dccnMaxRecords = Nothing

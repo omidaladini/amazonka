@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 changeMessageVisibilityBatch :: [ChangeMessageVisibilityBatchRequestEntry]
                              -> Text
-                             -> AWS (Either SQSError ChangeMessageVisibilityBatchResponse)
+                             -> ChangeMessageVisibilityBatch
 changeMessageVisibilityBatch p1 p2 = undefined $ ChangeMessageVisibilityBatch
     { cmvbrEntries = p1
     , cmvbrQueueUrl = p2

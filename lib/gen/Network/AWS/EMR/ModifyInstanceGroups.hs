@@ -53,9 +53,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-modifyInstanceGroups :: AWS (Either EMRError ModifyInstanceGroupsResponse)
-modifyInstanceGroups = undefined $ ModifyInstanceGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+modifyInstanceGroups :: ModifyInstanceGroups
+modifyInstanceGroups = ModifyInstanceGroups
     { migiInstanceGroups = []
     }
 

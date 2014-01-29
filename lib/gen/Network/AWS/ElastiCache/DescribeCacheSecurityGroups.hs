@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
-describeCacheSecurityGroups :: AWS (Either ElastiCacheError DescribeCacheSecurityGroupsResponse)
-describeCacheSecurityGroups = undefined $ DescribeCacheSecurityGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeCacheSecurityGroups :: DescribeCacheSecurityGroups
+describeCacheSecurityGroups = DescribeCacheSecurityGroups
     { dcsgoCacheSecurityGroupName = Nothing
     , dcsgoMarker = Nothing
     , dcsgoMaxRecords = Nothing

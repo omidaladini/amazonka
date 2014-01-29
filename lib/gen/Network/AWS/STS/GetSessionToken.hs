@@ -63,9 +63,10 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
--- | Convenience method utilising default fields where applicable.
-getSessionToken :: AWS (Either STSError GetSessionTokenResponse)
-getSessionToken = undefined $ GetSessionToken
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+getSessionToken :: GetSessionToken
+getSessionToken = GetSessionToken
     { gstrDurationSeconds = Nothing
     , gstrSerialNumber = Nothing
     , gstrTokenCode = Nothing

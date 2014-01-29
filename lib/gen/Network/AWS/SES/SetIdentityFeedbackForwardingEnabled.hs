@@ -45,10 +45,11 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setIdentityFeedbackForwardingEnabled :: Bool
                                      -> Text
-                                     -> AWS (Either SESError SetIdentityFeedbackForwardingEnabledResponse)
+                                     -> SetIdentityFeedbackForwardingEnabled
 setIdentityFeedbackForwardingEnabled p1 p2 = undefined $ SetIdentityFeedbackForwardingEnabled
     { sifferForwardingEnabled = p1
     , sifferIdentity = p2

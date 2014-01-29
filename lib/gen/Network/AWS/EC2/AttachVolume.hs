@@ -32,11 +32,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 attachVolume :: Text
              -> Text
              -> Text
-             -> AWS (Either EC2Error AttachVolumeResponse)
+             -> AttachVolume
 attachVolume p1 p2 p3 = undefined $ AttachVolume
     { avrDevice = p1
     , avrInstanceId = p2

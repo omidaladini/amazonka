@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createNetworkInterface :: Text
-                       -> AWS (Either EC2Error CreateNetworkInterfaceResponse)
+                       -> CreateNetworkInterface
 createNetworkInterface p1 = undefined $ CreateNetworkInterface
     { cnirSubnetId = p1
     , cnirDescription = Nothing

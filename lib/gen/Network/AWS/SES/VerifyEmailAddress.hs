@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.SES.Service
 import Network.AWS.SES.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 verifyEmailAddress :: Text
-                   -> AWS (Either SESError VerifyEmailAddressResponse)
+                   -> VerifyEmailAddress
 verifyEmailAddress p1 = undefined $ VerifyEmailAddress
     { vearEmailAddress = p1
     }

@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
-describeMyUserProfile :: AWS (Either OpsWorksError DescribeMyUserProfileResponse)
-describeMyUserProfile = undefined DescribeMyUserProfile
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeMyUserProfile :: DescribeMyUserProfile
+describeMyUserProfile = DescribeMyUserProfile
 
 data DescribeMyUserProfile = DescribeMyUserProfile
     deriving (Eq, Show, Generic)

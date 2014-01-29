@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-listBootstrapActions :: AWS (Either EMRError ListBootstrapActionsResponse)
-listBootstrapActions = undefined $ ListBootstrapActions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listBootstrapActions :: ListBootstrapActions
+listBootstrapActions = ListBootstrapActions
     { lbaiClusterId = Nothing
     , lbaiMarker = Nothing
     }

@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-disassociateAddress :: AWS (Either EC2Error DisassociateAddressResponse)
-disassociateAddress = undefined $ DisassociateAddress
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+disassociateAddress :: DisassociateAddress
+disassociateAddress = DisassociateAddress
     { dasAssociationId = Nothing
     , dasDryRun = Nothing
     , dasPublicIp = Nothing

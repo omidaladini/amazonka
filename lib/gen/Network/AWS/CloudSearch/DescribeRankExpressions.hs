@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeRankExpressions :: Text
-                        -> AWS (Either CloudSearchError DescribeRankExpressionsResponse)
+                        -> DescribeRankExpressions
 describeRankExpressions p1 = undefined $ DescribeRankExpressions
     { drerDomainName = p1
     , drerRankNames = []

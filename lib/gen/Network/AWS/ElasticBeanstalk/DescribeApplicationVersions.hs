@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
-describeApplicationVersions :: AWS (Either ElasticBeanstalkError DescribeApplicationVersionsResponse)
-describeApplicationVersions = undefined $ DescribeApplicationVersions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeApplicationVersions :: DescribeApplicationVersions
+describeApplicationVersions = DescribeApplicationVersions
     { davnApplicationName = Nothing
     , davnVersionLabels = []
     }

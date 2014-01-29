@@ -59,10 +59,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createCase :: Text
            -> Text
-           -> AWS (Either SupportError CreateCaseResponse)
+           -> CreateCase
 createCase p1 p2 = undefined $ CreateCase
     { ccrCommunicationBody = p1
     , ccrSubject = p2

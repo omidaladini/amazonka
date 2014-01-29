@@ -37,9 +37,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listAccountAliases :: AWS (Either IAMError ListAccountAliasesResponse)
-listAccountAliases = undefined $ ListAccountAliases
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listAccountAliases :: ListAccountAliases
+listAccountAliases = ListAccountAliases
     { laarMarker = Nothing
     , laarMaxItems = Nothing
     }

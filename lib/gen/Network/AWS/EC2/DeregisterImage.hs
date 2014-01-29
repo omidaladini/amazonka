@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deregisterImage :: Text
-                -> AWS (Either EC2Error DeregisterImageResponse)
+                -> DeregisterImage
 deregisterImage p1 = undefined $ DeregisterImage
     { dirImageId = p1
     , dirDryRun = Nothing

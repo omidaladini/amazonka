@@ -77,11 +77,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getShardIterator :: Text
                  -> ShardIteratorType
                  -> Text
-                 -> AWS (Either KinesisError GetShardIteratorResponse)
+                 -> GetShardIterator
 getShardIterator p1 p2 p3 = undefined $ GetShardIterator
     { gsiiShardId = p1
     , gsiiShardIteratorType = p2

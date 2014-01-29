@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-getAccountPasswordPolicy :: AWS (Either IAMError GetAccountPasswordPolicyResponse)
-getAccountPasswordPolicy = undefined GetAccountPasswordPolicy
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+getAccountPasswordPolicy :: GetAccountPasswordPolicy
+getAccountPasswordPolicy = GetAccountPasswordPolicy
 
 data GetAccountPasswordPolicy = GetAccountPasswordPolicy
     deriving (Eq, Show, Generic)

@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteDomain :: Text
-             -> AWS (Either CloudSearchError DeleteDomainResponse)
+             -> DeleteDomain
 deleteDomain p1 = undefined $ DeleteDomain
     { ddsDomainName = p1
     }

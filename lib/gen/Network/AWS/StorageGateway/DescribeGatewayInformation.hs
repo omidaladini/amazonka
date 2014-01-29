@@ -51,9 +51,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeGatewayInformation :: Text
-                           -> AWS (Either StorageGatewayError DescribeGatewayInformationResponse)
+                           -> DescribeGatewayInformation
 describeGatewayInformation p1 = undefined $ DescribeGatewayInformation
     { dgiiGatewayARN = p1
     }

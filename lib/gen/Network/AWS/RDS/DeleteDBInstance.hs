@@ -49,9 +49,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteDBInstance :: Text
-                 -> AWS (Either RDSError DeleteDBInstanceResponse)
+                 -> DeleteDBInstance
 deleteDBInstance p1 = undefined $ DeleteDBInstance
     { ddbimDBInstanceIdentifier = p1
     , ddbimFinalDBSnapshotIdentifier = Nothing

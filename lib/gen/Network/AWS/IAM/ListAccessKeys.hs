@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listAccessKeys :: AWS (Either IAMError ListAccessKeysResponse)
-listAccessKeys = undefined $ ListAccessKeys
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listAccessKeys :: ListAccessKeys
+listAccessKeys = ListAccessKeys
     { lakrMarker = Nothing
     , lakrMaxItems = Nothing
     , lakrUserName = Nothing

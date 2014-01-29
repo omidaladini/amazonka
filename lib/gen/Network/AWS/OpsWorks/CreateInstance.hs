@@ -38,11 +38,12 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createInstance :: Text
                -> [Text]
                -> Text
-               -> AWS (Either OpsWorksError CreateInstanceResponse)
+               -> CreateInstance
 createInstance p1 p2 p3 = undefined $ CreateInstance
     { cirInstanceType = p1
     , cirLayerIds = p2

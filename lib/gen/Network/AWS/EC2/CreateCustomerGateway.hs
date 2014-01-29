@@ -45,11 +45,12 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createCustomerGateway :: Int
                       -> Text
                       -> GatewayType
-                      -> AWS (Either EC2Error CreateCustomerGatewayResponse)
+                      -> CreateCustomerGateway
 createCustomerGateway p1 p2 p3 = undefined $ CreateCustomerGateway
     { ccgrBgpAsn = p1
     , ccgrPublicIp = p2

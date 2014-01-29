@@ -48,10 +48,11 @@ import           Text.XML.Generic
 import Network.AWS.SNS.Service
 import Network.AWS.SNS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createPlatformEndpoint :: Text
                        -> Text
-                       -> AWS (Either SNSError CreatePlatformEndpointResponse)
+                       -> CreatePlatformEndpoint
 createPlatformEndpoint p1 p2 = undefined $ CreatePlatformEndpoint
     { cpeiPlatformApplicationArn = p1
     , cpeiToken = p2

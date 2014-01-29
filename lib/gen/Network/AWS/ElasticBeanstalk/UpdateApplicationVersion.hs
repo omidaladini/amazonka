@@ -39,10 +39,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateApplicationVersion :: Text
                          -> Text
-                         -> AWS (Either ElasticBeanstalkError UpdateApplicationVersionResponse)
+                         -> UpdateApplicationVersion
 updateApplicationVersion p1 p2 = undefined $ UpdateApplicationVersion
     { uavmApplicationName = p1
     , uavmVersionLabel = p2

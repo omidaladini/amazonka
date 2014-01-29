@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteScheduledAction :: ResourceName
-                      -> AWS (Either AutoScalingError DeleteScheduledActionResponse)
+                      -> DeleteScheduledAction
 deleteScheduledAction p1 = undefined $ DeleteScheduledAction
     { dsatScheduledActionName = p1
     , dsatAutoScalingGroupName = Nothing

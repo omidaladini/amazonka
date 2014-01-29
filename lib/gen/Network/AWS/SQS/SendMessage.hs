@@ -32,10 +32,11 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 sendMessage :: Text
             -> Text
-            -> AWS (Either SQSError SendMessageResponse)
+            -> SendMessage
 sendMessage p1 p2 = undefined $ SendMessage
     { smrMessageBody = p1
     , smrQueueUrl = p2

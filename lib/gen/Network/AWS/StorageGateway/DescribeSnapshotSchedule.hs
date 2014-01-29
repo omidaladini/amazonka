@@ -50,9 +50,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeSnapshotSchedule :: Text
-                         -> AWS (Either StorageGatewayError DescribeSnapshotScheduleResponse)
+                         -> DescribeSnapshotSchedule
 describeSnapshotSchedule p1 = undefined $ DescribeSnapshotSchedule
     { dssiVolumeARN = p1
     }

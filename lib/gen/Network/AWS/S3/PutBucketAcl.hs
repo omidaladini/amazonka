@@ -36,9 +36,10 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.S3.Service
 import Network.AWS.S3.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putBucketAcl :: Text
-             -> AWS (Either S3Error PutBucketAclResponse)
+             -> PutBucketAcl
 putBucketAcl p1 = undefined $ PutBucketAcl
     { pbaBucket = p1
     , pbaACL = Nothing

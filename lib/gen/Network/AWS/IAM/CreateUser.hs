@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createUser :: Text
-           -> AWS (Either IAMError CreateUserResponse)
+           -> CreateUser
 createUser p1 = undefined $ CreateUser
     { curUserName = p1
     , curPath = Nothing

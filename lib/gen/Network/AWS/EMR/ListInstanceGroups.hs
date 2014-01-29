@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-listInstanceGroups :: AWS (Either EMRError ListInstanceGroupsResponse)
-listInstanceGroups = undefined $ ListInstanceGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listInstanceGroups :: ListInstanceGroups
+listInstanceGroups = ListInstanceGroups
     { ligiClusterId = Nothing
     , ligiMarker = Nothing
     }

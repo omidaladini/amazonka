@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
-describeStacks :: AWS (Either CloudFormationError DescribeStacksResponse)
-describeStacks = undefined $ DescribeStacks
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeStacks :: DescribeStacks
+describeStacks = DescribeStacks
     { dsjNextToken = Nothing
     , dsjStackName = Nothing
     }

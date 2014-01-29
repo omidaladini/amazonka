@@ -61,9 +61,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DynamoDB.Service
 import Network.AWS.DynamoDB.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateTable :: Text
-            -> AWS (Either DynamoDBError UpdateTableResponse)
+            -> UpdateTable
 updateTable p1 = undefined $ UpdateTable
     { utiTableName = p1
     , utiGlobalSecondaryIndexUpdates = []

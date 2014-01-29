@@ -36,9 +36,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 confirmPublicVirtualInterface :: Text
-                              -> AWS (Either DirectConnectError ConfirmPublicVirtualInterfaceResponse)
+                              -> ConfirmPublicVirtualInterface
 confirmPublicVirtualInterface p1 = undefined $ ConfirmPublicVirtualInterface
     { cpvitVirtualInterfaceId = p1
     }

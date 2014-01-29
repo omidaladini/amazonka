@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeCustomerGateways :: AWS (Either EC2Error DescribeCustomerGatewaysResponse)
-describeCustomerGateways = undefined $ DescribeCustomerGateways
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeCustomerGateways :: DescribeCustomerGateways
+describeCustomerGateways = DescribeCustomerGateways
     { dcgrCustomerGatewayIds = []
     , dcgrDryRun = Nothing
     , dcgrFilters = []

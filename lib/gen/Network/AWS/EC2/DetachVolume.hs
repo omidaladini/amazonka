@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 detachVolume :: Text
-             -> AWS (Either EC2Error DetachVolumeResponse)
+             -> DetachVolume
 detachVolume p1 = undefined $ DetachVolume
     { dvrVolumeId = p1
     , dvrDevice = Nothing

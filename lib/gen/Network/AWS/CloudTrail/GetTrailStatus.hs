@@ -56,9 +56,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getTrailStatus :: Text
-               -> AWS (Either CloudTrailError GetTrailStatusResponse)
+               -> GetTrailStatus
 getTrailStatus p1 = undefined $ GetTrailStatus
     { gtsrName = p1
     }

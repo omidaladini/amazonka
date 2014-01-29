@@ -53,10 +53,11 @@ import           Network.HTTP.QueryString.Generic (Query(List))
 import Network.AWS.Route53.Service
 import Network.AWS.Route53.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 changeResourceRecordSets :: ChangeBatch
                          -> Text
-                         -> AWS (Either Route53Error ChangeResourceRecordSetsResponse)
+                         -> ChangeResourceRecordSets
 changeResourceRecordSets p1 p2 = undefined $ ChangeResourceRecordSets
     { crrsrChangeBatch = p1
     , crrsrHostedZoneId = p2

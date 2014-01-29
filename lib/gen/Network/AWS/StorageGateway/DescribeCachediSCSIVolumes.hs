@@ -59,9 +59,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeCachediSCSIVolumes :: [Text]
-                           -> AWS (Either StorageGatewayError DescribeCachediSCSIVolumesResponse)
+                           -> DescribeCachediSCSIVolumes
 describeCachediSCSIVolumes p1 = undefined $ DescribeCachediSCSIVolumes
     { dcscsiviVolumeARNs = p1
     }

@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeEngineDefaultParameters :: Text
-                                -> AWS (Either ElastiCacheError DescribeEngineDefaultParametersResponse)
+                                -> DescribeEngineDefaultParameters
 describeEngineDefaultParameters p1 = undefined $ DescribeEngineDefaultParameters
     { dedpmCacheParameterGroupFamily = p1
     , dedpmMarker = Nothing

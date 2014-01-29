@@ -39,9 +39,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeTimeBasedAutoScaling :: [Text]
-                             -> AWS (Either OpsWorksError DescribeTimeBasedAutoScalingResponse)
+                             -> DescribeTimeBasedAutoScaling
 describeTimeBasedAutoScaling p1 = undefined $ DescribeTimeBasedAutoScaling
     { dtbasrInstanceIds = p1
     }

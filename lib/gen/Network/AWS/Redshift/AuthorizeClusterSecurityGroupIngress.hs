@@ -52,9 +52,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 authorizeClusterSecurityGroupIngress :: Text
-                                     -> AWS (Either RedshiftError AuthorizeClusterSecurityGroupIngressResponse)
+                                     -> AuthorizeClusterSecurityGroupIngress
 authorizeClusterSecurityGroupIngress p1 = undefined $ AuthorizeClusterSecurityGroupIngress
     { acsgimClusterSecurityGroupName = p1
     , acsgimCIDRIP = Nothing

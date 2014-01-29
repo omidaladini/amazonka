@@ -43,10 +43,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createApplicationVersion :: Text
                          -> Text
-                         -> AWS (Either ElasticBeanstalkError CreateApplicationVersionResponse)
+                         -> CreateApplicationVersion
 createApplicationVersion p1 p2 = undefined $ CreateApplicationVersion
     { cavmApplicationName = p1
     , cavmVersionLabel = p2

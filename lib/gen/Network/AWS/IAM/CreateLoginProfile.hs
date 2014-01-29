@@ -37,10 +37,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createLoginProfile :: Text
                    -> Text
-                   -> AWS (Either IAMError CreateLoginProfileResponse)
+                   -> CreateLoginProfile
 createLoginProfile p1 p2 = undefined $ CreateLoginProfile
     { clprPassword = p1
     , clprUserName = p2

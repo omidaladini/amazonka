@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateStack :: Text
-            -> AWS (Either OpsWorksError UpdateStackResponse)
+            -> UpdateStack
 updateStack p1 = undefined $ UpdateStack
     { usrStackId = p1
     , usrAttributes = Map.empty

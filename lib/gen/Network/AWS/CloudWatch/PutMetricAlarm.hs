@@ -38,7 +38,8 @@ import           Text.XML.Generic
 import Network.AWS.CloudWatch.Service
 import Network.AWS.CloudWatch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putMetricAlarm :: Text
                -> ComparisonOperator
                -> Int
@@ -47,7 +48,7 @@ putMetricAlarm :: Text
                -> Int
                -> Statistic
                -> Double
-               -> AWS (Either CloudWatchError PutMetricAlarmResponse)
+               -> PutMetricAlarm
 putMetricAlarm p1 p2 p3 p4 p5 p6 p7 p8 = undefined $ PutMetricAlarm
     { pmaiAlarmName = p1
     , pmaiComparisonOperator = p2

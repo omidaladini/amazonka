@@ -71,9 +71,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getRecords :: Text
-           -> AWS (Either KinesisError GetRecordsResponse)
+           -> GetRecords
 getRecords p1 = undefined $ GetRecords
     { griShardIterator = p1
     , griLimit = Nothing

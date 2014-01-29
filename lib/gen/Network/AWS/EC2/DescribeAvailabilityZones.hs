@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeAvailabilityZones :: AWS (Either EC2Error DescribeAvailabilityZonesResponse)
-describeAvailabilityZones = undefined $ DescribeAvailabilityZones
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeAvailabilityZones :: DescribeAvailabilityZones
+describeAvailabilityZones = DescribeAvailabilityZones
     { dazrDryRun = Nothing
     , dazrFilters = []
     , dazrZoneNames = []

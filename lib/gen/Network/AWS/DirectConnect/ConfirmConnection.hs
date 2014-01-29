@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 confirmConnection :: Text
-                  -> AWS (Either DirectConnectError ConfirmConnectionResponse)
+                  -> ConfirmConnection
 confirmConnection p1 = undefined $ ConfirmConnection
     { ccsConnectionId = p1
     }

@@ -79,10 +79,11 @@ import           Text.XML.Generic
 import Network.AWS.ElasticBeanstalk.Service
 import Network.AWS.ElasticBeanstalk.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateConfigurationTemplate :: Text
                             -> Text
-                            -> AWS (Either ElasticBeanstalkError UpdateConfigurationTemplateResponse)
+                            -> UpdateConfigurationTemplate
 updateConfigurationTemplate p1 p2 = undefined $ UpdateConfigurationTemplate
     { uctmApplicationName = p1
     , uctmTemplateName = p2

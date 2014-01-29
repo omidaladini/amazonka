@@ -72,10 +72,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addJobFlowSteps :: Text
                 -> [StepConfig]
-                -> AWS (Either EMRError AddJobFlowStepsResponse)
+                -> AddJobFlowSteps
 addJobFlowSteps p1 p2 = undefined $ AddJobFlowSteps
     { ajfsiJobFlowId = p1
     , ajfsiSteps = p2

@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteKeyPair :: Text
-              -> AWS (Either EC2Error DeleteKeyPairResponse)
+              -> DeleteKeyPair
 deleteKeyPair p1 = undefined $ DeleteKeyPair
     { dkprKeyName = p1
     , dkprDryRun = Nothing

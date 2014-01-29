@@ -72,9 +72,10 @@ import           Text.XML.Generic
 import Network.AWS.STS.Service
 import Network.AWS.STS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getFederationToken :: Text
-                   -> AWS (Either STSError GetFederationTokenResponse)
+                   -> GetFederationToken
 getFederationToken p1 = undefined $ GetFederationToken
     { gftrName = p1
     , gftrDurationSeconds = Nothing

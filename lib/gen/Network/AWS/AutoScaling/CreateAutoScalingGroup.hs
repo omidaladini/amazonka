@@ -43,11 +43,12 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createAutoScalingGroup :: Text
                        -> Int
                        -> Int
-                       -> AWS (Either AutoScalingError CreateAutoScalingGroupResponse)
+                       -> CreateAutoScalingGroup
 createAutoScalingGroup p1 p2 p3 = undefined $ CreateAutoScalingGroup
     { casgtAutoScalingGroupName = p1
     , casgtMaxSize = p2

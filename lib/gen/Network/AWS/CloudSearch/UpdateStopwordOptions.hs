@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateStopwordOptions :: Text
                       -> Text
-                      -> AWS (Either CloudSearchError UpdateStopwordOptionsResponse)
+                      -> UpdateStopwordOptions
 updateStopwordOptions p1 p2 = undefined $ UpdateStopwordOptions
     { usorDomainName = p1
     , usorStopwords = p2

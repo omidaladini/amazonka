@@ -35,10 +35,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 replaceNetworkAclAssociation :: Text
                              -> Text
-                             -> AWS (Either EC2Error ReplaceNetworkAclAssociationResponse)
+                             -> ReplaceNetworkAclAssociation
 replaceNetworkAclAssociation p1 p2 = undefined $ ReplaceNetworkAclAssociation
     { rnaarAssociationId = p1
     , rnaarNetworkAclId = p2

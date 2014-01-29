@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createVpnGateway :: GatewayType
-                 -> AWS (Either EC2Error CreateVpnGatewayResponse)
+                 -> CreateVpnGateway
 createVpnGateway p1 = undefined $ CreateVpnGateway
     { cvgrType = p1
     , cvgrAvailabilityZone = Nothing

@@ -45,9 +45,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
-describeClusters :: AWS (Either RedshiftError DescribeClustersResponse)
-describeClusters = undefined $ DescribeClusters
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeClusters :: DescribeClusters
+describeClusters = DescribeClusters
     { dcmClusterIdentifier = Nothing
     , dcmMarker = Nothing
     , dcmMaxRecords = Nothing

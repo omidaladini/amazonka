@@ -43,9 +43,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Support.Service
 import Network.AWS.Support.Types
 
--- | Convenience method utilising default fields where applicable.
-describeServices :: AWS (Either SupportError DescribeServicesResponse)
-describeServices = undefined $ DescribeServices
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeServices :: DescribeServices
+describeServices = DescribeServices
     { dsrLanguage = Nothing
     , dsrServiceCodeList = []
     }

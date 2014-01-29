@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-removeTags :: AWS (Either EMRError RemoveTagsResponse)
-removeTags = undefined $ RemoveTags
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+removeTags :: RemoveTags
+removeTags = RemoveTags
     { rtiResourceId = Nothing
     , rtiTagKeys = []
     }

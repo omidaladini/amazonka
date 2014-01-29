@@ -76,9 +76,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.Kinesis.Service
 import Network.AWS.Kinesis.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeStream :: Text
-               -> AWS (Either KinesisError DescribeStreamResponse)
+               -> DescribeStream
 describeStream p1 = undefined $ DescribeStream
     { dsjStreamName = p1
     , dsjExclusiveStartShardId = Nothing

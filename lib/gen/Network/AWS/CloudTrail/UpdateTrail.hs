@@ -42,9 +42,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.CloudTrail.Service
 import Network.AWS.CloudTrail.Types
 
--- | Convenience method utilising default fields where applicable.
-updateTrail :: AWS (Either CloudTrailError UpdateTrailResponse)
-updateTrail = undefined $ UpdateTrail
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+updateTrail :: UpdateTrail
+updateTrail = UpdateTrail
     { utrIncludeGlobalServiceEvents = Nothing
     , utrName = Nothing
     , utrS3BucketName = Nothing

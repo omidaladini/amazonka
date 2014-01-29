@@ -34,9 +34,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
-describeReplicationGroups :: AWS (Either ElastiCacheError DescribeReplicationGroupsResponse)
-describeReplicationGroups = undefined $ DescribeReplicationGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeReplicationGroups :: DescribeReplicationGroups
+describeReplicationGroups = DescribeReplicationGroups
     { drgnMarker = Nothing
     , drgnMaxRecords = Nothing
     , drgnReplicationGroupId = Nothing

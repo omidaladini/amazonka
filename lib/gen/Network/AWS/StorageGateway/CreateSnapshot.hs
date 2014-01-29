@@ -61,10 +61,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createSnapshot :: Text
                -> Text
-               -> AWS (Either StorageGatewayError CreateSnapshotResponse)
+               -> CreateSnapshot
 createSnapshot p1 p2 = undefined $ CreateSnapshot
     { csiSnapshotDescription = p1
     , csiVolumeARN = p2

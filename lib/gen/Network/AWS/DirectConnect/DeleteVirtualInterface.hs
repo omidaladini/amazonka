@@ -34,9 +34,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DirectConnect.Service
 import Network.AWS.DirectConnect.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteVirtualInterface :: Text
-                       -> AWS (Either DirectConnectError DeleteVirtualInterfaceResponse)
+                       -> DeleteVirtualInterface
 deleteVirtualInterface p1 = undefined $ DeleteVirtualInterface
     { dvisVirtualInterfaceId = p1
     }

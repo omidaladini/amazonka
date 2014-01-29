@@ -60,13 +60,14 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createStorediSCSIVolume :: Text
                         -> Text
                         -> Text
                         -> Bool
                         -> Text
-                        -> AWS (Either StorageGatewayError CreateStorediSCSIVolumeResponse)
+                        -> CreateStorediSCSIVolume
 createStorediSCSIVolume p1 p2 p3 p4 p5 = undefined $ CreateStorediSCSIVolume
     { csscsiviDiskId = p1
     , csscsiviGatewayARN = p2

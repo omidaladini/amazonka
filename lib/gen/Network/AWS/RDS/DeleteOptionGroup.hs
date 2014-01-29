@@ -33,9 +33,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteOptionGroup :: Text
-                  -> AWS (Either RDSError DeleteOptionGroupResponse)
+                  -> DeleteOptionGroup
 deleteOptionGroup p1 = undefined $ DeleteOptionGroup
     { dognOptionGroupName = p1
     }

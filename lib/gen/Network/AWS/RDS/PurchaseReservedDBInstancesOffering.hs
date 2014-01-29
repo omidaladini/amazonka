@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 purchaseReservedDBInstancesOffering :: Text
-                                    -> AWS (Either RDSError PurchaseReservedDBInstancesOfferingResponse)
+                                    -> PurchaseReservedDBInstancesOffering
 purchaseReservedDBInstancesOffering p1 = undefined $ PurchaseReservedDBInstancesOffering
     { prdbiomReservedDBInstancesOfferingId = p1
     , prdbiomDBInstanceCount = Nothing

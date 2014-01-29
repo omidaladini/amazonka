@@ -85,9 +85,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.EMR.Service
 import Network.AWS.EMR.Types
 
--- | Convenience method utilising default fields where applicable.
-describeJobFlows :: AWS (Either EMRError DescribeJobFlowsResponse)
-describeJobFlows = undefined $ DescribeJobFlows
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeJobFlows :: DescribeJobFlows
+describeJobFlows = DescribeJobFlows
     { djfiCreatedAfter = Nothing
     , djfiCreatedBefore = Nothing
     , djfiJobFlowIds = []

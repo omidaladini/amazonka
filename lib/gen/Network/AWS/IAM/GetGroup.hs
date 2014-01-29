@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getGroup :: Text
-         -> AWS (Either IAMError GetGroupResponse)
+         -> GetGroup
 getGroup p1 = undefined $ GetGroup
     { ggrGroupName = p1
     , ggrMarker = Nothing

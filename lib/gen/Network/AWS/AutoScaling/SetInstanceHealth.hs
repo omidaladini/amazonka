@@ -34,10 +34,11 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setInstanceHealth :: Text
                   -> Text
-                  -> AWS (Either AutoScalingError SetInstanceHealthResponse)
+                  -> SetInstanceHealth
 setInstanceHealth p1 p2 = undefined $ SetInstanceHealth
     { sihqHealthStatus = p1
     , sihqInstanceId = p2

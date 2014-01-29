@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteEventSubscription :: Text
-                        -> AWS (Either RedshiftError DeleteEventSubscriptionResponse)
+                        -> DeleteEventSubscription
 deleteEventSubscription p1 = undefined $ DeleteEventSubscription
     { desmSubscriptionName = p1
     }

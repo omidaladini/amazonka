@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteLoadBalancer :: Text
-                   -> AWS (Either ElasticLoadBalancingError DeleteLoadBalancerResponse)
+                   -> DeleteLoadBalancer
 deleteLoadBalancer p1 = undefined $ DeleteLoadBalancer
     { dapjLoadBalancerName = p1
     }

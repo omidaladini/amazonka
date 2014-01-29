@@ -68,9 +68,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.SWF.Service
 import Network.AWS.SWF.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 respondDecisionTaskCompleted :: Text
-                             -> AWS (Either SWFError RespondDecisionTaskCompletedResponse)
+                             -> RespondDecisionTaskCompleted
 respondDecisionTaskCompleted p1 = undefined $ RespondDecisionTaskCompleted
     { rdtciTaskToken = p1
     , rdtciDecisions = []

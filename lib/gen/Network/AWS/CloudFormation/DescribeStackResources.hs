@@ -54,9 +54,10 @@ import           Text.XML.Generic
 import Network.AWS.CloudFormation.Service
 import Network.AWS.CloudFormation.Types
 
--- | Convenience method utilising default fields where applicable.
-describeStackResources :: AWS (Either CloudFormationError DescribeStackResourcesResponse)
-describeStackResources = undefined $ DescribeStackResources
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeStackResources :: DescribeStackResources
+describeStackResources = DescribeStackResources
     { dsriLogicalResourceId = Nothing
     , dsriPhysicalResourceId = Nothing
     , dsriStackName = Nothing

@@ -36,9 +36,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 getConsoleOutput :: Text
-                 -> AWS (Either EC2Error GetConsoleOutputResponse)
+                 -> GetConsoleOutput
 getConsoleOutput p1 = undefined $ GetConsoleOutput
     { gcorInstanceId = p1
     , gcorDryRun = Nothing

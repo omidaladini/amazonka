@@ -38,10 +38,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 associateRouteTable :: Text
                     -> Text
-                    -> AWS (Either EC2Error AssociateRouteTableResponse)
+                    -> AssociateRouteTable
 associateRouteTable p1 p2 = undefined $ AssociateRouteTable
     { artrRouteTableId = p1
     , artrSubnetId = p2

@@ -33,10 +33,11 @@ import           Text.XML.Generic
 import Network.AWS.CloudSearch.Service
 import Network.AWS.CloudSearch.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateServiceAccessPolicies :: Text
                             -> Text
-                            -> AWS (Either CloudSearchError UpdateServiceAccessPoliciesResponse)
+                            -> UpdateServiceAccessPolicies
 updateServiceAccessPolicies p1 p2 = undefined $ UpdateServiceAccessPolicies
     { usaprAccessPolicies = p1
     , usaprDomainName = p2

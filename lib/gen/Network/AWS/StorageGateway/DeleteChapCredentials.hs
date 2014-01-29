@@ -50,10 +50,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteChapCredentials :: Text
                       -> Text
-                      -> AWS (Either StorageGatewayError DeleteChapCredentialsResponse)
+                      -> DeleteChapCredentials
 deleteChapCredentials p1 p2 = undefined $ DeleteChapCredentials
     { dccjInitiatorName = p1
     , dccjTargetARN = p2

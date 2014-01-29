@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
-listGroups :: AWS (Either IAMError ListGroupsResponse)
-listGroups = undefined $ ListGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+listGroups :: ListGroups
+listGroups = ListGroups
     { lgrMarker = Nothing
     , lgrMaxItems = Nothing
     , lgrPathPrefix = Nothing

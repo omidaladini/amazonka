@@ -39,9 +39,10 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
-describeInstances :: AWS (Either EC2Error DescribeInstancesResponse)
-describeInstances = undefined $ DescribeInstances
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeInstances :: DescribeInstances
+describeInstances = DescribeInstances
     { disDryRun = Nothing
     , disFilters = []
     , disInstanceIds = []

@@ -41,11 +41,12 @@ import           Text.XML.Generic
 import Network.AWS.ElasticLoadBalancing.Service
 import Network.AWS.ElasticLoadBalancing.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 setLoadBalancerListenerSSLCertificate :: Text
                                       -> Int
                                       -> Text
-                                      -> AWS (Either ElasticLoadBalancingError SetLoadBalancerListenerSSLCertificateResponse)
+                                      -> SetLoadBalancerListenerSSLCertificate
 setLoadBalancerListenerSSLCertificate p1 p2 p3 = undefined $ SetLoadBalancerListenerSSLCertificate
     { slblsslciLoadBalancerName = p1
     , slblsslciLoadBalancerPort = p2

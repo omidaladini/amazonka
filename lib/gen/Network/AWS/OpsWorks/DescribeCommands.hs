@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
-describeCommands :: AWS (Either OpsWorksError DescribeCommandsResponse)
-describeCommands = undefined $ DescribeCommands
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeCommands :: DescribeCommands
+describeCommands = DescribeCommands
     { dcrCommandIds = []
     , dcrDeploymentId = Nothing
     , dcrInstanceId = Nothing

@@ -44,9 +44,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 describeOrderableDBInstanceOptions :: Text
-                                   -> AWS (Either RDSError DescribeOrderableDBInstanceOptionsResponse)
+                                   -> DescribeOrderableDBInstanceOptions
 describeOrderableDBInstanceOptions p1 = undefined $ DescribeOrderableDBInstanceOptions
     { dodbiomEngine = p1
     , dodbiomDBInstanceClass = Nothing

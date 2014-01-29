@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.AutoScaling.Service
 import Network.AWS.AutoScaling.Types
 
--- | Convenience method utilising default fields where applicable.
-describeTags :: AWS (Either AutoScalingError DescribeTagsResponse)
-describeTags = undefined $ DescribeTags
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeTags :: DescribeTags
+describeTags = DescribeTags
     { dttFilters = []
     , dttMaxRecords = Nothing
     , dttNextToken = Nothing

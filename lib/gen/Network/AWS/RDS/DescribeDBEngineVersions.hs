@@ -60,9 +60,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeDBEngineVersions :: AWS (Either RDSError DescribeDBEngineVersionsResponse)
-describeDBEngineVersions = undefined $ DescribeDBEngineVersions
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeDBEngineVersions :: DescribeDBEngineVersions
+describeDBEngineVersions = DescribeDBEngineVersions
     { ddbevmDBParameterGroupFamily = Nothing
     , ddbevmDefaultOnly = Nothing
     , ddbevmEngine = Nothing

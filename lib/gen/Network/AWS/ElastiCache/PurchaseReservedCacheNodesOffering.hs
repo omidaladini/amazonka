@@ -41,9 +41,10 @@ import           Text.XML.Generic
 import Network.AWS.ElastiCache.Service
 import Network.AWS.ElastiCache.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 purchaseReservedCacheNodesOffering :: Text
-                                   -> AWS (Either ElastiCacheError PurchaseReservedCacheNodesOfferingResponse)
+                                   -> PurchaseReservedCacheNodesOffering
 purchaseReservedCacheNodesOffering p1 = undefined $ PurchaseReservedCacheNodesOffering
     { prcnomReservedCacheNodesOfferingId = p1
     , prcnomCacheNodeCount = Nothing

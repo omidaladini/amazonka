@@ -43,10 +43,11 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 createClusterSnapshot :: Text
                       -> Text
-                      -> AWS (Either RedshiftError CreateClusterSnapshotResponse)
+                      -> CreateClusterSnapshot
 createClusterSnapshot p1 p2 = undefined $ CreateClusterSnapshot
     { ccsmClusterIdentifier = p1
     , ccsmSnapshotIdentifier = p2

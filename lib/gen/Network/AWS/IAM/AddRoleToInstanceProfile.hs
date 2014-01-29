@@ -37,10 +37,11 @@ import           Text.XML.Generic
 import Network.AWS.IAM.Service
 import Network.AWS.IAM.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 addRoleToInstanceProfile :: Text
                          -> Text
-                         -> AWS (Either IAMError AddRoleToInstanceProfileResponse)
+                         -> AddRoleToInstanceProfile
 addRoleToInstanceProfile p1 p2 = undefined $ AddRoleToInstanceProfile
     { artiprInstanceProfileName = p1
     , artiprRoleName = p2

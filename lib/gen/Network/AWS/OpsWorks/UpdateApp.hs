@@ -37,9 +37,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateApp :: Text
-          -> AWS (Either OpsWorksError UpdateAppResponse)
+          -> UpdateApp
 updateApp p1 = undefined $ UpdateApp
     { uarAppId = p1
     , uarAppSource = Nothing

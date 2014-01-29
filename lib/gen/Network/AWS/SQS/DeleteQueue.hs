@@ -35,9 +35,10 @@ import           Text.XML.Generic
 import Network.AWS.SQS.Service
 import Network.AWS.SQS.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteQueue :: Text
-            -> AWS (Either SQSError DeleteQueueResponse)
+            -> DeleteQueue
 deleteQueue p1 = undefined $ DeleteQueue
     { dqrQueueUrl = p1
     }

@@ -40,9 +40,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeDBParameterGroups :: AWS (Either RDSError DescribeDBParameterGroupsResponse)
-describeDBParameterGroups = undefined $ DescribeDBParameterGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeDBParameterGroups :: DescribeDBParameterGroups
+describeDBParameterGroups = DescribeDBParameterGroups
     { ddbpgmDBParameterGroupName = Nothing
     , ddbpgmMarker = Nothing
     , ddbpgmMaxRecords = Nothing

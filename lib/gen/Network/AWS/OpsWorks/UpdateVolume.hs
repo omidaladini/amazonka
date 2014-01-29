@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateVolume :: Text
-             -> AWS (Either OpsWorksError UpdateVolumeResponse)
+             -> UpdateVolume
 updateVolume p1 = undefined $ UpdateVolume
     { uvsVolumeId = p1
     , uvsMountPoint = Nothing

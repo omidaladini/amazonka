@@ -82,10 +82,11 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.DataPipeline.Service
 import Network.AWS.DataPipeline.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 putPipelineDefinition :: Text
                       -> [PipelineObject]
-                      -> AWS (Either DataPipelineError PutPipelineDefinitionResponse)
+                      -> PutPipelineDefinition
 putPipelineDefinition p1 p2 = undefined $ PutPipelineDefinition
     { ppdiPipelineId = p1
     , ppdiPipelineObjects = p2

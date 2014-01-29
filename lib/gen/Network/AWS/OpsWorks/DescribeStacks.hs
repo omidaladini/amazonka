@@ -38,9 +38,10 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.OpsWorks.Service
 import Network.AWS.OpsWorks.Types
 
--- | Convenience method utilising default fields where applicable.
-describeStacks :: AWS (Either OpsWorksError DescribeStacksResponse)
-describeStacks = undefined $ DescribeStacks
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeStacks :: DescribeStacks
+describeStacks = DescribeStacks
     { dssStackIds = []
     }
 

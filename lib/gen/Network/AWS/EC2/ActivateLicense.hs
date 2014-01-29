@@ -33,10 +33,11 @@ import           Text.XML.Generic
 import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 activateLicense :: Int
                 -> Text
-                -> AWS (Either EC2Error ActivateLicenseResponse)
+                -> ActivateLicense
 activateLicense p1 p2 = undefined $ ActivateLicense
     { alrCapacity = p1
     , alrLicenseId = p2

@@ -32,9 +32,10 @@ import           Text.XML.Generic
 import Network.AWS.Redshift.Service
 import Network.AWS.Redshift.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 deleteHsmClientCertificate :: Text
-                           -> AWS (Either RedshiftError DeleteHsmClientCertificateResponse)
+                           -> DeleteHsmClientCertificate
 deleteHsmClientCertificate p1 = undefined $ DeleteHsmClientCertificate
     { dhccnHsmClientCertificateIdentifier = p1
     }

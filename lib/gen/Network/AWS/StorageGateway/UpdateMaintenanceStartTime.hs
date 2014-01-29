@@ -48,12 +48,13 @@ import           Network.AWS.Internal hiding (Endpoint, Region, AvailabilityZone
 import Network.AWS.StorageGateway.Service
 import Network.AWS.StorageGateway.Types
 
--- | Convenience method utilising default fields where applicable.
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
 updateMaintenanceStartTime :: Int
                            -> Text
                            -> Int
                            -> Int
-                           -> AWS (Either StorageGatewayError UpdateMaintenanceStartTimeResponse)
+                           -> UpdateMaintenanceStartTime
 updateMaintenanceStartTime p1 p2 p3 p4 = undefined $ UpdateMaintenanceStartTime
     { umstiDayOfWeek = p1
     , umstiGatewayARN = p2

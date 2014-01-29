@@ -42,9 +42,10 @@ import           Text.XML.Generic
 import Network.AWS.RDS.Service
 import Network.AWS.RDS.Types
 
--- | Convenience method utilising default fields where applicable.
-describeDBSubnetGroups :: AWS (Either RDSError DescribeDBSubnetGroupsResponse)
-describeDBSubnetGroups = undefined $ DescribeDBSubnetGroups
+-- | Convenience method utilising default fields to construct
+-- the minimum required request.
+describeDBSubnetGroups :: DescribeDBSubnetGroups
+describeDBSubnetGroups = DescribeDBSubnetGroups
     { ddbsgmDBSubnetGroupName = Nothing
     , ddbsgmMarker = Nothing
     , ddbsgmMaxRecords = Nothing
