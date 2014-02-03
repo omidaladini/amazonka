@@ -1,4 +1,4 @@
-name:                  amazon-{{ endpoint_prefix }}
+name:                  amazon-{{ cabal_name }}
 version:               {{ cabal_version }}
 synopsis:              {{ service_full_name }}
 homepage:              http://github.com/brendanhay/amazon

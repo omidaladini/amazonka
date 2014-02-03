@@ -47,7 +47,7 @@ version :: Text
 version = "0.1.0"
 
 target :: FilePath
-target = "lib"
+target = "gen"
 
 main :: IO ()
 main = getArgs >>= parse
@@ -65,21 +65,23 @@ main = getArgs >>= parse
                 m <- loadModel p
 --                model "lib/gen/Network/AWS" ts m
 
-                title "Expanding cabal configuration"
-                cabalLibFile version target ts m
+                let dir = target </> serviceName m
 
-                title "Copying LICENSE"
-                scriptIO . copyFile "LICENSE" . Text.unpack $ mEndpointPrefix m
+                msg "Expanding cabal configuration"
+                cabalLibFile version dir ts m
+
+                msg "Copying LICENSE"
+                scriptIO . copyFile "LICENSE" $ dir </> "LICENSE"
 
                 return m
 
             title "Expanding amazon cabal configuration"
             cabalFile version target ts ms
 
-            title "Copying amazon LICENSE"
+            msg "Copying amazon LICENSE"
             scriptIO $ copyFile "LICENSE" "amazon"
 
-            title $ "Generated " ++ show (length ms) ++ " models successfully."
+            msg $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
 
     usage = do
@@ -96,25 +98,35 @@ cabalFile ver dir Templates{..} ms = do
   where
     path = dir </> "amazon"
 
-    js Model{..} = EDE.fromPairs
+    js m@Model{..} = EDE.fromPairs
         [ "module"          .= mName
         , "operations"      .= map oName mOperations
         , "endpoint_prefix" .= mEndpointPrefix
+        , "cabal_name"      .= serviceName m
         ]
 
 cabalLibFile :: Text -> FilePath -> Templates -> Model -> Script ()
 cabalLibFile ver dir Templates{..} m@Model{..} = do
-    scriptIO $ createDirectoryIfMissing True path
-    render (path </> name <.> "cabal") tCabalLibFile $ oJSON <> EDE.fromPairs
+    scriptIO $ createDirectoryIfMissing True dir
+    render (dir </> name <.> "cabal") tCabalLibFile $ oJSON <> EDE.fromPairs
         [ "module"        .= mName
         , "operations"    .= map oName mOperations
         , "cabal_version" .= (ver <> "." <> Text.filter isDigit mApiVersion)
+        , "cabal_name"    .= name
         ]
   where
-    path = dir </> name
-    name = Text.unpack mEndpointPrefix
-
     Object oJSON = toJSON m
+
+    name = serviceName m
+
+serviceName :: Model -> String
+serviceName Model{..} =
+    case Text.unpack mEndpointPrefix of
+        "email"                -> "ses"
+        "elasticloadbalancing" -> "elb"
+        "elasticmapreduce"     -> "emr"
+        "monitoring"           -> "cloudwatch"
+        s                      -> s
 
 model :: FilePath -> Templates -> Model -> Script ()
 model dir Templates{..} m@Model{..} = do

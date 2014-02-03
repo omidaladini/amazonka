@@ -34,5 +34,4 @@ tags
 *.awk
 /generator
 /lib/*
-!/lib/src/
-!/lib/src/**/*
+!/lib/amazon-core/**/*

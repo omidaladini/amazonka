@@ -32,9 +32,9 @@ library
     exposed-modules:
 {% for model in models %}
   {% if model.first %}
-        amazon-{{ model.value.endpoint_prefix }}
+        amazon-{{ model.value.cabal_name }}
   {% else %}
-      , amazon-{{ model.value.endpoint_prefix }}
+      , amazon-{{ model.value.cabal_name }}
   {% endif %}
   {% if !model.last %}
 
