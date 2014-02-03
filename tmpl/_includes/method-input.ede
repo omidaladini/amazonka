@@ -39,7 +39,7 @@
 {{ scope.name | pad }} -> {{ scope.name }}
     {% endif %}
   {% endfor %}
-{{ scope.name | lowerFirst }} {% for field in scope.input | required -%} p{{ field.index }} {% endfor -%} = undefined $ {{ scope.name }}
+{{ scope.name | lowerFirst }} {% for field in scope.input | required -%} p{{ field.index }} {% endfor -%} = {{ scope.name }}
   {% for field in scope.input | required %}
     {% if field.first %}
     { {{ scope.input.prefix }}{{ field.value.param }} = p{{ field.index }}

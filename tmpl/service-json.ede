@@ -13,6 +13,7 @@
 module Network.AWS.{{ module }}.Service where
 
 import Data.Aeson
+import Data.Aeson.Types
 import GHC.Generics               (Generic)
 import Network.AWS.Internal
 import Network.AWS.Internal.Types (Service(..))
@@ -20,6 +21,9 @@ import Network.AWS.Internal.Types (Service(..))
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: Service
 service = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+
+jsonOptions :: Options
+jsonOptions = defaultOptions
 
 {% if errors | listLength > 0 %}
 data {{ module }}Error

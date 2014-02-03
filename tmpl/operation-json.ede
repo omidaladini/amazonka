@@ -47,7 +47,8 @@ data {{ name }} = {{ name }}
     deriving (Eq, Show, Generic)
 {% endif %}
 
-instance ToJSON {{ name }}
+instance ToJSON {{ name }} where
+    toJSON = genericToJSON jsonOptions
 
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
@@ -70,4 +71,6 @@ data {{ name }}Response = {{ name }}Response
     deriving (Eq, Show, Generic)
 {% endif %}
 
-instance FromJSON {{ name }}Response
+instance FromJSON {{ name }}Response where
+    fromJSON = genericFromJSON jsonOptions
+
