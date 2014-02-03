@@ -82,6 +82,13 @@ main = getArgs >>= parse
             msg "Copying amazon LICENSE"
             scriptIO . copyFile "LICENSE" $ target </> "amazon/LICENSE"
 
+            msg "Creating sources.txt"
+            scriptIO . writeFile (target </> "sources.txt")
+                . unlines
+                . (++ ["./amazon"])
+                . ("./amazon-core" :)
+                $ map (mappend "./" . serviceName) ms
+
             msg $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
 

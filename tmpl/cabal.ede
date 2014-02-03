@@ -15,9 +15,6 @@ cabal-version:         >= 1.10
 description:
     Pending
 
-extra-source-files:
-    README.md
-
 source-repository head
     type:     git
     location: git://github.com/brendanhay/amazon.git
@@ -28,17 +25,16 @@ library
     ghc-options:       -Wall
 
     build-depends:
-
-    exposed-modules:
 {% for model in models %}
   {% if model.first %}
-        amazon-{{ model.value.cabal_name }}
+        {{ model.value.cabal_name }}
   {% else %}
-      , amazon-{{ model.value.cabal_name }}
+      , {{ model.value.cabal_name }}
   {% endif %}
   {% if !model.last %}
 
   {% endif %}
 {% endfor %}
+      , amazon
       , amazon-core
-      , base >= 4.6 && < 5
+      , base        >= 4.6 && < 5

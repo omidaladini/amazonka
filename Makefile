@@ -51,7 +51,7 @@ MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
 .PHONY: test lint doc
 
 all: generator
-	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) build -j -C lib
+	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) -j -C lib
 
 build:
 	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))

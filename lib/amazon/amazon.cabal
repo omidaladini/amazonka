@@ -15,9 +15,6 @@ cabal-version:         >= 1.10
 description:
     Pending
 
-extra-source-files:
-    README.md
-
 source-repository head
     type:     git
     location: git://github.com/brendanhay/amazon.git
@@ -28,62 +25,60 @@ library
     ghc-options:       -Wall
 
     build-depends:
+        amazon-route53
 
-    exposed-modules:
-        amazon-amazon-route53
+      , amazon-cloudfront
 
-      , amazon-amazon-cloudfront
+      , amazon-s3
 
-      , amazon-amazon-s3
+      , amazon-dynamodb
 
-      , amazon-amazon-dynamodb
+      , amazon-kinesis
 
-      , amazon-amazon-kinesis
+      , amazon-cloudtrail
 
-      , amazon-amazon-cloudtrail
+      , amazon-datapipeline
 
-      , amazon-amazon-datapipeline
+      , amazon-directconnect
 
-      , amazon-amazon-directconnect
+      , amazon-emr
 
-      , amazon-amazon-emr
+      , amazon-opsworks
 
-      , amazon-amazon-opsworks
+      , amazon-storagegateway
 
-      , amazon-amazon-storagegateway
+      , amazon-support
 
-      , amazon-amazon-support
+      , amazon-swf
 
-      , amazon-amazon-swf
+      , amazon-ses
 
-      , amazon-amazon-ses
+      , amazon-elasticache
 
-      , amazon-amazon-elasticache
+      , amazon-autoscaling
 
-      , amazon-amazon-autoscaling
+      , amazon-cloudformation
 
-      , amazon-amazon-cloudformation
+      , amazon-cloudsearch
 
-      , amazon-amazon-cloudsearch
+      , amazon-cloudwatch
 
-      , amazon-amazon-cloudwatch
+      , amazon-elasticbeanstalk
 
-      , amazon-amazon-elasticbeanstalk
+      , amazon-elb
 
-      , amazon-amazon-elb
+      , amazon-rds
 
-      , amazon-amazon-rds
+      , amazon-redshift
 
-      , amazon-amazon-redshift
+      , amazon-sns
 
-      , amazon-amazon-sns
+      , amazon-sqs
 
-      , amazon-amazon-sqs
+      , amazon-sts
 
-      , amazon-amazon-sts
+      , amazon-ec2
 
-      , amazon-amazon-ec2
-
-      , amazon-amazon-iam
+      , amazon-iam
       , amazon-core
       , base >= 4.6 && < 5

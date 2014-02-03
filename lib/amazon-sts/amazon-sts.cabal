@@ -15,9 +15,6 @@ cabal-version:         >= 1.10
 description:
     Pending
 
-extra-source-files:
-    README.md
-
 source-repository head
     type:     git
     location: git://github.com/brendanhay/amazon.git
@@ -42,4 +39,5 @@ library
       , Network.AWS.STS.AssumeRoleWithSAML
 
     build-depends:
-        base >= 4.6 && < 5
+        amazon-core
+      , base        >= 4.6 && < 5
