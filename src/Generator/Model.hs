@@ -99,13 +99,13 @@ instance FromJSON Model where
             | "CloudFront"        == n = map f ops
             | otherwise                = ops
           where
-            f o@Operation{..}
-                | Just x <- oInput = o
+            f o'@Operation{..}
+                | Just x <- oInput = o'
                     { oInput = Just $ x
                         { sFields = Map.map (\v -> v { sRequired = True }) $ sFields x
                         }
                     }
-                | otherwise = o
+                | otherwise = o'
 
     parseJSON _ =
         fail "Unable to parse Model."

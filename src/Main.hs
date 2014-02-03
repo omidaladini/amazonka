@@ -22,8 +22,6 @@ import           Data.Aeson           as Aeson
 import           Data.Char            (isDigit)
 import           Data.Foldable        (foldl')
 import qualified Data.HashMap.Strict  as Map
-import           Data.HashSet         (HashSet)
-import qualified Data.HashSet         as Set
 import qualified Data.List            as List
 import           Data.Monoid
 import           Data.Text            (Text)
@@ -45,6 +43,12 @@ import           Text.EDE.Filters
 -- Ability to wrap shapes in a data/newtype representing the service
 -- A 'generic' foldMap instance for mapping over a single Shape and all it's descendents
 
+version :: Text
+version = "0.1.0"
+
+target :: FilePath
+target = "lib"
+
 main :: IO ()
 main = getArgs >>= parse
   where
@@ -59,11 +63,21 @@ main = getArgs >>= parse
             ms <- forM js $ \p -> do
                 title $ "Parsing " ++ p
                 m <- loadModel p
-                model "lib/gen/Network/AWS" ts m
+--                model "lib/gen/Network/AWS" ts m
+
+                title "Expanding cabal configuration"
+                cabalLibFile version target ts m
+
+                title "Copying LICENSE"
+                scriptIO . copyFile "LICENSE" . Text.unpack $ mEndpointPrefix m
+
                 return m
 
-            title "Expanding cabal configuration"
-            cabalFile "lib" ts ms
+            title "Expanding amazon cabal configuration"
+            cabalFile version target ts ms
+
+            title "Copying amazon LICENSE"
+            scriptIO $ copyFile "LICENSE" "amazon"
 
             title $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
@@ -72,17 +86,35 @@ main = getArgs >>= parse
         n <- getProgName
         putStrLn $ "Usage: " ++ n ++ " [PATH] ..."
 
-cabalFile :: FilePath -> Templates -> [Model] -> Script ()
-cabalFile dir Templates{..} ms = do
-    scriptIO $ createDirectoryIfMissing True dir
-    render (dir </> "amazonka.cabal") tCabalFile $ EDE.fromPairs
-        [ "models" .= map js ms
+cabalFile :: Text -> FilePath -> Templates -> [Model] -> Script ()
+cabalFile ver dir Templates{..} ms = do
+    scriptIO $ createDirectoryIfMissing True path
+    render (path </> "amazon.cabal") tCabalFile $ EDE.fromPairs
+        [ "models"        .= map js ms
+        , "cabal_version" .= ver
         ]
   where
+    path = dir </> "amazon"
+
     js Model{..} = EDE.fromPairs
-        [ "module"     .= mName
-        , "operations" .= map oName mOperations
+        [ "module"          .= mName
+        , "operations"      .= map oName mOperations
+        , "endpoint_prefix" .= mEndpointPrefix
         ]
+
+cabalLibFile :: Text -> FilePath -> Templates -> Model -> Script ()
+cabalLibFile ver dir Templates{..} m@Model{..} = do
+    scriptIO $ createDirectoryIfMissing True path
+    render (path </> name <.> "cabal") tCabalLibFile $ oJSON <> EDE.fromPairs
+        [ "module"        .= mName
+        , "operations"    .= map oName mOperations
+        , "cabal_version" .= (ver <> "." <> Text.filter isDigit mApiVersion)
+        ]
+  where
+    path = dir </> name
+    name = Text.unpack mEndpointPrefix
+
+    Object oJSON = toJSON m
 
 model :: FilePath -> Templates -> Model -> Script ()
 model dir Templates{..} m@Model{..} = do
@@ -178,6 +210,7 @@ data Templates = Templates
     , tJSONOperation     :: Template
     , tQueryOperation    :: Template
     , tCabalFile         :: Template
+    , tCabalLibFile      :: Template
     }
 
 templates :: Script Templates
@@ -196,7 +229,8 @@ templates = title "Listing tmpl" *>
         <*> load "tmpl/operation-rest-json.ede"
         <*> load "tmpl/operation-json.ede"
         <*> load "tmpl/operation-query.ede"
-        <*> load "tmpl/cabal.ede")
+        <*> load "tmpl/cabal.ede"
+        <*> load "tmpl/cabal-lib.ede")
   where
     load p = msg ("Parsing " ++ p) *>
         scriptIO (EDE.eitherParseFile p) >>= hoistEither
