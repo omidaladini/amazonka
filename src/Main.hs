@@ -63,9 +63,10 @@ main = getArgs >>= parse
             ms <- forM js $ \p -> do
                 title $ "Parsing " ++ p
                 m <- loadModel p
---                model "lib/gen/Network/AWS" ts m
 
                 let dir = target </> serviceName m
+
+                model (dir </> "gen/Network/AWS") ts m
 
                 msg "Expanding cabal configuration"
                 cabalLibFile version dir ts m
@@ -107,11 +108,11 @@ cabalFile ver dir Templates{..} ms = do
 
 cabalLibFile :: Text -> FilePath -> Templates -> Model -> Script ()
 cabalLibFile ver dir Templates{..} m@Model{..} = do
-    scriptIO $ createDirectoryIfMissing True dir
+    scriptIO . createDirectoryIfMissing True $ dir </> "src"
     render (dir </> name <.> "cabal") tCabalLibFile $ oJSON <> EDE.fromPairs
         [ "module"        .= mName
         , "operations"    .= map oName mOperations
-        , "cabal_version" .= (ver <> "." <> Text.filter isDigit mApiVersion)
+        , "cabal_version" .= (Text.filter isDigit mApiVersion <> "." <> ver)
         , "cabal_name"    .= name
         ]
   where
