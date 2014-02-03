@@ -1,0 +1,86 @@
+name:                  amazon-amazon-storagegateway
+version:               20130630.0.1.0
+synopsis:              AWS Storage Gateway
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.StorageGateway
+
+    other-modules:
+        Network.AWS.StorageGateway.Service
+      , Network.AWS.StorageGateway.Types
+
+      , Network.AWS.StorageGateway.CancelArchival
+      , Network.AWS.StorageGateway.CreateStorediSCSIVolume
+      , Network.AWS.StorageGateway.DescribeChapCredentials
+      , Network.AWS.StorageGateway.CreateTapes
+      , Network.AWS.StorageGateway.CreateCachediSCSIVolume
+      , Network.AWS.StorageGateway.AddUploadBuffer
+      , Network.AWS.StorageGateway.UpdateGatewayInformation
+      , Network.AWS.StorageGateway.DescribeMaintenanceStartTime
+      , Network.AWS.StorageGateway.DescribeWorkingStorage
+      , Network.AWS.StorageGateway.DescribeCachediSCSIVolumes
+      , Network.AWS.StorageGateway.AddCache
+      , Network.AWS.StorageGateway.StartGateway
+      , Network.AWS.StorageGateway.ShutdownGateway
+      , Network.AWS.StorageGateway.UpdateGatewaySoftwareNow
+      , Network.AWS.StorageGateway.DeleteChapCredentials
+      , Network.AWS.StorageGateway.UpdateChapCredentials
+      , Network.AWS.StorageGateway.DescribeUploadBuffer
+      , Network.AWS.StorageGateway.DescribeTapes
+      , Network.AWS.StorageGateway.DescribeStorediSCSIVolumes
+      , Network.AWS.StorageGateway.CreateSnapshotFromVolumeRecoveryPoint
+      , Network.AWS.StorageGateway.RetrieveTapeRecoveryPoint
+      , Network.AWS.StorageGateway.DeleteGateway
+      , Network.AWS.StorageGateway.UpdateMaintenanceStartTime
+      , Network.AWS.StorageGateway.DescribeGatewayInformation
+      , Network.AWS.StorageGateway.RetrieveTapeArchive
+      , Network.AWS.StorageGateway.DescribeTapeArchives
+      , Network.AWS.StorageGateway.DisableGateway
+      , Network.AWS.StorageGateway.DescribeSnapshotSchedule
+      , Network.AWS.StorageGateway.DescribeBandwidthRateLimit
+      , Network.AWS.StorageGateway.DeleteSnapshotSchedule
+      , Network.AWS.StorageGateway.UpdateSnapshotSchedule
+      , Network.AWS.StorageGateway.CreateSnapshot
+      , Network.AWS.StorageGateway.CancelRetrieval
+      , Network.AWS.StorageGateway.DescribeVTLDevices
+      , Network.AWS.StorageGateway.DeleteTapeArchive
+      , Network.AWS.StorageGateway.ListVolumeRecoveryPoints
+      , Network.AWS.StorageGateway.ListGateways
+      , Network.AWS.StorageGateway.DeleteTape
+      , Network.AWS.StorageGateway.ListLocalDisks
+      , Network.AWS.StorageGateway.ListVolumes
+      , Network.AWS.StorageGateway.UpdateBandwidthRateLimit
+      , Network.AWS.StorageGateway.AddWorkingStorage
+      , Network.AWS.StorageGateway.DescribeTapeRecoveryPoints
+      , Network.AWS.StorageGateway.DeleteBandwidthRateLimit
+      , Network.AWS.StorageGateway.ActivateGateway
+      , Network.AWS.StorageGateway.DescribeCache
+      , Network.AWS.StorageGateway.DeleteVolume
+
+    build-depends:
+        base >= 4.6 && < 5

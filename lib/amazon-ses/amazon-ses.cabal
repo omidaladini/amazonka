@@ -1,0 +1,57 @@
+name:                  amazon-amazon-ses
+version:               20101201.0.1.0
+synopsis:              Amazon Simple Email Service
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.SES
+
+    other-modules:
+        Network.AWS.SES.Service
+      , Network.AWS.SES.Types
+
+      , Network.AWS.SES.GetSendQuota
+      , Network.AWS.SES.GetIdentityNotificationAttributes
+      , Network.AWS.SES.SetIdentityDkimEnabled
+      , Network.AWS.SES.SetIdentityFeedbackForwardingEnabled
+      , Network.AWS.SES.GetIdentityVerificationAttributes
+      , Network.AWS.SES.VerifyDomainIdentity
+      , Network.AWS.SES.GetIdentityDkimAttributes
+      , Network.AWS.SES.VerifyDomainDkim
+      , Network.AWS.SES.SendRawEmail
+      , Network.AWS.SES.GetSendStatistics
+      , Network.AWS.SES.DeleteIdentity
+      , Network.AWS.SES.ListIdentities
+      , Network.AWS.SES.VerifyEmailIdentity
+      , Network.AWS.SES.VerifyEmailAddress
+      , Network.AWS.SES.DeleteVerifiedEmailAddress
+      , Network.AWS.SES.ListVerifiedEmailAddresses
+      , Network.AWS.SES.SetIdentityNotificationTopic
+      , Network.AWS.SES.SendEmail
+
+    build-depends:
+        base >= 4.6 && < 5

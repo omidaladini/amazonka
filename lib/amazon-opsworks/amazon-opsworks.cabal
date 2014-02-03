@@ -1,0 +1,95 @@
+name:                  amazon-amazon-opsworks
+version:               20130218.0.1.0
+synopsis:              AWS OpsWorks
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.OpsWorks
+
+    other-modules:
+        Network.AWS.OpsWorks.Service
+      , Network.AWS.OpsWorks.Types
+
+      , Network.AWS.OpsWorks.DeleteStack
+      , Network.AWS.OpsWorks.UpdateStack
+      , Network.AWS.OpsWorks.CreateLayer
+      , Network.AWS.OpsWorks.SetLoadBasedAutoScaling
+      , Network.AWS.OpsWorks.UnassignVolume
+      , Network.AWS.OpsWorks.CreateInstance
+      , Network.AWS.OpsWorks.DescribeLayers
+      , Network.AWS.OpsWorks.RegisterElasticIp
+      , Network.AWS.OpsWorks.CreateDeployment
+      , Network.AWS.OpsWorks.DescribeStacks
+      , Network.AWS.OpsWorks.DeleteInstance
+      , Network.AWS.OpsWorks.UpdateInstance
+      , Network.AWS.OpsWorks.DeregisterVolume
+      , Network.AWS.OpsWorks.RebootInstance
+      , Network.AWS.OpsWorks.DeleteApp
+      , Network.AWS.OpsWorks.UpdateApp
+      , Network.AWS.OpsWorks.DescribeTimeBasedAutoScaling
+      , Network.AWS.OpsWorks.StopStack
+      , Network.AWS.OpsWorks.DescribeVolumes
+      , Network.AWS.OpsWorks.DisassociateElasticIp
+      , Network.AWS.OpsWorks.StopInstance
+      , Network.AWS.OpsWorks.RegisterVolume
+      , Network.AWS.OpsWorks.SetTimeBasedAutoScaling
+      , Network.AWS.OpsWorks.DescribeUserProfiles
+      , Network.AWS.OpsWorks.AttachElasticLoadBalancer
+      , Network.AWS.OpsWorks.DeregisterElasticIp
+      , Network.AWS.OpsWorks.DescribeApps
+      , Network.AWS.OpsWorks.UpdateMyUserProfile
+      , Network.AWS.OpsWorks.DescribeStackSummary
+      , Network.AWS.OpsWorks.DescribeInstances
+      , Network.AWS.OpsWorks.DescribeDeployments
+      , Network.AWS.OpsWorks.DescribeElasticIps
+      , Network.AWS.OpsWorks.DeleteLayer
+      , Network.AWS.OpsWorks.UpdateLayer
+      , Network.AWS.OpsWorks.CreateStack
+      , Network.AWS.OpsWorks.UpdateElasticIp
+      , Network.AWS.OpsWorks.CreateApp
+      , Network.AWS.OpsWorks.GetHostnameSuggestion
+      , Network.AWS.OpsWorks.CloneStack
+      , Network.AWS.OpsWorks.DescribePermissions
+      , Network.AWS.OpsWorks.DetachElasticLoadBalancer
+      , Network.AWS.OpsWorks.AssociateElasticIp
+      , Network.AWS.OpsWorks.DescribeLoadBasedAutoScaling
+      , Network.AWS.OpsWorks.DescribeMyUserProfile
+      , Network.AWS.OpsWorks.DeleteUserProfile
+      , Network.AWS.OpsWorks.UpdateUserProfile
+      , Network.AWS.OpsWorks.DescribeServiceErrors
+      , Network.AWS.OpsWorks.StartStack
+      , Network.AWS.OpsWorks.CreateUserProfile
+      , Network.AWS.OpsWorks.DescribeCommands
+      , Network.AWS.OpsWorks.AssignVolume
+      , Network.AWS.OpsWorks.DescribeElasticLoadBalancers
+      , Network.AWS.OpsWorks.SetPermission
+      , Network.AWS.OpsWorks.DescribeRaidArrays
+      , Network.AWS.OpsWorks.UpdateVolume
+      , Network.AWS.OpsWorks.StartInstance
+
+    build-depends:
+        base >= 4.6 && < 5

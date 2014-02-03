@@ -1,0 +1,55 @@
+name:                  amazon-amazon-datapipeline
+version:               20121029.0.1.0
+synopsis:              AWS Data Pipeline
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.DataPipeline
+
+    other-modules:
+        Network.AWS.DataPipeline.Service
+      , Network.AWS.DataPipeline.Types
+
+      , Network.AWS.DataPipeline.DescribePipelines
+      , Network.AWS.DataPipeline.QueryObjects
+      , Network.AWS.DataPipeline.DeletePipeline
+      , Network.AWS.DataPipeline.ListPipelines
+      , Network.AWS.DataPipeline.EvaluateExpression
+      , Network.AWS.DataPipeline.GetPipelineDefinition
+      , Network.AWS.DataPipeline.PollForTask
+      , Network.AWS.DataPipeline.DescribeObjects
+      , Network.AWS.DataPipeline.ReportTaskRunnerHeartbeat
+      , Network.AWS.DataPipeline.ActivatePipeline
+      , Network.AWS.DataPipeline.SetTaskStatus
+      , Network.AWS.DataPipeline.SetStatus
+      , Network.AWS.DataPipeline.ReportTaskProgress
+      , Network.AWS.DataPipeline.CreatePipeline
+      , Network.AWS.DataPipeline.PutPipelineDefinition
+      , Network.AWS.DataPipeline.ValidatePipelineDefinition
+
+    build-depends:
+        base >= 4.6 && < 5

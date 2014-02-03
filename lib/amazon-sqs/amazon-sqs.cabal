@@ -1,0 +1,54 @@
+name:                  amazon-amazon-sqs
+version:               20121105.0.1.0
+synopsis:              Amazon Simple Queue Service
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.SQS
+
+    other-modules:
+        Network.AWS.SQS.Service
+      , Network.AWS.SQS.Types
+
+      , Network.AWS.SQS.GetQueueUrl
+      , Network.AWS.SQS.ChangeMessageVisibilityBatch
+      , Network.AWS.SQS.SendMessage
+      , Network.AWS.SQS.RemovePermission
+      , Network.AWS.SQS.GetQueueAttributes
+      , Network.AWS.SQS.ListQueues
+      , Network.AWS.SQS.ReceiveMessage
+      , Network.AWS.SQS.DeleteQueue
+      , Network.AWS.SQS.DeleteMessageBatch
+      , Network.AWS.SQS.SetQueueAttributes
+      , Network.AWS.SQS.AddPermission
+      , Network.AWS.SQS.DeleteMessage
+      , Network.AWS.SQS.CreateQueue
+      , Network.AWS.SQS.SendMessageBatch
+      , Network.AWS.SQS.ChangeMessageVisibility
+
+    build-depends:
+        base >= 4.6 && < 5

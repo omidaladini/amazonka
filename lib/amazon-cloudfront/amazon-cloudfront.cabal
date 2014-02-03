@@ -1,0 +1,60 @@
+name:                  amazon-amazon-cloudfront
+version:               20131111.0.1.0
+synopsis:              Amazon CloudFront
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.CloudFront
+
+    other-modules:
+        Network.AWS.CloudFront.Service
+      , Network.AWS.CloudFront.Types
+
+      , Network.AWS.CloudFront.DeleteStreamingDistribution
+      , Network.AWS.CloudFront.UpdateStreamingDistribution
+      , Network.AWS.CloudFront.CreateDistribution
+      , Network.AWS.CloudFront.GetDistributionConfig
+      , Network.AWS.CloudFront.GetDistribution
+      , Network.AWS.CloudFront.UpdateCloudFrontOriginAccessIdentity
+      , Network.AWS.CloudFront.DeleteCloudFrontOriginAccessIdentity
+      , Network.AWS.CloudFront.ListStreamingDistributions
+      , Network.AWS.CloudFront.GetStreamingDistributionConfig
+      , Network.AWS.CloudFront.GetCloudFrontOriginAccessIdentityConfig
+      , Network.AWS.CloudFront.CreateStreamingDistribution
+      , Network.AWS.CloudFront.CreateCloudFrontOriginAccessIdentity
+      , Network.AWS.CloudFront.ListCloudFrontOriginAccessIdentities
+      , Network.AWS.CloudFront.GetInvalidation
+      , Network.AWS.CloudFront.ListInvalidations
+      , Network.AWS.CloudFront.CreateInvalidation
+      , Network.AWS.CloudFront.GetCloudFrontOriginAccessIdentity
+      , Network.AWS.CloudFront.GetStreamingDistribution
+      , Network.AWS.CloudFront.UpdateDistribution
+      , Network.AWS.CloudFront.DeleteDistribution
+      , Network.AWS.CloudFront.ListDistributions
+
+    build-depends:
+        base >= 4.6 && < 5

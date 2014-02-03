@@ -1,0 +1,54 @@
+name:                  amazon-amazon-cloudformation
+version:               20100515.0.1.0
+synopsis:              AWS CloudFormation
+homepage:              http://github.com/brendanhay/amazon
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+extra-source-files:
+    README.md
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazon.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src gen
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Network.AWS.CloudFormation
+
+    other-modules:
+        Network.AWS.CloudFormation.Service
+      , Network.AWS.CloudFormation.Types
+
+      , Network.AWS.CloudFormation.DeleteStack
+      , Network.AWS.CloudFormation.UpdateStack
+      , Network.AWS.CloudFormation.ListStackResources
+      , Network.AWS.CloudFormation.GetStackPolicy
+      , Network.AWS.CloudFormation.DescribeStacks
+      , Network.AWS.CloudFormation.ValidateTemplate
+      , Network.AWS.CloudFormation.CancelUpdateStack
+      , Network.AWS.CloudFormation.DescribeStackEvents
+      , Network.AWS.CloudFormation.SetStackPolicy
+      , Network.AWS.CloudFormation.ListStacks
+      , Network.AWS.CloudFormation.DescribeStackResources
+      , Network.AWS.CloudFormation.CreateStack
+      , Network.AWS.CloudFormation.EstimateTemplateCost
+      , Network.AWS.CloudFormation.GetTemplate
+      , Network.AWS.CloudFormation.DescribeStackResource
+
+    build-depends:
+        base >= 4.6 && < 5
