@@ -34,4 +34,5 @@ tags
 *.awk
 /generator
 /lib/*
+!/lib/Makefile
 !/lib/amazon-core/**/*
