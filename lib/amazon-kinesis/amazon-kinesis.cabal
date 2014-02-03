@@ -1,4 +1,4 @@
-name:                  amazon-amazon-kinesis
+name:                  amazon-kinesis
 version:               20131202.0.1.0
 synopsis:              Amazon Kinesis
 homepage:              http://github.com/brendanhay/amazon

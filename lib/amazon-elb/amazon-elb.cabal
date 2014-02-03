@@ -1,4 +1,4 @@
-name:                  amazon-amazon-elb
+name:                  amazon-elb
 version:               20120601.0.1.0
 synopsis:              Elastic Load Balancing
 homepage:              http://github.com/brendanhay/amazon

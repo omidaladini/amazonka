@@ -1,4 +1,4 @@
-name:                  amazon-amazon-sns
+name:                  amazon-sns
 version:               20100331.0.1.0
 synopsis:              Amazon Simple Notification Service
 homepage:              http://github.com/brendanhay/amazon

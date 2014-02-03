@@ -1,4 +1,4 @@
-name:                  amazon-amazon-sts
+name:                  amazon-sts
 version:               20110615.0.1.0
 synopsis:              AWS Security Token Service
 homepage:              http://github.com/brendanhay/amazon

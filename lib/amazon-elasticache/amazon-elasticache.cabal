@@ -1,4 +1,4 @@
-name:                  amazon-amazon-elasticache
+name:                  amazon-elasticache
 version:               20130615.0.1.0
 synopsis:              Amazon ElastiCache
 homepage:              http://github.com/brendanhay/amazon

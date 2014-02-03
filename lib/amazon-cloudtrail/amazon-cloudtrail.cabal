@@ -1,4 +1,4 @@
-name:                  amazon-amazon-cloudtrail
+name:                  amazon-cloudtrail
 version:               20131101.0.1.0
 synopsis:              AWS CloudTrail
 homepage:              http://github.com/brendanhay/amazon

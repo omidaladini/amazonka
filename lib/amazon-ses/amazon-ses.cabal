@@ -1,4 +1,4 @@
-name:                  amazon-amazon-ses
+name:                  amazon-ses
 version:               20101201.0.1.0
 synopsis:              Amazon Simple Email Service
 homepage:              http://github.com/brendanhay/amazon

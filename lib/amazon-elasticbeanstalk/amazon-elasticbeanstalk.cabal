@@ -1,4 +1,4 @@
-name:                  amazon-amazon-elasticbeanstalk
+name:                  amazon-elasticbeanstalk
 version:               20101201.0.1.0
 synopsis:              AWS Elastic Beanstalk
 homepage:              http://github.com/brendanhay/amazon

@@ -1,4 +1,4 @@
-name:                  amazon-amazon-emr
+name:                  amazon-emr
 version:               20090331.0.1.0
 synopsis:              Amazon Elastic MapReduce
 homepage:              http://github.com/brendanhay/amazon

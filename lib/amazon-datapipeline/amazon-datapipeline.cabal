@@ -1,4 +1,4 @@
-name:                  amazon-amazon-datapipeline
+name:                  amazon-datapipeline
 version:               20121029.0.1.0
 synopsis:              AWS Data Pipeline
 homepage:              http://github.com/brendanhay/amazon

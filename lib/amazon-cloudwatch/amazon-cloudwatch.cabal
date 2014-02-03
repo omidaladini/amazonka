@@ -1,4 +1,4 @@
-name:                  amazon-amazon-cloudwatch
+name:                  amazon-cloudwatch
 version:               20100801.0.1.0
 synopsis:              Amazon CloudWatch
 homepage:              http://github.com/brendanhay/amazon

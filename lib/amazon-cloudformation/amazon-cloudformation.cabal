@@ -1,4 +1,4 @@
-name:                  amazon-amazon-cloudformation
+name:                  amazon-cloudformation
 version:               20100515.0.1.0
 synopsis:              AWS CloudFormation
 homepage:              http://github.com/brendanhay/amazon

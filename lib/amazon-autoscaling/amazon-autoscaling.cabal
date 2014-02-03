@@ -1,4 +1,4 @@
-name:                  amazon-amazon-autoscaling
+name:                  amazon-autoscaling
 version:               20110101.0.1.0
 synopsis:              Auto Scaling
 homepage:              http://github.com/brendanhay/amazon

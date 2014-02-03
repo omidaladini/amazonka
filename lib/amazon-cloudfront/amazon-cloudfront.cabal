@@ -1,4 +1,4 @@
-name:                  amazon-amazon-cloudfront
+name:                  amazon-cloudfront
 version:               20131111.0.1.0
 synopsis:              Amazon CloudFront
 homepage:              http://github.com/brendanhay/amazon

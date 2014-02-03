@@ -1,4 +1,4 @@
-name:                  amazon-amazon-cloudsearch
+name:                  amazon-cloudsearch
 version:               20110201.0.1.0
 synopsis:              Amazon CloudSearch
 homepage:              http://github.com/brendanhay/amazon

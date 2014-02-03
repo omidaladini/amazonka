@@ -1,4 +1,4 @@
-name:                  amazon-amazon-storagegateway
+name:                  amazon-storagegateway
 version:               20130630.0.1.0
 synopsis:              AWS Storage Gateway
 homepage:              http://github.com/brendanhay/amazon

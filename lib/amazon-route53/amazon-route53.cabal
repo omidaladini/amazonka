@@ -1,4 +1,4 @@
-name:                  amazon-amazon-route53
+name:                  amazon-route53
 version:               20121212.0.1.0
 synopsis:              Amazon Route 53
 homepage:              http://github.com/brendanhay/amazon

@@ -1,4 +1,4 @@
-name:                  amazon-amazon-s3
+name:                  amazon-s3
 version:               20060301.0.1.0
 synopsis:              Amazon Simple Storage Service
 homepage:              http://github.com/brendanhay/amazon

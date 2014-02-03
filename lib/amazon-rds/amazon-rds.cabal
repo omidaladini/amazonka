@@ -1,4 +1,4 @@
-name:                  amazon-amazon-rds
+name:                  amazon-rds
 version:               20130909.0.1.0
 synopsis:              Amazon Relational Database Service
 homepage:              http://github.com/brendanhay/amazon

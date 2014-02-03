@@ -1,4 +1,4 @@
-name:                  amazon-amazon-dynamodb
+name:                  amazon-dynamodb
 version:               20120810.0.1.0
 synopsis:              Amazon DynamoDB
 homepage:              http://github.com/brendanhay/amazon

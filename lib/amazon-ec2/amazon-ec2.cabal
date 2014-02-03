@@ -1,4 +1,4 @@
-name:                  amazon-amazon-ec2
+name:                  amazon-ec2
 version:               20131015.0.1.0
 synopsis:              Amazon Elastic Compute Cloud
 homepage:              http://github.com/brendanhay/amazon
