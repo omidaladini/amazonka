@@ -47,7 +47,7 @@ version :: Text
 version = "0.1.0"
 
 target :: FilePath
-target = "gen"
+target = "lib"
 
 main :: IO ()
 main = getArgs >>= parse
