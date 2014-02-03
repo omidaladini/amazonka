@@ -79,7 +79,7 @@ main = getArgs >>= parse
             cabalFile version target ts ms
 
             msg "Copying amazon LICENSE"
-            scriptIO $ copyFile "LICENSE" "amazon"
+            scriptIO . copyFile "LICENSE" $ target </> "amazon/LICENSE"
 
             msg $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
