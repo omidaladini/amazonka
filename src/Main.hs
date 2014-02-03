@@ -121,7 +121,7 @@ cabalLibFile ver dir Templates{..} m@Model{..} = do
     name = serviceName m
 
 serviceName :: Model -> String
-serviceName Model{..} =
+serviceName Model{..} = ("amazon-" ++) $
     case Text.unpack mEndpointPrefix of
         "email"                -> "ses"
         "elasticloadbalancing" -> "elb"
