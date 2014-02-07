@@ -35,4 +35,4 @@ tags
 /generator
 /lib/*
 !/lib/Makefile
-!/lib/amazon-core/**/*
+!/lib/amazonka-core/**/*.hs

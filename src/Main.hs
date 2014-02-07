@@ -82,10 +82,10 @@ main = getArgs >>= parse
             msg "Copying amazonka LICENSE"
             scriptIO . copyFile "LICENSE" $ target </> "amazonka/LICENSE"
 
+--                . (++ ["./amazonka"])
             msg "Creating sources.txt"
             scriptIO . writeFile (target </> "sources.txt")
                 . unlines
-                . (++ ["./amazonka"])
                 . ("./amazonka-core" :)
                 $ map (mappend "./" . serviceName) ms
 
@@ -115,7 +115,7 @@ cabalFile ver dir Templates{..} ms = do
 
 cabalLibFile :: Text -> FilePath -> Templates -> Model -> Script ()
 cabalLibFile ver dir Templates{..} m@Model{..} = do
-    scriptIO . createDirectoryIfMissing True $ dir </> "src"
+    scriptIO $ createDirectoryIfMissing True dir
     render (dir </> name <.> "cabal") tCabalLibFile $ oJSON <> EDE.fromPairs
         [ "module"        .= mName
         , "operations"    .= map oName mOperations

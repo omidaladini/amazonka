@@ -1,16 +1,17 @@
 SHELL := /usr/bin/env bash
 FLAGS := --disable-documentation --disable-library-coverage
+ALIBS := $(wildcard amazonka-*)
+LIBS  := $(filter-out amazonka-core, $(ALIBS))
 
 .PHONY: test lint doc
 
 all: install
 
 install: cabal.sandbox.config
-	cabal-meta install -j $(FLAGS)
+	cabal-meta install $(FLAGS)
 
 clean:
-	-rm -rf dist cabal.sandbox.config .cabal-sandbox
-	cabal clean
+	@-rm -rf $(LIBS)
 
 lint:
 	hlint src

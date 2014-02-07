@@ -12,11 +12,7 @@
 
 module Network.AWS.{{ module }}.Service where
 
-import Data.Aeson
-import Data.Aeson.Types
-import GHC.Generics               (Generic)
-import Network.AWS.Internal
-import Network.AWS.Internal.Types (Service(..))
+import Network.AWS.Core
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: Service

@@ -51,7 +51,7 @@ MODELS := $(BOTO)/route53.json
 .PHONY: test lint doc
 
 all: generator
-	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) -j -C lib
+	rm -rf lib/gen; ./generator $(MODELS) && $(MAKE) install -C lib
 
 build:
 	cabal build $(addprefix -,$(findstring j,$(MAKEFLAGS)))

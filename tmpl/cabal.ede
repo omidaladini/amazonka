@@ -1,6 +1,6 @@
 name:                  amazonka
 version:               {{ cabal_version }}
-synopsis:              Interfaces to Amazon Web Service APIs
+synopsis:              Comprehensive Amazon Web Service SDK
 homepage:              http://github.com/brendanhay/amazonka
 license:               OtherLicense
 license-file:          LICENSE
@@ -32,6 +32,5 @@ library
       , {{ model.value.cabal_name }}
   {% endif %}
 {% endfor %}
-      , amazon
-      , amazon-core
-      , base        >= 4.6 && < 5
+      , amazonka-core
+      , base          >= 4.6 && < 5

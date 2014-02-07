@@ -14,9 +14,8 @@ module Network.AWS.Core
     , FromJSON (..)
     , ToJSON   (..)
     , Options  (..)
-    , defaultOptions
-
     , ByteString
+    , Hashable (..)
     , HashMap
     , NonEmpty (..)
     , Tagged   (..)
@@ -24,6 +23,9 @@ module Network.AWS.Core
     , UTCTime
     , Generic
     , Service  (..)
+
+    , defaultOptions
+    , def
     ) where
 
 import Data.Aeson                 (FromJSON(..), ToJSON(..))
