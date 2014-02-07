@@ -45,8 +45,8 @@ JSON := \
  $(BOTO)/support.json \
  $(BOTO)/swf.json
 
-MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
-#MODELS := $(BOTO)/route53.json
+#MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
+MODELS := $(BOTO)/route53.json
 
 .PHONY: test lint doc
 

@@ -76,17 +76,17 @@ main = getArgs >>= parse
 
                 return m
 
-            title "Expanding amazon cabal configuration"
+            title "Expanding amazonka cabal configuration"
             cabalFile version target ts ms
 
-            msg "Copying amazon LICENSE"
-            scriptIO . copyFile "LICENSE" $ target </> "amazon/LICENSE"
+            msg "Copying amazonka LICENSE"
+            scriptIO . copyFile "LICENSE" $ target </> "amazonka/LICENSE"
 
             msg "Creating sources.txt"
             scriptIO . writeFile (target </> "sources.txt")
                 . unlines
-                . (++ ["./amazon"])
-                . ("./amazon-core" :)
+                . (++ ["./amazonka"])
+                . ("./amazonka-core" :)
                 $ map (mappend "./" . serviceName) ms
 
             msg $ "Generated " ++ show (length ms) ++ " models successfully."
@@ -99,12 +99,12 @@ main = getArgs >>= parse
 cabalFile :: Text -> FilePath -> Templates -> [Model] -> Script ()
 cabalFile ver dir Templates{..} ms = do
     scriptIO $ createDirectoryIfMissing True path
-    render (path </> "amazon.cabal") tCabalFile $ EDE.fromPairs
+    render (path </> "amazonka.cabal") tCabalFile $ EDE.fromPairs
         [ "models"        .= map js ms
         , "cabal_version" .= ver
         ]
   where
-    path = dir </> "amazon"
+    path = dir </> "amazonka"
 
     js m@Model{..} = EDE.fromPairs
         [ "module"          .= mName
@@ -128,7 +128,7 @@ cabalLibFile ver dir Templates{..} m@Model{..} = do
     name = serviceName m
 
 serviceName :: Model -> String
-serviceName Model{..} = Text.unpack . ("amazon-" <>) $
+serviceName Model{..} = Text.unpack . ("amazonka-" <>) $
     case mEndpointPrefix of
         "email"                -> "ses"
         "elasticloadbalancing" -> "elb"
@@ -256,7 +256,7 @@ templates = title "Listing tmpl" *>
         scriptIO (EDE.eitherParseFile p) >>= hoistEither
 
 models :: Script [FilePath]
-models = fmap (take 1) $ do
+models = do
     title $ "Listing " ++ dir
     xs <- scriptIO $ getDirectoryContents dir
     return . map (dir </>) $ filter f xs

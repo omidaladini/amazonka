@@ -1,7 +1,7 @@
 name:                  {{ cabal_name }}
 version:               {{ cabal_version }}
 synopsis:              {{ service_full_name }}
-homepage:              http://github.com/brendanhay/amazon
+homepage:              http://github.com/brendanhay/amazonka
 license:               OtherLicense
 license-file:          LICENSE
 author:                Brendan Hay
@@ -17,7 +17,7 @@ description:
 
 source-repository head
     type:     git
-    location: git://github.com/brendanhay/amazon.git
+    location: git://github.com/brendanhay/amazonka.git
 
 library
     default-language:  Haskell2010

@@ -1,7 +1,7 @@
-name:                  amazon
+name:                  amazonka
 version:               {{ cabal_version }}
 synopsis:              Interfaces to Amazon Web Service APIs
-homepage:              http://github.com/brendanhay/amazon
+homepage:              http://github.com/brendanhay/amazonka
 license:               OtherLicense
 license-file:          LICENSE
 author:                Brendan Hay
@@ -17,7 +17,7 @@ description:
 
 source-repository head
     type:     git
-    location: git://github.com/brendanhay/amazon.git
+    location: git://github.com/brendanhay/amazonka.git
 
 library
     default-language:  Haskell2010
@@ -30,9 +30,6 @@ library
         {{ model.value.cabal_name }}
   {% else %}
       , {{ model.value.cabal_name }}
-  {% endif %}
-  {% if !model.last %}
-
   {% endif %}
 {% endfor %}
       , amazon
