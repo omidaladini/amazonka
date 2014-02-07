@@ -1,0 +1,77 @@
+name:                  amazonka-core
+version:               0.1.0
+synopsis:              Common logic and types for Amazon Web Service APIs
+homepage:              http://github.com/brendanhay/amazonka
+license:               OtherLicense
+license-file:          LICENSE
+author:                Brendan Hay
+copyright:             Copyright (c) 2013-2014 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
+stability:             Experimental
+category:              AWS, Cloud, Network
+build-type:            Simple
+cabal-version:         >= 1.10
+
+description:
+    Pending
+
+source-repository head
+    type:     git
+    location: git://github.com/brendanhay/amazonka.git
+
+library
+    default-language:  Haskell2010
+    hs-source-dirs:    src
+    ghc-options:       -Wall
+
+    exposed-modules:
+        Data.ByteString.Helpers
+      , Data.Text.Helpers
+      , Data.Time.Formatters
+
+      , Network.AWS
+      , Network.AWS.Core
+      , Network.AWS.EC2.Metadata
+      , Network.AWS.Headers
+
+      , Network.HTTP.QueryString.Generic
+
+      , Text.XML.Generic
+
+    other-modules:
+        Network.AWS.Internal
+      , Network.AWS.Internal.Credentials
+      , Network.AWS.Internal.Request
+      , Network.AWS.Internal.Serialisation
+      , Network.AWS.Internal.Signing
+      , Network.AWS.Internal.Types
+      , Network.AWS.Internal.Types.Common
+
+    build-depends:
+        aeson                 >= 0.7
+      , async
+      , attoparsec
+      , base                  >= 4.6 && < 5
+      , base16-bytestring
+      , base64-bytestring
+      , bytestring
+      , case-insensitive
+      , conduit
+      , cryptohash
+      , data-default
+      , errors                >= 1.4.4
+      , hashable
+      , http-client
+      , http-conduit
+      , http-types
+      , lifted-base
+      , mtl
+      , old-locale
+      , resourcet
+      , semigroups
+      , tagged
+      , text                  >= 1.0
+      , time
+      , transformers
+      , unordered-containers
+      , xml-conduit
