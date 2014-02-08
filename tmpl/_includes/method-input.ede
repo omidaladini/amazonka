@@ -1,34 +1,8 @@
+{% if scope.input | required | listLength > 0 %}
+  {% if scope.input.fields | mapLength > 0 %}
+
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
-{% if scope.input | required | listLength == 0 %}
-{{ scope.name | lowerFirst }} :: {{ scope.name }}
-{{ scope.name | lowerFirst }} = {{ scope.name }}
-  {% for field in scope.input.fields %}
-    {% if field.first %}
-      {% case field.value.type %}
-      {% when "map" %}
-    { {{ field.key }} = Map.empty
-      {% when "list" %}
-    { {{ field.key }} = []
-      {% else %}
-    { {{ field.key }} = Nothing
-      {% endcase %}
-    {% else %}
-      {% case field.value.type %}
-      {% when "map" %}
-    , {{ field.key }} = Map.empty
-      {% when "list" %}
-    , {{ field.key }} = []
-      {% else %}
-    , {{ field.key }} = Nothing
-      {% endcase %}
-    {% endif %}
-    {% if field.last %}
-    }
-    {% endif %}
-  {% endfor %}
-{% else %}
-{% if scope.input.fields | mapLength > 0 %}
   {% for field in scope.input | required %}
     {% if field.first %}
 {{ scope.name | lowerFirst }} :: {% include "type.ede" with field.value %}
@@ -60,8 +34,5 @@
     {% endif %}
   {% endfor %}
     }
-{% else %}
-{{ scope.name | lowerFirst }} :: {{ scope.name }}
-{{ scope.name | lowerFirst }} = {{ scope.name }}
-{% endif %}
+  {% endif %}
 {% endif %}

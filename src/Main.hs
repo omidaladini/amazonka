@@ -81,7 +81,7 @@ cabalFile ver dir Templates{..} ms = do
     scriptIO $ createDirectoryIfMissing True path
     render "lib/amazonka.cabal" tCabalFile $ EDE.fromPairs
         [ "models"        .= map js ms
-        , "cabal_name"    .= ("amazonka" :: Text)
+        , "cabal_name"    .= ("hamazonka" :: Text)
         , "cabal_version" .= ver
         ]
   where

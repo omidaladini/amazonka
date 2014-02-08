@@ -1,6 +1,8 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeFamilies      #-}
+{-# LANGUAGE DeriveGeneric               #-}
+{-# LANGUAGE OverloadedStrings           #-}
+{-# LANGUAGE TypeFamilies                #-}
+
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Module      : Network.AWS.{{ module }}.{{ name }}
 {% include "_includes/header.ede" %}
@@ -21,7 +23,6 @@ module Network.AWS.{{ module }}.{{ name }} where
 import Network.AWS.Core
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
-
 {% include "_includes/method-input.ede" %}
 
 data {{ name }} = {{ name }}
@@ -72,5 +73,5 @@ instance FromXML {{ name }}Response where
 
 instance FromXML {{ name }}Response where
     fromXMLOptions = xmlOptions
-    fromXMLRoot    = fromRoot {{ name }}Response
+    fromXMLRoot    = fromRoot "{{ name }}Response"
 {% endif %}

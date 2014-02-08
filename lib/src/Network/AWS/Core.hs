@@ -43,10 +43,10 @@ import Data.Text                  (Text)
 import Data.Time                  (UTCTime)
 import GHC.Generics               (Generic)
 import Network.AWS.Generics.Query (ToQuery(..), queryFromList)
-import Network.AWS.Generics.XML   (FromXML(..), ToXML(..))
 
 import Control.Monad              as Export
 import Data.Monoid                as Export
+import Network.AWS.Generics.XML   as Export
 import Network.AWS.Internal       as Export
 import Network.AWS.Text           as Export
 
