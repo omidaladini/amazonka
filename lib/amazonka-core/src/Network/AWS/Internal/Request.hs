@@ -1,4 +1,4 @@
-{-# LANGUAGE FlexibleContexts  #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 -- Module      : Network.AWS.Internal.Request
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -15,11 +15,12 @@ module Network.AWS.Internal.Request where
 import Data.Aeson
 import Data.ByteString                    (ByteString)
 import Data.Conduit
+import Data.Text                          (Text)
+import Network.AWS.Generics.Query
+import Network.AWS.Generics.XML
 import Network.AWS.Internal.Serialisation
 import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
-import Network.AWS.Generics.Query
-import Network.AWS.Generics.XML
 
 getQuery :: (ToQuery a, AWSRequest a)
          => Service
@@ -113,7 +114,7 @@ responseJSON :: (FromJSON (Er a), FromJSON (Rs a))
 responseJSON = undefined
 
 -- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v2Query s@Service{..} m p x = RawRequest s m p q [] (RequestBodyBS "")
+-- v2Query s@Service{..} m p x = RawRequest s s m p q [] (RequestBodyBS "")
 --   where
 --     q = map (second Just) $ encodeQuery x
 
@@ -124,13 +125,13 @@ responseJSON = undefined
 -- v3httpsQuery = undefined
 
 -- xml :: ToXML a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- xml s@Service{..} m p = RawRequest s m p [] [] . RequestBodyBS . toXML
+-- xml s@Service{..} m p = RawRequest s s m p [] [] . RequestBodyBS . toXML
 -- --     , rqHeaders = [hdr (Content :: XML)]
 
--- (.?.) :: RawRequest -> [QueryItem] -> RawRequest
+-- (.?.) :: RawRequest s -> [QueryItem] -> RawRequest
 -- (.?.) r q = r { rawQuery = rawQuery r ++ q }
 
--- (.:.) :: RawRequest -> [Header] -> RawRequest
+-- (.:.) :: RawRequest s -> [Header] -> RawRequest
 -- (.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
 
 -- xml :: ToXML a => a -> RequestBody

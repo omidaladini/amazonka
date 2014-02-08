@@ -27,7 +27,7 @@ import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.ByteString.Char8             (ByteString)
-import           Data.CaseInsensitive              (CI)
+import qualified Data.ByteString.Char8             as BS
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
 import           Data.Default
@@ -36,6 +36,7 @@ import           Data.Monoid
 import           Data.String
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
+import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           Network.AWS.Generics.XML
 import           Network.AWS.Internal.Types.Common
@@ -121,40 +122,40 @@ awsEitherT = AWS . lift . fmapLT awsError
 awsEither :: AWSError e => Either e a -> AWS a
 awsEither = either awsThrow return
 
-type AWSSigner = RawRequest -> Auth -> Region -> UTCTime -> Request
+data Signer = Signer
+    { sigAccess  :: !ByteString
+    , sigSecret  :: !ByteString
+    , sigToken   :: Maybe ByteString
+    , sigTime    :: !UTCTime
+    , sigRegion  :: !ByteString
+    , sigService :: !ByteString
+    , sigVersion :: !ByteString
+    , sigMethod  :: !ByteString
+    , sigHost    :: !ByteString
+    , sigPath    :: !ByteString
+    , sigQuery   :: Query
+    , sigHeaders :: [Header]
+    , sigBody    :: RequestBody
+    }
 
 data Endpoint
     = Global
     | Regional
-    | Custom !Text
+    | Custom !ByteString
 
 data Service = Service
-    { svcEndpoint :: !Endpoint
-    , svcSigner   :: !AWSSigner
-    , svcName     :: !Text
-    , svcVersion  :: !Text
+    { svcSigner   :: Signer -> Request
+    , svcEndpoint :: !Endpoint
+    , svcName     :: !ByteString
+    , svcVersion  :: !ByteString
     }
-
-region :: Service -> AWS Region
-region Service{..} =
-    case svcEndpoint of
-        Global -> return def
-        _      -> getRegion
-
-endpoint :: Service -> Region -> Text
-endpoint Service{..} reg =
-    case svcEndpoint of
-        Custom t -> t
-        Global   -> svcName <> ".amazonaws.com"
-        Regional -> Text.intercalate "." $
-            [svcName, toText reg, "amazonaws.com"]
 
 data RawRequest = RawRequest
     { rawService :: !Service
     , rawMethod  :: !StdMethod
     , rawPath    :: !Text
-    , rawQuery   :: [(Text, Maybe Text)]
-    , rawHeaders :: [(CI Text, Text)]
+    , rawQuery   :: QueryText
+    , rawHeaders :: [Header]
     , rawBody    :: RequestBody
     }
 

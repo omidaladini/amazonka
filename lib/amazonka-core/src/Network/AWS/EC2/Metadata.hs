@@ -16,17 +16,18 @@ module Network.AWS.EC2.Metadata where
 
 import           Control.Applicative
 import           Control.Error
-import qualified Control.Exception    as EX
+import qualified Control.Exception     as EX
 import           Control.Monad.Error
-import           Data.ByteString      (ByteString)
-import qualified Data.ByteString.Lazy as LBS
+import           Data.ByteString       (ByteString)
+import qualified Data.ByteString.Char8 as BS
+import qualified Data.ByteString.Lazy  as LBS
 import           Data.Monoid
-import qualified Data.Text            as Text
-import           Data.Text (Text)
+import qualified Data.Text             as Text
+import           Data.Text             (Text)
 import           Network.AWS.Internal
 import           Network.AWS.Text
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types   (status404)
+import           Network.HTTP.Types    (status404)
 
 data Dynamic
     = FWS
@@ -265,8 +266,13 @@ meta :: (Functor m, MonadIO m) => Meta -> m ByteString
 meta = get "http://169.254.169.254/latest/meta-data/"
 
 dynamic :: (Functor m, MonadIO m) => Dynamic -> m ByteString
-dynamic = get "http://169.254.169.254/latest/dynamic-data/"
+dynamic = get "http://169.254.169.254/latest/dynamic/"
 
 get :: (Functor m, MonadIO m, ToPath a) => Text -> a -> m ByteString
-get base p = BSH.strip '\n' . LBS.toStrict
-    <$> (simpleHttp . Text.unpack $ base <> toPath p)
+get base p = strip . LBS.toStrict <$> go
+  where
+    go = simpleHttp . Text.unpack $ base <> toPath p
+
+    strip bs
+        | BS.isSuffixOf "\n" bs = BS.init bs
+        | otherwise             = bs

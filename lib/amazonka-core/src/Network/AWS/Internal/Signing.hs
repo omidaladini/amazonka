@@ -1,4 +1,3 @@
-{-# LANGUAGE DataKinds         #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE ViewPatterns      #-}
@@ -30,14 +29,12 @@ import           Data.ByteString                   (ByteString)
 import qualified Data.ByteString.Base16            as Base16
 import qualified Data.ByteString.Base64            as Base64
 import qualified Data.ByteString.Char8             as BS
-import           Data.CaseInsensitive              (CI)
-import qualified Data.CaseInsensitive              as Case
+import qualified Data.CaseInsensitive              as CI
 import           Data.Default
 import           Data.Function                     (on)
 import           Data.List                         (groupBy, nub, sort)
 import           Data.Maybe
 import           Data.Monoid
-import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
 import qualified Data.Text.Encoding                as Text
 import           Data.Time                         (getCurrentTime)
@@ -47,95 +44,139 @@ import           Network.AWS.Internal.Types.Common
 import           Network.AWS.Text
 import           Network.AWS.Time
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types                (Header, StdMethod, Query)
+import           Network.HTTP.Types                (Header)
 import qualified Network.HTTP.Types                as HTTP
 
 sign :: RawRequest -> AWS Request
-sign raw@RawRequest{..} = do
-    auth <- getAuth
-    reg  <- region rawService
-    time <- liftIO getCurrentTime
+sign RawRequest{..} = do
+    Auth{..} <- getAuth
+    reg      <- region
+    time     <- liftIO getCurrentTime
 
-    let sig = svcSigner rawService
-        hs  = hHost (endpoint rawService reg) : rawHeaders
+    let host = endpoint reg
 
-    return $! sig (raw { rawHeaders = hs }) auth reg time
-
-v2 :: AWSSigner
-v2 raw@RawRequest{..} auth reg time =
-    signed rawMethod _host rawPath query headers rawBody
+    return . svcSigner $ Signer
+        { sigAccess  = Text.encodeUtf8 authAccessKeyId
+        , sigSecret  = Text.encodeUtf8 authSecretAccessKey
+        , sigToken   = Text.encodeUtf8 <$> authSecurityToken
+        , sigTime    = time
+        , sigRegion  = reg
+        , sigService = svcName
+        , sigVersion = svcVersion
+        , sigMethod  = BS.pack $ show rawMethod
+        , sigHost    = host
+        , sigPath    = Text.encodeUtf8 rawPath
+        , sigQuery   = HTTP.queryTextToQuery $ sort rawQuery
+        , sigHeaders = hHost host : rawHeaders
+        , sigBody    = rawBody
+        }
   where
-    Common{..} = common raw reg
+    Service{..} = rawService
 
-    query = encoded <> "&Signature=" <> HTTP.urlEncode True signature
+    region = fmap (Text.encodeUtf8 . toText) $
+        case svcEndpoint of
+            Global -> return def
+            _      -> getRegion
+
+    endpoint reg =
+        case svcEndpoint of
+            Custom t -> t
+            Global   -> svcName <> ".amazonaws.com"
+            Regional -> BS.intercalate "." $ [svcName, reg, "amazonaws.com"]
+
+signed :: ByteString
+       -> ByteString
+       -> ByteString
+       -> ByteString
+       -> [Header]
+       -> RequestBody
+       -> Request
+signed meth host path qry hs body = def
+    { secure         = True
+    , method         = BS.pack $ show meth
+    , host           = host
+    , port           = 443
+    , path           = path
+    , queryString    = qry
+    , requestHeaders = hs
+    , requestBody    = body
+    , checkStatus    = \_ _ _ -> Nothing
+    }
+
+v2 :: Signer -> Request
+v2 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
+  where
+    query = encoded <> "&Signer=" <> HTTP.urlEncode True signature
 
     signature = Base64.encode
-        . hmacSHA256 (secretAccessKey auth)
+        . hmacSHA256 sigSecret
         $ BS.intercalate "\n"
-            [ BS.pack $ show rawMethod
-            , _host
-            , rawPath
+            [ sigMethod
+            , sigHost
+            , sigPath
             , encoded
             ]
 
     encoded = HTTP.renderQuery False
-        $ _query
-       ++ [ ("Version",          Just _version)
-          , ("SignatureVersion", Just "2")
-          , ("SignatureMethod",  Just "HmacSHA256")
-          , ("Timestamp",        Just $ formatISO8601 time)
-          , ("AWSAccessKeyId",   Just $ accessKeyId auth)
+        $ sigQuery
+       ++ [ ("Version",          Just sigVersion)
+          , ("SignerVersion", Just "2")
+          , ("SignerMethod",  Just "HmacSHA256")
+          , ("Timestamp",        Just iso8601)
+          , ("AWSAccessigKeyId",   Just sigAccess)
           ]
-       ++ maybeToList ((\t -> ("SecurityToken", Just t)) <$> securityToken auth)
+       ++ maybeToList ((\t -> ("SecurityToken", Just t)) <$> sigToken)
 
-    headers = hDate (formatISO8601 time) : rawHeaders
+    headers = hDate iso8601 : sigHeaders
 
-v3 :: AWSSigner
-v3 raw@RawRequest{..} auth reg time =
-    signed rawMethod _host rawPath query headers rawBody
+    iso8601 = Text.encodeUtf8 $ formatISO8601 sigTime
+
+v3 :: Signer -> Request
+v3 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
   where
-    Common{..} = common raw reg
+    query = HTTP.renderQuery False sigQuery
 
-    query   = HTTP.renderQuery False _query
-    headers = hDate (formatRFC822 time)
+    headers = hDate rfc822
         : hAMZAuth authorisation
-        : maybeToList (hAMZToken <$> securityToken auth)
-       ++ rawHeaders
+        : maybeToList (hAMZToken <$> sigToken)
+       ++ sigHeaders
 
-    authorisation = "AWS3-HTTPS AWSAccessKeyId="
-        <> accessKeyId auth
-        <> ", Algorithm=HmacSHA256, Signature="
-        <> Base64.encode (hmacSHA256 (secretAccessKey auth) $ formatRFC822 time)
+    authorisation = "AWS3-HTTPS AWSAccessigKeyId="
+        <> sigAccess
+        <> ", Algorithm=HmacSHA256, Signer="
+        <> Base64.encode (hmacSHA256 sigSecret rfc822)
 
-v4 :: AWSSigner
-v4 raw@RawRequest{..} auth reg time =
-    signed rawMethod _host rawPath query (hAuth authorisation : headers) rawBody
+    rfc822 = Text.encodeUtf8 $ formatRFC822 sigTime
+
+v4 :: Signer -> Request
+v4 Signer{..} =
+    signed sigMethod sigHost sigPath query (hAuth authorisation : headers) sigBody
   where
-    Common{..} = common raw reg
+    query = HTTP.renderQuery False . sort $ ("Version", Just sigVersion) : sigQuery
 
-    query   = HTTP.renderQuery False . sort $ ("Version", Just _version) : _query
-    headers = hAMZDate time
-            : maybeToList (hAMZToken <$> securityToken auth)
-           ++ rawHeaders
+    headers = hAMZDate sigTime
+        : maybeToList (hAMZToken <$> sigToken)
+       ++ sigHeaders
 
     authorisation = mconcat
         [ algorithm
         , " Credential="
-        , accessKeyId auth
+        , sigAccess
         , "/"
         , credentialScope
         , ", SignedHeaders="
         , signedHeaders
-        , ", Signature="
+        , ", Signer="
         , signature
         ]
 
-    signature  = Base16.encode $ hmacSHA256 signingKey stringToSign
-    signingKey = foldl1 hmacSHA256 $ ("AWS4" <> secretAccessKey auth) : scope
+    signature = Base16.encode $ hmacSHA256 signingKey stringToSign
+
+    signingKey = foldl1 hmacSHA256 $ ("AWS4" <> sigSecret) : scope
 
     stringToSign = BS.intercalate "\n"
         [ algorithm
-        , formatAWS time
+        , Text.encodeUtf8 $ formatAWS sigTime
         , credentialScope
         , Base16.encode $ SHA256.hash canonicalRequest
         ]
@@ -143,11 +184,17 @@ v4 raw@RawRequest{..} auth reg time =
     credentialScope = BS.intercalate "/" scope
 
     algorithm = "AWS4-HMAC-SHA256"
-    scope     = [formatBasic time, BS.pack $ show reg, _service, "aws4_request"]
+
+    scope =
+        [ Text.encodeUtf8 $ formatBasic sigTime
+        , sigRegion
+        , sigService
+        , "aws4sigRequest"
+        ]
 
     canonicalRequest = BS.intercalate "\n"
-        [ BS.pack $ show rawMethod
-        , rawPath
+        [ sigMethod
+        , sigPath
         , query
         , canonicalHeaders
         , signedHeaders
@@ -157,33 +204,32 @@ v4 raw@RawRequest{..} auth reg time =
     canonicalHeaders = mconcat $ map flattenValues grouped
 
     signedHeaders = BS.intercalate ";" . nub $
-        map (Case.foldedCase . fst) grouped
+        map (CI.foldedCase . fst) grouped
 
     grouped = groupHeaders headers
 
     bodySHA256 = Base16.encode $ SHA256.hash ""
+
      -- sinkHash :: (Monad m, Hash ctx d) => Consumer ByteString m SHA256
 
-s3 :: ByteString -> AWSSigner
-s3 bucket raw@RawRequest{..} auth reg time =
-    signed rawMethod _host rawPath query (authorisation : headers) rawBody
+s3 :: ByteString -> Signer -> Request
+s3 bucket Signer{..} =
+    signed sigMethod sigHost sigPath query (authorisation : headers) sigBody
   where
-    Common{..} = common raw reg
+    query = HTTP.renderQuery False sigQuery
 
-    query = HTTP.renderQuery False _query
+    authorisation = hAuth $ "AWS " <> sigAccess <> ":" <> signature
 
-    authorisation = hAuth $ BS.concat ["AWS ", accessKeyId auth, ":", signature]
-
-    signature = Base64.encode $ hmacSHA1 (secretAccessKey auth) stringToSign
+    signature = Base64.encode $ hmacSHA1 sigSecret stringToSign
 
     stringToSign = BS.concat
-        [ BS.pack $ show rawMethod
+        [ sigMethod
         , "\n"
         , optionalHeader "content-md5"
         , "\n"
         , optionalHeader "content-type"
         , "\n"
-        , date
+        , rfc822
         , "\n"
         , canonicalHeaders
         , canonicalResource
@@ -193,17 +239,20 @@ s3 bucket raw@RawRequest{..} auth reg time =
 
     canonicalHeaders = BS.intercalate "\n"
         . map flattenValues
-        . filter (BS.isPrefixOf "x-amz-" . Case.foldedCase . fst)
+        . filter (BS.isPrefixOf "x-amz-" . CI.foldedCase . fst)
         $ groupHeaders headers
 
-    headers = hDate date
-        : maybeToList (hAMZToken <$> securityToken auth)
-       ++ rawHeaders
+    headers = hDate rfc822
+        : maybeToList (hAMZToken <$> sigToken)
+       ++ sigHeaders
 
-    date = Text.encodeUtf8 $ formatRFC822 time
+    rfc822 = Text.encodeUtf8 $ formatRFC822 sigTime
 
-    canonicalResource = Text.encodeUtf8 $
-        wrap '/' bucket <> stripPrefix "/" rawPath
+    canonicalResource =
+        mappend bucket $
+            if BS.isPrefixOf "/" sigPath
+                then sigPath
+                else "/" <> sigPath
 
     -- relevantQueryKeys =
     --     [ "acl"
@@ -235,42 +284,6 @@ s3 bucket raw@RawRequest{..} auth reg time =
     --     , "notification"
     --     ]
 
-data Common = Common
-    { _service :: !ByteString
-    , _version :: !ByteString
-    , _host    :: !ByteString
-    , _path    :: !ByteString
-    , _query   :: Query
-    }
-
-common :: RawRequest -> Region -> Common
-common RawRequest{..} reg = Common
-    { _service = Text.encodeUtf8 $ svcName rawService
-    , _version = Text.encodeUtf8 $ svcVersion rawService
-    , _host    = Text.encodeUtf8 $ endpoint rawService reg
-    , _path    = Text.encodeUtf8 rawPath
-    , _query   = HTTP.queryTextToQuery $ sort rawQuery
-    }
-
-signed :: StdMethod
-       -> ByteString
-       -> ByteString
-       -> ByteString
-       -> [Header]
-       -> RequestBody
-       -> Request
-signed meth host path qry hs body = def
-    { secure         = True
-    , method         = BS.pack $ show meth
-    , host           = host
-    , port           = 443
-    , path           = path
-    , queryString    = qry
-    , requestHeaders = hs
-    , requestBody    = body
-    , checkStatus    = \_ _ _ -> Nothing
-    }
-
 hmacSHA1 :: ByteString -> ByteString -> ByteString
 hmacSHA1 key msg = HMAC.hmac SHA1.hash 64 key msg
 
@@ -284,19 +297,9 @@ groupHeaders = sort . map f . groupBy ((==) `on` fst)
     f []     = ("", "")
 
 lookupHeader :: ByteString -> [Header] -> Maybe ByteString
-lookupHeader key = lookup (Case.mk key)
+lookupHeader key = lookup (CI.mk key)
 
 flattenValues :: Header -> ByteString
-flattenValues (k, v) = mconcat [Case.foldedCase k, ":", strip ' ' v, "\n"]
-
-strip :: Char -> ByteString -> ByteString
-strip c = Text.encodeUtf8 . Text.dropAround (== c) . Text.decodeUtf8
-
-accessKeyId :: Auth -> ByteString
-accessKeyId = Text.encodeUtf8 . authAccessKeyId
-
-secretAccessKey :: Auth -> ByteString
-secretAccessKey = Text.encodeUtf8 . authSecretAccessKey
-
-securityToken :: Auth -> Maybe ByteString
-securityToken = fmap Text.encodeUtf8 . authSecurityToken
+flattenValues (k, v) = mconcat [CI.foldedCase k, ":", strip ' ' v, "\n"]
+  where
+    strip c = Text.encodeUtf8 . Text.dropAround (== c) . Text.decodeUtf8

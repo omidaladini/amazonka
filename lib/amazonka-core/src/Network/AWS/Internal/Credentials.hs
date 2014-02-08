@@ -31,7 +31,6 @@ import qualified Data.Text                         as Text
 import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           Network.AWS.EC2.Metadata
-import           Network.AWS.Internal.Types
 import           Network.AWS.Internal.Types.Common
 import           System.Environment
 
@@ -108,7 +107,7 @@ fromProfile name = do
     !a@Auth{..} <- auth
     fmapLT show . syncIO . liftIO $ do
         ref <- newIORef a
-        start ref expiration
+        start ref authExpiration
         return ref
   where
     auth :: (Applicative m, MonadIO m) => EitherT String m Auth
@@ -126,4 +125,4 @@ fromProfile name = do
         threadDelay $ (n - 60) * 1000000
         !a@Auth{..} <- eitherT (error . show) return auth
         atomicWriteIORef ref a
-        start ref expiration
+        start ref authExpiration
