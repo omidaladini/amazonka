@@ -27,6 +27,7 @@ import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.ByteString.Char8             (ByteString)
+import qualified Data.ByteString.Lazy.Char8        as LBS
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
 import           Data.IORef
@@ -173,21 +174,41 @@ class AWSRequest a where
              -> Response (ResumableSource AWS ByteString)
              -> AWS (Either (Er a) (Rs a))
 
-    default response :: (FromXML (Er a), FromXML (Rs a))
+    default response :: (Show (Er a), Show (Rs a), FromXML (Er a), FromXML (Rs a))
                      => a
                      -> Response (ResumableSource AWS ByteString)
                      -> AWS (Either (Er a) (Rs a))
-    response = responseXML
-
-responseXML :: (FromXML (Er a), FromXML (Rs a))
-            => a
-            -> Response (ResumableSource AWS ByteString)
-            -> AWS (Either (Er a) (Rs a))
-responseXML _ rs = (responseBody rs $$+- Conduit.sinkLbs)
-    >>= f (statusIsSuccessful $ responseStatus rs)
-  where
-    f True  = fmap Right . awsEither . decodeXML
-    f False = fmap Left  . awsEither . decodeXML
+    response _ rs = do
+        printDebug rs
+        lbs <- responseBody rs $$+- Conduit.sinkLbs
+        printDebug lbs
+        x   <- f (statusIsSuccessful $ responseStatus rs) lbs
+        printDebug x
+        return x
+      where
+        f True  = fmap Right . awsEither . decodeXML
+        f False = fmap Left  . awsEither . decodeXML
 
 class AWSPager a where
     next :: AWSRequest a => a -> Rs a -> Maybe a
+
+newtype Debug a = Debug { unDebug :: a }
+
+printDebug :: Show (Debug a) => a -> AWS ()
+printDebug = whenDebug . liftIO . print . Debug
+
+instance Show (ResumableSource AWS ByteString) where
+    show = const "ResumableSource AWS ByteString"
+
+instance Show (Debug Request) where
+    show r = "Debug => Request:\n" ++ show r
+
+instance Show (Debug (Response (ResumableSource AWS ByteString))) where
+    show (Debug rs) = "Debug => Response:\n" ++ show rs
+
+instance Show (Debug LBS.ByteString) where
+    show (Debug lbs) = "Debug => Lazy ByteString:\n" ++ LBS.unpack lbs
+
+instance (Show e, Show a) => Show (Debug (Either e a)) where
+    show (Debug (Left  e)) = "Debug => Left:\n"  ++ show e
+    show (Debug (Right x)) = "Debug => Right:\n" ++ show x

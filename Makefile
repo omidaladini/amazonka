@@ -46,7 +46,12 @@ JSON := \
  $(BOTO)/swf.json
 
 #MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
-MODELS := $(BOTO)/iam.json
+MODELS := $(BOTO)/iam.json \
+ $(BOTO)/s3.json \
+ $(BOTO)/ec2.json \
+ $(BOTO)/elb.json \
+ $(BOTO)/route53.json \
+ $(BOTO)/autoscaling.json
 
 .PHONY: test lint doc
 

@@ -112,9 +112,10 @@ sendAsync = async . sendCatch
 sendCatch :: AWSRequest a => a -> AWS (Either (Er a) (Rs a))
 sendCatch rq = do
     s  <- sign $ request rq
-    whenDebug . liftIO $ print s
+    printDebug s
     m  <- getManager
     rs <- http s m
+    printDebug rs
     response rq rs
 
 paginate :: (AWSRequest a, AWSPager a, AWSError (Er a))

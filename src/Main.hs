@@ -77,16 +77,13 @@ main = getArgs >>= parse
         putStrLn $ "Usage: " ++ n ++ " [PATH] ..."
 
 cabalFile :: Text -> FilePath -> Templates -> [Model] -> Script ()
-cabalFile ver dir Templates{..} ms = do
-    scriptIO $ createDirectoryIfMissing True path
+cabalFile ver dir Templates{..} ms =
     render "lib/amazonka.cabal" tCabalFile $ EDE.fromPairs
         [ "models"        .= map js ms
-        , "cabal_name"    .= ("hamazonka" :: Text)
+        , "cabal_name"    .= ("amazonka" :: Text)
         , "cabal_version" .= ver
         ]
   where
-    path = dir </> "amazonka"
-
     js m@Model{..} = EDE.fromPairs
         [ "module"          .= mName
         , "operations"      .= map oName mOperations

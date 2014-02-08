@@ -22,7 +22,6 @@ module Network.AWS.{{ module }}.{{ name }} where
 import Network.AWS.Core
 import Network.AWS.{{ module }}.Service
 import Network.AWS.{{ module }}.Types
-
 {% include "_includes/method-input.ede" %}
 
 data {{ name }} = {{ name }}

@@ -13,6 +13,7 @@ module Network.AWS.Core
     , ToJSON   (..)
     , Options  (..)
     , ByteString
+    , ResumableSource
     , Hashable (..)
     , HashMap
     , NonEmpty (..)
@@ -21,8 +22,7 @@ module Network.AWS.Core
     , UTCTime
     , Generic
     , ToQuery  (..)
-    , FromXML  (..)
-    , ToXML    (..)
+    , RequestBody
 
     , defaultOptions
     , def
@@ -34,6 +34,7 @@ module Network.AWS.Core
 import Data.Aeson                 (FromJSON(..), ToJSON(..))
 import Data.Aeson.Types           (Options(..), defaultOptions)
 import Data.ByteString            (ByteString)
+import Data.Conduit               (ResumableSource)
 import Data.Default               (def)
 import Data.HashMap.Strict        (HashMap)
 import Data.Hashable              (Hashable(..))
@@ -43,10 +44,11 @@ import Data.Text                  (Text)
 import Data.Time                  (UTCTime)
 import GHC.Generics               (Generic)
 import Network.AWS.Generics.Query (ToQuery(..), queryFromList)
+import Network.HTTP.Conduit       (RequestBody)
 
 import Control.Monad              as Export
 import Data.Monoid                as Export
 import Network.AWS.Generics.XML   as Export
-import Network.AWS.Internal       as Export
+import Network.AWS.Internal       as Export hiding (AvailabilityZone, Region)
 import Network.AWS.Text           as Export
 
