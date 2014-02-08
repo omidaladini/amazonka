@@ -26,7 +26,10 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 terminateInstanceInAutoScalingGroup :: Text
+                                    -- ^ The ID of the Amazon EC2 instance to be terminated.
                                     -> Bool
+                                    -- ^ Specifies whether (true) or not (false) terminating this instance should
+                                    -- also decrement the size of the AutoScalingGroup.
                                     -> TerminateInstanceInAutoScalingGroup
 terminateInstanceInAutoScalingGroup p1 p2 = TerminateInstanceInAutoScalingGroup
     { tiiasgtInstanceId = p1

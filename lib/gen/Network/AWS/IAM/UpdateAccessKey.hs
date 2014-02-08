@@ -34,7 +34,11 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateAccessKey :: Text
+                -- ^ The access key ID of the secret access key you want to update.
                 -> StatusType
+                -- ^ The status you want to assign to the secret access key. Active means the
+                -- key can be used for API calls to AWS, while Inactive means the key cannot
+                -- be used.
                 -> UpdateAccessKey
 updateAccessKey p1 p2 = UpdateAccessKey
     { uakrAccessKeyId = p1

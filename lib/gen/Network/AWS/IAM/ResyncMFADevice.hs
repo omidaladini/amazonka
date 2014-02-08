@@ -27,9 +27,13 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 resyncMFADevice :: Text
+                -- ^ An authentication code emitted by the device.
                 -> Text
+                -- ^ A subsequent authentication code emitted by the device.
                 -> Text
+                -- ^ Serial number that uniquely identifies the MFA device.
                 -> Text
+                -- ^ Name of the user whose MFA device you want to resynchronize.
                 -> ResyncMFADevice
 resyncMFADevice p1 p2 p3 p4 = ResyncMFADevice
     { rmfadrAuthenticationCode1 = p1

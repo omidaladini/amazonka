@@ -27,7 +27,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteRolePolicy :: Text
+                 -- ^ Name of the policy document to delete.
                  -> Text
+                 -- ^ Name of the role the associated with the policy.
                  -> DeleteRolePolicy
 deleteRolePolicy p1 p2 = DeleteRolePolicy
     { drprPolicyName = p1

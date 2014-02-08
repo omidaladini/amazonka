@@ -34,7 +34,9 @@ uploadPart :: Text
            -> Text
            -> RequestBody
            -> Int
+           -- ^ Part number of part being uploaded.
            -> Text
+           -- ^ Upload ID identifying the multipart upload whose part is being uploaded.
            -> UploadPart
 uploadPart p1 p2 p3 p4 p5 = UploadPart
     { upBucket = p1

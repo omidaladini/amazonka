@@ -35,7 +35,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createSubnet :: Text
+             -- ^ The CIDR block the subnet is to cover.
              -> Text
+             -- ^ The ID of the VPC to create the subnet in.
              -> CreateSubnet
 createSubnet p1 p2 = CreateSubnet
     { cssCidrBlock = p1

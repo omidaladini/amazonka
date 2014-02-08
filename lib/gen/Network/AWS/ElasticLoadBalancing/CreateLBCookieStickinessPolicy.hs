@@ -41,7 +41,10 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createLBCookieStickinessPolicy :: Text
+                               -- ^ The name associated with the load balancer.
                                -> Text
+                               -- ^ The name of the policy being created. The name must be unique within the
+                               -- set of policies for this load balancer.
                                -> CreateLBCookieStickinessPolicy
 createLBCookieStickinessPolicy p1 p2 = CreateLBCookieStickinessPolicy
     { clbcspiLoadBalancerName = p1

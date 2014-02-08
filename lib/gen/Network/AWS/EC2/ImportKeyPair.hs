@@ -32,7 +32,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 importKeyPair :: Text
+              -- ^ The unique name for the key pair.
               -> Blob
+              -- ^ The public key portion of the key pair being imported.
               -> ImportKeyPair
 importKeyPair p1 p2 = ImportKeyPair
     { ikprKeyName = p1

@@ -38,7 +38,23 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createHostedZone :: Text
+                 -- ^ A unique string that identifies the request and that allows failed
+                 -- CreateHostedZone requests to be retried without the risk of executing the
+                 -- operation twice. You must use a unique CallerReference string every time
+                 -- you create a hosted zone. CallerReference can be any unique string; you
+                 -- might choose to use a string that identifies your project, such as
+                 -- DNSMigration_01. Valid characters are any Unicode code points that are
+                 -- legal in an XML 1.0 document. The UTF-8 encoding of the value must be less
+                 -- than 128 bytes.
                  -> Text
+                 -- ^ The name of the domain. This must be a fully-specified domain, for example,
+                 -- www.example.com. The trailing dot is optional; Route 53 assumes that the
+                 -- domain name is fully qualified. This means that Route 53 treats
+                 -- www.example.com (without a trailing dot) and www.example.com. (with a
+                 -- trailing dot) as identical. This is the name you have registered with your
+                 -- DNS registrar. You should ask your registrar to change the authoritative
+                 -- name servers for your domain to the set of NameServers elements returned in
+                 -- DelegationSet.
                  -> CreateHostedZone
 createHostedZone p1 p2 = CreateHostedZone
     { chzrCallerReference = p1

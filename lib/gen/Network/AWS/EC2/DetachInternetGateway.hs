@@ -29,7 +29,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 detachInternetGateway :: Text
+                      -- ^ The ID of the Internet gateway to detach.
                       -> Text
+                      -- ^ The ID of the VPC.
                       -> DetachInternetGateway
 detachInternetGateway p1 p2 = DetachInternetGateway
     { digrInternetGatewayId = p1

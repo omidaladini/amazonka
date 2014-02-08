@@ -30,7 +30,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getGroupPolicy :: Text
+               -- ^ Name of the group the policy is associated with.
                -> Text
+               -- ^ Name of the policy document to get.
                -> GetGroupPolicy
 getGroupPolicy p1 p2 = GetGroupPolicy
     { ggprGroupName = p1

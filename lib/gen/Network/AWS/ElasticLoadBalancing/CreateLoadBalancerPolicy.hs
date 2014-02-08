@@ -33,8 +33,14 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createLoadBalancerPolicy :: Text
+                         -- ^ The name associated with the LoadBalancer for which the policy is being
+                         -- created.
                          -> Text
+                         -- ^ The name of the load balancer policy being created. The name must be unique
+                         -- within the set of policies for this load balancer.
                          -> Text
+                         -- ^ The name of the base policy type being used to create this policy. To get
+                         -- the list of policy types, use the DescribeLoadBalancerPolicyTypes action.
                          -> CreateLoadBalancerPolicy
 createLoadBalancerPolicy p1 p2 p3 = CreateLoadBalancerPolicy
     { clbpiLoadBalancerName = p1

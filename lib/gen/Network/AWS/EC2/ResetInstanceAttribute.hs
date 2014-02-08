@@ -24,7 +24,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 resetInstanceAttribute :: InstanceAttributeName
+                       -- ^ The name of the attribute being reset. Available attribute names: kernel,
+                       -- ramdisk.
                        -> Text
+                       -- ^ The ID of the Amazon EC2 instance whose attribute is being reset.
                        -> ResetInstanceAttribute
 resetInstanceAttribute p1 p2 = ResetInstanceAttribute
     { riarAttribute = p1

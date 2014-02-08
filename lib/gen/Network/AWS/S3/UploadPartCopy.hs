@@ -28,8 +28,12 @@ import           Network.AWS.S3.Types
 uploadPartCopy :: Text
                -> Text
                -> Text
+               -- ^ The name of the source bucket and key name of the source object, separated
+               -- by a slash (/). Must be URL-encoded.
                -> Int
+               -- ^ Part number of part being copied.
                -> Text
+               -- ^ Upload ID identifying the multipart upload whose part is being copied.
                -> UploadPartCopy
 uploadPartCopy p1 p2 p3 p4 p5 = UploadPartCopy
     { upcBucket = p1

@@ -29,6 +29,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 listGroupsForUser :: Text
+                  -- ^ The name of the user to list groups for.
                   -> ListGroupsForUser
 listGroupsForUser p1 = ListGroupsForUser
     { lgfurUserName = p1

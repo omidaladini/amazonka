@@ -26,11 +26,19 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 replaceNetworkAclEntry :: Text
+                       -- ^ The CIDR range to allow or deny, in CIDR notation (e.g., 172.16.0.0/24).
                        -> Bool
+                       -- ^ Whether this rule applies to egress traffic from the subnet (true) or
+                       -- ingress traffic (false).
                        -> Text
+                       -- ^ ID of the ACL where the entry will be replaced.
                        -> Text
+                       -- ^ IP protocol the rule applies to. Valid Values: tcp, udp, icmp or an IP
+                       -- protocol number.
                        -> RuleAction
+                       -- ^ Whether to allow or deny traffic that matches the rule.
                        -> Int
+                       -- ^ Rule number of the entry to replace.
                        -> ReplaceNetworkAclEntry
 replaceNetworkAclEntry p1 p2 p3 p4 p5 p6 = ReplaceNetworkAclEntry
     { rnaerCidrBlock = p1

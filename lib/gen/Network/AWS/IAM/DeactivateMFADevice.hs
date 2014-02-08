@@ -27,7 +27,10 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deactivateMFADevice :: Text
+                    -- ^ The serial number that uniquely identifies the MFA device. For virtual MFA
+                    -- devices, the serial number is the device ARN.
                     -> Text
+                    -- ^ Name of the user whose MFA device you want to deactivate.
                     -> DeactivateMFADevice
 deactivateMFADevice p1 p2 = DeactivateMFADevice
     { dmfadrSerialNumber = p1

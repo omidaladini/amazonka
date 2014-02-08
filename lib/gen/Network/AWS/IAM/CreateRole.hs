@@ -39,7 +39,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createRole :: Text
+           -- ^ The policy that grants an entity permission to assume the role.
            -> Text
+           -- ^ Name of the role to create.
            -> CreateRole
 createRole p1 p2 = CreateRole
     { crrAssumeRolePolicyDocument = p1

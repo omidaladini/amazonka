@@ -24,6 +24,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 executePolicy :: ResourceName
+              -- ^ The name or ARN of the policy you want to run.
               -> ExecutePolicy
 executePolicy p1 = ExecutePolicy
     { eptPolicyName = p1

@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteNetworkAcl :: Text
+                 -- ^ The ID of the network ACL to be deleted.
                  -> DeleteNetworkAcl
 deleteNetworkAcl p1 = DeleteNetworkAcl
     { dnarNetworkAclId = p1

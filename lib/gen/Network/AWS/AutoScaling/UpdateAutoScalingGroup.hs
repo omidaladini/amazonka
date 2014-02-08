@@ -53,6 +53,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateAutoScalingGroup :: ResourceName
+                       -- ^ The name of the Auto Scaling group.
                        -> UpdateAutoScalingGroup
 updateAutoScalingGroup p1 = UpdateAutoScalingGroup
     { uasgtAutoScalingGroupName = p1

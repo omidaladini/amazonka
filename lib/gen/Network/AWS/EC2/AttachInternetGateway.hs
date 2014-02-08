@@ -26,7 +26,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 attachInternetGateway :: Text
+                      -- ^ The ID of the Internet gateway to attach.
                       -> Text
+                      -- ^ The ID of the VPC.
                       -> AttachInternetGateway
 attachInternetGateway p1 p2 = AttachInternetGateway
     { aigrInternetGatewayId = p1

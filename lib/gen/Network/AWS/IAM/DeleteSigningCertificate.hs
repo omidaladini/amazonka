@@ -31,6 +31,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteSigningCertificate :: Text
+                         -- ^ ID of the signing certificate to delete.
                          -> DeleteSigningCertificate
 deleteSigningCertificate p1 = DeleteSigningCertificate
     { dscrCertificateId = p1

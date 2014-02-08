@@ -25,7 +25,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 describeImageAttribute :: ImageAttributeName
+                       -- ^ The name of the attribute to describe. Available attribute names:
+                       -- productCodes, kernel, ramdisk, launchPermisson, blockDeviceMapping.
                        -> Text
+                       -- ^ The ID of the AMI whose attribute is to be described.
                        -> DescribeImageAttribute
 describeImageAttribute p1 p2 = DescribeImageAttribute
     { diasAttribute = p1

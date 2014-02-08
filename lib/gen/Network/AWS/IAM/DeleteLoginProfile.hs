@@ -31,6 +31,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteLoginProfile :: Text
+                   -- ^ Name of the user whose password you want to delete.
                    -> DeleteLoginProfile
 deleteLoginProfile p1 = DeleteLoginProfile
     { dlprUserName = p1

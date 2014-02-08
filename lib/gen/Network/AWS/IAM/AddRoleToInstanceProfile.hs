@@ -29,7 +29,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 addRoleToInstanceProfile :: Text
+                         -- ^ Name of the instance profile to update.
                          -> Text
+                         -- ^ Name of the role to add.
                          -> AddRoleToInstanceProfile
 addRoleToInstanceProfile p1 p2 = AddRoleToInstanceProfile
     { artiprInstanceProfileName = p1

@@ -33,7 +33,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createRoute :: Text
+            -- ^ The CIDR address block used for the destination match. For example:
+            -- 0.0.0.0/0. Routing decisions are based on the most specific match.
             -> Text
+            -- ^ The ID of the route table where the route will be added.
             -> CreateRoute
 createRoute p1 p2 = CreateRoute
     { crrDestinationCidrBlock = p1

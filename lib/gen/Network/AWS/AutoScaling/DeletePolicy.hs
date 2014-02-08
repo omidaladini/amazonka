@@ -24,6 +24,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deletePolicy :: ResourceName
+             -- ^ The name or PolicyARN of the policy you want to delete.
              -> DeletePolicy
 deletePolicy p1 = DeletePolicy
     { dptPolicyName = p1

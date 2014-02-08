@@ -33,6 +33,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 stopInstances :: [Text]
+              -- ^ The list of Amazon EC2 instances to stop.
               -> StopInstances
 stopInstances p1 = StopInstances
     { sirInstanceIds = p1

@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteDhcpOptions :: Text
+                  -- ^ The ID of the DHCP options set to delete.
                   -> DeleteDhcpOptions
 deleteDhcpOptions p1 = DeleteDhcpOptions
     { ddosDhcpOptionsId = p1

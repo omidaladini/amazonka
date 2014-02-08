@@ -38,7 +38,11 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 disableAvailabilityZonesForLoadBalancer :: [Text]
+                                        -- ^ A list of Availability Zones to be removed from the load balancer. There
+                                        -- must be at least one Availability Zone registered with a load balancer at
+                                        -- all times. Specified Availability Zones must be in the same region.
                                         -> Text
+                                        -- ^ The name associated with the load balancer.
                                         -> DisableAvailabilityZonesForLoadBalancer
 disableAvailabilityZonesForLoadBalancer p1 p2 = DisableAvailabilityZonesForLoadBalancer
     { raziAvailabilityZones = p1

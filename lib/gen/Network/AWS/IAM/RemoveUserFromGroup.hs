@@ -26,7 +26,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 removeUserFromGroup :: Text
+                    -- ^ Name of the group to update.
                     -> Text
+                    -- ^ Name of the user to remove.
                     -> RemoveUserFromGroup
 removeUserFromGroup p1 p2 = RemoveUserFromGroup
     { rufgrGroupName = p1

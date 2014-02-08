@@ -34,6 +34,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteServerCertificate :: Text
+                        -- ^ The name of the server certificate you want to delete.
                         -> DeleteServerCertificate
 deleteServerCertificate p1 = DeleteServerCertificate
     { dscsServerCertificateName = p1

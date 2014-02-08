@@ -27,7 +27,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createImage :: Text
+            -- ^ The ID of the instance from which to create the new image.
             -> Text
+            -- ^ The name for the new AMI being created.
             -> CreateImage
 createImage p1 p2 = CreateImage
     { cisInstanceId = p1

@@ -24,7 +24,10 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteNotificationConfiguration :: ResourceName
+                                -- ^ The name of the Auto Scaling group.
                                 -> ResourceName
+                                -- ^ The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+                                -- (SNS) topic.
                                 -> DeleteNotificationConfiguration
 deleteNotificationConfiguration p1 p2 = DeleteNotificationConfiguration
     { dnctAutoScalingGroupName = p1

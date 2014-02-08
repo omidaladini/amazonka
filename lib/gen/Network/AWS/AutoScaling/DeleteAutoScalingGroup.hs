@@ -30,6 +30,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteAutoScalingGroup :: ResourceName
+                       -- ^ The name of the Auto Scaling group to delete.
                        -> DeleteAutoScalingGroup
 deleteAutoScalingGroup p1 = DeleteAutoScalingGroup
     { dasgtAutoScalingGroupName = p1

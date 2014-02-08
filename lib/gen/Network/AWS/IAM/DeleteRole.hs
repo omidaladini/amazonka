@@ -30,6 +30,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteRole :: Text
+           -- ^ Name of the role to delete.
            -> DeleteRole
 deleteRole p1 = DeleteRole
     { drrRoleName = p1

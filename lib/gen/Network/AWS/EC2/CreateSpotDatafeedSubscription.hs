@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createSpotDatafeedSubscription :: Text
+                               -- ^ The Amazon S3 bucket in which to store the Spot Instance datafeed.
                                -> CreateSpotDatafeedSubscription
 createSpotDatafeedSubscription p1 = CreateSpotDatafeedSubscription
     { csdsrBucket = p1

@@ -28,6 +28,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getConsoleOutput :: Text
+                 -- ^ The ID of the instance for which you want console output.
                  -> GetConsoleOutput
 getConsoleOutput p1 = GetConsoleOutput
     { gcorInstanceId = p1

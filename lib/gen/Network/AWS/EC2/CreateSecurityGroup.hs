@@ -31,7 +31,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createSecurityGroup :: Text
+                    -- ^ Description of the group. This is informational only.
                     -> Text
+                    -- ^ Name of the security group.
                     -> CreateSecurityGroup
 createSecurityGroup p1 p2 = CreateSecurityGroup
     { csgrDescription = p1

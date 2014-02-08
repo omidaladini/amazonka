@@ -30,7 +30,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 replaceRouteTableAssociation :: Text
+                             -- ^ The ID representing the current association between the original route
+                             -- table and the subnet.
                              -> Text
+                             -- ^ The ID of the new route table to associate with the subnet.
                              -> ReplaceRouteTableAssociation
 replaceRouteTableAssociation p1 p2 = ReplaceRouteTableAssociation
     { rrtarAssociationId = p1

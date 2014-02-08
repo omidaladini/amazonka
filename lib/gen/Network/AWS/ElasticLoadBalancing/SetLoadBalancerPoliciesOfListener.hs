@@ -31,8 +31,12 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 setLoadBalancerPoliciesOfListener :: Text
+                                  -- ^ The name of the load balancer.
                                   -> Int
+                                  -- ^ The external port of the load balancer to associate the policy.
                                   -> [Text]
+                                  -- ^ List of policies to be associated with the listener. If the list is empty,
+                                  -- the current policy is removed from the listener.
                                   -> SetLoadBalancerPoliciesOfListener
 setLoadBalancerPoliciesOfListener p1 p2 p3 = SetLoadBalancerPoliciesOfListener
     { slbpoliLoadBalancerName = p1

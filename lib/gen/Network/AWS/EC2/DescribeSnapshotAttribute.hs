@@ -25,7 +25,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 describeSnapshotAttribute :: SnapshotAttributeName
+                          -- ^ The name of the EBS attribute to describe. Available attribute names:
+                          -- createVolumePermission.
                           -> Text
+                          -- ^ The ID of the EBS snapshot whose attribute is being described.
                           -> DescribeSnapshotAttribute
 describeSnapshotAttribute p1 p2 = DescribeSnapshotAttribute
     { dsarAttribute = p1

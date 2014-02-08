@@ -25,6 +25,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deletePlacementGroup :: Text
+                     -- ^ The name of the PlacementGroup to delete.
                      -> DeletePlacementGroup
 deletePlacementGroup p1 = DeletePlacementGroup
     { dpgrGroupName = p1

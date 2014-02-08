@@ -36,6 +36,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getRole :: Text
+        -- ^ Name of the role to get information about.
         -> GetRole
 getRole p1 = GetRole
     { grrRoleName = p1

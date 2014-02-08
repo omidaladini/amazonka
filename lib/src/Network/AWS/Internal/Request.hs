@@ -21,6 +21,30 @@ import Network.AWS.Internal.Serialisation
 import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
 
+-- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- v2Query s@Service{..} m p x = RawRequest s s m p q [] (RequestBodyBS "")
+--   where
+--     q = map (second Just) $ encodeQuery x
+
+-- v4Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- v4Query s m a q = v2Query s m "/" q .?. [("Action", Just a)]
+
+-- v3httpsQuery :: AWSRequest a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- v3httpsQuery = undefined
+
+-- xml :: ToXML a => Service -> StdMethod -> ByteString -> a -> RawRequest
+-- xml s@Service{..} m p = RawRequest s s m p [] [] . RequestBodyBS . toXML
+-- --     , rqHeaders = [hdr (Content :: XML)]
+
+-- (.?.) :: RawRequest s -> [QueryItem] -> RawRequest
+-- (.?.) r q = r { rawQuery = rawQuery r ++ q }
+
+-- (.:.) :: RawRequest s -> [Header] -> RawRequest
+-- (.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
+
+-- xml :: ToXML a => a -> RequestBody
+-- xml = RequestBodyLBS . encodeXML
+
 getQuery :: (ToQuery a, AWSRequest a)
          => Service
          -> ByteString
@@ -111,37 +135,3 @@ responseJSON :: (FromJSON (Er a), FromJSON (Rs a))
              -> Response (ResumableSource AWS ByteString)
              -> AWS (Either (Er a) (Rs a))
 responseJSON = undefined
-
--- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v2Query s@Service{..} m p x = RawRequest s s m p q [] (RequestBodyBS "")
---   where
---     q = map (second Just) $ encodeQuery x
-
--- v4Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v4Query s m a q = v2Query s m "/" q .?. [("Action", Just a)]
-
--- v3httpsQuery :: AWSRequest a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v3httpsQuery = undefined
-
--- xml :: ToXML a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- xml s@Service{..} m p = RawRequest s s m p [] [] . RequestBodyBS . toXML
--- --     , rqHeaders = [hdr (Content :: XML)]
-
--- (.?.) :: RawRequest s -> [QueryItem] -> RawRequest
--- (.?.) r q = r { rawQuery = rawQuery r ++ q }
-
--- (.:.) :: RawRequest s -> [Header] -> RawRequest
--- (.:.) r hs = r { rqHeaders = rqHeaders r ++ hs }
-
--- xml :: ToXML a => a -> RequestBody
--- xml = RequestBodyLBS . encodeXML
-
--- xmlRs :: (FromXML (Er a), FromXML (Rs a))
---       => a
---       -> Response (ResumableSource AWS ByteString)
---       -> AWS (Either (Er a) (Rs a))
---     response _ rs = (responseBody rs $$+- Conduit.sinkLbs)
---         >>= f (statusIsSuccessful $ responseStatus rs)
---       where
---         f True  = fmap Right . awsEither . decodeXML
---         f False = fmap Left  . awsEither . decodeXML

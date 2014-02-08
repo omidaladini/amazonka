@@ -28,6 +28,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createAccountAlias :: Text
+                   -- ^ Name of the account alias to create.
                    -> CreateAccountAlias
 createAccountAlias p1 = CreateAccountAlias
     { caarAccountAlias = p1

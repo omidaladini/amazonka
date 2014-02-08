@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createVolume :: Text
+             -- ^ The Availability Zone in which to create the new volume.
              -> CreateVolume
 createVolume p1 = CreateVolume
     { cvsAvailabilityZone = p1

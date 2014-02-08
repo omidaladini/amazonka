@@ -37,6 +37,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 listInstanceProfilesForRole :: Text
+                            -- ^ The name of the role to list instance profiles for.
                             -> ListInstanceProfilesForRole
 listInstanceProfilesForRole p1 = ListInstanceProfilesForRole
     { lipfrrRoleName = p1

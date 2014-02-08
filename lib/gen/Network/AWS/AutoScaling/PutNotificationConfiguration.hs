@@ -29,8 +29,14 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 putNotificationConfiguration :: ResourceName
+                             -- ^ The name of the Auto Scaling group.
                              -> [Text]
+                             -- ^ The type of event that will cause the notification to be sent. For details
+                             -- about notification types supported by Auto Scaling, see
+                             -- DescribeAutoScalingNotificationTypes.
                              -> ResourceName
+                             -- ^ The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+                             -- (SNS) topic.
                              -> PutNotificationConfiguration
 putNotificationConfiguration p1 p2 p3 = PutNotificationConfiguration
     { pnctAutoScalingGroupName = p1

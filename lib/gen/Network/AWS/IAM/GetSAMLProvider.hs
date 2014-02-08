@@ -29,6 +29,8 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getSAMLProvider :: Text
+                -- ^ The Amazon Resource Name (ARN) of the SAML provider to get information
+                -- about.
                 -> GetSAMLProvider
 getSAMLProvider p1 = GetSAMLProvider
     { gsamlprSAMLProviderArn = p1

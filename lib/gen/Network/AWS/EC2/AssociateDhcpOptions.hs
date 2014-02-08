@@ -31,7 +31,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 associateDhcpOptions :: Text
+                     -- ^ The ID of the DHCP options to associate with the VPC. Specify "default" to
+                     -- associate the default DHCP options with the VPC.
                      -> Text
+                     -- ^ The ID of the VPC to associate the DHCP options with.
                      -> AssociateDhcpOptions
 associateDhcpOptions p1 p2 = AssociateDhcpOptions
     { adorDhcpOptionsId = p1

@@ -24,7 +24,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 resetSnapshotAttribute :: SnapshotAttributeName
+                       -- ^ The name of the attribute being reset. Available attribute names:
+                       -- createVolumePermission.
                        -> Text
+                       -- ^ The ID of the snapshot whose attribute is being reset.
                        -> ResetSnapshotAttribute
 resetSnapshotAttribute p1 p2 = ResetSnapshotAttribute
     { rsarAttribute = p1

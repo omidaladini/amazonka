@@ -25,6 +25,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteSubnet :: Text
+             -- ^ The ID of the subnet you want to delete.
              -> DeleteSubnet
 deleteSubnet p1 = DeleteSubnet
     { dstSubnetId = p1

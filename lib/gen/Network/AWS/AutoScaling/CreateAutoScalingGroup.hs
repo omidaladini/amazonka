@@ -35,8 +35,11 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createAutoScalingGroup :: Text
+                       -- ^ The name of the Auto Scaling group.
                        -> Int
+                       -- ^ The maximum size of the Auto Scaling group.
                        -> Int
+                       -- ^ The minimum size of the Auto Scaling group.
                        -> CreateAutoScalingGroup
 createAutoScalingGroup p1 p2 p3 = CreateAutoScalingGroup
     { casgtAutoScalingGroupName = p1

@@ -35,6 +35,8 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateUser :: Text
+           -- ^ Name of the user to update. If you're changing the name of the user, this
+           -- is the original user name.
            -> UpdateUser
 updateUser p1 = UpdateUser
     { uurUserName = p1

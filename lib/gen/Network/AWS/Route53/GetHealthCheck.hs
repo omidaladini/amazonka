@@ -27,6 +27,7 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getHealthCheck :: Text
+               -- ^ The ID of the health check to retrieve.
                -> GetHealthCheck
 getHealthCheck p1 = GetHealthCheck
     { ghcrHealthCheckId = p1

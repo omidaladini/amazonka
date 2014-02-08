@@ -42,6 +42,7 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 describeInstanceHealth :: Text
+                       -- ^ The name of the load balancer.
                        -> DescribeInstanceHealth
 describeInstanceHealth p1 = DescribeInstanceHealth
     { depsiLoadBalancerName = p1

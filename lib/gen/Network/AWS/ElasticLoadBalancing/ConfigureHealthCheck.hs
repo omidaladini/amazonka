@@ -31,7 +31,11 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 configureHealthCheck :: HealthCheck
+                     -- ^ A structure containing the configuration information for the new
+                     -- healthcheck.
                      -> Text
+                     -- ^ The mnemonic name associated with the load balancer. The name must be
+                     -- unique within the set of load balancers associated with your AWS account.
                      -> ConfigureHealthCheck
 configureHealthCheck p1 p2 = ConfigureHealthCheck
     { chciHealthCheck = p1

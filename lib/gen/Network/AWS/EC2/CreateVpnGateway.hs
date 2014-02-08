@@ -26,6 +26,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createVpnGateway :: GatewayType
+                 -- ^ The type of VPN connection this VPN gateway supports.
                  -> CreateVpnGateway
 createVpnGateway p1 = CreateVpnGateway
     { cvgrType = p1

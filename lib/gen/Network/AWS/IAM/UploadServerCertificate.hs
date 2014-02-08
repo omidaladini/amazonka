@@ -66,8 +66,11 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 uploadServerCertificate :: Text
+                        -- ^ The contents of the public key certificate in PEM-encoded format.
                         -> Text
+                        -- ^ The contents of the private key in PEM-encoded format.
                         -> Text
+                        -- ^ The name for the server certificate. Do not include the path in this value.
                         -> UploadServerCertificate
 uploadServerCertificate p1 p2 p3 = UploadServerCertificate
     { usctCertificateBody = p1

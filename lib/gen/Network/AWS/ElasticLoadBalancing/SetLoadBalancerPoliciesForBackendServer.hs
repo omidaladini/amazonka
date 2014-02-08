@@ -40,8 +40,13 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 setLoadBalancerPoliciesForBackendServer :: Int
+                                        -- ^ The port number associated with the back-end server.
                                         -> Text
+                                        -- ^ The mnemonic name associated with the load balancer. This name must be
+                                        -- unique within the set of your load balancers.
                                         -> [Text]
+                                        -- ^ List of policy names to be set. If the list is empty, then all current
+                                        -- polices are removed from the back-end server.
                                         -> SetLoadBalancerPoliciesForBackendServer
 setLoadBalancerPoliciesForBackendServer p1 p2 p3 = SetLoadBalancerPoliciesForBackendServer
     { slbpfbsiInstancePort = p1

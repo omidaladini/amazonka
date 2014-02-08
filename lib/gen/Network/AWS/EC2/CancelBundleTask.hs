@@ -28,6 +28,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 cancelBundleTask :: Text
+                 -- ^ The ID of the bundle task to cancel.
                  -> CancelBundleTask
 cancelBundleTask p1 = CancelBundleTask
     { cbtrBundleId = p1

@@ -39,6 +39,8 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createVirtualMFADevice :: Text
+                       -- ^ The name of the virtual MFA device. Use with path to uniquely identify a
+                       -- virtual MFA device.
                        -> CreateVirtualMFADevice
 createVirtualMFADevice p1 = CreateVirtualMFADevice
     { cvmfadrVirtualMFADeviceName = p1

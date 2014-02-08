@@ -28,7 +28,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 purchaseReservedInstancesOffering :: Int
+                                  -- ^ The number of Reserved Instances to purchase.
                                   -> Text
+                                  -- ^ The unique ID of the Reserved Instances offering being purchased.
                                   -> PurchaseReservedInstancesOffering
 purchaseReservedInstancesOffering p1 p2 = PurchaseReservedInstancesOffering
     { priorInstanceCount = p1

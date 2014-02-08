@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 terminateInstances :: [Text]
+                   -- ^ The list of instances to terminate.
                    -> TerminateInstances
 terminateInstances p1 = TerminateInstances
     { tirInstanceIds = p1

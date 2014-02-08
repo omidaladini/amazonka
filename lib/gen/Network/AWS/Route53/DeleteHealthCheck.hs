@@ -34,6 +34,7 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteHealthCheck :: Text
+                  -- ^ The ID of the health check to delete.
                   -> DeleteHealthCheck
 deleteHealthCheck p1 = DeleteHealthCheck
     { dhcrHealthCheckId = p1

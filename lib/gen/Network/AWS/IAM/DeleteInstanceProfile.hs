@@ -32,6 +32,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteInstanceProfile :: Text
+                      -- ^ Name of the instance profile to delete.
                       -> DeleteInstanceProfile
 deleteInstanceProfile p1 = DeleteInstanceProfile
     { diprInstanceProfileName = p1

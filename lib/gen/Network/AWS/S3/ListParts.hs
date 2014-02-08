@@ -28,6 +28,7 @@ import           Network.AWS.S3.Types
 listParts :: Text
           -> Text
           -> Text
+          -- ^ Upload ID identifying the multipart upload whose parts are being listed.
           -> ListParts
 listParts p1 p2 p3 = ListParts
     { lpBucket = p1

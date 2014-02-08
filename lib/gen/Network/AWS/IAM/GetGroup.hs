@@ -33,6 +33,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getGroup :: Text
+         -- ^ Name of the group.
          -> GetGroup
 getGroup p1 = GetGroup
     { ggrGroupName = p1

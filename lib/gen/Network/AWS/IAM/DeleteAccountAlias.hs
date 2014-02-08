@@ -28,6 +28,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteAccountAlias :: Text
+                   -- ^ Name of the account alias to delete.
                    -> DeleteAccountAlias
 deleteAccountAlias p1 = DeleteAccountAlias
     { daarAccountAlias = p1

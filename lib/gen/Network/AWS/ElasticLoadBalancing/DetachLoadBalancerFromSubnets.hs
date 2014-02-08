@@ -33,7 +33,10 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 detachLoadBalancerFromSubnets :: Text
+                              -- ^ The name associated with the load balancer to be detached.
                               -> [Text]
+                              -- ^ A list of subnet IDs to remove from the set of configured subnets for the
+                              -- load balancer.
                               -> DetachLoadBalancerFromSubnets
 detachLoadBalancerFromSubnets p1 p2 = DetachLoadBalancerFromSubnets
     { dlbfsiLoadBalancerName = p1

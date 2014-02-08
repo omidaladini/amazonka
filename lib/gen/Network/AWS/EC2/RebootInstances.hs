@@ -28,6 +28,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 rebootInstances :: [Text]
+                -- ^ The list of instances to terminate.
                 -> RebootInstances
 rebootInstances p1 = RebootInstances
     { ritInstanceIds = p1

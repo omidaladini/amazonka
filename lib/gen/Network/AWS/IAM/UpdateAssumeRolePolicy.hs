@@ -30,7 +30,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateAssumeRolePolicy :: Text
+                       -- ^ The policy that grants an entity permission to assume the role.
                        -> Text
+                       -- ^ Name of the role to update.
                        -> UpdateAssumeRolePolicy
 updateAssumeRolePolicy p1 p2 = UpdateAssumeRolePolicy
     { uarprPolicyDocument = p1

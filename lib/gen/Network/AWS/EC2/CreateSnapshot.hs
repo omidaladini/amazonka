@@ -31,6 +31,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createSnapshot :: Text
+               -- ^ The ID of the volume from which to create the snapshot.
                -> CreateSnapshot
 createSnapshot p1 = CreateSnapshot
     { cstVolumeId = p1

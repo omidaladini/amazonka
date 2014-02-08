@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteRouteTable :: Text
+                 -- ^ The ID of the route table to be deleted.
                  -> DeleteRouteTable
 deleteRouteTable p1 = DeleteRouteTable
     { drtsRouteTableId = p1

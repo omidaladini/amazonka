@@ -28,6 +28,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteCustomerGateway :: Text
+                      -- ^ The ID of the customer gateway to delete.
                       -> DeleteCustomerGateway
 deleteCustomerGateway p1 = DeleteCustomerGateway
     { dcgsCustomerGatewayId = p1

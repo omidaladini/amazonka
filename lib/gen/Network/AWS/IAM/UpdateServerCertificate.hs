@@ -36,6 +36,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateServerCertificate :: Text
+                        -- ^ The name of the server certificate that you want to update.
                         -> UpdateServerCertificate
 updateServerCertificate p1 = UpdateServerCertificate
     { uscuServerCertificateName = p1

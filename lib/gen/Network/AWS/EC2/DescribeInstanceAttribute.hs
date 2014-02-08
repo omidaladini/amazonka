@@ -25,7 +25,11 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 describeInstanceAttribute :: InstanceAttributeName
+                          -- ^ The name of the attribute to describe. Available attribute names:
+                          -- instanceType, kernel, ramdisk, userData, disableApiTermination,
+                          -- instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping.
                           -> Text
+                          -- ^ The ID of the instance whose instance attribute is being described.
                           -> DescribeInstanceAttribute
 describeInstanceAttribute p1 p2 = DescribeInstanceAttribute
     { diarAttribute = p1

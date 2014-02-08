@@ -26,7 +26,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteGroupPolicy :: Text
+                  -- ^ Name of the group the policy is associated with.
                   -> Text
+                  -- ^ Name of the policy document to delete.
                   -> DeleteGroupPolicy
 deleteGroupPolicy p1 p2 = DeleteGroupPolicy
     { dgprGroupName = p1

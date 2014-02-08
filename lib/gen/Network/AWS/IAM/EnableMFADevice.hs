@@ -29,9 +29,14 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 enableMFADevice :: Text
+                -- ^ An authentication code emitted by the device.
                 -> Text
+                -- ^ A subsequent authentication code emitted by the device.
                 -> Text
+                -- ^ The serial number that uniquely identifies the MFA device. For virtual MFA
+                -- devices, the serial number is the device ARN.
                 -> Text
+                -- ^ Name of the user for whom you want to enable the MFA device.
                 -> EnableMFADevice
 enableMFADevice p1 p2 p3 p4 = EnableMFADevice
     { emfadrAuthenticationCode1 = p1

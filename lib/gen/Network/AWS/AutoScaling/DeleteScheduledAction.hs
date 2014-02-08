@@ -25,6 +25,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteScheduledAction :: ResourceName
+                      -- ^ The name of the action you want to delete.
                       -> DeleteScheduledAction
 deleteScheduledAction p1 = DeleteScheduledAction
     { dsatScheduledActionName = p1

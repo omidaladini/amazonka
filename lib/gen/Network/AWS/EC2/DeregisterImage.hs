@@ -25,6 +25,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deregisterImage :: Text
+                -- ^ The ID of the AMI to deregister.
                 -> DeregisterImage
 deregisterImage p1 = DeregisterImage
     { dirImageId = p1

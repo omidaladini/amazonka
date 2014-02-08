@@ -29,6 +29,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 listUserPolicies :: Text
+                 -- ^ The name of the user to list policies for.
                  -> ListUserPolicies
 listUserPolicies p1 = ListUserPolicies
     { luprUserName = p1

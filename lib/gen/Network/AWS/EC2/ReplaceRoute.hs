@@ -26,7 +26,11 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 replaceRoute :: Text
+             -- ^ The CIDR address block used for the destination match. For example:
+             -- 0.0.0.0/0. The value you provide must match the CIDR of an existing route
+             -- in the table.
              -> Text
+             -- ^ The ID of the route table where the route will be replaced.
              -> ReplaceRoute
 replaceRoute p1 p2 = ReplaceRoute
     { rrrDestinationCidrBlock = p1

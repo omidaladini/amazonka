@@ -36,8 +36,11 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 putGroupPolicy :: Text
+               -- ^ Name of the group to associate the policy with.
                -> Text
+               -- ^ The policy document.
                -> Text
+               -- ^ Name of the policy document.
                -> PutGroupPolicy
 putGroupPolicy p1 p2 p3 = PutGroupPolicy
     { pgprGroupName = p1

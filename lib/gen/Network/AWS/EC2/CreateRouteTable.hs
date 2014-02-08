@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createRouteTable :: Text
+                 -- ^ The ID of the VPC where the route table will be created.
                  -> CreateRouteTable
 createRouteTable p1 = CreateRouteTable
     { crtrVpcId = p1

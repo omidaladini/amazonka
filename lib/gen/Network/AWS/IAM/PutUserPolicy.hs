@@ -36,8 +36,11 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 putUserPolicy :: Text
+              -- ^ The policy document.
               -> Text
+              -- ^ Name of the policy document.
               -> Text
+              -- ^ Name of the user to associate the policy with.
               -> PutUserPolicy
 putUserPolicy p1 p2 p3 = PutUserPolicy
     { puprPolicyDocument = p1

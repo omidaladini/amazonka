@@ -26,7 +26,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateLoginProfile :: Text
+                   -- ^ The new password for the user name.
                    -> Text
+                   -- ^ Name of the user whose password you want to update.
                    -> UpdateLoginProfile
 updateLoginProfile p1 p2 = UpdateLoginProfile
     { ulprPassword = p1

@@ -29,6 +29,8 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 requestSpotInstances :: Text
+                     -- ^ Specifies the maximum hourly price for any Spot Instance launched to
+                     -- fulfill the request.
                      -> RequestSpotInstances
 requestSpotInstances p1 = RequestSpotInstances
     { rsirSpotPrice = p1

@@ -33,7 +33,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 removeRoleFromInstanceProfile :: Text
+                              -- ^ Name of the instance profile to update.
                               -> Text
+                              -- ^ Name of the role to remove.
                               -> RemoveRoleFromInstanceProfile
 removeRoleFromInstanceProfile p1 p2 = RemoveRoleFromInstanceProfile
     { rrfiprInstanceProfileName = p1

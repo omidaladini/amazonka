@@ -24,6 +24,10 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteTags :: [Tag]
+           -- ^ Each tag should be defined by its resource type, resource ID, key, value,
+           -- and a propagate flag. Valid values are: Resource type = auto-scaling-group,
+           -- Resource ID = AutoScalingGroupName, key=value, value=value, propagate=true
+           -- or false.
            -> DeleteTags
 deleteTags p1 = DeleteTags
     { dtuTags = p1

@@ -29,7 +29,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 confirmProductInstance :: Text
+                       -- ^ The ID of the instance to confirm.
                        -> Text
+                       -- ^ The product code to confirm.
                        -> ConfirmProductInstance
 confirmProductInstance p1 p2 = ConfirmProductInstance
     { cpirInstanceId = p1

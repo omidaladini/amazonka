@@ -15,7 +15,6 @@
 
 module Network.AWS.EC2.Types where
 
-import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.EC2.Service
 

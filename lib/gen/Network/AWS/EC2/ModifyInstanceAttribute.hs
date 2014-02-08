@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 modifyInstanceAttribute :: Text
+                        -- ^ The ID of the instance whose attribute is being modified.
                         -> ModifyInstanceAttribute
 modifyInstanceAttribute p1 = ModifyInstanceAttribute
     { miasInstanceId = p1

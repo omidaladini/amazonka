@@ -31,6 +31,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createUser :: Text
+           -- ^ Name of the user to create.
            -> CreateUser
 createUser p1 = CreateUser
     { curUserName = p1

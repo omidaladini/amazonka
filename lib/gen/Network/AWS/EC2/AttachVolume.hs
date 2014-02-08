@@ -24,8 +24,14 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 attachVolume :: Text
+             -- ^ Specifies how the device is exposed to the instance (e.g., /dev/sdh).
              -> Text
+             -- ^ The ID of the instance to which the volume attaches. The volume and
+             -- instance must be within the same Availability Zone and the instance must be
+             -- running.
              -> Text
+             -- ^ The ID of the Amazon EBS volume. The volume and instance must be within the
+             -- same Availability Zone and the instance must be running.
              -> AttachVolume
 attachVolume p1 p2 p3 = AttachVolume
     { avrDevice = p1

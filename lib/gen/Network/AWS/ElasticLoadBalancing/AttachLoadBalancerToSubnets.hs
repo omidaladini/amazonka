@@ -32,7 +32,11 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 attachLoadBalancerToSubnets :: Text
+                            -- ^ The name associated with the load balancer. The name must be unique within
+                            -- the set of load balancers associated with your AWS account.
                             -> [Text]
+                            -- ^ A list of subnet IDs to add for the load balancer. You can add only one
+                            -- subnet per Availability Zone.
                             -> AttachLoadBalancerToSubnets
 attachLoadBalancerToSubnets p1 p2 = AttachLoadBalancerToSubnets
     { albtsiLoadBalancerName = p1

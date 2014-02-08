@@ -15,7 +15,6 @@
 
 module Network.AWS.Route53.Types where
 
-import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.Route53.Service
 

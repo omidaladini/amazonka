@@ -37,7 +37,10 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createLoadBalancerListeners :: [Listener]
+                            -- ^ A list of LoadBalancerPort, InstancePort, Protocol, and SSLCertificateId
+                            -- items.
                             -> Text
+                            -- ^ The name of the load balancer.
                             -> CreateLoadBalancerListeners
 createLoadBalancerListeners p1 p2 = CreateLoadBalancerListeners
     { clbliListeners = p1

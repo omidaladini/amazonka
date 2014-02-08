@@ -57,6 +57,8 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 listResourceRecordSets :: Text
+                       -- ^ The ID of the hosted zone that contains the resource record sets that you
+                       -- want to get.
                        -> ListResourceRecordSets
 listResourceRecordSets p1 = ListResourceRecordSets
     { lrrsrHostedZoneId = p1

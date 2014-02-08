@@ -32,6 +32,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createLaunchConfiguration :: Text
+                          -- ^ The name of the launch configuration to create.
                           -> CreateLaunchConfiguration
 createLaunchConfiguration p1 = CreateLaunchConfiguration
     { clctLaunchConfigurationName = p1

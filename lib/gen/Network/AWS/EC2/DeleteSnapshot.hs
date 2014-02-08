@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteSnapshot :: Text
+               -- ^ The ID of the snapshot to delete.
                -> DeleteSnapshot
 deleteSnapshot p1 = DeleteSnapshot
     { dsuSnapshotId = p1

@@ -31,7 +31,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getRolePolicy :: Text
+              -- ^ Name of the policy document to get.
               -> Text
+              -- ^ Name of the role associated with the policy.
               -> GetRolePolicy
 getRolePolicy p1 p2 = GetRolePolicy
     { grprPolicyName = p1

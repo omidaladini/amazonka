@@ -15,7 +15,6 @@
 
 module Network.AWS.IAM.Types where
 
-import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.IAM.Service
 

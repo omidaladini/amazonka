@@ -29,6 +29,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createGroup :: Text
+            -- ^ Name of the group to create. Do not include the path in this value.
             -> CreateGroup
 createGroup p1 = CreateGroup
     { cgrGroupName = p1

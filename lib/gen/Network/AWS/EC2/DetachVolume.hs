@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 detachVolume :: Text
+             -- ^ The ID of the volume to detach.
              -> DetachVolume
 detachVolume p1 = DetachVolume
     { dvrVolumeId = p1

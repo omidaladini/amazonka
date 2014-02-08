@@ -30,6 +30,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createVpc :: Text
+          -- ^ A valid CIDR block.
           -> CreateVpc
 createVpc p1 = CreateVpc
     { cvrCidrBlock = p1

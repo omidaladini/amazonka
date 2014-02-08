@@ -29,6 +29,8 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getHostedZone :: Text
+              -- ^ The ID of the hosted zone for which you want to get a list of the name
+              -- servers in the delegation set.
               -> GetHostedZone
 getHostedZone p1 = GetHostedZone
     { ghzrId = p1

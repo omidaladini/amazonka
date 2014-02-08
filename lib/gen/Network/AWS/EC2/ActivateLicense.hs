@@ -25,7 +25,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 activateLicense :: Int
+                -- ^ Specifies the additional number of licenses to activate.
                 -> Text
+                -- ^ Specifies the ID for the specific license to activate against.
                 -> ActivateLicense
 activateLicense p1 p2 = ActivateLicense
     { alrCapacity = p1

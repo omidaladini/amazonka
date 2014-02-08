@@ -30,6 +30,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 listRolePolicies :: Text
+                 -- ^ The name of the role to list policies for.
                  -> ListRolePolicies
 listRolePolicies p1 = ListRolePolicies
     { lrprRoleName = p1

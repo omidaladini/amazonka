@@ -28,7 +28,10 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 enableMetricsCollection :: ResourceName
+                        -- ^ The name or ARN of the Auto Scaling group.
                         -> Text
+                        -- ^ The granularity to associate with the metrics to collect. Currently, the
+                        -- only legal granularity is "1Minute".
                         -> EnableMetricsCollection
 enableMetricsCollection p1 p2 = EnableMetricsCollection
     { emcqAutoScalingGroupName = p1

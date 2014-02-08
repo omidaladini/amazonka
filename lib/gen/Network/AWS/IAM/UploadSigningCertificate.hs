@@ -69,6 +69,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 uploadSigningCertificate :: Text
+                         -- ^ The contents of the signing certificate.
                          -> UploadSigningCertificate
 uploadSigningCertificate p1 = UploadSigningCertificate
     { uscsCertificateBody = p1

@@ -27,7 +27,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 attachVpnGateway :: Text
+                 -- ^ The ID of the VPC to attach to the VPN gateway.
                  -> Text
+                 -- ^ The ID of the VPN gateway to attach to the VPC.
                  -> AttachVpnGateway
 attachVpnGateway p1 p2 = AttachVpnGateway
     { avgrVpcId = p1

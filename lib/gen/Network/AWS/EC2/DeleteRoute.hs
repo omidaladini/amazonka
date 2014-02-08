@@ -26,7 +26,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteRoute :: Text
+            -- ^ The CIDR range for the route you want to delete. The value you specify must
+            -- exactly match the CIDR for the route you want to delete.
             -> Text
+            -- ^ The ID of the route table where the route will be deleted.
             -> DeleteRoute
 deleteRoute p1 p2 = DeleteRoute
     { drrDestinationCidrBlock = p1

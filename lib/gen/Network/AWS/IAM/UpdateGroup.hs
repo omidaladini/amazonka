@@ -37,6 +37,8 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateGroup :: Text
+            -- ^ Name of the group to update. If you're changing the name of the group, this
+            -- is the original name.
             -> UpdateGroup
 updateGroup p1 = UpdateGroup
     { ugrGroupName = p1

@@ -54,8 +54,15 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 runInstances :: Text
+             -- ^ Unique ID of a machine image, returned by a call to DescribeImages.
              -> Int
+             -- ^ Maximum number of instances to launch. If the value is more than Amazon EC2
+             -- can launch, the largest possible number above minCount will be launched
+             -- instead. Between 1 and the maximum number allowed for your account
+             -- (default: 20).
              -> Int
+             -- ^ Minimum number of instances to launch. If the value is more than Amazon EC2
+             -- can launch, no instances are launched at all.
              -> RunInstances
 runInstances p1 p2 p3 = RunInstances
     { rirImageId = p1

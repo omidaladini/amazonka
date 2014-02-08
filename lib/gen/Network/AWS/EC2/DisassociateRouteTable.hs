@@ -27,6 +27,8 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 disassociateRouteTable :: Text
+                       -- ^ The association ID representing the current association between the route
+                       -- table and subnet.
                        -> DisassociateRouteTable
 disassociateRouteTable p1 = DisassociateRouteTable
     { drtrAssociationId = p1

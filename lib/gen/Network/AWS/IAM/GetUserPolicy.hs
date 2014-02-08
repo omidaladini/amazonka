@@ -30,7 +30,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getUserPolicy :: Text
+              -- ^ Name of the policy document to get.
               -> Text
+              -- ^ Name of the user who the policy is associated with.
               -> GetUserPolicy
 getUserPolicy p1 p2 = GetUserPolicy
     { guprPolicyName = p1

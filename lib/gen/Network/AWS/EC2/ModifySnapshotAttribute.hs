@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 modifySnapshotAttribute :: Text
+                        -- ^ The ID of the EBS snapshot whose attributes are being modified.
                         -> ModifySnapshotAttribute
 modifySnapshotAttribute p1 = ModifySnapshotAttribute
     { msarSnapshotId = p1

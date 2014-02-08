@@ -34,9 +34,20 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 putScalingPolicy :: Text
+                 -- ^ Specifies whether the ScalingAdjustment is an absolute number or a
+                 -- percentage of the current capacity. Valid values are ChangeInCapacity,
+                 -- ExactCapacity, and PercentChangeInCapacity. For more information about the
+                 -- adjustment types supported by Auto Scaling, see Scale Based on Demand.
                  -> ResourceName
+                 -- ^ The name or ARN of the Auto Scaling group.
                  -> Text
+                 -- ^ The name of the policy you want to create or update.
                  -> Int
+                 -- ^ The number of instances by which to scale. AdjustmentType determines the
+                 -- interpretation of this number (e.g., as an absolute number or as a
+                 -- percentage of the existing Auto Scaling group size). A positive increment
+                 -- adds to the current capacity and a negative value removes from the current
+                 -- capacity.
                  -> PutScalingPolicy
 putScalingPolicy p1 p2 p3 p4 = PutScalingPolicy
     { psptAdjustmentType = p1

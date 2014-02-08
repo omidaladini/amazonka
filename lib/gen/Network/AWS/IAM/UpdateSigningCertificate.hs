@@ -35,7 +35,11 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 updateSigningCertificate :: Text
+                         -- ^ The ID of the signing certificate you want to update.
                          -> StatusType
+                         -- ^ The status you want to assign to the certificate. Active means the
+                         -- certificate can be used for API calls to AWS, while Inactive means the
+                         -- certificate cannot be used.
                          -> UpdateSigningCertificate
 updateSigningCertificate p1 p2 = UpdateSigningCertificate
     { uscrCertificateId = p1

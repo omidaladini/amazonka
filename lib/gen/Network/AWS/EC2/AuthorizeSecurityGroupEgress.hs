@@ -37,6 +37,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 authorizeSecurityGroupEgress :: Text
+                             -- ^ ID of the VPC security group to modify.
                              -> AuthorizeSecurityGroupEgress
 authorizeSecurityGroupEgress p1 = AuthorizeSecurityGroupEgress
     { asgerGroupId = p1

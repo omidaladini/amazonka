@@ -35,7 +35,10 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 enableAvailabilityZonesForLoadBalancer :: [Text]
+                                       -- ^ A list of new Availability Zones for the load balancer. Each Availability
+                                       -- Zone must be in the same region as the load balancer.
                                        -> Text
+                                       -- ^ The name associated with the load balancer.
                                        -> EnableAvailabilityZonesForLoadBalancer
 enableAvailabilityZonesForLoadBalancer p1 p2 = EnableAvailabilityZonesForLoadBalancer
     { aaziAvailabilityZones = p1

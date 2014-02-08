@@ -26,7 +26,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 modifyReservedInstances :: [Text]
+                        -- ^ The IDs of the Reserved Instances to modify.
                         -> [ReservedInstancesConfiguration]
+                        -- ^ The configuration settings for the Reserved Instances to modify.
                         -> ModifyReservedInstances
 modifyReservedInstances p1 p2 = ModifyReservedInstances
     { mrirReservedInstancesIds = p1

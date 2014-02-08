@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createNetworkAcl :: Text
+                 -- ^ The ID of the VPC where the network ACL will be created.
                  -> CreateNetworkAcl
 createNetworkAcl p1 = CreateNetworkAcl
     { cnarVpcId = p1

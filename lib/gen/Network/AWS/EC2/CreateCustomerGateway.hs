@@ -37,8 +37,13 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createCustomerGateway :: Int
+                      -- ^ The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+                      -- Number (ASN).
                       -> Text
+                      -- ^ The Internet-routable IP address for the customer gateway's outside
+                      -- interface. The address must be static.
                       -> GatewayType
+                      -- ^ The type of VPN connection this customer gateway supports.
                       -> CreateCustomerGateway
 createCustomerGateway p1 p2 p3 = CreateCustomerGateway
     { ccgrBgpAsn = p1

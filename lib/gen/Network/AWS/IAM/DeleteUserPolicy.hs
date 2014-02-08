@@ -27,7 +27,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteUserPolicy :: Text
+                 -- ^ Name of the policy document to delete.
                  -> Text
+                 -- ^ Name of the user the policy is associated with.
                  -> DeleteUserPolicy
 deleteUserPolicy p1 p2 = DeleteUserPolicy
     { duprPolicyName = p1

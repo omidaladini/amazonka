@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 unmonitorInstances :: [Text]
+                   -- ^ The list of Amazon EC2 instances on which to disable monitoring.
                    -> UnmonitorInstances
 unmonitorInstances p1 = UnmonitorInstances
     { uirInstanceIds = p1

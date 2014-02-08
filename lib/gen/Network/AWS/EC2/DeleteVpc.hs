@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteVpc :: Text
+          -- ^ The ID of the VPC you want to delete.
           -> DeleteVpc
 deleteVpc p1 = DeleteVpc
     { dvuVpcId = p1

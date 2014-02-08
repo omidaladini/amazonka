@@ -26,7 +26,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createPlacementGroup :: Text
+                     -- ^ The name of the PlacementGroup.
                      -> PlacementStrategy
+                     -- ^ The PlacementGroup strategy.
                      -> CreatePlacementGroup
 createPlacementGroup p1 p2 = CreatePlacementGroup
     { cpgrGroupName = p1

@@ -27,7 +27,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 replaceNetworkAclAssociation :: Text
+                             -- ^ The ID representing the current association between the original network
+                             -- ACL and the subnet.
                              -> Text
+                             -- ^ The ID of the new ACL to associate with the subnet.
                              -> ReplaceNetworkAclAssociation
 replaceNetworkAclAssociation p1 p2 = ReplaceNetworkAclAssociation
     { rnaarAssociationId = p1

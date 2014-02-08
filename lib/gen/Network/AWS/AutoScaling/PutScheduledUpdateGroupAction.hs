@@ -40,7 +40,9 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 putScheduledUpdateGroupAction :: ResourceName
+                              -- ^ The name or ARN of the Auto Scaling group.
                               -> Text
+                              -- ^ The name of this scaling action.
                               -> PutScheduledUpdateGroupAction
 putScheduledUpdateGroupAction p1 p2 = PutScheduledUpdateGroupAction
     { psugatAutoScalingGroupName = p1

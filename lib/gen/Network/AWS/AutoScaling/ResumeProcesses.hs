@@ -26,6 +26,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 resumeProcesses :: ResourceName
+                -- ^ The name or Amazon Resource Name (ARN) of the Auto Scaling group.
                 -> ResumeProcesses
 resumeProcesses p1 = ResumeProcesses
     { sprAutoScalingGroupName = p1

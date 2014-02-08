@@ -25,6 +25,7 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 describeLoadBalancerAttributes :: Text
+                               -- ^ The name of the load balancer.
                                -> DescribeLoadBalancerAttributes
 describeLoadBalancerAttributes p1 = DescribeLoadBalancerAttributes
     { dlbaiLoadBalancerName = p1

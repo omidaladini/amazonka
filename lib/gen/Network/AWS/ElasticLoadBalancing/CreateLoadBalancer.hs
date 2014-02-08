@@ -80,7 +80,11 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createLoadBalancer :: [Listener]
+                   -- ^ A list of the following tuples: LoadBalancerPort, InstancePort, and
+                   -- Protocol.
                    -> Text
+                   -- ^ The name associated with the load balancer. The name must be unique within
+                   -- your set of load balancers.
                    -> CreateLoadBalancer
 createLoadBalancer p1 p2 = CreateLoadBalancer
     { capiListeners = p1

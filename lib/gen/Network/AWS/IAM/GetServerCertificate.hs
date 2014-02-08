@@ -44,6 +44,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getServerCertificate :: Text
+                     -- ^ The name of the server certificate you want to retrieve information about.
                      -> GetServerCertificate
 getServerCertificate p1 = GetServerCertificate
     { gscrServerCertificateName = p1

@@ -15,7 +15,6 @@
 
 module Network.AWS.AutoScaling.Types where
 
-import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.AutoScaling.Service
 

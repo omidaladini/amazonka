@@ -30,6 +30,8 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteAccessKey :: Text
+                -- ^ The access key ID for the access key ID and secret access key you want to
+                -- delete.
                 -> DeleteAccessKey
 deleteAccessKey p1 = DeleteAccessKey
     { dakrAccessKeyId = p1

@@ -27,6 +27,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteUser :: Text
+           -- ^ Name of the user to delete.
            -> DeleteUser
 deleteUser p1 = DeleteUser
     { durUserName = p1

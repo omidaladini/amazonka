@@ -28,6 +28,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getLoginProfile :: Text
+                -- ^ Name of the user whose login profile you want to retrieve.
                 -> GetLoginProfile
 getLoginProfile p1 = GetLoginProfile
     { glprUserName = p1

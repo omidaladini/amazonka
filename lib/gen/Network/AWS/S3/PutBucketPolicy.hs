@@ -28,6 +28,7 @@ import           Network.AWS.S3.Types
 -- the minimum required request.
 putBucketPolicy :: Text
                 -> Text
+                -- ^ The bucket policy as a JSON document.
                 -> PutBucketPolicy
 putBucketPolicy p1 p2 = PutBucketPolicy
     { pbpBucket = p1

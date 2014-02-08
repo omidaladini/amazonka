@@ -29,7 +29,9 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createLoginProfile :: Text
+                   -- ^ The new password for the user name.
                    -> Text
+                   -- ^ Name of the user to create a password for.
                    -> CreateLoginProfile
 createLoginProfile p1 p2 = CreateLoginProfile
     { clprPassword = p1

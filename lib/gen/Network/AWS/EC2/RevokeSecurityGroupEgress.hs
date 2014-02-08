@@ -34,6 +34,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 revokeSecurityGroupEgress :: Text
+                          -- ^ ID of the VPC security group to modify.
                           -> RevokeSecurityGroupEgress
 revokeSecurityGroupEgress p1 = RevokeSecurityGroupEgress
     { rsgerGroupId = p1

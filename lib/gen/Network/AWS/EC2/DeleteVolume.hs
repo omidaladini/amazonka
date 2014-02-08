@@ -25,6 +25,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteVolume :: Text
+             -- ^ The ID of the EBS volume to delete.
              -> DeleteVolume
 deleteVolume p1 = DeleteVolume
     { dvvVolumeId = p1

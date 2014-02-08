@@ -45,7 +45,12 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 changeResourceRecordSets :: ChangeBatch
+                         -- ^ A complex type that contains an optional comment and the Changes element.
                          -> Text
+                         -- ^ Alias resource record sets only: The value of the hosted zone ID for the
+                         -- AWS resource. For more information, an example, and several ways to get the
+                         -- hosted zone ID for the LoadBalancer, see Creating Alias Resource Record
+                         -- Sets for Elastic Load Balancing in the Amazon Route 53 Developer Guide.
                          -> ChangeResourceRecordSets
 changeResourceRecordSets p1 p2 = ChangeResourceRecordSets
     { crrsrChangeBatch = p1

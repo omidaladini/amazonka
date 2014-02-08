@@ -26,6 +26,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteInternetGateway :: Text
+                      -- ^ The ID of the Internet gateway to be deleted.
                       -> DeleteInternetGateway
 deleteInternetGateway p1 = DeleteInternetGateway
     { digtInternetGatewayId = p1

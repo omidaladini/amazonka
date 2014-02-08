@@ -30,6 +30,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 cancelSpotInstanceRequests :: [Text]
+                           -- ^ Specifies the ID of the Spot Instance request.
                            -> CancelSpotInstanceRequests
 cancelSpotInstanceRequests p1 = CancelSpotInstanceRequests
     { csirrSpotInstanceRequestIds = p1

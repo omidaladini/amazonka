@@ -32,6 +32,7 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteLoadBalancer :: Text
+                   -- ^ The name associated with the load balancer.
                    -> DeleteLoadBalancer
 deleteLoadBalancer p1 = DeleteLoadBalancer
     { dapjLoadBalancerName = p1

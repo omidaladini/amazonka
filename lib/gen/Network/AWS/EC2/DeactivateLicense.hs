@@ -26,7 +26,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deactivateLicense :: Int
+                  -- ^ Specifies the amount of capacity to deactivate against the license.
                   -> Text
+                  -- ^ Specifies the ID for the specific license to deactivate against.
                   -> DeactivateLicense
 deactivateLicense p1 p2 = DeactivateLicense
     { dlsCapacity = p1

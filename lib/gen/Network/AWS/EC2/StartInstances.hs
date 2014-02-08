@@ -31,6 +31,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 startInstances :: [Text]
+               -- ^ The list of Amazon EC2 instances to start.
                -> StartInstances
 startInstances p1 = StartInstances
     { sisInstanceIds = p1

@@ -25,7 +25,10 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 resetImageAttribute :: ResetImageAttributeName
+                    -- ^ The name of the attribute being reset. Available attribute names:
+                    -- launchPermission.
                     -> Text
+                    -- ^ The ID of the AMI whose attribute is being reset.
                     -> ResetImageAttribute
 resetImageAttribute p1 p2 = ResetImageAttribute
     { riasAttribute = p1

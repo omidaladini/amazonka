@@ -41,8 +41,12 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createAppCookieStickinessPolicy :: Text
+                                -- ^ Name of the application cookie used for stickiness.
                                 -> Text
+                                -- ^ The name of the load balancer.
                                 -> Text
+                                -- ^ The name of the policy being created. The name must be unique within the
+                                -- set of policies for this load balancer.
                                 -> CreateAppCookieStickinessPolicy
 createAppCookieStickinessPolicy p1 p2 p3 = CreateAppCookieStickinessPolicy
     { cacspiCookieName = p1

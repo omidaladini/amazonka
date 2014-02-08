@@ -26,7 +26,11 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 setInstanceHealth :: Text
+                  -- ^ The health status of the instance. Set to Healthy if you want the instance
+                  -- to remain in service. Set to Unhealthy if you want the instance to be out
+                  -- of service. Auto Scaling will terminate and replace the unhealthy instance.
                   -> Text
+                  -- ^ The identifier of the Amazon EC2 instance.
                   -> SetInstanceHealth
 setInstanceHealth p1 p2 = SetInstanceHealth
     { sihqHealthStatus = p1

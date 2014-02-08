@@ -26,8 +26,12 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteNetworkAclEntry :: Bool
+                      -- ^ Whether the rule to delete is an egress rule (true) or ingress rule
+                      -- (false).
                       -> Text
+                      -- ^ ID of the network ACL.
                       -> Int
+                      -- ^ Rule number for the entry to delete.
                       -> DeleteNetworkAclEntry
 deleteNetworkAclEntry p1 p2 p3 = DeleteNetworkAclEntry
     { dnaerEgress = p1

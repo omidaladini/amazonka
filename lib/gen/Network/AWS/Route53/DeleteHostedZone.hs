@@ -35,6 +35,8 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteHostedZone :: Text
+                 -- ^ The ID of the request. Include this ID in a call to GetChange to track when
+                 -- the change has propagated to all Route 53 DNS servers.
                  -> DeleteHostedZone
 deleteHostedZone p1 = DeleteHostedZone
     { dhzrId = p1

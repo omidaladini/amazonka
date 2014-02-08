@@ -26,6 +26,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 disableMetricsCollection :: ResourceName
+                         -- ^ The name or ARN of the Auto Scaling Group.
                          -> DisableMetricsCollection
 disableMetricsCollection p1 = DisableMetricsCollection
     { dmcqAutoScalingGroupName = p1

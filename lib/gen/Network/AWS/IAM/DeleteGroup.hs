@@ -27,6 +27,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteGroup :: Text
+            -- ^ Name of the group to delete.
             -> DeleteGroup
 deleteGroup p1 = DeleteGroup
     { dgrGroupName = p1

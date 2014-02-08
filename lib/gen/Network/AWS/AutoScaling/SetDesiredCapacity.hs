@@ -28,7 +28,9 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 setDesiredCapacity :: ResourceName
+                   -- ^ The name of the Auto Scaling group.
                    -> Int
+                   -- ^ The new capacity setting for the Auto Scaling group.
                    -> SetDesiredCapacity
 setDesiredCapacity p1 p2 = SetDesiredCapacity
     { sdctAutoScalingGroupName = p1

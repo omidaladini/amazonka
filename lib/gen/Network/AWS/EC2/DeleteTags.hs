@@ -24,6 +24,8 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteTags :: [Text]
+           -- ^ A list of one or more resource IDs. This could be the ID of an AMI, an
+           -- instance, an EBS volume, or snapshot, etc.
            -> DeleteTags
 deleteTags p1 = DeleteTags
     { dtsResources = p1

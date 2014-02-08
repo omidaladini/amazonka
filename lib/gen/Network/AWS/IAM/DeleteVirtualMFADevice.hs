@@ -30,6 +30,8 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteVirtualMFADevice :: Text
+                       -- ^ The serial number that uniquely identifies the MFA device. For virtual MFA
+                       -- devices, the serial number is the same as the ARN.
                        -> DeleteVirtualMFADevice
 deleteVirtualMFADevice p1 = DeleteVirtualMFADevice
     { dvmfadrSerialNumber = p1

@@ -26,6 +26,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createKeyPair :: Text
+              -- ^ The unique name for the new key pair.
               -> CreateKeyPair
 createKeyPair p1 = CreateKeyPair
     { ckprKeyName = p1

@@ -29,6 +29,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteLaunchConfiguration :: ResourceName
+                          -- ^ The name of the launch configuration.
                           -> DeleteLaunchConfiguration
 deleteLaunchConfiguration p1 = DeleteLaunchConfiguration
     { lcntLaunchConfigurationName = p1

@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 monitorInstances :: [Text]
+                 -- ^ The list of Amazon EC2 instances on which to enable monitoring.
                  -> MonitorInstances
 monitorInstances p1 = MonitorInstances
     { mirInstanceIds = p1

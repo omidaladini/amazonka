@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 modifyImageAttribute :: Text
+                     -- ^ The ID of the AMI whose attribute you want to modify.
                      -> ModifyImageAttribute
 modifyImageAttribute p1 = ModifyImageAttribute
     { miarImageId = p1

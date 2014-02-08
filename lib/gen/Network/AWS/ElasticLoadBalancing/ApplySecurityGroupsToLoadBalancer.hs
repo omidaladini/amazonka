@@ -32,7 +32,12 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 applySecurityGroupsToLoadBalancer :: Text
+                                  -- ^ The name associated with the load balancer. The name must be unique within
+                                  -- the set of load balancers associated with your AWS account.
                                   -> [Text]
+                                  -- ^ A list of security group IDs to associate with your load balancer in VPC.
+                                  -- The security group IDs must be provided as the ID and not the security
+                                  -- group name (For example, sg-1234).
                                   -> ApplySecurityGroupsToLoadBalancer
 applySecurityGroupsToLoadBalancer p1 p2 = ApplySecurityGroupsToLoadBalancer
     { asgtlbiLoadBalancerName = p1

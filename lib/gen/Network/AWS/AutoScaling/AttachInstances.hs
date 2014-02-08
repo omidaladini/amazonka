@@ -27,6 +27,8 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 attachInstances :: ResourceName
+                -- ^ The name of the Auto Scaling group to which to attach the specified
+                -- instance(s).
                 -> AttachInstances
 attachInstances p1 = AttachInstances
     { aiqAutoScalingGroupName = p1

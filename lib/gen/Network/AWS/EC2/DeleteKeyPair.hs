@@ -24,6 +24,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteKeyPair :: Text
+              -- ^ The name of the Amazon EC2 key pair to delete.
               -> DeleteKeyPair
 deleteKeyPair p1 = DeleteKeyPair
     { dkprKeyName = p1

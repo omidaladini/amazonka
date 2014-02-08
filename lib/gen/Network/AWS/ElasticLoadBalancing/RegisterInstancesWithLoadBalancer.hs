@@ -48,7 +48,10 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 registerInstancesWithLoadBalancer :: [Instance]
+                                  -- ^ A list of instance IDs that should be registered with the load balancer.
                                   -> Text
+                                  -- ^ The name associated with the load balancer. The name must be unique within
+                                  -- your set of load balancers.
                                   -> RegisterInstancesWithLoadBalancer
 registerInstancesWithLoadBalancer p1 p2 = RegisterInstancesWithLoadBalancer
     { repiInstances = p1

@@ -37,6 +37,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getInstanceProfile :: Text
+                   -- ^ Name of the instance profile to get information about.
                    -> GetInstanceProfile
 getInstanceProfile p1 = GetInstanceProfile
     { giprInstanceProfileName = p1

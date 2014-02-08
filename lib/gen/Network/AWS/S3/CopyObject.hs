@@ -28,6 +28,8 @@ import           Network.AWS.S3.Types
 copyObject :: Text
            -> Text
            -> Text
+           -- ^ The name of the source bucket and key name of the source object, separated
+           -- by a slash (/). Must be URL-encoded.
            -> CopyObject
 copyObject p1 p2 p3 = CopyObject
     { coBucket = p1

@@ -28,6 +28,8 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getPasswordData :: Text
+                -- ^ The ID of the instance for which you want the Windows administrator
+                -- password.
                 -> GetPasswordData
 getPasswordData p1 = GetPasswordData
     { gpdrInstanceId = p1

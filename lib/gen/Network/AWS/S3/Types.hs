@@ -15,7 +15,6 @@
 
 module Network.AWS.S3.Types where
 
-import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.S3.Service
 

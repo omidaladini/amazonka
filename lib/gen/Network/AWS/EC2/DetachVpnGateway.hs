@@ -29,7 +29,9 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 detachVpnGateway :: Text
+                 -- ^ The ID of the VPC to detach the VPN gateway from.
                  -> Text
+                 -- ^ The ID of the VPN gateway to detach from the VPC.
                  -> DetachVpnGateway
 detachVpnGateway p1 p2 = DetachVpnGateway
     { dvgsVpcId = p1

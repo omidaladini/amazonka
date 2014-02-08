@@ -24,7 +24,9 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteLoadBalancerListeners :: Text
+                            -- ^ The mnemonic name associated with the load balancer.
                             -> [Int]
+                            -- ^ The client port number(s) of the load balancer listener(s) to be removed.
                             -> DeleteLoadBalancerListeners
 deleteLoadBalancerListeners p1 p2 = DeleteLoadBalancerListeners
     { dlbliLoadBalancerName = p1

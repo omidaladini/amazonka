@@ -28,6 +28,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 listGroupPolicies :: Text
+                  -- ^ The name of the group to list policies for.
                   -> ListGroupPolicies
 listGroupPolicies p1 = ListGroupPolicies
     { lgprGroupName = p1

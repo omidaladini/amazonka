@@ -31,6 +31,7 @@ import Network.AWS.AutoScaling.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 suspendProcesses :: ResourceName
+                 -- ^ The name or Amazon Resource Name (ARN) of the Auto Scaling group.
                  -> SuspendProcesses
 suspendProcesses p1 = SuspendProcesses
     { spqAutoScalingGroupName = p1

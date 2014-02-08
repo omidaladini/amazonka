@@ -32,6 +32,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createInstanceProfile :: Text
+                      -- ^ Name of the instance profile to create.
                       -> CreateInstanceProfile
 createInstanceProfile p1 = CreateInstanceProfile
     { ciprInstanceProfileName = p1

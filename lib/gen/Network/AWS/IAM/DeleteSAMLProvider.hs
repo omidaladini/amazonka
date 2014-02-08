@@ -30,6 +30,7 @@ import Network.AWS.IAM.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteSAMLProvider :: Text
+                   -- ^ The Amazon Resource Name (ARN) of the SAML provider to delete.
                    -> DeleteSAMLProvider
 deleteSAMLProvider p1 = DeleteSAMLProvider
     { dsamlprSAMLProviderArn = p1

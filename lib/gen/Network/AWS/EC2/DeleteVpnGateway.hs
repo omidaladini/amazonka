@@ -29,6 +29,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteVpnGateway :: Text
+                 -- ^ The ID of the VPN gateway to delete.
                  -> DeleteVpnGateway
 deleteVpnGateway p1 = DeleteVpnGateway
     { dvgrVpnGatewayId = p1

@@ -30,6 +30,9 @@ import           Network.AWS.Route53.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 getChange :: Text
+          -- ^ The ID of the change batch request. The value that you specify here is the
+          -- value that ChangeResourceRecordSets returned in the Id element when you
+          -- submitted the request.
           -> GetChange
 getChange p1 = GetChange
     { gcrId = p1

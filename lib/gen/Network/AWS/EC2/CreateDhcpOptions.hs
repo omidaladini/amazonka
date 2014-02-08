@@ -28,6 +28,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 createDhcpOptions :: [DhcpConfiguration]
+                  -- ^ A set of one or more DHCP configurations.
                   -> CreateDhcpOptions
 createDhcpOptions p1 = CreateDhcpOptions
     { cdorDhcpConfigurations = p1

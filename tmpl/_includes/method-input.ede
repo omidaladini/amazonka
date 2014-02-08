@@ -6,8 +6,26 @@
   {% for field in scope.input | required %}
     {% if field.first %}
 {{ scope.name | lowerFirst }} :: {% include "type.ede" with field.value %}
+  {% for line in field.value.documentation %}
+    {% if line.value /= "" %}
+      {% if line.first %}
+{{ scope.name | pad }} -- ^ {{ line.value }}
+      {% else %}
+{{ scope.name | pad }} -- {{ line.value }}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
     {% else %}
 {{ scope.name | pad }} -> {% include "type.ede" with field.value %}
+  {% for line in field.value.documentation %}
+    {% if line.value /= "" %}
+      {% if line.first %}
+{{ scope.name | pad }} -- ^ {{ line.value }}
+      {% else %}
+{{ scope.name | pad }} -- {{ line.value }}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
     {% endif %}
     {% if field.last %}
 {{ scope.name | pad }} -> {{ scope.name }}

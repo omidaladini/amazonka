@@ -25,7 +25,9 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteLoadBalancerPolicy :: Text
+                         -- ^ The mnemonic name associated with the load balancer.
                          -> Text
+                         -- ^ The mnemonic name for the policy being deleted.
                          -> DeleteLoadBalancerPolicy
 deleteLoadBalancerPolicy p1 p2 = DeleteLoadBalancerPolicy
     { dlbpjLoadBalancerName = p1

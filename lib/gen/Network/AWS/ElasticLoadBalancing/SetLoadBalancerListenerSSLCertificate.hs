@@ -33,8 +33,13 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 setLoadBalancerListenerSSLCertificate :: Text
+                                      -- ^ The name of the load balancer.
                                       -> Int
+                                      -- ^ The port that uses the specified SSL certificate.
                                       -> Text
+                                      -- ^ The Amazon Resource Number (ARN) of the SSL certificate chain to use. For
+                                      -- more information on SSL certificates, see Managing Server Certificates in
+                                      -- the AWS Identity and Access Management User Guide.
                                       -> SetLoadBalancerListenerSSLCertificate
 setLoadBalancerListenerSSLCertificate p1 p2 p3 = SetLoadBalancerListenerSSLCertificate
     { slblsslciLoadBalancerName = p1

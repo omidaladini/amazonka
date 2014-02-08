@@ -27,6 +27,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 bundleInstance :: Text
+               -- ^ The ID of the instance to bundle.
                -> Storage
                -> BundleInstance
 bundleInstance p1 p2 = BundleInstance

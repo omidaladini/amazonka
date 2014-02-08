@@ -35,7 +35,9 @@ import Network.AWS.ElasticLoadBalancing.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deregisterInstancesFromLoadBalancer :: [Instance]
+                                    -- ^ A list of EC2 instance IDs consisting of all instances to be deregistered.
                                     -> Text
+                                    -- ^ The name associated with the load balancer.
                                     -> DeregisterInstancesFromLoadBalancer
 deregisterInstancesFromLoadBalancer p1 p2 = DeregisterInstancesFromLoadBalancer
     { depiInstances = p1

@@ -33,6 +33,7 @@ import Network.AWS.EC2.Types
 -- | Convenience method utilising default fields to construct
 -- the minimum required request.
 deleteVpnConnection :: Text
+                    -- ^ The ID of the VPN connection to delete.
                     -> DeleteVpnConnection
 deleteVpnConnection p1 = DeleteVpnConnection
     { dvcrVpnConnectionId = p1
