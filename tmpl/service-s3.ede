@@ -13,7 +13,9 @@
 module Network.AWS.{{ module }}.Service where
 
 import Network.AWS.Core
-import Text.XML.Generic
+{% if xmlnamespace %}
+import Network.AWS.Generics.XML
+{% endif %}
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: ByteString -> Service

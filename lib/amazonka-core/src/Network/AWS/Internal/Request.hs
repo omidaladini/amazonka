@@ -15,7 +15,6 @@ module Network.AWS.Internal.Request where
 import Data.Aeson
 import Data.ByteString                    (ByteString)
 import Data.Conduit
-import Data.Text                          (Text)
 import Network.AWS.Generics.Query
 import Network.AWS.Generics.XML
 import Network.AWS.Internal.Serialisation

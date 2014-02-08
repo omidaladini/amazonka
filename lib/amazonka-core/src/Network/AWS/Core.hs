@@ -20,29 +20,33 @@ module Network.AWS.Core
     , Text
     , UTCTime
     , Generic
-    , Service  (..)
+    , ToQuery  (..)
+    , FromXML  (..)
+    , ToXML    (..)
 
     , defaultOptions
     , def
+    , queryFromList
 
     , module Export
-    , module Internal
     ) where
 
-import Data.Aeson           (FromJSON(..), ToJSON(..))
-import Data.Aeson.Types     (Options(..), defaultOptions)
-import Data.ByteString      (ByteString)
-import Data.Default         (def)
-import Data.HashMap.Strict  (HashMap)
-import Data.Hashable        (Hashable(..))
-import Data.List.NonEmpty   (NonEmpty(..))
-import Data.Tagged          (Tagged(..))
-import Data.Text            (Text)
-import Data.Time            (UTCTime)
-import GHC.Generics         (Generic)
+import Data.Aeson                 (FromJSON(..), ToJSON(..))
+import Data.Aeson.Types           (Options(..), defaultOptions)
+import Data.ByteString            (ByteString)
+import Data.Default               (def)
+import Data.HashMap.Strict        (HashMap)
+import Data.Hashable              (Hashable(..))
+import Data.List.NonEmpty         (NonEmpty(..))
+import Data.Tagged                (Tagged(..))
+import Data.Text                  (Text)
+import Data.Time                  (UTCTime)
+import GHC.Generics               (Generic)
+import Network.AWS.Generics.Query (ToQuery(..), queryFromList)
+import Network.AWS.Generics.XML   (FromXML(..), ToXML(..))
 
-import Control.Monad        as Export
-import Data.Monoid          as Export
-
-import Network.AWS.Internal as Internal
+import Control.Monad              as Export
+import Data.Monoid                as Export
+import Network.AWS.Internal       as Export
+import Network.AWS.Text           as Export
 

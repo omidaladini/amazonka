@@ -27,20 +27,16 @@ import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.ByteString.Char8             (ByteString)
-import qualified Data.ByteString.Char8             as BS
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
-import           Data.Default
 import           Data.IORef
 import           Data.Monoid
 import           Data.String
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
-import qualified Data.Text.Encoding                as Text
 import           Data.Time
 import           Network.AWS.Generics.XML
 import           Network.AWS.Internal.Types.Common
-import           Network.AWS.Text
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types
 
@@ -144,8 +140,8 @@ data Endpoint
     | Custom !ByteString
 
 data Service = Service
-    { svcSigner   :: Signer -> Request
-    , svcEndpoint :: !Endpoint
+    { svcEndpoint :: !Endpoint
+    , svcSigner   :: Signer -> Request
     , svcName     :: !ByteString
     , svcVersion  :: !ByteString
     }
