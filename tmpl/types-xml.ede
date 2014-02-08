@@ -10,7 +10,6 @@
 
 module Network.AWS.{{ module }}.Types where
 
-import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.{{ module }}.Service
 
