@@ -15,30 +15,31 @@
 
 module Network.AWS.Headers where
 
-import Data.CaseInsensitive (FoldCase, CI)
-import Data.Text            (Text)
-import Data.Time
-import Network.AWS.Time
+import           Data.ByteString    (ByteString)
+import qualified Data.Text.Encoding as Text
+import           Data.Time
+import           Network.AWS.Time
+import           Network.HTTP.Types (Header)
 
-default (Text)
+default (ByteString)
 
-hAuth :: Text -> (CI Text, Text)
-hAuth = ("Authorization",)
-
-hAccept :: Text -> (CI Text, Text)
+hAccept :: ByteString -> Header
 hAccept = ("Accept-Encoding",)
 
-hDate :: Text -> (CI Text, Text)
+hDate :: ByteString -> Header
 hDate = ("Date",)
 
-hHost :: Text -> (CI Text, Text)
+hHost :: ByteString -> Header
 hHost = ("Host",)
 
-hAMZDate :: UTCTime -> (CI ByteString, ByteString)
-hAMZDate = ("X-Amz-Date",) . Text.encodeUtf8 . formatISO8601
+hAuth :: ByteString -> Header
+hAuth = ("Authorization",)
 
-hAMZAuth :: Text -> (CI ByteString, ByteString)
+hAMZAuth :: ByteString -> Header
 hAMZAuth = ("X-Amzn-Authorization",)
 
-hAMZToken :: ByteString -> (CI ByteString, ByteString)
+hAMZDate :: UTCTime -> Header
+hAMZDate = ("X-Amz-Date",) . Text.encodeUtf8 . formatISO8601
+
+hAMZToken :: ByteString -> Header
 hAMZToken = ("X-Amz-Security-Token",)

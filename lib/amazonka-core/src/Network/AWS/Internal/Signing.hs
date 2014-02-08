@@ -30,7 +30,6 @@ import           Data.ByteString                   (ByteString)
 import qualified Data.ByteString.Base16            as Base16
 import qualified Data.ByteString.Base64            as Base64
 import qualified Data.ByteString.Char8             as BS
-import qualified Data.ByteString.Helpers           as BSH
 import           Data.CaseInsensitive              (CI)
 import qualified Data.CaseInsensitive              as Case
 import           Data.Default
@@ -38,20 +37,18 @@ import           Data.Function                     (on)
 import           Data.List                         (groupBy, nub, sort)
 import           Data.Maybe
 import           Data.Monoid
+import           Data.Text                         (Text)
+import qualified Data.Text                         as Text
+import qualified Data.Text.Encoding                as Text
 import           Data.Time                         (getCurrentTime)
-import           Data.Time.Formatters
 import           Network.AWS.Headers
 import           Network.AWS.Internal.Types
 import           Network.AWS.Internal.Types.Common
+import           Network.AWS.Text
+import           Network.AWS.Time
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types                (Header, StdMethod, QueryItem, urlEncode, renderQuery)
-
-data Common = Common
-    { _service :: !ByteString
-    , _version :: !ByteString
-    , _host    :: !ByteString
-    , _query   :: [QueryItem]
-    }
+import           Network.HTTP.Types                (Header, StdMethod, Query)
+import qualified Network.HTTP.Types                as HTTP
 
 sign :: RawRequest -> AWS Request
 sign raw@RawRequest{..} = do
@@ -70,7 +67,7 @@ v2 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query = encoded <> "&Signature=" <> urlEncode True signature
+    query = encoded <> "&Signature=" <> HTTP.urlEncode True signature
 
     signature = Base64.encode
         . hmacSHA256 (secretAccessKey auth)
@@ -81,7 +78,7 @@ v2 raw@RawRequest{..} auth reg time =
             , encoded
             ]
 
-    encoded = renderQuery False
+    encoded = HTTP.renderQuery False
         $ _query
        ++ [ ("Version",          Just _version)
           , ("SignatureVersion", Just "2")
@@ -99,7 +96,7 @@ v3 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query   = renderQuery False _query
+    query   = HTTP.renderQuery False _query
     headers = hDate (formatRFC822 time)
         : hAMZAuth authorisation
         : maybeToList (hAMZToken <$> securityToken auth)
@@ -116,7 +113,7 @@ v4 raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query   = renderQuery False . sort $ ("Version", Just _version) : _query
+    query   = HTTP.renderQuery False . sort $ ("Version", Just _version) : _query
     headers = hAMZDate time
             : maybeToList (hAMZToken <$> securityToken auth)
            ++ rawHeaders
@@ -173,7 +170,7 @@ s3 bucket raw@RawRequest{..} auth reg time =
   where
     Common{..} = common raw reg
 
-    query = renderQuery False _query
+    query = HTTP.renderQuery False _query
 
     authorisation = hAuth $ BS.concat ["AWS ", accessKeyId auth, ":", signature]
 
@@ -203,9 +200,10 @@ s3 bucket raw@RawRequest{..} auth reg time =
         : maybeToList (hAMZToken <$> securityToken auth)
        ++ rawHeaders
 
-    date = formatRFC822 time
+    date = Text.encodeUtf8 $ formatRFC822 time
 
-    canonicalResource = '/' `BSH.wrap` bucket <> "/" `BSH.stripPrefix` rawPath
+    canonicalResource = Text.encodeUtf8 $
+        wrap '/' bucket <> stripPrefix "/" rawPath
 
     -- relevantQueryKeys =
     --     [ "acl"
@@ -237,12 +235,21 @@ s3 bucket raw@RawRequest{..} auth reg time =
     --     , "notification"
     --     ]
 
+data Common = Common
+    { _service :: !ByteString
+    , _version :: !ByteString
+    , _host    :: !ByteString
+    , _path    :: !ByteString
+    , _query   :: Query
+    }
+
 common :: RawRequest -> Region -> Common
 common RawRequest{..} reg = Common
-    { _service = svcName rawService
-    , _version = svcVersion rawService
-    , _host    = endpoint rawService reg
-    , _query   = sort rawQuery
+    { _service = Text.encodeUtf8 $ svcName rawService
+    , _version = Text.encodeUtf8 $ svcVersion rawService
+    , _host    = Text.encodeUtf8 $ endpoint rawService reg
+    , _path    = Text.encodeUtf8 rawPath
+    , _query   = HTTP.queryTextToQuery $ sort rawQuery
     }
 
 signed :: StdMethod
@@ -252,13 +259,13 @@ signed :: StdMethod
        -> [Header]
        -> RequestBody
        -> Request
-signed meth host path qs hs body = def
+signed meth host path qry hs body = def
     { secure         = True
     , method         = BS.pack $ show meth
     , host           = host
     , port           = 443
     , path           = path
-    , queryString    = qs
+    , queryString    = qry
     , requestHeaders = hs
     , requestBody    = body
     , checkStatus    = \_ _ _ -> Nothing
@@ -277,8 +284,19 @@ groupHeaders = sort . map f . groupBy ((==) `on` fst)
     f []     = ("", "")
 
 lookupHeader :: ByteString -> [Header] -> Maybe ByteString
-lookupHeader (Case.mk -> key) = lookup key
+lookupHeader key = lookup (Case.mk key)
 
-flattenValues :: (CI ByteString, ByteString) -> ByteString
-flattenValues (k, v) = mconcat [Case.foldedCase k, ":", BSH.strip ' ' v, "\n"]
+flattenValues :: Header -> ByteString
+flattenValues (k, v) = mconcat [Case.foldedCase k, ":", strip ' ' v, "\n"]
 
+strip :: Char -> ByteString -> ByteString
+strip c = Text.encodeUtf8 . Text.dropAround (== c) . Text.decodeUtf8
+
+accessKeyId :: Auth -> ByteString
+accessKeyId = Text.encodeUtf8 . authAccessKeyId
+
+secretAccessKey :: Auth -> ByteString
+secretAccessKey = Text.encodeUtf8 . authSecretAccessKey
+
+securityToken :: Auth -> Maybe ByteString
+securityToken = fmap Text.encodeUtf8 . authSecurityToken
