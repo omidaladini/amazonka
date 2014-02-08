@@ -25,18 +25,14 @@ library
     ghc-options:       -Wall
 
     exposed-modules:
-        Data.ByteString.Helpers
-      , Data.Text.Helpers
-      , Data.Time.Formatters
-
-      , Network.AWS
+        Network.AWS
       , Network.AWS.Core
+      , Network.AWS.Generics.Query
+      , Network.AWS.Generics.XML
+      , Network.AWS.Text
+      , Network.AWS.Time
       , Network.AWS.EC2.Metadata
       , Network.AWS.Headers
-
-      , Network.HTTP.QueryString.Generic
-
-      , Text.XML.Generic
 
     other-modules:
         Network.AWS.Internal

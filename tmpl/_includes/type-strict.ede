@@ -6,18 +6,7 @@
 {% else %}
   {% if scope.required %}
     {% if scope.strict %}
-      {% case scope.shape_name %}
-      {% when "Int" %}
- {-# UNPACK #-} !{{ scope.shape_name }}
-      {% when "Integer" %}
- {-# UNPACK #-} !{{ scope.shape_name }}
-      {% when "Double" %}
- {-# UNPACK #-} !{{ scope.shape_name }}
-      {% when "Bool" %}
- {-# UNPACK #-} !{{ scope.shape_name }}
-      {% else %}
  !{{ scope.shape_name }}
-      {% endcase %}
     {% else %}
  {{ scope.shape_name }}
     {% endif %}

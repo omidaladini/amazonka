@@ -23,22 +23,22 @@ import           Control.Arrow
 import           Control.Error
 import           Control.Monad
 import           Data.Aeson
-import           Data.Aeson.Types                 (Parser)
-import           Data.ByteString                  (ByteString)
-import qualified Data.CaseInsensitive             as CI
-import           Data.HashMap.Strict              (HashMap)
-import qualified Data.HashMap.Strict              as Map
+import           Data.Aeson.Types           (Parser)
+import           Data.ByteString            (ByteString)
+import qualified Data.CaseInsensitive       as CI
+import           Data.HashMap.Strict        (HashMap)
+import qualified Data.HashMap.Strict        as Map
 import           Data.Hashable
 import           Data.Tagged
-import           Data.Text                        (Text)
-import qualified Data.Text                        as Text
-import qualified Data.Text.Encoding               as Text
-import           Data.Text.Helpers
+import           Data.Text                  (Text)
+import qualified Data.Text                  as Text
+import qualified Data.Text.Encoding         as Text
+import           Network.AWS.Generics.Query
+import           Network.AWS.Generics.XML
+import           Network.AWS.Text
 import           Network.HTTP.Conduit
-import           Network.HTTP.QueryString.Generic
-import           Network.HTTP.Types               hiding (Query, toQuery)
-import           Text.XML                         (Node)
-import           Text.XML.Generic
+import           Network.HTTP.Types         hiding (Query, toQuery)
+import           Text.XML                   (Node)
 
 class ToPath a where
     toPath :: a -> Text

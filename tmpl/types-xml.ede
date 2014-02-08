@@ -1,17 +1,16 @@
 {% raw %}
-{-# LANGUAGE DeriveGeneric               #-}
-{-# LANGUAGE FlexibleContexts            #-}
-{-# LANGUAGE FlexibleInstances           #-}
-{-# LANGUAGE OverloadedStrings           #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE FlexibleContexts  #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
 {% endraw %}
-
-{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Module      : Network.AWS.{{ module }}.Types
 {% include "_includes/header.ede" %}
 
 module Network.AWS.{{ module }}.Types where
 
+import Data.Monoid
 import Network.AWS.Core
 import Network.AWS.{{ module }}.Service
 

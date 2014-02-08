@@ -26,12 +26,12 @@ import           Data.Tagged
 import           Data.Text                          (Text)
 import qualified Data.Text                          as Text
 import qualified Data.Text.Encoding                 as Text
-import           Data.Text.Helpers
 import           Data.Time
 import           GHC.Generics
+import           Network.AWS.Generics.Query
+import           Network.AWS.Generics.XML
 import           Network.AWS.Internal.Serialisation
-import           Network.HTTP.QueryString.Generic
-import           Text.XML.Generic
+import           Network.AWS.Text
 
 newtype Key = Key { unKey :: Text }
     deriving (Eq, Ord, Show)
@@ -109,17 +109,8 @@ data Auth = Auth
     { authAccessKeyId     :: !Text
     , authSecretAccessKey :: !Text
     , authSecurityToken   :: Maybe Text
-    , expiration          :: Maybe UTCTime
+    , authExpiration      :: Maybe UTCTime
     }
-
-accessKeyId :: Auth -> ByteString
-accessKeyId = Text.encodeUtf8 . authAccessKeyId
-
-secretAccessKey :: Auth -> ByteString
-secretAccessKey = Text.encodeUtf8 . authSecretAccessKey
-
-securityToken :: Auth -> Maybe ByteString
-securityToken = fmap Text.encodeUtf8 . authSecurityToken
 
 instance FromJSON Auth where
     parseJSON = withObject "Auth" $ \o -> Auth

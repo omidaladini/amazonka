@@ -18,8 +18,8 @@ import Data.Conduit
 import Network.AWS.Internal.Serialisation
 import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
-import Network.HTTP.QueryString.Generic
-import Text.XML.Generic
+import Network.AWS.Generics.Query
+import Network.AWS.Generics.XML
 
 getQuery :: (ToQuery a, AWSRequest a)
          => Service

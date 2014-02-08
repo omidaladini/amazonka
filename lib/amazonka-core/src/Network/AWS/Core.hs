@@ -9,9 +9,7 @@
 -- Portability : non-portable (GHC extensions)
 
 module Network.AWS.Core
-    ( module Internal
-
-    , FromJSON (..)
+    ( FromJSON (..)
     , ToJSON   (..)
     , Options  (..)
     , ByteString
@@ -26,19 +24,25 @@ module Network.AWS.Core
 
     , defaultOptions
     , def
+
+    , module Export
+    , module Internal
     ) where
 
-import Data.Aeson                 (FromJSON(..), ToJSON(..))
-import Data.Aeson.Types           (Options(..), defaultOptions)
-import Data.ByteString            (ByteString)
-import Data.Default               (def)
-import Data.HashMap.Strict        (HashMap)
-import Data.Hashable              (Hashable(..))
-import Data.List.NonEmpty         (NonEmpty(..))
-import Data.Tagged                (Tagged(..))
-import Data.Text                  (Text)
-import Data.Time                  (UTCTime)
-import GHC.Generics               (Generic)
-import Network.AWS.Internal       as Internal hiding (Endpoint, Region, AvailabilityZone)
-import Network.AWS.Internal.Types (Service(..))
+import Data.Aeson           (FromJSON(..), ToJSON(..))
+import Data.Aeson.Types     (Options(..), defaultOptions)
+import Data.ByteString      (ByteString)
+import Data.Default         (def)
+import Data.HashMap.Strict  (HashMap)
+import Data.Hashable        (Hashable(..))
+import Data.List.NonEmpty   (NonEmpty(..))
+import Data.Tagged          (Tagged(..))
+import Data.Text            (Text)
+import Data.Time            (UTCTime)
+import GHC.Generics         (Generic)
+
+import Control.Monad        as Export
+import Data.Monoid          as Export
+
+import Network.AWS.Internal as Internal
 

@@ -12,16 +12,6 @@ module Network.AWS.Internal
     (
     -- * Internal modules
       module Internal
-
-    -- * Convenience exports
-    , module Common
-
-    , ToQuery   (..)
-    , FromQuery (..)
-    , queryFromList
-
-    , ToXML     (..)
-    , FromXML   (..)
     ) where
 
 import Network.AWS.Internal.Request       as Internal
@@ -29,9 +19,3 @@ import Network.AWS.Internal.Serialisation as Internal
 import Network.AWS.Internal.Signing       as Internal
 import Network.AWS.Internal.Types         as Internal hiding (Service)
 import Network.AWS.Internal.Types.Common  as Internal
-
-import Data.Text.Helpers                  as Common
-import Data.Time.Formatters               as Common
-
-import Network.HTTP.QueryString.Generic
-import Text.XML.Generic

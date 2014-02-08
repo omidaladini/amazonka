@@ -16,18 +16,17 @@ module Network.AWS.EC2.Metadata where
 
 import           Control.Applicative
 import           Control.Error
-import qualified Control.Exception       as EX
+import qualified Control.Exception    as EX
 import           Control.Monad.Error
-import           Data.ByteString         (ByteString)
-import qualified Data.ByteString.Helpers as BSH
-import qualified Data.ByteString.Lazy    as LBS
+import           Data.ByteString      (ByteString)
+import qualified Data.ByteString.Lazy as LBS
 import           Data.Monoid
+import qualified Data.Text            as Text
 import           Data.Text (Text)
-import qualified Data.Text               as Text
-import           Data.Text.Helpers
-import           Network.AWS.Internal.Serialisation
+import           Network.AWS.Internal
+import           Network.AWS.Text
 import           Network.HTTP.Conduit
-import           Network.HTTP.Types      (status404)
+import           Network.HTTP.Types   (status404)
 
 data Dynamic
     = FWS

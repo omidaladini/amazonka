@@ -27,7 +27,7 @@ import           Control.Monad.Error
 import           Control.Monad.Reader
 import           Control.Monad.Trans.Resource
 import           Data.ByteString.Char8             (ByteString)
-import qualified Data.ByteString.Char8             as BS
+import           Data.CaseInsensitive              (CI)
 import           Data.Conduit
 import qualified Data.Conduit.Binary               as Conduit
 import           Data.Default
@@ -37,10 +37,11 @@ import           Data.String
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
 import           Data.Time
+import           Network.AWS.Generics.XML
 import           Network.AWS.Internal.Types.Common
+import           Network.AWS.Text
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types
-import           Text.XML.Generic
 
 data Env = Env
     { awsRegion   :: !Region
@@ -125,13 +126,13 @@ type AWSSigner = RawRequest -> Auth -> Region -> UTCTime -> Request
 data Endpoint
     = Global
     | Regional
-    | Custom ByteString
+    | Custom !Text
 
 data Service = Service
     { svcEndpoint :: !Endpoint
     , svcSigner   :: !AWSSigner
-    , svcName     :: !ByteString
-    , svcVersion  :: !ByteString
+    , svcName     :: !Text
+    , svcVersion  :: !Text
     }
 
 region :: Service -> AWS Region
@@ -140,20 +141,20 @@ region Service{..} =
         Global -> return def
         _      -> getRegion
 
-endpoint :: Service -> Region -> ByteString
+endpoint :: Service -> Region -> Text
 endpoint Service{..} reg =
     case svcEndpoint of
-        Custom bs -> bs
-        Global    -> svcName <> ".amazonaws.com"
-        Regional  -> BS.intercalate "." $
-            [svcName, BS.pack $ show reg, "amazonaws.com"]
+        Custom t -> t
+        Global   -> svcName <> ".amazonaws.com"
+        Regional -> Text.intercalate "." $
+            [svcName, toText reg, "amazonaws.com"]
 
 data RawRequest = RawRequest
     { rawService :: !Service
     , rawMethod  :: !StdMethod
-    , rawPath    :: !ByteString
-    , rawQuery   :: [QueryItem]
-    , rawHeaders :: [Header]
+    , rawPath    :: !Text
+    , rawQuery   :: [(Text, Maybe Text)]
+    , rawHeaders :: [(CI Text, Text)]
     , rawBody    :: RequestBody
     }
 
