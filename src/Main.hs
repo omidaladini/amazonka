@@ -46,9 +46,6 @@ import           Text.EDE.Filters
 version :: Text
 version = "0.1.0"
 
-target :: FilePath
-target = "lib"
-
 main :: IO ()
 main = getArgs >>= parse
   where
@@ -63,31 +60,14 @@ main = getArgs >>= parse
             ms <- forM js $ \p -> do
                 title $ "Parsing " ++ p
                 m <- loadModel p
-
-                let dir = target </> serviceName m
-
-                model (dir </> "gen/Network/AWS") ts m
-
-                msg "Expanding cabal configuration"
-                cabalLibFile version dir ts m
-
-                msg "Copying LICENSE"
-                scriptIO . copyFile "LICENSE" $ dir </> "LICENSE"
-
+                model "lib/gen/Network/AWS" ts m
                 return m
 
             title "Expanding amazonka cabal configuration"
-            cabalFile version target ts ms
+            cabalFile version "lib" ts ms
 
             msg "Copying amazonka LICENSE"
-            scriptIO . copyFile "LICENSE" $ target </> "amazonka/LICENSE"
-
---                . (++ ["./amazonka"])
-            msg "Creating sources.txt"
-            scriptIO . writeFile (target </> "sources.txt")
-                . unlines
-                . ("./amazonka-core" :)
-                $ map (mappend "./" . serviceName) ms
+            scriptIO . copyFile "LICENSE" $ "lib/LICENSE"
 
             msg $ "Generated " ++ show (length ms) ++ " models successfully."
             end "Completed."
@@ -99,8 +79,9 @@ main = getArgs >>= parse
 cabalFile :: Text -> FilePath -> Templates -> [Model] -> Script ()
 cabalFile ver dir Templates{..} ms = do
     scriptIO $ createDirectoryIfMissing True path
-    render (path </> "amazonka.cabal") tCabalFile $ EDE.fromPairs
+    render "lib/amazonka.cabal" tCabalFile $ EDE.fromPairs
         [ "models"        .= map js ms
+        , "cabal_name"    .= ("amazonka" :: Text)
         , "cabal_version" .= ver
         ]
   where
@@ -110,31 +91,8 @@ cabalFile ver dir Templates{..} ms = do
         [ "module"          .= mName
         , "operations"      .= map oName mOperations
         , "endpoint_prefix" .= mEndpointPrefix
-        , "cabal_name"      .= serviceName m
+        , "api_version"     .= mApiVersion
         ]
-
-cabalLibFile :: Text -> FilePath -> Templates -> Model -> Script ()
-cabalLibFile ver dir Templates{..} m@Model{..} = do
-    scriptIO $ createDirectoryIfMissing True dir
-    render (dir </> name <.> "cabal") tCabalLibFile $ oJSON <> EDE.fromPairs
-        [ "module"        .= mName
-        , "operations"    .= map oName mOperations
-        , "cabal_version" .= (Text.filter isDigit mApiVersion <> "." <> ver)
-        , "cabal_name"    .= name
-        ]
-  where
-    Object oJSON = toJSON m
-
-    name = serviceName m
-
-serviceName :: Model -> String
-serviceName Model{..} = Text.unpack . ("amazonka-" <>) $
-    case mEndpointPrefix of
-        "email"                -> "ses"
-        "elasticloadbalancing" -> "elb"
-        "elasticmapreduce"     -> "emr"
-        "monitoring"           -> "cloudwatch"
-        s                      -> s
 
 model :: FilePath -> Templates -> Model -> Script ()
 model dir Templates{..} m@Model{..} = do

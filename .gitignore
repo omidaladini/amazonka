@@ -33,6 +33,6 @@ tags
 # Generators
 *.awk
 /generator
-/lib/*
-!/lib/Makefile
-!/lib/amazonka-core/**/*.hs
+/lib/gen
+/lib/*.cabal
+/lib/LICENSE
