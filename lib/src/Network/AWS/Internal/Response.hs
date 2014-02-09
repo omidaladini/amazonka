@@ -15,28 +15,21 @@
 
 module Network.AWS.Internal.Response where
 
-import           Control.Arrow                      ((***))
 import           Control.Error
-import           Control.Monad
 import           Data.Aeson
-import           Data.ByteString                    (ByteString)
-import qualified Data.ByteString.Char8              as BS
-import qualified Data.ByteString.Lazy.Char8         as LBS
-import qualified Data.CaseInsensitive               as CI
+import           Data.ByteString            (ByteString)
+import qualified Data.ByteString.Lazy.Char8 as LBS
 import           Data.Conduit
-import qualified Data.Conduit.Binary                as Conduit
+import qualified Data.Conduit.Binary        as Conduit
 import           Data.Default
-import           Data.HashMap.Strict                (HashMap)
-import qualified Data.HashMap.Strict                as Map
-import           Data.Text                          (Text)
-import qualified Data.Text.Encoding                 as Text
+import           Data.HashMap.Strict        (HashMap)
+import qualified Data.HashMap.Strict        as Map
 import           Network.AWS.Generics.XML
-import           Network.AWS.Internal.Serialisation
 import           Network.AWS.Internal.Types
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types
-import qualified Text.XML                           as XML
-import           Text.XML.Cursor                    (Cursor, fromDocument)
+import qualified Text.XML                   as XML
+import           Text.XML.Cursor            (Cursor, fromDocument)
 
 receiveXML :: (Show (Er a), Show (Rs a), FromXML (Er a))
            => (HashMap HeaderName ByteString -> Cursor -> Either String (Rs a))

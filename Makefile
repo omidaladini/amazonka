@@ -46,7 +46,7 @@ JSON := \
  $(BOTO)/swf.json
 
 #MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
-MODELS := $(BOTO)/s3.json
+MODELS := $(BOTO)/autoscaling.json
  # $(BOTO)/iam.json \
  # $(BOTO)/ec2.json \
  # $(BOTO)/elb.json \

@@ -53,12 +53,12 @@ postRestXML s x = setMethod POST
     . RequestBodyLBS
     $ encodeXML x
 
-getQuery :: (ToQuery a, AWSRequest a)
-         => Service
-         -> Text
-         -> a
-         -> RawRequest
-getQuery s a x = setMethod GET
+postQuery :: (ToQuery a, AWSRequest a)
+          => Service
+          -> Text
+          -> a
+          -> RawRequest
+postQuery s a x = setMethod POST
    . addQuery "Action" a
    . setQuery x
    $ mk s
