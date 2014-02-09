@@ -21,7 +21,8 @@
 {% endfor %}
 module Network.AWS.{{ module }}.{{ name }} where
 
-import qualified Data.Text        as Text
+import           Control.Applicative
+import qualified Data.Text           as Text
 import           Network.AWS.Core
 import           Network.AWS.{{ module }}.Service
 import           Network.AWS.{{ module }}.Types
@@ -40,33 +41,57 @@ data {{ name }} = {{ name }}
     deriving (Generic)
 {% endif %}
 
-{% include "_includes/to-headers.ede" %}
-
 {% include "_includes/to-path.ede" %}
 
 {% include "_includes/to-query.ede" %}
 
+{% include "_includes/to-headers.ede" %}
+
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request  = {{ http.method | lower }}S3 service
-    response = undefined
+{% if input.prefix %}
+  {% if input.streaming %}
+    request rq = s3Body {{ http.method }} (service $ {{ input.prefix }}Bucket rq) ({{ input.prefix }}Body rq) rq
+  {% else %}
+    {% if input | payload %}
+      {% for field in input.fields %}
+        {% if field.value.payload %}
+    request rq = s3XML {{ http.method }} (service $ {{ input.prefix }}Bucket rq) ({{ field.key | lowerFirst }} rq) rq
+        {% endif %}
+      {% endfor %}
+    {% else %}
+    request rq = s3 {{ http.method }} (service $ {{ input.prefix }}Bucket rq) rq
+    {% endif %}
+  {% endif %}
+{% else %}
+    request = s3 {{ http.method }} (service "")
+{% endif %}
+{% if output.fields | mapLength > 0 %}
+  {% if output | onlyHeaders %}
+    response = receiveHeaders $ \hs -> {{ name }}Response
+    {% include "_includes/response-field.ede" with output.fields %}
+  {% else %}
+    {% if output.streaming %}
+    response = receiveBody $ \hs bdy -> {{ name }}Response
+      {% include "_includes/response-field.ede" with output.fields %}
+    {% else %}
+    response = receiveXML $ \hs doc -> {{ name }}Response
+      {% include "_includes/response-field.ede" with output.fields %}
+    {% endif %}
+  {% endif %}
+{% else %}
+    response = receiveEmpty {{ name }}Response
+{% endif %}
 
 data {{ name }}Response = {{ name }}Response
 {% if output.fields | mapLength > 0 %}
 {% include "_includes/fields.ede" with output.fields %}
-  {% if !output.streaming %}
-    } deriving (Eq, Show, Generic)
+  {% if output.streaming %}
+    } deriving (Show)
   {% else %}
-    }
+    } deriving (Eq, Show)
   {% endif %}
 {% else %}
-    deriving (Eq, Show, Generic)
-{% endif %}
-{% if !output.streaming %}
-{% if !output | onlyHeaders %}
-
-instance FromXML {{ name }}Response where
-    fromXMLOptions = xmlOptions
-{% endif %}
+   deriving (Eq, Show)
 {% endif %}

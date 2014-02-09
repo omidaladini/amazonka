@@ -1,0 +1,7 @@
+{% for field in scope %}
+  {% if field.first %}
+        <$> {% include "response-field-assignment.ede" with field %}
+  {% else %}
+        <*> {% include "response-field-assignment.ede" with field %}
+  {% endif %}
+{% endfor %}

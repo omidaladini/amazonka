@@ -17,7 +17,7 @@ module Network.AWS.Internal.Signing
     , v2
     , v3
     , v4
-    , s3
+    , vS3
     ) where
 
 import           Control.Applicative
@@ -209,11 +209,10 @@ v4 Signee{..} =
     grouped = groupHeaders headers
 
     bodySHA256 = Base16.encode $ SHA256.hash ""
-
      -- sinkHash :: (Monad m, Hash ctx d) => Consumer ByteString m SHA256
 
-s3 :: ByteString -> Signee -> Request
-s3 bucket Signee{..} =
+vS3 :: ByteString -> Signee -> Request
+vS3 bucket Signee{..} =
     signed sigMethod sigHost sigPath query (authorisation : headers) sigBody
   where
     query = HTTP.renderQuery False sigQuery

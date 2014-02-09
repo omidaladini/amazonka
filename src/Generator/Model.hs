@@ -151,7 +151,14 @@ instance FromJSON SignatureVersion where
         }
 
 instance ToJSON SignatureVersion where
-    toJSON = toJSON . Text.toLower . Text.take 2 . Text.pack . show
+    toJSON = toJSON . f
+      where
+        f :: SignatureVersion -> Text
+        f V2      = "v2"
+        f V3      = "v3"
+        f V3HTTPS = "v3"
+        f V4      = "v4"
+        f S3      = "vS3"
 
 data Operation = Operation
     { oName             :: !Text
@@ -172,9 +179,9 @@ instance FromJSON Operation where
         <*> documentation o
         <*> o .:? "documentation_url"
         <*> o .:? "http" .!= HTTP "POST" [] mempty
-        <*> o .:? "input"
+        <*> (fmap streaming <$> o .:? "input")
         <*> (fmap streaming <$> o .:? "output")
-        <*> (fmap streaming <$> o .:  "errors")
+        <*> o .: "errors"
         <*> o .:? "pagination"
       where
         clean x

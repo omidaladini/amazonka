@@ -41,6 +41,10 @@ data {{ name }} = {{ name }}
 
 {% include "_includes/to-query.ede" %}
 
+{% case http.method %}
+{% when "DELETE" %}
+{% when "GET" %}
+{% else %}
 instance ToXML {{ name }} where
     toXMLOptions = xmlOptions
 {% if result_wrapped %}
@@ -49,6 +53,7 @@ instance ToXML {{ name }} where
         :| ["{{ name }}Result"]
 {% endif %}
 
+{% endcase %}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response

@@ -9,20 +9,21 @@
 -- Portability : non-portable (GHC extensions)
 
 module Network.AWS.Core
-    ( FromJSON (..)
-    , ToJSON   (..)
-    , Options  (..)
+    ( FromJSON  (..)
+    , ToJSON    (..)
+    , Options   (..)
     , ByteString
     , ResumableSource
-    , Hashable (..)
+    , Hashable  (..)
     , HashMap
-    , NonEmpty (..)
-    , Tagged   (..)
+    , NonEmpty  (..)
+    , Tagged    (..)
     , Text
     , UTCTime
     , Generic
-    , ToQuery  (..)
+    , ToQuery   (..)
     , RequestBody
+    , StdMethod (..)
 
     , genericParseJSON
     , genericToJSON
@@ -47,6 +48,7 @@ import Data.Time                  (UTCTime)
 import GHC.Generics               (Generic)
 import Network.AWS.Generics.Query (ToQuery(..), queryFromList)
 import Network.HTTP.Conduit       (RequestBody)
+import Network.HTTP.Types         (StdMethod(..))
 
 import Control.Monad              as Export
 import Data.Monoid                as Export

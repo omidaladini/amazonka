@@ -297,12 +297,17 @@ render p t o = do
         Object fs <- Map.lookup "fields" m
         return $ Map.filter f fs
       where
-        f (Object s) = Map.lookup "location" s == Just "header"
-        f _          = False
+        f (Object s)
+            | Map.lookup "location" s == Just "header" = True
+        f _ = False
 
     onlyHeaders m = fromMaybe (error $ "Unable to determine onlyHeaders") $ do
        Object fs <- Map.lookup "fields" m
-       return $ Map.size fs - Map.size (headers m) == 0
+       let n = Map.size $ Map.filter f fs
+       return $ n - Map.size (headers m) < 1
+      where
+        f (Object s) = Map.lookup "shape_name" s /= Just "Metadata"
+        f _          = False
 
     fields m = fromMaybe (error $ "Unable to filter fields: " ++ show m) $ do
         Object fs <- Map.lookup "fields" m

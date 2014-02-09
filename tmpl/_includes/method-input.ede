@@ -1,3 +1,5 @@
+{% if scope.input | required | listLength == scope.input.fields | mapLength %}
+{% else %}
 {% if scope.input | required | listLength > 0 %}
   {% if scope.input.fields | mapLength > 0 %}
 
@@ -53,4 +55,5 @@
   {% endfor %}
     }
   {% endif %}
+{% endif %}
 {% endif %}

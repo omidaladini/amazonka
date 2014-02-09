@@ -25,6 +25,7 @@ import           Control.Monad
 import           Data.Aeson
 import           Data.Aeson.Types           (Parser)
 import           Data.ByteString            (ByteString)
+import qualified Data.ByteString.Char8      as BS
 import qualified Data.CaseInsensitive       as CI
 import           Data.HashMap.Strict        (HashMap)
 import qualified Data.HashMap.Strict        as Map
@@ -36,9 +37,9 @@ import qualified Data.Text.Encoding         as Text
 import           Network.AWS.Generics.Query
 import           Network.AWS.Generics.XML
 import           Network.AWS.Text
-import           Network.HTTP.Conduit
 import           Network.HTTP.Types         hiding (Query, toQuery)
 import           Text.XML                   (Node)
+import           Text.XML.Cursor
 
 class ToPath a where
     toPath :: a -> Text
@@ -67,11 +68,27 @@ instance ToHeader a => ToHeader (Maybe a) where
 (=:) :: ToHeader a => ByteString -> a -> (HeaderName, Maybe ByteString)
 (=:) = toHeader
 
-hdr :: FromText a => HeaderName -> Response b -> Maybe a
-hdr k = join
+hdr :: (Applicative f, FromText a)
+    => HeaderName
+    -> HashMap HeaderName ByteString
+    -> f (Maybe a)
+hdr k = pure
+    . join
     . fmap (hush . fromText . Text.decodeUtf8)
-    . lookup k
-    . responseHeaders
+    . Map.lookup k
+
+hdrs :: Applicative f
+     => ByteString
+     -> HashMap HeaderName ByteString
+     -> f (HashMap Text Text)
+hdrs pre hs = pure $
+    Map.fromList [f (CI.original k, v) | (k, v) <- Map.toList hs, p k]
+  where
+    f = join (***) Text.decodeUtf8
+    p = BS.isPrefixOf pre . CI.foldedCase
+
+xml :: FromXML a => Text -> Cursor -> Either String a
+xml = undefined
 
 fromTextQuery :: FromText a => Query -> Either String a
 fromTextQuery = join . fmap fromText . fromQuery

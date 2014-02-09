@@ -1,9 +1,8 @@
-{% raw %}
 {-# LANGUAGE DeriveGeneric               #-}
 {-# LANGUAGE FlexibleContexts            #-}
 {-# LANGUAGE FlexibleInstances           #-}
 {-# LANGUAGE OverloadedStrings           #-}
-{% endraw %}
+{-# LANGUAGE ViewPatterns                #-}
 
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
@@ -12,15 +11,19 @@
 
 module Network.AWS.{{ module }}.Service where
 
+import Data.Text.Encoding (encodeUtf8)
 import Network.AWS.Core
 {% if xmlnamespace %}
 import Network.AWS.Generics.XML
 {% endif %}
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
-service :: ByteString -> Service
-service bucket = Service
-service = Service{% if global_endpoint -%} Global{% else -%} Regional{% endif -%} ({{ signature_version }} bucket) "{{ endpoint_prefix }}" "{{ api_version }}"{% if target_prefix -%} (Just "{{ target_prefix }}"){% else -%} Nothing {% endif -%}
+service :: Text -> Service
+service (encodeUtf8 -> b) = Service endpoint ({{ signature_version }} b) "{{ endpoint_prefix }}" "{{ api_version }}"{% if target_prefix -%} (Just "{{ target_prefix }}"){% else -%} Nothing {% endif -%}
+  where
+    endpoint
+        | "" <- b   = Global
+        | otherwise = Custom $ b <> ".s3.amazonaws.com"
 
 {% if xmlnamespace %}
 xmlOptions :: Tagged a XMLOptions
