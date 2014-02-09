@@ -24,6 +24,7 @@ import qualified Data.ByteString.Lazy.Char8         as LBS
 import qualified Data.CaseInsensitive               as CI
 import           Data.Conduit
 import qualified Data.Conduit.Binary                as Conduit
+import           Data.Default
 import           Data.HashMap.Strict                (HashMap)
 import qualified Data.HashMap.Strict                as Map
 import           Data.Text                          (Text)
@@ -33,41 +34,19 @@ import           Network.AWS.Internal.Serialisation
 import           Network.AWS.Internal.Types
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types
-import           Text.XML.Cursor
+import qualified Text.XML                           as XML
+import           Text.XML.Cursor                    (Cursor, fromDocument)
 
--- consume 
-
--- Need to separate the ToXML bits for s3 from the actual request operation
--- xs
-
--- responseHeaders :: (Show b, Show (Er a), FromXML (Er a))
---                 => b
---                 -> a
---                 -> Response (ResumableSource AWS ByteString)
---                 -> AWS (Either (Er a) b)
-
--- receiveXML :: (Show (Er a), Show (Rs a), FromXML (Er a))
---            => (HashMap HeaderName ByteString -> Cursor -> Either String (Rs a))
---            -> a
---            -> Response (ResumableSource AWS ByteString)
---            -> AWS (Either (Er a) (Rs a))
--- receiveXML c _ rs = do
---     printDebug rs
---     lbs <- responseBody rs $$+- Conduit.sinkLbs
---     printDebug lbs
---     x   <- f (statusIsSuccessful $ responseStatus rs) lbs
---     printDebug x
---     return x
---   where
---     f False lbs =
---         fmap Left . awsEither $ decodeXML lbs
-
---     f True lbs =
---         fmap Right . awsEither $ c  undefined
-
+receiveXML :: (Show (Er a), Show (Rs a), FromXML (Er a))
+           => (HashMap HeaderName ByteString -> Cursor -> Either String (Rs a))
+           -> a
+           -> Response (ResumableSource AWS ByteString)
+           -> AWS (Either (Er a) (Rs a))
 receiveXML f _ rs = decodeResponse decodeXML doc rs
   where
-    doc lbs = f (Map.fromList $ responseHeaders rs) undefined
+    doc lbs = fmapL show (XML.parseLBS def lbs)
+        >>= f (Map.fromList $ responseHeaders rs)
+          . fromDocument
 
 receiveBody :: (Show (Er a), Show (Rs a), FromXML (Er a))
             => (HashMap HeaderName ByteString
@@ -77,32 +56,25 @@ receiveBody :: (Show (Er a), Show (Rs a), FromXML (Er a))
             -> AWS (Either (Er a) (Rs a))
 receiveBody c _ rs = do
     printDebug rs
-    if statusIsSuccessful $ responseStatus rs
-        then fmap Right . awsEither $ c (Map.fromList $ responseHeaders rs) (responseBody rs)
-        else do
-            lbs <- responseBody rs $$+- Conduit.sinkLbs
-            printDebug lbs
-            x   <- fmap Left  . awsEither $ decodeXML lbs
-            printDebug x
-            return x
+    f (statusIsSuccessful $ responseStatus rs)
+  where
+    f False = do
+        lbs <- responseBody rs $$+- Conduit.sinkLbs
+        printDebug lbs
+        x   <- fmap Left  . awsEither $ decodeXML lbs
+        printDebug x
+        return x
+    f True = fmap Right
+        . awsEither
+        $ c (Map.fromList $ responseHeaders rs) (responseBody rs)
 
 receiveHeaders :: (Show (Er a), Show (Rs a), FromXML (Er a))
                => (HashMap HeaderName ByteString -> Either String (Rs a))
                -> a
                -> Response (ResumableSource AWS ByteString)
                -> AWS (Either (Er a) (Rs a))
-receiveHeaders c _ rs = do
-    printDebug rs
-    lbs <- responseBody rs $$+- Conduit.sinkLbs
-    printDebug lbs
-    x   <- f (statusIsSuccessful $ responseStatus rs) lbs
-    printDebug x
-    return x
-  where
-    f False = fmap Left  . awsEither . decodeXML
-    f True  = const . fmap Right . awsEither $ c hs
-
-    hs = Map.fromList $ responseHeaders rs
+receiveHeaders f _ rs =
+    decodeResponse decodeXML (f . Map.fromList $ responseHeaders rs) rs
 
 receiveEmpty :: (Show (Er a), Show (Rs a), FromXML (Er a))
               => Rs a
