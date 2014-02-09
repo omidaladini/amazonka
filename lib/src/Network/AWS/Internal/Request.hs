@@ -91,7 +91,7 @@ s3Body :: (ToPath a, ToQuery a, ToHeaders a, AWSRequest a)
        -> RequestBody
        -> a
        -> RawRequest
-s3Body m s b x = undefined
+s3Body m s b x = setBody (s3 m s x) b
 
 s3XML :: (ToPath a, ToQuery a, ToHeaders a, AWSRequest a, ToXML b)
       => StdMethod
@@ -99,7 +99,9 @@ s3XML :: (ToPath a, ToQuery a, ToHeaders a, AWSRequest a, ToXML b)
       -> b
       -> a
       -> RawRequest
-s3XML m s b x = undefined
+s3XML m s b x = setBody (s3 m s x)
+    . RequestBodyLBS
+    $ encodeXML b
 
 addHeader :: Header -> RawRequest -> RawRequest
 addHeader h rq = rq { rawHeaders = h : rawHeaders rq }

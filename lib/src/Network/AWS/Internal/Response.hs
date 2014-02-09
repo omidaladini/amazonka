@@ -1,6 +1,7 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE FlexibleContexts    #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE RecordWildCards     #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 -- Module      : Network.AWS.Internal.Response
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -54,9 +55,8 @@ receiveBody :: (Show (Er a), Show (Rs a), FromXML (Er a))
             -> a
             -> Response (ResumableSource AWS ByteString)
             -> AWS (Either (Er a) (Rs a))
-receiveBody c _ rs = do
-    printDebug rs
-    f (statusIsSuccessful $ responseStatus rs)
+receiveBody c _ rs =
+    printDebug rs >> f (statusIsSuccessful $ responseStatus rs)
   where
     f False = do
         lbs <- responseBody rs $$+- Conduit.sinkLbs
@@ -74,23 +74,15 @@ receiveHeaders :: (Show (Er a), Show (Rs a), FromXML (Er a))
                -> Response (ResumableSource AWS ByteString)
                -> AWS (Either (Er a) (Rs a))
 receiveHeaders f _ rs =
-    decodeResponse decodeXML (f . Map.fromList $ responseHeaders rs) rs
+    decodeResponse decodeXML (const . f . Map.fromList $ responseHeaders rs) rs
 
-receiveEmpty :: (Show (Er a), Show (Rs a), FromXML (Er a))
+receiveEmpty :: forall a. (Show (Er a), Show (Rs a), FromXML (Er a))
               => Rs a
               -> a
               -> Response (ResumableSource AWS ByteString)
               -> AWS (Either (Er a) (Rs a))
-receiveEmpty c _ rs = do
-    printDebug rs
-    lbs <- responseBody rs $$+- Conduit.sinkLbs
-    printDebug lbs
-    x   <- f (statusIsSuccessful $ responseStatus rs) lbs
-    printDebug x
-    return x
-  where
-    f False = fmap Left . awsEither . decodeXML
-    f True  = const . return $ Right c
+receiveEmpty c _ rs =
+    decodeResponse decodeXML (const $ Right c :: b -> Either String (Rs a)) rs
 
 responseXML :: (Show (Er a), Show (Rs a), FromXML (Er a), FromXML (Rs a))
             => a
