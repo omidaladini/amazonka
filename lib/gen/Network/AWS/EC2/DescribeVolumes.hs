@@ -41,7 +41,7 @@ instance AWSRequest DescribeVolumes where
     request = getQuery service "DescribeVolumes"
 
 data DescribeVolumesResponse = DescribeVolumesResponse
-    { dvtrsVolumes :: [Volume]
+    { dvtrVolumes :: [Volume]
       -- ^ The list of described EBS volumes.
     } deriving (Eq, Show, Generic)
 

@@ -74,7 +74,7 @@ instance AWSRequest RegisterInstancesWithLoadBalancer where
     request = getQuery service "RegisterInstancesWithLoadBalancer"
 
 data RegisterInstancesWithLoadBalancerResponse = RegisterInstancesWithLoadBalancerResponse
-    { repirsInstances :: [Instance]
+    { repirInstances :: [Instance]
       -- ^ An updated list of instances for the load balancer.
     } deriving (Eq, Show, Generic)
 

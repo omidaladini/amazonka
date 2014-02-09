@@ -60,25 +60,25 @@ instance AWSRequest ListHostedZones where
     request = getRestXML service
 
 data ListHostedZonesResponse = ListHostedZonesResponse
-    { lhzrrsHostedZones :: [HostedZone]
+    { lhzrrHostedZones :: [HostedZone]
       -- ^ A complex type that contains information about the hosted zones associated
       -- with the current AWS account.
-    , lhzrrsIsTruncated :: !Bool
+    , lhzrrIsTruncated :: !Bool
       -- ^ A flag indicating whether there are more hosted zones to be listed. If your
       -- results were truncated, you can make a follow-up request for the next page
       -- of results by using the Marker element. Valid Values: true | false.
-    , lhzrrsMarker :: !Text
+    , lhzrrMarker :: !Text
       -- ^ If the request returned more than one page of results, submit another
       -- request and specify the value of NextMarker from the last response in the
       -- marker parameter to get the next page of results.
-    , lhzrrsMaxItems :: !Text
+    , lhzrrMaxItems :: !Text
       -- ^ The maximum number of hosted zones to be included in the response body. If
       -- the number of hosted zones associated with this AWS account exceeds
       -- MaxItems, the value of ListHostedZonesResponse$IsTruncated in the response
       -- is true. Call ListHostedZones again and specify the value of
       -- ListHostedZonesResponse$NextMarker in the ListHostedZonesRequest$Marker
       -- element to get the next page of results.
-    , lhzrrsNextMarker :: Maybe Text
+    , lhzrrNextMarker :: Maybe Text
       -- ^ Indicates where to continue listing hosted zones. If
       -- ListHostedZonesResponse$IsTruncated is true, make another request to
       -- ListHostedZones and include the value of the NextMarker element in the

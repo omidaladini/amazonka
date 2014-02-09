@@ -50,7 +50,7 @@ instance AWSRequest CreateVpnGateway where
     request = getQuery service "CreateVpnGateway"
 
 data CreateVpnGatewayResponse = CreateVpnGatewayResponse
-    { cvgrrsVpnGateway :: Maybe VpnGateway
+    { cvgrrVpnGateway :: Maybe VpnGateway
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateVpnGatewayResponse where

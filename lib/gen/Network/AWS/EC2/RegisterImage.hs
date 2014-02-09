@@ -67,7 +67,7 @@ instance AWSRequest RegisterImage where
     request = getQuery service "RegisterImage"
 
 data RegisterImageResponse = RegisterImageResponse
-    { risrsImageId :: Maybe Text
+    { risrImageId :: Maybe Text
       -- ^ The ID of the new Amazon Machine Image (AMI).
     } deriving (Eq, Show, Generic)
 

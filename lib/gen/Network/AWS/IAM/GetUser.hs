@@ -42,7 +42,7 @@ instance AWSRequest GetUser where
     request = getQuery service "GetUser"
 
 data GetUserResponse = GetUserResponse
-    { gurrsUser :: User
+    { gurrUser :: User
       -- ^ Information about the user.
     } deriving (Eq, Show, Generic)
 

@@ -45,7 +45,7 @@ instance AWSRequest MonitorInstances where
     request = getQuery service "MonitorInstances"
 
 data MonitorInstancesResponse = MonitorInstancesResponse
-    { mirrsInstanceMonitorings :: [InstanceMonitoring]
+    { mirrInstanceMonitorings :: [InstanceMonitoring]
       -- ^ A list of updated monitoring information for the instances specified in the
       -- request.
     } deriving (Eq, Show, Generic)

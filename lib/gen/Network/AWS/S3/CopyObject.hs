@@ -156,11 +156,11 @@ instance AWSRequest CopyObject where
     response = undefined
 
 data CopyObjectResponse = CopyObjectResponse
-    { corsCopyObjectResult :: Maybe CopyObjectResult
-    , corsCopySourceVersionId :: Maybe Text
-    , corsExpiration :: Maybe Text
+    { corCopyObjectResult :: Maybe CopyObjectResult
+    , corCopySourceVersionId :: Maybe Text
+    , corExpiration :: Maybe Text
       -- ^ If the object expiration is configured, the response includes this header.
-    , corsServerSideEncryption :: Maybe ServerSideEncryption
+    , corServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
     } deriving (Eq, Show, Generic)
 

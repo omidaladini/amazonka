@@ -45,7 +45,7 @@ instance AWSRequest UnmonitorInstances where
     request = getQuery service "UnmonitorInstances"
 
 data UnmonitorInstancesResponse = UnmonitorInstancesResponse
-    { uirrsInstanceMonitorings :: [InstanceMonitoring]
+    { uirrInstanceMonitorings :: [InstanceMonitoring]
       -- ^ A list of updated monitoring information for the instances specified in the
       -- request.
     } deriving (Eq, Show, Generic)

@@ -49,7 +49,7 @@ instance AWSRequest AttachNetworkInterface where
     request = getQuery service "AttachNetworkInterface"
 
 data AttachNetworkInterfaceResponse = AttachNetworkInterfaceResponse
-    { anirrsAttachmentId :: Maybe Text
+    { anirrAttachmentId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AttachNetworkInterfaceResponse where

@@ -77,7 +77,7 @@ instance AWSRequest DescribeImages where
     request = getQuery service "DescribeImages"
 
 data DescribeImagesResponse = DescribeImagesResponse
-    { ditrsImages :: [Image]
+    { ditrImages :: [Image]
       -- ^ The list of the described AMIs.
     } deriving (Eq, Show, Generic)
 

@@ -51,11 +51,11 @@ instance AWSRequest GetPasswordData where
     request = getQuery service "GetPasswordData"
 
 data GetPasswordDataResponse = GetPasswordDataResponse
-    { gpdrrsInstanceId :: Maybe Text
+    { gpdrrInstanceId :: Maybe Text
       -- ^ The ID of the instance whose Windows administrator password was requested.
-    , gpdrrsPasswordData :: Maybe Text
+    , gpdrrPasswordData :: Maybe Text
       -- ^ The Windows administrator password of the specified instance.
-    , gpdrrsTimestamp :: Maybe UTCTime
+    , gpdrrTimestamp :: Maybe UTCTime
       -- ^ The time the data was last updated.
     } deriving (Eq, Show, Generic)
 

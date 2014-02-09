@@ -63,18 +63,18 @@ instance AWSRequest ListRolePolicies where
 
 instance AWSPager ListRolePolicies where
     next rq rs
-        | Just x <- lrprrsMarker rs = Just $ rq { lrprMarker = Just x }
+        | Just x <- lrprrMarker rs = Just $ rq { lrprMarker = Just x }
         | otherwise = Nothing
 
 data ListRolePoliciesResponse = ListRolePoliciesResponse
-    { lrprrsIsTruncated :: Maybe Bool
+    { lrprrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more policy names to list. If your
       -- results were truncated, you can make a subsequent pagination request using
       -- the Marker request parameter to retrieve more policy names in the list.
-    , lrprrsMarker :: Maybe Text
+    , lrprrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
-    , lrprrsPolicyNames :: [Text]
+    , lrprrPolicyNames :: [Text]
       -- ^ A list of policy names.
     } deriving (Eq, Show, Generic)
 

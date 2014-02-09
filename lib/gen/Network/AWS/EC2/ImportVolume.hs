@@ -37,7 +37,7 @@ instance AWSRequest ImportVolume where
     request = getQuery service "ImportVolume"
 
 data ImportVolumeResponse = ImportVolumeResponse
-    { ivrrsConversionTask :: Maybe ConversionTask
+    { ivrrConversionTask :: Maybe ConversionTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML ImportVolumeResponse where

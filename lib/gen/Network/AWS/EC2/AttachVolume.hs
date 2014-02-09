@@ -61,16 +61,16 @@ instance AWSRequest AttachVolume where
     request = getQuery service "AttachVolume"
 
 data AttachVolumeResponse = AttachVolumeResponse
-    { avrrsAttachTime :: Maybe UTCTime
+    { avrrAttachTime :: Maybe UTCTime
       -- ^ Timestamp when this attachment initiated.
-    , avrrsDeleteOnTermination :: Maybe Bool
+    , avrrDeleteOnTermination :: Maybe Bool
       -- ^ ` Whether this volume will be deleted or not when the associated instance
       -- is terminated.
-    , avrrsDevice :: Maybe Text
+    , avrrDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
-    , avrrsInstanceId :: Maybe Text
-    , avrrsState :: Maybe VolumeAttachmentState
-    , avrrsVolumeId :: Maybe Text
+    , avrrInstanceId :: Maybe Text
+    , avrrState :: Maybe VolumeAttachmentState
+    , avrrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AttachVolumeResponse where

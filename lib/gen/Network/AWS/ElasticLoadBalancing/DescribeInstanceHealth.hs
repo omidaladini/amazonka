@@ -64,7 +64,7 @@ instance AWSRequest DescribeInstanceHealth where
     request = getQuery service "DescribeInstanceHealth"
 
 data DescribeInstanceHealthResponse = DescribeInstanceHealthResponse
-    { depsirsInstanceStates :: [InstanceState]
+    { depsirInstanceStates :: [InstanceState]
       -- ^ A list containing health information for the specified instances.
     } deriving (Eq, Show, Generic)
 

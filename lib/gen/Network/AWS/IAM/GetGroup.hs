@@ -64,20 +64,20 @@ instance AWSRequest GetGroup where
 
 instance AWSPager GetGroup where
     next rq rs
-        | Just x <- ggrrsMarker rs = Just $ rq { ggrMarker = Just x }
+        | Just x <- ggrrMarker rs = Just $ rq { ggrMarker = Just x }
         | otherwise = Nothing
 
 data GetGroupResponse = GetGroupResponse
-    { ggrrsGroup :: Group
+    { ggrrGroup :: Group
       -- ^ Information about the group.
-    , ggrrsIsTruncated :: Maybe Bool
+    , ggrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more user names to list. If your
       -- results were truncated, you can make a subsequent pagination request using
       -- the Marker request parameter to retrieve more user names in the list.
-    , ggrrsMarker :: Maybe Text
+    , ggrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, then this element is present and contains the value
       -- to use for the Marker parameter in a subsequent pagination request.
-    , ggrrsUsers :: [User]
+    , ggrrUsers :: [User]
       -- ^ A list of users in the group.
     } deriving (Eq, Show, Generic)
 

@@ -45,7 +45,7 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
     f :: Maybe Shape -> Maybe Shape -> (HashSet Text, Operation)
     f (Just x) (Just y) =
         let (pre, (s2, inp)) = g s1 x
-            opre             = pre <> "rs"
+            opre             = pre <> "r"
             out              = prefixes opre $ replace (Just oName) y
         in  ( Set.insert opre s2
             , o { oInput  = Just inp

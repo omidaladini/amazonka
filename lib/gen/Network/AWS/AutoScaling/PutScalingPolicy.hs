@@ -94,7 +94,7 @@ instance AWSRequest PutScalingPolicy where
     request = getQuery service "PutScalingPolicy"
 
 data PutScalingPolicyResponse = PutScalingPolicyResponse
-    { psptrsPolicyARN :: Maybe ResourceName
+    { psptrPolicyARN :: Maybe ResourceName
       -- ^ A policy's Amazon Resource Name (ARN).
     } deriving (Eq, Show, Generic)
 

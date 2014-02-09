@@ -72,10 +72,10 @@ instance AWSRequest DeleteObject where
     response = undefined
 
 data DeleteObjectResponse = DeleteObjectResponse
-    { dorsDeleteMarker :: Maybe Bool
+    { dorDeleteMarker :: Maybe Bool
       -- ^ Specifies whether the versioned object that was permanently deleted was
       -- (true) or was not (false) a delete marker.
-    , dorsVersionId :: Maybe Text
+    , dorVersionId :: Maybe Text
       -- ^ Returns the version ID of the delete marker created as a result of the
       -- DELETE operation.
     } deriving (Eq, Show, Generic)

@@ -131,7 +131,7 @@ instance AWSRequest CreateLoadBalancer where
     request = getQuery service "CreateLoadBalancer"
 
 data CreateLoadBalancerResponse = CreateLoadBalancerResponse
-    { capirsDNSName :: Maybe Text
+    { capirDNSName :: Maybe Text
       -- ^ The DNS name for the load balancer.
     } deriving (Eq, Show, Generic)
 

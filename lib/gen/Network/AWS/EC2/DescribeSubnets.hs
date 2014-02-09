@@ -47,7 +47,7 @@ instance AWSRequest DescribeSubnets where
     request = getQuery service "DescribeSubnets"
 
 data DescribeSubnetsResponse = DescribeSubnetsResponse
-    { dsrrsSubnets :: [Subnet]
+    { dsrrSubnets :: [Subnet]
       -- ^ Contains a set of one or more Subnet instances.
     } deriving (Eq, Show, Generic)
 

@@ -56,7 +56,7 @@ instance AWSRequest PurchaseReservedInstancesOffering where
     request = getQuery service "PurchaseReservedInstancesOffering"
 
 data PurchaseReservedInstancesOfferingResponse = PurchaseReservedInstancesOfferingResponse
-    { priorrsReservedInstancesId :: Maybe Text
+    { priorrReservedInstancesId :: Maybe Text
       -- ^ The unique ID of the Reserved Instances purchased for your account.
     } deriving (Eq, Show, Generic)
 

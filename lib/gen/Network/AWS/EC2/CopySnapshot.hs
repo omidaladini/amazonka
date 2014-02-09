@@ -48,7 +48,7 @@ instance AWSRequest CopySnapshot where
     request = getQuery service "CopySnapshot"
 
 data CopySnapshotResponse = CopySnapshotResponse
-    { csrrsSnapshotId :: Maybe Text
+    { csrrSnapshotId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML CopySnapshotResponse where

@@ -51,7 +51,7 @@ instance AWSRequest BundleInstance where
     request = getQuery service "BundleInstance"
 
 data BundleInstanceResponse = BundleInstanceResponse
-    { birrsBundleTask :: Maybe BundleTask
+    { birrBundleTask :: Maybe BundleTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML BundleInstanceResponse where

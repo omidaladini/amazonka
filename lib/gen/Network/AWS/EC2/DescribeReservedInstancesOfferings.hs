@@ -66,12 +66,12 @@ instance AWSRequest DescribeReservedInstancesOfferings where
 
 instance AWSPager DescribeReservedInstancesOfferings where
     next rq rs
-        | Just x <- driorrsNextToken rs = Just $ rq { driorNextToken = Just x }
+        | Just x <- driorrNextToken rs = Just $ rq { driorNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeReservedInstancesOfferingsResponse = DescribeReservedInstancesOfferingsResponse
-    { driorrsNextToken :: Maybe Text
-    , driorrsReservedInstancesOfferings :: [ReservedInstancesOffering]
+    { driorrNextToken :: Maybe Text
+    , driorrReservedInstancesOfferings :: [ReservedInstancesOffering]
       -- ^ The list of described Reserved Instance offerings.
     } deriving (Eq, Show, Generic)
 

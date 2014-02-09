@@ -51,12 +51,12 @@ instance AWSRequest DescribeNetworkInterfaceAttribute where
     request = getQuery service "DescribeNetworkInterfaceAttribute"
 
 data DescribeNetworkInterfaceAttributeResponse = DescribeNetworkInterfaceAttributeResponse
-    { dniarrsAttachment :: Maybe NetworkInterfaceAttachment
-    , dniarrsDescription :: Maybe AttributeValue
+    { dniarrAttachment :: Maybe NetworkInterfaceAttachment
+    , dniarrDescription :: Maybe AttributeValue
       -- ^ String value.
-    , dniarrsGroups :: [GroupIdentifier]
-    , dniarrsNetworkInterfaceId :: Maybe Text
-    , dniarrsSourceDestCheck :: Maybe AttributeBooleanValue
+    , dniarrGroups :: [GroupIdentifier]
+    , dniarrNetworkInterfaceId :: Maybe Text
+    , dniarrSourceDestCheck :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
     } deriving (Eq, Show, Generic)
 

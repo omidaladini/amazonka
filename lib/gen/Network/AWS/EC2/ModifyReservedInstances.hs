@@ -54,7 +54,7 @@ instance AWSRequest ModifyReservedInstances where
     request = getQuery service "ModifyReservedInstances"
 
 data ModifyReservedInstancesResponse = ModifyReservedInstancesResponse
-    { mrirrsReservedInstancesModificationId :: Maybe Text
+    { mrirrReservedInstancesModificationId :: Maybe Text
       -- ^ The unique ID for the submitted modification request.
     } deriving (Eq, Show, Generic)
 

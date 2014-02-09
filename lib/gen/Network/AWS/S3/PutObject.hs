@@ -134,14 +134,14 @@ instance AWSRequest PutObject where
     response = undefined
 
 data PutObjectResponse = PutObjectResponse
-    { porsETag :: Maybe Text
+    { porETag :: Maybe Text
       -- ^ Entity tag for the uploaded object.
-    , porsExpiration :: Maybe UTCTime
+    , porExpiration :: Maybe UTCTime
       -- ^ If the object expiration is configured, this will contain the expiration
       -- date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
       -- encoded.
-    , porsServerSideEncryption :: Maybe ServerSideEncryption
+    , porServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
-    , porsVersionId :: Maybe Text
+    , porVersionId :: Maybe Text
       -- ^ Version of the object.
     } deriving (Eq, Show, Generic)

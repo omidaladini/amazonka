@@ -45,11 +45,11 @@ instance AWSRequest DescribeVpcAttribute where
     request = getQuery service "DescribeVpcAttribute"
 
 data DescribeVpcAttributeResponse = DescribeVpcAttributeResponse
-    { dvasrsEnableDnsHostnames :: Maybe AttributeBooleanValue
+    { dvasrEnableDnsHostnames :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , dvasrsEnableDnsSupport :: Maybe AttributeBooleanValue
+    , dvasrEnableDnsSupport :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , dvasrsVpcId :: Maybe Text
+    , dvasrVpcId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpcAttributeResponse where

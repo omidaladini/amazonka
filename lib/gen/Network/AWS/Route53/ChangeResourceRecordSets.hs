@@ -88,7 +88,7 @@ instance AWSRequest ChangeResourceRecordSets where
     request = postRestXML service
 
 data ChangeResourceRecordSetsResponse = ChangeResourceRecordSetsResponse
-    { crrsrrsChangeInfo :: ChangeInfo
+    { crrsrrChangeInfo :: ChangeInfo
       -- ^ A complex type that contains information about changes made to your hosted
       -- zone. This element contains an ID that you use when performing a GetChange
       -- action to get detailed information about the change.

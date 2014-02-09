@@ -55,7 +55,7 @@ instance AWSRequest GetBucketRequestPayment where
     response = undefined
 
 data GetBucketRequestPaymentResponse = GetBucketRequestPaymentResponse
-    { gbrprsPayer :: Maybe Payer
+    { gbrprPayer :: Maybe Payer
       -- ^ Specifies who pays for the download and request fees.
     } deriving (Eq, Show, Generic)
 

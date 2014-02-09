@@ -56,7 +56,7 @@ instance AWSRequest AssociateRouteTable where
     request = getQuery service "AssociateRouteTable"
 
 data AssociateRouteTableResponse = AssociateRouteTableResponse
-    { artrrsAssociationId :: Maybe Text
+    { artrrAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AssociateRouteTableResponse where

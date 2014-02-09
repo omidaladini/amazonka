@@ -89,33 +89,33 @@ instance AWSRequest ListMultipartUploads where
     response = undefined
 
 data ListMultipartUploadsResponse = ListMultipartUploadsResponse
-    { lmursBucket :: Maybe Text
+    { lmurBucket :: Maybe Text
       -- ^ Name of the bucket to which the multipart upload was initiated.
-    , lmursCommonPrefixes :: [CommonPrefixes]
-    , lmursEncodingType :: Maybe Text
+    , lmurCommonPrefixes :: [CommonPrefixes]
+    , lmurEncodingType :: Maybe Text
       -- ^ Encoding type used by Amazon S3 to encode object keys in the response.
-    , lmursIsTruncated :: Maybe Bool
+    , lmurIsTruncated :: Maybe Bool
       -- ^ Indicates whether the returned list of multipart uploads is truncated. A
       -- value of true indicates that the list was truncated. The list can be
       -- truncated if the number of multipart uploads exceeds the limit allowed or
       -- specified by max uploads.
-    , lmursKeyMarker :: Maybe Text
+    , lmurKeyMarker :: Maybe Text
       -- ^ The key at or after which the listing began.
-    , lmursMaxUploads :: Maybe Int
+    , lmurMaxUploads :: Maybe Int
       -- ^ Maximum number of multipart uploads that could have been included in the
       -- response.
-    , lmursNextKeyMarker :: Maybe Text
+    , lmurNextKeyMarker :: Maybe Text
       -- ^ When a list is truncated, this element specifies the value that should be
       -- used for the key-marker request parameter in a subsequent request.
-    , lmursNextUploadIdMarker :: Maybe Text
+    , lmurNextUploadIdMarker :: Maybe Text
       -- ^ When a list is truncated, this element specifies the value that should be
       -- used for the upload-id-marker request parameter in a subsequent request.
-    , lmursPrefix :: Maybe Text
+    , lmurPrefix :: Maybe Text
       -- ^ When a prefix is provided in the request, this field contains the specified
       -- prefix. The result contains only keys starting with the specified prefix.
-    , lmursUploadIdMarker :: Maybe Text
+    , lmurUploadIdMarker :: Maybe Text
       -- ^ Upload ID after which listing began.
-    , lmursUploads :: [Upload]
+    , lmurUploads :: [Upload]
     } deriving (Eq, Show, Generic)
 
 instance FromXML ListMultipartUploadsResponse where

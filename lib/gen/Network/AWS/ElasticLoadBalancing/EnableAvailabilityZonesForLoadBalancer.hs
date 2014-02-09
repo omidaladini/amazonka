@@ -61,7 +61,7 @@ instance AWSRequest EnableAvailabilityZonesForLoadBalancer where
     request = getQuery service "EnableAvailabilityZonesForLoadBalancer"
 
 data EnableAvailabilityZonesForLoadBalancerResponse = EnableAvailabilityZonesForLoadBalancerResponse
-    { aazirsAvailabilityZones :: [Text]
+    { aazirAvailabilityZones :: [Text]
       -- ^ An updated list of Availability Zones for the load balancer.
     } deriving (Eq, Show, Generic)
 

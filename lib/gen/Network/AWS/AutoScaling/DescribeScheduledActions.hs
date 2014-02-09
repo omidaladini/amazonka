@@ -53,13 +53,13 @@ instance AWSRequest DescribeScheduledActions where
 
 instance AWSPager DescribeScheduledActions where
     next rq rs
-        | Just x <- dsaursNextToken rs = Just $ rq { dsauNextToken = Just x }
+        | Just x <- dsaurNextToken rs = Just $ rq { dsauNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeScheduledActionsResponse = DescribeScheduledActionsResponse
-    { dsaursNextToken :: Maybe Text
+    { dsaurNextToken :: Maybe Text
       -- ^ A string that marks the start of the next batch of returned results.
-    , dsaursScheduledUpdateGroupActions :: [ScheduledUpdateGroupAction]
+    , dsaurScheduledUpdateGroupActions :: [ScheduledUpdateGroupAction]
       -- ^ A list of scheduled actions designed to update an Auto Scaling group.
     } deriving (Eq, Show, Generic)
 

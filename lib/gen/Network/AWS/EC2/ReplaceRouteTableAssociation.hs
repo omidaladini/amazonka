@@ -58,7 +58,7 @@ instance AWSRequest ReplaceRouteTableAssociation where
     request = getQuery service "ReplaceRouteTableAssociation"
 
 data ReplaceRouteTableAssociationResponse = ReplaceRouteTableAssociationResponse
-    { rrtarrsNewAssociationId :: Maybe Text
+    { rrtarrNewAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML ReplaceRouteTableAssociationResponse where

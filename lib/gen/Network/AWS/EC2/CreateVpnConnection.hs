@@ -70,7 +70,7 @@ instance AWSRequest CreateVpnConnection where
     request = getQuery service "CreateVpnConnection"
 
 data CreateVpnConnectionResponse = CreateVpnConnectionResponse
-    { cvcrrsVpnConnection :: Maybe VpnConnection
+    { cvcrrVpnConnection :: Maybe VpnConnection
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateVpnConnectionResponse where

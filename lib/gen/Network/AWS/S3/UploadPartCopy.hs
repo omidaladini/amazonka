@@ -106,11 +106,11 @@ instance AWSRequest UploadPartCopy where
     response = undefined
 
 data UploadPartCopyResponse = UploadPartCopyResponse
-    { upcrsCopyPartResult :: Maybe CopyPartResult
-    , upcrsCopySourceVersionId :: Maybe Text
+    { upcrCopyPartResult :: Maybe CopyPartResult
+    , upcrCopySourceVersionId :: Maybe Text
       -- ^ The version of the source object that was copied, if you have enabled
       -- versioning on the source bucket.
-    , upcrsServerSideEncryption :: Maybe ServerSideEncryption
+    , upcrServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
     } deriving (Eq, Show, Generic)
 

@@ -63,9 +63,9 @@ instance AWSRequest GetObjectAcl where
     response = undefined
 
 data GetObjectAclResponse = GetObjectAclResponse
-    { goarsGrants :: [Grant]
+    { goarGrants :: [Grant]
       -- ^ A list of grants.
-    , goarsOwner :: Maybe Owner
+    , goarOwner :: Maybe Owner
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetObjectAclResponse where

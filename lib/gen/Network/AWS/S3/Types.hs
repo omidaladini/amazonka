@@ -608,8 +608,8 @@ instance ToXML CopyPartResult where
 
 -- | FIXME: Type documentation for CopyObjectResult
 data CopyObjectResult = CopyObjectResult
-    { corETag :: Maybe Text
-    , corLastModified :: Maybe Text
+    { cosETag :: Maybe Text
+    , cosLastModified :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CopyObjectResult

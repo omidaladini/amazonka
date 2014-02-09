@@ -62,7 +62,7 @@ instance AWSRequest ApplySecurityGroupsToLoadBalancer where
     request = getQuery service "ApplySecurityGroupsToLoadBalancer"
 
 data ApplySecurityGroupsToLoadBalancerResponse = ApplySecurityGroupsToLoadBalancerResponse
-    { asgtlbirsSecurityGroups :: [Text]
+    { asgtlbirSecurityGroups :: [Text]
       -- ^ A list of security group IDs associated with your load balancer.
     } deriving (Eq, Show, Generic)
 

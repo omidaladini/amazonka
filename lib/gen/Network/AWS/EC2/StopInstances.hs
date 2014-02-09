@@ -60,7 +60,7 @@ instance AWSRequest StopInstances where
     request = getQuery service "StopInstances"
 
 data StopInstancesResponse = StopInstancesResponse
-    { sirrsStoppingInstances :: [InstanceStateChange]
+    { sirrStoppingInstances :: [InstanceStateChange]
       -- ^ The list of the stopping instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

@@ -59,13 +59,13 @@ instance AWSRequest DescribePolicies where
 
 instance AWSPager DescribePolicies where
     next rq rs
-        | Just x <- dpursNextToken rs = Just $ rq { dpuNextToken = Just x }
+        | Just x <- dpurNextToken rs = Just $ rq { dpuNextToken = Just x }
         | otherwise = Nothing
 
 data DescribePoliciesResponse = DescribePoliciesResponse
-    { dpursNextToken :: Maybe Text
+    { dpurNextToken :: Maybe Text
       -- ^ A string that marks the start of the next batch of returned results.
-    , dpursScalingPolicies :: [ScalingPolicy]
+    , dpurScalingPolicies :: [ScalingPolicy]
       -- ^ A list of scaling policies.
     } deriving (Eq, Show, Generic)
 

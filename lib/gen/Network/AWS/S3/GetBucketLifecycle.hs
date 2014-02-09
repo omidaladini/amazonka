@@ -55,7 +55,7 @@ instance AWSRequest GetBucketLifecycle where
     response = undefined
 
 data GetBucketLifecycleResponse = GetBucketLifecycleResponse
-    { gbmrsRules :: [Rule]
+    { gbmrRules :: [Rule]
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketLifecycleResponse where

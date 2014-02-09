@@ -44,7 +44,7 @@ instance AWSRequest DescribeLoadBalancerAttributes where
     request = getQuery service "DescribeLoadBalancerAttributes"
 
 data DescribeLoadBalancerAttributesResponse = DescribeLoadBalancerAttributesResponse
-    { dlbairsLoadBalancerAttributes :: Maybe LoadBalancerAttributes
+    { dlbairLoadBalancerAttributes :: Maybe LoadBalancerAttributes
       -- ^ The load balancer attributes structure.
     } deriving (Eq, Show, Generic)
 

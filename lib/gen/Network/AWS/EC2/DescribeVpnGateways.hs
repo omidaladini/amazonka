@@ -50,7 +50,7 @@ instance AWSRequest DescribeVpnGateways where
     request = getQuery service "DescribeVpnGateways"
 
 data DescribeVpnGatewaysResponse = DescribeVpnGatewaysResponse
-    { dvgtrsVpnGateways :: [VpnGateway]
+    { dvgtrVpnGateways :: [VpnGateway]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpnGatewaysResponse where

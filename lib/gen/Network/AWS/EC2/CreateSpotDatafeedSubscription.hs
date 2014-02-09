@@ -51,7 +51,7 @@ instance AWSRequest CreateSpotDatafeedSubscription where
     request = getQuery service "CreateSpotDatafeedSubscription"
 
 data CreateSpotDatafeedSubscriptionResponse = CreateSpotDatafeedSubscriptionResponse
-    { csdsrrsSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
+    { csdsrrSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
       -- ^ The SpotDatafeedSubscriptionType data type.
     } deriving (Eq, Show, Generic)
 

@@ -41,14 +41,14 @@ instance AWSRequest DescribeNotificationConfigurations where
 
 instance AWSPager DescribeNotificationConfigurations where
     next rq rs
-        | Just x <- dncursNextToken rs = Just $ rq { dncuNextToken = Just x }
+        | Just x <- dncurNextToken rs = Just $ rq { dncuNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeNotificationConfigurationsResponse = DescribeNotificationConfigurationsResponse
-    { dncursNextToken :: Maybe Text
+    { dncurNextToken :: Maybe Text
       -- ^ A string that is used to mark the start of the next batch of returned
       -- results for pagination.
-    , dncursNotificationConfigurations :: [NotificationConfiguration]
+    , dncurNotificationConfigurations :: [NotificationConfiguration]
       -- ^ The list of notification configurations.
     } deriving (Eq, Show, Generic)
 

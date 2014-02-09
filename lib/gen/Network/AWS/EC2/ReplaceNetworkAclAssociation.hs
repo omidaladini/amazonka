@@ -55,7 +55,7 @@ instance AWSRequest ReplaceNetworkAclAssociation where
     request = getQuery service "ReplaceNetworkAclAssociation"
 
 data ReplaceNetworkAclAssociationResponse = ReplaceNetworkAclAssociationResponse
-    { rnaarrsNewAssociationId :: Maybe Text
+    { rnaarrNewAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML ReplaceNetworkAclAssociationResponse where

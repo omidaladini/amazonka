@@ -57,17 +57,17 @@ instance AWSRequest ListAccessKeys where
 
 instance AWSPager ListAccessKeys where
     next rq rs
-        | Just x <- lakrrsMarker rs = Just $ rq { lakrMarker = Just x }
+        | Just x <- lakrrMarker rs = Just $ rq { lakrMarker = Just x }
         | otherwise = Nothing
 
 data ListAccessKeysResponse = ListAccessKeysResponse
-    { lakrrsAccessKeyMetadata :: [AccessKeyMetadata]
+    { lakrrAccessKeyMetadata :: [AccessKeyMetadata]
       -- ^ A list of access key metadata.
-    , lakrrsIsTruncated :: Maybe Bool
+    , lakrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more keys to list. If your results
       -- were truncated, you can make a subsequent pagination request using the
       -- Marker request parameter to retrieve more keys in the list.
-    , lakrrsMarker :: Maybe Text
+    , lakrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
     } deriving (Eq, Show, Generic)

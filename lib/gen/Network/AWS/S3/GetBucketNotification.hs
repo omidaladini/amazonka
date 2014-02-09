@@ -55,7 +55,7 @@ instance AWSRequest GetBucketNotification where
     response = undefined
 
 data GetBucketNotificationResponse = GetBucketNotificationResponse
-    { gbnrsTopicConfiguration :: Maybe TopicConfiguration
+    { gbnrTopicConfiguration :: Maybe TopicConfiguration
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketNotificationResponse where

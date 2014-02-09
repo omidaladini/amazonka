@@ -49,7 +49,7 @@ instance AWSRequest ImportInstance where
     request = getQuery service "ImportInstance"
 
 data ImportInstanceResponse = ImportInstanceResponse
-    { iirrsConversionTask :: Maybe ConversionTask
+    { iirrConversionTask :: Maybe ConversionTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML ImportInstanceResponse where

@@ -58,9 +58,9 @@ instance AWSRequest ImportKeyPair where
     request = getQuery service "ImportKeyPair"
 
 data ImportKeyPairResponse = ImportKeyPairResponse
-    { ikprrsKeyFingerprint :: Maybe Text
+    { ikprrKeyFingerprint :: Maybe Text
       -- ^ The MD5 public key fingerprint as specified in section 4 of RFC4716 .
-    , ikprrsKeyName :: Maybe Text
+    , ikprrKeyName :: Maybe Text
       -- ^ The specified unique key pair name.
     } deriving (Eq, Show, Generic)
 

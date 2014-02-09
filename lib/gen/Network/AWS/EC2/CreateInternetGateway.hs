@@ -36,7 +36,7 @@ instance AWSRequest CreateInternetGateway where
     request = getQuery service "CreateInternetGateway"
 
 data CreateInternetGatewayResponse = CreateInternetGatewayResponse
-    { cigrrsInternetGateway :: Maybe InternetGateway
+    { cigrrInternetGateway :: Maybe InternetGateway
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateInternetGatewayResponse where

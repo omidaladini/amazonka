@@ -48,7 +48,7 @@ instance AWSRequest CreateRouteTable where
     request = getQuery service "CreateRouteTable"
 
 data CreateRouteTableResponse = CreateRouteTableResponse
-    { crtrrsRouteTable :: Maybe RouteTable
+    { crtrrRouteTable :: Maybe RouteTable
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateRouteTableResponse where

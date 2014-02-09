@@ -54,7 +54,7 @@ instance AWSRequest StartInstances where
     request = getQuery service "StartInstances"
 
 data StartInstancesResponse = StartInstancesResponse
-    { sisrsStartingInstances :: [InstanceStateChange]
+    { sisrStartingInstances :: [InstanceStateChange]
       -- ^ The list of the starting instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

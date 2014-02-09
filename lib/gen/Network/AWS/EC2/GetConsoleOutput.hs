@@ -49,11 +49,11 @@ instance AWSRequest GetConsoleOutput where
     request = getQuery service "GetConsoleOutput"
 
 data GetConsoleOutputResponse = GetConsoleOutputResponse
-    { gcorrsInstanceId :: Maybe Text
+    { gcorrInstanceId :: Maybe Text
       -- ^ The ID of the instance whose console output was requested.
-    , gcorrsOutput :: Maybe Text
+    , gcorrOutput :: Maybe Text
       -- ^ The console output, Base64 encoded.
-    , gcorrsTimestamp :: Maybe UTCTime
+    , gcorrTimestamp :: Maybe UTCTime
       -- ^ The time the output was last updated.
     } deriving (Eq, Show, Generic)
 

@@ -48,7 +48,7 @@ instance AWSRequest CreateNetworkAcl where
     request = getQuery service "CreateNetworkAcl"
 
 data CreateNetworkAclResponse = CreateNetworkAclResponse
-    { cnarrsNetworkAcl :: Maybe NetworkAcl
+    { cnarrNetworkAcl :: Maybe NetworkAcl
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateNetworkAclResponse where

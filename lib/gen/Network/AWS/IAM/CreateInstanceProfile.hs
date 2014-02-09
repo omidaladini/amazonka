@@ -57,7 +57,7 @@ instance AWSRequest CreateInstanceProfile where
     request = getQuery service "CreateInstanceProfile"
 
 data CreateInstanceProfileResponse = CreateInstanceProfileResponse
-    { ciprrsInstanceProfile :: InstanceProfile
+    { ciprrInstanceProfile :: InstanceProfile
       -- ^ Information about the instance profile.
     } deriving (Eq, Show, Generic)
 

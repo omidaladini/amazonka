@@ -57,14 +57,14 @@ instance AWSRequest DescribeSpotPriceHistory where
 
 instance AWSPager DescribeSpotPriceHistory where
     next rq rs
-        | Just x <- dsphrrsNextToken rs = Just $ rq { dsphrNextToken = Just x }
+        | Just x <- dsphrrNextToken rs = Just $ rq { dsphrNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeSpotPriceHistoryResponse = DescribeSpotPriceHistoryResponse
-    { dsphrrsNextToken :: Maybe Text
+    { dsphrrNextToken :: Maybe Text
       -- ^ The string marking the next set of results returned. Displays empty if
       -- there are no more results to be returned.
-    , dsphrrsSpotPriceHistory :: [SpotPrice]
+    , dsphrrSpotPriceHistory :: [SpotPrice]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeSpotPriceHistoryResponse where

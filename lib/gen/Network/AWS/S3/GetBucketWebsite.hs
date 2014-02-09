@@ -55,10 +55,10 @@ instance AWSRequest GetBucketWebsite where
     response = undefined
 
 data GetBucketWebsiteResponse = GetBucketWebsiteResponse
-    { gbwrsErrorDocument :: Maybe ErrorDocument
-    , gbwrsIndexDocument :: Maybe IndexDocument
-    , gbwrsRedirectAllRequestsTo :: Maybe RedirectAllRequestsTo
-    , gbwrsRoutingRules :: [RoutingRule]
+    { gbwrErrorDocument :: Maybe ErrorDocument
+    , gbwrIndexDocument :: Maybe IndexDocument
+    , gbwrRedirectAllRequestsTo :: Maybe RedirectAllRequestsTo
+    , gbwrRoutingRules :: [RoutingRule]
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketWebsiteResponse where

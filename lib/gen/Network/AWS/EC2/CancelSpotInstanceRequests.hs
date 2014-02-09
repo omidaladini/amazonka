@@ -51,7 +51,7 @@ instance AWSRequest CancelSpotInstanceRequests where
     request = getQuery service "CancelSpotInstanceRequests"
 
 data CancelSpotInstanceRequestsResponse = CancelSpotInstanceRequestsResponse
-    { csirrrsCancelledSpotInstanceRequests :: [CancelledSpotInstanceRequest]
+    { csirrrCancelledSpotInstanceRequests :: [CancelledSpotInstanceRequest]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CancelSpotInstanceRequestsResponse where

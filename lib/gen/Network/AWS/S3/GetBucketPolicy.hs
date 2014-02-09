@@ -55,7 +55,7 @@ instance AWSRequest GetBucketPolicy where
     response = undefined
 
 data GetBucketPolicyResponse = GetBucketPolicyResponse
-    { gbprsPolicy :: Maybe Text
+    { gbprPolicy :: Maybe Text
       -- ^ The bucket policy as a JSON document.
     } deriving (Eq, Show, Generic)
 

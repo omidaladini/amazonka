@@ -37,9 +37,9 @@ instance AWSRequest AllocateAddress where
     request = getQuery service "AllocateAddress"
 
 data AllocateAddressResponse = AllocateAddressResponse
-    { aarrsAllocationId :: Maybe Text
-    , aarrsDomain :: Maybe DomainType
-    , aarrsPublicIp :: Maybe Text
+    { aarrAllocationId :: Maybe Text
+    , aarrDomain :: Maybe DomainType
+    , aarrPublicIp :: Maybe Text
       -- ^ IP address for use with your account.
     } deriving (Eq, Show, Generic)
 

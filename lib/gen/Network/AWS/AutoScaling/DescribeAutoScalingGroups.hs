@@ -51,13 +51,13 @@ instance AWSRequest DescribeAutoScalingGroups where
 
 instance AWSPager DescribeAutoScalingGroups where
     next rq rs
-        | Just x <- asgntrsNextToken rs = Just $ rq { asgntNextToken = Just x }
+        | Just x <- asgntrNextToken rs = Just $ rq { asgntNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeAutoScalingGroupsResponse = DescribeAutoScalingGroupsResponse
-    { asgntrsAutoScalingGroups :: [AutoScalingGroup]
+    { asgntrAutoScalingGroups :: [AutoScalingGroup]
       -- ^ A list of Auto Scaling groups.
-    , asgntrsNextToken :: Maybe Text
+    , asgntrNextToken :: Maybe Text
       -- ^ A string that marks the start of the next batch of returned results.
     } deriving (Eq, Show, Generic)
 

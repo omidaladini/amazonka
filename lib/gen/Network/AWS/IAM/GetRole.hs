@@ -55,7 +55,7 @@ instance AWSRequest GetRole where
     request = getQuery service "GetRole"
 
 data GetRoleResponse = GetRoleResponse
-    { grrrsRole :: Role
+    { grrrRole :: Role
       -- ^ Information about the role.
     } deriving (Eq, Show, Generic)
 

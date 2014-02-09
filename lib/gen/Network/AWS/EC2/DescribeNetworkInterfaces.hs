@@ -35,7 +35,7 @@ instance AWSRequest DescribeNetworkInterfaces where
     request = getQuery service "DescribeNetworkInterfaces"
 
 data DescribeNetworkInterfacesResponse = DescribeNetworkInterfacesResponse
-    { dnisrsNetworkInterfaces :: [NetworkInterface]
+    { dnisrNetworkInterfaces :: [NetworkInterface]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeNetworkInterfacesResponse where

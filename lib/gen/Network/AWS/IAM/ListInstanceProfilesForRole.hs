@@ -70,18 +70,18 @@ instance AWSRequest ListInstanceProfilesForRole where
 
 instance AWSPager ListInstanceProfilesForRole where
     next rq rs
-        | Just x <- lipfrrrsMarker rs = Just $ rq { lipfrrMarker = Just x }
+        | Just x <- lipfrrrMarker rs = Just $ rq { lipfrrMarker = Just x }
         | otherwise = Nothing
 
 data ListInstanceProfilesForRoleResponse = ListInstanceProfilesForRoleResponse
-    { lipfrrrsInstanceProfiles :: [InstanceProfile]
+    { lipfrrrInstanceProfiles :: [InstanceProfile]
       -- ^ A list of instance profiles.
-    , lipfrrrsIsTruncated :: Maybe Bool
+    , lipfrrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more instance profiles to list. If
       -- your results were truncated, you can make a subsequent pagination request
       -- using the Marker request parameter to retrieve more instance profiles in
       -- the list.
-    , lipfrrrsMarker :: Maybe Text
+    , lipfrrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
     } deriving (Eq, Show, Generic)

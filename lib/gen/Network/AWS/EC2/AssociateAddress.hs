@@ -47,7 +47,7 @@ instance AWSRequest AssociateAddress where
     request = getQuery service "AssociateAddress"
 
 data AssociateAddressResponse = AssociateAddressResponse
-    { aasrsAssociationId :: Maybe Text
+    { aasrAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AssociateAddressResponse where

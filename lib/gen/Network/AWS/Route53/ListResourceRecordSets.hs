@@ -118,28 +118,28 @@ instance AWSRequest ListResourceRecordSets where
     request = getRestXML service
 
 data ListResourceRecordSetsResponse = ListResourceRecordSetsResponse
-    { lrrsrrsIsTruncated :: !Bool
+    { lrrsrrIsTruncated :: !Bool
       -- ^ A flag that indicates whether there are more resource record sets to be
       -- listed. If your results were truncated, you can make a follow-up request
       -- for the next page of results by using the
       -- ListResourceRecordSetsResponse$NextRecordName element. Valid Values: true |
       -- false.
-    , lrrsrrsMaxItems :: !Text
+    , lrrsrrMaxItems :: !Text
       -- ^ The maximum number of records you requested. The maximum value of MaxItems
       -- is 100.
-    , lrrsrrsNextRecordIdentifier :: Maybe Text
+    , lrrsrrNextRecordIdentifier :: Maybe Text
       -- ^ Weighted resource record sets only: If results were truncated for a given
       -- DNS name and type, the value of SetIdentifier for the next resource record
       -- set that has the current DNS name and type.
-    , lrrsrrsNextRecordName :: Maybe Text
+    , lrrsrrNextRecordName :: Maybe Text
       -- ^ If the results were truncated, the name of the next record in the list.
       -- This element is present only if ListResourceRecordSetsResponse$IsTruncated
       -- is true.
-    , lrrsrrsNextRecordType :: Maybe RRType
+    , lrrsrrNextRecordType :: Maybe RRType
       -- ^ If the results were truncated, the type of the next record in the list.
       -- This element is present only if ListResourceRecordSetsResponse$IsTruncated
       -- is true.
-    , lrrsrrsResourceRecordSets :: [ResourceRecordSet]
+    , lrrsrrResourceRecordSets :: [ResourceRecordSet]
       -- ^ A complex type that contains information about the resource record sets
       -- that are returned by the request.
     } deriving (Eq, Show, Generic)

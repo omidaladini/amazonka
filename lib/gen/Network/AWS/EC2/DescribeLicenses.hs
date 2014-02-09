@@ -41,7 +41,7 @@ instance AWSRequest DescribeLicenses where
     request = getQuery service "DescribeLicenses"
 
 data DescribeLicensesResponse = DescribeLicensesResponse
-    { dlrrsLicenses :: [License]
+    { dlrrLicenses :: [License]
       -- ^ Specifies active licenses in use and attached to an Amazon EC2 instance.
     } deriving (Eq, Show, Generic)
 

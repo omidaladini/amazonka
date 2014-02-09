@@ -52,7 +52,7 @@ instance AWSRequest CopyImage where
     request = getQuery service "CopyImage"
 
 data CopyImageResponse = CopyImageResponse
-    { cirrsImageId :: Maybe Text
+    { cirrImageId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML CopyImageResponse where

@@ -53,12 +53,12 @@ instance AWSRequest DescribeSnapshotAttribute where
     request = getQuery service "DescribeSnapshotAttribute"
 
 data DescribeSnapshotAttributeResponse = DescribeSnapshotAttributeResponse
-    { dsarrsCreateVolumePermissions :: [CreateVolumePermission]
+    { dsarrCreateVolumePermissions :: [CreateVolumePermission]
       -- ^ The list of permissions describing who can create a volume from the
       -- associated EBS snapshot. Only available if the createVolumePermission
       -- attribute is requested.
-    , dsarrsProductCodes :: [ProductCode]
-    , dsarrsSnapshotId :: Maybe Text
+    , dsarrProductCodes :: [ProductCode]
+    , dsarrSnapshotId :: Maybe Text
       -- ^ The ID of the snapshot whose attribute is being described.
     } deriving (Eq, Show, Generic)
 

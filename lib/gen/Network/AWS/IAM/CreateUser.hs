@@ -56,7 +56,7 @@ instance AWSRequest CreateUser where
     request = getQuery service "CreateUser"
 
 data CreateUserResponse = CreateUserResponse
-    { currsUser :: Maybe User
+    { currUser :: Maybe User
       -- ^ Information about the user.
     } deriving (Eq, Show, Generic)
 

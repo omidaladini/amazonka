@@ -47,11 +47,11 @@ instance AWSRequest CreateKeyPair where
     request = getQuery service "CreateKeyPair"
 
 data CreateKeyPairResponse = CreateKeyPairResponse
-    { ckprrsKeyFingerprint :: Maybe Text
+    { ckprrKeyFingerprint :: Maybe Text
       -- ^ The SHA-1 digest of the DER encoded private key.
-    , ckprrsKeyMaterial :: Maybe Text
+    , ckprrKeyMaterial :: Maybe Text
       -- ^ The unencrypted PEM encoded RSA private key.
-    , ckprrsKeyName :: Maybe Text
+    , ckprrKeyName :: Maybe Text
       -- ^ The name of the key pair.
     } deriving (Eq, Show, Generic)
 

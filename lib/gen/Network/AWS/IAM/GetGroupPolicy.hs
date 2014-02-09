@@ -54,11 +54,11 @@ instance AWSRequest GetGroupPolicy where
     request = getQuery service "GetGroupPolicy"
 
 data GetGroupPolicyResponse = GetGroupPolicyResponse
-    { ggprrsGroupName :: !Text
+    { ggprrGroupName :: !Text
       -- ^ The group the policy is associated with.
-    , ggprrsPolicyDocument :: !Text
+    , ggprrPolicyDocument :: !Text
       -- ^ The policy document.
-    , ggprrsPolicyName :: !Text
+    , ggprrPolicyName :: !Text
       -- ^ The name of the policy.
     } deriving (Eq, Show, Generic)
 

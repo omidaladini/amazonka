@@ -50,12 +50,12 @@ instance AWSRequest GetSAMLProvider where
     request = getQuery service "GetSAMLProvider"
 
 data GetSAMLProviderResponse = GetSAMLProviderResponse
-    { gsamlprrsCreateDate :: Maybe UTCTime
+    { gsamlprrCreateDate :: Maybe UTCTime
       -- ^ The date and time when the SAML provider was created.
-    , gsamlprrsSAMLMetadataDocument :: Maybe Text
+    , gsamlprrSAMLMetadataDocument :: Maybe Text
       -- ^ The XML metadata document that includes information about an identity
       -- provider.
-    , gsamlprrsValidUntil :: Maybe UTCTime
+    , gsamlprrValidUntil :: Maybe UTCTime
       -- ^ The expiration date and time for the SAML provider.
     } deriving (Eq, Show, Generic)
 

@@ -61,19 +61,19 @@ instance AWSRequest ListServerCertificates where
 
 instance AWSPager ListServerCertificates where
     next rq rs
-        | Just x <- lscrrsMarker rs = Just $ rq { lscrMarker = Just x }
+        | Just x <- lscrrMarker rs = Just $ rq { lscrMarker = Just x }
         | otherwise = Nothing
 
 data ListServerCertificatesResponse = ListServerCertificatesResponse
-    { lscrrsIsTruncated :: Maybe Bool
+    { lscrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more server certificates to list.
       -- If your results were truncated, you can make a subsequent pagination
       -- request using the Marker request parameter to retrieve more server
       -- certificates in the list.
-    , lscrrsMarker :: Maybe Text
+    , lscrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
-    , lscrrsServerCertificateMetadataList :: [ServerCertificateMetadata]
+    , lscrrServerCertificateMetadataList :: [ServerCertificateMetadata]
       -- ^ A list of server certificates.
     } deriving (Eq, Show, Generic)
 

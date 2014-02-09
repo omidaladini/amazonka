@@ -59,17 +59,17 @@ instance AWSRequest ListGroups where
 
 instance AWSPager ListGroups where
     next rq rs
-        | Just x <- lgrrsMarker rs = Just $ rq { lgrMarker = Just x }
+        | Just x <- lgrrMarker rs = Just $ rq { lgrMarker = Just x }
         | otherwise = Nothing
 
 data ListGroupsResponse = ListGroupsResponse
-    { lgrrsGroups :: [Group]
+    { lgrrGroups :: [Group]
       -- ^ A list of groups.
-    , lgrrsIsTruncated :: Maybe Bool
+    , lgrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more groups to list. If your
       -- results were truncated, you can make a subsequent pagination request using
       -- the Marker request parameter to retrieve more groups in the list.
-    , lgrrsMarker :: Maybe Text
+    , lgrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
     } deriving (Eq, Show, Generic)

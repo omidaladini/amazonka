@@ -87,29 +87,29 @@ instance AWSRequest ListObjectVersions where
     response = undefined
 
 data ListObjectVersionsResponse = ListObjectVersionsResponse
-    { lovrsCommonPrefixes :: [CommonPrefixes]
-    , lovrsDeleteMarkers :: [DeleteMarker]
-    , lovrsEncodingType :: Maybe Text
+    { lovrCommonPrefixes :: [CommonPrefixes]
+    , lovrDeleteMarkers :: [DeleteMarker]
+    , lovrEncodingType :: Maybe Text
       -- ^ Encoding type used by Amazon S3 to encode object keys in the response.
-    , lovrsIsTruncated :: Maybe Bool
+    , lovrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether or not Amazon S3 returned all of the results
       -- that satisfied the search criteria. If your results were truncated, you can
       -- make a follow-up paginated request using the NextKeyMarker and
       -- NextVersionIdMarker response parameters as a starting place in another
       -- request to return the rest of the results.
-    , lovrsKeyMarker :: Maybe Text
+    , lovrKeyMarker :: Maybe Text
       -- ^ Marks the last Key returned in a truncated response.
-    , lovrsMaxKeys :: Maybe Int
-    , lovrsName :: Maybe Text
-    , lovrsNextKeyMarker :: Maybe Text
+    , lovrMaxKeys :: Maybe Int
+    , lovrName :: Maybe Text
+    , lovrNextKeyMarker :: Maybe Text
       -- ^ Use this value for the key marker request parameter in a subsequent
       -- request.
-    , lovrsNextVersionIdMarker :: Maybe Text
+    , lovrNextVersionIdMarker :: Maybe Text
       -- ^ Use this value for the next version id marker parameter in a subsequent
       -- request.
-    , lovrsPrefix :: Maybe Text
-    , lovrsVersionIdMarker :: Maybe Text
-    , lovrsVersions :: [Version]
+    , lovrPrefix :: Maybe Text
+    , lovrVersionIdMarker :: Maybe Text
+    , lovrVersions :: [Version]
     } deriving (Eq, Show, Generic)
 
 instance FromXML ListObjectVersionsResponse where

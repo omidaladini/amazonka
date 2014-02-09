@@ -65,18 +65,18 @@ instance AWSRequest CompleteMultipartUpload where
     response = undefined
 
 data CompleteMultipartUploadResponse = CompleteMultipartUploadResponse
-    { mursBucket :: Maybe Text
-    , mursETag :: Maybe Text
+    { murBucket :: Maybe Text
+    , murETag :: Maybe Text
       -- ^ Entity tag of the object.
-    , mursExpiration :: Maybe UTCTime
+    , murExpiration :: Maybe UTCTime
       -- ^ If the object expiration is configured, this will contain the expiration
       -- date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
       -- encoded.
-    , mursKey :: Maybe Text
-    , mursLocation :: Maybe Text
-    , mursServerSideEncryption :: Maybe ServerSideEncryption
+    , murKey :: Maybe Text
+    , murLocation :: Maybe Text
+    , murServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
-    , mursVersionId :: Maybe Text
+    , murVersionId :: Maybe Text
       -- ^ Version of the object.
     } deriving (Eq, Show, Generic)
 

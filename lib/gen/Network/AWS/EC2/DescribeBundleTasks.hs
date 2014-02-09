@@ -42,7 +42,7 @@ instance AWSRequest DescribeBundleTasks where
     request = getQuery service "DescribeBundleTasks"
 
 data DescribeBundleTasksResponse = DescribeBundleTasksResponse
-    { dbtrrsBundleTasks :: [BundleTask]
+    { dbtrrBundleTasks :: [BundleTask]
       -- ^ The list of described bundle tasks.
     } deriving (Eq, Show, Generic)
 

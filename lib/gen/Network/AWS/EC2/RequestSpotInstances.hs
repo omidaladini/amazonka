@@ -83,7 +83,7 @@ instance AWSRequest RequestSpotInstances where
     request = getQuery service "RequestSpotInstances"
 
 data RequestSpotInstancesResponse = RequestSpotInstancesResponse
-    { rsirrsSpotInstanceRequests :: [SpotInstanceRequest]
+    { rsirrSpotInstanceRequests :: [SpotInstanceRequest]
       -- ^ Contains a list of Spot Instance requests.
     } deriving (Eq, Show, Generic)
 

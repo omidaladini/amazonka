@@ -47,7 +47,7 @@ instance AWSRequest DescribeVpcs where
     request = getQuery service "DescribeVpcs"
 
 data DescribeVpcsResponse = DescribeVpcsResponse
-    { dvsrsVpcs :: [Vpc]
+    { dvsrVpcs :: [Vpc]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpcsResponse where

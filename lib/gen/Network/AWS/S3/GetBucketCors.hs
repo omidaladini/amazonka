@@ -55,7 +55,7 @@ instance AWSRequest GetBucketCors where
     response = undefined
 
 data GetBucketCorsResponse = GetBucketCorsResponse
-    { gbcrsCORSRules :: [CORSRule]
+    { gbcrCORSRules :: [CORSRule]
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketCorsResponse where

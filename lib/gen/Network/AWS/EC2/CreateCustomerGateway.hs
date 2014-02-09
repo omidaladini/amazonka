@@ -72,7 +72,7 @@ instance AWSRequest CreateCustomerGateway where
     request = getQuery service "CreateCustomerGateway"
 
 data CreateCustomerGatewayResponse = CreateCustomerGatewayResponse
-    { ccgrrsCustomerGateway :: Maybe CustomerGateway
+    { ccgrrCustomerGateway :: Maybe CustomerGateway
       -- ^ Information about the customer gateway.
     } deriving (Eq, Show, Generic)
 

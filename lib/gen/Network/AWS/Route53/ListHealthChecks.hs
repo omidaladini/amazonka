@@ -60,25 +60,25 @@ instance AWSRequest ListHealthChecks where
     request = getRestXML service
 
 data ListHealthChecksResponse = ListHealthChecksResponse
-    { lhcrrsHealthChecks :: [HealthCheck]
+    { lhcrrHealthChecks :: [HealthCheck]
       -- ^ A complex type that contains information about the health checks associated
       -- with the current AWS account.
-    , lhcrrsIsTruncated :: !Bool
+    , lhcrrIsTruncated :: !Bool
       -- ^ A flag indicating whether there are more health checks to be listed. If
       -- your results were truncated, you can make a follow-up request for the next
       -- page of results by using the Marker element. Valid Values: true | false.
-    , lhcrrsMarker :: !Text
+    , lhcrrMarker :: !Text
       -- ^ If the request returned more than one page of results, submit another
       -- request and specify the value of NextMarker from the last response in the
       -- marker parameter to get the next page of results.
-    , lhcrrsMaxItems :: !Text
+    , lhcrrMaxItems :: !Text
       -- ^ The maximum number of health checks to be included in the response body. If
       -- the number of health checks associated with this AWS account exceeds
       -- MaxItems, the value of ListHealthChecksResponse$IsTruncated in the response
       -- is true. Call ListHealthChecks again and specify the value of
       -- ListHealthChecksResponse$NextMarker in the ListHostedZonesRequest$Marker
       -- element to get the next page of results.
-    , lhcrrsNextMarker :: Maybe Text
+    , lhcrrNextMarker :: Maybe Text
       -- ^ Indicates where to continue listing health checks. If
       -- ListHealthChecksResponse$IsTruncated is true, make another request to
       -- ListHealthChecks and include the value of the NextMarker element in the

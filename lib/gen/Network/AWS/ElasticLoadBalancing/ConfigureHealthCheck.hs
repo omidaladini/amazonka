@@ -59,7 +59,7 @@ instance AWSRequest ConfigureHealthCheck where
     request = getQuery service "ConfigureHealthCheck"
 
 data ConfigureHealthCheckResponse = ConfigureHealthCheckResponse
-    { chcirsHealthCheck :: Maybe HealthCheck
+    { chcirHealthCheck :: Maybe HealthCheck
       -- ^ The updated healthcheck for the instances.
     } deriving (Eq, Show, Generic)
 

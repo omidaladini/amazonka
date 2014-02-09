@@ -58,7 +58,7 @@ instance AWSRequest DescribeLoadBalancerPolicies where
     request = getQuery service "DescribeLoadBalancerPolicies"
 
 data DescribeLoadBalancerPoliciesResponse = DescribeLoadBalancerPoliciesResponse
-    { dlbpirsPolicyDescriptions :: [PolicyDescription]
+    { dlbpirPolicyDescriptions :: [PolicyDescription]
       -- ^ A list of policy description structures.
     } deriving (Eq, Show, Generic)
 

@@ -56,7 +56,7 @@ instance AWSRequest CreateVpc where
     request = getQuery service "CreateVpc"
 
 data CreateVpcResponse = CreateVpcResponse
-    { cvrrsVpc :: Maybe Vpc
+    { cvrrVpc :: Maybe Vpc
       -- ^ Information about the VPC.
     } deriving (Eq, Show, Generic)
 

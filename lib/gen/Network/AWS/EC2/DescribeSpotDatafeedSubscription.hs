@@ -35,7 +35,7 @@ instance AWSRequest DescribeSpotDatafeedSubscription where
     request = getQuery service "DescribeSpotDatafeedSubscription"
 
 data DescribeSpotDatafeedSubscriptionResponse = DescribeSpotDatafeedSubscriptionResponse
-    { dsdsrrsSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
+    { dsdsrrSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
       -- ^ The Spot Instance datafeed subscription.
     } deriving (Eq, Show, Generic)
 

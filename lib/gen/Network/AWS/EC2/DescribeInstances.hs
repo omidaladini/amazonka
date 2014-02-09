@@ -49,12 +49,12 @@ instance AWSRequest DescribeInstances where
 
 instance AWSPager DescribeInstances where
     next rq rs
-        | Just x <- disrsNextToken rs = Just $ rq { disNextToken = Just x }
+        | Just x <- disrNextToken rs = Just $ rq { disNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeInstancesResponse = DescribeInstancesResponse
-    { disrsNextToken :: Maybe Text
-    , disrsReservations :: [Reservation]
+    { disrNextToken :: Maybe Text
+    , disrReservations :: [Reservation]
       -- ^ The list of reservations containing the describes instances.
     } deriving (Eq, Show, Generic)
 

@@ -60,18 +60,18 @@ instance AWSRequest ListUsers where
 
 instance AWSPager ListUsers where
     next rq rs
-        | Just x <- lurrsMarker rs = Just $ rq { lurMarker = Just x }
+        | Just x <- lurrMarker rs = Just $ rq { lurMarker = Just x }
         | otherwise = Nothing
 
 data ListUsersResponse = ListUsersResponse
-    { lurrsIsTruncated :: Maybe Bool
+    { lurrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more user names to list. If your
       -- results were truncated, you can make a subsequent pagination request using
       -- the Marker request parameter to retrieve more users in the list.
-    , lurrsMarker :: Maybe Text
+    , lurrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
-    , lurrsUsers :: [User]
+    , lurrUsers :: [User]
       -- ^ A list of users.
     } deriving (Eq, Show, Generic)
 

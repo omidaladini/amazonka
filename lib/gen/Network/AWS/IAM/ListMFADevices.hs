@@ -50,17 +50,17 @@ instance AWSRequest ListMFADevices where
 
 instance AWSPager ListMFADevices where
     next rq rs
-        | Just x <- lmfadrrsMarker rs = Just $ rq { lmfadrMarker = Just x }
+        | Just x <- lmfadrrMarker rs = Just $ rq { lmfadrMarker = Just x }
         | otherwise = Nothing
 
 data ListMFADevicesResponse = ListMFADevicesResponse
-    { lmfadrrsIsTruncated :: Maybe Bool
+    { lmfadrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more MFA devices to list. If your
       -- results were truncated, you can make a subsequent pagination request using
       -- the Marker request parameter to retrieve more MFA devices in the list.
-    , lmfadrrsMFADevices :: [MFADevice]
+    , lmfadrrMFADevices :: [MFADevice]
       -- ^ A list of MFA devices.
-    , lmfadrrsMarker :: Maybe Text
+    , lmfadrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
     } deriving (Eq, Show, Generic)

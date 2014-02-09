@@ -38,12 +38,12 @@ instance AWSRequest DescribeTags where
 
 instance AWSPager DescribeTags where
     next rq rs
-        | Just x <- dtrrsNextToken rs = Just $ rq { dtrNextToken = Just x }
+        | Just x <- dtrrNextToken rs = Just $ rq { dtrNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeTagsResponse = DescribeTagsResponse
-    { dtrrsNextToken :: Maybe Text
-    , dtrrsTags :: [TagDescription]
+    { dtrrNextToken :: Maybe Text
+    , dtrrTags :: [TagDescription]
       -- ^ A list of the tags for the specified resources.
     } deriving (Eq, Show, Generic)
 

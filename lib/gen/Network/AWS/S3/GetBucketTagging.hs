@@ -55,7 +55,7 @@ instance AWSRequest GetBucketTagging where
     response = undefined
 
 data GetBucketTaggingResponse = GetBucketTaggingResponse
-    { gbtrsTagSet :: [Tag]
+    { gbtrTagSet :: [Tag]
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketTaggingResponse where

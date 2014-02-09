@@ -45,10 +45,10 @@ instance AWSRequest DescribeVolumeAttribute where
     request = getQuery service "DescribeVolumeAttribute"
 
 data DescribeVolumeAttributeResponse = DescribeVolumeAttributeResponse
-    { dvarrsAutoEnableIO :: Maybe AttributeBooleanValue
+    { dvarrAutoEnableIO :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , dvarrsProductCodes :: [ProductCode]
-    , dvarrsVolumeId :: Maybe Text
+    , dvarrProductCodes :: [ProductCode]
+    , dvarrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVolumeAttributeResponse where

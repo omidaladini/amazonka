@@ -63,13 +63,13 @@ instance AWSRequest DescribeScalingActivities where
 
 instance AWSPager DescribeScalingActivities where
     next rq rs
-        | Just x <- dsavrsNextToken rs = Just $ rq { dsavNextToken = Just x }
+        | Just x <- dsavrNextToken rs = Just $ rq { dsavNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeScalingActivitiesResponse = DescribeScalingActivitiesResponse
-    { dsavrsActivities :: [Activity]
+    { dsavrActivities :: [Activity]
       -- ^ A list of the requested scaling activities.
-    , dsavrsNextToken :: Maybe Text
+    , dsavrNextToken :: Maybe Text
       -- ^ Acts as a paging mechanism for large result sets. Set to a non-empty string
       -- if there are additional results waiting to be returned. Pass this in to
       -- subsequent calls to return additional results.

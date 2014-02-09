@@ -60,7 +60,7 @@ instance AWSRequest CreateSecurityGroup where
     request = getQuery service "CreateSecurityGroup"
 
 data CreateSecurityGroupResponse = CreateSecurityGroupResponse
-    { csgrrsGroupId :: Maybe Text
+    { csgrrGroupId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateSecurityGroupResponse where

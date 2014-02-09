@@ -56,7 +56,7 @@ instance AWSRequest GetInstanceProfile where
     request = getQuery service "GetInstanceProfile"
 
 data GetInstanceProfileResponse = GetInstanceProfileResponse
-    { giprrsInstanceProfile :: InstanceProfile
+    { giprrInstanceProfile :: InstanceProfile
       -- ^ Information about the instance profile.
     } deriving (Eq, Show, Generic)
 

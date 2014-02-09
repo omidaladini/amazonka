@@ -59,7 +59,7 @@ instance AWSRequest DeregisterInstancesFromLoadBalancer where
     request = getQuery service "DeregisterInstancesFromLoadBalancer"
 
 data DeregisterInstancesFromLoadBalancerResponse = DeregisterInstancesFromLoadBalancerResponse
-    { depirsInstances :: [Instance]
+    { depirInstances :: [Instance]
       -- ^ An updated list of remaining instances registered with the load balancer.
     } deriving (Eq, Show, Generic)
 

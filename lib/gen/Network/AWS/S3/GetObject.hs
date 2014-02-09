@@ -115,54 +115,54 @@ instance AWSRequest GetObject where
     response = undefined
 
 data GetObjectResponse = GetObjectResponse
-    { gorsAcceptRanges :: Maybe Text
-    , gorsBody :: ResumableSource AWS ByteString
+    { gorAcceptRanges :: Maybe Text
+    , gorBody :: ResumableSource AWS ByteString
       -- ^ Object data.
-    , gorsCacheControl :: Maybe Text
+    , gorCacheControl :: Maybe Text
       -- ^ Specifies caching behavior along the request/reply chain.
-    , gorsContentDisposition :: Maybe Text
+    , gorContentDisposition :: Maybe Text
       -- ^ Specifies presentational information for the object.
-    , gorsContentEncoding :: Maybe Text
+    , gorContentEncoding :: Maybe Text
       -- ^ Specifies what content encodings have been applied to the object and thus
       -- what decoding mechanisms must be applied to obtain the media-type
       -- referenced by the Content-Type header field.
-    , gorsContentLanguage :: Maybe Text
+    , gorContentLanguage :: Maybe Text
       -- ^ The language the content is in.
-    , gorsContentLength :: Maybe Int
+    , gorContentLength :: Maybe Int
       -- ^ Size of the body in bytes.
-    , gorsContentType :: Maybe Text
+    , gorContentType :: Maybe Text
       -- ^ A standard MIME type describing the format of the object data.
-    , gorsDeleteMarker :: Maybe Bool
+    , gorDeleteMarker :: Maybe Bool
       -- ^ Specifies whether the object retrieved was (true) or was not (false) a
       -- Delete Marker. If false, this response header does not appear in the
       -- response.
-    , gorsETag :: Maybe Text
+    , gorETag :: Maybe Text
       -- ^ An ETag is an opaque identifier assigned by a web server to a specific
       -- version of a resource found at a URL.
-    , gorsExpiration :: Maybe Text
+    , gorExpiration :: Maybe Text
       -- ^ If the object expiration is configured (see PUT Bucket lifecycle), the
       -- response includes this header. It includes the expiry-date and rule-id key
       -- value pairs providing object expiration information. The value of the
       -- rule-id is URL encoded.
-    , gorsExpires :: Maybe UTCTime
+    , gorExpires :: Maybe UTCTime
       -- ^ The date and time at which the object is no longer cacheable.
-    , gorsLastModified :: Maybe UTCTime
+    , gorLastModified :: Maybe UTCTime
       -- ^ Last modified date of the object.
-    , gorsMetadata :: HashMap Text Text
+    , gorMetadata :: HashMap Text Text
       -- ^ A map of metadata to store with the object in S3.
-    , gorsMissingMeta :: Maybe Int
+    , gorMissingMeta :: Maybe Int
       -- ^ This is set to the number of metadata entries not returned in x-amz-meta
       -- headers. This can happen if you create metadata using an API like SOAP that
       -- supports more flexible metadata than the REST API. For example, using SOAP,
       -- you can create metadata whose values are not legal HTTP headers.
-    , gorsRestore :: Maybe Text
+    , gorRestore :: Maybe Text
       -- ^ Provides information about object restoration operation and expiration time
       -- of the restored object copy.
-    , gorsServerSideEncryption :: Maybe ServerSideEncryption
+    , gorServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
-    , gorsVersionId :: Maybe Text
+    , gorVersionId :: Maybe Text
       -- ^ Version of the object.
-    , gorsWebsiteRedirectLocation :: Maybe Text
+    , gorWebsiteRedirectLocation :: Maybe Text
       -- ^ If the bucket is configured as a website, redirects requests for this
       -- object to another object in the same bucket or to an external URL. Amazon
       -- S3 stores the value of this header in the object metadata.

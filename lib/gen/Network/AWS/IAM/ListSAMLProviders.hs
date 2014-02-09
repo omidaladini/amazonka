@@ -39,7 +39,7 @@ instance AWSRequest ListSAMLProviders where
     request = getQuery service "ListSAMLProviders"
 
 data ListSAMLProvidersResponse = ListSAMLProvidersResponse
-    { lsamlprrsSAMLProviderList :: [SAMLProviderListEntry]
+    { lsamlprrSAMLProviderList :: [SAMLProviderListEntry]
       -- ^ The list of SAML providers for this account.
     } deriving (Eq, Show, Generic)
 

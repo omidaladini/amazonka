@@ -85,5 +85,5 @@ instance AWSRequest CreateBucket where
     response = undefined
 
 data CreateBucketResponse = CreateBucketResponse
-    { cbrsLocation :: Maybe Text
+    { cbrLocation :: Maybe Text
     } deriving (Eq, Show, Generic)

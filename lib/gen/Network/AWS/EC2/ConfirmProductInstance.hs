@@ -55,7 +55,7 @@ instance AWSRequest ConfirmProductInstance where
     request = getQuery service "ConfirmProductInstance"
 
 data ConfirmProductInstanceResponse = ConfirmProductInstanceResponse
-    { cpirrsOwnerId :: Maybe Text
+    { cpirrOwnerId :: Maybe Text
       -- ^ The instance owner's account ID. Only present if the product code is
       -- attached to the instance.
     } deriving (Eq, Show, Generic)

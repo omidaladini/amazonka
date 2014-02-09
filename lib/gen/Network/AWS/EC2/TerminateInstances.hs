@@ -48,7 +48,7 @@ instance AWSRequest TerminateInstances where
     request = getQuery service "TerminateInstances"
 
 data TerminateInstancesResponse = TerminateInstancesResponse
-    { tirrsTerminatingInstances :: [InstanceStateChange]
+    { tirrTerminatingInstances :: [InstanceStateChange]
       -- ^ The list of the terminating instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

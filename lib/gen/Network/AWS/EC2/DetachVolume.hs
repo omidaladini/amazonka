@@ -60,16 +60,16 @@ instance AWSRequest DetachVolume where
     request = getQuery service "DetachVolume"
 
 data DetachVolumeResponse = DetachVolumeResponse
-    { dvrrsAttachTime :: Maybe UTCTime
+    { dvrrAttachTime :: Maybe UTCTime
       -- ^ Timestamp when this attachment initiated.
-    , dvrrsDeleteOnTermination :: Maybe Bool
+    , dvrrDeleteOnTermination :: Maybe Bool
       -- ^ ` Whether this volume will be deleted or not when the associated instance
       -- is terminated.
-    , dvrrsDevice :: Maybe Text
+    , dvrrDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
-    , dvrrsInstanceId :: Maybe Text
-    , dvrrsState :: Maybe VolumeAttachmentState
-    , dvrrsVolumeId :: Maybe Text
+    , dvrrInstanceId :: Maybe Text
+    , dvrrState :: Maybe VolumeAttachmentState
+    , dvrrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML DetachVolumeResponse where

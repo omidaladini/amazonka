@@ -47,13 +47,13 @@ instance AWSRequest DescribeLaunchConfigurations where
 
 instance AWSPager DescribeLaunchConfigurations where
     next rq rs
-        | Just x <- lcnursNextToken rs = Just $ rq { lcnuNextToken = Just x }
+        | Just x <- lcnurNextToken rs = Just $ rq { lcnuNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeLaunchConfigurationsResponse = DescribeLaunchConfigurationsResponse
-    { lcnursLaunchConfigurations :: [LaunchConfiguration]
+    { lcnurLaunchConfigurations :: [LaunchConfiguration]
       -- ^ A list of launch configurations.
-    , lcnursNextToken :: Maybe Text
+    , lcnurNextToken :: Maybe Text
       -- ^ A string that marks the start of the next batch of returned results.
     } deriving (Eq, Show, Generic)
 

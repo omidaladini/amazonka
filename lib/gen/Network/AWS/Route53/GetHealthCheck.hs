@@ -58,7 +58,7 @@ instance AWSRequest GetHealthCheck where
     request = getRestXML service
 
 data GetHealthCheckResponse = GetHealthCheckResponse
-    { ghcrrsHealthCheck :: HealthCheck
+    { ghcrrHealthCheck :: HealthCheck
       -- ^ A complex type that contains the information about the specified health
       -- check.
     } deriving (Eq, Show, Generic)

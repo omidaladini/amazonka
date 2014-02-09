@@ -89,8 +89,8 @@ instance AWSRequest UploadPart where
     response = undefined
 
 data UploadPartResponse = UploadPartResponse
-    { uprsETag :: Maybe Text
+    { uprETag :: Maybe Text
       -- ^ Entity tag for the uploaded object.
-    , uprsServerSideEncryption :: Maybe ServerSideEncryption
+    , uprServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
     } deriving (Eq, Show, Generic)

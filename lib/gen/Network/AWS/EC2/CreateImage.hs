@@ -65,7 +65,7 @@ instance AWSRequest CreateImage where
     request = getQuery service "CreateImage"
 
 data CreateImageResponse = CreateImageResponse
-    { cisrsImageId :: Maybe Text
+    { cisrImageId :: Maybe Text
       -- ^ The ID of the new AMI.
     } deriving (Eq, Show, Generic)
 

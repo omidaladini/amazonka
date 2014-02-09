@@ -49,7 +49,7 @@ instance AWSRequest CreateAccessKey where
     request = getQuery service "CreateAccessKey"
 
 data CreateAccessKeyResponse = CreateAccessKeyResponse
-    { cakrrsAccessKey :: AccessKey
+    { cakrrAccessKey :: AccessKey
       -- ^ Information about the access key.
     } deriving (Eq, Show, Generic)
 

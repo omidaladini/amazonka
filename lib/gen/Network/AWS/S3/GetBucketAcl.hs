@@ -55,9 +55,9 @@ instance AWSRequest GetBucketAcl where
     response = undefined
 
 data GetBucketAclResponse = GetBucketAclResponse
-    { gbarsGrants :: [Grant]
+    { gbarGrants :: [Grant]
       -- ^ A list of grants.
-    , gbarsOwner :: Maybe Owner
+    , gbarOwner :: Maybe Owner
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketAclResponse where

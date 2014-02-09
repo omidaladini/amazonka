@@ -53,7 +53,7 @@ instance AWSRequest DescribeLoadBalancerPolicyTypes where
     request = getQuery service "DescribeLoadBalancerPolicyTypes"
 
 data DescribeLoadBalancerPolicyTypesResponse = DescribeLoadBalancerPolicyTypesResponse
-    { dlbptirsPolicyTypeDescriptions :: [PolicyTypeDescription]
+    { dlbptirPolicyTypeDescriptions :: [PolicyTypeDescription]
       -- ^ List of policy type description structures of the specified policy type. If
       -- no policy type names are specified, returns the description of all the
       -- policy types defined by Elastic Load Balancing service.

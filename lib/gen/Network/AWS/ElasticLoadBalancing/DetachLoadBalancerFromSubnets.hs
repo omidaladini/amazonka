@@ -59,7 +59,7 @@ instance AWSRequest DetachLoadBalancerFromSubnets where
     request = getQuery service "DetachLoadBalancerFromSubnets"
 
 data DetachLoadBalancerFromSubnetsResponse = DetachLoadBalancerFromSubnetsResponse
-    { dlbfsirsSubnets :: [Text]
+    { dlbfsirSubnets :: [Text]
       -- ^ A list of subnet IDs the load balancer is now attached to.
     } deriving (Eq, Show, Generic)
 

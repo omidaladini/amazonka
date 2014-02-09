@@ -63,7 +63,7 @@ instance AWSRequest GetServerCertificate where
     request = getQuery service "GetServerCertificate"
 
 data GetServerCertificateResponse = GetServerCertificateResponse
-    { gscrrsServerCertificate :: ServerCertificate
+    { gscrrServerCertificate :: ServerCertificate
       -- ^ Information about the server certificate.
     } deriving (Eq, Show, Generic)
 

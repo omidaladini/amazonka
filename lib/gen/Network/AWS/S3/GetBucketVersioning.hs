@@ -55,12 +55,12 @@ instance AWSRequest GetBucketVersioning where
     response = undefined
 
 data GetBucketVersioningResponse = GetBucketVersioningResponse
-    { gbvrsMfaDelete :: Maybe MfaDelete
+    { gbvrMfaDelete :: Maybe MfaDelete
       -- ^ Specifies whether MFA delete is enabled in the bucket versioning
       -- configuration. This element is only returned if the bucket has been
       -- configured with MFA delete. If the bucket has never been so configured,
       -- this element is not returned.
-    , gbvrsStatus :: Maybe Status
+    , gbvrStatus :: Maybe Status
       -- ^ The versioning state of the bucket.
     } deriving (Eq, Show, Generic)
 

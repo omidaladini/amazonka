@@ -80,7 +80,7 @@ instance AWSRequest CreateSAMLProvider where
     request = getQuery service "CreateSAMLProvider"
 
 data CreateSAMLProviderResponse = CreateSAMLProviderResponse
-    { csamlprrsSAMLProviderArn :: Maybe Text
+    { csamlprrSAMLProviderArn :: Maybe Text
       -- ^ The Amazon Resource Name (ARN) of the SAML provider.
     } deriving (Eq, Show, Generic)
 

@@ -35,7 +35,7 @@ instance AWSRequest DescribeConversionTasks where
     request = getQuery service "DescribeConversionTasks"
 
 data DescribeConversionTasksResponse = DescribeConversionTasksResponse
-    { dctrrsConversionTasks :: [ConversionTask]
+    { dctrrConversionTasks :: [ConversionTask]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeConversionTasksResponse where

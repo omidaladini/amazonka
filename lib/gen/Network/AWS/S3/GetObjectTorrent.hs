@@ -60,5 +60,5 @@ instance AWSRequest GetObjectTorrent where
     response = undefined
 
 data GetObjectTorrentResponse = GetObjectTorrentResponse
-    { gotrsBody :: ResumableSource AWS ByteString
+    { gotrBody :: ResumableSource AWS ByteString
     }

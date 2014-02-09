@@ -66,7 +66,7 @@ instance AWSRequest CreateVirtualMFADevice where
     request = getQuery service "CreateVirtualMFADevice"
 
 data CreateVirtualMFADeviceResponse = CreateVirtualMFADeviceResponse
-    { cvmfadrrsVirtualMFADevice :: VirtualMFADevice
+    { cvmfadrrVirtualMFADevice :: VirtualMFADevice
       -- ^ A newly created virtual MFA device.
     } deriving (Eq, Show, Generic)
 

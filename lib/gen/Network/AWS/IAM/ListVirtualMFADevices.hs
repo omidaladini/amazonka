@@ -62,18 +62,18 @@ instance AWSRequest ListVirtualMFADevices where
 
 instance AWSPager ListVirtualMFADevices where
     next rq rs
-        | Just x <- lvmfadrrsMarker rs = Just $ rq { lvmfadrMarker = Just x }
+        | Just x <- lvmfadrrMarker rs = Just $ rq { lvmfadrMarker = Just x }
         | otherwise = Nothing
 
 data ListVirtualMFADevicesResponse = ListVirtualMFADevicesResponse
-    { lvmfadrrsIsTruncated :: Maybe Bool
+    { lvmfadrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more items to list. If your results
       -- were truncated, you can make a subsequent pagination request using the
       -- Marker request parameter to retrieve more items the list.
-    , lvmfadrrsMarker :: Maybe Text
+    , lvmfadrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
-    , lvmfadrrsVirtualMFADevices :: [VirtualMFADevice]
+    , lvmfadrrVirtualMFADevices :: [VirtualMFADevice]
     } deriving (Eq, Show, Generic)
 
 instance FromXML ListVirtualMFADevicesResponse where

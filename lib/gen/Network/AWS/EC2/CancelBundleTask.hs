@@ -49,7 +49,7 @@ instance AWSRequest CancelBundleTask where
     request = getQuery service "CancelBundleTask"
 
 data CancelBundleTaskResponse = CancelBundleTaskResponse
-    { cbtrrsBundleTask :: Maybe BundleTask
+    { cbtrrBundleTask :: Maybe BundleTask
       -- ^ The canceled bundle task.
     } deriving (Eq, Show, Generic)
 

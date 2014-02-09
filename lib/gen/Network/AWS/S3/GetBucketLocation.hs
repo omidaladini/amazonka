@@ -55,7 +55,7 @@ instance AWSRequest GetBucketLocation where
     response = undefined
 
 data GetBucketLocationResponse = GetBucketLocationResponse
-    { gblrsLocationConstraint :: Maybe Text
+    { gblrLocationConstraint :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketLocationResponse where

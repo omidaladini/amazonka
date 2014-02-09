@@ -102,15 +102,15 @@ instance AWSRequest CreateHostedZone where
     request = postRestXML service
 
 data CreateHostedZoneResponse = CreateHostedZoneResponse
-    { chzrrsChangeInfo :: ChangeInfo
+    { chzrrChangeInfo :: ChangeInfo
       -- ^ A complex type that contains information about the request to create a
       -- hosted zone. This includes an ID that you use when you call the GetChange
       -- action to get the current status of the change request.
-    , chzrrsDelegationSet :: DelegationSet
+    , chzrrDelegationSet :: DelegationSet
       -- ^ A complex type that contains name server information.
-    , chzrrsHostedZone :: HostedZone
+    , chzrrHostedZone :: HostedZone
       -- ^ A complex type that contains identifying information about the hosted zone.
-    , chzrrsLocation :: !Text
+    , chzrrLocation :: !Text
       -- ^ The unique URL representing the new hosted zone.
     } deriving (Eq, Show, Generic)
 

@@ -91,7 +91,7 @@ instance AWSRequest UploadSigningCertificate where
     request = getQuery service "UploadSigningCertificate"
 
 data UploadSigningCertificateResponse = UploadSigningCertificateResponse
-    { uscsrsCertificate :: SigningCertificate
+    { uscsrCertificate :: SigningCertificate
       -- ^ Information about the certificate.
     } deriving (Eq, Show, Generic)
 

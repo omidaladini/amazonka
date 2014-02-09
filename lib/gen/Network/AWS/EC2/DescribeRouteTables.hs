@@ -51,7 +51,7 @@ instance AWSRequest DescribeRouteTables where
     request = getQuery service "DescribeRouteTables"
 
 data DescribeRouteTablesResponse = DescribeRouteTablesResponse
-    { drttrsRouteTables :: [RouteTable]
+    { drttrRouteTables :: [RouteTable]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeRouteTablesResponse where

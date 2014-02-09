@@ -74,27 +74,27 @@ instance AWSRequest ListParts where
     response = undefined
 
 data ListPartsResponse = ListPartsResponse
-    { lprsBucket :: Maybe Text
+    { lprBucket :: Maybe Text
       -- ^ Name of the bucket to which the multipart upload was initiated.
-    , lprsInitiator :: Maybe Initiator
+    , lprInitiator :: Maybe Initiator
       -- ^ Identifies who initiated the multipart upload.
-    , lprsIsTruncated :: Maybe Bool
+    , lprIsTruncated :: Maybe Bool
       -- ^ Indicates whether the returned list of parts is truncated.
-    , lprsKey :: Maybe Text
+    , lprKey :: Maybe Text
       -- ^ Object key for which the multipart upload was initiated.
-    , lprsMaxParts :: Maybe Int
+    , lprMaxParts :: Maybe Int
       -- ^ Maximum number of parts that were allowed in the response.
-    , lprsNextPartNumberMarker :: Maybe Int
+    , lprNextPartNumberMarker :: Maybe Int
       -- ^ When a list is truncated, this element specifies the last part in the list,
       -- as well as the value to use for the part-number-marker request parameter in
       -- a subsequent request.
-    , lprsOwner :: Maybe Owner
-    , lprsPartNumberMarker :: Maybe Int
+    , lprOwner :: Maybe Owner
+    , lprPartNumberMarker :: Maybe Int
       -- ^ Part number after which listing begins.
-    , lprsParts :: [Part]
-    , lprsStorageClass :: Maybe StorageClass
+    , lprParts :: [Part]
+    , lprStorageClass :: Maybe StorageClass
       -- ^ The class of storage used to store the object.
-    , lprsUploadId :: Maybe Text
+    , lprUploadId :: Maybe Text
       -- ^ Upload ID identifying the multipart upload whose parts are being listed.
     } deriving (Eq, Show, Generic)
 

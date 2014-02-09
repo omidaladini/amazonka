@@ -50,13 +50,13 @@ instance AWSRequest DescribeLoadBalancers where
 
 instance AWSPager DescribeLoadBalancers where
     next rq rs
-        | Just x <- dapirsNextMarker rs = Just $ rq { dapiMarker = Just x }
+        | Just x <- dapirNextMarker rs = Just $ rq { dapiMarker = Just x }
         | otherwise = Nothing
 
 data DescribeLoadBalancersResponse = DescribeLoadBalancersResponse
-    { dapirsLoadBalancerDescriptions :: [LoadBalancerDescription]
+    { dapirLoadBalancerDescriptions :: [LoadBalancerDescription]
       -- ^ A list of load balancer description structures.
-    , dapirsNextMarker :: Maybe Text
+    , dapirNextMarker :: Maybe Text
       -- ^ An optional parameter reserved for future use.
     } deriving (Eq, Show, Generic)
 

@@ -64,7 +64,7 @@ instance AWSRequest CreateSubnet where
     request = getQuery service "CreateSubnet"
 
 data CreateSubnetResponse = CreateSubnetResponse
-    { cssrsSubnet :: Maybe Subnet
+    { cssrSubnet :: Maybe Subnet
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateSubnetResponse where

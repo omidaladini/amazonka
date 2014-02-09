@@ -68,7 +68,7 @@ instance AWSRequest DeleteHostedZone where
     request = deleteRestXML service
 
 data DeleteHostedZoneResponse = DeleteHostedZoneResponse
-    { dhzrrsChangeInfo :: ChangeInfo
+    { dhzrrChangeInfo :: ChangeInfo
       -- ^ A complex type that contains the ID, the status, and the date and time of
       -- your delete request.
     } deriving (Eq, Show, Generic)

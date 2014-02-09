@@ -40,7 +40,7 @@ instance AWSRequest DescribeRegions where
     request = getQuery service "DescribeRegions"
 
 data DescribeRegionsResponse = DescribeRegionsResponse
-    { drsrsRegions :: [Region]
+    { drsrRegions :: [Region]
       -- ^ The list of described Amazon EC2 regions.
     } deriving (Eq, Show, Generic)
 

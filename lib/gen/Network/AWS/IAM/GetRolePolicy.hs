@@ -55,11 +55,11 @@ instance AWSRequest GetRolePolicy where
     request = getQuery service "GetRolePolicy"
 
 data GetRolePolicyResponse = GetRolePolicyResponse
-    { grprrsPolicyDocument :: !Text
+    { grprrPolicyDocument :: !Text
       -- ^ The policy document.
-    , grprrsPolicyName :: !Text
+    , grprrPolicyName :: !Text
       -- ^ The name of the policy.
-    , grprrsRoleName :: !Text
+    , grprrRoleName :: !Text
       -- ^ The role the policy is associated with.
     } deriving (Eq, Show, Generic)
 

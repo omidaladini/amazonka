@@ -69,8 +69,8 @@ instance AWSRequest DeleteObjects where
     response = undefined
 
 data DeleteObjectsResponse = DeleteObjectsResponse
-    { dprsDeleted :: [Deleted]
-    , dprsErrors :: [Error]
+    { dprDeleted :: [Deleted]
+    , dprErrors :: [Error]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DeleteObjectsResponse where

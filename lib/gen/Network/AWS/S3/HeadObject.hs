@@ -93,52 +93,52 @@ instance AWSRequest HeadObject where
     response = undefined
 
 data HeadObjectResponse = HeadObjectResponse
-    { horsAcceptRanges :: Maybe Text
-    , horsCacheControl :: Maybe Text
+    { horAcceptRanges :: Maybe Text
+    , horCacheControl :: Maybe Text
       -- ^ Specifies caching behavior along the request/reply chain.
-    , horsContentDisposition :: Maybe Text
+    , horContentDisposition :: Maybe Text
       -- ^ Specifies presentational information for the object.
-    , horsContentEncoding :: Maybe Text
+    , horContentEncoding :: Maybe Text
       -- ^ Specifies what content encodings have been applied to the object and thus
       -- what decoding mechanisms must be applied to obtain the media-type
       -- referenced by the Content-Type header field.
-    , horsContentLanguage :: Maybe Text
+    , horContentLanguage :: Maybe Text
       -- ^ The language the content is in.
-    , horsContentLength :: Maybe Int
+    , horContentLength :: Maybe Int
       -- ^ Size of the body in bytes.
-    , horsContentType :: Maybe Text
+    , horContentType :: Maybe Text
       -- ^ A standard MIME type describing the format of the object data.
-    , horsDeleteMarker :: Maybe Bool
+    , horDeleteMarker :: Maybe Bool
       -- ^ Specifies whether the object retrieved was (true) or was not (false) a
       -- Delete Marker. If false, this response header does not appear in the
       -- response.
-    , horsETag :: Maybe Text
+    , horETag :: Maybe Text
       -- ^ An ETag is an opaque identifier assigned by a web server to a specific
       -- version of a resource found at a URL.
-    , horsExpiration :: Maybe Text
+    , horExpiration :: Maybe Text
       -- ^ If the object expiration is configured (see PUT Bucket lifecycle), the
       -- response includes this header. It includes the expiry-date and rule-id key
       -- value pairs providing object expiration information. The value of the
       -- rule-id is URL encoded.
-    , horsExpires :: Maybe UTCTime
+    , horExpires :: Maybe UTCTime
       -- ^ The date and time at which the object is no longer cacheable.
-    , horsLastModified :: Maybe UTCTime
+    , horLastModified :: Maybe UTCTime
       -- ^ Last modified date of the object.
-    , horsMetadata :: HashMap Text Text
+    , horMetadata :: HashMap Text Text
       -- ^ A map of metadata to store with the object in S3.
-    , horsMissingMeta :: Maybe Int
+    , horMissingMeta :: Maybe Int
       -- ^ This is set to the number of metadata entries not returned in x-amz-meta
       -- headers. This can happen if you create metadata using an API like SOAP that
       -- supports more flexible metadata than the REST API. For example, using SOAP,
       -- you can create metadata whose values are not legal HTTP headers.
-    , horsRestore :: Maybe Text
+    , horRestore :: Maybe Text
       -- ^ Provides information about object restoration operation and expiration time
       -- of the restored object copy.
-    , horsServerSideEncryption :: Maybe ServerSideEncryption
+    , horServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
-    , horsVersionId :: Maybe Text
+    , horVersionId :: Maybe Text
       -- ^ Version of the object.
-    , horsWebsiteRedirectLocation :: Maybe Text
+    , horWebsiteRedirectLocation :: Maybe Text
       -- ^ If the bucket is configured as a website, redirects requests for this
       -- object to another object in the same bucket or to an external URL. Amazon
       -- S3 stores the value of this header in the object metadata.

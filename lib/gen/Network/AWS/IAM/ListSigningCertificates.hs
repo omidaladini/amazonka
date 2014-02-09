@@ -71,18 +71,18 @@ instance AWSRequest ListSigningCertificates where
 
 instance AWSPager ListSigningCertificates where
     next rq rs
-        | Just x <- lscsrsMarker rs = Just $ rq { lscsMarker = Just x }
+        | Just x <- lscsrMarker rs = Just $ rq { lscsMarker = Just x }
         | otherwise = Nothing
 
 data ListSigningCertificatesResponse = ListSigningCertificatesResponse
-    { lscsrsCertificates :: [SigningCertificate]
+    { lscsrCertificates :: [SigningCertificate]
       -- ^ A list of the user's signing certificate information.
-    , lscsrsIsTruncated :: Maybe Bool
+    , lscsrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more certificate IDs to list. If
       -- your results were truncated, you can make a subsequent pagination request
       -- using the Marker request parameter to retrieve more certificates in the
       -- list.
-    , lscsrsMarker :: Maybe Text
+    , lscsrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
     } deriving (Eq, Show, Generic)

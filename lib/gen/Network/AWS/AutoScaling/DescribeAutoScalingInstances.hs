@@ -54,13 +54,13 @@ instance AWSRequest DescribeAutoScalingInstances where
 
 instance AWSPager DescribeAutoScalingInstances where
     next rq rs
-        | Just x <- dasitrsNextToken rs = Just $ rq { dasitNextToken = Just x }
+        | Just x <- dasitrNextToken rs = Just $ rq { dasitNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeAutoScalingInstancesResponse = DescribeAutoScalingInstancesResponse
-    { dasitrsAutoScalingInstances :: [AutoScalingInstanceDetails]
+    { dasitrAutoScalingInstances :: [AutoScalingInstanceDetails]
       -- ^ A list of Auto Scaling instances.
-    , dasitrsNextToken :: Maybe Text
+    , dasitrNextToken :: Maybe Text
       -- ^ A string that marks the start of the next batch of returned results.
     } deriving (Eq, Show, Generic)
 

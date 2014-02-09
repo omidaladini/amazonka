@@ -56,7 +56,7 @@ instance AWSRequest GetBucketLogging where
     response = undefined
 
 data GetBucketLoggingResponse = GetBucketLoggingResponse
-    { gborsLoggingEnabled :: Maybe LoggingEnabled
+    { gborLoggingEnabled :: Maybe LoggingEnabled
     } deriving (Eq, Show, Generic)
 
 instance FromXML GetBucketLoggingResponse where

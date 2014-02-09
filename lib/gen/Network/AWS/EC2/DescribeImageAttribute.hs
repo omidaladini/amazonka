@@ -53,21 +53,21 @@ instance AWSRequest DescribeImageAttribute where
     request = getQuery service "DescribeImageAttribute"
 
 data DescribeImageAttributeResponse = DescribeImageAttributeResponse
-    { diasrsBlockDeviceMappings :: [BlockDeviceMapping]
+    { diasrBlockDeviceMappings :: [BlockDeviceMapping]
       -- ^ Block device mappings for the associated AMI.
-    , diasrsDescription :: Maybe AttributeValue
+    , diasrDescription :: Maybe AttributeValue
       -- ^ User-created description of the associated AMI.
-    , diasrsImageId :: Maybe Text
+    , diasrImageId :: Maybe Text
       -- ^ The ID of the associated AMI.
-    , diasrsKernelId :: Maybe AttributeValue
+    , diasrKernelId :: Maybe AttributeValue
       -- ^ Kernel ID of the associated AMI.
-    , diasrsLaunchPermissions :: [LaunchPermission]
+    , diasrLaunchPermissions :: [LaunchPermission]
       -- ^ Launch permissions for the associated AMI.
-    , diasrsProductCodes :: [ProductCode]
+    , diasrProductCodes :: [ProductCode]
       -- ^ Product codes for the associated AMI.
-    , diasrsRamdiskId :: Maybe AttributeValue
+    , diasrRamdiskId :: Maybe AttributeValue
       -- ^ Ramdisk ID of the associated AMI.
-    , diasrsSriovNetSupport :: Maybe AttributeValue
+    , diasrSriovNetSupport :: Maybe AttributeValue
       -- ^ String value.
     } deriving (Eq, Show, Generic)
 

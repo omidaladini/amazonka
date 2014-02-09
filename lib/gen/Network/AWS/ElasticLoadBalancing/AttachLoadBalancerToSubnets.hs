@@ -60,7 +60,7 @@ instance AWSRequest AttachLoadBalancerToSubnets where
     request = getQuery service "AttachLoadBalancerToSubnets"
 
 data AttachLoadBalancerToSubnetsResponse = AttachLoadBalancerToSubnetsResponse
-    { albtsirsSubnets :: [Text]
+    { albtsirSubnets :: [Text]
       -- ^ A list of subnet IDs attached to the load balancer.
     } deriving (Eq, Show, Generic)
 

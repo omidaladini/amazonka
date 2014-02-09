@@ -62,10 +62,10 @@ instance AWSRequest GetHostedZone where
     request = getRestXML service
 
 data GetHostedZoneResponse = GetHostedZoneResponse
-    { ghzrrsDelegationSet :: DelegationSet
+    { ghzrrDelegationSet :: DelegationSet
       -- ^ A complex type that contains information about the name servers for the
       -- specified hosted zone.
-    , ghzrrsHostedZone :: HostedZone
+    , ghzrrHostedZone :: HostedZone
       -- ^ A complex type that contains the information about the specified hosted
       -- zone.
     } deriving (Eq, Show, Generic)

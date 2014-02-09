@@ -133,13 +133,13 @@ instance AWSRequest CreateMultipartUpload where
     response = undefined
 
 data CreateMultipartUploadResponse = CreateMultipartUploadResponse
-    { cmursBucket :: Maybe Text
+    { cmurBucket :: Maybe Text
       -- ^ Name of the bucket to which the multipart upload was initiated.
-    , cmursKey :: Maybe Text
+    , cmurKey :: Maybe Text
       -- ^ Object key for which the multipart upload was initiated.
-    , cmursServerSideEncryption :: Maybe ServerSideEncryption
+    , cmurServerSideEncryption :: Maybe ServerSideEncryption
       -- ^ The Server-side encryption algorithm used when storing this object in S3.
-    , cmursUploadId :: Maybe Text
+    , cmurUploadId :: Maybe Text
       -- ^ ID for the initiated multipart upload.
     } deriving (Eq, Show, Generic)
 

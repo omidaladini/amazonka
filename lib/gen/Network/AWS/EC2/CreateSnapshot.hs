@@ -55,26 +55,26 @@ instance AWSRequest CreateSnapshot where
     request = getQuery service "CreateSnapshot"
 
 data CreateSnapshotResponse = CreateSnapshotResponse
-    { cstrsDescription :: Maybe Text
+    { cstrDescription :: Maybe Text
       -- ^ Description of the snapshot.
-    , cstrsOwnerAlias :: Maybe Text
+    , cstrOwnerAlias :: Maybe Text
       -- ^ The AWS account alias (e.g., "amazon", "redhat", "self", etc.) or AWS
       -- account ID that owns the AMI.
-    , cstrsOwnerId :: Maybe Text
+    , cstrOwnerId :: Maybe Text
       -- ^ AWS Access Key ID of the user who owns the snapshot.
-    , cstrsProgress :: Maybe Text
+    , cstrProgress :: Maybe Text
       -- ^ The progress of the snapshot, in percentage.
-    , cstrsSnapshotId :: Maybe Text
+    , cstrSnapshotId :: Maybe Text
       -- ^ The unique ID of this snapshot.
-    , cstrsStartTime :: Maybe UTCTime
+    , cstrStartTime :: Maybe UTCTime
       -- ^ Time stamp when the snapshot was initiated.
-    , cstrsState :: Maybe SnapshotState
+    , cstrState :: Maybe SnapshotState
       -- ^ Snapshot state (e.g., pending, completed, or error).
-    , cstrsTags :: [Tag]
+    , cstrTags :: [Tag]
       -- ^ A list of tags for the Snapshot.
-    , cstrsVolumeId :: Maybe Text
+    , cstrVolumeId :: Maybe Text
       -- ^ The ID of the volume from which this snapshot was created.
-    , cstrsVolumeSize :: Maybe Int
+    , cstrVolumeSize :: Maybe Int
       -- ^ The size of the volume, in gigabytes.
     } deriving (Eq, Show, Generic)
 

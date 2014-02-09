@@ -47,7 +47,7 @@ instance AWSRequest CreateInstanceExportTask where
     request = getQuery service "CreateInstanceExportTask"
 
 data CreateInstanceExportTaskResponse = CreateInstanceExportTaskResponse
-    { cietrrsExportTask :: Maybe ExportTask
+    { cietrrExportTask :: Maybe ExportTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateInstanceExportTaskResponse where

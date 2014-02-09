@@ -54,11 +54,11 @@ instance AWSRequest GetUserPolicy where
     request = getQuery service "GetUserPolicy"
 
 data GetUserPolicyResponse = GetUserPolicyResponse
-    { guprrsPolicyDocument :: !Text
+    { guprrPolicyDocument :: !Text
       -- ^ The policy document.
-    , guprrsPolicyName :: !Text
+    , guprrPolicyName :: !Text
       -- ^ The name of the policy.
-    , guprrsUserName :: !Text
+    , guprrUserName :: !Text
       -- ^ The user the policy is associated with.
     } deriving (Eq, Show, Generic)
 

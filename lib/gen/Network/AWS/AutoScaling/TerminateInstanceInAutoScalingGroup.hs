@@ -52,7 +52,7 @@ instance AWSRequest TerminateInstanceInAutoScalingGroup where
     request = getQuery service "TerminateInstanceInAutoScalingGroup"
 
 data TerminateInstanceInAutoScalingGroupResponse = TerminateInstanceInAutoScalingGroupResponse
-    { tiiasgtrsActivity :: Maybe Activity
+    { tiiasgtrActivity :: Maybe Activity
       -- ^ A scaling Activity.
     } deriving (Eq, Show, Generic)
 

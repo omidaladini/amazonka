@@ -85,17 +85,17 @@ instance AWSRequest ListObjects where
     response = undefined
 
 data ListObjectsResponse = ListObjectsResponse
-    { lorsCommonPrefixes :: [CommonPrefixes]
-    , lorsContents :: [Contents]
-    , lorsEncodingType :: Maybe Text
+    { lorCommonPrefixes :: [CommonPrefixes]
+    , lorContents :: [Contents]
+    , lorEncodingType :: Maybe Text
       -- ^ Encoding type used by Amazon S3 to encode object keys in the response.
-    , lorsIsTruncated :: Maybe Bool
+    , lorIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether or not Amazon S3 returned all of the results
       -- that satisfied the search criteria.
-    , lorsMarker :: Maybe Text
-    , lorsMaxKeys :: Maybe Int
-    , lorsName :: Maybe Text
-    , lorsNextMarker :: Maybe Text
+    , lorMarker :: Maybe Text
+    , lorMaxKeys :: Maybe Int
+    , lorName :: Maybe Text
+    , lorNextMarker :: Maybe Text
       -- ^ When response is truncated (the IsTruncated element value in the response
       -- is true), you can use the key name in this field as marker in the
       -- subsequent request to get next set of objects. Amazon S3 lists objects in
@@ -104,7 +104,7 @@ data ListObjectsResponse = ListObjectsResponse
       -- NextMaker and it is truncated, you can use the value of the last Key in the
       -- response as the marker in the subsequent request to get the next set of
       -- object keys.
-    , lorsPrefix :: Maybe Text
+    , lorPrefix :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML ListObjectsResponse where

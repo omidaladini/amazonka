@@ -41,9 +41,9 @@ instance AWSRequest DescribeReservedInstancesModifications where
     request = getQuery service "DescribeReservedInstancesModifications"
 
 data DescribeReservedInstancesModificationsResponse = DescribeReservedInstancesModificationsResponse
-    { drimrrsNextToken :: Maybe Text
+    { drimrrNextToken :: Maybe Text
       -- ^ The string specifying the next paginated set of results to return.
-    , drimrrsReservedInstancesModifications :: [ReservedInstancesModification]
+    , drimrrReservedInstancesModifications :: [ReservedInstancesModification]
       -- ^ The list of Reserved Instances modification requests.
     } deriving (Eq, Show, Generic)
 

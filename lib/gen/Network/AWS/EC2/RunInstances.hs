@@ -164,16 +164,16 @@ instance AWSRequest RunInstances where
     request = getQuery service "RunInstances"
 
 data RunInstancesResponse = RunInstancesResponse
-    { rirrsGroups :: [GroupIdentifier]
+    { rirrGroups :: [GroupIdentifier]
       -- ^ The list of security groups requested for the instances in this
       -- reservation.
-    , rirrsInstances :: [Instance]
+    , rirrInstances :: [Instance]
       -- ^ The list of Amazon EC2 instances included in this reservation.
-    , rirrsOwnerId :: Maybe Text
+    , rirrOwnerId :: Maybe Text
       -- ^ The AWS Access Key ID of the user who owns the reservation.
-    , rirrsRequesterId :: Maybe Text
+    , rirrRequesterId :: Maybe Text
       -- ^ The unique ID of the user who requested the instances in this reservation.
-    , rirrsReservationId :: Maybe Text
+    , rirrReservationId :: Maybe Text
       -- ^ The unique ID of this reservation.
     } deriving (Eq, Show, Generic)
 

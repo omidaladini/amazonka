@@ -78,14 +78,14 @@ instance AWSRequest DescribeInstanceStatus where
 
 instance AWSPager DescribeInstanceStatus where
     next rq rs
-        | Just x <- disrrsNextToken rs = Just $ rq { disrNextToken = Just x }
+        | Just x <- disrrNextToken rs = Just $ rq { disrNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeInstanceStatusResponse = DescribeInstanceStatusResponse
-    { disrrsInstanceStatuses :: [InstanceStatus]
+    { disrrInstanceStatuses :: [InstanceStatus]
       -- ^ Collection of instance statuses describing the state of the requested
       -- instances.
-    , disrrsNextToken :: Maybe Text
+    , disrrNextToken :: Maybe Text
       -- ^ A string specifying the next paginated set of results to return.
     } deriving (Eq, Show, Generic)
 

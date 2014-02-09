@@ -47,7 +47,7 @@ instance AWSRequest GetLoginProfile where
     request = getQuery service "GetLoginProfile"
 
 data GetLoginProfileResponse = GetLoginProfileResponse
-    { glprrsLoginProfile :: LoginProfile
+    { glprrLoginProfile :: LoginProfile
       -- ^ User name and password create date for the user.
     } deriving (Eq, Show, Generic)
 

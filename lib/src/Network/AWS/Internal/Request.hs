@@ -52,6 +52,9 @@ getQuery :: (ToQuery a, AWSRequest a)
          -> RawRequest
 getQuery = undefined
 
+
+The Action= or Version= could be added by toQuery?
+
 getJSON :: (ToJSON a, AWSRequest a)
         => Service
         -> a

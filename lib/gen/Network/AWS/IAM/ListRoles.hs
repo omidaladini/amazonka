@@ -65,18 +65,18 @@ instance AWSRequest ListRoles where
 
 instance AWSPager ListRoles where
     next rq rs
-        | Just x <- lrrrsMarker rs = Just $ rq { lrrMarker = Just x }
+        | Just x <- lrrrMarker rs = Just $ rq { lrrMarker = Just x }
         | otherwise = Nothing
 
 data ListRolesResponse = ListRolesResponse
-    { lrrrsIsTruncated :: Maybe Bool
+    { lrrrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more roles to list. If your results
       -- were truncated, you can make a subsequent pagination request using the
       -- Marker request parameter to retrieve more roles in the list.
-    , lrrrsMarker :: Maybe Text
+    , lrrrMarker :: Maybe Text
       -- ^ If IsTruncated is true, this element is present and contains the value to
       -- use for the Marker parameter in a subsequent pagination request.
-    , lrrrsRoles :: [Role]
+    , lrrrRoles :: [Role]
       -- ^ A list of roles.
     } deriving (Eq, Show, Generic)
 

@@ -55,31 +55,31 @@ instance AWSRequest DescribeInstanceAttribute where
     request = getQuery service "DescribeInstanceAttribute"
 
 data DescribeInstanceAttributeResponse = DescribeInstanceAttributeResponse
-    { diarrsBlockDeviceMappings :: [InstanceBlockDeviceMapping]
+    { diarrBlockDeviceMappings :: [InstanceBlockDeviceMapping]
       -- ^ How block devices are exposed to this instance. Each mapping is made up of
       -- a virtualName and a deviceName.
-    , diarrsDisableApiTermination :: Maybe AttributeBooleanValue
+    , diarrDisableApiTermination :: Maybe AttributeBooleanValue
       -- ^ Whether this instance can be terminated. You must modify this attribute
       -- before you can terminate any "locked" instances.
-    , diarrsEbsOptimized :: Maybe AttributeBooleanValue
+    , diarrEbsOptimized :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , diarrsInstanceId :: Maybe Text
+    , diarrInstanceId :: Maybe Text
       -- ^ The ID of the associated instance.
-    , diarrsInstanceInitiatedShutdownBehavior :: Maybe AttributeValue
+    , diarrInstanceInitiatedShutdownBehavior :: Maybe AttributeValue
       -- ^ Whether this instance's Amazon EBS volumes are deleted when the instance is
       -- shut down.
-    , diarrsInstanceType :: Maybe AttributeValue
+    , diarrInstanceType :: Maybe AttributeValue
       -- ^ The instance type (e.g., m1.small, c1.medium, m2.2xlarge, and so on).
-    , diarrsKernelId :: Maybe AttributeValue
+    , diarrKernelId :: Maybe AttributeValue
       -- ^ The kernel ID of the associated instance.
-    , diarrsProductCodes :: [ProductCode]
-    , diarrsRamdiskId :: Maybe AttributeValue
+    , diarrProductCodes :: [ProductCode]
+    , diarrRamdiskId :: Maybe AttributeValue
       -- ^ The ramdisk ID of the associated instance.
-    , diarrsRootDeviceName :: Maybe AttributeValue
+    , diarrRootDeviceName :: Maybe AttributeValue
       -- ^ The root device name (e.g., /dev/sda1).
-    , diarrsSriovNetSupport :: Maybe AttributeValue
+    , diarrSriovNetSupport :: Maybe AttributeValue
       -- ^ String value.
-    , diarrsUserData :: Maybe AttributeValue
+    , diarrUserData :: Maybe AttributeValue
       -- ^ MIME, Base64-encoded user data.
     } deriving (Eq, Show, Generic)
 

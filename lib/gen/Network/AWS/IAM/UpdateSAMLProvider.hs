@@ -65,7 +65,7 @@ instance AWSRequest UpdateSAMLProvider where
     request = getQuery service "UpdateSAMLProvider"
 
 data UpdateSAMLProviderResponse = UpdateSAMLProviderResponse
-    { usamlprrsSAMLProviderArn :: Maybe Text
+    { usamlprrSAMLProviderArn :: Maybe Text
       -- ^ The Amazon Resource Name (ARN) of the SAML provider that was updated.
     } deriving (Eq, Show, Generic)
 

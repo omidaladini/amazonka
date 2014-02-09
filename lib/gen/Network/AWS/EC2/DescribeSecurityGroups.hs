@@ -45,7 +45,7 @@ instance AWSRequest DescribeSecurityGroups where
     request = getQuery service "DescribeSecurityGroups"
 
 data DescribeSecurityGroupsResponse = DescribeSecurityGroupsResponse
-    { dsgsrsSecurityGroups :: [SecurityGroup]
+    { dsgsrSecurityGroups :: [SecurityGroup]
       -- ^ The list of described Amazon EC2 security groups.
     } deriving (Eq, Show, Generic)
 

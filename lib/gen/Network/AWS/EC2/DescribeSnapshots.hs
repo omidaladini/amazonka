@@ -51,7 +51,7 @@ instance AWSRequest DescribeSnapshots where
     request = getQuery service "DescribeSnapshots"
 
 data DescribeSnapshotsResponse = DescribeSnapshotsResponse
-    { dssrsSnapshots :: [Snapshot]
+    { dssrSnapshots :: [Snapshot]
       -- ^ The list of described EBS snapshots.
     } deriving (Eq, Show, Generic)
 

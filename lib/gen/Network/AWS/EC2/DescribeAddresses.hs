@@ -41,7 +41,7 @@ instance AWSRequest DescribeAddresses where
     request = getQuery service "DescribeAddresses"
 
 data DescribeAddressesResponse = DescribeAddressesResponse
-    { darrsAddresses :: [Address]
+    { darrAddresses :: [Address]
       -- ^ The list of Elastic IPs.
     } deriving (Eq, Show, Generic)
 

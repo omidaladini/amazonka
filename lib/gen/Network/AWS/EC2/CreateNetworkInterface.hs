@@ -53,7 +53,7 @@ instance AWSRequest CreateNetworkInterface where
     request = getQuery service "CreateNetworkInterface"
 
 data CreateNetworkInterfaceResponse = CreateNetworkInterfaceResponse
-    { cnirrsNetworkInterface :: Maybe NetworkInterface
+    { cnirrNetworkInterface :: Maybe NetworkInterface
       -- ^ Specifies the characteristics of a network interface.
     } deriving (Eq, Show, Generic)
 

@@ -41,7 +41,7 @@ instance AWSRequest CancelReservedInstancesListing where
     request = getQuery service "CancelReservedInstancesListing"
 
 data CancelReservedInstancesListingResponse = CancelReservedInstancesListingResponse
-    { crilrrsReservedInstancesListings :: [ReservedInstancesListing]
+    { crilrrReservedInstancesListings :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CancelReservedInstancesListingResponse where

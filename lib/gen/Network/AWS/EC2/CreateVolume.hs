@@ -56,24 +56,24 @@ instance AWSRequest CreateVolume where
     request = getQuery service "CreateVolume"
 
 data CreateVolumeResponse = CreateVolumeResponse
-    { cvsrsAttachments :: [VolumeAttachment]
+    { cvsrAttachments :: [VolumeAttachment]
       -- ^ Information on what this volume is attached to.
-    , cvsrsAvailabilityZone :: Maybe Text
+    , cvsrAvailabilityZone :: Maybe Text
       -- ^ Availability zone in which this volume was created.
-    , cvsrsCreateTime :: Maybe UTCTime
+    , cvsrCreateTime :: Maybe UTCTime
       -- ^ Timestamp when volume creation was initiated.
-    , cvsrsIops :: Maybe Int
-    , cvsrsSize :: Maybe Int
+    , cvsrIops :: Maybe Int
+    , cvsrSize :: Maybe Int
       -- ^ The size of this volume, in gigabytes.
-    , cvsrsSnapshotId :: Maybe Text
+    , cvsrSnapshotId :: Maybe Text
       -- ^ Optional snapshot from which this volume was created.
-    , cvsrsState :: Maybe VolumeState
+    , cvsrState :: Maybe VolumeState
       -- ^ State of this volume (e.g., creating, available).
-    , cvsrsTags :: [Tag]
+    , cvsrTags :: [Tag]
       -- ^ A list of tags for the Volume.
-    , cvsrsVolumeId :: Maybe Text
+    , cvsrVolumeId :: Maybe Text
       -- ^ The unique ID of this volume.
-    , cvsrsVolumeType :: Maybe VolumeType
+    , cvsrVolumeType :: Maybe VolumeType
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateVolumeResponse where

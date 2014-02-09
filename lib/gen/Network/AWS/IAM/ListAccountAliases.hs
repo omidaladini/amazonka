@@ -48,18 +48,18 @@ instance AWSRequest ListAccountAliases where
 
 instance AWSPager ListAccountAliases where
     next rq rs
-        | Just x <- laarrsMarker rs = Just $ rq { laarMarker = Just x }
+        | Just x <- laarrMarker rs = Just $ rq { laarMarker = Just x }
         | otherwise = Nothing
 
 data ListAccountAliasesResponse = ListAccountAliasesResponse
-    { laarrsAccountAliases :: [Text]
+    { laarrAccountAliases :: [Text]
       -- ^ A list of aliases associated with the account.
-    , laarrsIsTruncated :: Maybe Bool
+    , laarrIsTruncated :: Maybe Bool
       -- ^ A flag that indicates whether there are more account aliases to list. If
       -- your results were truncated, you can make a subsequent pagination request
       -- using the Marker request parameter to retrieve more account aliases in the
       -- list.
-    , laarrsMarker :: Maybe Text
+    , laarrMarker :: Maybe Text
       -- ^ Use this only when paginating results, and only in a subsequent request
       -- after you've received a response where the results are truncated. Set it to
       -- the value of the Marker element in the response you just received.

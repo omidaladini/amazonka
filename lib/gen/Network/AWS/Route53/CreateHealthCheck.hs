@@ -75,10 +75,10 @@ instance AWSRequest CreateHealthCheck where
     request = postRestXML service
 
 data CreateHealthCheckResponse = CreateHealthCheckResponse
-    { chcrrsHealthCheck :: HealthCheck
+    { chcrrHealthCheck :: HealthCheck
       -- ^ A complex type that contains identifying information about the health
       -- check.
-    , chcrrsLocation :: !Text
+    , chcrrLocation :: !Text
       -- ^ The unique URL representing the new health check.
     } deriving (Eq, Show, Generic)
 

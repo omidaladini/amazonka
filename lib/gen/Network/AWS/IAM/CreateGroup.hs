@@ -53,7 +53,7 @@ instance AWSRequest CreateGroup where
     request = getQuery service "CreateGroup"
 
 data CreateGroupResponse = CreateGroupResponse
-    { cgrrsGroup :: Group
+    { cgrrGroup :: Group
       -- ^ Information about the group.
     } deriving (Eq, Show, Generic)
 

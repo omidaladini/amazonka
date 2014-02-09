@@ -49,7 +49,7 @@ instance AWSRequest CreateDhcpOptions where
     request = getQuery service "CreateDhcpOptions"
 
 data CreateDhcpOptionsResponse = CreateDhcpOptionsResponse
-    { cdorrsDhcpOptions :: Maybe DhcpOptions
+    { cdorrDhcpOptions :: Maybe DhcpOptions
       -- ^ A set of one or more DHCP options.
     } deriving (Eq, Show, Generic)
 

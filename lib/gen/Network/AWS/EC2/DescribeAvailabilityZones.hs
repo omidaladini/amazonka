@@ -43,7 +43,7 @@ instance AWSRequest DescribeAvailabilityZones where
     request = getQuery service "DescribeAvailabilityZones"
 
 data DescribeAvailabilityZonesResponse = DescribeAvailabilityZonesResponse
-    { dazrrsAvailabilityZones :: [AvailabilityZone]
+    { dazrrAvailabilityZones :: [AvailabilityZone]
       -- ^ The list of described Amazon EC2 availability zones.
     } deriving (Eq, Show, Generic)
 
