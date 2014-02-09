@@ -19,7 +19,8 @@ import Network.AWS.Generics.XML
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: ByteString -> Service
-service b = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} ({{ signature_version }} b) "{{ endpoint_prefix }}" "{{ api_version }}"
+service bucket = Service
+service = Service{% if global_endpoint -%} Global{% else -%} Regional{% endif -%} ({{ signature_version }} bucket) "{{ endpoint_prefix }}" "{{ api_version }}"{% if target_prefix -%} (Just "{{ target_prefix }}"){% else -%} Nothing {% endif -%}
 
 {% if xmlnamespace %}
 xmlOptions :: Tagged a XMLOptions

@@ -24,6 +24,8 @@ module Network.AWS.Core
     , ToQuery  (..)
     , RequestBody
 
+    , genericParseJSON
+    , genericToJSON
     , defaultOptions
     , def
     , queryFromList
@@ -31,7 +33,7 @@ module Network.AWS.Core
     , module Export
     ) where
 
-import Data.Aeson                 (FromJSON(..), ToJSON(..))
+import Data.Aeson                 (FromJSON(..), ToJSON(..), genericParseJSON, genericToJSON)
 import Data.Aeson.Types           (Options(..), defaultOptions)
 import Data.ByteString            (ByteString)
 import Data.Conduit               (ResumableSource)

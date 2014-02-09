@@ -29,14 +29,12 @@ import           Control.Monad.Trans.Resource
 import           Data.ByteString.Char8             (ByteString)
 import qualified Data.ByteString.Lazy.Char8        as LBS
 import           Data.Conduit
-import qualified Data.Conduit.Binary               as Conduit
 import           Data.IORef
 import           Data.Monoid
 import           Data.String
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
 import           Data.Time
-import           Network.AWS.Generics.XML
 import           Network.AWS.Internal.Types.Common
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types
@@ -145,6 +143,7 @@ data Service = Service
     , svcSigner   :: Signee -> Request
     , svcName     :: !ByteString
     , svcVersion  :: !ByteString
+    , svcTarget   :: Maybe ByteString
     }
 
 data RawRequest = RawRequest
@@ -156,16 +155,13 @@ data RawRequest = RawRequest
     , rawBody    :: RequestBody
     }
 
-rawRequest :: Service -> RawRequest
-rawRequest svc = RawRequest svc GET "/" [] [] (RequestBodyBS "")
-
 instance Show RawRequest where
     show RawRequest{..} = unlines
         [ "RawRequest:"
         , "rawMethod  = " ++ show rawMethod
         , "rawPath    = " ++ show rawPath
-        , "rawHeaders = " ++ show rawHeaders
         , "rawQuery   = " ++ show rawQuery
+        , "rawHeaders = " ++ show rawHeaders
         ]
 
 class AWSRequest a where
@@ -176,21 +172,6 @@ class AWSRequest a where
     response :: a
              -> Response (ResumableSource AWS ByteString)
              -> AWS (Either (Er a) (Rs a))
-
-    default response :: (Show (Er a), Show (Rs a), FromXML (Er a), FromXML (Rs a))
-                     => a
-                     -> Response (ResumableSource AWS ByteString)
-                     -> AWS (Either (Er a) (Rs a))
-    response _ rs = do
-        printDebug rs
-        lbs <- responseBody rs $$+- Conduit.sinkLbs
-        printDebug lbs
-        x   <- f (statusIsSuccessful $ responseStatus rs) lbs
-        printDebug x
-        return x
-      where
-        f True  = fmap Right . awsEither . decodeXML
-        f False = fmap Left  . awsEither . decodeXML
 
 class AWSPager a where
     next :: AWSRequest a => a -> Rs a -> Maybe a

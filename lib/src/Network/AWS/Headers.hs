@@ -43,3 +43,6 @@ hAMZDate = ("X-Amz-Date",) . Text.encodeUtf8 . formatISO8601
 
 hAMZToken :: ByteString -> Header
 hAMZToken = ("X-Amz-Security-Token",)
+
+hAMZTarget :: ByteString -> Header
+hAMZTarget = ("X-Amz-Target",)

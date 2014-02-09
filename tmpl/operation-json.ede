@@ -38,7 +38,7 @@ instance ToJSON {{ name }} where
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request  = {{ http.method | lower }}{{ service_type }} service
+    request  = {{ http.method | lower }}{{ service_type }} service "{{ name }}"
     response = responseJSON
 
 {% if pagination.input_token %}
@@ -57,5 +57,4 @@ data {{ name }}Response = {{ name }}Response
 {% endif %}
 
 instance FromJSON {{ name }}Response where
-    fromJSON = genericFromJSON jsonOptions
-
+    parseJSON = genericParseJSON jsonOptions

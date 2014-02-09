@@ -38,7 +38,8 @@ instance ToQuery {{ name }}
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ http.method | lower }}{{ service_type }} service "{{ name }}"
+    request  = {{ http.method | lower }}{{ service_type }} service "{{ name }}"
+    response = responseXML
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where

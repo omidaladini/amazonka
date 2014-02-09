@@ -16,7 +16,7 @@ import Network.AWS.Core
 
 -- | Currently supported version (@{{ api_version }}@) of the @{{ service_full_name }}@ service.
 service :: Service
-service = Service {% if global_endpoint -%} Global {% else -%} Regional {% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"
+service = Service{% if global_endpoint -%} Global{% else -%} Regional{% endif -%} {{ signature_version }} "{{ endpoint_prefix }}" "{{ api_version }}"{% if target_prefix -%} (Just "{{ target_prefix }}"){% else -%} Nothing {% endif -%}
 
 {% if errors | listLength > 0 %}
 data {{ module }}Error

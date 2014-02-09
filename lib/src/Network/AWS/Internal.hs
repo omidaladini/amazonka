@@ -15,6 +15,7 @@ module Network.AWS.Internal
     ) where
 
 import Network.AWS.Internal.Request       as Internal
+import Network.AWS.Internal.Response      as Internal
 import Network.AWS.Internal.Serialisation as Internal
 import Network.AWS.Internal.Signing       as Internal
 import Network.AWS.Internal.Types         as Internal

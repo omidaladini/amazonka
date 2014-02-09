@@ -171,7 +171,7 @@ instance FromJSON Operation where
         <*> o .:? "alias"
         <*> documentation o
         <*> o .:? "documentation_url"
-        <*> o .:? "http" .!= HTTP "GET" [] mempty
+        <*> o .:? "http" .!= HTTP "POST" [] mempty
         <*> o .:? "input"
         <*> (fmap streaming <$> o .:? "output")
         <*> (fmap streaming <$> o .:  "errors")

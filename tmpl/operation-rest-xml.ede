@@ -52,7 +52,8 @@ instance ToXML {{ name }} where
 instance AWSRequest {{ name }} where
     type Er {{ name }} = {{ module }}Error
     type Rs {{ name }} = {{ name }}Response
-    request = {{ http.method | lower }}{{ service_type }} service
+    request  = {{ http.method | lower }}{{ service_type }} service
+    response = responseXML
 
 {% if pagination.input_token %}
 instance AWSPager {{ name }} where
