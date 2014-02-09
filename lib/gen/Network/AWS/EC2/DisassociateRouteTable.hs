@@ -31,15 +31,15 @@ disassociateRouteTable :: Text
                        -- table and subnet.
                        -> DisassociateRouteTable
 disassociateRouteTable p1 = DisassociateRouteTable
-    { drtrAssociationId = p1
-    , drtrDryRun = Nothing
+    { drtAssociationId = p1
+    , drtDryRun = Nothing
     }
 
 data DisassociateRouteTable = DisassociateRouteTable
-    { drtrAssociationId :: !Text
+    { drtAssociationId :: !Text
       -- ^ The association ID representing the current association between the route
       -- table and subnet.
-    , drtrDryRun :: Maybe Bool
+    , drtDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DisassociateRouteTable

@@ -33,16 +33,16 @@ createVpc :: Text
           -- ^ A valid CIDR block.
           -> CreateVpc
 createVpc p1 = CreateVpc
-    { cvrCidrBlock = p1
-    , cvrDryRun = Nothing
-    , cvrInstanceTenancy = Nothing
+    { cvCidrBlock = p1
+    , cvDryRun = Nothing
+    , cvInstanceTenancy = Nothing
     }
 
 data CreateVpc = CreateVpc
-    { cvrCidrBlock :: !Text
+    { cvCidrBlock :: !Text
       -- ^ A valid CIDR block.
-    , cvrDryRun :: Maybe Bool
-    , cvrInstanceTenancy :: Maybe Tenancy
+    , cvDryRun :: Maybe Bool
+    , cvInstanceTenancy :: Maybe Tenancy
       -- ^ The allowed tenancy of instances launched into the VPC. A value of default
       -- means instances can be launched with any tenancy; a value of dedicated
       -- means instances must be launched with tenancy as dedicated.
@@ -56,7 +56,7 @@ instance AWSRequest CreateVpc where
     request = getQuery service "CreateVpc"
 
 data CreateVpcResponse = CreateVpcResponse
-    { cvrrVpc :: Maybe Vpc
+    { cvrVpc :: Maybe Vpc
       -- ^ Information about the VPC.
     } deriving (Eq, Show, Generic)
 

@@ -31,18 +31,18 @@ modifyReservedInstances :: [Text]
                         -- ^ The configuration settings for the Reserved Instances to modify.
                         -> ModifyReservedInstances
 modifyReservedInstances p1 p2 = ModifyReservedInstances
-    { mrirReservedInstancesIds = p1
-    , mrirTargetConfigurations = p2
-    , mrirClientToken = Nothing
+    { mriReservedInstancesIds = p1
+    , mriTargetConfigurations = p2
+    , mriClientToken = Nothing
     }
 
 data ModifyReservedInstances = ModifyReservedInstances
-    { mrirClientToken :: Maybe Text
+    { mriClientToken :: Maybe Text
       -- ^ A unique, case-sensitive, token you provide to ensure idempotency of your
       -- modification request.
-    , mrirReservedInstancesIds :: [Text]
+    , mriReservedInstancesIds :: [Text]
       -- ^ The IDs of the Reserved Instances to modify.
-    , mrirTargetConfigurations :: [ReservedInstancesConfiguration]
+    , mriTargetConfigurations :: [ReservedInstancesConfiguration]
       -- ^ The configuration settings for the Reserved Instances to modify.
     } deriving (Eq, Show, Generic)
 
@@ -54,7 +54,7 @@ instance AWSRequest ModifyReservedInstances where
     request = getQuery service "ModifyReservedInstances"
 
 data ModifyReservedInstancesResponse = ModifyReservedInstancesResponse
-    { mrirrReservedInstancesModificationId :: Maybe Text
+    { mrirReservedInstancesModificationId :: Maybe Text
       -- ^ The unique ID for the submitted modification request.
     } deriving (Eq, Show, Generic)
 

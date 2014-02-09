@@ -27,13 +27,13 @@ disableVgwRoutePropagation :: Text
                            -> Text
                            -> DisableVgwRoutePropagation
 disableVgwRoutePropagation p1 p2 = DisableVgwRoutePropagation
-    { dvrprGatewayId = p1
-    , dvrprRouteTableId = p2
+    { dvrpGatewayId = p1
+    , dvrpRouteTableId = p2
     }
 
 data DisableVgwRoutePropagation = DisableVgwRoutePropagation
-    { dvrprGatewayId :: !Text
-    , dvrprRouteTableId :: !Text
+    { dvrpGatewayId :: !Text
+    , dvrpRouteTableId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DisableVgwRoutePropagation

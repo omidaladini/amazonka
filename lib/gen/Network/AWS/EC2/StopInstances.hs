@@ -36,19 +36,19 @@ stopInstances :: [Text]
               -- ^ The list of Amazon EC2 instances to stop.
               -> StopInstances
 stopInstances p1 = StopInstances
-    { sirInstanceIds = p1
-    , sirDryRun = Nothing
-    , sirForce = Nothing
+    { siInstanceIds = p1
+    , siDryRun = Nothing
+    , siForce = Nothing
     }
 
 data StopInstances = StopInstances
-    { sirDryRun :: Maybe Bool
-    , sirForce :: Maybe Bool
+    { siDryRun :: Maybe Bool
+    , siForce :: Maybe Bool
       -- ^ Forces the instance to stop. The instance will not have an opportunity to
       -- flush file system caches nor file system meta data. If you use this option,
       -- you must perform file system check and repair procedures. This option is
       -- not recommended for Windows instances.
-    , sirInstanceIds :: [Text]
+    , siInstanceIds :: [Text]
       -- ^ The list of Amazon EC2 instances to stop.
     } deriving (Eq, Show, Generic)
 
@@ -60,7 +60,7 @@ instance AWSRequest StopInstances where
     request = getQuery service "StopInstances"
 
 data StopInstancesResponse = StopInstancesResponse
-    { sirrStoppingInstances :: [InstanceStateChange]
+    { sirStoppingInstances :: [InstanceStateChange]
       -- ^ The list of the stopping instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

@@ -31,12 +31,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeVpnGateways = DescribeVpnGateways
-    { dvgtDryRun :: Maybe Bool
-    , dvgtFilters :: [Filter]
+    { dvgeDryRun :: Maybe Bool
+    , dvgeFilters :: [Filter]
       -- ^ A list of filters used to match properties for VPN Gateways. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dvgtVpnGatewayIds :: [Text]
+    , dvgeVpnGatewayIds :: [Text]
       -- ^ A list of filters used to match properties for VPN Gateways. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
@@ -50,7 +50,7 @@ instance AWSRequest DescribeVpnGateways where
     request = getQuery service "DescribeVpnGateways"
 
 data DescribeVpnGatewaysResponse = DescribeVpnGatewaysResponse
-    { dvgtrVpnGateways :: [VpnGateway]
+    { dvgerVpnGateways :: [VpnGateway]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpnGatewaysResponse where

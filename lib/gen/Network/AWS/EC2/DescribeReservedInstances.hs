@@ -23,14 +23,14 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeReservedInstances = DescribeReservedInstances
-    { drirDryRun :: Maybe Bool
-    , drirFilters :: [Filter]
+    { driDryRun :: Maybe Bool
+    , driFilters :: [Filter]
       -- ^ A list of filters used to match properties for ReservedInstances. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , drirOfferingType :: Maybe OfferingTypeValues
+    , driOfferingType :: Maybe OfferingTypeValues
       -- ^ The Reserved Instance offering type.
-    , drirReservedInstancesIds :: [Text]
+    , driReservedInstancesIds :: [Text]
       -- ^ The optional list of Reserved Instance IDs to describe.
     } deriving (Eq, Show, Generic)
 
@@ -42,7 +42,7 @@ instance AWSRequest DescribeReservedInstances where
     request = getQuery service "DescribeReservedInstances"
 
 data DescribeReservedInstancesResponse = DescribeReservedInstancesResponse
-    { drirrReservedInstances :: [ReservedInstances]
+    { drirReservedInstances :: [ReservedInstances]
       -- ^ The list of described Reserved Instances.
     } deriving (Eq, Show, Generic)
 

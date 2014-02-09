@@ -23,12 +23,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribePlacementGroups = DescribePlacementGroups
-    { dpgsDryRun :: Maybe Bool
-    , dpgsFilters :: [Filter]
+    { dpgdDryRun :: Maybe Bool
+    , dpgdFilters :: [Filter]
       -- ^ A list of filters used to match properties for Placement Groups. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , dpgsGroupNames :: [Text]
+    , dpgdGroupNames :: [Text]
       -- ^ The name of the PlacementGroup.
     } deriving (Eq, Show, Generic)
 
@@ -40,7 +40,7 @@ instance AWSRequest DescribePlacementGroups where
     request = getQuery service "DescribePlacementGroups"
 
 data DescribePlacementGroupsResponse = DescribePlacementGroupsResponse
-    { dpgsrPlacementGroups :: [PlacementGroup]
+    { dpgdrPlacementGroups :: [PlacementGroup]
       -- ^ Contains information about the specified PlacementGroups.
     } deriving (Eq, Show, Generic)
 

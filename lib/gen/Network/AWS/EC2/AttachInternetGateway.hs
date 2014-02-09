@@ -31,16 +31,16 @@ attachInternetGateway :: Text
                       -- ^ The ID of the VPC.
                       -> AttachInternetGateway
 attachInternetGateway p1 p2 = AttachInternetGateway
-    { aigrInternetGatewayId = p1
-    , aigrVpcId = p2
-    , aigrDryRun = Nothing
+    { aigInternetGatewayId = p1
+    , aigVpcId = p2
+    , aigDryRun = Nothing
     }
 
 data AttachInternetGateway = AttachInternetGateway
-    { aigrDryRun :: Maybe Bool
-    , aigrInternetGatewayId :: !Text
+    { aigDryRun :: Maybe Bool
+    , aigInternetGatewayId :: !Text
       -- ^ The ID of the Internet gateway to attach.
-    , aigrVpcId :: !Text
+    , aigVpcId :: !Text
       -- ^ The ID of the VPC.
     } deriving (Eq, Show, Generic)
 

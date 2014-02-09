@@ -55,7 +55,7 @@ sign RawRequest{..} = do
 
     let host = endpoint reg
 
-    return . svcSigner $ Signer
+    return . svcSigner $ Signee
         { sigAccess  = Text.encodeUtf8 authAccessKeyId
         , sigSecret  = Text.encodeUtf8 authSecretAccessKey
         , sigToken   = Text.encodeUtf8 <$> authSecurityToken
@@ -103,10 +103,10 @@ signed meth host path qry hs body = def
     , checkStatus    = \_ _ _ -> Nothing
     }
 
-v2 :: Signer -> Request
-v2 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
+v2 :: Signee -> Request
+v2 Signee{..} = signed sigMethod sigHost sigPath query headers sigBody
   where
-    query = encoded <> "&Signer=" <> HTTP.urlEncode True signature
+    query = encoded <> "&Signature=" <> HTTP.urlEncode True signature
 
     signature = Base64.encode
         . hmacSHA256 sigSecret
@@ -120,10 +120,10 @@ v2 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
     encoded = HTTP.renderQuery False
         $ sigQuery
        ++ [ ("Version",          Just sigVersion)
-          , ("SignerVersion", Just "2")
-          , ("SignerMethod",  Just "HmacSHA256")
+          , ("SignatureVersion", Just "2")
+          , ("SignatureMethod",  Just "HmacSHA256")
           , ("Timestamp",        Just iso8601)
-          , ("AWSAccessigKeyId",   Just sigAccess)
+          , ("AWSAccessKeyId",   Just sigAccess)
           ]
        ++ maybeToList ((\t -> ("SecurityToken", Just t)) <$> sigToken)
 
@@ -131,8 +131,8 @@ v2 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
 
     iso8601 = Text.encodeUtf8 $ formatISO8601 sigTime
 
-v3 :: Signer -> Request
-v3 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
+v3 :: Signee -> Request
+v3 Signee{..} = signed sigMethod sigHost sigPath query headers sigBody
   where
     query = HTTP.renderQuery False sigQuery
 
@@ -141,15 +141,15 @@ v3 Signer{..} = signed sigMethod sigHost sigPath query headers sigBody
         : maybeToList (hAMZToken <$> sigToken)
        ++ sigHeaders
 
-    authorisation = "AWS3-HTTPS AWSAccessigKeyId="
+    authorisation = "AWS3-HTTPS AWSAccessKeyId="
         <> sigAccess
-        <> ", Algorithm=HmacSHA256, Signer="
+        <> ", Algorithm=HmacSHA256, Signature="
         <> Base64.encode (hmacSHA256 sigSecret rfc822)
 
     rfc822 = Text.encodeUtf8 $ formatRFC822 sigTime
 
-v4 :: Signer -> Request
-v4 Signer{..} =
+v4 :: Signee -> Request
+v4 Signee{..} =
     signed sigMethod sigHost sigPath query (hAuth authorisation : headers) sigBody
   where
     query = HTTP.renderQuery False . sort $ ("Version", Just sigVersion) : sigQuery
@@ -166,7 +166,7 @@ v4 Signer{..} =
         , credentialScope
         , ", SignedHeaders="
         , signedHeaders
-        , ", Signer="
+        , ", Signature="
         , signature
         ]
 
@@ -212,8 +212,8 @@ v4 Signer{..} =
 
      -- sinkHash :: (Monad m, Hash ctx d) => Consumer ByteString m SHA256
 
-s3 :: ByteString -> Signer -> Request
-s3 bucket Signer{..} =
+s3 :: ByteString -> Signee -> Request
+s3 bucket Signee{..} =
     signed sigMethod sigHost sigPath query (authorisation : headers) sigBody
   where
     query = HTTP.renderQuery False sigQuery

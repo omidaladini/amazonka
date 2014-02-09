@@ -26,23 +26,23 @@ import Network.AWS.EC2.Types
 createNetworkInterface :: Text
                        -> CreateNetworkInterface
 createNetworkInterface p1 = CreateNetworkInterface
-    { cnirSubnetId = p1
-    , cnirDescription = Nothing
-    , cnirDryRun = Nothing
-    , cnirGroups = []
-    , cnirPrivateIpAddress = Nothing
-    , cnirPrivateIpAddresses = []
-    , cnirSecondaryPrivateIpAddressCount = Nothing
+    { cniSubnetId = p1
+    , cniDescription = Nothing
+    , cniDryRun = Nothing
+    , cniGroups = []
+    , cniPrivateIpAddress = Nothing
+    , cniPrivateIpAddresses = []
+    , cniSecondaryPrivateIpAddressCount = Nothing
     }
 
 data CreateNetworkInterface = CreateNetworkInterface
-    { cnirDescription :: Maybe Text
-    , cnirDryRun :: Maybe Bool
-    , cnirGroups :: [Text]
-    , cnirPrivateIpAddress :: Maybe Text
-    , cnirPrivateIpAddresses :: [PrivateIpAddressSpecification]
-    , cnirSecondaryPrivateIpAddressCount :: Maybe Int
-    , cnirSubnetId :: !Text
+    { cniDescription :: Maybe Text
+    , cniDryRun :: Maybe Bool
+    , cniGroups :: [Text]
+    , cniPrivateIpAddress :: Maybe Text
+    , cniPrivateIpAddresses :: [PrivateIpAddressSpecification]
+    , cniSecondaryPrivateIpAddressCount :: Maybe Int
+    , cniSubnetId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateNetworkInterface
@@ -53,7 +53,7 @@ instance AWSRequest CreateNetworkInterface where
     request = getQuery service "CreateNetworkInterface"
 
 data CreateNetworkInterfaceResponse = CreateNetworkInterfaceResponse
-    { cnirrNetworkInterface :: Maybe NetworkInterface
+    { cnirNetworkInterface :: Maybe NetworkInterface
       -- ^ Specifies the characteristics of a network interface.
     } deriving (Eq, Show, Generic)
 

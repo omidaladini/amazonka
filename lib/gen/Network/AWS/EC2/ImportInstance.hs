@@ -26,19 +26,19 @@ import Network.AWS.EC2.Types
 importInstance :: PlatformValues
                -> ImportInstance
 importInstance p1 = ImportInstance
-    { iirPlatform = p1
-    , iirDescription = Nothing
-    , iirDiskImages = []
-    , iirDryRun = Nothing
-    , iirLaunchSpecification = Nothing
+    { iiPlatform = p1
+    , iiDescription = Nothing
+    , iiDiskImages = []
+    , iiDryRun = Nothing
+    , iiLaunchSpecification = Nothing
     }
 
 data ImportInstance = ImportInstance
-    { iirDescription :: Maybe Text
-    , iirDiskImages :: [DiskImage]
-    , iirDryRun :: Maybe Bool
-    , iirLaunchSpecification :: Maybe ImportInstanceLaunchSpecification
-    , iirPlatform :: !PlatformValues
+    { iiDescription :: Maybe Text
+    , iiDiskImages :: [DiskImage]
+    , iiDryRun :: Maybe Bool
+    , iiLaunchSpecification :: Maybe ImportInstanceLaunchSpecification
+    , iiPlatform :: !PlatformValues
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ImportInstance
@@ -49,7 +49,7 @@ instance AWSRequest ImportInstance where
     request = getQuery service "ImportInstance"
 
 data ImportInstanceResponse = ImportInstanceResponse
-    { iirrConversionTask :: Maybe ConversionTask
+    { iirConversionTask :: Maybe ConversionTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML ImportInstanceResponse where

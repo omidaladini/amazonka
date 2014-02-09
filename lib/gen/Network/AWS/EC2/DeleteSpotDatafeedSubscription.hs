@@ -24,7 +24,7 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DeleteSpotDatafeedSubscription = DeleteSpotDatafeedSubscription
-    { dsdssDryRun :: Maybe Bool
+    { dsdsdDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DeleteSpotDatafeedSubscription

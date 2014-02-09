@@ -26,17 +26,17 @@ import Network.AWS.EC2.Types
 assignPrivateIpAddresses :: Text
                          -> AssignPrivateIpAddresses
 assignPrivateIpAddresses p1 = AssignPrivateIpAddresses
-    { apiarNetworkInterfaceId = p1
-    , apiarAllowReassignment = Nothing
-    , apiarPrivateIpAddresses = []
-    , apiarSecondaryPrivateIpAddressCount = Nothing
+    { apiaNetworkInterfaceId = p1
+    , apiaAllowReassignment = Nothing
+    , apiaPrivateIpAddresses = []
+    , apiaSecondaryPrivateIpAddressCount = Nothing
     }
 
 data AssignPrivateIpAddresses = AssignPrivateIpAddresses
-    { apiarAllowReassignment :: Maybe Bool
-    , apiarNetworkInterfaceId :: !Text
-    , apiarPrivateIpAddresses :: [Text]
-    , apiarSecondaryPrivateIpAddressCount :: Maybe Int
+    { apiaAllowReassignment :: Maybe Bool
+    , apiaNetworkInterfaceId :: !Text
+    , apiaPrivateIpAddresses :: [Text]
+    , apiaSecondaryPrivateIpAddressCount :: Maybe Int
     } deriving (Eq, Show, Generic)
 
 instance ToQuery AssignPrivateIpAddresses

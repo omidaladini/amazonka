@@ -31,16 +31,16 @@ bundleInstance :: Text
                -> Storage
                -> BundleInstance
 bundleInstance p1 p2 = BundleInstance
-    { birInstanceId = p1
-    , birStorage = p2
-    , birDryRun = Nothing
+    { biInstanceId = p1
+    , biStorage = p2
+    , biDryRun = Nothing
     }
 
 data BundleInstance = BundleInstance
-    { birDryRun :: Maybe Bool
-    , birInstanceId :: !Text
+    { biDryRun :: Maybe Bool
+    , biInstanceId :: !Text
       -- ^ The ID of the instance to bundle.
-    , birStorage :: Storage
+    , biStorage :: Storage
     } deriving (Eq, Show, Generic)
 
 instance ToQuery BundleInstance
@@ -51,7 +51,7 @@ instance AWSRequest BundleInstance where
     request = getQuery service "BundleInstance"
 
 data BundleInstanceResponse = BundleInstanceResponse
-    { birrBundleTask :: Maybe BundleTask
+    { birBundleTask :: Maybe BundleTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML BundleInstanceResponse where

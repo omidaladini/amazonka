@@ -34,16 +34,16 @@ detachInternetGateway :: Text
                       -- ^ The ID of the VPC.
                       -> DetachInternetGateway
 detachInternetGateway p1 p2 = DetachInternetGateway
-    { digrInternetGatewayId = p1
-    , digrVpcId = p2
-    , digrDryRun = Nothing
+    { digInternetGatewayId = p1
+    , digVpcId = p2
+    , digDryRun = Nothing
     }
 
 data DetachInternetGateway = DetachInternetGateway
-    { digrDryRun :: Maybe Bool
-    , digrInternetGatewayId :: !Text
+    { digDryRun :: Maybe Bool
+    , digInternetGatewayId :: !Text
       -- ^ The ID of the Internet gateway to detach.
-    , digrVpcId :: !Text
+    , digVpcId :: !Text
       -- ^ The ID of the VPC.
     } deriving (Eq, Show, Generic)
 

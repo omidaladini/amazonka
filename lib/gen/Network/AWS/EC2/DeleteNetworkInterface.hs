@@ -26,13 +26,13 @@ import Network.AWS.EC2.Types
 deleteNetworkInterface :: Text
                        -> DeleteNetworkInterface
 deleteNetworkInterface p1 = DeleteNetworkInterface
-    { dnitNetworkInterfaceId = p1
-    , dnitDryRun = Nothing
+    { dnieNetworkInterfaceId = p1
+    , dnieDryRun = Nothing
     }
 
 data DeleteNetworkInterface = DeleteNetworkInterface
-    { dnitDryRun :: Maybe Bool
-    , dnitNetworkInterfaceId :: !Text
+    { dnieDryRun :: Maybe Bool
+    , dnieNetworkInterfaceId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DeleteNetworkInterface

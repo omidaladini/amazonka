@@ -27,13 +27,13 @@ deleteKeyPair :: Text
               -- ^ The name of the Amazon EC2 key pair to delete.
               -> DeleteKeyPair
 deleteKeyPair p1 = DeleteKeyPair
-    { dkprKeyName = p1
-    , dkprDryRun = Nothing
+    { dkpKeyName = p1
+    , dkpDryRun = Nothing
     }
 
 data DeleteKeyPair = DeleteKeyPair
-    { dkprDryRun :: Maybe Bool
-    , dkprKeyName :: !Text
+    { dkpDryRun :: Maybe Bool
+    , dkpKeyName :: !Text
       -- ^ The name of the Amazon EC2 key pair to delete.
     } deriving (Eq, Show, Generic)
 

@@ -29,13 +29,13 @@ deleteInternetGateway :: Text
                       -- ^ The ID of the Internet gateway to be deleted.
                       -> DeleteInternetGateway
 deleteInternetGateway p1 = DeleteInternetGateway
-    { digtInternetGatewayId = p1
-    , digtDryRun = Nothing
+    { digeInternetGatewayId = p1
+    , digeDryRun = Nothing
     }
 
 data DeleteInternetGateway = DeleteInternetGateway
-    { digtDryRun :: Maybe Bool
-    , digtInternetGatewayId :: !Text
+    { digeDryRun :: Maybe Bool
+    , digeInternetGatewayId :: !Text
       -- ^ The ID of the Internet gateway to be deleted.
     } deriving (Eq, Show, Generic)
 

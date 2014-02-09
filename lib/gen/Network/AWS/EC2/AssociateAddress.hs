@@ -26,16 +26,16 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data AssociateAddress = AssociateAddress
-    { aasAllocationId :: Maybe Text
+    { aadAllocationId :: Maybe Text
       -- ^ The allocation ID that AWS returned when you allocated the elastic IP
       -- address for use with Amazon VPC.
-    , aasAllowReassociation :: Maybe Bool
-    , aasDryRun :: Maybe Bool
-    , aasInstanceId :: Maybe Text
+    , aadAllowReassociation :: Maybe Bool
+    , aadDryRun :: Maybe Bool
+    , aadInstanceId :: Maybe Text
       -- ^ The instance to associate with the IP address.
-    , aasNetworkInterfaceId :: Maybe Text
-    , aasPrivateIpAddress :: Maybe Text
-    , aasPublicIp :: Maybe Text
+    , aadNetworkInterfaceId :: Maybe Text
+    , aadPrivateIpAddress :: Maybe Text
+    , aadPublicIp :: Maybe Text
       -- ^ IP address that you are assigning to the instance.
     } deriving (Eq, Show, Generic)
 
@@ -47,7 +47,7 @@ instance AWSRequest AssociateAddress where
     request = getQuery service "AssociateAddress"
 
 data AssociateAddressResponse = AssociateAddressResponse
-    { aasrAssociationId :: Maybe Text
+    { aadrAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AssociateAddressResponse where

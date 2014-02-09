@@ -27,13 +27,13 @@ createVpnConnectionRoute :: Text
                          -> Text
                          -> CreateVpnConnectionRoute
 createVpnConnectionRoute p1 p2 = CreateVpnConnectionRoute
-    { cvcrsDestinationCidrBlock = p1
-    , cvcrsVpnConnectionId = p2
+    { cvcrdDestinationCidrBlock = p1
+    , cvcrdVpnConnectionId = p2
     }
 
 data CreateVpnConnectionRoute = CreateVpnConnectionRoute
-    { cvcrsDestinationCidrBlock :: !Text
-    , cvcrsVpnConnectionId :: !Text
+    { cvcrdDestinationCidrBlock :: !Text
+    , cvcrdVpnConnectionId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateVpnConnectionRoute

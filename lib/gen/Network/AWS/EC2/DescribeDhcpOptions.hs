@@ -25,9 +25,9 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeDhcpOptions = DescribeDhcpOptions
-    { ddorDhcpOptionsIds :: [Text]
-    , ddorDryRun :: Maybe Bool
-    , ddorFilters :: [Filter]
+    { ddoDhcpOptionsIds :: [Text]
+    , ddoDryRun :: Maybe Bool
+    , ddoFilters :: [Filter]
       -- ^ A list of filters used to match properties for DhcpOptions. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
@@ -41,7 +41,7 @@ instance AWSRequest DescribeDhcpOptions where
     request = getQuery service "DescribeDhcpOptions"
 
 data DescribeDhcpOptionsResponse = DescribeDhcpOptionsResponse
-    { ddorrDhcpOptions :: [DhcpOptions]
+    { ddorDhcpOptions :: [DhcpOptions]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeDhcpOptionsResponse where

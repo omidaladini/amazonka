@@ -27,18 +27,18 @@ detachVolume :: Text
              -- ^ The ID of the volume to detach.
              -> DetachVolume
 detachVolume p1 = DetachVolume
-    { dvrVolumeId = p1
-    , dvrDevice = Nothing
-    , dvrDryRun = Nothing
-    , dvrForce = Nothing
-    , dvrInstanceId = Nothing
+    { dvVolumeId = p1
+    , dvDevice = Nothing
+    , dvDryRun = Nothing
+    , dvForce = Nothing
+    , dvInstanceId = Nothing
     }
 
 data DetachVolume = DetachVolume
-    { dvrDevice :: Maybe Text
+    { dvDevice :: Maybe Text
       -- ^ The device name to which the volume is attached on the specified instance.
-    , dvrDryRun :: Maybe Bool
-    , dvrForce :: Maybe Bool
+    , dvDryRun :: Maybe Bool
+    , dvForce :: Maybe Bool
       -- ^ Forces detachment if the previous detachment attempt did not occur cleanly
       -- (logging into an instance, unmounting the volume, and detaching normally).
       -- This option can lead to data loss or a corrupted file system. Use this
@@ -46,9 +46,9 @@ data DetachVolume = DetachVolume
       -- instance will not have an opportunity to flush file system caches nor file
       -- system meta data. If you use this option, you must perform file system
       -- check and repair procedures.
-    , dvrInstanceId :: Maybe Text
+    , dvInstanceId :: Maybe Text
       -- ^ The ID of the instance from which to detach the the specified volume.
-    , dvrVolumeId :: !Text
+    , dvVolumeId :: !Text
       -- ^ The ID of the volume to detach.
     } deriving (Eq, Show, Generic)
 
@@ -60,16 +60,16 @@ instance AWSRequest DetachVolume where
     request = getQuery service "DetachVolume"
 
 data DetachVolumeResponse = DetachVolumeResponse
-    { dvrrAttachTime :: Maybe UTCTime
+    { dvrAttachTime :: Maybe UTCTime
       -- ^ Timestamp when this attachment initiated.
-    , dvrrDeleteOnTermination :: Maybe Bool
+    , dvrDeleteOnTermination :: Maybe Bool
       -- ^ ` Whether this volume will be deleted or not when the associated instance
       -- is terminated.
-    , dvrrDevice :: Maybe Text
+    , dvrDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
-    , dvrrInstanceId :: Maybe Text
-    , dvrrState :: Maybe VolumeAttachmentState
-    , dvrrVolumeId :: Maybe Text
+    , dvrInstanceId :: Maybe Text
+    , dvrState :: Maybe VolumeAttachmentState
+    , dvrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML DetachVolumeResponse where

@@ -119,7 +119,7 @@ awsEitherT = AWS . lift . fmapLT awsError
 awsEither :: AWSError e => Either e a -> AWS a
 awsEither = either awsThrow return
 
-data Signer = Signer
+data Signee = Signee
     { sigAccess  :: !ByteString
     , sigSecret  :: !ByteString
     , sigToken   :: Maybe ByteString
@@ -142,7 +142,7 @@ data Endpoint
 
 data Service = Service
     { svcEndpoint :: !Endpoint
-    , svcSigner   :: Signer -> Request
+    , svcSigner   :: Signee -> Request
     , svcName     :: !ByteString
     , svcVersion  :: !ByteString
     }
@@ -155,6 +155,9 @@ data RawRequest = RawRequest
     , rawHeaders :: [Header]
     , rawBody    :: RequestBody
     }
+
+rawRequest :: Service -> RawRequest
+rawRequest svc = RawRequest svc GET "/" [] [] (RequestBodyBS "")
 
 instance Show RawRequest where
     show RawRequest{..} = unlines

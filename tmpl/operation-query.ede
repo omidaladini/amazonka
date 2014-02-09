@@ -65,7 +65,7 @@ instance FromXML {{ name }}Response where
     fromXMLOptions = xmlOptions
   {% if result_wrapped %}
     fromXMLRoot    = fromNestedRoot
-         $ "{{ name}}Response"
+         $ "{{ name }}Response"
         :| ["{{ name }}Result"]
   {% endif %}
 {% else %}

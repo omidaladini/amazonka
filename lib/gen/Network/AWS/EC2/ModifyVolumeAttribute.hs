@@ -26,15 +26,15 @@ import Network.AWS.EC2.Types
 modifyVolumeAttribute :: Text
                       -> ModifyVolumeAttribute
 modifyVolumeAttribute p1 = ModifyVolumeAttribute
-    { mvarVolumeId = p1
-    , mvarAutoEnableIO = Nothing
-    , mvarDryRun = Nothing
+    { mvaVolumeId = p1
+    , mvaAutoEnableIO = Nothing
+    , mvaDryRun = Nothing
     }
 
 data ModifyVolumeAttribute = ModifyVolumeAttribute
-    { mvarAutoEnableIO :: Maybe Bool
-    , mvarDryRun :: Maybe Bool
-    , mvarVolumeId :: !Text
+    { mvaAutoEnableIO :: Maybe Bool
+    , mvaDryRun :: Maybe Bool
+    , mvaVolumeId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ModifyVolumeAttribute

@@ -25,7 +25,7 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data CreateInternetGateway = CreateInternetGateway
-    { cigrDryRun :: Maybe Bool
+    { cigDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateInternetGateway
@@ -36,7 +36,7 @@ instance AWSRequest CreateInternetGateway where
     request = getQuery service "CreateInternetGateway"
 
 data CreateInternetGatewayResponse = CreateInternetGatewayResponse
-    { cigrrInternetGateway :: Maybe InternetGateway
+    { cigrInternetGateway :: Maybe InternetGateway
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateInternetGatewayResponse where

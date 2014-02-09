@@ -31,13 +31,13 @@ rebootInstances :: [Text]
                 -- ^ The list of instances to terminate.
                 -> RebootInstances
 rebootInstances p1 = RebootInstances
-    { ritInstanceIds = p1
-    , ritDryRun = Nothing
+    { rieInstanceIds = p1
+    , rieDryRun = Nothing
     }
 
 data RebootInstances = RebootInstances
-    { ritDryRun :: Maybe Bool
-    , ritInstanceIds :: [Text]
+    { rieDryRun :: Maybe Bool
+    , rieInstanceIds :: [Text]
       -- ^ The list of instances to terminate.
     } deriving (Eq, Show, Generic)
 

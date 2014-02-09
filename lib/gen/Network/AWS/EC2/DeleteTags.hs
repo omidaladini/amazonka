@@ -28,17 +28,17 @@ deleteTags :: [Text]
            -- instance, an EBS volume, or snapshot, etc.
            -> DeleteTags
 deleteTags p1 = DeleteTags
-    { dtsResources = p1
-    , dtsDryRun = Nothing
-    , dtsTags = []
+    { dtdResources = p1
+    , dtdDryRun = Nothing
+    , dtdTags = []
     }
 
 data DeleteTags = DeleteTags
-    { dtsDryRun :: Maybe Bool
-    , dtsResources :: [Text]
+    { dtdDryRun :: Maybe Bool
+    , dtdResources :: [Text]
       -- ^ A list of one or more resource IDs. This could be the ID of an AMI, an
       -- instance, an EBS volume, or snapshot, etc.
-    , dtsTags :: [Tag]
+    , dtdTags :: [Tag]
       -- ^ The tags to delete from the specified resources. Each tag item consists of
       -- a key-value pair. If a tag is specified without a value, the tag and all of
       -- its values are deleted.

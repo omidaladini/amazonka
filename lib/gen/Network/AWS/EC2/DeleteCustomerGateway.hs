@@ -31,14 +31,14 @@ deleteCustomerGateway :: Text
                       -- ^ The ID of the customer gateway to delete.
                       -> DeleteCustomerGateway
 deleteCustomerGateway p1 = DeleteCustomerGateway
-    { dcgsCustomerGatewayId = p1
-    , dcgsDryRun = Nothing
+    { dcgdCustomerGatewayId = p1
+    , dcgdDryRun = Nothing
     }
 
 data DeleteCustomerGateway = DeleteCustomerGateway
-    { dcgsCustomerGatewayId :: !Text
+    { dcgdCustomerGatewayId :: !Text
       -- ^ The ID of the customer gateway to delete.
-    , dcgsDryRun :: Maybe Bool
+    , dcgdDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DeleteCustomerGateway

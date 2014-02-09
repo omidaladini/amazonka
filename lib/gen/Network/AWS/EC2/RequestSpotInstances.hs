@@ -33,42 +33,42 @@ requestSpotInstances :: Text
                      -- fulfill the request.
                      -> RequestSpotInstances
 requestSpotInstances p1 = RequestSpotInstances
-    { rsirSpotPrice = p1
-    , rsirAvailabilityZoneGroup = Nothing
-    , rsirDryRun = Nothing
-    , rsirInstanceCount = Nothing
-    , rsirLaunchGroup = Nothing
-    , rsirLaunchSpecification = Nothing
-    , rsirType = Nothing
-    , rsirValidFrom = Nothing
-    , rsirValidUntil = Nothing
+    { rsiSpotPrice = p1
+    , rsiAvailabilityZoneGroup = Nothing
+    , rsiDryRun = Nothing
+    , rsiInstanceCount = Nothing
+    , rsiLaunchGroup = Nothing
+    , rsiLaunchSpecification = Nothing
+    , rsiType = Nothing
+    , rsiValidFrom = Nothing
+    , rsiValidUntil = Nothing
     }
 
 data RequestSpotInstances = RequestSpotInstances
-    { rsirAvailabilityZoneGroup :: Maybe Text
+    { rsiAvailabilityZoneGroup :: Maybe Text
       -- ^ Specifies the Availability Zone group. When specifying the same
       -- Availability Zone group for all Spot Instance requests, all Spot Instances
       -- are launched in the same Availability Zone.
-    , rsirDryRun :: Maybe Bool
-    , rsirInstanceCount :: Maybe Int
+    , rsiDryRun :: Maybe Bool
+    , rsiInstanceCount :: Maybe Int
       -- ^ Specifies the maximum number of Spot Instances to launch.
-    , rsirLaunchGroup :: Maybe Text
+    , rsiLaunchGroup :: Maybe Text
       -- ^ Specifies the instance launch group. Launch groups are Spot Instances that
       -- launch and terminate together.
-    , rsirLaunchSpecification :: Maybe LaunchSpecification
+    , rsiLaunchSpecification :: Maybe LaunchSpecification
       -- ^ Specifies additional launch instance information.
-    , rsirSpotPrice :: !Text
+    , rsiSpotPrice :: !Text
       -- ^ Specifies the maximum hourly price for any Spot Instance launched to
       -- fulfill the request.
-    , rsirType :: Maybe SpotInstanceType
+    , rsiType :: Maybe SpotInstanceType
       -- ^ Specifies the Spot Instance type.
-    , rsirValidFrom :: Maybe UTCTime
+    , rsiValidFrom :: Maybe UTCTime
       -- ^ Defines the start date of the request. If this is a one-time request, the
       -- request becomes active at this date and time and remains active until all
       -- instances launch, the request expires, or the request is canceled. If the
       -- request is persistent, the request becomes active at this date and time and
       -- remains active until it expires or is canceled.
-    , rsirValidUntil :: Maybe UTCTime
+    , rsiValidUntil :: Maybe UTCTime
       -- ^ End date of the request. If this is a one-time request, the request remains
       -- active until all instances launch, the request is canceled, or this date is
       -- reached. If the request is persistent, it remains active until it is
@@ -83,7 +83,7 @@ instance AWSRequest RequestSpotInstances where
     request = getQuery service "RequestSpotInstances"
 
 data RequestSpotInstancesResponse = RequestSpotInstancesResponse
-    { rsirrSpotInstanceRequests :: [SpotInstanceRequest]
+    { rsirSpotInstanceRequests :: [SpotInstanceRequest]
       -- ^ Contains a list of Spot Instance requests.
     } deriving (Eq, Show, Generic)
 

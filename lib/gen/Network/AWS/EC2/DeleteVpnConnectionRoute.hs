@@ -27,13 +27,13 @@ deleteVpnConnectionRoute :: Text
                          -> Text
                          -> DeleteVpnConnectionRoute
 deleteVpnConnectionRoute p1 p2 = DeleteVpnConnectionRoute
-    { dvcrrDestinationCidrBlock = p1
-    , dvcrrVpnConnectionId = p2
+    { dvcrDestinationCidrBlock = p1
+    , dvcrVpnConnectionId = p2
     }
 
 data DeleteVpnConnectionRoute = DeleteVpnConnectionRoute
-    { dvcrrDestinationCidrBlock :: !Text
-    , dvcrrVpnConnectionId :: !Text
+    { dvcrDestinationCidrBlock :: !Text
+    , dvcrVpnConnectionId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DeleteVpnConnectionRoute

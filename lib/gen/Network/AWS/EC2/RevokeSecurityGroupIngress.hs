@@ -30,16 +30,16 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data RevokeSecurityGroupIngress = RevokeSecurityGroupIngress
-    { rsgirDryRun :: Maybe Bool
-    , rsgirGroupId :: Maybe Text
+    { rsgiDryRun :: Maybe Bool
+    , rsgiGroupId :: Maybe Text
       -- ^ ID of the standard (EC2) or VPC security group to modify. The group must
       -- belong to your account. Required for VPC security groups; can be used
       -- instead of GroupName for standard (EC2) security groups.
-    , rsgirGroupName :: Maybe Text
+    , rsgiGroupName :: Maybe Text
       -- ^ Name of the standard (EC2) security group to modify. The group must belong
       -- to your account. Can be used instead of GroupID for standard (EC2) security
       -- groups.
-    , rsgirIpPermissions :: [IpPermission]
+    , rsgiIpPermissions :: [IpPermission]
       -- ^ List of IP permissions to revoke on the specified security group. For an IP
       -- permission to be removed, it must exactly match one of the IP permissions
       -- you specify in this list. Specifying permissions through IP permissions is

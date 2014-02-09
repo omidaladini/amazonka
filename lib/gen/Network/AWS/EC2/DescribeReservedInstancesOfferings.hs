@@ -26,33 +26,33 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings
-    { driorAvailabilityZone :: Maybe Text
+    { drioAvailabilityZone :: Maybe Text
       -- ^ The Availability Zone in which the Reserved Instance can be used.
-    , driorDryRun :: Maybe Bool
-    , driorFilters :: [Filter]
+    , drioDryRun :: Maybe Bool
+    , drioFilters :: [Filter]
       -- ^ A list of filters used to match properties for ReservedInstancesOfferings.
       -- For a complete reference to the available filter keys for this operation,
       -- see the Amazon EC2 API reference.
-    , driorIncludeMarketplace :: Maybe Bool
+    , drioIncludeMarketplace :: Maybe Bool
       -- ^ Include Marketplace offerings in the response.
-    , driorInstanceTenancy :: Maybe Tenancy
+    , drioInstanceTenancy :: Maybe Tenancy
       -- ^ The tenancy of the Reserved Instance offering. A Reserved Instance with
       -- tenancy of dedicated will run on single-tenant hardware and can only be
       -- launched within a VPC.
-    , driorInstanceType :: Maybe InstanceType
+    , drioInstanceType :: Maybe InstanceType
       -- ^ The instance type on which the Reserved Instance can be used.
-    , driorMaxDuration :: Maybe Integer
+    , drioMaxDuration :: Maybe Integer
       -- ^ Maximum duration (in seconds) to filter when searching for offerings.
-    , driorMaxInstanceCount :: Maybe Int
-    , driorMaxResults :: Maybe Int
-    , driorMinDuration :: Maybe Integer
+    , drioMaxInstanceCount :: Maybe Int
+    , drioMaxResults :: Maybe Int
+    , drioMinDuration :: Maybe Integer
       -- ^ Minimum duration (in seconds) to filter when searching for offerings.
-    , driorNextToken :: Maybe Text
-    , driorOfferingType :: Maybe OfferingTypeValues
+    , drioNextToken :: Maybe Text
+    , drioOfferingType :: Maybe OfferingTypeValues
       -- ^ The Reserved Instance offering type.
-    , driorProductDescription :: Maybe RIProductDescription
+    , drioProductDescription :: Maybe RIProductDescription
       -- ^ The Reserved Instance product description.
-    , driorReservedInstancesOfferingIds :: [Text]
+    , drioReservedInstancesOfferingIds :: [Text]
       -- ^ An optional list of the unique IDs of the Reserved Instance offerings to
       -- describe.
     } deriving (Eq, Show, Generic)
@@ -66,12 +66,12 @@ instance AWSRequest DescribeReservedInstancesOfferings where
 
 instance AWSPager DescribeReservedInstancesOfferings where
     next rq rs
-        | Just x <- driorrNextToken rs = Just $ rq { driorNextToken = Just x }
+        | Just x <- driorNextToken rs = Just $ rq { drioNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeReservedInstancesOfferingsResponse = DescribeReservedInstancesOfferingsResponse
-    { driorrNextToken :: Maybe Text
-    , driorrReservedInstancesOfferings :: [ReservedInstancesOffering]
+    { driorNextToken :: Maybe Text
+    , driorReservedInstancesOfferings :: [ReservedInstancesOffering]
       -- ^ The list of described Reserved Instance offerings.
     } deriving (Eq, Show, Generic)
 

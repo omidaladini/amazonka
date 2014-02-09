@@ -36,13 +36,13 @@ deleteVpnConnection :: Text
                     -- ^ The ID of the VPN connection to delete.
                     -> DeleteVpnConnection
 deleteVpnConnection p1 = DeleteVpnConnection
-    { dvcrVpnConnectionId = p1
-    , dvcrDryRun = Nothing
+    { dvcVpnConnectionId = p1
+    , dvcDryRun = Nothing
     }
 
 data DeleteVpnConnection = DeleteVpnConnection
-    { dvcrDryRun :: Maybe Bool
-    , dvcrVpnConnectionId :: !Text
+    { dvcDryRun :: Maybe Bool
+    , dvcVpnConnectionId :: !Text
       -- ^ The ID of the VPN connection to delete.
     } deriving (Eq, Show, Generic)
 

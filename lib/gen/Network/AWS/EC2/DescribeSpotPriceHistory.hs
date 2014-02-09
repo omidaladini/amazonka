@@ -27,24 +27,24 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeSpotPriceHistory = DescribeSpotPriceHistory
-    { dsphrAvailabilityZone :: Maybe Text
+    { dsphAvailabilityZone :: Maybe Text
       -- ^ Filters the results by availability zone (ex: 'us-east-1a').
-    , dsphrDryRun :: Maybe Bool
-    , dsphrEndTime :: Maybe UTCTime
+    , dsphDryRun :: Maybe Bool
+    , dsphEndTime :: Maybe UTCTime
       -- ^ The end date and time of the Spot Instance price history data.
-    , dsphrFilters :: [Filter]
+    , dsphFilters :: [Filter]
       -- ^ A list of filters used to match properties for SpotPriceHistory. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , dsphrInstanceTypes :: [InstanceType]
+    , dsphInstanceTypes :: [InstanceType]
       -- ^ Specifies the instance type to return.
-    , dsphrMaxResults :: Maybe Int
+    , dsphMaxResults :: Maybe Int
       -- ^ Specifies the number of rows to return.
-    , dsphrNextToken :: Maybe Text
+    , dsphNextToken :: Maybe Text
       -- ^ Specifies the next set of rows to return.
-    , dsphrProductDescriptions :: [Text]
+    , dsphProductDescriptions :: [Text]
       -- ^ The description of the AMI.
-    , dsphrStartTime :: Maybe UTCTime
+    , dsphStartTime :: Maybe UTCTime
       -- ^ The start date and time of the Spot Instance price history data.
     } deriving (Eq, Show, Generic)
 
@@ -57,14 +57,14 @@ instance AWSRequest DescribeSpotPriceHistory where
 
 instance AWSPager DescribeSpotPriceHistory where
     next rq rs
-        | Just x <- dsphrrNextToken rs = Just $ rq { dsphrNextToken = Just x }
+        | Just x <- dsphrNextToken rs = Just $ rq { dsphNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeSpotPriceHistoryResponse = DescribeSpotPriceHistoryResponse
-    { dsphrrNextToken :: Maybe Text
+    { dsphrNextToken :: Maybe Text
       -- ^ The string marking the next set of results returned. Displays empty if
       -- there are no more results to be returned.
-    , dsphrrSpotPriceHistory :: [SpotPrice]
+    , dsphrSpotPriceHistory :: [SpotPrice]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeSpotPriceHistoryResponse where

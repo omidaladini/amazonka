@@ -30,13 +30,13 @@ deleteNetworkAcl :: Text
                  -- ^ The ID of the network ACL to be deleted.
                  -> DeleteNetworkAcl
 deleteNetworkAcl p1 = DeleteNetworkAcl
-    { dnarNetworkAclId = p1
-    , dnarDryRun = Nothing
+    { dnaNetworkAclId = p1
+    , dnaDryRun = Nothing
     }
 
 data DeleteNetworkAcl = DeleteNetworkAcl
-    { dnarDryRun :: Maybe Bool
-    , dnarNetworkAclId :: !Text
+    { dnaDryRun :: Maybe Bool
+    , dnaNetworkAclId :: !Text
       -- ^ The ID of the network ACL to be deleted.
     } deriving (Eq, Show, Generic)
 

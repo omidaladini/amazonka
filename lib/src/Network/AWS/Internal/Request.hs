@@ -1,4 +1,6 @@
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleContexts  #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 -- Module      : Network.AWS.Internal.Request
 -- Copyright   : (c) 2013-2014 Brendan Hay <brendan.g.hay@gmail.com>
@@ -12,25 +14,31 @@
 
 module Network.AWS.Internal.Request where
 
+import Control.Arrow
 import Data.Aeson
 import Data.ByteString                    (ByteString)
 import Data.Conduit
+import Data.Text                          (Text)
 import Network.AWS.Generics.Query
 import Network.AWS.Generics.XML
 import Network.AWS.Internal.Serialisation
 import Network.AWS.Internal.Types
 import Network.HTTP.Conduit
 
--- v2Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v2Query s@Service{..} m p x = RawRequest s s m p q [] (RequestBodyBS "")
---   where
---     q = map (second Just) $ encodeQuery x
+getQuery :: (ToQuery a, AWSRequest a)
+         => Service
+         -> Text
+         -> a
+         -> RawRequest
+getQuery svc act x = (rawRequest svc)
+    { rawQuery = ("Action", Just act) : map (second Just) (encodeQuery x)
+    }
 
--- v4Query :: ToQuery a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v4Query s m a q = v2Query s m "/" q .?. [("Action", Just a)]
-
--- v3httpsQuery :: AWSRequest a => Service -> StdMethod -> ByteString -> a -> RawRequest
--- v3httpsQuery = undefined
+getJSON :: (ToJSON a, AWSRequest a)
+        => Service
+        -> a
+        -> RawRequest
+getJSON = undefined
 
 -- xml :: ToXML a => Service -> StdMethod -> ByteString -> a -> RawRequest
 -- xml s@Service{..} m p = RawRequest s s m p [] [] . RequestBodyBS . toXML
@@ -44,22 +52,6 @@ import Network.HTTP.Conduit
 
 -- xml :: ToXML a => a -> RequestBody
 -- xml = RequestBodyLBS . encodeXML
-
-getQuery :: (ToQuery a, AWSRequest a)
-         => Service
-         -> ByteString
-         -> a
-         -> RawRequest
-getQuery = undefined
-
-
-The Action= or Version= could be added by toQuery?
-
-getJSON :: (ToJSON a, AWSRequest a)
-        => Service
-        -> a
-        -> RawRequest
-getJSON = undefined
 
 getRestXML :: (ToHeaders a, ToPath a, ToQuery a, AWSRequest a)
            => Service

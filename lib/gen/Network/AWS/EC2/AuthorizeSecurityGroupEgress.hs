@@ -40,16 +40,16 @@ authorizeSecurityGroupEgress :: Text
                              -- ^ ID of the VPC security group to modify.
                              -> AuthorizeSecurityGroupEgress
 authorizeSecurityGroupEgress p1 = AuthorizeSecurityGroupEgress
-    { asgerGroupId = p1
-    , asgerDryRun = Nothing
-    , asgerIpPermissions = []
+    { asgeGroupId = p1
+    , asgeDryRun = Nothing
+    , asgeIpPermissions = []
     }
 
 data AuthorizeSecurityGroupEgress = AuthorizeSecurityGroupEgress
-    { asgerDryRun :: Maybe Bool
-    , asgerGroupId :: !Text
+    { asgeDryRun :: Maybe Bool
+    , asgeGroupId :: !Text
       -- ^ ID of the VPC security group to modify.
-    , asgerIpPermissions :: [IpPermission]
+    , asgeIpPermissions :: [IpPermission]
       -- ^ List of IP permissions to authorize on the specified security group.
       -- Specifying permissions through IP permissions is the preferred way of
       -- authorizing permissions since it offers more flexibility and control.

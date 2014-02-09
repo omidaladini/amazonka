@@ -26,11 +26,11 @@ import Network.AWS.EC2.Types
 cancelReservedInstancesListing :: Text
                                -> CancelReservedInstancesListing
 cancelReservedInstancesListing p1 = CancelReservedInstancesListing
-    { crilrReservedInstancesListingId = p1
+    { crilReservedInstancesListingId = p1
     }
 
 data CancelReservedInstancesListing = CancelReservedInstancesListing
-    { crilrReservedInstancesListingId :: !Text
+    { crilReservedInstancesListingId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CancelReservedInstancesListing
@@ -41,7 +41,7 @@ instance AWSRequest CancelReservedInstancesListing where
     request = getQuery service "CancelReservedInstancesListing"
 
 data CancelReservedInstancesListingResponse = CancelReservedInstancesListingResponse
-    { crilrrReservedInstancesListings :: [ReservedInstancesListing]
+    { crilrReservedInstancesListings :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CancelReservedInstancesListingResponse where

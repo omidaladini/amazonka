@@ -27,13 +27,13 @@ unassignPrivateIpAddresses :: Text
                            -> [Text]
                            -> UnassignPrivateIpAddresses
 unassignPrivateIpAddresses p1 p2 = UnassignPrivateIpAddresses
-    { upiarNetworkInterfaceId = p1
-    , upiarPrivateIpAddresses = p2
+    { upiaNetworkInterfaceId = p1
+    , upiaPrivateIpAddresses = p2
     }
 
 data UnassignPrivateIpAddresses = UnassignPrivateIpAddresses
-    { upiarNetworkInterfaceId :: !Text
-    , upiarPrivateIpAddresses :: [Text]
+    { upiaNetworkInterfaceId :: !Text
+    , upiaPrivateIpAddresses :: [Text]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery UnassignPrivateIpAddresses

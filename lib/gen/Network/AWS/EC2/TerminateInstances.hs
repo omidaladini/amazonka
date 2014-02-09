@@ -30,13 +30,13 @@ terminateInstances :: [Text]
                    -- ^ The list of instances to terminate.
                    -> TerminateInstances
 terminateInstances p1 = TerminateInstances
-    { tirInstanceIds = p1
-    , tirDryRun = Nothing
+    { tiInstanceIds = p1
+    , tiDryRun = Nothing
     }
 
 data TerminateInstances = TerminateInstances
-    { tirDryRun :: Maybe Bool
-    , tirInstanceIds :: [Text]
+    { tiDryRun :: Maybe Bool
+    , tiInstanceIds :: [Text]
       -- ^ The list of instances to terminate.
     } deriving (Eq, Show, Generic)
 
@@ -48,7 +48,7 @@ instance AWSRequest TerminateInstances where
     request = getQuery service "TerminateInstances"
 
 data TerminateInstancesResponse = TerminateInstancesResponse
-    { tirrTerminatingInstances :: [InstanceStateChange]
+    { tirTerminatingInstances :: [InstanceStateChange]
       -- ^ The list of the terminating instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

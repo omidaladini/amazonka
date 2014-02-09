@@ -33,26 +33,26 @@ replaceRoute :: Text
              -- ^ The ID of the route table where the route will be replaced.
              -> ReplaceRoute
 replaceRoute p1 p2 = ReplaceRoute
-    { rrrDestinationCidrBlock = p1
-    , rrrRouteTableId = p2
-    , rrrDryRun = Nothing
-    , rrrGatewayId = Nothing
-    , rrrInstanceId = Nothing
-    , rrrNetworkInterfaceId = Nothing
+    { rrDestinationCidrBlock = p1
+    , rrRouteTableId = p2
+    , rrDryRun = Nothing
+    , rrGatewayId = Nothing
+    , rrInstanceId = Nothing
+    , rrNetworkInterfaceId = Nothing
     }
 
 data ReplaceRoute = ReplaceRoute
-    { rrrDestinationCidrBlock :: !Text
+    { rrDestinationCidrBlock :: !Text
       -- ^ The CIDR address block used for the destination match. For example:
       -- 0.0.0.0/0. The value you provide must match the CIDR of an existing route
       -- in the table.
-    , rrrDryRun :: Maybe Bool
-    , rrrGatewayId :: Maybe Text
+    , rrDryRun :: Maybe Bool
+    , rrGatewayId :: Maybe Text
       -- ^ The ID of a VPN or Internet gateway attached to your VPC.
-    , rrrInstanceId :: Maybe Text
+    , rrInstanceId :: Maybe Text
       -- ^ The ID of a NAT instance in your VPC.
-    , rrrNetworkInterfaceId :: Maybe Text
-    , rrrRouteTableId :: !Text
+    , rrNetworkInterfaceId :: Maybe Text
+    , rrRouteTableId :: !Text
       -- ^ The ID of the route table where the route will be replaced.
     } deriving (Eq, Show, Generic)
 

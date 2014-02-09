@@ -40,19 +40,19 @@ createSubnet :: Text
              -- ^ The ID of the VPC to create the subnet in.
              -> CreateSubnet
 createSubnet p1 p2 = CreateSubnet
-    { cssCidrBlock = p1
-    , cssVpcId = p2
-    , cssAvailabilityZone = Nothing
-    , cssDryRun = Nothing
+    { csdCidrBlock = p1
+    , csdVpcId = p2
+    , csdAvailabilityZone = Nothing
+    , csdDryRun = Nothing
     }
 
 data CreateSubnet = CreateSubnet
-    { cssAvailabilityZone :: Maybe Text
+    { csdAvailabilityZone :: Maybe Text
       -- ^ The Availability Zone to create the subnet in.
-    , cssCidrBlock :: !Text
+    , csdCidrBlock :: !Text
       -- ^ The CIDR block the subnet is to cover.
-    , cssDryRun :: Maybe Bool
-    , cssVpcId :: !Text
+    , csdDryRun :: Maybe Bool
+    , csdVpcId :: !Text
       -- ^ The ID of the VPC to create the subnet in.
     } deriving (Eq, Show, Generic)
 
@@ -64,7 +64,7 @@ instance AWSRequest CreateSubnet where
     request = getQuery service "CreateSubnet"
 
 data CreateSubnetResponse = CreateSubnetResponse
-    { cssrSubnet :: Maybe Subnet
+    { csdrSubnet :: Maybe Subnet
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateSubnetResponse where

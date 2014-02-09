@@ -42,12 +42,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests
-    { dsirrDryRun :: Maybe Bool
-    , dsirrFilters :: [Filter]
+    { dsirDryRun :: Maybe Bool
+    , dsirFilters :: [Filter]
       -- ^ A list of filters used to match properties for SpotInstances. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , dsirrSpotInstanceRequestIds :: [Text]
+    , dsirSpotInstanceRequestIds :: [Text]
       -- ^ The ID of the request.
     } deriving (Eq, Show, Generic)
 
@@ -59,7 +59,7 @@ instance AWSRequest DescribeSpotInstanceRequests where
     request = getQuery service "DescribeSpotInstanceRequests"
 
 data DescribeSpotInstanceRequestsResponse = DescribeSpotInstanceRequestsResponse
-    { dsirrrSpotInstanceRequests :: [SpotInstanceRequest]
+    { dsirrSpotInstanceRequests :: [SpotInstanceRequest]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeSpotInstanceRequestsResponse where

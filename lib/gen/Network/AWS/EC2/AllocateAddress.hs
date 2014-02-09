@@ -23,10 +23,10 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data AllocateAddress = AllocateAddress
-    { aarDomain :: Maybe DomainType
+    { aaDomain :: Maybe DomainType
       -- ^ Set to vpc to allocate the address to your VPC. By default, will allocate
       -- to EC2.
-    , aarDryRun :: Maybe Bool
+    , aaDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery AllocateAddress
@@ -37,9 +37,9 @@ instance AWSRequest AllocateAddress where
     request = getQuery service "AllocateAddress"
 
 data AllocateAddressResponse = AllocateAddressResponse
-    { aarrAllocationId :: Maybe Text
-    , aarrDomain :: Maybe DomainType
-    , aarrPublicIp :: Maybe Text
+    { aarAllocationId :: Maybe Text
+    , aarDomain :: Maybe DomainType
+    , aarPublicIp :: Maybe Text
       -- ^ IP address for use with your account.
     } deriving (Eq, Show, Generic)
 

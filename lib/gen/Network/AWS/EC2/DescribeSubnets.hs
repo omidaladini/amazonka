@@ -30,12 +30,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeSubnets = DescribeSubnets
-    { dsrDryRun :: Maybe Bool
-    , dsrFilters :: [Filter]
+    { dsDryRun :: Maybe Bool
+    , dsFilters :: [Filter]
       -- ^ A list of filters used to match properties for Subnets. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dsrSubnetIds :: [Text]
+    , dsSubnetIds :: [Text]
       -- ^ A set of one or more subnet IDs.
     } deriving (Eq, Show, Generic)
 
@@ -47,7 +47,7 @@ instance AWSRequest DescribeSubnets where
     request = getQuery service "DescribeSubnets"
 
 data DescribeSubnetsResponse = DescribeSubnetsResponse
-    { dsrrSubnets :: [Subnet]
+    { dsrSubnets :: [Subnet]
       -- ^ Contains a set of one or more Subnet instances.
     } deriving (Eq, Show, Generic)
 

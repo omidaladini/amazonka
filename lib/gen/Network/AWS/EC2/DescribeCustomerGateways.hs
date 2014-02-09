@@ -31,10 +31,10 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeCustomerGateways = DescribeCustomerGateways
-    { dcgrCustomerGatewayIds :: [Text]
+    { dcgCustomerGatewayIds :: [Text]
       -- ^ A set of one or more customer gateway IDs.
-    , dcgrDryRun :: Maybe Bool
-    , dcgrFilters :: [Filter]
+    , dcgDryRun :: Maybe Bool
+    , dcgFilters :: [Filter]
       -- ^ A list of filters used to match properties for Customer Gateways. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
@@ -48,7 +48,7 @@ instance AWSRequest DescribeCustomerGateways where
     request = getQuery service "DescribeCustomerGateways"
 
 data DescribeCustomerGatewaysResponse = DescribeCustomerGatewaysResponse
-    { dcgrrCustomerGateways :: [CustomerGateway]
+    { dcgrCustomerGateways :: [CustomerGateway]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeCustomerGatewaysResponse where

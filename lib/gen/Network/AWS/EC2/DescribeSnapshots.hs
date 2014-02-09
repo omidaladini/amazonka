@@ -26,20 +26,20 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeSnapshots = DescribeSnapshots
-    { dssDryRun :: Maybe Bool
-    , dssFilters :: [Filter]
+    { dsdDryRun :: Maybe Bool
+    , dsdFilters :: [Filter]
       -- ^ A list of filters used to match properties for Snapshots. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dssOwnerIds :: [Text]
+    , dsdOwnerIds :: [Text]
       -- ^ An optional list of owners by which to scope the described EBS snapshots.
       -- Valid values are: self : Snapshots owned by you AWS account ID : Snapshots
       -- owned by this account ID amazon : Snapshots owned by Amazon The values self
       -- and amazon are literals.
-    , dssRestorableByUserIds :: [Text]
+    , dsdRestorableByUserIds :: [Text]
       -- ^ An optional list of users. The described snapshots are scoped to only those
       -- snapshots from which these users can create volumes.
-    , dssSnapshotIds :: [Text]
+    , dsdSnapshotIds :: [Text]
       -- ^ The optional list of EBS snapshot IDs to describe.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest DescribeSnapshots where
     request = getQuery service "DescribeSnapshots"
 
 data DescribeSnapshotsResponse = DescribeSnapshotsResponse
-    { dssrSnapshots :: [Snapshot]
+    { dsdrSnapshots :: [Snapshot]
       -- ^ The list of described EBS snapshots.
     } deriving (Eq, Show, Generic)
 

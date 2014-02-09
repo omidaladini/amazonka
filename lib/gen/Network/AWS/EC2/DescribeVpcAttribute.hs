@@ -26,15 +26,15 @@ import Network.AWS.EC2.Types
 describeVpcAttribute :: Text
                      -> DescribeVpcAttribute
 describeVpcAttribute p1 = DescribeVpcAttribute
-    { dvasVpcId = p1
-    , dvasAttribute = Nothing
-    , dvasDryRun = Nothing
+    { dvadVpcId = p1
+    , dvadAttribute = Nothing
+    , dvadDryRun = Nothing
     }
 
 data DescribeVpcAttribute = DescribeVpcAttribute
-    { dvasAttribute :: Maybe VpcAttributeName
-    , dvasDryRun :: Maybe Bool
-    , dvasVpcId :: !Text
+    { dvadAttribute :: Maybe VpcAttributeName
+    , dvadDryRun :: Maybe Bool
+    , dvadVpcId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeVpcAttribute
@@ -45,11 +45,11 @@ instance AWSRequest DescribeVpcAttribute where
     request = getQuery service "DescribeVpcAttribute"
 
 data DescribeVpcAttributeResponse = DescribeVpcAttributeResponse
-    { dvasrEnableDnsHostnames :: Maybe AttributeBooleanValue
+    { dvadrEnableDnsHostnames :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , dvasrEnableDnsSupport :: Maybe AttributeBooleanValue
+    , dvadrEnableDnsSupport :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , dvasrVpcId :: Maybe Text
+    , dvadrVpcId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpcAttributeResponse where

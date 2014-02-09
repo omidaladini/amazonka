@@ -27,17 +27,17 @@ copySnapshot :: Text
              -> Text
              -> CopySnapshot
 copySnapshot p1 p2 = CopySnapshot
-    { csrSourceRegion = p1
-    , csrSourceSnapshotId = p2
-    , csrDescription = Nothing
-    , csrDryRun = Nothing
+    { csSourceRegion = p1
+    , csSourceSnapshotId = p2
+    , csDescription = Nothing
+    , csDryRun = Nothing
     }
 
 data CopySnapshot = CopySnapshot
-    { csrDescription :: Maybe Text
-    , csrDryRun :: Maybe Bool
-    , csrSourceRegion :: !Text
-    , csrSourceSnapshotId :: !Text
+    { csDescription :: Maybe Text
+    , csDryRun :: Maybe Bool
+    , csSourceRegion :: !Text
+    , csSourceSnapshotId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CopySnapshot
@@ -48,7 +48,7 @@ instance AWSRequest CopySnapshot where
     request = getQuery service "CopySnapshot"
 
 data CopySnapshotResponse = CopySnapshotResponse
-    { csrrSnapshotId :: Maybe Text
+    { csrSnapshotId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML CopySnapshotResponse where

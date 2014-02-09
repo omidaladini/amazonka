@@ -34,12 +34,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeRouteTables = DescribeRouteTables
-    { drttDryRun :: Maybe Bool
-    , drttFilters :: [Filter]
+    { drteDryRun :: Maybe Bool
+    , drteFilters :: [Filter]
       -- ^ A list of filters used to match properties for Route Tables. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , drttRouteTableIds :: [Text]
+    , drteRouteTableIds :: [Text]
       -- ^ One or more route table IDs.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest DescribeRouteTables where
     request = getQuery service "DescribeRouteTables"
 
 data DescribeRouteTablesResponse = DescribeRouteTablesResponse
-    { drttrRouteTables :: [RouteTable]
+    { drterRouteTables :: [RouteTable]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeRouteTablesResponse where

@@ -27,55 +27,55 @@ modifyInstanceAttribute :: Text
                         -- ^ The ID of the instance whose attribute is being modified.
                         -> ModifyInstanceAttribute
 modifyInstanceAttribute p1 = ModifyInstanceAttribute
-    { miasInstanceId = p1
-    , miasAttribute = Nothing
-    , miasBlockDeviceMappings = []
-    , miasDisableApiTermination = Nothing
-    , miasDryRun = Nothing
-    , miasEbsOptimized = Nothing
-    , miasGroups = []
-    , miasInstanceInitiatedShutdownBehavior = Nothing
-    , miasInstanceType = Nothing
-    , miasKernel = Nothing
-    , miasRamdisk = Nothing
-    , miasSourceDestCheck = Nothing
-    , miasSriovNetSupport = Nothing
-    , miasUserData = Nothing
-    , miasValue = Nothing
+    { miadInstanceId = p1
+    , miadAttribute = Nothing
+    , miadBlockDeviceMappings = []
+    , miadDisableApiTermination = Nothing
+    , miadDryRun = Nothing
+    , miadEbsOptimized = Nothing
+    , miadGroups = []
+    , miadInstanceInitiatedShutdownBehavior = Nothing
+    , miadInstanceType = Nothing
+    , miadKernel = Nothing
+    , miadRamdisk = Nothing
+    , miadSourceDestCheck = Nothing
+    , miadSriovNetSupport = Nothing
+    , miadUserData = Nothing
+    , miadValue = Nothing
     }
 
 data ModifyInstanceAttribute = ModifyInstanceAttribute
-    { miasAttribute :: Maybe InstanceAttributeName
+    { miadAttribute :: Maybe InstanceAttributeName
       -- ^ The name of the attribute being modified. Available attribute names:
       -- instanceType, kernel, ramdisk, userData, disableApiTermination,
       -- instanceInitiatedShutdownBehavior, rootDevice, blockDeviceMapping.
-    , miasBlockDeviceMappings :: [InstanceBlockDeviceMappingSpecification]
+    , miadBlockDeviceMappings :: [InstanceBlockDeviceMappingSpecification]
       -- ^ The new block device mappings for the instance whose attributes are being
       -- modified. Only valid when blockDeviceMapping is specified as the attribute
       -- being modified.
-    , miasDisableApiTermination :: Maybe AttributeBooleanValue
+    , miadDisableApiTermination :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , miasDryRun :: Maybe Bool
-    , miasEbsOptimized :: Maybe AttributeBooleanValue
+    , miadDryRun :: Maybe Bool
+    , miadEbsOptimized :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , miasGroups :: [Text]
-    , miasInstanceId :: !Text
+    , miadGroups :: [Text]
+    , miadInstanceId :: !Text
       -- ^ The ID of the instance whose attribute is being modified.
-    , miasInstanceInitiatedShutdownBehavior :: Maybe AttributeValue
+    , miadInstanceInitiatedShutdownBehavior :: Maybe AttributeValue
       -- ^ String value.
-    , miasInstanceType :: Maybe AttributeValue
+    , miadInstanceType :: Maybe AttributeValue
       -- ^ String value.
-    , miasKernel :: Maybe AttributeValue
+    , miadKernel :: Maybe AttributeValue
       -- ^ String value.
-    , miasRamdisk :: Maybe AttributeValue
+    , miadRamdisk :: Maybe AttributeValue
       -- ^ String value.
-    , miasSourceDestCheck :: Maybe AttributeBooleanValue
+    , miadSourceDestCheck :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , miasSriovNetSupport :: Maybe AttributeValue
+    , miadSriovNetSupport :: Maybe AttributeValue
       -- ^ String value.
-    , miasUserData :: Maybe AttributeValue
+    , miadUserData :: Maybe AttributeValue
       -- ^ String value.
-    , miasValue :: Maybe Text
+    , miadValue :: Maybe Text
       -- ^ The new value of the instance attribute being modified. Only valid when
       -- kernel, ramdisk, userData, disableApiTermination or
       -- instanceInitiateShutdownBehavior is specified as the attribute being

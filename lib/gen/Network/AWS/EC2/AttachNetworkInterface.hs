@@ -28,17 +28,17 @@ attachNetworkInterface :: Int
                        -> Text
                        -> AttachNetworkInterface
 attachNetworkInterface p1 p2 p3 = AttachNetworkInterface
-    { anirDeviceIndex = p1
-    , anirInstanceId = p2
-    , anirNetworkInterfaceId = p3
-    , anirDryRun = Nothing
+    { aniDeviceIndex = p1
+    , aniInstanceId = p2
+    , aniNetworkInterfaceId = p3
+    , aniDryRun = Nothing
     }
 
 data AttachNetworkInterface = AttachNetworkInterface
-    { anirDeviceIndex :: !Int
-    , anirDryRun :: Maybe Bool
-    , anirInstanceId :: !Text
-    , anirNetworkInterfaceId :: !Text
+    { aniDeviceIndex :: !Int
+    , aniDryRun :: Maybe Bool
+    , aniInstanceId :: !Text
+    , aniNetworkInterfaceId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery AttachNetworkInterface
@@ -49,7 +49,7 @@ instance AWSRequest AttachNetworkInterface where
     request = getQuery service "AttachNetworkInterface"
 
 data AttachNetworkInterfaceResponse = AttachNetworkInterfaceResponse
-    { anirrAttachmentId :: Maybe Text
+    { anirAttachmentId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AttachNetworkInterfaceResponse where

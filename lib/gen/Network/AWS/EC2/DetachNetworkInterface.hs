@@ -26,15 +26,15 @@ import Network.AWS.EC2.Types
 detachNetworkInterface :: Text
                        -> DetachNetworkInterface
 detachNetworkInterface p1 = DetachNetworkInterface
-    { dnirAttachmentId = p1
-    , dnirDryRun = Nothing
-    , dnirForce = Nothing
+    { dniAttachmentId = p1
+    , dniDryRun = Nothing
+    , dniForce = Nothing
     }
 
 data DetachNetworkInterface = DetachNetworkInterface
-    { dnirAttachmentId :: !Text
-    , dnirDryRun :: Maybe Bool
-    , dnirForce :: Maybe Bool
+    { dniAttachmentId :: !Text
+    , dniDryRun :: Maybe Bool
+    , dniForce :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DetachNetworkInterface

@@ -27,32 +27,32 @@ modifySnapshotAttribute :: Text
                         -- ^ The ID of the EBS snapshot whose attributes are being modified.
                         -> ModifySnapshotAttribute
 modifySnapshotAttribute p1 = ModifySnapshotAttribute
-    { msarSnapshotId = p1
-    , msarAttribute = Nothing
-    , msarCreateVolumePermission = Nothing
-    , msarDryRun = Nothing
-    , msarGroupNames = []
-    , msarOperationType = Nothing
-    , msarUserIds = []
+    { msaSnapshotId = p1
+    , msaAttribute = Nothing
+    , msaCreateVolumePermission = Nothing
+    , msaDryRun = Nothing
+    , msaGroupNames = []
+    , msaOperationType = Nothing
+    , msaUserIds = []
     }
 
 data ModifySnapshotAttribute = ModifySnapshotAttribute
-    { msarAttribute :: Maybe SnapshotAttributeName
+    { msaAttribute :: Maybe SnapshotAttributeName
       -- ^ The name of the attribute being modified. Available attribute names:
       -- createVolumePermission.
-    , msarCreateVolumePermission :: Maybe CreateVolumePermissionModifications
-    , msarDryRun :: Maybe Bool
-    , msarGroupNames :: [Text]
+    , msaCreateVolumePermission :: Maybe CreateVolumePermissionModifications
+    , msaDryRun :: Maybe Bool
+    , msaGroupNames :: [Text]
       -- ^ The AWS group names to add to or remove from the list of groups that have
       -- permission to create EBS volumes from the specified snapshot. Currently
       -- supports "all". Only valid when the createVolumePermission attribute is
       -- being modified.
-    , msarOperationType :: Maybe Text
+    , msaOperationType :: Maybe Text
       -- ^ The operation to perform on the attribute. Available operation names: add,
       -- remove.
-    , msarSnapshotId :: !Text
+    , msaSnapshotId :: !Text
       -- ^ The ID of the EBS snapshot whose attributes are being modified.
-    , msarUserIds :: [Text]
+    , msaUserIds :: [Text]
       -- ^ The AWS user IDs to add to or remove from the list of users that have
       -- permission to create EBS volumes from the specified snapshot. Currently
       -- supports "all". Only valid when the createVolumePermission attribute is

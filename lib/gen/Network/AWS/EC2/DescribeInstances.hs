@@ -29,15 +29,15 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeInstances = DescribeInstances
-    { disDryRun :: Maybe Bool
-    , disFilters :: [Filter]
+    { didDryRun :: Maybe Bool
+    , didFilters :: [Filter]
       -- ^ A list of filters used to match properties for Instances. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , disInstanceIds :: [Text]
+    , didInstanceIds :: [Text]
       -- ^ An optional list of the instances to describe.
-    , disMaxResults :: Maybe Int
-    , disNextToken :: Maybe Text
+    , didMaxResults :: Maybe Int
+    , didNextToken :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeInstances
@@ -49,12 +49,12 @@ instance AWSRequest DescribeInstances where
 
 instance AWSPager DescribeInstances where
     next rq rs
-        | Just x <- disrNextToken rs = Just $ rq { disNextToken = Just x }
+        | Just x <- didrNextToken rs = Just $ rq { didNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeInstancesResponse = DescribeInstancesResponse
-    { disrNextToken :: Maybe Text
-    , disrReservations :: [Reservation]
+    { didrNextToken :: Maybe Text
+    , didrReservations :: [Reservation]
       -- ^ The list of reservations containing the describes instances.
     } deriving (Eq, Show, Generic)
 

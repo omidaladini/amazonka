@@ -22,11 +22,11 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeVolumeStatus = DescribeVolumeStatus
-    { dvssDryRun :: Maybe Bool
-    , dvssFilters :: [Filter]
-    , dvssMaxResults :: Maybe Int
-    , dvssNextToken :: Maybe Text
-    , dvssVolumeIds :: [Text]
+    { dvsDryRun :: Maybe Bool
+    , dvsFilters :: [Filter]
+    , dvsMaxResults :: Maybe Int
+    , dvsNextToken :: Maybe Text
+    , dvsVolumeIds :: [Text]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeVolumeStatus
@@ -38,12 +38,12 @@ instance AWSRequest DescribeVolumeStatus where
 
 instance AWSPager DescribeVolumeStatus where
     next rq rs
-        | Just x <- dvssrNextToken rs = Just $ rq { dvssNextToken = Just x }
+        | Just x <- dvsrNextToken rs = Just $ rq { dvsNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeVolumeStatusResponse = DescribeVolumeStatusResponse
-    { dvssrNextToken :: Maybe Text
-    , dvssrVolumeStatuses :: [VolumeStatusItem]
+    { dvsrNextToken :: Maybe Text
+    , dvsrVolumeStatuses :: [VolumeStatusItem]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVolumeStatusResponse where

@@ -30,11 +30,11 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data ReleaseAddress = ReleaseAddress
-    { rarAllocationId :: Maybe Text
+    { raAllocationId :: Maybe Text
       -- ^ The allocation ID that AWS provided when you allocated the address for use
       -- with Amazon VPC.
-    , rarDryRun :: Maybe Bool
-    , rarPublicIp :: Maybe Text
+    , raDryRun :: Maybe Bool
+    , raPublicIp :: Maybe Text
       -- ^ The elastic IP address that you are releasing from your account.
     } deriving (Eq, Show, Generic)
 

@@ -30,12 +30,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeVpcs = DescribeVpcs
-    { dvsDryRun :: Maybe Bool
-    , dvsFilters :: [Filter]
+    { dvdDryRun :: Maybe Bool
+    , dvdFilters :: [Filter]
       -- ^ A list of filters used to match properties for VPCs. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dvsVpcIds :: [Text]
+    , dvdVpcIds :: [Text]
       -- ^ The ID of a VPC you want information about.
     } deriving (Eq, Show, Generic)
 
@@ -47,7 +47,7 @@ instance AWSRequest DescribeVpcs where
     request = getQuery service "DescribeVpcs"
 
 data DescribeVpcsResponse = DescribeVpcsResponse
-    { dvsrVpcs :: [Vpc]
+    { dvdrVpcs :: [Vpc]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpcsResponse where

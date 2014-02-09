@@ -35,16 +35,16 @@ associateRouteTable :: Text
                     -- ^ The ID of the subnet.
                     -> AssociateRouteTable
 associateRouteTable p1 p2 = AssociateRouteTable
-    { artrRouteTableId = p1
-    , artrSubnetId = p2
-    , artrDryRun = Nothing
+    { artRouteTableId = p1
+    , artSubnetId = p2
+    , artDryRun = Nothing
     }
 
 data AssociateRouteTable = AssociateRouteTable
-    { artrDryRun :: Maybe Bool
-    , artrRouteTableId :: !Text
+    { artDryRun :: Maybe Bool
+    , artRouteTableId :: !Text
       -- ^ The ID of the route table.
-    , artrSubnetId :: !Text
+    , artSubnetId :: !Text
       -- ^ The ID of the subnet.
     } deriving (Eq, Show, Generic)
 
@@ -56,7 +56,7 @@ instance AWSRequest AssociateRouteTable where
     request = getQuery service "AssociateRouteTable"
 
 data AssociateRouteTableResponse = AssociateRouteTableResponse
-    { artrrAssociationId :: Maybe Text
+    { artrAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AssociateRouteTableResponse where

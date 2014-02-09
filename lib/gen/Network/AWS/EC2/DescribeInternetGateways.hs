@@ -35,12 +35,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeInternetGateways = DescribeInternetGateways
-    { digsDryRun :: Maybe Bool
-    , digsFilters :: [Filter]
+    { digdDryRun :: Maybe Bool
+    , digdFilters :: [Filter]
       -- ^ A list of filters used to match properties for Internet Gateways. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , digsInternetGatewayIds :: [Text]
+    , digdInternetGatewayIds :: [Text]
       -- ^ One or more Internet gateway IDs.
     } deriving (Eq, Show, Generic)
 
@@ -52,7 +52,7 @@ instance AWSRequest DescribeInternetGateways where
     request = getQuery service "DescribeInternetGateways"
 
 data DescribeInternetGatewaysResponse = DescribeInternetGatewaysResponse
-    { digsrInternetGateways :: [InternetGateway]
+    { digdrInternetGateways :: [InternetGateway]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeInternetGatewaysResponse where

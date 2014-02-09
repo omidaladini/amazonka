@@ -26,13 +26,13 @@ import Network.AWS.EC2.Types
 enableVolumeIO :: Text
                -> EnableVolumeIO
 enableVolumeIO p1 = EnableVolumeIO
-    { eviorVolumeId = p1
-    , eviorDryRun = Nothing
+    { evioVolumeId = p1
+    , evioDryRun = Nothing
     }
 
 data EnableVolumeIO = EnableVolumeIO
-    { eviorDryRun :: Maybe Bool
-    , eviorVolumeId :: !Text
+    { evioDryRun :: Maybe Bool
+    , evioVolumeId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery EnableVolumeIO

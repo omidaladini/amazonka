@@ -33,12 +33,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeVpnConnections = DescribeVpnConnections
-    { dvcsDryRun :: Maybe Bool
-    , dvcsFilters :: [Filter]
+    { dvcdDryRun :: Maybe Bool
+    , dvcdFilters :: [Filter]
       -- ^ A list of filters used to match properties for VPN Connections. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , dvcsVpnConnectionIds :: [Text]
+    , dvcdVpnConnectionIds :: [Text]
       -- ^ A VPN connection ID. More than one may be specified per request.
     } deriving (Eq, Show, Generic)
 
@@ -50,7 +50,7 @@ instance AWSRequest DescribeVpnConnections where
     request = getQuery service "DescribeVpnConnections"
 
 data DescribeVpnConnectionsResponse = DescribeVpnConnectionsResponse
-    { dvcsrVpnConnections :: [VpnConnection]
+    { dvcdrVpnConnections :: [VpnConnection]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVpnConnectionsResponse where

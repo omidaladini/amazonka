@@ -27,21 +27,21 @@ copyImage :: Text
           -> Text
           -> CopyImage
 copyImage p1 p2 = CopyImage
-    { cirSourceImageId = p1
-    , cirSourceRegion = p2
-    , cirClientToken = Nothing
-    , cirDescription = Nothing
-    , cirDryRun = Nothing
-    , cirName = Nothing
+    { ciSourceImageId = p1
+    , ciSourceRegion = p2
+    , ciClientToken = Nothing
+    , ciDescription = Nothing
+    , ciDryRun = Nothing
+    , ciName = Nothing
     }
 
 data CopyImage = CopyImage
-    { cirClientToken :: Maybe Text
-    , cirDescription :: Maybe Text
-    , cirDryRun :: Maybe Bool
-    , cirName :: Maybe Text
-    , cirSourceImageId :: !Text
-    , cirSourceRegion :: !Text
+    { ciClientToken :: Maybe Text
+    , ciDescription :: Maybe Text
+    , ciDryRun :: Maybe Bool
+    , ciName :: Maybe Text
+    , ciSourceImageId :: !Text
+    , ciSourceRegion :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CopyImage
@@ -52,7 +52,7 @@ instance AWSRequest CopyImage where
     request = getQuery service "CopyImage"
 
 data CopyImageResponse = CopyImageResponse
-    { cirrImageId :: Maybe Text
+    { cirImageId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML CopyImageResponse where

@@ -31,17 +31,17 @@ describeSnapshotAttribute :: SnapshotAttributeName
                           -- ^ The ID of the EBS snapshot whose attribute is being described.
                           -> DescribeSnapshotAttribute
 describeSnapshotAttribute p1 p2 = DescribeSnapshotAttribute
-    { dsarAttribute = p1
-    , dsarSnapshotId = p2
-    , dsarDryRun = Nothing
+    { dsaAttribute = p1
+    , dsaSnapshotId = p2
+    , dsaDryRun = Nothing
     }
 
 data DescribeSnapshotAttribute = DescribeSnapshotAttribute
-    { dsarAttribute :: !SnapshotAttributeName
+    { dsaAttribute :: !SnapshotAttributeName
       -- ^ The name of the EBS attribute to describe. Available attribute names:
       -- createVolumePermission.
-    , dsarDryRun :: Maybe Bool
-    , dsarSnapshotId :: !Text
+    , dsaDryRun :: Maybe Bool
+    , dsaSnapshotId :: !Text
       -- ^ The ID of the EBS snapshot whose attribute is being described.
     } deriving (Eq, Show, Generic)
 
@@ -53,12 +53,12 @@ instance AWSRequest DescribeSnapshotAttribute where
     request = getQuery service "DescribeSnapshotAttribute"
 
 data DescribeSnapshotAttributeResponse = DescribeSnapshotAttributeResponse
-    { dsarrCreateVolumePermissions :: [CreateVolumePermission]
+    { dsarCreateVolumePermissions :: [CreateVolumePermission]
       -- ^ The list of permissions describing who can create a volume from the
       -- associated EBS snapshot. Only available if the createVolumePermission
       -- attribute is requested.
-    , dsarrProductCodes :: [ProductCode]
-    , dsarrSnapshotId :: Maybe Text
+    , dsarProductCodes :: [ProductCode]
+    , dsarSnapshotId :: Maybe Text
       -- ^ The ID of the snapshot whose attribute is being described.
     } deriving (Eq, Show, Generic)
 

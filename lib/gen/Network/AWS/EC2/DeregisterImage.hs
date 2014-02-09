@@ -28,13 +28,13 @@ deregisterImage :: Text
                 -- ^ The ID of the AMI to deregister.
                 -> DeregisterImage
 deregisterImage p1 = DeregisterImage
-    { dirImageId = p1
-    , dirDryRun = Nothing
+    { diImageId = p1
+    , diDryRun = Nothing
     }
 
 data DeregisterImage = DeregisterImage
-    { dirDryRun :: Maybe Bool
-    , dirImageId :: !Text
+    { diDryRun :: Maybe Bool
+    , diImageId :: !Text
       -- ^ The ID of the AMI to deregister.
     } deriving (Eq, Show, Generic)
 

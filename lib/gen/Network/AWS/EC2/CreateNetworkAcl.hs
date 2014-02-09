@@ -30,13 +30,13 @@ createNetworkAcl :: Text
                  -- ^ The ID of the VPC where the network ACL will be created.
                  -> CreateNetworkAcl
 createNetworkAcl p1 = CreateNetworkAcl
-    { cnarVpcId = p1
-    , cnarDryRun = Nothing
+    { cnaVpcId = p1
+    , cnaDryRun = Nothing
     }
 
 data CreateNetworkAcl = CreateNetworkAcl
-    { cnarDryRun :: Maybe Bool
-    , cnarVpcId :: !Text
+    { cnaDryRun :: Maybe Bool
+    , cnaVpcId :: !Text
       -- ^ The ID of the VPC where the network ACL will be created.
     } deriving (Eq, Show, Generic)
 
@@ -48,7 +48,7 @@ instance AWSRequest CreateNetworkAcl where
     request = getQuery service "CreateNetworkAcl"
 
 data CreateNetworkAclResponse = CreateNetworkAclResponse
-    { cnarrNetworkAcl :: Maybe NetworkAcl
+    { cnarNetworkAcl :: Maybe NetworkAcl
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateNetworkAclResponse where

@@ -31,14 +31,14 @@ createDhcpOptions :: [DhcpConfiguration]
                   -- ^ A set of one or more DHCP configurations.
                   -> CreateDhcpOptions
 createDhcpOptions p1 = CreateDhcpOptions
-    { cdorDhcpConfigurations = p1
-    , cdorDryRun = Nothing
+    { cdoDhcpConfigurations = p1
+    , cdoDryRun = Nothing
     }
 
 data CreateDhcpOptions = CreateDhcpOptions
-    { cdorDhcpConfigurations :: [DhcpConfiguration]
+    { cdoDhcpConfigurations :: [DhcpConfiguration]
       -- ^ A set of one or more DHCP configurations.
-    , cdorDryRun :: Maybe Bool
+    , cdoDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateDhcpOptions
@@ -49,7 +49,7 @@ instance AWSRequest CreateDhcpOptions where
     request = getQuery service "CreateDhcpOptions"
 
 data CreateDhcpOptionsResponse = CreateDhcpOptionsResponse
-    { cdorrDhcpOptions :: Maybe DhcpOptions
+    { cdorDhcpOptions :: Maybe DhcpOptions
       -- ^ A set of one or more DHCP options.
     } deriving (Eq, Show, Generic)
 

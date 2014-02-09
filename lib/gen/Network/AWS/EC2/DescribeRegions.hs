@@ -23,12 +23,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeRegions = DescribeRegions
-    { drsDryRun :: Maybe Bool
-    , drsFilters :: [Filter]
+    { drdDryRun :: Maybe Bool
+    , drdFilters :: [Filter]
       -- ^ A list of filters used to match properties for Regions. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , drsRegionNames :: [Text]
+    , drdRegionNames :: [Text]
       -- ^ The optional list of regions to describe.
     } deriving (Eq, Show, Generic)
 
@@ -40,7 +40,7 @@ instance AWSRequest DescribeRegions where
     request = getQuery service "DescribeRegions"
 
 data DescribeRegionsResponse = DescribeRegionsResponse
-    { drsrRegions :: [Region]
+    { drdrRegions :: [Region]
       -- ^ The list of described Amazon EC2 regions.
     } deriving (Eq, Show, Generic)
 

@@ -30,17 +30,17 @@ resetInstanceAttribute :: InstanceAttributeName
                        -- ^ The ID of the Amazon EC2 instance whose attribute is being reset.
                        -> ResetInstanceAttribute
 resetInstanceAttribute p1 p2 = ResetInstanceAttribute
-    { riarAttribute = p1
-    , riarInstanceId = p2
-    , riarDryRun = Nothing
+    { riaAttribute = p1
+    , riaInstanceId = p2
+    , riaDryRun = Nothing
     }
 
 data ResetInstanceAttribute = ResetInstanceAttribute
-    { riarAttribute :: !InstanceAttributeName
+    { riaAttribute :: !InstanceAttributeName
       -- ^ The name of the attribute being reset. Available attribute names: kernel,
       -- ramdisk.
-    , riarDryRun :: Maybe Bool
-    , riarInstanceId :: !Text
+    , riaDryRun :: Maybe Bool
+    , riaInstanceId :: !Text
       -- ^ The ID of the Amazon EC2 instance whose attribute is being reset.
     } deriving (Eq, Show, Generic)
 

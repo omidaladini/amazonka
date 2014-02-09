@@ -30,13 +30,13 @@ deleteRouteTable :: Text
                  -- ^ The ID of the route table to be deleted.
                  -> DeleteRouteTable
 deleteRouteTable p1 = DeleteRouteTable
-    { drtsRouteTableId = p1
-    , drtsDryRun = Nothing
+    { drtdRouteTableId = p1
+    , drtdDryRun = Nothing
     }
 
 data DeleteRouteTable = DeleteRouteTable
-    { drtsDryRun :: Maybe Bool
-    , drtsRouteTableId :: !Text
+    { drtdDryRun :: Maybe Bool
+    , drtdRouteTableId :: !Text
       -- ^ The ID of the route table to be deleted.
     } deriving (Eq, Show, Generic)
 

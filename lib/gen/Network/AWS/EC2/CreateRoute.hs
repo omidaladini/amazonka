@@ -39,27 +39,27 @@ createRoute :: Text
             -- ^ The ID of the route table where the route will be added.
             -> CreateRoute
 createRoute p1 p2 = CreateRoute
-    { crrDestinationCidrBlock = p1
-    , crrRouteTableId = p2
-    , crrDryRun = Nothing
-    , crrGatewayId = Nothing
-    , crrInstanceId = Nothing
-    , crrNetworkInterfaceId = Nothing
+    { crDestinationCidrBlock = p1
+    , crRouteTableId = p2
+    , crDryRun = Nothing
+    , crGatewayId = Nothing
+    , crInstanceId = Nothing
+    , crNetworkInterfaceId = Nothing
     }
 
 data CreateRoute = CreateRoute
-    { crrDestinationCidrBlock :: !Text
+    { crDestinationCidrBlock :: !Text
       -- ^ The CIDR address block used for the destination match. For example:
       -- 0.0.0.0/0. Routing decisions are based on the most specific match.
-    , crrDryRun :: Maybe Bool
-    , crrGatewayId :: Maybe Text
+    , crDryRun :: Maybe Bool
+    , crGatewayId :: Maybe Text
       -- ^ The ID of a VPN or Internet gateway attached to your VPC. You must provide
       -- either GatewayId or InstanceId, but not both.
-    , crrInstanceId :: Maybe Text
+    , crInstanceId :: Maybe Text
       -- ^ The ID of a NAT instance in your VPC. You must provide either GatewayId or
       -- InstanceId, but not both.
-    , crrNetworkInterfaceId :: Maybe Text
-    , crrRouteTableId :: !Text
+    , crNetworkInterfaceId :: Maybe Text
+    , crRouteTableId :: !Text
       -- ^ The ID of the route table where the route will be added.
     } deriving (Eq, Show, Generic)
 

@@ -26,11 +26,11 @@ import Network.AWS.EC2.Types
 cancelExportTask :: Text
                  -> CancelExportTask
 cancelExportTask p1 = CancelExportTask
-    { cetrExportTaskId = p1
+    { cetExportTaskId = p1
     }
 
 data CancelExportTask = CancelExportTask
-    { cetrExportTaskId :: !Text
+    { cetExportTaskId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CancelExportTask

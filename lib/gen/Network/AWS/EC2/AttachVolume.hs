@@ -34,21 +34,21 @@ attachVolume :: Text
              -- same Availability Zone and the instance must be running.
              -> AttachVolume
 attachVolume p1 p2 p3 = AttachVolume
-    { avrDevice = p1
-    , avrInstanceId = p2
-    , avrVolumeId = p3
-    , avrDryRun = Nothing
+    { avDevice = p1
+    , avInstanceId = p2
+    , avVolumeId = p3
+    , avDryRun = Nothing
     }
 
 data AttachVolume = AttachVolume
-    { avrDevice :: !Text
+    { avDevice :: !Text
       -- ^ Specifies how the device is exposed to the instance (e.g., /dev/sdh).
-    , avrDryRun :: Maybe Bool
-    , avrInstanceId :: !Text
+    , avDryRun :: Maybe Bool
+    , avInstanceId :: !Text
       -- ^ The ID of the instance to which the volume attaches. The volume and
       -- instance must be within the same Availability Zone and the instance must be
       -- running.
-    , avrVolumeId :: !Text
+    , avVolumeId :: !Text
       -- ^ The ID of the Amazon EBS volume. The volume and instance must be within the
       -- same Availability Zone and the instance must be running.
     } deriving (Eq, Show, Generic)
@@ -61,16 +61,16 @@ instance AWSRequest AttachVolume where
     request = getQuery service "AttachVolume"
 
 data AttachVolumeResponse = AttachVolumeResponse
-    { avrrAttachTime :: Maybe UTCTime
+    { avrAttachTime :: Maybe UTCTime
       -- ^ Timestamp when this attachment initiated.
-    , avrrDeleteOnTermination :: Maybe Bool
+    , avrDeleteOnTermination :: Maybe Bool
       -- ^ ` Whether this volume will be deleted or not when the associated instance
       -- is terminated.
-    , avrrDevice :: Maybe Text
+    , avrDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
-    , avrrInstanceId :: Maybe Text
-    , avrrState :: Maybe VolumeAttachmentState
-    , avrrVolumeId :: Maybe Text
+    , avrInstanceId :: Maybe Text
+    , avrState :: Maybe VolumeAttachmentState
+    , avrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML AttachVolumeResponse where

@@ -27,13 +27,13 @@ enableVgwRoutePropagation :: Text
                           -> Text
                           -> EnableVgwRoutePropagation
 enableVgwRoutePropagation p1 p2 = EnableVgwRoutePropagation
-    { evrprGatewayId = p1
-    , evrprRouteTableId = p2
+    { evrpGatewayId = p1
+    , evrpRouteTableId = p2
     }
 
 data EnableVgwRoutePropagation = EnableVgwRoutePropagation
-    { evrprGatewayId :: !Text
-    , evrprRouteTableId :: !Text
+    { evrpGatewayId :: !Text
+    , evrpRouteTableId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery EnableVgwRoutePropagation

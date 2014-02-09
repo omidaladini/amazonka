@@ -22,7 +22,7 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeExportTasks = DescribeExportTasks
-    { detrExportTaskIds :: [Text]
+    { detExportTaskIds :: [Text]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeExportTasks
@@ -33,7 +33,7 @@ instance AWSRequest DescribeExportTasks where
     request = getQuery service "DescribeExportTasks"
 
 data DescribeExportTasksResponse = DescribeExportTasksResponse
-    { detrrExportTasks :: [ExportTask]
+    { detrExportTasks :: [ExportTask]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeExportTasksResponse where

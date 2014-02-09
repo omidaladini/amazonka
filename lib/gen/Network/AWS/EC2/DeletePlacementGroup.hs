@@ -28,13 +28,13 @@ deletePlacementGroup :: Text
                      -- ^ The name of the PlacementGroup to delete.
                      -> DeletePlacementGroup
 deletePlacementGroup p1 = DeletePlacementGroup
-    { dpgrGroupName = p1
-    , dpgrDryRun = Nothing
+    { dpgGroupName = p1
+    , dpgDryRun = Nothing
     }
 
 data DeletePlacementGroup = DeletePlacementGroup
-    { dpgrDryRun :: Maybe Bool
-    , dpgrGroupName :: !Text
+    { dpgDryRun :: Maybe Bool
+    , dpgGroupName :: !Text
       -- ^ The name of the PlacementGroup to delete.
     } deriving (Eq, Show, Generic)
 

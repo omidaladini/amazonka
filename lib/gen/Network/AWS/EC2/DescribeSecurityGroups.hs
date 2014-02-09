@@ -26,13 +26,13 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeSecurityGroups = DescribeSecurityGroups
-    { dsgsDryRun :: Maybe Bool
-    , dsgsFilters :: [Filter]
+    { dsgdDryRun :: Maybe Bool
+    , dsgdFilters :: [Filter]
       -- ^ A list of filters used to match properties for SecurityGroups. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , dsgsGroupIds :: [Text]
-    , dsgsGroupNames :: [Text]
+    , dsgdGroupIds :: [Text]
+    , dsgdGroupNames :: [Text]
       -- ^ An optional list of group names that specify the Amazon EC2 security groups
       -- to describe.
     } deriving (Eq, Show, Generic)
@@ -45,7 +45,7 @@ instance AWSRequest DescribeSecurityGroups where
     request = getQuery service "DescribeSecurityGroups"
 
 data DescribeSecurityGroupsResponse = DescribeSecurityGroupsResponse
-    { dsgsrSecurityGroups :: [SecurityGroup]
+    { dsgdrSecurityGroups :: [SecurityGroup]
       -- ^ The list of described Amazon EC2 security groups.
     } deriving (Eq, Show, Generic)
 

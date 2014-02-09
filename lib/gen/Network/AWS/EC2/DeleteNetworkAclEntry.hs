@@ -34,20 +34,20 @@ deleteNetworkAclEntry :: Bool
                       -- ^ Rule number for the entry to delete.
                       -> DeleteNetworkAclEntry
 deleteNetworkAclEntry p1 p2 p3 = DeleteNetworkAclEntry
-    { dnaerEgress = p1
-    , dnaerNetworkAclId = p2
-    , dnaerRuleNumber = p3
-    , dnaerDryRun = Nothing
+    { dnaeEgress = p1
+    , dnaeNetworkAclId = p2
+    , dnaeRuleNumber = p3
+    , dnaeDryRun = Nothing
     }
 
 data DeleteNetworkAclEntry = DeleteNetworkAclEntry
-    { dnaerDryRun :: Maybe Bool
-    , dnaerEgress :: !Bool
+    { dnaeDryRun :: Maybe Bool
+    , dnaeEgress :: !Bool
       -- ^ Whether the rule to delete is an egress rule (true) or ingress rule
       -- (false).
-    , dnaerNetworkAclId :: !Text
+    , dnaeNetworkAclId :: !Text
       -- ^ ID of the network ACL.
-    , dnaerRuleNumber :: !Int
+    , dnaeRuleNumber :: !Int
       -- ^ Rule number for the entry to delete.
     } deriving (Eq, Show, Generic)
 

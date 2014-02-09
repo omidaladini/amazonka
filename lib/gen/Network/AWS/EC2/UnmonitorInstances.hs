@@ -27,13 +27,13 @@ unmonitorInstances :: [Text]
                    -- ^ The list of Amazon EC2 instances on which to disable monitoring.
                    -> UnmonitorInstances
 unmonitorInstances p1 = UnmonitorInstances
-    { uirInstanceIds = p1
-    , uirDryRun = Nothing
+    { uiInstanceIds = p1
+    , uiDryRun = Nothing
     }
 
 data UnmonitorInstances = UnmonitorInstances
-    { uirDryRun :: Maybe Bool
-    , uirInstanceIds :: [Text]
+    { uiDryRun :: Maybe Bool
+    , uiInstanceIds :: [Text]
       -- ^ The list of Amazon EC2 instances on which to disable monitoring.
     } deriving (Eq, Show, Generic)
 
@@ -45,7 +45,7 @@ instance AWSRequest UnmonitorInstances where
     request = getQuery service "UnmonitorInstances"
 
 data UnmonitorInstancesResponse = UnmonitorInstancesResponse
-    { uirrInstanceMonitorings :: [InstanceMonitoring]
+    { uirInstanceMonitorings :: [InstanceMonitoring]
       -- ^ A list of updated monitoring information for the instances specified in the
       -- request.
     } deriving (Eq, Show, Generic)

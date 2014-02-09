@@ -31,14 +31,14 @@ cancelBundleTask :: Text
                  -- ^ The ID of the bundle task to cancel.
                  -> CancelBundleTask
 cancelBundleTask p1 = CancelBundleTask
-    { cbtrBundleId = p1
-    , cbtrDryRun = Nothing
+    { cbtBundleId = p1
+    , cbtDryRun = Nothing
     }
 
 data CancelBundleTask = CancelBundleTask
-    { cbtrBundleId :: !Text
+    { cbtBundleId :: !Text
       -- ^ The ID of the bundle task to cancel.
-    , cbtrDryRun :: Maybe Bool
+    , cbtDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CancelBundleTask
@@ -49,7 +49,7 @@ instance AWSRequest CancelBundleTask where
     request = getQuery service "CancelBundleTask"
 
 data CancelBundleTaskResponse = CancelBundleTaskResponse
-    { cbtrrBundleTask :: Maybe BundleTask
+    { cbtrBundleTask :: Maybe BundleTask
       -- ^ The canceled bundle task.
     } deriving (Eq, Show, Generic)
 

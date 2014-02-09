@@ -27,43 +27,43 @@ modifyImageAttribute :: Text
                      -- ^ The ID of the AMI whose attribute you want to modify.
                      -> ModifyImageAttribute
 modifyImageAttribute p1 = ModifyImageAttribute
-    { miarImageId = p1
-    , miarAttribute = Nothing
-    , miarDescription = Nothing
-    , miarDryRun = Nothing
-    , miarLaunchPermission = Nothing
-    , miarOperationType = Nothing
-    , miarProductCodes = []
-    , miarUserGroups = []
-    , miarUserIds = []
-    , miarValue = Nothing
+    { miaImageId = p1
+    , miaAttribute = Nothing
+    , miaDescription = Nothing
+    , miaDryRun = Nothing
+    , miaLaunchPermission = Nothing
+    , miaOperationType = Nothing
+    , miaProductCodes = []
+    , miaUserGroups = []
+    , miaUserIds = []
+    , miaValue = Nothing
     }
 
 data ModifyImageAttribute = ModifyImageAttribute
-    { miarAttribute :: Maybe Text
+    { miaAttribute :: Maybe Text
       -- ^ The name of the AMI attribute you want to modify. Available attributes:
       -- launchPermission, productCodes.
-    , miarDescription :: Maybe AttributeValue
+    , miaDescription :: Maybe AttributeValue
       -- ^ String value.
-    , miarDryRun :: Maybe Bool
-    , miarImageId :: !Text
+    , miaDryRun :: Maybe Bool
+    , miaImageId :: !Text
       -- ^ The ID of the AMI whose attribute you want to modify.
-    , miarLaunchPermission :: Maybe LaunchPermissionModifications
-    , miarOperationType :: Maybe Text
+    , miaLaunchPermission :: Maybe LaunchPermissionModifications
+    , miaOperationType :: Maybe Text
       -- ^ The type of operation being requested. Available operation types: add,
       -- remove.
-    , miarProductCodes :: [Text]
+    , miaProductCodes :: [Text]
       -- ^ The list of product codes being added to or removed from the specified AMI.
       -- Only valid when the productCodes attribute is being modified.
-    , miarUserGroups :: [Text]
+    , miaUserGroups :: [Text]
       -- ^ The user group being added to or removed from the list of user groups with
       -- launch permissions for this AMI. Only valid when the launchPermission
       -- attribute is being modified. Available user groups: all.
-    , miarUserIds :: [Text]
+    , miaUserIds :: [Text]
       -- ^ The AWS user ID being added to or removed from the list of users with
       -- launch permissions for this AMI. Only valid when the launchPermission
       -- attribute is being modified.
-    , miarValue :: Maybe Text
+    , miaValue :: Maybe Text
       -- ^ The value of the attribute being modified. Only valid when the description
       -- attribute is being modified.
     } deriving (Eq, Show, Generic)

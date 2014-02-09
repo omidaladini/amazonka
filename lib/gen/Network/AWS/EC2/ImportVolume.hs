@@ -22,11 +22,11 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data ImportVolume = ImportVolume
-    { ivrAvailabilityZone :: Maybe Text
-    , ivrDescription :: Maybe Text
-    , ivrDryRun :: Maybe Bool
-    , ivrImage :: Maybe DiskImageDetail
-    , ivrVolume :: Maybe VolumeDetail
+    { ivAvailabilityZone :: Maybe Text
+    , ivDescription :: Maybe Text
+    , ivDryRun :: Maybe Bool
+    , ivImage :: Maybe DiskImageDetail
+    , ivVolume :: Maybe VolumeDetail
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ImportVolume
@@ -37,7 +37,7 @@ instance AWSRequest ImportVolume where
     request = getQuery service "ImportVolume"
 
 data ImportVolumeResponse = ImportVolumeResponse
-    { ivrrConversionTask :: Maybe ConversionTask
+    { ivrConversionTask :: Maybe ConversionTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML ImportVolumeResponse where

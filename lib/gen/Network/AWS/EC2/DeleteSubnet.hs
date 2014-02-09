@@ -28,13 +28,13 @@ deleteSubnet :: Text
              -- ^ The ID of the subnet you want to delete.
              -> DeleteSubnet
 deleteSubnet p1 = DeleteSubnet
-    { dstSubnetId = p1
-    , dstDryRun = Nothing
+    { dseSubnetId = p1
+    , dseDryRun = Nothing
     }
 
 data DeleteSubnet = DeleteSubnet
-    { dstDryRun :: Maybe Bool
-    , dstSubnetId :: !Text
+    { dseDryRun :: Maybe Bool
+    , dseSubnetId :: !Text
       -- ^ The ID of the subnet you want to delete.
     } deriving (Eq, Show, Generic)
 

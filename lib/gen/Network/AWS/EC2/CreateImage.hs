@@ -32,24 +32,24 @@ createImage :: Text
             -- ^ The name for the new AMI being created.
             -> CreateImage
 createImage p1 p2 = CreateImage
-    { cisInstanceId = p1
-    , cisName = p2
-    , cisBlockDeviceMappings = []
-    , cisDescription = Nothing
-    , cisDryRun = Nothing
-    , cisNoReboot = Nothing
+    { cidInstanceId = p1
+    , cidName = p2
+    , cidBlockDeviceMappings = []
+    , cidDescription = Nothing
+    , cidDryRun = Nothing
+    , cidNoReboot = Nothing
     }
 
 data CreateImage = CreateImage
-    { cisBlockDeviceMappings :: [BlockDeviceMapping]
-    , cisDescription :: Maybe Text
+    { cidBlockDeviceMappings :: [BlockDeviceMapping]
+    , cidDescription :: Maybe Text
       -- ^ The description for the new AMI being created.
-    , cisDryRun :: Maybe Bool
-    , cisInstanceId :: !Text
+    , cidDryRun :: Maybe Bool
+    , cidInstanceId :: !Text
       -- ^ The ID of the instance from which to create the new image.
-    , cisName :: !Text
+    , cidName :: !Text
       -- ^ The name for the new AMI being created.
-    , cisNoReboot :: Maybe Bool
+    , cidNoReboot :: Maybe Bool
       -- ^ By default this property is set to false, which means Amazon EC2 attempts
       -- to cleanly shut down the instance before image creation and reboots the
       -- instance afterwards. When set to true, Amazon EC2 will not shut down the
@@ -65,7 +65,7 @@ instance AWSRequest CreateImage where
     request = getQuery service "CreateImage"
 
 data CreateImageResponse = CreateImageResponse
-    { cisrImageId :: Maybe Text
+    { cidrImageId :: Maybe Text
       -- ^ The ID of the new AMI.
     } deriving (Eq, Show, Generic)
 

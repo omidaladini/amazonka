@@ -25,11 +25,11 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DisassociateAddress = DisassociateAddress
-    { dasAssociationId :: Maybe Text
+    { dadAssociationId :: Maybe Text
       -- ^ Association ID corresponding to the VPC elastic IP address you want to
       -- disassociate.
-    , dasDryRun :: Maybe Bool
-    , dasPublicIp :: Maybe Text
+    , dadDryRun :: Maybe Bool
+    , dadPublicIp :: Maybe Text
       -- ^ The elastic IP address that you are disassociating from the instance.
     } deriving (Eq, Show, Generic)
 

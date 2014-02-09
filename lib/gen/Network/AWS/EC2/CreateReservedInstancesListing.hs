@@ -29,17 +29,17 @@ createReservedInstancesListing :: Text
                                -> Text
                                -> CreateReservedInstancesListing
 createReservedInstancesListing p1 p2 p3 p4 = CreateReservedInstancesListing
-    { crilsClientToken = p1
-    , crilsInstanceCount = p2
-    , crilsPriceSchedules = p3
-    , crilsReservedInstancesId = p4
+    { crildClientToken = p1
+    , crildInstanceCount = p2
+    , crildPriceSchedules = p3
+    , crildReservedInstancesId = p4
     }
 
 data CreateReservedInstancesListing = CreateReservedInstancesListing
-    { crilsClientToken :: !Text
-    , crilsInstanceCount :: !Int
-    , crilsPriceSchedules :: [PriceScheduleSpecification]
-    , crilsReservedInstancesId :: !Text
+    { crildClientToken :: !Text
+    , crildInstanceCount :: !Int
+    , crildPriceSchedules :: [PriceScheduleSpecification]
+    , crildReservedInstancesId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateReservedInstancesListing
@@ -50,7 +50,7 @@ instance AWSRequest CreateReservedInstancesListing where
     request = getQuery service "CreateReservedInstancesListing"
 
 data CreateReservedInstancesListingResponse = CreateReservedInstancesListingResponse
-    { crilsrReservedInstancesListings :: [ReservedInstancesListing]
+    { crildrReservedInstancesListings :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateReservedInstancesListingResponse where

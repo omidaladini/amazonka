@@ -25,12 +25,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeKeyPairs = DescribeKeyPairs
-    { dkpsDryRun :: Maybe Bool
-    , dkpsFilters :: [Filter]
+    { dkpdDryRun :: Maybe Bool
+    , dkpdFilters :: [Filter]
       -- ^ A list of filters used to match properties for KeyPairs. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dkpsKeyNames :: [Text]
+    , dkpdKeyNames :: [Text]
       -- ^ The optional list of key pair names to describe.
     } deriving (Eq, Show, Generic)
 
@@ -42,7 +42,7 @@ instance AWSRequest DescribeKeyPairs where
     request = getQuery service "DescribeKeyPairs"
 
 data DescribeKeyPairsResponse = DescribeKeyPairsResponse
-    { dkpsrKeyPairs :: [KeyPairInfo]
+    { dkpdrKeyPairs :: [KeyPairInfo]
       -- ^ The list of described key pairs.
     } deriving (Eq, Show, Generic)
 

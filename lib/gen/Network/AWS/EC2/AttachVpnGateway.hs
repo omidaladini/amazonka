@@ -32,16 +32,16 @@ attachVpnGateway :: Text
                  -- ^ The ID of the VPN gateway to attach to the VPC.
                  -> AttachVpnGateway
 attachVpnGateway p1 p2 = AttachVpnGateway
-    { avgrVpcId = p1
-    , avgrVpnGatewayId = p2
-    , avgrDryRun = Nothing
+    { avgVpcId = p1
+    , avgVpnGatewayId = p2
+    , avgDryRun = Nothing
     }
 
 data AttachVpnGateway = AttachVpnGateway
-    { avgrDryRun :: Maybe Bool
-    , avgrVpcId :: !Text
+    { avgDryRun :: Maybe Bool
+    , avgVpcId :: !Text
       -- ^ The ID of the VPC to attach to the VPN gateway.
-    , avgrVpnGatewayId :: !Text
+    , avgVpnGatewayId :: !Text
       -- ^ The ID of the VPN gateway to attach to the VPC.
     } deriving (Eq, Show, Generic)
 
@@ -53,7 +53,7 @@ instance AWSRequest AttachVpnGateway where
     request = getQuery service "AttachVpnGateway"
 
 data AttachVpnGatewayResponse = AttachVpnGatewayResponse
-    { avgrrVpcAttachment :: Maybe VpcAttachment
+    { avgrVpcAttachment :: Maybe VpcAttachment
     } deriving (Eq, Show, Generic)
 
 instance FromXML AttachVpnGatewayResponse where

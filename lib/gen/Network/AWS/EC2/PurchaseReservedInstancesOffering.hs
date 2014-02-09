@@ -33,18 +33,18 @@ purchaseReservedInstancesOffering :: Int
                                   -- ^ The unique ID of the Reserved Instances offering being purchased.
                                   -> PurchaseReservedInstancesOffering
 purchaseReservedInstancesOffering p1 p2 = PurchaseReservedInstancesOffering
-    { priorInstanceCount = p1
-    , priorReservedInstancesOfferingId = p2
-    , priorDryRun = Nothing
-    , priorLimitPrice = Nothing
+    { prioInstanceCount = p1
+    , prioReservedInstancesOfferingId = p2
+    , prioDryRun = Nothing
+    , prioLimitPrice = Nothing
     }
 
 data PurchaseReservedInstancesOffering = PurchaseReservedInstancesOffering
-    { priorDryRun :: Maybe Bool
-    , priorInstanceCount :: !Int
+    { prioDryRun :: Maybe Bool
+    , prioInstanceCount :: !Int
       -- ^ The number of Reserved Instances to purchase.
-    , priorLimitPrice :: Maybe ReservedInstanceLimitPrice
-    , priorReservedInstancesOfferingId :: !Text
+    , prioLimitPrice :: Maybe ReservedInstanceLimitPrice
+    , prioReservedInstancesOfferingId :: !Text
       -- ^ The unique ID of the Reserved Instances offering being purchased.
     } deriving (Eq, Show, Generic)
 
@@ -56,7 +56,7 @@ instance AWSRequest PurchaseReservedInstancesOffering where
     request = getQuery service "PurchaseReservedInstancesOffering"
 
 data PurchaseReservedInstancesOfferingResponse = PurchaseReservedInstancesOfferingResponse
-    { priorrReservedInstancesId :: Maybe Text
+    { priorReservedInstancesId :: Maybe Text
       -- ^ The unique ID of the Reserved Instances purchased for your account.
     } deriving (Eq, Show, Generic)
 

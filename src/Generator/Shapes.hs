@@ -17,9 +17,6 @@ module Generator.Shapes where
 import           Control.Applicative
 import           Control.Arrow
 import           Control.Error
-import           Control.Monad
-import           Data.Aeson
-import           Data.Char           (isDigit)
 import           Data.Foldable       (foldl')
 import qualified Data.HashMap.Strict as Map
 import           Data.HashSet        (HashSet)
@@ -28,14 +25,8 @@ import qualified Data.List           as List
 import           Data.Monoid
 import           Data.Text           (Text)
 import qualified Data.Text           as Text
-import qualified Data.Text.Lazy.IO   as LText
 import           Generator.Helpers
 import           Generator.Model
-import           System.Directory
-import           System.Environment
-import           System.Exit
-import           Text.EDE            (Template)
-import qualified Text.EDE            as EDE
 import           Text.EDE.Filters
 
 errors :: Model -> [Shape]
@@ -83,9 +74,19 @@ disambiguate set s@SStruct{..} = (pre, (next, prefixes pre s))
 disambiguate set s = ("", (set, s))
 
 unique :: HashSet Text -> Text -> (HashSet Text, Text)
-unique set p
-    | p `Set.member` set = unique set $ Text.init p `Text.snoc` succ (Text.last p)
-    | otherwise = (Set.insert p set, p)
+unique set p = (Set.insert pre set, pre)
+  where
+    pre = go Nothing
+
+    go x =
+        let t = maybe p (Text.snoc p) x
+        in if Set.member t set
+               then go $ maybe (Just 'd') (Just . next) x
+               else t
+
+    next x
+        | x == 'z'  = 'a'
+        | otherwise = succ x
 
 prefixes :: Text -> Shape -> Shape
 prefixes pre s@SStruct{..} = s

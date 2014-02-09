@@ -34,15 +34,15 @@ startInstances :: [Text]
                -- ^ The list of Amazon EC2 instances to start.
                -> StartInstances
 startInstances p1 = StartInstances
-    { sisInstanceIds = p1
-    , sisAdditionalInfo = Nothing
-    , sisDryRun = Nothing
+    { sidInstanceIds = p1
+    , sidAdditionalInfo = Nothing
+    , sidDryRun = Nothing
     }
 
 data StartInstances = StartInstances
-    { sisAdditionalInfo :: Maybe Text
-    , sisDryRun :: Maybe Bool
-    , sisInstanceIds :: [Text]
+    { sidAdditionalInfo :: Maybe Text
+    , sidDryRun :: Maybe Bool
+    , sidInstanceIds :: [Text]
       -- ^ The list of Amazon EC2 instances to start.
     } deriving (Eq, Show, Generic)
 
@@ -54,7 +54,7 @@ instance AWSRequest StartInstances where
     request = getQuery service "StartInstances"
 
 data StartInstancesResponse = StartInstancesResponse
-    { sisrStartingInstances :: [InstanceStateChange]
+    { sidrStartingInstances :: [InstanceStateChange]
       -- ^ The list of the starting instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

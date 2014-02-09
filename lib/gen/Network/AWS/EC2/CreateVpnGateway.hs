@@ -29,16 +29,16 @@ createVpnGateway :: GatewayType
                  -- ^ The type of VPN connection this VPN gateway supports.
                  -> CreateVpnGateway
 createVpnGateway p1 = CreateVpnGateway
-    { cvgrType = p1
-    , cvgrAvailabilityZone = Nothing
-    , cvgrDryRun = Nothing
+    { cvgType = p1
+    , cvgAvailabilityZone = Nothing
+    , cvgDryRun = Nothing
     }
 
 data CreateVpnGateway = CreateVpnGateway
-    { cvgrAvailabilityZone :: Maybe Text
+    { cvgAvailabilityZone :: Maybe Text
       -- ^ The Availability Zone in which to create the VPN gateway.
-    , cvgrDryRun :: Maybe Bool
-    , cvgrType :: !GatewayType
+    , cvgDryRun :: Maybe Bool
+    , cvgType :: !GatewayType
       -- ^ The type of VPN connection this VPN gateway supports.
     } deriving (Eq, Show, Generic)
 
@@ -50,7 +50,7 @@ instance AWSRequest CreateVpnGateway where
     request = getQuery service "CreateVpnGateway"
 
 data CreateVpnGatewayResponse = CreateVpnGatewayResponse
-    { cvgrrVpnGateway :: Maybe VpnGateway
+    { cvgrVpnGateway :: Maybe VpnGateway
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateVpnGatewayResponse where

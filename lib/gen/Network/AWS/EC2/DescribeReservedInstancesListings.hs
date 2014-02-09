@@ -22,9 +22,9 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeReservedInstancesListings = DescribeReservedInstancesListings
-    { drilrFilters :: [Filter]
-    , drilrReservedInstancesId :: Maybe Text
-    , drilrReservedInstancesListingId :: Maybe Text
+    { drilFilters :: [Filter]
+    , drilReservedInstancesId :: Maybe Text
+    , drilReservedInstancesListingId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeReservedInstancesListings
@@ -35,7 +35,7 @@ instance AWSRequest DescribeReservedInstancesListings where
     request = getQuery service "DescribeReservedInstancesListings"
 
 data DescribeReservedInstancesListingsResponse = DescribeReservedInstancesListingsResponse
-    { drilrrReservedInstancesListings :: [ReservedInstancesListing]
+    { drilrReservedInstancesListings :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeReservedInstancesListingsResponse where

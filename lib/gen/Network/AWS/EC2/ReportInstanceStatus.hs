@@ -22,13 +22,13 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data ReportInstanceStatus = ReportInstanceStatus
-    { risrDescription :: Maybe Text
-    , risrDryRun :: Maybe Bool
-    , risrEndTime :: Maybe UTCTime
-    , risrInstances :: [Text]
-    , risrReasonCodes :: [ReportInstanceReasonCodes]
-    , risrStartTime :: Maybe UTCTime
-    , risrStatus :: Maybe ReportStatusType
+    { risDescription :: Maybe Text
+    , risDryRun :: Maybe Bool
+    , risEndTime :: Maybe UTCTime
+    , risInstances :: [Text]
+    , risReasonCodes :: [ReportInstanceReasonCodes]
+    , risStartTime :: Maybe UTCTime
+    , risStatus :: Maybe ReportStatusType
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ReportInstanceStatus

@@ -27,13 +27,13 @@ deleteSnapshot :: Text
                -- ^ The ID of the snapshot to delete.
                -> DeleteSnapshot
 deleteSnapshot p1 = DeleteSnapshot
-    { dsuSnapshotId = p1
-    , dsuDryRun = Nothing
+    { dsfSnapshotId = p1
+    , dsfDryRun = Nothing
     }
 
 data DeleteSnapshot = DeleteSnapshot
-    { dsuDryRun :: Maybe Bool
-    , dsuSnapshotId :: !Text
+    { dsfDryRun :: Maybe Bool
+    , dsfSnapshotId :: !Text
       -- ^ The ID of the snapshot to delete.
     } deriving (Eq, Show, Generic)
 

@@ -32,13 +32,13 @@ getPasswordData :: Text
                 -- password.
                 -> GetPasswordData
 getPasswordData p1 = GetPasswordData
-    { gpdrInstanceId = p1
-    , gpdrDryRun = Nothing
+    { gpdInstanceId = p1
+    , gpdDryRun = Nothing
     }
 
 data GetPasswordData = GetPasswordData
-    { gpdrDryRun :: Maybe Bool
-    , gpdrInstanceId :: !Text
+    { gpdDryRun :: Maybe Bool
+    , gpdInstanceId :: !Text
       -- ^ The ID of the instance for which you want the Windows administrator
       -- password.
     } deriving (Eq, Show, Generic)
@@ -51,11 +51,11 @@ instance AWSRequest GetPasswordData where
     request = getQuery service "GetPasswordData"
 
 data GetPasswordDataResponse = GetPasswordDataResponse
-    { gpdrrInstanceId :: Maybe Text
+    { gpdrInstanceId :: Maybe Text
       -- ^ The ID of the instance whose Windows administrator password was requested.
-    , gpdrrPasswordData :: Maybe Text
+    , gpdrPasswordData :: Maybe Text
       -- ^ The Windows administrator password of the specified instance.
-    , gpdrrTimestamp :: Maybe UTCTime
+    , gpdrTimestamp :: Maybe UTCTime
       -- ^ The time the data was last updated.
     } deriving (Eq, Show, Generic)
 

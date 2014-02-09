@@ -32,13 +32,13 @@ deleteVpnGateway :: Text
                  -- ^ The ID of the VPN gateway to delete.
                  -> DeleteVpnGateway
 deleteVpnGateway p1 = DeleteVpnGateway
-    { dvgrVpnGatewayId = p1
-    , dvgrDryRun = Nothing
+    { dvgVpnGatewayId = p1
+    , dvgDryRun = Nothing
     }
 
 data DeleteVpnGateway = DeleteVpnGateway
-    { dvgrDryRun :: Maybe Bool
-    , dvgrVpnGatewayId :: !Text
+    { dvgDryRun :: Maybe Bool
+    , dvgVpnGatewayId :: !Text
       -- ^ The ID of the VPN gateway to delete.
     } deriving (Eq, Show, Generic)
 

@@ -51,36 +51,36 @@ createNetworkAclEntry :: Text
                       -- in ascending order by rule number.
                       -> CreateNetworkAclEntry
 createNetworkAclEntry p1 p2 p3 p4 p5 p6 = CreateNetworkAclEntry
-    { cnaerCidrBlock = p1
-    , cnaerEgress = p2
-    , cnaerNetworkAclId = p3
-    , cnaerProtocol = p4
-    , cnaerRuleAction = p5
-    , cnaerRuleNumber = p6
-    , cnaerDryRun = Nothing
-    , cnaerIcmpTypeCode = Nothing
-    , cnaerPortRange = Nothing
+    { cnaeCidrBlock = p1
+    , cnaeEgress = p2
+    , cnaeNetworkAclId = p3
+    , cnaeProtocol = p4
+    , cnaeRuleAction = p5
+    , cnaeRuleNumber = p6
+    , cnaeDryRun = Nothing
+    , cnaeIcmpTypeCode = Nothing
+    , cnaePortRange = Nothing
     }
 
 data CreateNetworkAclEntry = CreateNetworkAclEntry
-    { cnaerCidrBlock :: !Text
+    { cnaeCidrBlock :: !Text
       -- ^ The CIDR range to allow or deny, in CIDR notation (e.g., 172.16.0.0/24).
-    , cnaerDryRun :: Maybe Bool
-    , cnaerEgress :: !Bool
+    , cnaeDryRun :: Maybe Bool
+    , cnaeEgress :: !Bool
       -- ^ Whether this rule applies to egress traffic from the subnet (true) or
       -- ingress traffic to the subnet (false).
-    , cnaerIcmpTypeCode :: Maybe IcmpTypeCode
+    , cnaeIcmpTypeCode :: Maybe IcmpTypeCode
       -- ^ ICMP values.
-    , cnaerNetworkAclId :: !Text
+    , cnaeNetworkAclId :: !Text
       -- ^ ID of the ACL where the entry will be created.
-    , cnaerPortRange :: Maybe PortRange
+    , cnaePortRange :: Maybe PortRange
       -- ^ Port ranges.
-    , cnaerProtocol :: !Text
+    , cnaeProtocol :: !Text
       -- ^ IP protocol the rule applies to. Valid Values: tcp, udp, icmp or an IP
       -- protocol number.
-    , cnaerRuleAction :: !RuleAction
+    , cnaeRuleAction :: !RuleAction
       -- ^ Whether to allow or deny traffic that matches the rule.
-    , cnaerRuleNumber :: !Int
+    , cnaeRuleNumber :: !Int
       -- ^ Rule number to assign to the entry (e.g., 100). ACL entries are processed
       -- in ascending order by rule number.
     } deriving (Eq, Show, Generic)

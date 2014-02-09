@@ -65,93 +65,93 @@ runInstances :: Text
              -- can launch, no instances are launched at all.
              -> RunInstances
 runInstances p1 p2 p3 = RunInstances
-    { rirImageId = p1
-    , rirMaxCount = p2
-    , rirMinCount = p3
-    , rirAdditionalInfo = Nothing
-    , rirBlockDeviceMappings = []
-    , rirClientToken = Nothing
-    , rirDisableApiTermination = Nothing
-    , rirDryRun = Nothing
-    , rirEbsOptimized = Nothing
-    , rirIamInstanceProfile = Nothing
-    , rirInstanceInitiatedShutdownBehavior = Nothing
-    , rirInstanceType = Nothing
-    , rirKernelId = Nothing
-    , rirKeyName = Nothing
-    , rirLicense = Nothing
-    , rirMonitoring = Nothing
-    , rirNetworkInterfaces = []
-    , rirPlacement = Nothing
-    , rirPrivateIpAddress = Nothing
-    , rirRamdiskId = Nothing
-    , rirSecurityGroupIds = []
-    , rirSecurityGroups = []
-    , rirSubnetId = Nothing
-    , rirUserData = Nothing
+    { riImageId = p1
+    , riMaxCount = p2
+    , riMinCount = p3
+    , riAdditionalInfo = Nothing
+    , riBlockDeviceMappings = []
+    , riClientToken = Nothing
+    , riDisableApiTermination = Nothing
+    , riDryRun = Nothing
+    , riEbsOptimized = Nothing
+    , riIamInstanceProfile = Nothing
+    , riInstanceInitiatedShutdownBehavior = Nothing
+    , riInstanceType = Nothing
+    , riKernelId = Nothing
+    , riKeyName = Nothing
+    , riLicense = Nothing
+    , riMonitoring = Nothing
+    , riNetworkInterfaces = []
+    , riPlacement = Nothing
+    , riPrivateIpAddress = Nothing
+    , riRamdiskId = Nothing
+    , riSecurityGroupIds = []
+    , riSecurityGroups = []
+    , riSubnetId = Nothing
+    , riUserData = Nothing
     }
 
 data RunInstances = RunInstances
-    { rirAdditionalInfo :: Maybe Text
+    { riAdditionalInfo :: Maybe Text
       -- ^ Do not use. Reserved for internal use.
-    , rirBlockDeviceMappings :: [BlockDeviceMapping]
+    , riBlockDeviceMappings :: [BlockDeviceMapping]
       -- ^ Specifies how block devices are exposed to the instance. Each mapping is
       -- made up of a virtualName and a deviceName.
-    , rirClientToken :: Maybe Text
+    , riClientToken :: Maybe Text
       -- ^ Unique, case-sensitive identifier you provide to ensure idempotency of the
       -- request. For more information, go to How to Ensure Idempotency in the
       -- Amazon Elastic Compute Cloud User Guide.
-    , rirDisableApiTermination :: Maybe Bool
+    , riDisableApiTermination :: Maybe Bool
       -- ^ Specifies whether the instance can be terminated using the APIs. You must
       -- modify this attribute before you can terminate any "locked" instances from
       -- the APIs.
-    , rirDryRun :: Maybe Bool
-    , rirEbsOptimized :: Maybe Bool
-    , rirIamInstanceProfile :: Maybe IamInstanceProfileSpecification
-    , rirImageId :: !Text
+    , riDryRun :: Maybe Bool
+    , riEbsOptimized :: Maybe Bool
+    , riIamInstanceProfile :: Maybe IamInstanceProfileSpecification
+    , riImageId :: !Text
       -- ^ Unique ID of a machine image, returned by a call to DescribeImages.
-    , rirInstanceInitiatedShutdownBehavior :: Maybe ShutdownBehavior
+    , riInstanceInitiatedShutdownBehavior :: Maybe ShutdownBehavior
       -- ^ Specifies whether the instance's Amazon EBS volumes are stopped or
       -- terminated when the instance is shut down.
-    , rirInstanceType :: Maybe InstanceType
+    , riInstanceType :: Maybe InstanceType
       -- ^ Specifies the instance type for the launched instances.
-    , rirKernelId :: Maybe Text
+    , riKernelId :: Maybe Text
       -- ^ The ID of the kernel with which to launch the instance.
-    , rirKeyName :: Maybe Text
+    , riKeyName :: Maybe Text
       -- ^ The name of the key pair.
-    , rirLicense :: Maybe InstanceLicenseSpecification
+    , riLicense :: Maybe InstanceLicenseSpecification
       -- ^ Specifies active licenses in use and attached to an Amazon EC2 instance.
-    , rirMaxCount :: !Int
+    , riMaxCount :: !Int
       -- ^ Maximum number of instances to launch. If the value is more than Amazon EC2
       -- can launch, the largest possible number above minCount will be launched
       -- instead. Between 1 and the maximum number allowed for your account
       -- (default: 20).
-    , rirMinCount :: !Int
+    , riMinCount :: !Int
       -- ^ Minimum number of instances to launch. If the value is more than Amazon EC2
       -- can launch, no instances are launched at all.
-    , rirMonitoring :: Maybe RunInstancesMonitoringEnabled
+    , riMonitoring :: Maybe RunInstancesMonitoringEnabled
       -- ^ Enables monitoring for the instance.
-    , rirNetworkInterfaces :: [InstanceNetworkInterfaceSpecification]
+    , riNetworkInterfaces :: [InstanceNetworkInterfaceSpecification]
       -- ^ List of network interfaces associated with the instance.
-    , rirPlacement :: Maybe Placement
+    , riPlacement :: Maybe Placement
       -- ^ Specifies the placement constraints (Availability Zones) for launching the
       -- instances.
-    , rirPrivateIpAddress :: Maybe Text
+    , riPrivateIpAddress :: Maybe Text
       -- ^ If you're using Amazon Virtual Private Cloud, you can optionally use this
       -- parameter to assign the instance a specific available IP address from the
       -- subnet.
-    , rirRamdiskId :: Maybe Text
+    , riRamdiskId :: Maybe Text
       -- ^ The ID of the RAM disk with which to launch the instance. Some kernels
       -- require additional drivers at launch. Check the kernel requirements for
       -- information on whether you need to specify a RAM disk. To find kernel
       -- requirements, go to the Resource Center and search for the kernel ID.
-    , rirSecurityGroupIds :: [Text]
-    , rirSecurityGroups :: [Text]
+    , riSecurityGroupIds :: [Text]
+    , riSecurityGroups :: [Text]
       -- ^ The names of the security groups into which the instances will be launched.
-    , rirSubnetId :: Maybe Text
+    , riSubnetId :: Maybe Text
       -- ^ Specifies the subnet ID within which to launch the instance(s) for Amazon
       -- Virtual Private Cloud.
-    , rirUserData :: Maybe Blob
+    , riUserData :: Maybe Blob
       -- ^ Specifies additional information to make available to the instance(s). This
       -- parameter must be passed as a Base64-encoded string.
     } deriving (Eq, Show, Generic)
@@ -164,16 +164,16 @@ instance AWSRequest RunInstances where
     request = getQuery service "RunInstances"
 
 data RunInstancesResponse = RunInstancesResponse
-    { rirrGroups :: [GroupIdentifier]
+    { rirGroups :: [GroupIdentifier]
       -- ^ The list of security groups requested for the instances in this
       -- reservation.
-    , rirrInstances :: [Instance]
+    , rirInstances :: [Instance]
       -- ^ The list of Amazon EC2 instances included in this reservation.
-    , rirrOwnerId :: Maybe Text
+    , rirOwnerId :: Maybe Text
       -- ^ The AWS Access Key ID of the user who owns the reservation.
-    , rirrRequesterId :: Maybe Text
+    , rirRequesterId :: Maybe Text
       -- ^ The unique ID of the user who requested the instances in this reservation.
-    , rirrReservationId :: Maybe Text
+    , rirReservationId :: Maybe Text
       -- ^ The unique ID of this reservation.
     } deriving (Eq, Show, Generic)
 

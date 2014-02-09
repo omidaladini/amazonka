@@ -34,16 +34,16 @@ confirmProductInstance :: Text
                        -- ^ The product code to confirm.
                        -> ConfirmProductInstance
 confirmProductInstance p1 p2 = ConfirmProductInstance
-    { cpirInstanceId = p1
-    , cpirProductCode = p2
-    , cpirDryRun = Nothing
+    { cpiInstanceId = p1
+    , cpiProductCode = p2
+    , cpiDryRun = Nothing
     }
 
 data ConfirmProductInstance = ConfirmProductInstance
-    { cpirDryRun :: Maybe Bool
-    , cpirInstanceId :: !Text
+    { cpiDryRun :: Maybe Bool
+    , cpiInstanceId :: !Text
       -- ^ The ID of the instance to confirm.
-    , cpirProductCode :: !Text
+    , cpiProductCode :: !Text
       -- ^ The product code to confirm.
     } deriving (Eq, Show, Generic)
 
@@ -55,7 +55,7 @@ instance AWSRequest ConfirmProductInstance where
     request = getQuery service "ConfirmProductInstance"
 
 data ConfirmProductInstanceResponse = ConfirmProductInstanceResponse
-    { cpirrOwnerId :: Maybe Text
+    { cpirOwnerId :: Maybe Text
       -- ^ The instance owner's account ID. Only present if the product code is
       -- attached to the instance.
     } deriving (Eq, Show, Generic)

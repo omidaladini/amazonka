@@ -30,14 +30,14 @@ deleteDhcpOptions :: Text
                   -- ^ The ID of the DHCP options set to delete.
                   -> DeleteDhcpOptions
 deleteDhcpOptions p1 = DeleteDhcpOptions
-    { ddosDhcpOptionsId = p1
-    , ddosDryRun = Nothing
+    { ddodDhcpOptionsId = p1
+    , ddodDryRun = Nothing
     }
 
 data DeleteDhcpOptions = DeleteDhcpOptions
-    { ddosDhcpOptionsId :: !Text
+    { ddodDhcpOptionsId :: !Text
       -- ^ The ID of the DHCP options set to delete.
-    , ddosDryRun :: Maybe Bool
+    , ddodDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DeleteDhcpOptions

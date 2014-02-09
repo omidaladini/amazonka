@@ -31,17 +31,17 @@ resetImageAttribute :: ResetImageAttributeName
                     -- ^ The ID of the AMI whose attribute is being reset.
                     -> ResetImageAttribute
 resetImageAttribute p1 p2 = ResetImageAttribute
-    { riasAttribute = p1
-    , riasImageId = p2
-    , riasDryRun = Nothing
+    { riadAttribute = p1
+    , riadImageId = p2
+    , riadDryRun = Nothing
     }
 
 data ResetImageAttribute = ResetImageAttribute
-    { riasAttribute :: !ResetImageAttributeName
+    { riadAttribute :: !ResetImageAttributeName
       -- ^ The name of the attribute being reset. Available attribute names:
       -- launchPermission.
-    , riasDryRun :: Maybe Bool
-    , riasImageId :: !Text
+    , riadDryRun :: Maybe Bool
+    , riadImageId :: !Text
       -- ^ The ID of the AMI whose attribute is being reset.
     } deriving (Eq, Show, Generic)
 

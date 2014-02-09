@@ -22,9 +22,9 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeNetworkInterfaces = DescribeNetworkInterfaces
-    { dnisDryRun :: Maybe Bool
-    , dnisFilters :: [Filter]
-    , dnisNetworkInterfaceIds :: [Text]
+    { dnidDryRun :: Maybe Bool
+    , dnidFilters :: [Filter]
+    , dnidNetworkInterfaceIds :: [Text]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeNetworkInterfaces
@@ -35,7 +35,7 @@ instance AWSRequest DescribeNetworkInterfaces where
     request = getQuery service "DescribeNetworkInterfaces"
 
 data DescribeNetworkInterfacesResponse = DescribeNetworkInterfacesResponse
-    { dnisrNetworkInterfaces :: [NetworkInterface]
+    { dnidrNetworkInterfaces :: [NetworkInterface]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeNetworkInterfacesResponse where

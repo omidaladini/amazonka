@@ -31,16 +31,16 @@ deactivateLicense :: Int
                   -- ^ Specifies the ID for the specific license to deactivate against.
                   -> DeactivateLicense
 deactivateLicense p1 p2 = DeactivateLicense
-    { dlsCapacity = p1
-    , dlsLicenseId = p2
-    , dlsDryRun = Nothing
+    { dldCapacity = p1
+    , dldLicenseId = p2
+    , dldDryRun = Nothing
     }
 
 data DeactivateLicense = DeactivateLicense
-    { dlsCapacity :: !Int
+    { dldCapacity :: !Int
       -- ^ Specifies the amount of capacity to deactivate against the license.
-    , dlsDryRun :: Maybe Bool
-    , dlsLicenseId :: !Text
+    , dldDryRun :: Maybe Bool
+    , dldLicenseId :: !Text
       -- ^ Specifies the ID for the specific license to deactivate against.
     } deriving (Eq, Show, Generic)
 

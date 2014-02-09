@@ -26,12 +26,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeAvailabilityZones = DescribeAvailabilityZones
-    { dazrDryRun :: Maybe Bool
-    , dazrFilters :: [Filter]
+    { dazDryRun :: Maybe Bool
+    , dazFilters :: [Filter]
       -- ^ A list of filters used to match properties for AvailabilityZones. For a
       -- complete reference to the available filter keys for this operation, see the
       -- Amazon EC2 API reference.
-    , dazrZoneNames :: [Text]
+    , dazZoneNames :: [Text]
       -- ^ A list of the availability zone names to describe.
     } deriving (Eq, Show, Generic)
 
@@ -43,7 +43,7 @@ instance AWSRequest DescribeAvailabilityZones where
     request = getQuery service "DescribeAvailabilityZones"
 
 data DescribeAvailabilityZonesResponse = DescribeAvailabilityZonesResponse
-    { dazrrAvailabilityZones :: [AvailabilityZone]
+    { dazrAvailabilityZones :: [AvailabilityZone]
       -- ^ The list of described Amazon EC2 availability zones.
     } deriving (Eq, Show, Generic)
 

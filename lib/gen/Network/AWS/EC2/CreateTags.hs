@@ -33,17 +33,17 @@ createTags :: [Text]
            -- consists of a key-value pair.
            -> CreateTags
 createTags p1 p2 = CreateTags
-    { ctrResources = p1
-    , ctrTags = p2
-    , ctrDryRun = Nothing
+    { ctResources = p1
+    , ctTags = p2
+    , ctDryRun = Nothing
     }
 
 data CreateTags = CreateTags
-    { ctrDryRun :: Maybe Bool
-    , ctrResources :: [Text]
+    { ctDryRun :: Maybe Bool
+    , ctResources :: [Text]
       -- ^ One or more IDs of resources to tag. This could be the ID of an AMI, an
       -- instance, an EBS volume, or snapshot, etc.
-    , ctrTags :: [Tag]
+    , ctTags :: [Tag]
       -- ^ The tags to add or overwrite for the specified resources. Each tag item
       -- consists of a key-value pair.
     } deriving (Eq, Show, Generic)

@@ -27,25 +27,25 @@ createVolume :: Text
              -- ^ The Availability Zone in which to create the new volume.
              -> CreateVolume
 createVolume p1 = CreateVolume
-    { cvsAvailabilityZone = p1
-    , cvsDryRun = Nothing
-    , cvsIops = Nothing
-    , cvsSize = Nothing
-    , cvsSnapshotId = Nothing
-    , cvsVolumeType = Nothing
+    { cvdAvailabilityZone = p1
+    , cvdDryRun = Nothing
+    , cvdIops = Nothing
+    , cvdSize = Nothing
+    , cvdSnapshotId = Nothing
+    , cvdVolumeType = Nothing
     }
 
 data CreateVolume = CreateVolume
-    { cvsAvailabilityZone :: !Text
+    { cvdAvailabilityZone :: !Text
       -- ^ The Availability Zone in which to create the new volume.
-    , cvsDryRun :: Maybe Bool
-    , cvsIops :: Maybe Int
-    , cvsSize :: Maybe Int
+    , cvdDryRun :: Maybe Bool
+    , cvdIops :: Maybe Int
+    , cvdSize :: Maybe Int
       -- ^ The size of the volume, in gigabytes. Required if you are not creating a
       -- volume from a snapshot.
-    , cvsSnapshotId :: Maybe Text
+    , cvdSnapshotId :: Maybe Text
       -- ^ The ID of the snapshot from which to create the new volume.
-    , cvsVolumeType :: Maybe VolumeType
+    , cvdVolumeType :: Maybe VolumeType
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateVolume
@@ -56,24 +56,24 @@ instance AWSRequest CreateVolume where
     request = getQuery service "CreateVolume"
 
 data CreateVolumeResponse = CreateVolumeResponse
-    { cvsrAttachments :: [VolumeAttachment]
+    { cvdrAttachments :: [VolumeAttachment]
       -- ^ Information on what this volume is attached to.
-    , cvsrAvailabilityZone :: Maybe Text
+    , cvdrAvailabilityZone :: Maybe Text
       -- ^ Availability zone in which this volume was created.
-    , cvsrCreateTime :: Maybe UTCTime
+    , cvdrCreateTime :: Maybe UTCTime
       -- ^ Timestamp when volume creation was initiated.
-    , cvsrIops :: Maybe Int
-    , cvsrSize :: Maybe Int
+    , cvdrIops :: Maybe Int
+    , cvdrSize :: Maybe Int
       -- ^ The size of this volume, in gigabytes.
-    , cvsrSnapshotId :: Maybe Text
+    , cvdrSnapshotId :: Maybe Text
       -- ^ Optional snapshot from which this volume was created.
-    , cvsrState :: Maybe VolumeState
+    , cvdrState :: Maybe VolumeState
       -- ^ State of this volume (e.g., creating, available).
-    , cvsrTags :: [Tag]
+    , cvdrTags :: [Tag]
       -- ^ A list of tags for the Volume.
-    , cvsrVolumeId :: Maybe Text
+    , cvdrVolumeId :: Maybe Text
       -- ^ The unique ID of this volume.
-    , cvsrVolumeType :: Maybe VolumeType
+    , cvdrVolumeType :: Maybe VolumeType
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateVolumeResponse where

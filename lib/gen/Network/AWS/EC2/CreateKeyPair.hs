@@ -29,13 +29,13 @@ createKeyPair :: Text
               -- ^ The unique name for the new key pair.
               -> CreateKeyPair
 createKeyPair p1 = CreateKeyPair
-    { ckprKeyName = p1
-    , ckprDryRun = Nothing
+    { ckpKeyName = p1
+    , ckpDryRun = Nothing
     }
 
 data CreateKeyPair = CreateKeyPair
-    { ckprDryRun :: Maybe Bool
-    , ckprKeyName :: !Text
+    { ckpDryRun :: Maybe Bool
+    , ckpKeyName :: !Text
       -- ^ The unique name for the new key pair.
     } deriving (Eq, Show, Generic)
 
@@ -47,11 +47,11 @@ instance AWSRequest CreateKeyPair where
     request = getQuery service "CreateKeyPair"
 
 data CreateKeyPairResponse = CreateKeyPairResponse
-    { ckprrKeyFingerprint :: Maybe Text
+    { ckprKeyFingerprint :: Maybe Text
       -- ^ The SHA-1 digest of the DER encoded private key.
-    , ckprrKeyMaterial :: Maybe Text
+    , ckprKeyMaterial :: Maybe Text
       -- ^ The unencrypted PEM encoded RSA private key.
-    , ckprrKeyName :: Maybe Text
+    , ckprKeyName :: Maybe Text
       -- ^ The name of the key pair.
     } deriving (Eq, Show, Generic)
 

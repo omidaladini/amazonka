@@ -27,10 +27,10 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DeleteSecurityGroup = DeleteSecurityGroup
-    { dsgrDryRun :: Maybe Bool
-    , dsgrGroupId :: Maybe Text
+    { dsgDryRun :: Maybe Bool
+    , dsgGroupId :: Maybe Text
       -- ^ The ID of the Amazon EC2 security group to delete.
-    , dsgrGroupName :: Maybe Text
+    , dsgGroupName :: Maybe Text
       -- ^ The name of the Amazon EC2 security group to delete.
     } deriving (Eq, Show, Generic)
 

@@ -33,13 +33,13 @@ cancelSpotInstanceRequests :: [Text]
                            -- ^ Specifies the ID of the Spot Instance request.
                            -> CancelSpotInstanceRequests
 cancelSpotInstanceRequests p1 = CancelSpotInstanceRequests
-    { csirrSpotInstanceRequestIds = p1
-    , csirrDryRun = Nothing
+    { csirSpotInstanceRequestIds = p1
+    , csirDryRun = Nothing
     }
 
 data CancelSpotInstanceRequests = CancelSpotInstanceRequests
-    { csirrDryRun :: Maybe Bool
-    , csirrSpotInstanceRequestIds :: [Text]
+    { csirDryRun :: Maybe Bool
+    , csirSpotInstanceRequestIds :: [Text]
       -- ^ Specifies the ID of the Spot Instance request.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest CancelSpotInstanceRequests where
     request = getQuery service "CancelSpotInstanceRequests"
 
 data CancelSpotInstanceRequestsResponse = CancelSpotInstanceRequestsResponse
-    { csirrrCancelledSpotInstanceRequests :: [CancelledSpotInstanceRequest]
+    { csirrCancelledSpotInstanceRequests :: [CancelledSpotInstanceRequest]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CancelSpotInstanceRequestsResponse where

@@ -26,15 +26,15 @@ import Network.AWS.EC2.Types
 resetNetworkInterfaceAttribute :: Text
                                -> ResetNetworkInterfaceAttribute
 resetNetworkInterfaceAttribute p1 = ResetNetworkInterfaceAttribute
-    { rniarNetworkInterfaceId = p1
-    , rniarDryRun = Nothing
-    , rniarSourceDestCheck = Nothing
+    { rniaNetworkInterfaceId = p1
+    , rniaDryRun = Nothing
+    , rniaSourceDestCheck = Nothing
     }
 
 data ResetNetworkInterfaceAttribute = ResetNetworkInterfaceAttribute
-    { rniarDryRun :: Maybe Bool
-    , rniarNetworkInterfaceId :: !Text
-    , rniarSourceDestCheck :: Maybe Text
+    { rniaDryRun :: Maybe Bool
+    , rniaNetworkInterfaceId :: !Text
+    , rniaSourceDestCheck :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ResetNetworkInterfaceAttribute

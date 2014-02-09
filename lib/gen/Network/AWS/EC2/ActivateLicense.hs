@@ -30,16 +30,16 @@ activateLicense :: Int
                 -- ^ Specifies the ID for the specific license to activate against.
                 -> ActivateLicense
 activateLicense p1 p2 = ActivateLicense
-    { alrCapacity = p1
-    , alrLicenseId = p2
-    , alrDryRun = Nothing
+    { alCapacity = p1
+    , alLicenseId = p2
+    , alDryRun = Nothing
     }
 
 data ActivateLicense = ActivateLicense
-    { alrCapacity :: !Int
+    { alCapacity :: !Int
       -- ^ Specifies the additional number of licenses to activate.
-    , alrDryRun :: Maybe Bool
-    , alrLicenseId :: !Text
+    , alDryRun :: Maybe Bool
+    , alLicenseId :: !Text
       -- ^ Specifies the ID for the specific license to activate against.
     } deriving (Eq, Show, Generic)
 

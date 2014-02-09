@@ -28,13 +28,13 @@ deleteVolume :: Text
              -- ^ The ID of the EBS volume to delete.
              -> DeleteVolume
 deleteVolume p1 = DeleteVolume
-    { dvvVolumeId = p1
-    , dvvDryRun = Nothing
+    { dvhVolumeId = p1
+    , dvhDryRun = Nothing
     }
 
 data DeleteVolume = DeleteVolume
-    { dvvDryRun :: Maybe Bool
-    , dvvVolumeId :: !Text
+    { dvhDryRun :: Maybe Bool
+    , dvhVolumeId :: !Text
       -- ^ The ID of the EBS volume to delete.
     } deriving (Eq, Show, Generic)
 

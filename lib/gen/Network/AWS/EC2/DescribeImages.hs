@@ -47,21 +47,21 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeImages = DescribeImages
-    { ditDryRun :: Maybe Bool
-    , ditExecutableUsers :: [Text]
+    { dieDryRun :: Maybe Bool
+    , dieExecutableUsers :: [Text]
       -- ^ An optional list of users whose launch permissions will be used to scope
       -- the described AMIs. Valid values are: self : AMIs for which you have
       -- explicit launch permissions AWS account ID : AMIs for which this account ID
       -- has launch permissions all : AMIs that have public launch permissions The
       -- values self and all are literals.
-    , ditFilters :: [Filter]
+    , dieFilters :: [Filter]
       -- ^ A list of filters used to match properties for Images. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , ditImageIds :: [Text]
+    , dieImageIds :: [Text]
       -- ^ An optional list of the AMI IDs to describe. If not specified, all AMIs
       -- will be described.
-    , ditOwners :: [Text]
+    , dieOwners :: [Text]
       -- ^ An optional list of owners by which to scope the described AMIs. Valid
       -- values are: self : AMIs owned by you AWS account ID : AMIs owned by this
       -- account ID aws-marketplace : AMIs owned by the AWS Marketplace amazon :
@@ -77,7 +77,7 @@ instance AWSRequest DescribeImages where
     request = getQuery service "DescribeImages"
 
 data DescribeImagesResponse = DescribeImagesResponse
-    { ditrImages :: [Image]
+    { dierImages :: [Image]
       -- ^ The list of the described AMIs.
     } deriving (Eq, Show, Generic)
 

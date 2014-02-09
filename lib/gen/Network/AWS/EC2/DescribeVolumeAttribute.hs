@@ -26,15 +26,15 @@ import Network.AWS.EC2.Types
 describeVolumeAttribute :: Text
                         -> DescribeVolumeAttribute
 describeVolumeAttribute p1 = DescribeVolumeAttribute
-    { dvarVolumeId = p1
-    , dvarAttribute = Nothing
-    , dvarDryRun = Nothing
+    { dvaVolumeId = p1
+    , dvaAttribute = Nothing
+    , dvaDryRun = Nothing
     }
 
 data DescribeVolumeAttribute = DescribeVolumeAttribute
-    { dvarAttribute :: Maybe VolumeAttributeName
-    , dvarDryRun :: Maybe Bool
-    , dvarVolumeId :: !Text
+    { dvaAttribute :: Maybe VolumeAttributeName
+    , dvaDryRun :: Maybe Bool
+    , dvaVolumeId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeVolumeAttribute
@@ -45,10 +45,10 @@ instance AWSRequest DescribeVolumeAttribute where
     request = getQuery service "DescribeVolumeAttribute"
 
 data DescribeVolumeAttributeResponse = DescribeVolumeAttributeResponse
-    { dvarrAutoEnableIO :: Maybe AttributeBooleanValue
+    { dvarAutoEnableIO :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , dvarrProductCodes :: [ProductCode]
-    , dvarrVolumeId :: Maybe Text
+    , dvarProductCodes :: [ProductCode]
+    , dvarVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVolumeAttributeResponse where

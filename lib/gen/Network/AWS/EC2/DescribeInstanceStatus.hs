@@ -57,15 +57,15 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeInstanceStatus = DescribeInstanceStatus
-    { disrDryRun :: Maybe Bool
-    , disrFilters :: [Filter]
+    { disDryRun :: Maybe Bool
+    , disFilters :: [Filter]
       -- ^ The list of filters to limit returned results.
-    , disrIncludeAllInstances :: Maybe Bool
-    , disrInstanceIds :: [Text]
+    , disIncludeAllInstances :: Maybe Bool
+    , disInstanceIds :: [Text]
       -- ^ The list of instance IDs. If not specified, all instances are described.
-    , disrMaxResults :: Maybe Int
+    , disMaxResults :: Maybe Int
       -- ^ The maximum number of paginated instance items per response.
-    , disrNextToken :: Maybe Text
+    , disNextToken :: Maybe Text
       -- ^ A string specifying the next paginated set of results to return.
     } deriving (Eq, Show, Generic)
 
@@ -78,14 +78,14 @@ instance AWSRequest DescribeInstanceStatus where
 
 instance AWSPager DescribeInstanceStatus where
     next rq rs
-        | Just x <- disrrNextToken rs = Just $ rq { disrNextToken = Just x }
+        | Just x <- disrNextToken rs = Just $ rq { disNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeInstanceStatusResponse = DescribeInstanceStatusResponse
-    { disrrInstanceStatuses :: [InstanceStatus]
+    { disrInstanceStatuses :: [InstanceStatus]
       -- ^ Collection of instance statuses describing the state of the requested
       -- instances.
-    , disrrNextToken :: Maybe Text
+    , disrNextToken :: Maybe Text
       -- ^ A string specifying the next paginated set of results to return.
     } deriving (Eq, Show, Generic)
 

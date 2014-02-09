@@ -34,12 +34,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeNetworkAcls = DescribeNetworkAcls
-    { dnasDryRun :: Maybe Bool
-    , dnasFilters :: [Filter]
+    { dnadDryRun :: Maybe Bool
+    , dnadFilters :: [Filter]
       -- ^ A list of filters used to match properties for Network ACLs. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dnasNetworkAclIds :: [Text]
+    , dnadNetworkAclIds :: [Text]
       -- ^ One or more network ACL IDs.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest DescribeNetworkAcls where
     request = getQuery service "DescribeNetworkAcls"
 
 data DescribeNetworkAclsResponse = DescribeNetworkAclsResponse
-    { dnasrNetworkAcls :: [NetworkAcl]
+    { dnadrNetworkAcls :: [NetworkAcl]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeNetworkAclsResponse where

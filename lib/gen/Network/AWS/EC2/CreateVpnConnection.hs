@@ -44,21 +44,21 @@ createVpnConnection :: Text
                     -- ^ The ID of the VPN gateway.
                     -> CreateVpnConnection
 createVpnConnection p1 p2 p3 = CreateVpnConnection
-    { cvcrCustomerGatewayId = p1
-    , cvcrType = p2
-    , cvcrVpnGatewayId = p3
-    , cvcrDryRun = Nothing
-    , cvcrOptions = Nothing
+    { cvcCustomerGatewayId = p1
+    , cvcType = p2
+    , cvcVpnGatewayId = p3
+    , cvcDryRun = Nothing
+    , cvcOptions = Nothing
     }
 
 data CreateVpnConnection = CreateVpnConnection
-    { cvcrCustomerGatewayId :: !Text
+    { cvcCustomerGatewayId :: !Text
       -- ^ The ID of the customer gateway.
-    , cvcrDryRun :: Maybe Bool
-    , cvcrOptions :: Maybe VpnConnectionOptionsSpecification
-    , cvcrType :: !Text
+    , cvcDryRun :: Maybe Bool
+    , cvcOptions :: Maybe VpnConnectionOptionsSpecification
+    , cvcType :: !Text
       -- ^ The type of VPN connection.
-    , cvcrVpnGatewayId :: !Text
+    , cvcVpnGatewayId :: !Text
       -- ^ The ID of the VPN gateway.
     } deriving (Eq, Show, Generic)
 
@@ -70,7 +70,7 @@ instance AWSRequest CreateVpnConnection where
     request = getQuery service "CreateVpnConnection"
 
 data CreateVpnConnectionResponse = CreateVpnConnectionResponse
-    { cvcrrVpnConnection :: Maybe VpnConnection
+    { cvcrVpnConnection :: Maybe VpnConnection
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateVpnConnectionResponse where

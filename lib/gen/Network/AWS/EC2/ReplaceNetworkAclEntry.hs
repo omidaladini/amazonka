@@ -41,36 +41,36 @@ replaceNetworkAclEntry :: Text
                        -- ^ Rule number of the entry to replace.
                        -> ReplaceNetworkAclEntry
 replaceNetworkAclEntry p1 p2 p3 p4 p5 p6 = ReplaceNetworkAclEntry
-    { rnaerCidrBlock = p1
-    , rnaerEgress = p2
-    , rnaerNetworkAclId = p3
-    , rnaerProtocol = p4
-    , rnaerRuleAction = p5
-    , rnaerRuleNumber = p6
-    , rnaerDryRun = Nothing
-    , rnaerIcmpTypeCode = Nothing
-    , rnaerPortRange = Nothing
+    { rnaeCidrBlock = p1
+    , rnaeEgress = p2
+    , rnaeNetworkAclId = p3
+    , rnaeProtocol = p4
+    , rnaeRuleAction = p5
+    , rnaeRuleNumber = p6
+    , rnaeDryRun = Nothing
+    , rnaeIcmpTypeCode = Nothing
+    , rnaePortRange = Nothing
     }
 
 data ReplaceNetworkAclEntry = ReplaceNetworkAclEntry
-    { rnaerCidrBlock :: !Text
+    { rnaeCidrBlock :: !Text
       -- ^ The CIDR range to allow or deny, in CIDR notation (e.g., 172.16.0.0/24).
-    , rnaerDryRun :: Maybe Bool
-    , rnaerEgress :: !Bool
+    , rnaeDryRun :: Maybe Bool
+    , rnaeEgress :: !Bool
       -- ^ Whether this rule applies to egress traffic from the subnet (true) or
       -- ingress traffic (false).
-    , rnaerIcmpTypeCode :: Maybe IcmpTypeCode
+    , rnaeIcmpTypeCode :: Maybe IcmpTypeCode
       -- ^ ICMP values.
-    , rnaerNetworkAclId :: !Text
+    , rnaeNetworkAclId :: !Text
       -- ^ ID of the ACL where the entry will be replaced.
-    , rnaerPortRange :: Maybe PortRange
+    , rnaePortRange :: Maybe PortRange
       -- ^ Port ranges.
-    , rnaerProtocol :: !Text
+    , rnaeProtocol :: !Text
       -- ^ IP protocol the rule applies to. Valid Values: tcp, udp, icmp or an IP
       -- protocol number.
-    , rnaerRuleAction :: !RuleAction
+    , rnaeRuleAction :: !RuleAction
       -- ^ Whether to allow or deny traffic that matches the rule.
-    , rnaerRuleNumber :: !Int
+    , rnaeRuleNumber :: !Int
       -- ^ Rule number of the entry to replace.
     } deriving (Eq, Show, Generic)
 

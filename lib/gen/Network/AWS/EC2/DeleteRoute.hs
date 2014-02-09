@@ -32,17 +32,17 @@ deleteRoute :: Text
             -- ^ The ID of the route table where the route will be deleted.
             -> DeleteRoute
 deleteRoute p1 p2 = DeleteRoute
-    { drrDestinationCidrBlock = p1
-    , drrRouteTableId = p2
-    , drrDryRun = Nothing
+    { drDestinationCidrBlock = p1
+    , drRouteTableId = p2
+    , drDryRun = Nothing
     }
 
 data DeleteRoute = DeleteRoute
-    { drrDestinationCidrBlock :: !Text
+    { drDestinationCidrBlock :: !Text
       -- ^ The CIDR range for the route you want to delete. The value you specify must
       -- exactly match the CIDR for the route you want to delete.
-    , drrDryRun :: Maybe Bool
-    , drrRouteTableId :: !Text
+    , drDryRun :: Maybe Bool
+    , drRouteTableId :: !Text
       -- ^ The ID of the route table where the route will be deleted.
     } deriving (Eq, Show, Generic)
 

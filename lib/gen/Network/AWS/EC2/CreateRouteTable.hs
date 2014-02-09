@@ -30,13 +30,13 @@ createRouteTable :: Text
                  -- ^ The ID of the VPC where the route table will be created.
                  -> CreateRouteTable
 createRouteTable p1 = CreateRouteTable
-    { crtrVpcId = p1
-    , crtrDryRun = Nothing
+    { crtVpcId = p1
+    , crtDryRun = Nothing
     }
 
 data CreateRouteTable = CreateRouteTable
-    { crtrDryRun :: Maybe Bool
-    , crtrVpcId :: !Text
+    { crtDryRun :: Maybe Bool
+    , crtVpcId :: !Text
       -- ^ The ID of the VPC where the route table will be created.
     } deriving (Eq, Show, Generic)
 
@@ -48,7 +48,7 @@ instance AWSRequest CreateRouteTable where
     request = getQuery service "CreateRouteTable"
 
 data CreateRouteTableResponse = CreateRouteTableResponse
-    { crtrrRouteTable :: Maybe RouteTable
+    { crtrRouteTable :: Maybe RouteTable
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateRouteTableResponse where

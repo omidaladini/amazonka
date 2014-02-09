@@ -31,31 +31,31 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data RegisterImage = RegisterImage
-    { risArchitecture :: Maybe ArchitectureValues
+    { ridArchitecture :: Maybe ArchitectureValues
       -- ^ The architecture of the image. Valid Values: i386, x86_64.
-    , risBlockDeviceMappings :: [BlockDeviceMapping]
+    , ridBlockDeviceMappings :: [BlockDeviceMapping]
       -- ^ The block device mappings for the new AMI, which specify how different
       -- block devices (ex: EBS volumes and ephemeral drives) will be exposed on
       -- instances launched from the new image.
-    , risDescription :: Maybe Text
+    , ridDescription :: Maybe Text
       -- ^ The description describing the new AMI.
-    , risDryRun :: Maybe Bool
-    , risImageLocation :: Maybe Text
+    , ridDryRun :: Maybe Bool
+    , ridImageLocation :: Maybe Text
       -- ^ The full path to your AMI manifest in Amazon S3 storage.
-    , risKernelId :: Maybe Text
+    , ridKernelId :: Maybe Text
       -- ^ The optional ID of a specific kernel to register with the new AMI.
-    , risName :: Maybe Text
+    , ridName :: Maybe Text
       -- ^ The name to give the new Amazon Machine Image. Constraints: 3-128
       -- alphanumeric characters, parenthesis (()), commas (,), slashes (/), dashes
       -- (-), or underscores(_).
-    , risRamdiskId :: Maybe Text
+    , ridRamdiskId :: Maybe Text
       -- ^ The optional ID of a specific ramdisk to register with the new AMI. Some
       -- kernels require additional drivers at launch. Check the kernel requirements
       -- for information on whether you need to specify a RAM disk.
-    , risRootDeviceName :: Maybe Text
+    , ridRootDeviceName :: Maybe Text
       -- ^ The root device name (e.g., /dev/sda1).
-    , risSriovNetSupport :: Maybe Text
-    , risVirtualizationType :: Maybe Text
+    , ridSriovNetSupport :: Maybe Text
+    , ridVirtualizationType :: Maybe Text
       -- ^ The type of virtualization.
     } deriving (Eq, Show, Generic)
 
@@ -67,7 +67,7 @@ instance AWSRequest RegisterImage where
     request = getQuery service "RegisterImage"
 
 data RegisterImageResponse = RegisterImageResponse
-    { risrImageId :: Maybe Text
+    { ridrImageId :: Maybe Text
       -- ^ The ID of the new Amazon Machine Image (AMI).
     } deriving (Eq, Show, Generic)
 

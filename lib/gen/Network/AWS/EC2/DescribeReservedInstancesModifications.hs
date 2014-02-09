@@ -23,13 +23,13 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeReservedInstancesModifications = DescribeReservedInstancesModifications
-    { drimrFilters :: [Filter]
+    { drimFilters :: [Filter]
       -- ^ A list of filters used to match properties for
       -- ReservedInstancesModifications. For a complete reference to the available
       -- filter keys for this operation, see the Amazon EC2 API reference.
-    , drimrNextToken :: Maybe Text
+    , drimNextToken :: Maybe Text
       -- ^ A string specifying the next paginated set of results to return.
-    , drimrReservedInstancesModificationIds :: [Text]
+    , drimReservedInstancesModificationIds :: [Text]
       -- ^ An optional list of Reserved Instances modification IDs to describe.
     } deriving (Eq, Show, Generic)
 
@@ -41,9 +41,9 @@ instance AWSRequest DescribeReservedInstancesModifications where
     request = getQuery service "DescribeReservedInstancesModifications"
 
 data DescribeReservedInstancesModificationsResponse = DescribeReservedInstancesModificationsResponse
-    { drimrrNextToken :: Maybe Text
+    { drimrNextToken :: Maybe Text
       -- ^ The string specifying the next paginated set of results to return.
-    , drimrrReservedInstancesModifications :: [ReservedInstancesModification]
+    , drimrReservedInstancesModifications :: [ReservedInstancesModification]
       -- ^ The list of Reserved Instances modification requests.
     } deriving (Eq, Show, Generic)
 

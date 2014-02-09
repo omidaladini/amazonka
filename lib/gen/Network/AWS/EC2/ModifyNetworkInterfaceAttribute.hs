@@ -26,22 +26,22 @@ import Network.AWS.EC2.Types
 modifyNetworkInterfaceAttribute :: Text
                                 -> ModifyNetworkInterfaceAttribute
 modifyNetworkInterfaceAttribute p1 = ModifyNetworkInterfaceAttribute
-    { mniarNetworkInterfaceId = p1
-    , mniarAttachment = Nothing
-    , mniarDescription = Nothing
-    , mniarDryRun = Nothing
-    , mniarGroups = []
-    , mniarSourceDestCheck = Nothing
+    { mniaNetworkInterfaceId = p1
+    , mniaAttachment = Nothing
+    , mniaDescription = Nothing
+    , mniaDryRun = Nothing
+    , mniaGroups = []
+    , mniaSourceDestCheck = Nothing
     }
 
 data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute
-    { mniarAttachment :: Maybe NetworkInterfaceAttachmentChanges
-    , mniarDescription :: Maybe AttributeValue
+    { mniaAttachment :: Maybe NetworkInterfaceAttachmentChanges
+    , mniaDescription :: Maybe AttributeValue
       -- ^ String value.
-    , mniarDryRun :: Maybe Bool
-    , mniarGroups :: [Text]
-    , mniarNetworkInterfaceId :: !Text
-    , mniarSourceDestCheck :: Maybe AttributeBooleanValue
+    , mniaDryRun :: Maybe Bool
+    , mniaGroups :: [Text]
+    , mniaNetworkInterfaceId :: !Text
+    , mniaSourceDestCheck :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
     } deriving (Eq, Show, Generic)
 

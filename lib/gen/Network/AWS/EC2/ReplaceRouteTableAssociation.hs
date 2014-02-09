@@ -36,17 +36,17 @@ replaceRouteTableAssociation :: Text
                              -- ^ The ID of the new route table to associate with the subnet.
                              -> ReplaceRouteTableAssociation
 replaceRouteTableAssociation p1 p2 = ReplaceRouteTableAssociation
-    { rrtarAssociationId = p1
-    , rrtarRouteTableId = p2
-    , rrtarDryRun = Nothing
+    { rrtaAssociationId = p1
+    , rrtaRouteTableId = p2
+    , rrtaDryRun = Nothing
     }
 
 data ReplaceRouteTableAssociation = ReplaceRouteTableAssociation
-    { rrtarAssociationId :: !Text
+    { rrtaAssociationId :: !Text
       -- ^ The ID representing the current association between the original route
       -- table and the subnet.
-    , rrtarDryRun :: Maybe Bool
-    , rrtarRouteTableId :: !Text
+    , rrtaDryRun :: Maybe Bool
+    , rrtaRouteTableId :: !Text
       -- ^ The ID of the new route table to associate with the subnet.
     } deriving (Eq, Show, Generic)
 
@@ -58,7 +58,7 @@ instance AWSRequest ReplaceRouteTableAssociation where
     request = getQuery service "ReplaceRouteTableAssociation"
 
 data ReplaceRouteTableAssociationResponse = ReplaceRouteTableAssociationResponse
-    { rrtarrNewAssociationId :: Maybe Text
+    { rrtarNewAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML ReplaceRouteTableAssociationResponse where

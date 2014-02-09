@@ -29,16 +29,16 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data AuthorizeSecurityGroupIngress = AuthorizeSecurityGroupIngress
-    { asgirDryRun :: Maybe Bool
-    , asgirGroupId :: Maybe Text
+    { asgiDryRun :: Maybe Bool
+    , asgiGroupId :: Maybe Text
       -- ^ ID of the standard (EC2) or VPC security group to modify. The group must
       -- belong to your account. Required for VPC security groups; can be used
       -- instead of GroupName for standard (EC2) security groups.
-    , asgirGroupName :: Maybe Text
+    , asgiGroupName :: Maybe Text
       -- ^ Name of the standard (EC2) security group to modify. The group must belong
       -- to your account. Can be used instead of GroupID for standard (EC2) security
       -- groups.
-    , asgirIpPermissions :: [IpPermission]
+    , asgiIpPermissions :: [IpPermission]
       -- ^ List of IP permissions to authorize on the specified security group.
       -- Specifying permissions through IP permissions is the preferred way of
       -- authorizing permissions since it offers more flexibility and control.

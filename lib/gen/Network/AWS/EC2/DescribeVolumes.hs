@@ -24,12 +24,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeVolumes = DescribeVolumes
-    { dvtDryRun :: Maybe Bool
-    , dvtFilters :: [Filter]
+    { dveDryRun :: Maybe Bool
+    , dveFilters :: [Filter]
       -- ^ A list of filters used to match properties for Volumes. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dvtVolumeIds :: [Text]
+    , dveVolumeIds :: [Text]
       -- ^ The optional list of EBS volumes to describe.
     } deriving (Eq, Show, Generic)
 
@@ -41,7 +41,7 @@ instance AWSRequest DescribeVolumes where
     request = getQuery service "DescribeVolumes"
 
 data DescribeVolumesResponse = DescribeVolumesResponse
-    { dvtrVolumes :: [Volume]
+    { dverVolumes :: [Volume]
       -- ^ The list of described EBS volumes.
     } deriving (Eq, Show, Generic)
 

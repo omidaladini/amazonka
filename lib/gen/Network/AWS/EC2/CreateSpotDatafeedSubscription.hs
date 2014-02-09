@@ -30,16 +30,16 @@ createSpotDatafeedSubscription :: Text
                                -- ^ The Amazon S3 bucket in which to store the Spot Instance datafeed.
                                -> CreateSpotDatafeedSubscription
 createSpotDatafeedSubscription p1 = CreateSpotDatafeedSubscription
-    { csdsrBucket = p1
-    , csdsrDryRun = Nothing
-    , csdsrPrefix = Nothing
+    { csdsBucket = p1
+    , csdsDryRun = Nothing
+    , csdsPrefix = Nothing
     }
 
 data CreateSpotDatafeedSubscription = CreateSpotDatafeedSubscription
-    { csdsrBucket :: !Text
+    { csdsBucket :: !Text
       -- ^ The Amazon S3 bucket in which to store the Spot Instance datafeed.
-    , csdsrDryRun :: Maybe Bool
-    , csdsrPrefix :: Maybe Text
+    , csdsDryRun :: Maybe Bool
+    , csdsPrefix :: Maybe Text
       -- ^ The prefix that is prepended to datafeed files.
     } deriving (Eq, Show, Generic)
 
@@ -51,7 +51,7 @@ instance AWSRequest CreateSpotDatafeedSubscription where
     request = getQuery service "CreateSpotDatafeedSubscription"
 
 data CreateSpotDatafeedSubscriptionResponse = CreateSpotDatafeedSubscriptionResponse
-    { csdsrrSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
+    { csdsrSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
       -- ^ The SpotDatafeedSubscriptionType data type.
     } deriving (Eq, Show, Generic)
 

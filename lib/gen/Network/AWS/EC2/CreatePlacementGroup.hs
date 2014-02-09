@@ -31,16 +31,16 @@ createPlacementGroup :: Text
                      -- ^ The PlacementGroup strategy.
                      -> CreatePlacementGroup
 createPlacementGroup p1 p2 = CreatePlacementGroup
-    { cpgrGroupName = p1
-    , cpgrStrategy = p2
-    , cpgrDryRun = Nothing
+    { cpgGroupName = p1
+    , cpgStrategy = p2
+    , cpgDryRun = Nothing
     }
 
 data CreatePlacementGroup = CreatePlacementGroup
-    { cpgrDryRun :: Maybe Bool
-    , cpgrGroupName :: !Text
+    { cpgDryRun :: Maybe Bool
+    , cpgGroupName :: !Text
       -- ^ The name of the PlacementGroup.
-    , cpgrStrategy :: !PlacementStrategy
+    , cpgStrategy :: !PlacementStrategy
       -- ^ The PlacementGroup strategy.
     } deriving (Eq, Show, Generic)
 

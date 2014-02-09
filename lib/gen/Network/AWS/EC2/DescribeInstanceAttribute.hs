@@ -32,18 +32,18 @@ describeInstanceAttribute :: InstanceAttributeName
                           -- ^ The ID of the instance whose instance attribute is being described.
                           -> DescribeInstanceAttribute
 describeInstanceAttribute p1 p2 = DescribeInstanceAttribute
-    { diarAttribute = p1
-    , diarInstanceId = p2
-    , diarDryRun = Nothing
+    { diaAttribute = p1
+    , diaInstanceId = p2
+    , diaDryRun = Nothing
     }
 
 data DescribeInstanceAttribute = DescribeInstanceAttribute
-    { diarAttribute :: !InstanceAttributeName
+    { diaAttribute :: !InstanceAttributeName
       -- ^ The name of the attribute to describe. Available attribute names:
       -- instanceType, kernel, ramdisk, userData, disableApiTermination,
       -- instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping.
-    , diarDryRun :: Maybe Bool
-    , diarInstanceId :: !Text
+    , diaDryRun :: Maybe Bool
+    , diaInstanceId :: !Text
       -- ^ The ID of the instance whose instance attribute is being described.
     } deriving (Eq, Show, Generic)
 
@@ -55,31 +55,31 @@ instance AWSRequest DescribeInstanceAttribute where
     request = getQuery service "DescribeInstanceAttribute"
 
 data DescribeInstanceAttributeResponse = DescribeInstanceAttributeResponse
-    { diarrBlockDeviceMappings :: [InstanceBlockDeviceMapping]
+    { diarBlockDeviceMappings :: [InstanceBlockDeviceMapping]
       -- ^ How block devices are exposed to this instance. Each mapping is made up of
       -- a virtualName and a deviceName.
-    , diarrDisableApiTermination :: Maybe AttributeBooleanValue
+    , diarDisableApiTermination :: Maybe AttributeBooleanValue
       -- ^ Whether this instance can be terminated. You must modify this attribute
       -- before you can terminate any "locked" instances.
-    , diarrEbsOptimized :: Maybe AttributeBooleanValue
+    , diarEbsOptimized :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , diarrInstanceId :: Maybe Text
+    , diarInstanceId :: Maybe Text
       -- ^ The ID of the associated instance.
-    , diarrInstanceInitiatedShutdownBehavior :: Maybe AttributeValue
+    , diarInstanceInitiatedShutdownBehavior :: Maybe AttributeValue
       -- ^ Whether this instance's Amazon EBS volumes are deleted when the instance is
       -- shut down.
-    , diarrInstanceType :: Maybe AttributeValue
+    , diarInstanceType :: Maybe AttributeValue
       -- ^ The instance type (e.g., m1.small, c1.medium, m2.2xlarge, and so on).
-    , diarrKernelId :: Maybe AttributeValue
+    , diarKernelId :: Maybe AttributeValue
       -- ^ The kernel ID of the associated instance.
-    , diarrProductCodes :: [ProductCode]
-    , diarrRamdiskId :: Maybe AttributeValue
+    , diarProductCodes :: [ProductCode]
+    , diarRamdiskId :: Maybe AttributeValue
       -- ^ The ramdisk ID of the associated instance.
-    , diarrRootDeviceName :: Maybe AttributeValue
+    , diarRootDeviceName :: Maybe AttributeValue
       -- ^ The root device name (e.g., /dev/sda1).
-    , diarrSriovNetSupport :: Maybe AttributeValue
+    , diarSriovNetSupport :: Maybe AttributeValue
       -- ^ String value.
-    , diarrUserData :: Maybe AttributeValue
+    , diarUserData :: Maybe AttributeValue
       -- ^ MIME, Base64-encoded user data.
     } deriving (Eq, Show, Generic)
 

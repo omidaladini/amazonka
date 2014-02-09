@@ -22,11 +22,11 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeTags = DescribeTags
-    { dtrDryRun :: Maybe Bool
-    , dtrFilters :: [Filter]
+    { dtDryRun :: Maybe Bool
+    , dtFilters :: [Filter]
       -- ^ A list of filters used to match properties for tags.
-    , dtrMaxResults :: Maybe Int
-    , dtrNextToken :: Maybe Text
+    , dtMaxResults :: Maybe Int
+    , dtNextToken :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeTags
@@ -38,12 +38,12 @@ instance AWSRequest DescribeTags where
 
 instance AWSPager DescribeTags where
     next rq rs
-        | Just x <- dtrrNextToken rs = Just $ rq { dtrNextToken = Just x }
+        | Just x <- dtrNextToken rs = Just $ rq { dtNextToken = Just x }
         | otherwise = Nothing
 
 data DescribeTagsResponse = DescribeTagsResponse
-    { dtrrNextToken :: Maybe Text
-    , dtrrTags :: [TagDescription]
+    { dtrNextToken :: Maybe Text
+    , dtrTags :: [TagDescription]
       -- ^ A list of the tags for the specified resources.
     } deriving (Eq, Show, Generic)
 

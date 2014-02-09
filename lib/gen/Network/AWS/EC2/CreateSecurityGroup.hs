@@ -36,19 +36,19 @@ createSecurityGroup :: Text
                     -- ^ Name of the security group.
                     -> CreateSecurityGroup
 createSecurityGroup p1 p2 = CreateSecurityGroup
-    { csgrDescription = p1
-    , csgrGroupName = p2
-    , csgrDryRun = Nothing
-    , csgrVpcId = Nothing
+    { csgDescription = p1
+    , csgGroupName = p2
+    , csgDryRun = Nothing
+    , csgVpcId = Nothing
     }
 
 data CreateSecurityGroup = CreateSecurityGroup
-    { csgrDescription :: !Text
+    { csgDescription :: !Text
       -- ^ Description of the group. This is informational only.
-    , csgrDryRun :: Maybe Bool
-    , csgrGroupName :: !Text
+    , csgDryRun :: Maybe Bool
+    , csgGroupName :: !Text
       -- ^ Name of the security group.
-    , csgrVpcId :: Maybe Text
+    , csgVpcId :: Maybe Text
       -- ^ ID of the VPC.
     } deriving (Eq, Show, Generic)
 
@@ -60,7 +60,7 @@ instance AWSRequest CreateSecurityGroup where
     request = getQuery service "CreateSecurityGroup"
 
 data CreateSecurityGroupResponse = CreateSecurityGroupResponse
-    { csgrrGroupId :: Maybe Text
+    { csgrGroupId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateSecurityGroupResponse where

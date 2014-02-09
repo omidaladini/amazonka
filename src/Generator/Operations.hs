@@ -32,11 +32,6 @@ import qualified Data.Text.Lazy.IO   as LText
 import           Generator.Helpers
 import           Generator.Model
 import           Generator.Shapes
-import           System.Directory
-import           System.Environment
-import           System.Exit
-import           Text.EDE            (Template)
-import qualified Text.EDE            as EDE
 import           Text.EDE.Filters
 
 updateOperation :: HashSet Text -> Operation -> (HashSet Text, Operation)
@@ -65,9 +60,13 @@ updateOperation s1 o@Operation{..} = f oInput oOutput
     f Nothing Nothing =
         (s1, o)
 
-    g s = disambiguate s . replace (Just oName)
+    g s x = disambiguate s . replace (Just oName) $ x
+        { sShapeName = stripSuffix "Response" . stripSuffix "Request" <$> sShapeName x
+        }
 
     p x y l@Pagination{..} = l
         { pInputToken  = mappend x $ upperFirst pInputToken
         , pOutputToken = mappend y $ upperFirst pOutputToken
         }
+
+    stripSuffix x y = fromMaybe y $ Text.stripSuffix x y

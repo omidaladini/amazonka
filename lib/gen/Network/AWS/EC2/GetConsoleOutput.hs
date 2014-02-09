@@ -31,13 +31,13 @@ getConsoleOutput :: Text
                  -- ^ The ID of the instance for which you want console output.
                  -> GetConsoleOutput
 getConsoleOutput p1 = GetConsoleOutput
-    { gcorInstanceId = p1
-    , gcorDryRun = Nothing
+    { gcoInstanceId = p1
+    , gcoDryRun = Nothing
     }
 
 data GetConsoleOutput = GetConsoleOutput
-    { gcorDryRun :: Maybe Bool
-    , gcorInstanceId :: !Text
+    { gcoDryRun :: Maybe Bool
+    , gcoInstanceId :: !Text
       -- ^ The ID of the instance for which you want console output.
     } deriving (Eq, Show, Generic)
 
@@ -49,11 +49,11 @@ instance AWSRequest GetConsoleOutput where
     request = getQuery service "GetConsoleOutput"
 
 data GetConsoleOutputResponse = GetConsoleOutputResponse
-    { gcorrInstanceId :: Maybe Text
+    { gcorInstanceId :: Maybe Text
       -- ^ The ID of the instance whose console output was requested.
-    , gcorrOutput :: Maybe Text
+    , gcorOutput :: Maybe Text
       -- ^ The console output, Base64 encoded.
-    , gcorrTimestamp :: Maybe UTCTime
+    , gcorTimestamp :: Maybe UTCTime
       -- ^ The time the output was last updated.
     } deriving (Eq, Show, Generic)
 

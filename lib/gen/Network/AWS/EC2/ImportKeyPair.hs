@@ -37,16 +37,16 @@ importKeyPair :: Text
               -- ^ The public key portion of the key pair being imported.
               -> ImportKeyPair
 importKeyPair p1 p2 = ImportKeyPair
-    { ikprKeyName = p1
-    , ikprPublicKeyMaterial = p2
-    , ikprDryRun = Nothing
+    { ikpKeyName = p1
+    , ikpPublicKeyMaterial = p2
+    , ikpDryRun = Nothing
     }
 
 data ImportKeyPair = ImportKeyPair
-    { ikprDryRun :: Maybe Bool
-    , ikprKeyName :: !Text
+    { ikpDryRun :: Maybe Bool
+    , ikpKeyName :: !Text
       -- ^ The unique name for the key pair.
-    , ikprPublicKeyMaterial :: !Blob
+    , ikpPublicKeyMaterial :: !Blob
       -- ^ The public key portion of the key pair being imported.
     } deriving (Eq, Show, Generic)
 
@@ -58,9 +58,9 @@ instance AWSRequest ImportKeyPair where
     request = getQuery service "ImportKeyPair"
 
 data ImportKeyPairResponse = ImportKeyPairResponse
-    { ikprrKeyFingerprint :: Maybe Text
+    { ikprKeyFingerprint :: Maybe Text
       -- ^ The MD5 public key fingerprint as specified in section 4 of RFC4716 .
-    , ikprrKeyName :: Maybe Text
+    , ikprKeyName :: Maybe Text
       -- ^ The specified unique key pair name.
     } deriving (Eq, Show, Generic)
 

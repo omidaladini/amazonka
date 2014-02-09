@@ -26,15 +26,15 @@ import Network.AWS.EC2.Types
 cancelConversionTask :: Text
                      -> CancelConversionTask
 cancelConversionTask p1 = CancelConversionTask
-    { ccrConversionTaskId = p1
-    , ccrDryRun = Nothing
-    , ccrReasonMessage = Nothing
+    { ccConversionTaskId = p1
+    , ccDryRun = Nothing
+    , ccReasonMessage = Nothing
     }
 
 data CancelConversionTask = CancelConversionTask
-    { ccrConversionTaskId :: !Text
-    , ccrDryRun :: Maybe Bool
-    , ccrReasonMessage :: Maybe Text
+    { ccConversionTaskId :: !Text
+    , ccDryRun :: Maybe Bool
+    , ccReasonMessage :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CancelConversionTask

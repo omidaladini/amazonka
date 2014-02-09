@@ -27,13 +27,13 @@ monitorInstances :: [Text]
                  -- ^ The list of Amazon EC2 instances on which to enable monitoring.
                  -> MonitorInstances
 monitorInstances p1 = MonitorInstances
-    { mirInstanceIds = p1
-    , mirDryRun = Nothing
+    { miInstanceIds = p1
+    , miDryRun = Nothing
     }
 
 data MonitorInstances = MonitorInstances
-    { mirDryRun :: Maybe Bool
-    , mirInstanceIds :: [Text]
+    { miDryRun :: Maybe Bool
+    , miInstanceIds :: [Text]
       -- ^ The list of Amazon EC2 instances on which to enable monitoring.
     } deriving (Eq, Show, Generic)
 
@@ -45,7 +45,7 @@ instance AWSRequest MonitorInstances where
     request = getQuery service "MonitorInstances"
 
 data MonitorInstancesResponse = MonitorInstancesResponse
-    { mirrInstanceMonitorings :: [InstanceMonitoring]
+    { mirInstanceMonitorings :: [InstanceMonitoring]
       -- ^ A list of updated monitoring information for the instances specified in the
       -- request.
     } deriving (Eq, Show, Generic)

@@ -26,17 +26,17 @@ import Network.AWS.EC2.Types
 createInstanceExportTask :: Text
                          -> CreateInstanceExportTask
 createInstanceExportTask p1 = CreateInstanceExportTask
-    { cietrInstanceId = p1
-    , cietrDescription = Nothing
-    , cietrExportToS3Task = Nothing
-    , cietrTargetEnvironment = Nothing
+    { cietInstanceId = p1
+    , cietDescription = Nothing
+    , cietExportToS3Task = Nothing
+    , cietTargetEnvironment = Nothing
     }
 
 data CreateInstanceExportTask = CreateInstanceExportTask
-    { cietrDescription :: Maybe Text
-    , cietrExportToS3Task :: Maybe ExportToS3TaskSpecification
-    , cietrInstanceId :: !Text
-    , cietrTargetEnvironment :: Maybe ExportEnvironment
+    { cietDescription :: Maybe Text
+    , cietExportToS3Task :: Maybe ExportToS3TaskSpecification
+    , cietInstanceId :: !Text
+    , cietTargetEnvironment :: Maybe ExportEnvironment
     } deriving (Eq, Show, Generic)
 
 instance ToQuery CreateInstanceExportTask
@@ -47,7 +47,7 @@ instance AWSRequest CreateInstanceExportTask where
     request = getQuery service "CreateInstanceExportTask"
 
 data CreateInstanceExportTaskResponse = CreateInstanceExportTaskResponse
-    { cietrrExportTask :: Maybe ExportTask
+    { cietrExportTask :: Maybe ExportTask
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateInstanceExportTaskResponse where

@@ -26,17 +26,17 @@ import Network.AWS.EC2.Types
 modifyVpcAttribute :: Text
                    -> ModifyVpcAttribute
 modifyVpcAttribute p1 = ModifyVpcAttribute
-    { mvasVpcId = p1
-    , mvasEnableDnsHostnames = Nothing
-    , mvasEnableDnsSupport = Nothing
+    { mvadVpcId = p1
+    , mvadEnableDnsHostnames = Nothing
+    , mvadEnableDnsSupport = Nothing
     }
 
 data ModifyVpcAttribute = ModifyVpcAttribute
-    { mvasEnableDnsHostnames :: Maybe AttributeBooleanValue
+    { mvadEnableDnsHostnames :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , mvasEnableDnsSupport :: Maybe AttributeBooleanValue
+    , mvadEnableDnsSupport :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
-    , mvasVpcId :: !Text
+    , mvadVpcId :: !Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ModifyVpcAttribute

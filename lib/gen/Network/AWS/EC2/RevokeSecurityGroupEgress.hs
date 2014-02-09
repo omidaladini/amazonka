@@ -37,16 +37,16 @@ revokeSecurityGroupEgress :: Text
                           -- ^ ID of the VPC security group to modify.
                           -> RevokeSecurityGroupEgress
 revokeSecurityGroupEgress p1 = RevokeSecurityGroupEgress
-    { rsgerGroupId = p1
-    , rsgerDryRun = Nothing
-    , rsgerIpPermissions = []
+    { rsgeGroupId = p1
+    , rsgeDryRun = Nothing
+    , rsgeIpPermissions = []
     }
 
 data RevokeSecurityGroupEgress = RevokeSecurityGroupEgress
-    { rsgerDryRun :: Maybe Bool
-    , rsgerGroupId :: !Text
+    { rsgeDryRun :: Maybe Bool
+    , rsgeGroupId :: !Text
       -- ^ ID of the VPC security group to modify.
-    , rsgerIpPermissions :: [IpPermission]
+    , rsgeIpPermissions :: [IpPermission]
       -- ^ List of IP permissions to authorize on the specified security group.
       -- Specifying permissions through IP permissions is the preferred way of
       -- authorizing permissions since it offers more flexibility and control.

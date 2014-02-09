@@ -23,13 +23,13 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeAddresses = DescribeAddresses
-    { darAllocationIds :: [Text]
-    , darDryRun :: Maybe Bool
-    , darFilters :: [Filter]
+    { daAllocationIds :: [Text]
+    , daDryRun :: Maybe Bool
+    , daFilters :: [Filter]
       -- ^ A list of filters used to match properties for Addresses. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , darPublicIps :: [Text]
+    , daPublicIps :: [Text]
       -- ^ The optional list of Elastic IP addresses to describe.
     } deriving (Eq, Show, Generic)
 
@@ -41,7 +41,7 @@ instance AWSRequest DescribeAddresses where
     request = getQuery service "DescribeAddresses"
 
 data DescribeAddressesResponse = DescribeAddressesResponse
-    { darrAddresses :: [Address]
+    { darAddresses :: [Address]
       -- ^ The list of Elastic IPs.
     } deriving (Eq, Show, Generic)
 

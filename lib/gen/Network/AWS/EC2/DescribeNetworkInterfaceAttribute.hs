@@ -26,21 +26,21 @@ import Network.AWS.EC2.Types
 describeNetworkInterfaceAttribute :: Text
                                   -> DescribeNetworkInterfaceAttribute
 describeNetworkInterfaceAttribute p1 = DescribeNetworkInterfaceAttribute
-    { dniarNetworkInterfaceId = p1
-    , dniarAttachment = Nothing
-    , dniarDescription = Nothing
-    , dniarDryRun = Nothing
-    , dniarGroups = Nothing
-    , dniarSourceDestCheck = Nothing
+    { dniaNetworkInterfaceId = p1
+    , dniaAttachment = Nothing
+    , dniaDescription = Nothing
+    , dniaDryRun = Nothing
+    , dniaGroups = Nothing
+    , dniaSourceDestCheck = Nothing
     }
 
 data DescribeNetworkInterfaceAttribute = DescribeNetworkInterfaceAttribute
-    { dniarAttachment :: Maybe Text
-    , dniarDescription :: Maybe Text
-    , dniarDryRun :: Maybe Bool
-    , dniarGroups :: Maybe Text
-    , dniarNetworkInterfaceId :: !Text
-    , dniarSourceDestCheck :: Maybe Text
+    { dniaAttachment :: Maybe Text
+    , dniaDescription :: Maybe Text
+    , dniaDryRun :: Maybe Bool
+    , dniaGroups :: Maybe Text
+    , dniaNetworkInterfaceId :: !Text
+    , dniaSourceDestCheck :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeNetworkInterfaceAttribute
@@ -51,12 +51,12 @@ instance AWSRequest DescribeNetworkInterfaceAttribute where
     request = getQuery service "DescribeNetworkInterfaceAttribute"
 
 data DescribeNetworkInterfaceAttributeResponse = DescribeNetworkInterfaceAttributeResponse
-    { dniarrAttachment :: Maybe NetworkInterfaceAttachment
-    , dniarrDescription :: Maybe AttributeValue
+    { dniarAttachment :: Maybe NetworkInterfaceAttachment
+    , dniarDescription :: Maybe AttributeValue
       -- ^ String value.
-    , dniarrGroups :: [GroupIdentifier]
-    , dniarrNetworkInterfaceId :: Maybe Text
-    , dniarrSourceDestCheck :: Maybe AttributeBooleanValue
+    , dniarGroups :: [GroupIdentifier]
+    , dniarNetworkInterfaceId :: Maybe Text
+    , dniarSourceDestCheck :: Maybe AttributeBooleanValue
       -- ^ Boolean value.
     } deriving (Eq, Show, Generic)
 

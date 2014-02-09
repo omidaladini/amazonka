@@ -34,16 +34,16 @@ detachVpnGateway :: Text
                  -- ^ The ID of the VPN gateway to detach from the VPC.
                  -> DetachVpnGateway
 detachVpnGateway p1 p2 = DetachVpnGateway
-    { dvgsVpcId = p1
-    , dvgsVpnGatewayId = p2
-    , dvgsDryRun = Nothing
+    { dvgdVpcId = p1
+    , dvgdVpnGatewayId = p2
+    , dvgdDryRun = Nothing
     }
 
 data DetachVpnGateway = DetachVpnGateway
-    { dvgsDryRun :: Maybe Bool
-    , dvgsVpcId :: !Text
+    { dvgdDryRun :: Maybe Bool
+    , dvgdVpcId :: !Text
       -- ^ The ID of the VPC to detach the VPN gateway from.
-    , dvgsVpnGatewayId :: !Text
+    , dvgdVpnGatewayId :: !Text
       -- ^ The ID of the VPN gateway to detach from the VPC.
     } deriving (Eq, Show, Generic)
 

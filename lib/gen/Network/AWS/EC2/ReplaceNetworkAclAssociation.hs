@@ -33,17 +33,17 @@ replaceNetworkAclAssociation :: Text
                              -- ^ The ID of the new ACL to associate with the subnet.
                              -> ReplaceNetworkAclAssociation
 replaceNetworkAclAssociation p1 p2 = ReplaceNetworkAclAssociation
-    { rnaarAssociationId = p1
-    , rnaarNetworkAclId = p2
-    , rnaarDryRun = Nothing
+    { rnaaAssociationId = p1
+    , rnaaNetworkAclId = p2
+    , rnaaDryRun = Nothing
     }
 
 data ReplaceNetworkAclAssociation = ReplaceNetworkAclAssociation
-    { rnaarAssociationId :: !Text
+    { rnaaAssociationId :: !Text
       -- ^ The ID representing the current association between the original network
       -- ACL and the subnet.
-    , rnaarDryRun :: Maybe Bool
-    , rnaarNetworkAclId :: !Text
+    , rnaaDryRun :: Maybe Bool
+    , rnaaNetworkAclId :: !Text
       -- ^ The ID of the new ACL to associate with the subnet.
     } deriving (Eq, Show, Generic)
 
@@ -55,7 +55,7 @@ instance AWSRequest ReplaceNetworkAclAssociation where
     request = getQuery service "ReplaceNetworkAclAssociation"
 
 data ReplaceNetworkAclAssociationResponse = ReplaceNetworkAclAssociationResponse
-    { rnaarrNewAssociationId :: Maybe Text
+    { rnaarNewAssociationId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
 instance FromXML ReplaceNetworkAclAssociationResponse where

@@ -30,17 +30,17 @@ resetSnapshotAttribute :: SnapshotAttributeName
                        -- ^ The ID of the snapshot whose attribute is being reset.
                        -> ResetSnapshotAttribute
 resetSnapshotAttribute p1 p2 = ResetSnapshotAttribute
-    { rsarAttribute = p1
-    , rsarSnapshotId = p2
-    , rsarDryRun = Nothing
+    { rsaAttribute = p1
+    , rsaSnapshotId = p2
+    , rsaDryRun = Nothing
     }
 
 data ResetSnapshotAttribute = ResetSnapshotAttribute
-    { rsarAttribute :: !SnapshotAttributeName
+    { rsaAttribute :: !SnapshotAttributeName
       -- ^ The name of the attribute being reset. Available attribute names:
       -- createVolumePermission.
-    , rsarDryRun :: Maybe Bool
-    , rsarSnapshotId :: !Text
+    , rsaDryRun :: Maybe Bool
+    , rsaSnapshotId :: !Text
       -- ^ The ID of the snapshot whose attribute is being reset.
     } deriving (Eq, Show, Generic)
 

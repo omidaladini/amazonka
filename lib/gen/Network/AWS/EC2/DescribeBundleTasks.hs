@@ -25,10 +25,10 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeBundleTasks = DescribeBundleTasks
-    { dbtrBundleIds :: [Text]
+    { dbtBundleIds :: [Text]
       -- ^ The list of bundle task IDs to describe.
-    , dbtrDryRun :: Maybe Bool
-    , dbtrFilters :: [Filter]
+    , dbtDryRun :: Maybe Bool
+    , dbtFilters :: [Filter]
       -- ^ A list of filters used to match properties for BundleTasks. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
@@ -42,7 +42,7 @@ instance AWSRequest DescribeBundleTasks where
     request = getQuery service "DescribeBundleTasks"
 
 data DescribeBundleTasksResponse = DescribeBundleTasksResponse
-    { dbtrrBundleTasks :: [BundleTask]
+    { dbtrBundleTasks :: [BundleTask]
       -- ^ The list of described bundle tasks.
     } deriving (Eq, Show, Generic)
 

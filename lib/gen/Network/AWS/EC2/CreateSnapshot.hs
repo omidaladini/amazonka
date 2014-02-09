@@ -34,16 +34,16 @@ createSnapshot :: Text
                -- ^ The ID of the volume from which to create the snapshot.
                -> CreateSnapshot
 createSnapshot p1 = CreateSnapshot
-    { cstVolumeId = p1
-    , cstDescription = Nothing
-    , cstDryRun = Nothing
+    { cseVolumeId = p1
+    , cseDescription = Nothing
+    , cseDryRun = Nothing
     }
 
 data CreateSnapshot = CreateSnapshot
-    { cstDescription :: Maybe Text
+    { cseDescription :: Maybe Text
       -- ^ The description for the new snapshot.
-    , cstDryRun :: Maybe Bool
-    , cstVolumeId :: !Text
+    , cseDryRun :: Maybe Bool
+    , cseVolumeId :: !Text
       -- ^ The ID of the volume from which to create the snapshot.
     } deriving (Eq, Show, Generic)
 
@@ -55,26 +55,26 @@ instance AWSRequest CreateSnapshot where
     request = getQuery service "CreateSnapshot"
 
 data CreateSnapshotResponse = CreateSnapshotResponse
-    { cstrDescription :: Maybe Text
+    { cserDescription :: Maybe Text
       -- ^ Description of the snapshot.
-    , cstrOwnerAlias :: Maybe Text
+    , cserOwnerAlias :: Maybe Text
       -- ^ The AWS account alias (e.g., "amazon", "redhat", "self", etc.) or AWS
       -- account ID that owns the AMI.
-    , cstrOwnerId :: Maybe Text
+    , cserOwnerId :: Maybe Text
       -- ^ AWS Access Key ID of the user who owns the snapshot.
-    , cstrProgress :: Maybe Text
+    , cserProgress :: Maybe Text
       -- ^ The progress of the snapshot, in percentage.
-    , cstrSnapshotId :: Maybe Text
+    , cserSnapshotId :: Maybe Text
       -- ^ The unique ID of this snapshot.
-    , cstrStartTime :: Maybe UTCTime
+    , cserStartTime :: Maybe UTCTime
       -- ^ Time stamp when the snapshot was initiated.
-    , cstrState :: Maybe SnapshotState
+    , cserState :: Maybe SnapshotState
       -- ^ Snapshot state (e.g., pending, completed, or error).
-    , cstrTags :: [Tag]
+    , cserTags :: [Tag]
       -- ^ A list of tags for the Snapshot.
-    , cstrVolumeId :: Maybe Text
+    , cserVolumeId :: Maybe Text
       -- ^ The ID of the volume from which this snapshot was created.
-    , cstrVolumeSize :: Maybe Int
+    , cserVolumeSize :: Maybe Int
       -- ^ The size of the volume, in gigabytes.
     } deriving (Eq, Show, Generic)
 

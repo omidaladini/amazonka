@@ -24,7 +24,7 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeSpotDatafeedSubscription = DescribeSpotDatafeedSubscription
-    { dsdsrDryRun :: Maybe Bool
+    { dsdsDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeSpotDatafeedSubscription
@@ -35,7 +35,7 @@ instance AWSRequest DescribeSpotDatafeedSubscription where
     request = getQuery service "DescribeSpotDatafeedSubscription"
 
 data DescribeSpotDatafeedSubscriptionResponse = DescribeSpotDatafeedSubscriptionResponse
-    { dsdsrrSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
+    { dsdsrSpotDatafeedSubscription :: Maybe SpotDatafeedSubscription
       -- ^ The Spot Instance datafeed subscription.
     } deriving (Eq, Show, Generic)
 

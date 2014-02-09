@@ -24,12 +24,12 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeLicenses = DescribeLicenses
-    { dlrDryRun :: Maybe Bool
-    , dlrFilters :: [Filter]
+    { dlDryRun :: Maybe Bool
+    , dlFilters :: [Filter]
       -- ^ A list of filters used to match properties for Licenses. For a complete
       -- reference to the available filter keys for this operation, see the Amazon
       -- EC2 API reference.
-    , dlrLicenseIds :: [Text]
+    , dlLicenseIds :: [Text]
       -- ^ Specifies the license registration for which details are to be returned.
     } deriving (Eq, Show, Generic)
 
@@ -41,7 +41,7 @@ instance AWSRequest DescribeLicenses where
     request = getQuery service "DescribeLicenses"
 
 data DescribeLicensesResponse = DescribeLicensesResponse
-    { dlrrLicenses :: [License]
+    { dlrLicenses :: [License]
       -- ^ Specifies active licenses in use and attached to an Amazon EC2 instance.
     } deriving (Eq, Show, Generic)
 

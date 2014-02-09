@@ -46,21 +46,21 @@ createCustomerGateway :: Int
                       -- ^ The type of VPN connection this customer gateway supports.
                       -> CreateCustomerGateway
 createCustomerGateway p1 p2 p3 = CreateCustomerGateway
-    { ccgrBgpAsn = p1
-    , ccgrPublicIp = p2
-    , ccgrType = p3
-    , ccgrDryRun = Nothing
+    { ccgBgpAsn = p1
+    , ccgPublicIp = p2
+    , ccgType = p3
+    , ccgDryRun = Nothing
     }
 
 data CreateCustomerGateway = CreateCustomerGateway
-    { ccgrBgpAsn :: !Int
+    { ccgBgpAsn :: !Int
       -- ^ The customer gateway's Border Gateway Protocol (BGP) Autonomous System
       -- Number (ASN).
-    , ccgrDryRun :: Maybe Bool
-    , ccgrPublicIp :: !Text
+    , ccgDryRun :: Maybe Bool
+    , ccgPublicIp :: !Text
       -- ^ The Internet-routable IP address for the customer gateway's outside
       -- interface. The address must be static.
-    , ccgrType :: !GatewayType
+    , ccgType :: !GatewayType
       -- ^ The type of VPN connection this customer gateway supports.
     } deriving (Eq, Show, Generic)
 
@@ -72,7 +72,7 @@ instance AWSRequest CreateCustomerGateway where
     request = getQuery service "CreateCustomerGateway"
 
 data CreateCustomerGatewayResponse = CreateCustomerGatewayResponse
-    { ccgrrCustomerGateway :: Maybe CustomerGateway
+    { ccgrCustomerGateway :: Maybe CustomerGateway
       -- ^ Information about the customer gateway.
     } deriving (Eq, Show, Generic)
 

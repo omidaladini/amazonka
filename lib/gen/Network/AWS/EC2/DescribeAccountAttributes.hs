@@ -22,8 +22,8 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeAccountAttributes = DescribeAccountAttributes
-    { daarAttributeNames :: [AccountAttributeName]
-    , daarDryRun :: Maybe Bool
+    { daaAttributeNames :: [AccountAttributeName]
+    , daaDryRun :: Maybe Bool
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeAccountAttributes
@@ -34,7 +34,7 @@ instance AWSRequest DescribeAccountAttributes where
     request = getQuery service "DescribeAccountAttributes"
 
 data DescribeAccountAttributesResponse = DescribeAccountAttributesResponse
-    { daarrAccountAttributes :: [AccountAttribute]
+    { daarAccountAttributes :: [AccountAttribute]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeAccountAttributesResponse where

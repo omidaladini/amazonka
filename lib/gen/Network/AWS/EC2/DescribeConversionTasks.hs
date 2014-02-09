@@ -22,9 +22,9 @@ import Network.AWS.EC2.Service
 import Network.AWS.EC2.Types
 
 data DescribeConversionTasks = DescribeConversionTasks
-    { dctrConversionTaskIds :: [Text]
-    , dctrDryRun :: Maybe Bool
-    , dctrFilters :: [Filter]
+    { dctConversionTaskIds :: [Text]
+    , dctDryRun :: Maybe Bool
+    , dctFilters :: [Filter]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery DescribeConversionTasks
@@ -35,7 +35,7 @@ instance AWSRequest DescribeConversionTasks where
     request = getQuery service "DescribeConversionTasks"
 
 data DescribeConversionTasksResponse = DescribeConversionTasksResponse
-    { dctrrConversionTasks :: [ConversionTask]
+    { dctrConversionTasks :: [ConversionTask]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeConversionTasksResponse where

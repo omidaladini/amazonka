@@ -30,13 +30,13 @@ deleteVpc :: Text
           -- ^ The ID of the VPC you want to delete.
           -> DeleteVpc
 deleteVpc p1 = DeleteVpc
-    { dvuVpcId = p1
-    , dvuDryRun = Nothing
+    { dvfVpcId = p1
+    , dvfDryRun = Nothing
     }
 
 data DeleteVpc = DeleteVpc
-    { dvuDryRun :: Maybe Bool
-    , dvuVpcId :: !Text
+    { dvfDryRun :: Maybe Bool
+    , dvfVpcId :: !Text
       -- ^ The ID of the VPC you want to delete.
     } deriving (Eq, Show, Generic)
 

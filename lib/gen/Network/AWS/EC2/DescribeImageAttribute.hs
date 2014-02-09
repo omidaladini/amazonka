@@ -31,17 +31,17 @@ describeImageAttribute :: ImageAttributeName
                        -- ^ The ID of the AMI whose attribute is to be described.
                        -> DescribeImageAttribute
 describeImageAttribute p1 p2 = DescribeImageAttribute
-    { diasAttribute = p1
-    , diasImageId = p2
-    , diasDryRun = Nothing
+    { diadAttribute = p1
+    , diadImageId = p2
+    , diadDryRun = Nothing
     }
 
 data DescribeImageAttribute = DescribeImageAttribute
-    { diasAttribute :: !ImageAttributeName
+    { diadAttribute :: !ImageAttributeName
       -- ^ The name of the attribute to describe. Available attribute names:
       -- productCodes, kernel, ramdisk, launchPermisson, blockDeviceMapping.
-    , diasDryRun :: Maybe Bool
-    , diasImageId :: !Text
+    , diadDryRun :: Maybe Bool
+    , diadImageId :: !Text
       -- ^ The ID of the AMI whose attribute is to be described.
     } deriving (Eq, Show, Generic)
 
@@ -53,21 +53,21 @@ instance AWSRequest DescribeImageAttribute where
     request = getQuery service "DescribeImageAttribute"
 
 data DescribeImageAttributeResponse = DescribeImageAttributeResponse
-    { diasrBlockDeviceMappings :: [BlockDeviceMapping]
+    { diadrBlockDeviceMappings :: [BlockDeviceMapping]
       -- ^ Block device mappings for the associated AMI.
-    , diasrDescription :: Maybe AttributeValue
+    , diadrDescription :: Maybe AttributeValue
       -- ^ User-created description of the associated AMI.
-    , diasrImageId :: Maybe Text
+    , diadrImageId :: Maybe Text
       -- ^ The ID of the associated AMI.
-    , diasrKernelId :: Maybe AttributeValue
+    , diadrKernelId :: Maybe AttributeValue
       -- ^ Kernel ID of the associated AMI.
-    , diasrLaunchPermissions :: [LaunchPermission]
+    , diadrLaunchPermissions :: [LaunchPermission]
       -- ^ Launch permissions for the associated AMI.
-    , diasrProductCodes :: [ProductCode]
+    , diadrProductCodes :: [ProductCode]
       -- ^ Product codes for the associated AMI.
-    , diasrRamdiskId :: Maybe AttributeValue
+    , diadrRamdiskId :: Maybe AttributeValue
       -- ^ Ramdisk ID of the associated AMI.
-    , diasrSriovNetSupport :: Maybe AttributeValue
+    , diadrSriovNetSupport :: Maybe AttributeValue
       -- ^ String value.
     } deriving (Eq, Show, Generic)
 
