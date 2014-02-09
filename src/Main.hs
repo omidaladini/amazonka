@@ -131,10 +131,6 @@ model dir Templates{..} m@Model{..} = do
     (_,   typs) = types pres m
 
     (pres, ops) =
-
-the hashset for prefixes should only apply to a single model,
-not across multiple to ensure they aren't needlesly verbose.
-
         foldl' (\(acc, xs) -> second (: xs) . updateOperation acc)
                (mempty, [])
                mOperations
