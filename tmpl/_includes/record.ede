@@ -1,3 +1,0 @@
-data {{ scope.shape_name }} = {{ scope.shape_name }}
-{% include "fields.ede" with scope.fields %}
-    } deriving (Eq, Show, Generic)
