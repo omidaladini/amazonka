@@ -47,11 +47,11 @@ JSON := \
 
 #MODELS := $(RESTXML) $(RESTS3) $(JSON) $(QUERY)
 MODELS := $(BOTO)/ec2.json \
- # $(BOTO)/iam.json \
- # $(BOTO)/s3.json \
- # $(BOTO)/elb.json \
- # $(BOTO)/route53.json \
- # $(BOTO)/autoscaling.json
+ $(BOTO)/iam.json \
+ $(BOTO)/s3.json \
+ $(BOTO)/elb.json \
+ $(BOTO)/route53.json \
+ $(BOTO)/autoscaling.json
 
 .PHONY: test lint doc
 
