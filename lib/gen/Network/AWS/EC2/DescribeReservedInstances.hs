@@ -43,7 +43,7 @@ instance AWSRequest DescribeReservedInstances where
     response = responseXML
 
 data DescribeReservedInstancesResponse = DescribeReservedInstancesResponse
-    { drirReservedInstances :: [ReservedInstances]
+    { drirReservedInstancesSet :: [ReservedInstances]
       -- ^ The list of described Reserved Instances.
     } deriving (Eq, Show, Generic)
 

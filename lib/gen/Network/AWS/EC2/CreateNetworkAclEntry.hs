@@ -69,7 +69,7 @@ data CreateNetworkAclEntry = CreateNetworkAclEntry
     , cnaeEgress :: !Bool
       -- ^ Whether this rule applies to egress traffic from the subnet (true) or
       -- ingress traffic to the subnet (false).
-    , cnaeIcmpTypeCode :: Maybe IcmpTypeCode
+    , cnaeIcmp :: Maybe IcmpTypeCode
       -- ^ ICMP values.
     , cnaeNetworkAclId :: !Text
       -- ^ ID of the ACL where the entry will be created.

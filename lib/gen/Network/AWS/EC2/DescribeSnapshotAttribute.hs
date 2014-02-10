@@ -54,7 +54,7 @@ instance AWSRequest DescribeSnapshotAttribute where
     response = responseXML
 
 data DescribeSnapshotAttributeResponse = DescribeSnapshotAttributeResponse
-    { dsarCreateVolumePermissions :: [CreateVolumePermission]
+    { dsarCreateVolumePermission :: [CreateVolumePermission]
       -- ^ The list of permissions describing who can create a volume from the
       -- associated EBS snapshot. Only available if the createVolumePermission
       -- attribute is requested.

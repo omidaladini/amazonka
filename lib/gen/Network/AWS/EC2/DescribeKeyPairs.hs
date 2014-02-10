@@ -43,7 +43,7 @@ instance AWSRequest DescribeKeyPairs where
     response = responseXML
 
 data DescribeKeyPairsResponse = DescribeKeyPairsResponse
-    { dkpdrKeyPairs :: [KeyPairInfo]
+    { dkpdrKeySet :: [KeyPairInfo]
       -- ^ The list of described key pairs.
     } deriving (Eq, Show, Generic)
 

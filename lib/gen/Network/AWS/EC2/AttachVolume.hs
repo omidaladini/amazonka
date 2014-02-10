@@ -70,7 +70,7 @@ data AttachVolumeResponse = AttachVolumeResponse
     , avrDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
     , avrInstanceId :: Maybe Text
-    , avrState :: Maybe VolumeAttachmentState
+    , avrStatus :: Maybe VolumeAttachmentState
     , avrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 

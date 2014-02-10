@@ -52,7 +52,7 @@ instance AWSRequest DescribeNetworkAcls where
     response = responseXML
 
 data DescribeNetworkAclsResponse = DescribeNetworkAclsResponse
-    { dnadrNetworkAcls :: [NetworkAcl]
+    { dnadrNetworkAclSet :: [NetworkAcl]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeNetworkAclsResponse where

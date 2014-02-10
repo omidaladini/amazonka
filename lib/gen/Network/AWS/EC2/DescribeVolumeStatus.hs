@@ -44,7 +44,7 @@ instance AWSPager DescribeVolumeStatus where
 
 data DescribeVolumeStatusResponse = DescribeVolumeStatusResponse
     { dvsrNextToken :: Maybe Text
-    , dvsrVolumeStatuses :: [VolumeStatusItem]
+    , dvsrVolumeStatusSet :: [VolumeStatusItem]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeVolumeStatusResponse where

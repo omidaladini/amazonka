@@ -56,7 +56,7 @@ instance AWSRequest DescribeInstanceAttribute where
     response = responseXML
 
 data DescribeInstanceAttributeResponse = DescribeInstanceAttributeResponse
-    { diarBlockDeviceMappings :: [InstanceBlockDeviceMapping]
+    { diarBlockDeviceMapping :: [InstanceBlockDeviceMapping]
       -- ^ How block devices are exposed to this instance. Each mapping is made up of
       -- a virtualName and a deviceName.
     , diarDisableApiTermination :: Maybe AttributeBooleanValue
@@ -71,10 +71,10 @@ data DescribeInstanceAttributeResponse = DescribeInstanceAttributeResponse
       -- shut down.
     , diarInstanceType :: Maybe AttributeValue
       -- ^ The instance type (e.g., m1.small, c1.medium, m2.2xlarge, and so on).
-    , diarKernelId :: Maybe AttributeValue
+    , diarKernel :: Maybe AttributeValue
       -- ^ The kernel ID of the associated instance.
     , diarProductCodes :: [ProductCode]
-    , diarRamdiskId :: Maybe AttributeValue
+    , diarRamdisk :: Maybe AttributeValue
       -- ^ The ramdisk ID of the associated instance.
     , diarRootDeviceName :: Maybe AttributeValue
       -- ^ The root device name (e.g., /dev/sda1).

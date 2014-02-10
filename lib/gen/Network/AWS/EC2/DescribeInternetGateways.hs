@@ -53,7 +53,7 @@ instance AWSRequest DescribeInternetGateways where
     response = responseXML
 
 data DescribeInternetGatewaysResponse = DescribeInternetGatewaysResponse
-    { digdrInternetGateways :: [InternetGateway]
+    { digdrInternetGatewaySet :: [InternetGateway]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeInternetGatewaysResponse where

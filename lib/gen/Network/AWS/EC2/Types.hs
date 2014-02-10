@@ -40,11 +40,11 @@ data VpnGateway = VpnGateway
     , vgState :: Maybe VpnState
       -- ^ Describes the current state of the VPN gateway. Valid values are pending,
       -- available, deleting, and deleted.
-    , vgTags :: [Tag]
+    , vgTagSet :: [Tag]
       -- ^ A list of tags for the VpnGateway.
     , vgType :: Maybe GatewayType
       -- ^ Specifies the type of VPN connection the VPN gateway supports.
-    , vgVpcAttachments :: [VpcAttachment]
+    , vgAttachments :: [VpcAttachment]
       -- ^ Contains information about the VPCs attached to the VPN gateway.
     , vgVpnGatewayId :: Maybe Text
       -- ^ Specifies the ID of the VPN gateway.
@@ -101,7 +101,7 @@ data VpnConnection = VpnConnection
     , vcState :: Maybe VpnState
       -- ^ Describes the current state of the VPN connection. Valid values are
       -- pending, available, deleting, and deleted.
-    , vcTags :: [Tag]
+    , vcTagSet :: [Tag]
       -- ^ A list of tags for the VpnConnection.
     , vcType :: Maybe GatewayType
       -- ^ Specifies the type of VPN connection.
@@ -148,7 +148,7 @@ data Vpc = Vpc
     , veState :: Maybe VpcState
       -- ^ Describes the current state of the VPC. The state of the subnet may be
       -- either pending or available.
-    , veTags :: [Tag]
+    , veTagSet :: [Tag]
       -- ^ A list of tags for the VPC.
     , veVpcId :: Maybe Text
       -- ^ Specifies the ID of the VPC.
@@ -164,9 +164,9 @@ instance ToXML Vpc where
 
 -- | FIXME: Type documentation for VolumeStatusItem
 data VolumeStatusItem = VolumeStatusItem
-    { vsidActions :: [VolumeStatusAction]
+    { vsidActionsSet :: [VolumeStatusAction]
     , vsidAvailabilityZone :: Maybe Text
-    , vsidEvents :: [VolumeStatusEvent]
+    , vsidEventsSet :: [VolumeStatusEvent]
     , vsidVolumeId :: Maybe Text
     , vsidVolumeStatus :: Maybe VolumeStatusInfo
     } deriving (Eq, Show, Generic)
@@ -265,7 +265,7 @@ data VolumeAttachment = VolumeAttachment
     , vaDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
     , vaInstanceId :: Maybe Text
-    , vaState :: Maybe VolumeAttachmentState
+    , vaStatus :: Maybe VolumeAttachmentState
     , vaVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
@@ -279,7 +279,7 @@ instance ToXML VolumeAttachment where
 
 -- | Represents an Amazon Elastic Block Storage (EBS) volume.
 data Volume = Volume
-    { vAttachments :: [VolumeAttachment]
+    { vAttachmentSet :: [VolumeAttachment]
       -- ^ Information on what this volume is attached to.
     , vAvailabilityZone :: Maybe Text
       -- ^ Availability zone in which this volume was created.
@@ -290,9 +290,9 @@ data Volume = Volume
       -- ^ The size of this volume, in gigabytes.
     , vSnapshotId :: Maybe Text
       -- ^ Optional snapshot from which this volume was created.
-    , vState :: Maybe VolumeState
+    , vStatus :: Maybe VolumeState
       -- ^ State of this volume (e.g., creating, available).
-    , vTags :: [Tag]
+    , vTagSet :: [Tag]
       -- ^ A list of tags for the Volume.
     , vVolumeId :: Maybe Text
       -- ^ The unique ID of this volume.
@@ -400,7 +400,7 @@ data Subnet = Subnet
       -- either pending or available.
     , seSubnetId :: Maybe Text
       -- ^ Specifies the ID of the subnet.
-    , seTags :: [Tag]
+    , seTagSet :: [Tag]
       -- ^ A list of tags for the Subnet.
     , seVpcId :: Maybe Text
       -- ^ Contains the ID of the VPC the subnet is in.
@@ -524,7 +524,7 @@ data SpotInstanceRequest = SpotInstanceRequest
     , sirdSpotPrice :: Maybe Text
     , sirdState :: Maybe SpotInstanceState
     , sirdStatus :: Maybe SpotInstanceStatus
-    , sirdTags :: [Tag]
+    , sirdTagSet :: [Tag]
       -- ^ A list of tags for this spot instance request.
     , sirdType :: Maybe SpotInstanceType
     , sirdValidFrom :: Maybe UTCTime
@@ -577,9 +577,9 @@ data Snapshot = Snapshot
       -- ^ The unique ID of this snapshot.
     , sStartTime :: Maybe UTCTime
       -- ^ Time stamp when the snapshot was initiated.
-    , sState :: Maybe SnapshotState
+    , sStatus :: Maybe SnapshotState
       -- ^ Snapshot state (e.g., pending, completed, or error).
-    , sTags :: [Tag]
+    , sTagSet :: [Tag]
       -- ^ A list of tags for the Snapshot.
     , sVolumeId :: Maybe Text
       -- ^ The ID of the volume from which this snapshot was created.
@@ -598,7 +598,7 @@ instance ToXML Snapshot where
 -- | An Amazon EC2 security group, describing how EC2 instances in this group
 -- can receive network traffic.
 data SecurityGroup = SecurityGroup
-    { sgDescription :: Maybe Text
+    { sgGroupDescription :: Maybe Text
       -- ^ The description of this security group.
     , sgGroupId :: Maybe Text
     , sgGroupName :: Maybe Text
@@ -608,7 +608,7 @@ data SecurityGroup = SecurityGroup
     , sgIpPermissionsEgress :: [IpPermission]
     , sgOwnerId :: Maybe Text
       -- ^ The AWS Access Key ID of the owner of the security group.
-    , sgTags :: [Tag]
+    , sgTagSet :: [Tag]
     , sgVpcId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
@@ -677,11 +677,11 @@ instance ToXML RouteTableAssociation where
 
 -- | FIXME: Type documentation for RouteTable
 data RouteTable = RouteTable
-    { rtAssociations :: [RouteTableAssociation]
-    , rtPropagatingVgws :: [PropagatingVgw]
+    { rtAssociationSet :: [RouteTableAssociation]
+    , rtPropagatingVgwSet :: [PropagatingVgw]
     , rtRouteTableId :: Maybe Text
-    , rtRoutes :: [Route]
-    , rtTags :: [Tag]
+    , rtRouteSet :: [Route]
+    , rtTagSet :: [Tag]
     , rtVpcId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
@@ -729,7 +729,7 @@ data ReservedInstancesOffering = ReservedInstancesOffering
     , rioMarketplace :: Maybe Bool
     , rioOfferingType :: Maybe OfferingTypeValues
       -- ^ The Reserved Instance offering type.
-    , rioPricingDetails :: [PricingDetail]
+    , rioPricingDetailsSet :: [PricingDetail]
     , rioProductDescription :: Maybe RIProductDescription
       -- ^ The Reserved Instances description (ex: Windows or Unix/Linux).
     , rioRecurringCharges :: [RecurringCharge]
@@ -774,9 +774,9 @@ data ReservedInstancesModification = ReservedInstancesModification
       -- ^ The time the modification request was created.
     , rimEffectiveDate :: Maybe UTCTime
       -- ^ The time the modification becomes effective.
-    , rimModificationResults :: [ReservedInstancesModificationResult]
+    , rimModificationResultSet :: [ReservedInstancesModificationResult]
       -- ^ The resulting information about the modified Reserved Instances.
-    , rimReservedInstancesIds :: [ReservedInstancesId]
+    , rimReservedInstancesSet :: [ReservedInstancesId]
       -- ^ The IDs of the Reserved Instances submitted for modification.
     , rimReservedInstancesModificationId :: Maybe Text
       -- ^ The unique ID for the submitted modification request.
@@ -807,7 +807,7 @@ data ReservedInstancesListing = ReservedInstancesListing
     , rilReservedInstancesListingId :: Maybe Text
     , rilStatus :: Maybe ListingStatus
     , rilStatusMessage :: Maybe Text
-    , rilTags :: [Tag]
+    , rilTagSet :: [Tag]
     , rilUpdateDate :: Maybe UTCTime
     } deriving (Eq, Show, Generic)
 
@@ -884,7 +884,7 @@ data ReservedInstances = ReservedInstances
       -- ^ The date and time the Reserved Instances started.
     , rifState :: Maybe ReservedInstanceState
       -- ^ The state of the Reserved Instances purchase.
-    , rifTags :: [Tag]
+    , rifTagSet :: [Tag]
       -- ^ A list of tags for the ReservedInstances.
     , rifUsagePrice :: Maybe Double
       -- ^ The usage price of the Reserved Instances, per hour.
@@ -914,10 +914,10 @@ instance ToXML ReservedInstanceLimitPrice where
 
 -- | An Amazon EC2 reservation of requested EC2 instances.
 data Reservation = Reservation
-    { rdGroups :: [GroupIdentifier]
+    { rdGroupSet :: [GroupIdentifier]
       -- ^ The list of security groups requested for the instances in this
       -- reservation.
-    , rdInstances :: [Instance]
+    , rdInstancesSet :: [Instance]
       -- ^ The list of Amazon EC2 instances included in this reservation.
     , rdOwnerId :: Maybe Text
       -- ^ The AWS Access Key ID of the user who owns the reservation.
@@ -938,7 +938,7 @@ instance ToXML Reservation where
 -- | Represents an Amazon EC2 region. EC2 regions are completely isolated from
 -- each other.
 data Region = Region
-    { rEndpoint :: Maybe Text
+    { rRegionEndpoint :: Maybe Text
       -- ^ Region service endpoint.
     , rRegionName :: Maybe Text
       -- ^ Name of the region.
@@ -985,9 +985,9 @@ instance ToXML PropagatingVgw where
 
 -- | An AWS DevPay product code.
 data ProductCode = ProductCode
-    { pcProductCodeId :: Maybe Text
+    { pcProductCode :: Maybe Text
       -- ^ The unique ID of an AWS DevPay product code.
-    , pcProductCodeType :: Maybe ProductCodeValues
+    , pcType :: Maybe ProductCodeValues
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ProductCode
@@ -1192,13 +1192,13 @@ data NetworkInterface = NetworkInterface
     , niAttachment :: Maybe NetworkInterfaceAttachment
     , niAvailabilityZone :: Maybe Text
     , niDescription :: Maybe Text
-    , niGroups :: [GroupIdentifier]
+    , niGroupSet :: [GroupIdentifier]
     , niMacAddress :: Maybe Text
     , niNetworkInterfaceId :: Maybe Text
     , niOwnerId :: Maybe Text
     , niPrivateDnsName :: Maybe Text
     , niPrivateIpAddress :: Maybe Text
-    , niPrivateIpAddresses :: [NetworkInterfacePrivateIpAddress]
+    , niPrivateIpAddressesSet :: [NetworkInterfacePrivateIpAddress]
     , niRequesterId :: Maybe Text
     , niRequesterManaged :: Maybe Bool
     , niSourceDestCheck :: Maybe Bool
@@ -1252,11 +1252,11 @@ instance ToXML NetworkAclAssociation where
 
 -- | FIXME: Type documentation for NetworkAcl
 data NetworkAcl = NetworkAcl
-    { naAssociations :: [NetworkAclAssociation]
-    , naEntries :: [NetworkAclEntry]
-    , naIsDefault :: Maybe Bool
+    { naAssociationSet :: [NetworkAclAssociation]
+    , naEntrySet :: [NetworkAclEntry]
+    , naDefault :: Maybe Bool
     , naNetworkAclId :: Maybe Text
-    , naTags :: [Tag]
+    , naTagSet :: [Tag]
     , naVpcId :: Maybe Text
     } deriving (Eq, Show, Generic)
 
@@ -1309,7 +1309,7 @@ instance ToXML LicenseCapacity where
 -- | A software license that can be associated with an Amazon EC2 instance when
 -- launched (ex. a Microsoft Windows license).
 data License = License
-    { lCapacities :: [LicenseCapacity]
+    { lCapacitySet :: [LicenseCapacity]
       -- ^ The capacities available for this license, indicating how many licenses are
       -- in use, how many are available, how many Amazon EC2 instances can be
       -- supported, etc.
@@ -1317,7 +1317,7 @@ data License = License
       -- ^ The unique ID identifying the license.
     , lPool :: Maybe Text
       -- ^ The name of the pool in which the license is kept.
-    , lTags :: [Tag]
+    , lTagSet :: [Tag]
       -- ^ A list of tags for the License.
     , lType :: Maybe Text
       -- ^ The license type (ex. "Microsoft/Windows/Standard").
@@ -1480,9 +1480,9 @@ instance ToXML InternetGatewayAttachment where
 
 -- | FIXME: Type documentation for InternetGateway
 data InternetGateway = InternetGateway
-    { igAttachments :: [InternetGatewayAttachment]
+    { igAttachmentSet :: [InternetGatewayAttachment]
     , igInternetGatewayId :: Maybe Text
-    , igTags :: [Tag]
+    , igTagSet :: [Tag]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery InternetGateway
@@ -1547,7 +1547,7 @@ instance ToXML InstanceStatusDetails where
 data InstanceStatus = InstanceStatus
     { isdAvailabilityZone :: Maybe Text
       -- ^ The Amazon EC2 instance's availability zone.
-    , isdEvents :: [InstanceStatusEvent]
+    , isdEventsSet :: [InstanceStatusEvent]
       -- ^ Events that affect the status of the associated Amazon EC2 instance.
     , isdInstanceId :: Maybe Text
       -- ^ The ID of the Amazon EC2 instance.
@@ -1693,12 +1693,12 @@ data InstanceNetworkInterface = InstanceNetworkInterface
     { iniAssociation :: Maybe InstanceNetworkInterfaceAssociation
     , iniAttachment :: Maybe InstanceNetworkInterfaceAttachment
     , iniDescription :: Maybe Text
-    , iniGroups :: [GroupIdentifier]
+    , iniGroupSet :: [GroupIdentifier]
     , iniNetworkInterfaceId :: Maybe Text
     , iniOwnerId :: Maybe Text
     , iniPrivateDnsName :: Maybe Text
     , iniPrivateIpAddress :: Maybe Text
-    , iniPrivateIpAddresses :: [InstancePrivateIpAddress]
+    , iniPrivateIpAddressesSet :: [InstancePrivateIpAddress]
     , iniSourceDestCheck :: Maybe Bool
     , iniStatus :: Maybe NetworkInterfaceStatus
     , iniSubnetId :: Maybe Text
@@ -1834,7 +1834,7 @@ data Instance = Instance
       -- launch group.
     , idArchitecture :: Maybe ArchitectureValues
       -- ^ The architecture of this instance.
-    , idBlockDeviceMappings :: [InstanceBlockDeviceMapping]
+    , idBlockDeviceMapping :: [InstanceBlockDeviceMapping]
       -- ^ Block device mapping set.
     , idClientToken :: Maybe Text
     , idEbsOptimized :: Maybe Bool
@@ -1859,7 +1859,7 @@ data Instance = Instance
       -- ^ Represents an active license in use and attached to an Amazon EC2 instance.
     , idMonitoring :: Maybe Monitoring
       -- ^ Monitoring status for this instance.
-    , idNetworkInterfaces :: [InstanceNetworkInterface]
+    , idNetworkInterfaceSet :: [InstanceNetworkInterface]
     , idPlacement :: Maybe Placement
       -- ^ The location where this instance launched.
     , idPlatform :: Maybe PlatformValues
@@ -1873,11 +1873,11 @@ data Instance = Instance
       -- VPC).
     , idProductCodes :: [ProductCode]
       -- ^ Product codes attached to this instance.
-    , idPublicDnsName :: Maybe Text
+    , idDnsName :: Maybe Text
       -- ^ The public DNS name assigned to the instance. This DNS name is contactable
       -- from outside the Amazon EC2 network. This element remains empty until the
       -- instance enters a running state.
-    , idPublicIpAddress :: Maybe Text
+    , idIpAddress :: Maybe Text
       -- ^ Specifies the IP address of the instance.
     , idRamdiskId :: Maybe Text
       -- ^ RAM disk associated with this instance.
@@ -1886,19 +1886,19 @@ data Instance = Instance
     , idRootDeviceType :: Maybe DeviceType
       -- ^ The root device type used by the AMI. The AMI can use an Amazon EBS or
       -- instance store root device.
-    , idSecurityGroups :: [GroupIdentifier]
+    , idGroupSet :: [GroupIdentifier]
     , idSourceDestCheck :: Maybe Bool
     , idSpotInstanceRequestId :: Maybe Text
     , idSriovNetSupport :: Maybe Text
-    , idState :: Maybe InstanceState
+    , idInstanceState :: Maybe InstanceState
       -- ^ The current state of the instance.
     , idStateReason :: Maybe StateReason
       -- ^ The reason for the state change.
-    , idStateTransitionReason :: Maybe Text
+    , idReason :: Maybe Text
       -- ^ Reason for the most recent state transition. This might be an empty string.
     , idSubnetId :: Maybe Text
       -- ^ Specifies the Amazon VPC subnet ID in which the instance is running.
-    , idTags :: [Tag]
+    , idTagSet :: [Tag]
       -- ^ A list of tags for the Instance.
     , idVirtualizationType :: Maybe VirtualizationType
     , idVpcId :: Maybe Text
@@ -1994,7 +1994,7 @@ instance ToXML ImportInstanceLaunchSpecification where
 data Image = Image
     { iArchitecture :: Maybe ArchitectureValues
       -- ^ The architecture of the image.
-    , iBlockDeviceMappings :: [BlockDeviceMapping]
+    , iBlockDeviceMapping :: [BlockDeviceMapping]
       -- ^ Specifies how block devices are exposed to the instance.
     , iDescription :: Maybe Text
       -- ^ The description of the AMI that was provided during image creation.
@@ -2013,13 +2013,13 @@ data Image = Image
       -- images.
     , iName :: Maybe Text
       -- ^ The name of the AMI that was provided during image creation.
-    , iOwnerId :: Maybe Text
+    , iImageOwnerId :: Maybe Text
       -- ^ AWS Access Key ID of the image owner.
     , iPlatform :: Maybe PlatformValues
       -- ^ The operating platform of the AMI.
     , iProductCodes :: [ProductCode]
       -- ^ Product codes of the AMI.
-    , iPublic :: Maybe Bool
+    , iIsPublic :: Maybe Bool
       -- ^ True if this image has public launch permissions. False if it only has
       -- implicit and explicit launch permissions.
     , iRamdiskId :: Maybe Text
@@ -2031,14 +2031,14 @@ data Image = Image
       -- ^ The root device type used by the AMI. The AMI can use an Amazon EBS or
       -- instance store root device.
     , iSriovNetSupport :: Maybe Text
-    , iState :: Maybe ImageState
+    , iImageState :: Maybe ImageState
       -- ^ Current state of the AMI. If the operation returns available, the image is
       -- successfully registered and available for launching. If the operation
       -- returns deregistered, the image is deregistered and no longer available for
       -- launching.
     , iStateReason :: Maybe StateReason
       -- ^ The reason for the state change.
-    , iTags :: [Tag]
+    , iTagSet :: [Tag]
       -- ^ A list of tags for the Image.
     , iVirtualizationType :: Maybe VirtualizationType
     } deriving (Eq, Show, Generic)
@@ -2169,8 +2169,8 @@ instance ToXML ExportToS3Task where
 data ExportTask = ExportTask
     { etDescription :: Maybe Text
     , etExportTaskId :: Maybe Text
-    , etExportToS3Task :: Maybe ExportToS3Task
-    , etInstanceExportDetails :: Maybe InstanceExportDetails
+    , etExportToS3 :: Maybe ExportToS3Task
+    , etInstanceExport :: Maybe InstanceExportDetails
     , etState :: Maybe ExportTaskState
     , etStatusMessage :: Maybe Text
     } deriving (Eq, Show, Generic)
@@ -2304,11 +2304,11 @@ instance ToXML DiskImage where
 
 -- | The DhcpOptions data type.
 data DhcpOptions = DhcpOptions
-    { doDhcpConfigurations :: [DhcpConfiguration]
+    { doDhcpConfigurationSet :: [DhcpConfiguration]
       -- ^ Contains information about the set of DHCP options.
     , doDhcpOptionsId :: Maybe Text
       -- ^ Specifies the ID of the set of DHCP options.
-    , doTags :: [Tag]
+    , doTagSet :: [Tag]
       -- ^ A list of tags for the DhcpOptions.
     } deriving (Eq, Show, Generic)
 
@@ -2324,7 +2324,7 @@ instance ToXML DhcpOptions where
 data DhcpConfiguration = DhcpConfiguration
     { dcKey :: Maybe Text
       -- ^ Contains the name of a DHCP option.
-    , dcValues :: [Text]
+    , dcValueSet :: [Text]
       -- ^ Contains a set of values for a DHCP option.
     } deriving (Eq, Show, Generic)
 
@@ -2349,7 +2349,7 @@ data CustomerGateway = CustomerGateway
     , cgState :: Maybe Text
       -- ^ Describes the current state of the customer gateway. Valid values are
       -- pending, available, deleting, and deleted.
-    , cgTags :: [Tag]
+    , cgTagSet :: [Tag]
       -- ^ A list of tags for the CustomerGateway.
     , cgType :: Maybe Text
       -- ^ Specifies the type of VPN connection the customer gateway supports.
@@ -2403,7 +2403,7 @@ data ConversionTask = ConversionTask
     , ctdImportVolume :: Maybe ImportVolumeTaskDetails
     , ctdState :: !ConversionTaskState
     , ctdStatusMessage :: Maybe Text
-    , ctdTags :: [Tag]
+    , ctdTagSet :: [Tag]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery ConversionTask
@@ -2448,7 +2448,7 @@ instance ToXML BundleTaskError where
 data BundleTask = BundleTask
     { btBundleId :: Maybe Text
       -- ^ Unique identifier for this task.
-    , btBundleTaskError :: Maybe BundleTaskError
+    , btError :: Maybe BundleTaskError
       -- ^ If the task fails, a description of the error.
     , btInstanceId :: Maybe Text
       -- ^ Instance associated with this bundle task.
@@ -2510,11 +2510,11 @@ instance ToXML AvailabilityZoneMessage where
 -- | An EC2 availability zone, separate and fault tolerant from other
 -- availability zones.
 data AvailabilityZone = AvailabilityZone
-    { azMessages :: [AvailabilityZoneMessage]
+    { azMessageSet :: [AvailabilityZoneMessage]
       -- ^ A list of messages about the Availability Zone.
     , azRegionName :: Maybe Text
       -- ^ Name of the region in which this zone resides.
-    , azState :: Maybe AvailabilityZoneState
+    , azZoneState :: Maybe AvailabilityZoneState
       -- ^ State of the Availability Zone.
     , azZoneName :: Maybe Text
       -- ^ Name of the Availability Zone.
@@ -2593,7 +2593,7 @@ instance ToXML AccountAttributeValue where
 -- | FIXME: Type documentation for AccountAttribute
 data AccountAttribute = AccountAttribute
     { aaeAttributeName :: Maybe Text
-    , aaeAttributeValues :: [AccountAttributeValue]
+    , aaeAttributeValueSet :: [AccountAttributeValue]
     } deriving (Eq, Show, Generic)
 
 instance ToQuery AccountAttribute

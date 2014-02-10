@@ -89,13 +89,27 @@ unique set p = (Set.insert pre set, pre)
         | otherwise = succ x
 
 prefixes :: Text -> Shape -> Shape
-prefixes pre s@SStruct{..} = s
-    { sFields = Map.fromList . map f $ Map.toList sFields
-    , sPrefix = pre
-    }
+prefixes pre x = go x
   where
-    f (k, v) = (pre <> upperFirst k, v)
-prefixes _ s = s
+    go s@SStruct{..} = s
+        { sFields = Map.fromList . map f $ Map.toList sFields
+        , sPrefix = pre
+        }
+
+    go l@SList{..} = l
+        { sItem   = go sItem
+        , sPrefix = pre
+        }
+
+    go m@SMap{..} = m
+        { sKey    = go sKey
+        , sValue  = go sValue
+        , sPrefix = pre
+        }
+
+    go p = p { sPrefix = pre }
+
+    f (k, v) = (pre <> upperFirst k, go v)
 
 flatten :: Shape -> [Shape]
 flatten p@SPrim {..}

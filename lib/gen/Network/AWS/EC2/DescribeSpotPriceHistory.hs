@@ -65,7 +65,7 @@ data DescribeSpotPriceHistoryResponse = DescribeSpotPriceHistoryResponse
     { dsphrNextToken :: Maybe Text
       -- ^ The string marking the next set of results returned. Displays empty if
       -- there are no more results to be returned.
-    , dsphrSpotPriceHistory :: [SpotPrice]
+    , dsphrSpotPriceHistorySet :: [SpotPrice]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeSpotPriceHistoryResponse where

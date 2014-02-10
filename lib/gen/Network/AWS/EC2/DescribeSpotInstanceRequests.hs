@@ -60,7 +60,7 @@ instance AWSRequest DescribeSpotInstanceRequests where
     response = responseXML
 
 data DescribeSpotInstanceRequestsResponse = DescribeSpotInstanceRequestsResponse
-    { dsirrSpotInstanceRequests :: [SpotInstanceRequest]
+    { dsirrSpotInstanceRequestSet :: [SpotInstanceRequest]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeSpotInstanceRequestsResponse where

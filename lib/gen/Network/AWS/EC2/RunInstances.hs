@@ -165,10 +165,10 @@ instance AWSRequest RunInstances where
     response = responseXML
 
 data RunInstancesResponse = RunInstancesResponse
-    { rirGroups :: [GroupIdentifier]
+    { rirGroupSet :: [GroupIdentifier]
       -- ^ The list of security groups requested for the instances in this
       -- reservation.
-    , rirInstances :: [Instance]
+    , rirInstancesSet :: [Instance]
       -- ^ The list of Amazon EC2 instances included in this reservation.
     , rirOwnerId :: Maybe Text
       -- ^ The AWS Access Key ID of the user who owns the reservation.

@@ -34,7 +34,7 @@ createInstanceExportTask p1 = CreateInstanceExportTask
 
 data CreateInstanceExportTask = CreateInstanceExportTask
     { cietDescription :: Maybe Text
-    , cietExportToS3Task :: Maybe ExportToS3TaskSpecification
+    , cietExportToS3 :: Maybe ExportToS3TaskSpecification
     , cietInstanceId :: !Text
     , cietTargetEnvironment :: Maybe ExportEnvironment
     } deriving (Eq, Show, Generic)

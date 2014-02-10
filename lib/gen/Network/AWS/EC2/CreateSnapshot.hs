@@ -69,9 +69,9 @@ data CreateSnapshotResponse = CreateSnapshotResponse
       -- ^ The unique ID of this snapshot.
     , cserStartTime :: Maybe UTCTime
       -- ^ Time stamp when the snapshot was initiated.
-    , cserState :: Maybe SnapshotState
+    , cserStatus :: Maybe SnapshotState
       -- ^ Snapshot state (e.g., pending, completed, or error).
-    , cserTags :: [Tag]
+    , cserTagSet :: [Tag]
       -- ^ A list of tags for the Snapshot.
     , cserVolumeId :: Maybe Text
       -- ^ The ID of the volume from which this snapshot was created.

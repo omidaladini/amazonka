@@ -42,7 +42,7 @@ instance AWSRequest DescribeAddresses where
     response = responseXML
 
 data DescribeAddressesResponse = DescribeAddressesResponse
-    { darAddresses :: [Address]
+    { darAddressesSet :: [Address]
       -- ^ The list of Elastic IPs.
     } deriving (Eq, Show, Generic)
 

@@ -37,7 +37,7 @@ instance AWSRequest CreateReservedInstancesListing where
     response = responseXML
 
 data CreateReservedInstancesListingResponse = CreateReservedInstancesListingResponse
-    { crildrReservedInstancesListings :: [ReservedInstancesListing]
+    { crildrReservedInstancesListingsSet :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CreateReservedInstancesListingResponse where

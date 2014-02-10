@@ -44,7 +44,7 @@ instance AWSPager DescribeTags where
 
 data DescribeTagsResponse = DescribeTagsResponse
     { dtrNextToken :: Maybe Text
-    , dtrTags :: [TagDescription]
+    , dtrTagSet :: [TagDescription]
       -- ^ A list of the tags for the specified resources.
     } deriving (Eq, Show, Generic)
 

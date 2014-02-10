@@ -50,7 +50,7 @@ instance AWSRequest CancelBundleTask where
     response = responseXML
 
 data CancelBundleTaskResponse = CancelBundleTaskResponse
-    { cbtrBundleTask :: Maybe BundleTask
+    { cbtrBundleInstanceTask :: Maybe BundleTask
       -- ^ The canceled bundle task.
     } deriving (Eq, Show, Generic)
 

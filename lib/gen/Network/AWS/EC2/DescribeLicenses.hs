@@ -42,7 +42,7 @@ instance AWSRequest DescribeLicenses where
     response = responseXML
 
 data DescribeLicensesResponse = DescribeLicensesResponse
-    { dlrLicenses :: [License]
+    { dlrLicenseSet :: [License]
       -- ^ Specifies active licenses in use and attached to an Amazon EC2 instance.
     } deriving (Eq, Show, Generic)
 

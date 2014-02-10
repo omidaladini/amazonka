@@ -41,7 +41,7 @@ instance AWSRequest DescribePlacementGroups where
     response = responseXML
 
 data DescribePlacementGroupsResponse = DescribePlacementGroupsResponse
-    { dpgdrPlacementGroups :: [PlacementGroup]
+    { dpgdrPlacementGroupSet :: [PlacementGroup]
       -- ^ Contains information about the specified PlacementGroups.
     } deriving (Eq, Show, Generic)
 

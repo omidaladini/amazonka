@@ -34,7 +34,7 @@ instance AWSRequest DescribeExportTasks where
     response = responseXML
 
 data DescribeExportTasksResponse = DescribeExportTasksResponse
-    { detrExportTasks :: [ExportTask]
+    { detrExportTaskSet :: [ExportTask]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeExportTasksResponse where

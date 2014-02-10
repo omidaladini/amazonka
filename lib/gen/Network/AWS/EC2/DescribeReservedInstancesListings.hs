@@ -36,7 +36,7 @@ instance AWSRequest DescribeReservedInstancesListings where
     response = responseXML
 
 data DescribeReservedInstancesListingsResponse = DescribeReservedInstancesListingsResponse
-    { drilrReservedInstancesListings :: [ReservedInstancesListing]
+    { drilrReservedInstancesListingsSet :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeReservedInstancesListingsResponse where

@@ -61,7 +61,7 @@ instance AWSRequest StopInstances where
     response = responseXML
 
 data StopInstancesResponse = StopInstancesResponse
-    { sirStoppingInstances :: [InstanceStateChange]
+    { sirInstancesSet :: [InstanceStateChange]
       -- ^ The list of the stopping instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

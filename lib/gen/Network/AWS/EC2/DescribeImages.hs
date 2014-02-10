@@ -78,7 +78,7 @@ instance AWSRequest DescribeImages where
     response = responseXML
 
 data DescribeImagesResponse = DescribeImagesResponse
-    { dierImages :: [Image]
+    { dierImagesSet :: [Image]
       -- ^ The list of the described AMIs.
     } deriving (Eq, Show, Generic)
 

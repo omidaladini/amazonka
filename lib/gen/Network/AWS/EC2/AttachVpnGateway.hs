@@ -54,7 +54,7 @@ instance AWSRequest AttachVpnGateway where
     response = responseXML
 
 data AttachVpnGatewayResponse = AttachVpnGatewayResponse
-    { avgrVpcAttachment :: Maybe VpcAttachment
+    { avgrAttachment :: Maybe VpcAttachment
     } deriving (Eq, Show, Generic)
 
 instance FromXML AttachVpnGatewayResponse where

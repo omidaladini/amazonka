@@ -43,7 +43,7 @@ createSecurityGroup p1 p2 = CreateSecurityGroup
     }
 
 data CreateSecurityGroup = CreateSecurityGroup
-    { csgDescription :: !Text
+    { csgGroupDescription :: !Text
       -- ^ Description of the group. This is informational only.
     , csgDryRun :: Maybe Bool
     , csgGroupName :: !Text

@@ -44,7 +44,7 @@ instance AWSRequest DescribeReservedInstancesModifications where
 data DescribeReservedInstancesModificationsResponse = DescribeReservedInstancesModificationsResponse
     { drimrNextToken :: Maybe Text
       -- ^ The string specifying the next paginated set of results to return.
-    , drimrReservedInstancesModifications :: [ReservedInstancesModification]
+    , drimrReservedInstancesModificationsSet :: [ReservedInstancesModification]
       -- ^ The list of Reserved Instances modification requests.
     } deriving (Eq, Show, Generic)
 

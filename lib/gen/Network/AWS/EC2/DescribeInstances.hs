@@ -55,7 +55,7 @@ instance AWSPager DescribeInstances where
 
 data DescribeInstancesResponse = DescribeInstancesResponse
     { didrNextToken :: Maybe Text
-    , didrReservations :: [Reservation]
+    , didrReservationSet :: [Reservation]
       -- ^ The list of reservations containing the describes instances.
     } deriving (Eq, Show, Generic)
 

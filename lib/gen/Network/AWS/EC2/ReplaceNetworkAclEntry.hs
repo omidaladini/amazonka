@@ -59,7 +59,7 @@ data ReplaceNetworkAclEntry = ReplaceNetworkAclEntry
     , rnaeEgress :: !Bool
       -- ^ Whether this rule applies to egress traffic from the subnet (true) or
       -- ingress traffic (false).
-    , rnaeIcmpTypeCode :: Maybe IcmpTypeCode
+    , rnaeIcmp :: Maybe IcmpTypeCode
       -- ^ ICMP values.
     , rnaeNetworkAclId :: !Text
       -- ^ ID of the ACL where the entry will be replaced.

@@ -57,7 +57,7 @@ instance AWSRequest CreateVolume where
     response = responseXML
 
 data CreateVolumeResponse = CreateVolumeResponse
-    { cvdrAttachments :: [VolumeAttachment]
+    { cvdrAttachmentSet :: [VolumeAttachment]
       -- ^ Information on what this volume is attached to.
     , cvdrAvailabilityZone :: Maybe Text
       -- ^ Availability zone in which this volume was created.
@@ -68,9 +68,9 @@ data CreateVolumeResponse = CreateVolumeResponse
       -- ^ The size of this volume, in gigabytes.
     , cvdrSnapshotId :: Maybe Text
       -- ^ Optional snapshot from which this volume was created.
-    , cvdrState :: Maybe VolumeState
+    , cvdrStatus :: Maybe VolumeState
       -- ^ State of this volume (e.g., creating, available).
-    , cvdrTags :: [Tag]
+    , cvdrTagSet :: [Tag]
       -- ^ A list of tags for the Volume.
     , cvdrVolumeId :: Maybe Text
       -- ^ The unique ID of this volume.

@@ -46,7 +46,7 @@ instance AWSRequest MonitorInstances where
     response = responseXML
 
 data MonitorInstancesResponse = MonitorInstancesResponse
-    { mirInstanceMonitorings :: [InstanceMonitoring]
+    { mirInstancesSet :: [InstanceMonitoring]
       -- ^ A list of updated monitoring information for the instances specified in the
       -- request.
     } deriving (Eq, Show, Generic)

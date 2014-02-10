@@ -52,7 +52,7 @@ instance AWSRequest CancelSpotInstanceRequests where
     response = responseXML
 
 data CancelSpotInstanceRequestsResponse = CancelSpotInstanceRequestsResponse
-    { csirrCancelledSpotInstanceRequests :: [CancelledSpotInstanceRequest]
+    { csirrSpotInstanceRequestSet :: [CancelledSpotInstanceRequest]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CancelSpotInstanceRequestsResponse where

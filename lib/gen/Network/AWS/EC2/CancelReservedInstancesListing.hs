@@ -34,7 +34,7 @@ instance AWSRequest CancelReservedInstancesListing where
     response = responseXML
 
 data CancelReservedInstancesListingResponse = CancelReservedInstancesListingResponse
-    { crilrReservedInstancesListings :: [ReservedInstancesListing]
+    { crilrReservedInstancesListingsSet :: [ReservedInstancesListing]
     } deriving (Eq, Show, Generic)
 
 instance FromXML CancelReservedInstancesListingResponse where

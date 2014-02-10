@@ -42,7 +42,7 @@ instance AWSRequest DescribeVolumes where
     response = responseXML
 
 data DescribeVolumesResponse = DescribeVolumesResponse
-    { dverVolumes :: [Volume]
+    { dverVolumeSet :: [Volume]
       -- ^ The list of described EBS volumes.
     } deriving (Eq, Show, Generic)
 

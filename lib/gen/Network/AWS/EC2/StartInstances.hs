@@ -55,7 +55,7 @@ instance AWSRequest StartInstances where
     response = responseXML
 
 data StartInstancesResponse = StartInstancesResponse
-    { sidrStartingInstances :: [InstanceStateChange]
+    { sidrInstancesSet :: [InstanceStateChange]
       -- ^ The list of the starting instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

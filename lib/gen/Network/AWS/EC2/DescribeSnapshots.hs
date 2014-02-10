@@ -52,7 +52,7 @@ instance AWSRequest DescribeSnapshots where
     response = responseXML
 
 data DescribeSnapshotsResponse = DescribeSnapshotsResponse
-    { dsdrSnapshots :: [Snapshot]
+    { dsdrSnapshotSet :: [Snapshot]
       -- ^ The list of described EBS snapshots.
     } deriving (Eq, Show, Generic)
 

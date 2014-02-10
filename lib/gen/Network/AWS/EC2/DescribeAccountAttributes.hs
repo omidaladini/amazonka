@@ -35,7 +35,7 @@ instance AWSRequest DescribeAccountAttributes where
     response = responseXML
 
 data DescribeAccountAttributesResponse = DescribeAccountAttributesResponse
-    { daarAccountAttributes :: [AccountAttribute]
+    { daarAccountAttributeSet :: [AccountAttribute]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeAccountAttributesResponse where

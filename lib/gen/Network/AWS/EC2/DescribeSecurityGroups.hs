@@ -46,7 +46,7 @@ instance AWSRequest DescribeSecurityGroups where
     response = responseXML
 
 data DescribeSecurityGroupsResponse = DescribeSecurityGroupsResponse
-    { dsgdrSecurityGroups :: [SecurityGroup]
+    { dsgdrSecurityGroupInfo :: [SecurityGroup]
       -- ^ The list of described Amazon EC2 security groups.
     } deriving (Eq, Show, Generic)
 

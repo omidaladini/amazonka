@@ -69,7 +69,7 @@ data DetachVolumeResponse = DetachVolumeResponse
     , dvrDevice :: Maybe Text
       -- ^ How the device is exposed to the instance (e.g., /dev/sdh).
     , dvrInstanceId :: Maybe Text
-    , dvrState :: Maybe VolumeAttachmentState
+    , dvrStatus :: Maybe VolumeAttachmentState
     , dvrVolumeId :: Maybe Text
     } deriving (Eq, Show, Generic)
 

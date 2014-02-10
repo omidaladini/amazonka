@@ -38,7 +38,7 @@ data DescribeNetworkInterfaceAttribute = DescribeNetworkInterfaceAttribute
     { dniaAttachment :: Maybe Text
     , dniaDescription :: Maybe Text
     , dniaDryRun :: Maybe Bool
-    , dniaGroups :: Maybe Text
+    , dniaGroupSet :: Maybe Text
     , dniaNetworkInterfaceId :: !Text
     , dniaSourceDestCheck :: Maybe Text
     } deriving (Eq, Show, Generic)
@@ -55,7 +55,7 @@ data DescribeNetworkInterfaceAttributeResponse = DescribeNetworkInterfaceAttribu
     { dniarAttachment :: Maybe NetworkInterfaceAttachment
     , dniarDescription :: Maybe AttributeValue
       -- ^ String value.
-    , dniarGroups :: [GroupIdentifier]
+    , dniarGroupSet :: [GroupIdentifier]
     , dniarNetworkInterfaceId :: Maybe Text
     , dniarSourceDestCheck :: Maybe AttributeBooleanValue
       -- ^ Boolean value.

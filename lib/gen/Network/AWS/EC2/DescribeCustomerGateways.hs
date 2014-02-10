@@ -49,7 +49,7 @@ instance AWSRequest DescribeCustomerGateways where
     response = responseXML
 
 data DescribeCustomerGatewaysResponse = DescribeCustomerGatewaysResponse
-    { dcgrCustomerGateways :: [CustomerGateway]
+    { dcgrCustomerGatewaySet :: [CustomerGateway]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeCustomerGatewaysResponse where

@@ -57,7 +57,7 @@ data CreateCustomerGateway = CreateCustomerGateway
       -- ^ The customer gateway's Border Gateway Protocol (BGP) Autonomous System
       -- Number (ASN).
     , ccgDryRun :: Maybe Bool
-    , ccgPublicIp :: !Text
+    , ccgIpAddress :: !Text
       -- ^ The Internet-routable IP address for the customer gateway's outside
       -- interface. The address must be static.
     , ccgType :: !GatewayType

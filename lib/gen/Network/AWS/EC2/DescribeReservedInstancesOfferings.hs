@@ -72,7 +72,7 @@ instance AWSPager DescribeReservedInstancesOfferings where
 
 data DescribeReservedInstancesOfferingsResponse = DescribeReservedInstancesOfferingsResponse
     { driorNextToken :: Maybe Text
-    , driorReservedInstancesOfferings :: [ReservedInstancesOffering]
+    , driorReservedInstancesOfferingsSet :: [ReservedInstancesOffering]
       -- ^ The list of described Reserved Instance offerings.
     } deriving (Eq, Show, Generic)
 

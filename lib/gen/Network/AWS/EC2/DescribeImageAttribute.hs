@@ -54,19 +54,19 @@ instance AWSRequest DescribeImageAttribute where
     response = responseXML
 
 data DescribeImageAttributeResponse = DescribeImageAttributeResponse
-    { diadrBlockDeviceMappings :: [BlockDeviceMapping]
+    { diadrBlockDeviceMapping :: [BlockDeviceMapping]
       -- ^ Block device mappings for the associated AMI.
     , diadrDescription :: Maybe AttributeValue
       -- ^ User-created description of the associated AMI.
     , diadrImageId :: Maybe Text
       -- ^ The ID of the associated AMI.
-    , diadrKernelId :: Maybe AttributeValue
+    , diadrKernel :: Maybe AttributeValue
       -- ^ Kernel ID of the associated AMI.
-    , diadrLaunchPermissions :: [LaunchPermission]
+    , diadrLaunchPermission :: [LaunchPermission]
       -- ^ Launch permissions for the associated AMI.
     , diadrProductCodes :: [ProductCode]
       -- ^ Product codes for the associated AMI.
-    , diadrRamdiskId :: Maybe AttributeValue
+    , diadrRamdisk :: Maybe AttributeValue
       -- ^ Ramdisk ID of the associated AMI.
     , diadrSriovNetSupport :: Maybe AttributeValue
       -- ^ String value.

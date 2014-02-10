@@ -43,7 +43,7 @@ instance AWSRequest DescribeBundleTasks where
     response = responseXML
 
 data DescribeBundleTasksResponse = DescribeBundleTasksResponse
-    { dbtrBundleTasks :: [BundleTask]
+    { dbtrBundleInstanceTasksSet :: [BundleTask]
       -- ^ The list of described bundle tasks.
     } deriving (Eq, Show, Generic)
 

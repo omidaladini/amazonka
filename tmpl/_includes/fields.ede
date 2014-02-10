@@ -1,8 +1,16 @@
 {% for field in scope %}
-  {% if field.first %}
-    { {{ field.key | lowerFirst }} :: {% include "type-strict.ede" with field.value %}
+  {% if field.value.xmlname /= "" %}
+    {% if field.first %}
+    { {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} :: {% include "type-strict.ede" with field.value %}
+    {% else %}
+    , {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} :: {% include "type-strict.ede" with field.value %}
+    {% endif %}
   {% else %}
+    {% if field.first %}
+    { {{ field.key | lowerFirst }} :: {% include "type-strict.ede" with field.value %}
+    {% else %}
     , {{ field.key | lowerFirst }} :: {% include "type-strict.ede" with field.value %}
+    {% endif %}
   {% endif %}
   {% for line in field.value.documentation %}
     {% if line.value /= "" %}

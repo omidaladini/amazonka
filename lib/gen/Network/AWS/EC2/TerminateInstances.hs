@@ -49,7 +49,7 @@ instance AWSRequest TerminateInstances where
     response = responseXML
 
 data TerminateInstancesResponse = TerminateInstancesResponse
-    { tirTerminatingInstances :: [InstanceStateChange]
+    { tirInstancesSet :: [InstanceStateChange]
       -- ^ The list of the terminating instances and details on how their state has
       -- changed.
     } deriving (Eq, Show, Generic)

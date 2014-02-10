@@ -83,7 +83,7 @@ instance AWSPager DescribeInstanceStatus where
         | otherwise = Nothing
 
 data DescribeInstanceStatusResponse = DescribeInstanceStatusResponse
-    { disrInstanceStatuses :: [InstanceStatus]
+    { disrInstanceStatusSet :: [InstanceStatus]
       -- ^ Collection of instance statuses describing the state of the requested
       -- instances.
     , disrNextToken :: Maybe Text

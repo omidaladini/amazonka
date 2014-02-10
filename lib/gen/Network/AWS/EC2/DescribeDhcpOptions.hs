@@ -42,7 +42,7 @@ instance AWSRequest DescribeDhcpOptions where
     response = responseXML
 
 data DescribeDhcpOptionsResponse = DescribeDhcpOptionsResponse
-    { ddorDhcpOptions :: [DhcpOptions]
+    { ddorDhcpOptionsSet :: [DhcpOptions]
     } deriving (Eq, Show, Generic)
 
 instance FromXML DescribeDhcpOptionsResponse where

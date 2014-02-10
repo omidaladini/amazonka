@@ -46,7 +46,7 @@ instance AWSRequest UnmonitorInstances where
     response = responseXML
 
 data UnmonitorInstancesResponse = UnmonitorInstancesResponse
-    { uirInstanceMonitorings :: [InstanceMonitoring]
+    { uirInstancesSet :: [InstanceMonitoring]
       -- ^ A list of updated monitoring information for the instances specified in the
       -- request.
     } deriving (Eq, Show, Generic)
