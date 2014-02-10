@@ -1,9 +1,17 @@
 {% for field in scope %}
   {% if field.value.xmlname /= "" %}
-    {% if field.first %}
-    { {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} :: {% include "type-strict.ede" with field.value %}
+    {% if field.key == "gdType" %}
+      {% if field.first %}
+    { gdType :: {% include "type-strict.ede" with field.value %}
+      {% else %}
+    , gdType :: {% include "type-strict.ede" with field.value %}
+      {% endif %}
     {% else %}
+      {% if field.first %}
+    { {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} :: {% include "type-strict.ede" with field.value %}
+      {% else %}
     , {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} :: {% include "type-strict.ede" with field.value %}
+      {% endif %}
     {% endif %}
   {% else %}
     {% if field.first %}

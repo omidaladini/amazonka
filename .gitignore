@@ -33,6 +33,4 @@ tags
 # Generators
 *.awk
 /generator
-/lib/gen
-/lib/*.cabal
-/lib/LICENSE
+/lib
