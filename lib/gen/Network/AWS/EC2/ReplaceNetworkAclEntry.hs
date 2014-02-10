@@ -48,7 +48,7 @@ replaceNetworkAclEntry p1 p2 p3 p4 p5 p6 = ReplaceNetworkAclEntry
     , rnaeRuleAction = p5
     , rnaeRuleNumber = p6
     , rnaeDryRun = Nothing
-    , rnaeIcmpTypeCode = Nothing
+    , rnaeIcmp = Nothing
     , rnaePortRange = Nothing
     }
 

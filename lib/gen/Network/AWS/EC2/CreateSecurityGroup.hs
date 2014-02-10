@@ -36,7 +36,7 @@ createSecurityGroup :: Text
                     -- ^ Name of the security group.
                     -> CreateSecurityGroup
 createSecurityGroup p1 p2 = CreateSecurityGroup
-    { csgDescription = p1
+    { csgGroupDescription = p1
     , csgGroupName = p2
     , csgDryRun = Nothing
     , csgVpcId = Nothing

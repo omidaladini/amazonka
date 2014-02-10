@@ -47,7 +47,7 @@ createCustomerGateway :: Int
                       -> CreateCustomerGateway
 createCustomerGateway p1 p2 p3 = CreateCustomerGateway
     { ccgBgpAsn = p1
-    , ccgPublicIp = p2
+    , ccgIpAddress = p2
     , ccgType = p3
     , ccgDryRun = Nothing
     }

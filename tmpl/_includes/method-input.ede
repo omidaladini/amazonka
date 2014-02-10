@@ -43,14 +43,25 @@
   {% endfor %}
   {% for field in scope.input.fields %}
     {% if !field.value.required %}
-      {% case field.value.type %}
-      {% when "map" %}
-    , {{ field.key }} = mempty
-      {% when "list" %}
-    , {{ field.key }} = []
+      {% if field.value.xmlname /= "" %}
+        {% case field.value.type %}
+        {% when "map" %}
+    , {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} = mempty
+        {% when "list" %}
+    , {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} = []
+        {% else %}
+    , {{ field.value.prefix }}{{ field.value.xmlname | upperFirst }} = Nothing
+        {% endcase %}
       {% else %}
+        {% case field.value.type %}
+        {% when "map" %}
+    , {{ field.key }} = mempty
+        {% when "list" %}
+    , {{ field.key }} = []
+        {% else %}
     , {{ field.key }} = Nothing
-      {% endcase %}
+        {% endcase %}
+      {% endif %}
     {% endif %}
   {% endfor %}
     }

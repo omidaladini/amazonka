@@ -58,7 +58,7 @@ createNetworkAclEntry p1 p2 p3 p4 p5 p6 = CreateNetworkAclEntry
     , cnaeRuleAction = p5
     , cnaeRuleNumber = p6
     , cnaeDryRun = Nothing
-    , cnaeIcmpTypeCode = Nothing
+    , cnaeIcmp = Nothing
     , cnaePortRange = Nothing
     }
 

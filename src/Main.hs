@@ -331,6 +331,12 @@ render p t o = do
               . List.filter p
               . map f $ Map.toList fs
       where
+        f (k, Object v) =
+            let k' = case Map.lookup "xmlname" v of
+                         Just (Aeson.String "") -> k
+                         Just (Aeson.String x)  -> x
+                         _                      -> k
+            in OrdShape (dropLower k') (Object v)
         f (k, v) = OrdShape (dropLower k) v
 
         g a b = h (osKey a) (osKey b)

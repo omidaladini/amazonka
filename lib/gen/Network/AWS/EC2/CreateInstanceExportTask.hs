@@ -28,7 +28,7 @@ createInstanceExportTask :: Text
 createInstanceExportTask p1 = CreateInstanceExportTask
     { cietInstanceId = p1
     , cietDescription = Nothing
-    , cietExportToS3Task = Nothing
+    , cietExportToS3 = Nothing
     , cietTargetEnvironment = Nothing
     }
 

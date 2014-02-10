@@ -30,7 +30,7 @@ describeNetworkInterfaceAttribute p1 = DescribeNetworkInterfaceAttribute
     , dniaAttachment = Nothing
     , dniaDescription = Nothing
     , dniaDryRun = Nothing
-    , dniaGroups = Nothing
+    , dniaGroupSet = Nothing
     , dniaSourceDestCheck = Nothing
     }
 
