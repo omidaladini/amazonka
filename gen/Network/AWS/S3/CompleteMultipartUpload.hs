@@ -62,7 +62,7 @@ instance ToHeaders CompleteMultipartUpload
 instance AWSRequest CompleteMultipartUpload where
     type Er CompleteMultipartUpload = S3Error
     type Rs CompleteMultipartUpload = CompleteMultipartUploadResponse
-    request rq = s3XML POST (service $ muBucket rq) (muMultipartUpload rq) rq
+    request rq = s3XML POST (service $ muBucket rq) (muCompleteMultipartUpload rq) rq
     response = receiveXML $ \hs doc -> CompleteMultipartUploadResponse
         <$> xml "Bucket" doc
         <*> xml "ETag" doc
