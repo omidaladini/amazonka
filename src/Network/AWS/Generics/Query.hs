@@ -186,8 +186,8 @@ instance FromQuery () where
     fromQuery _ = Right ()
 
 -- FIXME: implement this shizzle
-instance (FromQuery k, FromQuery v) => FromQuery (HashMap k v) where
-    fromQuery = undefined
+-- instance (FromQuery k, FromQuery v) => FromQuery (HashMap k v) where
+--     fromQuery = undefined
 
 valueParser :: AText.Parser a -> Query -> Either String a
 valueParser p (Value v) = AText.parseOnly p v
@@ -285,8 +285,8 @@ instance ToQuery () where
     toQuery () = mempty
 
 -- FIXME: implement this shizzle
-instance (ToQuery k, ToQuery v) => ToQuery (HashMap k v) where
-    toQuery = undefined
+-- instance (ToQuery k, ToQuery v) => ToQuery (HashMap k v) where
+--     toQuery = undefined
 
 valueFromIntegral :: Integral a => a -> Query
 valueFromIntegral = Value . integralToText

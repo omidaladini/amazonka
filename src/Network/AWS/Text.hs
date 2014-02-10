@@ -64,8 +64,8 @@ instance FromText Bool where
         x = CI.foldedCase $ CI.mk t
 
 -- FIXME: probably shouldn't be using From/ToText for headers
-instance FromText UTCTime where
-    fromText = undefined
+-- instance FromText UTCTime where
+--     fromText = undefined
 
 class ToText a where
     toText :: a -> Text

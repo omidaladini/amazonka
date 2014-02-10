@@ -180,9 +180,9 @@ instance FromXML () where
     fromXML _ _ = Right ()
 
 -- FIXME: implement this shizzle generally
-instance (FromXML k, FromXML v) => FromXML (HashMap k v) where
-    fromXMLRoot = undefined
-    fromXML _   = undefined
+-- instance (FromXML k, FromXML v) => FromXML (HashMap k v) where
+--     fromXMLRoot = undefined
+--     fromXML _   = undefined
 
 nodeParser :: AText.Parser a -> Tagged a XMLOptions -> [Node] -> Either String a
 nodeParser p o = join . fmap (AText.parseOnly p) . fromXML (retag o)
@@ -315,9 +315,9 @@ instance ToXML () where
     toXML _ () = []
 
 -- FIXME: implement this shizzle
-instance (ToXML k, ToXML v) => ToXML (HashMap k v) where
-    toXMLRoot = undefined
-    toXML o   = undefined
+-- instance (ToXML k, ToXML v) => ToXML (HashMap k v) where
+--     toXMLRoot = undefined
+--     toXML o   = undefined
 
 nodeFromIntegral :: Integral a => a -> [Node]
 nodeFromIntegral = (:[]) . NodeContent . integralToText
