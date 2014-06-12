@@ -2,6 +2,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE TupleSections              #-}
 
 {-# OPTIONS_GHC -fno-warn-orphans       #-}
 
@@ -17,6 +18,7 @@
 
 module Network.AWS.Internal.Instances where
 
+import           Control.Applicative
 import           Control.Monad
 import           Data.ByteString                 (ByteString)
 import qualified Data.ByteString.Char8           as BS
@@ -25,6 +27,14 @@ import           Network.AWS.Internal.Time
 import           Network.AWS.Internal.Types
 import           Network.HTTP.QueryString.Pickle
 import           Text.XML.Expat.Pickle.Generic
+
+instance IsQuery a => IsQuery (ByteString, a) where
+    queryPickler = QueryPU p u
+      where
+        p (k, v) = Pair k (pickle queryPickler v)
+
+        u (Pair k v) = (k,) <$> unpickle queryPickler v
+        u e          = Left $ "unable to parse pair from: " ++ show e
 
 instance IsQuery a => IsQuery [a] where
     queryPickler = qpOrdinalList queryPickler

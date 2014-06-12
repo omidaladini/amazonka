@@ -341,6 +341,18 @@ instance IsXML ETag where
 -- instance IsHeader ETag where
 --     encodeHeader (ETag t) = encodeHeader t
 
+data EncodingType = URL
+    deriving (Eq)
+
+instance Show EncodingType where
+    show URL = "url"
+
+instance Read EncodingType where
+    readPrec = readAssocList [("url", URL)]
+
+instance IsQuery EncodingType where
+    queryPickler = qpPrim
+
 -- type Metadata = Header "x-amz-meta-" (Text, Text)
 
 -- type Storage = Header "x-amz-storage-class" StorageClass

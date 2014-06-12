@@ -82,24 +82,29 @@ module Network.AWS.S3
     , PutObjectCopy                    (..)
     , PutObjectCopyResponse
 
-    -- -- ** POST Initiate Multipart Upload
-    -- , InitiateMultipartUpload       (..)
-    -- , InitiateMultipartUploadResponse
+    -- ** POST Initiate Multipart Upload
+    , InitiateMultipartUpload       (..)
+    , InitiateMultipartUploadResponse
 
-    -- -- ** PUT Upload Part
-    -- , UploadPart                    (..)
+    -- ** PUT Upload Part
+    , UploadPart                    (..)
+    , UploadPartResponse
 
-    -- -- ** PUT Upload Part Copy
-    -- , UploadPartCopy                (..)
+    -- ** PUT Upload Part Copy
+    , UploadPartCopy                (..)
+    , UploadPartCopyResponse
 
-    -- -- ** POST Complete Multipart Upload
-    -- , CompleteMultipartUpload       (..)
+    -- ** POST Complete Multipart Upload
+    , CompleteMultipartUpload       (..)
+    , CompleteMultipartUploadResponse
 
-    -- -- ** DELETE Abort Multipart Upload
-    -- , AbortMultipartUpload    (..)
+    -- ** DELETE Abort Multipart Upload
+    , AbortMultipartUpload    (..)
+    , AbortMultipartUploadResponse
 
-    -- -- ** GET List Parts
-    -- , ListParts               (..)
+    -- ** GET List Parts
+    , ListParts               (..)
+    , ListPartsResponse
 
     -- * Data Types
     , module Network.AWS.S3.Types
@@ -110,17 +115,17 @@ module Network.AWS.S3
 
 import           Control.Arrow
 import           Control.Monad.IO.Class
-import           Data.ByteString            (ByteString)
-import qualified Data.ByteString.Char8      as BS
-import qualified Data.ByteString.Lazy.Char8 as LBS
+import           Data.ByteString                (ByteString)
+import qualified Data.ByteString.Char8          as BS
+import qualified Data.ByteString.Lazy.Char8     as LBS
 import           Data.Conduit
-import qualified Data.Conduit.Binary        as Conduit
+import qualified Data.Conduit.Binary            as Conduit
 import           Data.Monoid
-import           Data.Text                  (Text)
-import qualified Data.Text                  as Text
-import qualified Data.Text.Encoding         as Text
+import           Data.Text                      (Text)
+import qualified Data.Text                      as Text
+import qualified Data.Text.Encoding             as Text
 import           Network.AWS
-import           Network.AWS.Internal       hiding (xml, query)
+import           Network.AWS.Internal           hiding (xml, query)
 import           Network.AWS.S3.Types
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types.Header
@@ -912,36 +917,57 @@ type PutObjectCopyResponse = S3Response
 -- data AbortMultipartUploadResponse = AbortMultipartUploadResponse
 --     deriving (Eq, Show, Generic)
 
--- -- | List the parts that have been uploaded for a specific multipart upload.
--- --
--- -- This operation must include the upload ID, which you obtain by sending
--- -- 'InitiateMultipartUpload'.
--- --
--- -- This returns a maximum of 1,000 uploaded parts and the default number of
--- -- parts returned is 1,000 parts.
--- --
--- -- You can restrict the number of parts returned by specifying the 'maxParts'
--- -- parameter.
--- --
--- -- If your multipart upload consists of more than 1,000 parts, the response
--- -- returns an 'IsTruncated' field with the value of 'True', and a
--- -- 'NextPartNumberMarker' element.
--- --
--- -- In subsequent List Parts requests you can include the part-number-marker
--- -- query string parameter and set its value to the NextPartNumberMarker field
--- -- value from the previous response.
--- --
--- -- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadListParts.html>
--- data ListParts = ListParts
---     {
---     }
+-- | List the parts that have been uploaded for a specific multipart upload.
+--
+-- This operation must include the upload ID, which you obtain by sending
+-- 'InitiateMultipartUpload'.
+--
+-- This returns a maximum of 1,000 uploaded parts and the default number of
+-- parts returned is 1,000 parts.
+--
+-- You can restrict the number of parts returned by specifying the 'maxParts'
+-- parameter.
+--
+-- If your multipart upload consists of more than 1,000 parts, the response
+-- returns an 'IsTruncated' field with the value of 'True', and a
+-- 'NextPartNumberMarker' element.
+--
+-- In subsequent List Parts requests you can include the part-number-marker
+-- query string parameter and set its value to the NextPartNumberMarker field
+-- value from the previous response.
+--
+-- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadListParts.html>
+data ListParts = ListParts
+    { lpBucket           :: !Text
+    , lpKey              :: !Text
+    , lpEncodingType     :: Maybe EncodingType
+      -- ^ Requests Amazon S3 to encode the response and specifies the encoding
+      -- method to use. An object key can contain any Unicode character; however,
+      -- XML 1.0 parser cannot parse some characters, such as characters with an
+      -- ASCII value from 0 to 10. For characters that are not supported in
+      -- XML 1.0, you can add this parameter to request that Amazon S3 encode the
+      -- keys in the response.
+    , lpUploadId         :: !Text
+      -- ^ Upload ID identifying the multipart upload whose parts are being listed.
+    , lpMaxParts         :: Maybe Int
+      -- ^ Sets the maximum number of parts to return in the response body.
+    , lpPartNumberMarker :: Maybe Text
+      -- ^ Specifies the part after which listing should begin.
+      -- Only parts with higher part numbers will be listed.
+    , lpHeaders          :: [Header]
+    } deriving (Eq, Show)
 
--- deriving instance Show ListParts
+instance Rq ListParts where
+    type Er ListParts = S3ErrorResponse
+    type Rs ListParts = ListPartsResponse
+    request ListParts{..} = rq .?. q (rqQuery rq)
+      where
+        rq = object GET lpBucket lpKey lpHeaders mempty
+        q  = qry "uploadId" (Just lpUploadId)
+           . qry "encoding-type" lpEncodingType
+           . qry "max-parts" lpMaxParts
+           . qry "part-number-marker" lpPartNumberMarker
 
--- instance Rq ListParts where
---     type Er ListParts = S3ErrorResponse
---     type Rs ListParts = ListPartsResponse
---     request ListParts{..} = undefined
---     response = undefined
+    response = s3Response
 
--- type ListPartsResponse = S3Response
+type ListPartsResponse = S3Response
