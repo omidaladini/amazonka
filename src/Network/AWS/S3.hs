@@ -831,91 +831,86 @@ type PutObjectCopyResponse = S3Response
 
 -- type UploadPartCopyResponse = S3Response
 
--- -- | Completes a multipart upload by assembling previously uploaded parts.
--- --
--- -- You first initiate the multipart upload and then upload all parts using
--- -- the 'UploadPart' operation.
--- --
--- -- After successfully uploading all relevant parts of an upload, you call this
--- -- operation to complete the upload.
--- --
--- -- Upon receiving this request, Amazon S3 concatenates all the parts in
--- -- ascending order by part number to create a new object.
--- --
--- -- In the 'CompleteMultipartUpload' request, you must provide the parts list.
--- --
--- -- You must ensure the parts list is complete, this operation concatenates the
--- -- parts you provide in the list.
--- --
--- -- For each part in the list, you must provide the part number and the ETag
--- -- header value, returned after that part was uploaded.
--- --
--- -- Processing of a Complete Multipart Upload request could take several minutes
--- -- to complete. After Amazon S3 begins processing the request, it sends an HTTP
--- -- response header that specifies a 200 OK response.
--- --
--- -- While processing is in progress, Amazon S3 periodically sends whitespace
--- -- characters to keep the connection from timing out. Because a request could
--- -- fail after the initial 200 OK response has been sent, it is important that
--- -- you check the response body to determine whether the request succeeded.
--- --
--- -- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadComplete.html>
--- data CompleteMultipartUpload = CompleteMultipartUpload
---     { cmuBucket   :: !Text
---     , cmuKey      :: !Text
---     , cmuUploadId :: !Text
--- --   Content Length?
---     , cmuHeaders  :: [AnyHeader]
---     , cmuParts    :: [Part]
---     }
+-- | Completes a multipart upload by assembling previously uploaded parts.
+--
+-- You first initiate the multipart upload and then upload all parts using
+-- the 'UploadPart' operation.
+--
+-- After successfully uploading all relevant parts of an upload, you call this
+-- operation to complete the upload.
+--
+-- Upon receiving this request, Amazon S3 concatenates all the parts in
+-- ascending order by part number to create a new object.
+--
+-- In the 'CompleteMultipartUpload' request, you must provide the parts list.
+--
+-- You must ensure the parts list is complete, this operation concatenates the
+-- parts you provide in the list.
+--
+-- For each part in the list, you must provide the part number and the ETag
+-- header value, returned after that part was uploaded.
+--
+-- Processing of a Complete Multipart Upload request could take several minutes
+-- to complete. After Amazon S3 begins processing the request, it sends an HTTP
+-- response header that specifies a 200 OK response.
+--
+-- While processing is in progress, Amazon S3 periodically sends whitespace
+-- characters to keep the connection from timing out. Because a request could
+-- fail after the initial 200 OK response has been sent, it is important that
+-- you check the response body to determine whether the request succeeded.
+--
+-- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadComplete.html>
+data CompleteMultipartUpload = CompleteMultipartUpload
+    { cmuBucket   :: !Text
+    , cmuKey      :: !Text
+    , cmuUploadId :: !Text
+    , cmuHeaders  :: [AnyHeader]
+    , cmuParts    :: [Part]
+    }
 
--- deriving instance Show CompleteMultipartUpload
+deriving instance Show CompleteMultipartUpload
 
--- instance Rq CompleteMultipartUpload where
---     type Er CompleteMultipartUpload = S3ErrorResponse
---     type Rs CompleteMultipartUpload = CompleteMultipartUploadResponse
---     request CompleteMultipartUpload{..} = undefined
--- --        object POST cmuBucket path cmuHeaders . Strict $ toXML ""
---       where
---         path = Text.concat [cmuKey, "&uploadId=", cmuUploadId]
+instance Rq CompleteMultipartUpload where
+    type Er CompleteMultipartUpload = S3ErrorResponse
+    type Rs CompleteMultipartUpload = CompleteMultipartUploadResponse
+    request CompleteMultipartUpload{..} = undefined
+--        object POST cmuBucket path cmuHeaders . Strict $ toXML ""
+      where
+        path = Text.concat [cmuKey, "&uploadId=", cmuUploadId]
 
---     response = undefined
+    response = undefined
 
--- type CompleteMultipartUploadResponse = S3Response
+-- | Aborts a multipart upload.
+--
+-- After a multipart upload is aborted, no additional parts can be uploaded
+-- using that upload ID.
+--
+-- The storage consumed by any previously uploaded parts will be freed.
+--
+-- However, if any part uploads are currently in progress, those part uploads
+-- might or might not succeed. As a result, it might be necessary to abort a
+-- given multipart upload multiple times in order to completely free all
+-- storage consumed by all parts.
+--
+-- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadAbort.html>
+data AbortMultipartUpload = AbortMultipartUpload
+    { amuBucket   :: !Text
+    , amuKey      :: !Text
+    , amuUploadId :: !Text
+    , amuHeaders  :: [Header]
+    } deriving (Eq, Show, Generic)
 
--- -- | Aborts a multipart upload.
--- --
--- -- After a multipart upload is aborted, no additional parts can be uploaded
--- -- using that upload ID.
--- --
--- -- The storage consumed by any previously uploaded parts will be freed.
--- --
--- -- However, if any part uploads are currently in progress, those part uploads
--- -- might or might not succeed. As a result, it might be necessary to abort a
--- -- given multipart upload multiple times in order to completely free all
--- -- storage consumed by all parts.
--- --
--- -- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadAbort.html>
--- data AbortMultipartUpload = AbortMultipartUpload
---     { amuBucket   :: !Text
---     , amuKey      :: !Text
---     , amuUploadId :: !Text -- UploadId
---     } deriving (Eq, Show, Generic)
--- --  "uri": "/{Bucket}/{Key}?uploadId={UploadId}"
+instance Rq AbortMultipartUpload where
+    type Er AbortMultipartUpload = S3ErrorResponse
+    type Rs AbortMultipartUpload = AbortMultipartUploadResponse
+    request AbortMultipartUpload{..} = rq .?. q (rqQuery rq)
+      where
+        rq = object GET amuBucket amuKey amuHeaders mempty
+        q  = qry "uploadId" (Just amuUploadId)
 
--- instance Rq AbortMultipartUpload where
---     type Er AbortMultipartUpload = S3ErrorResponse
---     type Rs AbortMultipartUpload = AbortMultipartUploadResponse
---     request AbortMultipartUpload{..} = undefined
---     response = undefined
+    response = undefined
 
--- -- NoSuchUpload = 404
--- -- The specified multipart upload does not exist.
--- -- The upload ID might be invalid, or the multipart upload might have been aborted or completed.
--- -- empty response
-
--- data AbortMultipartUploadResponse = AbortMultipartUploadResponse
---     deriving (Eq, Show, Generic)
+type AbortMultipartUploadResponse = S3Response
 
 -- | List the parts that have been uploaded for a specific multipart upload.
 --
