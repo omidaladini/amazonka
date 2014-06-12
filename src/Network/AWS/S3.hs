@@ -83,27 +83,27 @@ module Network.AWS.S3
     , PutObjectCopyResponse
 
     -- ** POST Initiate Multipart Upload
-    , InitiateMultipartUpload       (..)
-    , InitiateMultipartUploadResponse (..)
+    , InitiateMultipartUpload          (..)
+    , InitiateMultipartUploadResponse  (..)
 
     -- ** PUT Upload Part
-    , UploadPart                    (..)
+    , UploadPart                       (..)
     , UploadPartResponse
 
     -- ** PUT Upload Part Copy
-    , UploadPartCopy                (..)
+    , UploadPartCopy                   (..)
     , UploadPartCopyResponse
 
     -- ** POST Complete Multipart Upload
-    , CompleteMultipartUpload       (..)
+    , CompleteMultipartUpload          (..)
     , CompleteMultipartUploadResponse
 
     -- ** DELETE Abort Multipart Upload
-    , AbortMultipartUpload    (..)
+    , AbortMultipartUpload             (..)
     , AbortMultipartUploadResponse
 
     -- ** GET List Parts
-    , ListParts               (..)
+    , ListParts                        (..)
     , ListPartsResponse
 
     -- * Data Types
