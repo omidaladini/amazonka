@@ -84,7 +84,7 @@ module Network.AWS.S3
 
     -- ** POST Initiate Multipart Upload
     , InitiateMultipartUpload       (..)
-    , InitiateMultipartUploadResponse
+    , InitiateMultipartUploadResponse (..)
 
     -- ** PUT Upload Part
     , UploadPart                    (..)
@@ -697,13 +697,6 @@ instance Rq PutObjectCopy where
 
 type PutObjectCopyResponse = S3Response
 
--- x-amz-copy-source: /source_bucket/sourceObject
--- x-amz-metadata-directive: metadata_directive
--- x-amz-copy-source-if-match: etag
--- x-amz-copy-source-if-none-match: etag
--- x-amz-copy-source-if-unmodified-since: time_stamp
--- x-amz-copy-source-if-modified-since: time_stamp
-
 -- | Initiate a multipart upload and return an upload ID.
 --
 -- This upload ID is used to associate all the parts in the specific multipart
@@ -852,12 +845,22 @@ data CompleteMultipartUpload = CompleteMultipartUpload
     , cmuParts    :: [Part]
     } deriving (Eq, Show)
 
+instance IsXML CompleteMultipartUpload where
+    xmlPickler = pu { root = Just $ mkAnNName "CompleteMultipartUpload" }
+      where
+
+        pu = xpWrap ( CompleteMultipartUpload "" "" ""
+                    , \CompleteMultipartUpload{..} -> cmuParts
+                    ) $
+                 xpElem (mkAnNName "CompleteMultipartUpload") $
+                     xpList xmlPickler
+
 instance Rq CompleteMultipartUpload where
     type Er CompleteMultipartUpload = S3ErrorResponse
     type Rs CompleteMultipartUpload = CompleteMultipartUploadResponse
-    request CompleteMultipartUpload{..} = rq .?. q (rqQuery rq)
+    request cmu@CompleteMultipartUpload{..} = rq .?. q (rqQuery rq)
       where
-        rq = xml POST cmuBucket cmuKey cmuParts
+        rq = xml POST cmuBucket cmuKey cmu
         q  = qry "uploadId" (Just cmuUploadId)
 
     response = s3Response
