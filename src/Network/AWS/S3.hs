@@ -376,7 +376,7 @@ type DeleteObjectResponse = S3Response
 --     { dmoBucket  :: !Text
 --     , dmoMD5     :: !MD5
 -- --    , dmoLength  :: !ContentLength
---     , dmoHeaders :: [AnyHeader]
+--     , dmoHeaders :: [Header]
 --     , dmoObjects :: !DMObjects
 --     }
 
@@ -439,7 +439,7 @@ instance (Rq a, Rs a ~ S3Response) => Rq (GetVersion a) where
 -- data GetObjectACL = GetObjectACL
 --     { goaclBucket  :: !Text
 --     , goaclKey     :: !Text
---     , goaclHeaders :: [AnyHeader]
+--     , goaclHeaders :: [Header]
 --     }
 
 -- deriving instance Show GetObjectACL
@@ -474,7 +474,7 @@ instance (Rq a, Rs a ~ S3Response) => Rq (GetVersion a) where
 -- data GetObjectTorrent = GetObjectTorrent
 --     { gotBucket :: !Text
 --     , gotKey    :: !Text
---     , gotHeaders :: [AnyHeader]
+--     , gotHeaders :: [Header]
 --     }
 
 -- deriving instance Show GetObjectTorrent
@@ -528,7 +528,7 @@ type HeadObjectResponse = S3Response
 --     , ooOrigin         :: !Origin
 --     , ooRequestMethod  :: !AccessControlRequestMethod
 --     , ooRequestHeaders :: !AccessControlRequestHeaders
---     , ooHeaders        :: [AnyHeader]
+--     , ooHeaders        :: [Header]
 --     }
 
 -- deriving instance Show OptionsObject
@@ -638,7 +638,7 @@ type PutObjectResponse = S3Response
 --     { poaclBucket  :: !Text
 --     , poaclKey     :: !Text
 --     , poaclPolicy  :: Maybe AccessControlPolicy
---     , poaclHeaders :: [AnyHeader]
+--     , poaclHeaders :: [Header]
 --     }
 
 -- deriving instance Show PutObjectACL
@@ -704,132 +704,117 @@ type PutObjectCopyResponse = S3Response
 -- x-amz-copy-source-if-unmodified-since: time_stamp
 -- x-amz-copy-source-if-modified-since: time_stamp
 
--- -- | Initiate a multipart upload and return an upload ID.
--- --
--- -- This upload ID is used to associate all the parts in the specific multipart
--- -- upload. You specify this upload ID in each of your subsequent upload part
--- -- requests (see 'UploadPart').
--- --
--- -- You also include this upload ID in the final request to either complete or
--- -- abort the multipart upload request.
--- --
--- -- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadInitiate.html>
--- data InitiateMultipartUpload = InitiateMultipartUpload
---     { imuBucket  :: !Text
---     , imuKey     :: !Text
---     , imuHeaders :: [AnyHeader]
---     }
+-- | Initiate a multipart upload and return an upload ID.
+--
+-- This upload ID is used to associate all the parts in the specific multipart
+-- upload. You specify this upload ID in each of your subsequent upload part
+-- requests (see 'UploadPart').
+--
+-- You also include this upload ID in the final request to either complete or
+-- abort the multipart upload request.
+--
+-- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadInitiate.html>
+data InitiateMultipartUpload = InitiateMultipartUpload
+    { imuBucket  :: !Text
+    , imuKey     :: !Text
+    , imuHeaders :: [Header]
+    } deriving (Eq, Show)
 
--- deriving instance Show InitiateMultipartUpload
+instance Rq InitiateMultipartUpload where
+    type Er InitiateMultipartUpload = S3ErrorResponse
+    type Rs InitiateMultipartUpload = InitiateMultipartUploadResponse
+    request InitiateMultipartUpload{..} =
+        object POST imuBucket imuKey imuHeaders mempty .?. [("uploads", Nothing)]
 
--- instance Rq InitiateMultipartUpload where
---     type Er InitiateMultipartUpload = S3ErrorResponse
---     type Rs InitiateMultipartUpload = InitiateMultipartUploadResponse
---     request InitiateMultipartUpload{..} =
---         object POST imuBucket (imuKey <> "?uploads") imuHeaders Empty
+data InitiateMultipartUploadResponse = InitiateMultipartUploadResponse
+    { imurBucket   :: !Text
+    , imurKey      :: !Text
+    , imurUploadId :: !Text
+    } deriving (Eq, Show, Generic)
 
--- data InitiateMultipartUploadResponse = InitiateMultipartUploadResponse
---     { imurBucket   :: !Text
---     , imurKey      :: !Text
---     , imurUploadId :: !Text
---     } deriving (Eq, Show, Generic)
+instance IsXML InitiateMultipartUploadResponse where
+    xmlPickler = withRootNS s3NS "InitiateMultipartUploadResult"
 
--- instance IsXML InitiateMultipartUploadResponse where
---     xmlPickler = withRootNS s3NS "InitiateMultipartUploadResult"
+-- | Upload a part in a multipart upload.
+--
+-- Note In this operation you provide part data in your request. However, you
+-- have an option to specify your existing Amazon S3 object as data source for
+-- the part your are uploading.
+--
+-- To upload a part from an existing object you use the 'UploadPartCopy' operation.
+--
+-- You must initiate a multipart upload (see 'InitiateMultipartUpload') before
+-- you can upload any part.
+--
+-- In response to your initiate request. Amazon S3 returns an upload ID,
+-- a unique identifier, that you must include in your upload part request.
+--
+-- Part numbers can be any number from 1 to 10,000, inclusive. A part number
+-- uniquely identifies a part and also defines its position within the object
+-- being created.
+--
+-- If you upload a new part using the same part number that was used with a
+-- previous part, the previously uploaded part is overwritten.
+--
+-- Each part must be at least 5 MB in size, except the last part.
+--
+-- There is no size limit on the last part of your multipart upload.
+--
+-- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadUploadPart.html>
+data UploadPart = UploadPart
+    { upBucket     :: !Text
+    , upKey        :: !Text
+    , upPartNumber :: !Text
+    , upUploadId   :: !Text
+    , upHeaders    :: [Header]
+    , upBody       :: !RequestBody
+    }
 
--- -- | Upload a part in a multipart upload.
--- --
--- -- Note In this operation you provide part data in your request. However, you
--- -- have an option to specify your existing Amazon S3 object as data source for
--- -- the part your are uploading.
--- --
--- -- To upload a part from an existing object you use the 'UploadPartCopy' operation.
--- --
--- -- You must initiate a multipart upload (see 'InitiateMultipartUpload') before
--- -- you can upload any part.
--- --
--- -- In response to your initiate request. Amazon S3 returns an upload ID,
--- -- a unique identifier, that you must include in your upload part request.
--- --
--- -- Part numbers can be any number from 1 to 10,000, inclusive. A part number
--- -- uniquely identifies a part and also defines its position within the object
--- -- being created.
--- --
--- -- If you upload a new part using the same part number that was used with a
--- -- previous part, the previously uploaded part is overwritten.
--- --
--- -- Each part must be at least 5 MB in size, except the last part.
--- --
--- -- There is no size limit on the last part of your multipart upload.
--- --
--- -- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadUploadPart.html>
--- data UploadPart = UploadPart
---     { upBucket     :: !Text
---     , upKey        :: !Text
---     , upPartNumber :: !Text
---     , upUploadId   :: !Text
---     , upHeaders    :: [AnyHeader]
---     , upBody       :: !Body
---  -- Content Length ?
---     }
+instance Rq UploadPart where
+    type Er UploadPart = S3ErrorResponse
+    type Rs UploadPart = UploadPartResponse
+    request UploadPart{..} = rq .?. q (rqQuery rq)
+      where
+        rq = object PUT upBucket upKey upHeaders upBody
+        q  = qry "uploadId"   (Just upUploadId)
+           . qry "partNumber" (Just upPartNumber)
 
--- deriving instance Show UploadPart
+    response = s3Response
 
--- instance Rq UploadPart where
---     type Er UploadPart = S3ErrorResponse
---     type Rs UploadPart = UploadPartResponse
---     request UploadPart{..} = object PUT upBucket path upHeaders upBody
---       where
---         path = Text.concat
---             [ upKey
---             , "?partNumber="
---             , upPartNumber
---             , "&uploadId="
---             , upUploadId
---             ]
+type UploadPartResponse = S3Response
 
---     response = headerRs
+-- | Uploads a part by copying data from an existing object as data source.
+--
+-- You specify the data source by adding the request header x-amz-copy-source
+-- in your request and a byte range by adding the request header x-amz-copy-source-range
+-- in your request.
+--
+-- Note Instead of using an existing object as part data, you might use the
+-- 'UploadPart' operation and provide data in your request. For more information, see Upload Part.
+--
+-- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadUploadPartCopy.html>
+data UploadPartCopy  = UploadPartCopy
+    { upcBucket     :: !Text
+    , upcKey        :: !Text
+    , upcSource     :: !Text
+    , upcPartNumber :: !Text
+    , upcUploadId   :: !Text
+    , upcHeaders    :: [Header]
+    } deriving (Eq, Show)
 
--- type UploadPartResponse = S3Response
+instance Rq UploadPartCopy where
+    type Er UploadPartCopy = S3ErrorResponse
+    type Rs UploadPartCopy = UploadPartCopyResponse
+    request UploadPartCopy{..} = rq .?. q (rqQuery rq)
+      where
+        rq = object PUT upcBucket upcKey (s : upcHeaders) mempty
+        s  = ("x-amz-copy-source", Text.encodeUtf8 upcSource)
+        q  = qry "uploadId"   (Just upcUploadId)
+           . qry "partNumber" (Just upcPartNumber)
 
--- -- | Uploads a part by copying data from an existing object as data source.
--- --
--- -- You specify the data source by adding the request header x-amz-copy-source
--- -- in your request and a byte range by adding the request header x-amz-copy-source-range
--- -- in your request.
--- --
--- -- Note Instead of using an existing object as part data, you might use the
--- -- 'UploadPart' operation and provide data in your request. For more information, see Upload Part.
--- --
--- -- <http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadUploadPartCopy.html>
--- data UploadPartCopy  = UploadPartCopy
---     { upcBucket     :: !Text
---     , upcKey        :: !Text
---     , upcSource     :: !CopySource
---     , upcPartNumber :: !Text
---     , upcUploadId  :: !Text
---     , upcHeaders    :: [AnyHeader]
---     }
+    response = s3Response
 
--- deriving instance Show UploadPartCopy
-
--- instance Rq UploadPartCopy where
---     type Er UploadPartCopy = S3ErrorResponse
---     type Rs UploadPartCopy = UploadPartCopyResponse
---     request UploadPartCopy{..} =
---         object PUT upcBucket path (hdr upcSource : upcHeaders) Empty
---       where
---         path = Text.concat
---             [ upcKey
---             , "?partNumber="
---             , upcPartNumber
---             , "&uploadId="
---             , upcUploadId
---             ]
-
---     response = headerRs
-
--- type UploadPartCopyResponse = S3Response
+type UploadPartCopyResponse = S3Response
 
 -- | Completes a multipart upload by assembling previously uploaded parts.
 --
@@ -864,21 +849,20 @@ data CompleteMultipartUpload = CompleteMultipartUpload
     { cmuBucket   :: !Text
     , cmuKey      :: !Text
     , cmuUploadId :: !Text
-    , cmuHeaders  :: [AnyHeader]
     , cmuParts    :: [Part]
-    }
-
-deriving instance Show CompleteMultipartUpload
+    } deriving (Eq, Show)
 
 instance Rq CompleteMultipartUpload where
     type Er CompleteMultipartUpload = S3ErrorResponse
     type Rs CompleteMultipartUpload = CompleteMultipartUploadResponse
-    request CompleteMultipartUpload{..} = undefined
---        object POST cmuBucket path cmuHeaders . Strict $ toXML ""
+    request CompleteMultipartUpload{..} = rq .?. q (rqQuery rq)
       where
-        path = Text.concat [cmuKey, "&uploadId=", cmuUploadId]
+        rq = xml POST cmuBucket cmuKey cmuParts
+        q  = qry "uploadId" (Just cmuUploadId)
 
-    response = undefined
+    response = s3Response
+
+type CompleteMultipartUploadResponse = S3Response
 
 -- | Aborts a multipart upload.
 --
@@ -898,7 +882,7 @@ data AbortMultipartUpload = AbortMultipartUpload
     , amuKey      :: !Text
     , amuUploadId :: !Text
     , amuHeaders  :: [Header]
-    } deriving (Eq, Show, Generic)
+    } deriving (Eq, Show)
 
 instance Rq AbortMultipartUpload where
     type Er AbortMultipartUpload = S3ErrorResponse
@@ -908,7 +892,7 @@ instance Rq AbortMultipartUpload where
         rq = object GET amuBucket amuKey amuHeaders mempty
         q  = qry "uploadId" (Just amuUploadId)
 
-    response = undefined
+    response = s3Response
 
 type AbortMultipartUploadResponse = S3Response
 
