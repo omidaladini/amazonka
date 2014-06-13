@@ -1,5 +1,5 @@
-{-# LANGUAGE GADTs              #-}
 {-# LANGUAGE DeriveGeneric      #-}
+{-# LANGUAGE GADTs              #-}
 {-# LANGUAGE OverloadedStrings  #-}
 {-# LANGUAGE RecordWildCards    #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -113,24 +113,27 @@ module Network.AWS.S3
     , module Network.AWS
     ) where
 
+import           Blaze.ByteString.Builder
 import           Control.Arrow
 import           Control.Monad.IO.Class
-import           Data.ByteString                (ByteString)
-import qualified Data.ByteString.Char8          as BS
-import qualified Data.ByteString.Lazy.Char8     as LBS
+import           Data.ByteString            (ByteString)
+import qualified Data.ByteString.Char8      as BS
+import qualified Data.ByteString.Lazy.Char8 as LBS
 import           Data.Conduit
-import qualified Data.Conduit.Binary            as Conduit
+import qualified Data.Conduit.Binary        as Conduit
+import           Data.List
 import           Data.Monoid
-import           Data.Text                      (Text)
-import qualified Data.Text                      as Text
-import qualified Data.Text.Encoding             as Text
+import           Data.Text                  (Text)
+import qualified Data.Text                  as Text
+import qualified Data.Text.Encoding         as Text
 import           Network.AWS
-import           Network.AWS.Internal           hiding (xml, query)
+import           Network.AWS.Internal       hiding (query, xml)
 import           Network.AWS.S3.Types
 import           Network.HTTP.Conduit
 import           Network.HTTP.Types.Header
 import           Network.HTTP.Types.Method
 import           Network.HTTP.Types.Status
+import           Network.HTTP.Types.URI
 
 type S3Response = Response (ResumableSource AWS ByteString)
 
@@ -804,9 +807,24 @@ instance Rq UploadPartCopy where
     request UploadPartCopy{..} = rq .?. q (rqQuery rq)
       where
         rq = object PUT upcBucket upcKey (s : upcHeaders) mempty
-        s  = ("x-amz-copy-source", Text.encodeUtf8 upcSource)
+        s  = ("x-amz-copy-source", encodePath upcSource)
         q  = qry "uploadId"   (Just upcUploadId)
            . qry "partNumber" (Just upcPartNumber)
+
+        -- Notes:
+        -- * 'encodePathSegmentsRelative' from http-types does not work here, as
+        -- the url-encoding must encode the same characters as if it was a query
+        -- string (second argument to 'urlEncodeBuilder')
+        --
+        -- * there might be a better place to put this function, as it might
+        -- turn out to be necessary in other places
+        --
+        -- * if 'upcSource' is already url-encoded, things will go wrong
+        encodePath = toByteString
+                   . mconcat
+                   . intersperse (copyByteString "/")
+                   . map (urlEncodeBuilder True . Text.encodeUtf8)
+                   . Text.split (=='/')
 
     response = s3Response
 

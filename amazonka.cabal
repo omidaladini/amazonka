@@ -67,6 +67,7 @@ library
       , base                  >= 4.6 && < 5
       , base16-bytestring
       , base64-bytestring
+      , blaze-builder
       , bytestring
       , case-insensitive
       , conduit               >= 1.1
