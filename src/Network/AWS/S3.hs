@@ -895,7 +895,7 @@ instance Rq AbortMultipartUpload where
     type Rs AbortMultipartUpload = AbortMultipartUploadResponse
     request AbortMultipartUpload{..} = rq .?. q (rqQuery rq)
       where
-        rq = object GET amuBucket amuKey amuHeaders mempty
+        rq = object DELETE amuBucket amuKey amuHeaders mempty
         q  = qry "uploadId" (Just amuUploadId)
 
     response = s3Response
