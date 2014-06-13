@@ -35,7 +35,7 @@ import           Data.CaseInsensitive            (CI)
 import qualified Data.CaseInsensitive            as Case
 import           Data.Default
 import           Data.Function                   (on)
-import           Data.List                       (groupBy, nub, sort, sortBy, find)
+import           Data.List                       (groupBy, nub, sort, sortBy)
 import           Data.Maybe
 import           Data.Monoid
 import           Data.Ord
