@@ -208,10 +208,8 @@ versionS3 bucket raw@Raw{..} auth reg time =
 
     canonicalResource = wrap '/' bucket <> stripPrefix "/" rqPath <> subResource
 
-    subResource = maybe "" (mappend "?" . f) $ find ((`elem` keys) . fst) _query
-      where
-        f (k, Just v) = k <> "=" <> v
-        f (k, _)      = k
+    subResource = let res = renderQuery . filter ((`elem` keys) . fst) $ _query
+                   in if BS.null res then "" else "?" <> res
 
     keys =
         [ "acl"
