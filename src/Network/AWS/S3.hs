@@ -92,7 +92,7 @@ module Network.AWS.S3
 
     -- ** PUT Upload Part Copy
     , UploadPartCopy                   (..)
-    , UploadPartCopyResponse
+    , UploadPartCopyResponse           (..)
 
     -- ** POST Complete Multipart Upload
     , CompleteMultipartUpload          (..)
@@ -126,6 +126,7 @@ import           Data.Monoid
 import           Data.Text                  (Text)
 import qualified Data.Text                  as Text
 import qualified Data.Text.Encoding         as Text
+import           Data.Time
 import           Network.AWS
 import           Network.AWS.Internal       hiding (query, xml)
 import           Network.AWS.S3.Types
@@ -807,7 +808,7 @@ instance Rq UploadPartCopy where
     request UploadPartCopy{..} = rq .?. q (rqQuery rq)
       where
         rq = object PUT upcBucket upcKey (s : upcHeaders) mempty
-        s  = ("x-amz-copy-source", encodePath upcSource)
+        s  = ("x-amz-copy-source", enc upcSource)
         q  = qry "uploadId"   (Just upcUploadId)
            . qry "partNumber" (Just upcPartNumber)
 
@@ -820,15 +821,26 @@ instance Rq UploadPartCopy where
         -- turn out to be necessary in other places
         --
         -- * if 'upcSource' is already url-encoded, things will go wrong
-        encodePath = toByteString
-                   . mconcat
-                   . intersperse (copyByteString "/")
-                   . map (urlEncodeBuilder True . Text.encodeUtf8)
-                   . Text.split (=='/')
+        enc = toByteString
+            . mconcat
+            . intersperse (copyByteString "/")
+            . map (urlEncodeBuilder True . Text.encodeUtf8)
+            . Text.split (=='/')
 
-    response = s3Response
+data UploadPartCopyResponse = UploadPartCopyResponse
+    { upcrLastModified :: !UTCTime
+    , upcrETag         :: !ETag
+    } deriving (Eq, Show, Generic)
 
-type UploadPartCopyResponse = S3Response
+instance IsXML UploadPartCopyResponse where
+    xmlPickler = pu { root = Just $ mkNName s3NS "CopyPartResult" }
+      where
+        pu = xpWrap (uncurry UploadPartCopyResponse,
+                     \UploadPartCopyResponse{..} -> (upcrLastModified, upcrETag)) $
+                 xpPair (e "LastModified") (e "ETag")
+
+        e n = xpElem (mkNName s3NS n) xmlPickler
+
 
 -- | Completes a multipart upload by assembling previously uploaded parts.
 --
@@ -873,8 +885,7 @@ instance IsXML CompleteMultipartUpload where
         pu = xpWrap ( CompleteMultipartUpload "" "" ""
                     , \CompleteMultipartUpload{..} -> cmuParts
                     ) $
-                 xpElem (mkAnNName "CompleteMultipartUpload") $
-                     xpList xmlPickler
+                 xpElemList (mkAnNName "Part") xmlPickler
 
 instance Rq CompleteMultipartUpload where
     type Er CompleteMultipartUpload = S3ErrorResponse
