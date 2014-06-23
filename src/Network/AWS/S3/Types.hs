@@ -64,7 +64,7 @@ newtype Delimiter = Delimiter { unDelimiter :: Char }
     deriving (Eq, Show)
 
 instance IsQuery Delimiter where
-    queryPickler = (Delimiter, unDelimiter) `qpWrap` qpPrim
+    queryPickler = (Delimiter, unDelimiter) `qpWrap` queryPickler
 
 --
 -- GetBucket

@@ -85,7 +85,7 @@ library
       , lifted-base
       , mtl
       , old-locale
-      , querystring-pickle    >= 0.1.7
+      , querystring-pickle    == 0.2.*
       , resourcet             >= 1.1.2
       , text                  >= 1.0
       , time
