@@ -252,10 +252,10 @@ instance Pg GetBucket where
 -- FIXME: consider the interaction between the nested list item pickler's root
 -- and the parent using xpElemList vs xpList via generics/default
 data GetBucketResponse = GetBucketResponse
-    { gbrName        :: !Text
-    , gbrPrefix      :: Maybe Text
-    , gbrMarker      :: Maybe Text
-    , gbrNextMarker  :: Maybe Text
+    { gbrName           :: !Text
+    , gbrPrefix         :: Maybe Text
+    , gbrMarker         :: Maybe Text
+    , gbrNextMarker     :: Maybe Text
       -- ^ When response is truncated (the IsTruncated element value in the
       -- response is true), you can use the key name in this field as marker in the
       -- subsequent request to get next set of objects. Amazon S3 lists objects in
@@ -263,23 +263,25 @@ data GetBucketResponse = GetBucketResponse
       -- request parameter specified. If response does not include the NextMaker and it
       -- is truncated, you can use the value of the last Key in the response as the
       -- marker in the subsequent request to get the next set of object keys.
-    , gbrMaxKeys     :: !Int
-    , gbrIsTruncated :: !Bool
-    , gbrContents    :: [Contents]
+    , gbrMaxKeys        :: !Int
+    , gbrIsTruncated    :: !Bool
+    , gbrContents       :: [Contents]
+    , gbrCommonPrefixes :: [CommonPrefixes]
     } deriving (Eq, Show, Generic)
 
 instance IsXML GetBucketResponse where
     xmlPickler = pu { root = Just $ mkNName s3NS "ListBucketResult" }
       where
-        pu = xpWrap (\(n, p, m, nm, k, t, c) -> GetBucketResponse n p m nm k t c,
-                     \GetBucketResponse{..} -> (gbrName, gbrPrefix, gbrMarker, gbrNextMarker, gbrMaxKeys, gbrIsTruncated, gbrContents)) $
-                 xp7Tuple (e "Name")
+        pu = xpWrap (\(n, p, m, nm, k, t, c, cp) -> GetBucketResponse n p m nm k t c cp,
+                     \GetBucketResponse{..} -> (gbrName, gbrPrefix, gbrMarker, gbrNextMarker, gbrMaxKeys, gbrIsTruncated, gbrContents, gbrCommonPrefixes)) $
+                 xp8Tuple (e "Name")
                           (xpOption $ e "Prefix")
                           (xpOption $ e "Marker")
                           (xpOption $ e "NextMarker")
                           (e "MaxKeys")
                           (e "IsTruncated")
                           (xpFindMatches $ xpElem (mkNName s3NS "Contents") xmlPickler)
+                          (xpFindMatches $ xpElem (mkNName s3NS "CommonPrefixes") xmlPickler)
 
         e n = xpElem (mkNName s3NS n) xmlPickler
 

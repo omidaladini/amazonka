@@ -83,6 +83,13 @@ data Contents = Contents
 instance IsXML Contents where
     xmlPickler = withRootNS s3NS "Contents"
 
+data CommonPrefixes = CommonPrefixes
+    { cpPrefix :: !Text
+    } deriving (Eq, Show, Generic)
+
+instance IsXML CommonPrefixes where
+    xmlPickler = withRootNS s3NS "CommonPrefixes"
+
 --
 -- GetVersions
 --

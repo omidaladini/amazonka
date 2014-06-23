@@ -59,6 +59,7 @@ module Text.XML.Expat.Pickle.Generic
     , xp5Tuple
     , xp6Tuple
     , xp7Tuple
+    , xp8Tuple
     , xpUnit
     , xpLift
     , xpEmpty
@@ -412,6 +413,26 @@ xp7Tuple pa pb pc pd pe pf pg = XMLPU
               (_, _, _, _, Left e, _, _) -> Left $ "in 5th of 7-tuple, " ++ e
               (_, _, _, _, _, Left e, _) -> Left $ "in 6th of 7-tuple, " ++ e
               (_, _, _, _, _, _, Left e) -> Left $ "in 7th of 7-tuple, " ++ e
+    }
+
+xp8Tuple :: Show n => PU [n] a -> PU [n] b -> PU [n] c -> PU [n] d -> PU [n] e -> PU [n] f -> PU [n] g -> PU [n] h -> PU [n] (a, b, c, d, e, f, g, h)
+xp8Tuple pa pb pc pd pe pf pg ph = XMLPU
+    { root         = listToMaybe $ catMaybes [root pa, root pb, root pc, root pd, root pe, root pf, root pg, root ph]
+    , pickleTree   = \(a, b, c, d, e, f, g, h) ->
+           concat [pickleTree pa a, pickleTree pb b, pickleTree pc c, pickleTree pd d, pickleTree pe e, pickleTree pf f, pickleTree pg g, pickleTree ph h]
+    , unpickleTree = \t ->
+          case (unpickleTree pa t, unpickleTree pb t, unpickleTree pc t,
+                unpickleTree pd t, unpickleTree pe t, unpickleTree pf t,
+                unpickleTree pg t, unpickleTree ph t) of
+              (Right a, Right b, Right c, Right d, Right e', Right f, Right g, Right h) -> Right (a, b, c, d, e', f, g, h)
+              (Left e, _, _, _, _, _, _, _) -> Left $ "in 1st of 8-tuple, " ++ e
+              (_, Left e, _, _, _, _, _, _) -> Left $ "in 2nd of 8-tuple, " ++ e
+              (_, _, Left e, _, _, _, _, _) -> Left $ "in 3rd of 8-tuple, " ++ e
+              (_, _, _, Left e, _, _, _, _) -> Left $ "in 4th of 8-tuple, " ++ e
+              (_, _, _, _, Left e, _, _, _) -> Left $ "in 5th of 8-tuple, " ++ e
+              (_, _, _, _, _, Left e, _, _) -> Left $ "in 6th of 8-tuple, " ++ e
+              (_, _, _, _, _, _, Left e, _) -> Left $ "in 7th of 8-tuple, " ++ e
+              (_, _, _, _, _, _, _, Left e) -> Left $ "in 8th of 8-tuple, " ++ e
     }
 
 xpUnit :: PU [n] ()
